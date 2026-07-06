@@ -38,9 +38,11 @@ first, every time.
 
 ## Starting a new web project (the short version)
 
-1. Copy `modules/web-design/templates/PROJECT_LOCKIN.md` into the new repo.
-2. Walk the wargames it cites (WG-001 register, WG-002 archetypes, WG-007
-   stack, WG-009 accents, WG-010 type) and fill in the rulings.
+1. Copy `modules/web-design/templates/PROJECT_LOCKIN.md` into the new repo,
+   and write the narrative brief first: it drives everything else.
+2. Walk the wargames it cites (WG-001 register, WG-002 archetypes, WG-005
+   light budget, WG-007 stack, WG-009 accents, WG-010 type, WG-011
+   reactivity, WG-012 imagery) and fill in the rulings.
 3. Derive the brand tokens with the foundations docs; stand up the styleguide
    page before any real page (it is the acceptance surface).
 4. Build with the patterns; hold the QC gates

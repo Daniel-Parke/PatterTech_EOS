@@ -16,6 +16,20 @@ doctrine wins on principles.
 - Signature animated pieces (the sanctioned exceptions, by name): <list>
 - Voice reference: <path to profile / VOICE doc> · Banned list: <path>
 
+## Narrative brief
+
+The one-paragraph story the design must tell without saying it: what the
+visitor should feel, what stays concealed, what escapes anyway. Name the
+physics or motifs the brand draws from and how each becomes a mechanism, not
+a mood board. This paragraph drives the light budget (WG-005), the
+reactivity ruling (WG-011) and the imagery ruling (WG-012); the PatterTech
+example ("a calm vessel around an undeniable source; power that cannot be
+denied yet cannot be placed") shows the register.
+
+- Story: <paragraph>
+- Theme sources -> mechanisms: <e.g. circuits -> conduits along rules;
+  nebulae -> field strata on interludes; neural nets -> activation on hover>
+
 ## Rulings
 
 | Wargame | Ruling | Notes |
@@ -23,11 +37,13 @@ doctrine wins on principles.
 | WG-001 surface register | <A/B/C/D> | <one line> |
 | WG-002 archetypes in play | <list> | |
 | WG-004 motion budget | <A/B/C> | |
-| WG-005 sanctioned ornament | <named exceptions> | |
+| WG-005 light budget | <A/B/C> | tiers enabled + named exceptions |
 | WG-007 stack | <A/B/C> | profile: <e.g. STACK_next-static> |
 | WG-008 media pipeline | <A/B> | script: <path> |
 | WG-009 accents | <A/B> | map: <path> |
 | WG-010 type trio | <display / text / mono> | |
+| WG-011 reactivity | <A/B/C> | bloom carrier list |
+| WG-012 imagery | <A/B/C> | literal moments, if any |
 
 ## Tokens
 

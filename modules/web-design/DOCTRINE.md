@@ -11,13 +11,18 @@ treatment, take the calmer one and spend the saved attention on typography and
 content. Sites do not become premium by adding effects; they become premium by
 removing them until what remains is deliberate.
 
-## 2. Semantic ornament
+## 2. Light is a system, graded, never banned
 
-Nothing glows, pulses, shimmers or moves unless it is genuinely live: an
-animated visual, a live status, data in motion. Static content earns attention
-through structure (rules, labels, space, scale), never through borrowed
-energy. Each project may name a very small set of sanctioned exceptions in its
-lock-in (a hero, a logomark), and each exception must itself be animated.
+Light is evidence of a source, not decoration. It arrives in four tiers, each
+with a budget: **field** (ambient strata that breathe slowly in the
+environment), **conduit** (light travelling a defined path through the
+structure), **bloom** (the field answering the user's presence) and
+**radiance** (the sources themselves: signature visuals, refined neon on
+interactive UI, monuments, live status). Static content still never borrows
+energy it does not have: body text never glows, and a glow stuck onto a static
+component is a sticker, the v1 failure. But executing restraint as *absence*
+reads robotic, the v2 failure. The budget is a dimmer, not a switch (see
+WG-005 and foundations/LIGHT.md).
 
 ## 3. Structure over memory
 
@@ -62,11 +67,14 @@ everywhere, it is identity. Deriving the motif is part of project lock-in.
 
 ## 8. Motion means something
 
-Three kinds of motion are allowed: live visuals (the signature animated
-pieces), one-shot reveals on section furniture and figures, and functional
-feedback (hover, focus, progress). Reading matter never animates in.
-Everything respects `prefers-reduced-motion`, and content must remain visible
-without JavaScript.
+Four kinds of motion are allowed: live visuals (the signature animated
+pieces), ambient light (fields breathing over 60-120s, conduits on duty
+cycles of 18s or longer), one-shot reveals on section furniture and figures
+(which may ignite: a brief luminance overshoot), and functional plus
+presence-reactive feedback (hover, focus, progress, cursor bloom). Reading
+matter never animates in. Everything respects `prefers-reduced-motion`,
+touch devices lose only the cursor-reactive tier, and content must remain
+visible without JavaScript.
 
 ## 9. Measure, don't eyeball
 

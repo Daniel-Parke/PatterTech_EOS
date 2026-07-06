@@ -1,49 +1,70 @@
-# WG-005: What may glow, gradient or texture?
+# WG-005: How much light does this project carry?
 
-status: active
+status: active (rewritten 2026-07 after the PatterTech v2 over-correction)
 review_by: 2027-07
 
 ## The question
 
-Which decorative treatments does the project sanction, and where?
+Where does the project sit on the light spectrum, and which tiers of the
+light system (foundations/LIGHT.md) does it enable?
 
 ## It depends on
 
-- The signature motif: ornament that extends the motif is identity; ornament
-  beside it is noise.
-- The register (WG-001): glow only exists on dark grounds.
-- How much the brand's story involves light or material texture.
+- The brand's physics: does its story involve light, energy or emission? A
+  luminous brand starved of light reads dead; a paper brand drowned in glow
+  reads cheap.
+- The audience's tolerance for atmosphere: research readers accept more
+  ambience than compliance auditors.
+- The performance floor and touch share (fields and conduits are CSS-cheap;
+  bloom needs fine pointers; see WG-011).
+- How much of the site is long-form reading (reading matter never animates,
+  whatever the budget).
 
 ## Options
 
-Treatments, ruled individually rather than as a bundle:
+### A. Structure only
+No light beyond signature pieces. Correct for document-heavy, regulatory or
+deliberately austere brands. Warning from the worked ruling below: executed
+on a luminous brand, this reads Teletext.
 
-- **Glow / shadow-bloom**: only on live things (semantic ornament, Doctrine
-  2). Never on text, buttons or static stats.
-- **Gradient text**: at most one animated instance on the hero if the brand
-  is luminous; never static gradient text on content.
-- **Hover sheens and lifts**: never; the hover affordance is border/rule
-  brightening and arrow nudges.
-- **Background gradients**: one or two fixed radial washes anchored to the
-  page top can set depth; they never move.
-- **Noise/texture**: off unless the brand is print-native; then wargame it.
-- **Hairlines, ticks, rules**: unlimited; they are structure, not ornament.
+### B. Fields only
+Ambient strata and washes, nothing travels and nothing reacts. A calm,
+atmospheric floor.
+
+### C. The full graded system (fields + conduits + bloom + refined neon)
+The Cherenkov posture: environment breathes, structure conducts, surfaces
+answer presence, interactive UI carries measured neon. Needs the budgets held
+(alphas, duty cycles) or it collapses into v1-style decoration.
+
+### D. Loud
+Standing glow on static components, gradient text on content, lifted cards.
+Off-doctrine; this is the AI-template look regardless of intent.
 
 ## Decision rule
 
-For each treatment ask: is it live, is it the motif, or is it structure? If
-none of the three, it does not ship. Record the sanctioned exceptions by name
-in the lock-in (there should be one or two, not a list).
+Match the brand's physics: luminous/energetic brand -> C with the budgets
+enforced; print-native or austere brand -> A or B. Never D. Within C, scale
+by surface: reading-heavy pages leave light in the environment; marketing
+pages may spend conduit and bloom more freely. If a single component looks
+"glowy" in a screenshot, the budget is blown.
 
 ## Default
 
-Structure only, plus the project's named signature exceptions.
+C, with LIGHT.md's budgets, for any brand whose story involves energy;
+B otherwise.
 
 ## Worked rulings
 
-- **PatterTech Website (2026-07)**: sanctioned exceptions are the animated
-  Logomark and the hero's `gradient-text-anim`, both animated. Deleted:
-  glow-text on stats and wordmark, static gradient text, button glow and
-  sheen, card hover lift and sheen, the pulsing eyebrow dot (replaced by a
-  status-only dot), the animated divider. The fixed radial Cherenkov washes
-  behind the page stayed.
+- **PatterTech v1 (pre-2026-07)**: unintentional D. Glow-text stats,
+  glowing buttons, hover sheens, pulsing dots everywhere; read as an
+  AI-generated template despite clean execution.
+- **PatterTech v2 (2026-07)**: over-corrected to A ("nothing glows unless
+  live"). Structurally excellent and unique, but the owner's verdict was
+  "Teletext, robotic". Lesson recorded: **the budget is a dimmer, not a
+  switch**; restraint executed as absence reads dead on a brand whose story
+  is literally emitted light.
+- **PatterTech v3 (2026-07)**: C, "the Cherenkov principle". Fields on
+  interludes and two home seams; the header line and Colophon rules as
+  conduits; bloom via one delegated listener; refined neon on buttons, nav,
+  focus; monuments radiate; body text still never glows; reading matter
+  still never animates. This is the house default going forward.

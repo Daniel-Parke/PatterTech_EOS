@@ -22,6 +22,10 @@ colour may behave; WG-001 governs the register (dark, light or dual).
   they do not restyle.
 - **Hairlines are colour too.** Define line/rule tokens; most separation on
   the page should come from them, not from filled boxes.
+- **Light behaves by tier** (see LIGHT.md): fields at 3-6% accent alpha,
+  bloom at 7-10%, a conduit core at 80-90% on a 1px line, neon as shadow at
+  negative spread (never as fill). If the accent appears at full strength on
+  a static surface, something is mislabelled.
 
 ## Deriving for a new brand
 
