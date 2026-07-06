@@ -62,3 +62,33 @@ vocabulary everywhere; then delete every treatment that pattern-matches to
 template output and let structure do the talking. The wargames record how
 each fork was ruled (WG-001 A, WG-003 throughout, WG-004 B, WG-005, WG-007 A,
 WG-008 A, WG-009 B, WG-010).
+
+## v3: the Cherenkov principle (2026-07)
+
+The owner's verdict on v2: much closer and genuinely unique, but "Teletext"
+and robotic. The de-glow had over-corrected; a brand whose story is emitted
+light had been starved of light. He supplied the narrative brief that now
+anchors the lock-in: total ambition behind a calm mask; energy gathered until
+the momentum cannot be stopped; a fury that burns magnificently and
+illuminates everything around it; power that cannot be denied yet cannot
+exactly be placed. Themes: physics, nuclear (Cherenkov), electricity and
+circuits, cosmology and nebulae, neural networks.
+
+The reframe: the v2 structure was never the aesthetic, it was the containment
+vessel; v3 let the glow through as a graded system (foundations/LIGHT.md).
+Fields (nebular strata breathing on interludes, one warm pillars moment per
+piece, two seams on home), conduits (the header line is live, every
+Colophon's rule charges on reveal, the reading-progress bar carries a bright
+head), bloom (one delegated listener; rows, panels, buttons and controls
+answer the cursor), radiance (refined neon on buttons, nav and focus;
+monuments radiate; diagram dots glow; the structure diagram lights its
+circuit paths on hover), plus ignite on every reveal and a glint when
+counters complete. The Teletext edge was also typographic: mono tracking
+came down from 0.28em to 0.2em, the footer meta returned to the text face,
+and panels regained a quiet gradient surface with a standing top light.
+
+Rulings recorded this round: WG-005 -> C (the budget is a dimmer, not a
+switch); WG-011 -> C (field-reactive, fine pointers only); WG-012 -> A
+(generated light only; the brand's light must be computed, like Cherenkov
+radiation itself). The lesson that earned its own doctrine edit: restraint
+executed as absence reads robotic; execute restraint as containment.
