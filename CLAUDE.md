@@ -1,4 +1,4 @@
-# CLAUDE.md — PatterTech Framework
+# CLAUDE.md · PatterTech Framework
 
 This repo is documentation: the portable design-and-delivery framework for all
 our projects. There is no build.
