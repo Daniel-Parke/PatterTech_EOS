@@ -47,6 +47,11 @@ mechanism, not a mood board. This paragraph drives the light budget
 
 ## Tokens
 
+Before a first build exists, design-system slots below take the
+sanctioned deferral: `set at first build` plus where the value gets
+ruled. The first-build lock-in session replaces every deferral in one
+sitting and notes it in the worklog or queue.
+
 - Token home: {{TOKEN_HOME}} · Code mirror: {{TOKEN_MIRROR}} ·
   Styleguide route: {{STYLEGUIDE_ROUTE}}
 - Surface ladder: {{SURFACE_LADDER}}

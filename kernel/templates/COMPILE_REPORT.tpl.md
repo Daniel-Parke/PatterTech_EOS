@@ -32,6 +32,9 @@ did not touch).
 | --- | --- | --- | --- |
 | AGENTS.md | kernel/templates/AGENTS.tpl.md | {{N}} | {{N}} |
 
+Deferral fills (`set at first build`, COMPILE.md) count as fills and
+are listed here by slot, with where each gets ruled.
+
 ## Distillations
 
 Standards or notes distilled into the seed from the doctrine the

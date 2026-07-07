@@ -39,6 +39,12 @@ Filling is transcription and condensation of the operator's words and
 the rulings, not composition. After filling, the file must contain no
 slot syntax anywhere, including inside code spans.
 
+One sanctioned deferral exists: a design-system slot with no truthful
+value before a first build fills as `set at first build` plus where it
+gets ruled. Deferrals count as fills, are listed beneath the compile
+report's ancestry table, and the first-build lock-in replaces them all
+in one sitting.
+
 ## Front-matter rewrite
 
 Compiled files drop `template: true` and `extracted_from`, gain
