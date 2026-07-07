@@ -11,7 +11,8 @@ The organisation's work, ordered. A session takes the top unblocked
 item whose status is ready, sets it in progress with its session id,
 and moves it to Done at close. WIP is 1. Row shape per
 `org/TEMPLATES.md`; every row names its type, tier, priority, status,
-acceptance checks and done-when.
+acceptance checks and done-when. Operator-independent work rides above
+anything waiting on an answer.
 
 ## Ready
 

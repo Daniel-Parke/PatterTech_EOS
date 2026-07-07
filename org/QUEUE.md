@@ -13,16 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### E3. S-scale ergonomics (drill findings, S-0011)
-- phase: E follow-up · playbook: PB-E03 · claims: `kernel/templates/`
-- A sanctioned deferral convention for the lock-book's design slots at
-  S (or S fences for the token and QC sections), a blessed home for
-  operator questions at S (the worklog's questions section formalised
-  in WORKLOG.tpl.md, provenance-honest), and consider mandating the
-  drill agent's queue ordering: operator-independent work first.
-- done when: templates amended, eos_check --repo green, drill findings
-  6 and 8 closed.
-
 ### E4. Web defaults that presuppose the house brand (drill findings, S-0011)
 - phase: E follow-up · playbook: PB-E03 · claims:
   `doctrine/web-design/wargames/`
@@ -76,3 +66,4 @@ the critical path: Venture A's reseed and Genesis wait on them.
 - F1. Architecture module (session S-0013, 2026-07-07).
 - F2. Delivery module (session S-0014, 2026-07-07).
 - F3. Devops module (session S-0015, 2026-07-07).
+- E3. S-scale ergonomics from the drill (session S-0016, 2026-07-07).
