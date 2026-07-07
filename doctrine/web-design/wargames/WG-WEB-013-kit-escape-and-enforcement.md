@@ -1,4 +1,4 @@
-# WG-013: Where does a design law live so it actually holds?
+# WG-WEB-013: Where does a design law live so it actually holds?
 
 status: active
 review_by: 2027-07

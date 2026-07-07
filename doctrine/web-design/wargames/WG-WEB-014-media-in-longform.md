@@ -1,4 +1,4 @@
-# WG-014: Is a media block a citation or a monument?
+# WG-WEB-014: Is a media block a citation or a monument?
 
 status: active
 review_by: 2027-07

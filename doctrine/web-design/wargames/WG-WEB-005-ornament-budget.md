@@ -1,4 +1,4 @@
-# WG-005: How much light does this project carry?
+# WG-WEB-005: How much light does this project carry?
 
 status: active (rewritten 2026-07 after the PatterTech v2 over-correction)
 review_by: 2027-07
@@ -16,7 +16,7 @@ light system (foundations/LIGHT.md) does it enable?
 - The audience's tolerance for atmosphere: research readers accept more
   ambience than compliance auditors.
 - The performance floor and touch share (fields and conduits are CSS-cheap;
-  bloom needs fine pointers; see WG-011).
+  bloom needs fine pointers; see WG-WEB-011).
 - How much of the site is long-form reading (reading matter never animates,
   whatever the budget).
 

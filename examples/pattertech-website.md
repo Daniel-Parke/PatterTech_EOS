@@ -44,7 +44,7 @@ typography and editorial asymmetry replace the card grid:
 ## The numbers
 
 - Article image transfer after a full scroll: ~34MB potential -> 0.33MB
-  measured (WG-008 ruling; 58 committed variants totalling 2.6MB).
+  measured (WG-WEB-008 ruling; 58 committed variants totalling 2.6MB).
 - The og:image went from a 1.08MB PNG to a 34KB JPG.
 - Reveal went from a motion-library wrapper (with an SSR hydration mismatch
   warning on every page) to CSS + IntersectionObserver with a
@@ -60,8 +60,8 @@ The method more than the pixels: find what the project is already excellent
 at (here, the diagrams), name it as the signature motif, and promote its
 vocabulary everywhere; then delete every treatment that pattern-matches to
 template output and let structure do the talking. The wargames record how
-each fork was ruled (WG-001 A, WG-003 throughout, WG-004 B, WG-005, WG-007 A,
-WG-008 A, WG-009 B, WG-010).
+each fork was ruled (WG-WEB-001 A, WG-WEB-003 throughout, WG-WEB-004 B, WG-WEB-005, WG-WEB-007 A,
+WG-WEB-008 A, WG-WEB-009 B, WG-WEB-010).
 
 ## v3: the Cherenkov principle (2026-07)
 
@@ -87,8 +87,8 @@ counters complete. The Teletext edge was also typographic: mono tracking
 came down from 0.28em to 0.2em, the footer meta returned to the text face,
 and panels regained a quiet gradient surface with a standing top light.
 
-Rulings recorded this round: WG-005 -> C (the budget is a dimmer, not a
-switch); WG-011 -> C (field-reactive, fine pointers only); WG-012 -> A
+Rulings recorded this round: WG-WEB-005 -> C (the budget is a dimmer, not a
+switch); WG-WEB-011 -> C (field-reactive, fine pointers only); WG-WEB-012 -> A
 (generated light only; the brand's light must be computed, like Cherenkov
 radiation itself). The lesson that earned its own doctrine edit: restraint
 executed as absence reads robotic; execute restraint as containment.
@@ -114,7 +114,7 @@ the video card opens its player in the fullscreen overlay, and the bands
 stayed with the quote and interlude monuments. Enforcement moved beside the
 code: a GUIDE.md in the kit folder, a JSDoc law header on every component,
 and a dependency-free design lint inside `npm run lint` with reasoned pragma
-escapes. WG-013 and WG-014 record the forks.
+escapes. WG-WEB-013 and WG-WEB-014 record the forks.
 
 The owner's second verdict on v3 was that the light passed the laws but sat
 too close to invisible on interior pages ("there is a fine line between

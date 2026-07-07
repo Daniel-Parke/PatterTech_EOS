@@ -1,7 +1,7 @@
 # Stack profile 01: Next.js static export
 
 The default stack for marketing, editorial and research sites (ruled by
-WG-007). Reference implementation: PatterTech_Website.
+WG-WEB-007). Reference implementation: PatterTech_Website.
 
 ## Shape
 
@@ -20,7 +20,7 @@ WG-007). Reference implementation: PatterTech_Website.
 ## Constraints to design around
 
 - No runtime image optimisation: variants are pre-generated and committed
-  (WG-008).
+  (WG-WEB-008).
 - No runtime headers/redirects: set them in the host config (with a strict
   CSP; a static export cannot use nonces, so plan for `unsafe-inline` and
   keep third-party scripts out).
@@ -35,5 +35,5 @@ WG-007). Reference implementation: PatterTech_Website.
 ## When not to use this profile
 
 Auth, personalisation, forms with server handling, frequently changing data,
-or previewable CMS workflows: rule through WG-007 before reaching for a
+or previewable CMS workflows: rule through WG-WEB-007 before reaching for a
 server.

@@ -1,6 +1,6 @@
 # Flows and page archetypes
 
-Which vocabulary applies where (ruled by WG-002), and how pages link.
+Which vocabulary applies where (ruled by WG-WEB-002), and how pages link.
 
 ## Archetypes
 

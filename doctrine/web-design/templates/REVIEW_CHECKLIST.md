@@ -9,7 +9,7 @@ evidence, not opinion.
       shared components; rhythm comes from the grid, not margins.
 - [ ] Sections open with the section furniture, flush left; centring only on
       monuments.
-- [ ] Containers match content (WG-003): no icon-tile card grids, no boxed
+- [ ] Containers match content (WG-WEB-003): no icon-tile card grids, no boxed
       prose, panels only on self-contained things.
 
 ## Ornament and motion

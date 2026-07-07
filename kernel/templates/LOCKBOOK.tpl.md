@@ -21,8 +21,8 @@ doctrine wins on principles.
 The one-paragraph story the design must tell without saying it: what the
 visitor should feel, what stays concealed, what escapes anyway. Name the
 physics or motifs the brand draws from and how each becomes a mechanism, not
-a mood board. This paragraph drives the light budget (WG-005), the
-reactivity ruling (WG-011) and the imagery ruling (WG-012); the PatterTech
+a mood board. This paragraph drives the light budget (WG-WEB-005), the
+reactivity ruling (WG-WEB-011) and the imagery ruling (WG-WEB-012); the PatterTech
 example ("a calm vessel around an undeniable source; power that cannot be
 denied yet cannot be placed") shows the register.
 
@@ -34,16 +34,16 @@ denied yet cannot be placed") shows the register.
 
 | Wargame | Ruling | Notes |
 | --- | --- | --- |
-| WG-001 surface register | <A/B/C/D> | <one line> |
-| WG-002 archetypes in play | <list> | |
-| WG-004 motion budget | <A/B/C> | |
-| WG-005 light budget | <A/B/C> | tiers enabled + named exceptions |
-| WG-007 stack | <A/B/C> | profile: <e.g. STACK_next-static> |
-| WG-008 media pipeline | <A/B> | script: <path> |
-| WG-009 accents | <A/B> | map: <path> |
-| WG-010 type trio | <display / text / mono> | |
-| WG-011 reactivity | <A/B/C> | bloom carrier list |
-| WG-012 imagery | <A/B/C> | literal moments, if any |
+| WG-WEB-001 surface register | <A/B/C/D> | <one line> |
+| WG-WEB-002 archetypes in play | <list> | |
+| WG-WEB-004 motion budget | <A/B/C> | |
+| WG-WEB-005 light budget | <A/B/C> | tiers enabled + named exceptions |
+| WG-WEB-007 stack | <A/B/C> | profile: <e.g. STACK_next-static> |
+| WG-WEB-008 media pipeline | <A/B> | script: <path> |
+| WG-WEB-009 accents | <A/B> | map: <path> |
+| WG-WEB-010 type trio | <display / text / mono> | |
+| WG-WEB-011 reactivity | <A/B/C> | bloom carrier list |
+| WG-WEB-012 imagery | <A/B/C> | literal moments, if any |
 
 ## Tokens
 

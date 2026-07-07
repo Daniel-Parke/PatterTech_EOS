@@ -1,4 +1,4 @@
-# WG-008: How do images get to the page?
+# WG-WEB-008: How do images get to the page?
 
 status: active
 review_by: 2027-07
@@ -23,7 +23,7 @@ CI stays hermetic; pages consume them via `<picture>`/srcset through a small
 helper. Originals stay byte-identical for the export pipeline.
 
 ### B. Host/runtime optimisation
-`next/image` or a CDN transformer. Right when there is a server (WG-007 B/C)
+`next/image` or a CDN transformer. Right when there is a server (WG-WEB-007 B/C)
 or high asset churn; couples you to the platform.
 
 ### C. Hand-exported one-offs

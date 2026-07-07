@@ -1,4 +1,4 @@
-# WG-011: Should the surface react to presence?
+# WG-WEB-011: Should the surface react to presence?
 
 status: active
 review_by: 2027-07

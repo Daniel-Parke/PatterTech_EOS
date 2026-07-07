@@ -1,4 +1,4 @@
-# WG-007: Static export or a server?
+# WG-WEB-007: Static export or a server?
 
 status: active
 review_by: 2027-07

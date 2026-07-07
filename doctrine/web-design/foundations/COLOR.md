@@ -1,7 +1,7 @@
 # Colour
 
 How to derive a project's palette. Doctrine 2 (semantic ornament) governs how
-colour may behave; WG-001 governs the register (dark, light or dual).
+colour may behave; WG-WEB-001 governs the register (dark, light or dual).
 
 ## Principles
 
@@ -29,7 +29,7 @@ colour may behave; WG-001 governs the register (dark, light or dual).
 
 ## Deriving for a new brand
 
-1. Rule on WG-001 (register) first; everything else keys off the ground.
+1. Rule on WG-WEB-001 (register) first; everything else keys off the ground.
 2. Pick the primary accent from the brand story (PatterTech's cyan is
    Cherenkov radiation: light from something genuinely energetic). An accent
    with a story survives; an accent from a palette generator drifts.

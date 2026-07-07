@@ -22,7 +22,7 @@ interactive UI, monuments, live status). Static content still never borrows
 energy it does not have: body text never glows, and a glow stuck onto a static
 component is a sticker, the v1 failure. But executing restraint as *absence*
 reads robotic, the v2 failure. The budget is a dimmer, not a switch (see
-WG-005 and foundations/LIGHT.md).
+WG-WEB-005 and foundations/LIGHT.md).
 
 ## 3. Structure over memory
 

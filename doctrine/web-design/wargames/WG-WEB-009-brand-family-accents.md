@@ -1,4 +1,4 @@
-# WG-009: One brand or a family of accents?
+# WG-WEB-009: One brand or a family of accents?
 
 status: active
 review_by: 2027-07

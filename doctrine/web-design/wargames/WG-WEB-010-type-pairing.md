@@ -1,4 +1,4 @@
-# WG-010: How to pick the type trio?
+# WG-WEB-010: How to pick the type trio?
 
 status: active
 review_by: 2027-07

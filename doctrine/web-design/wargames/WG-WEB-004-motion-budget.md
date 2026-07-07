@@ -1,4 +1,4 @@
-# WG-004: How much may this project move?
+# WG-WEB-004: How much may this project move?
 
 status: active
 review_by: 2027-07

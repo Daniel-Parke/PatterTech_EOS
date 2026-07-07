@@ -1,7 +1,7 @@
 # Containers
 
 Doctrine 5: there is no universal card. Pick the container by what the
-content is. WG-003 argues the forks; this page is the anatomy.
+content is. WG-WEB-003 argues the forks; this page is the anatomy.
 
 ## Decision table
 
@@ -16,7 +16,7 @@ content is. WG-003 argues the forks; this page is the anatomy.
 | One calibrated artefact worth instrumenting | **Reticle** around its Panel | wrapping running text |
 | Reading matter | plain prose | boxes |
 | An aside or citation beside a block | **Marginalia** (see LONGFORM.md) | body argument in the margin |
-| A pacing moment in a long read (a quote, a tonal step) | **Interlude band** | media on the band (WG-014) |
+| A pacing moment in a long read (a quote, a tonal step) | **Interlude band** | media on the band (WG-WEB-014) |
 | Media (video, carousel, gallery) | a cited figure in the reading column | bands, full bleeds |
 | The page's closing actions | **Colophon** | CTA slab |
 
@@ -48,7 +48,7 @@ A contained band one surface step up, hairline top and bottom rules, composed
 as its own monument outside the prose grid (never through a bleed). Used to
 pace long reads with the piece's own moments: a marquee quote, a tonal step.
 A band never wraps media; a carousel or video is a cited figure in the
-reading column (WG-014). A warm-tinted variant exists and a piece gets at
+reading column (WG-WEB-014). A warm-tinted variant exists and a piece gets at
 most one.
 
 ## SpecTable
