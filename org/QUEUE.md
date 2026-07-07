@@ -9,10 +9,29 @@ tags: [eos]
 The EOS's work queue, ordered. A build session (entry mode 2) takes the
 top unblocked item, follows its playbook, and closes out. One item per
 session unless items are trivially small. WIP is 1. The v1.0 build is
-complete bar REL; Venture A's Genesis waits only on the D1 signature.
+complete bar REL's manual close; Venture A is signed and in Genesis.
 
 ## Ready
 
+### G1. Test-doubles wargame (WG-DEL-005) and doctrine line
+- phase: post-1.0 · playbook: PB-E03 · claims: `doctrine/delivery/`
+- When fake against mock against real, per port; verified-fakes
+  (contract suites over both adapters) as the decision rule's spine;
+  Venture A's ADR-0003 as the first argued ruling. One delivery
+  DOCTRINE line citing it.
+- Hold until Venture A's W1 foundation orders are moving (Daniel's
+  scheduling ruling, 2026-07-07).
+- done when: wargame indexed, budgets hold, doctrine line cites it.
+
+### G2. Hexagonal boundary statement in the architecture module
+- phase: post-1.0 · playbook: PB-E03 · claims: `doctrine/architecture/`
+- Ports at every vendor and IO seam; the domain never imports adapters;
+  the config-only against code-port boundary distinction. Likely a
+  WG-ARCH-007 sharpening plus one doctrine line rather than a new
+  wargame; decided when argued. Venture A ADR-0003 is the worked
+  material.
+- Hold as G1.
+- done when: argued, indexed, budgets hold.
 
 ## Blocked
 
@@ -24,16 +43,6 @@ complete bar REL; Venture A's Genesis waits only on the D1 signature.
   private GitHub remote, push with tags, PROJECTS rows updated with
   the new home (commands in OPERATORS_GUIDE troubleshooting).
 - done when: tag pushed, PROJECTS rows note the new home.
-
-### D1. Venture A reseed: awaiting Daniel's rubric signature
-- phase: D · playbook: PB-E01 (compile phases only) · session S-0008
-- Everything mechanical is done: seed compiled on Venture A branch
-  reseed/eos-v1 (commit e7d0a8f), eos_check --seed green 0/0,
-  seventeen rulings (nine argued), compile report written, two feedback
-  entries banked. Blocked solely on the human rubric items H1 to H5 in
-  the Venture A docs/COMPILE_REPORT.md.
-- done when: Daniel signs, merges the branch, PROJECTS pin moves to the
-  merged commit. Genesis is then unblocked.
 
 ## Done
 
@@ -49,6 +58,9 @@ complete bar REL; Venture A's Genesis waits only on the D1 signature.
   (session S-0005, 2026-07-07).
 - C1. Compile rules and walk order (session S-0006, 2026-07-07).
 - C2. Voice module (session S-0007, 2026-07-07).
+- D1. Venture A reseed: compiled S-0008, rubric signed by Daniel and
+  merged to a single main (bc34018) at S-0019, 2026-07-07; Genesis
+  unblocked.
 - D2. Worked example and reseed harvest (session S-0009, 2026-07-07).
 - E1. Inception system (session S-0010, 2026-07-07).
 - E2. S-scale drill: pass, eight findings, three fixed in session, two
