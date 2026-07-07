@@ -12,6 +12,7 @@ Derived file. Edit wargame front-matter, then run
 
 | id | question | module | tags | status | review_by |
 | --- | --- | --- | --- | --- |  --- |
+| WG-VOX-001 | Which register does this surface speak in? | voice | voice content brand | active | 2027-07 |
 | WG-WEB-001 | Dark, light, or dual register? | web-design | web colour brand | active | 2027-07 |
 | WG-WEB-002 | Which vocabulary does this page speak? | web-design | web nav content | active | 2027-07 |
 | WG-WEB-003 | Card, ledger, plaque, table or prose? | web-design | web layout density | active | 2027-07 |
