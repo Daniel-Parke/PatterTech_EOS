@@ -13,13 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### E1. Inception system
-- phase: E · playbook: PB-E03 · claims: `inception/`
-- INCEPTION.md (phases A to E), INTERVIEW.md (challenge steps),
-  WG-EOS-001 venture scale, WG-EOS-002 repo shape (worked rulings from
-  the estate).
-- done when: module-shape rules hold, wargames indexed.
-
 ### E2. S-scale drill
 - phase: E · playbook: PB-E07 · claims: none (scratch venture repo)
 - Canned brief: a static brochure site. A cold session runs Session 0
@@ -87,3 +80,4 @@ the critical path: Venture A's reseed and Genesis wait on them.
 - C1. Compile rules and walk order (session S-0006, 2026-07-07).
 - C2. Voice module (session S-0007, 2026-07-07).
 - D2. Worked example and reseed harvest (session S-0009, 2026-07-07).
+- E1. Inception system (session S-0010, 2026-07-07).

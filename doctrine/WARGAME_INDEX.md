@@ -27,3 +27,5 @@ Derived file. Edit wargame front-matter, then run
 | WG-WEB-012 | Literal imagery or generated fields? | web-design | web imagery brand | active | 2027-07 |
 | WG-WEB-013 | Where does a design law live so it actually holds? | web-design | web tooling testing | active | 2027-07 |
 | WG-WEB-014 | Is a media block a citation or a monument? | web-design | web media layout content | active | 2027-07 |
+| WG-EOS-001 | What scale of organisational machinery does this venture compile, S, M or L? | inception | eos wargame | active | 2027-07 |
+| WG-EOS-002 | One repo, several, or a corner of an existing one? | inception | eos wargame infra | active | 2027-07 |
