@@ -14,7 +14,7 @@ ventures more than one minor version behind.
 
 | Venture | Path | Scale | EOS pin | Status | Last harvest |
 | --- | --- | --- | --- | --- | --- |
-| AutoWatt | `C:\Users\Daniel\Documents\Coding\Github\AutoWatt` | L | pre-EOS (kernel ancestor, seed d2e3250) | Mid-sprint, reseed scheduled Phase D, Genesis after | never |
+| AutoWatt | `C:\Users\Daniel\Documents\Coding\Github\AutoWatt` | L | pre-EOS on main; reseed compiled at pre-1.0.0 @ 0a2a044 on branch reseed/eos-v1 | Reseed seed-check green, awaiting Daniel's rubric sign-off; merge then Genesis | never |
 | PatterTech_Website | `C:\Users\Daniel\Documents\Coding\Github\PatterTech_Website` | S | pre-EOS (v0.1 lock-in in docs/DESIGN_SYSTEM.md) | Live, v4 pass in progress | never |
 
 Notes:

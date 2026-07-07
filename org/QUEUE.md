@@ -13,18 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### D1. AutoWatt reseed (time-critical, doubles as the L-scale drill)
-- phase: D · playbook: PB-E01 (compile phases only) · claims: none here
-  (writes happen in the AutoWatt repo)
-- Compile AutoWatt's new seed from kernel templates. Its existing brief,
-  product doctrine, UK registry, ADRs and logs slot straight in; they
-  are the kernel's ancestors. Walk web-design and voice wargames for its
-  website surfaces into a lock-book with argued rulings. Add
-  EOS_FEEDBACK.md. Write the compile report. Grade against SEED_RUBRIC.
-- done when: eos_check --seed green on the AutoWatt repo, Daniel signs
-  the human rubric items, PROJECTS.md row updated with the new pin.
-  AutoWatt Genesis is then unblocked.
-
 ### D2. Worked example and reseed harvest
 - phase: D · playbook: PB-E02 · claims: `examples/`, `registry/`
 - Write examples/autowatt-seed.md from the reseed. Harvest lessons from
@@ -80,7 +68,15 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Blocked
 
-- (none)
+### D1. AutoWatt reseed: awaiting Daniel's rubric signature
+- phase: D · playbook: PB-E01 (compile phases only) · session S-0008
+- Everything mechanical is done: seed compiled on AutoWatt branch
+  reseed/eos-v1 (commit e7d0a8f), eos_check --seed green 0/0,
+  seventeen rulings (nine argued), compile report written, two feedback
+  entries banked. Blocked solely on the human rubric items H1 to H5 in
+  the AutoWatt docs/COMPILE_REPORT.md.
+- done when: Daniel signs, merges the branch, PROJECTS pin moves to the
+  merged commit. Genesis is then unblocked.
 
 ## Done
 
