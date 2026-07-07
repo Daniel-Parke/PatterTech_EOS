@@ -14,7 +14,7 @@ examples/autowatt-seed.md; drills run quarterly per PB-E07.
 
 - `INCEPTION.md`: the master playbook, phases A to E. Interview, scale
   and shape, wargame walk, seed compile, gate.
-- `INTERVIEW.md`: the intake protocol, twelve questions and the three
+- `INTERVIEW.md`: the intake protocol, thirteen questions and the three
   mandatory challenge steps: restate and be corrected, the three
   cheapest deaths, the strictly smaller version explicitly adopted or
   rejected.

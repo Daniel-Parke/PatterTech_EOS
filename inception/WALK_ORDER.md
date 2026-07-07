@@ -68,8 +68,8 @@ lock-book as `WG-DRAFT-NNN` (numbered per venture). The harvest
 
 ## Budget
 
-The walk at S is typically eight to twelve rulings and one sitting; M
-and L add the modules their triggers pull in. A walk running past
-twenty rulings means the trigger set is wrong (too broad) or the
-venture is bigger than its scale ruling; stop and re-run WG-EOS-001
-before continuing.
+One sitting. A venture with any web surface walks the whole web module,
+so even S runs twelve to eighteen rulings; M and L add the modules
+their triggers pull in. A walk running past twenty rulings means the
+trigger set is wrong (too broad) or the venture is bigger than its
+scale ruling; stop and re-run WG-EOS-001 before continuing.

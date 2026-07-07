@@ -13,12 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### E2. S-scale drill
-- phase: E · playbook: PB-E07 · claims: none (scratch venture repo)
-- Canned brief: a static brochure site. A cold session runs Session 0
-  end to end. Grade the seed, file findings as queue items.
-- done when: drill report written, findings queued.
-
 ### R1. Stack profiles from the estate
 - phase: F · playbook: PB-E03 · claims: `registry/stacks/`
 - STACK-fastapi-postgres.md and STACK-fullstack-app.md from WiseWattage
@@ -44,6 +38,27 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 - Migrations doctrine, environments, secrets, restore-test regime,
   WG-OPS wargames (hosting, containers, backups, cost ceilings).
 - done when: as F1.
+
+### E3. S-scale ergonomics (drill findings, S-0011)
+- phase: E follow-up · playbook: PB-E03 · claims: `kernel/templates/`
+- A sanctioned deferral convention for the lock-book's design slots at
+  S (or S fences for the token and QC sections), a blessed home for
+  operator questions at S (the worklog's questions section formalised
+  in WORKLOG.tpl.md, provenance-honest), and consider mandating the
+  drill agent's queue ordering: operator-independent work first.
+- done when: templates amended, eos_check --repo green, drill findings
+  6 and 8 closed.
+
+### E4. Web defaults that presuppose the house brand (drill findings, S-0011)
+- phase: E follow-up · playbook: PB-E03 · claims:
+  `doctrine/web-design/wargames/`
+- Sharpen decision rules (not defaults) of WG-WEB-004, 009, 010, 011 so
+  non-house brands stop arguing around house assumptions: name the
+  brand-physics trigger in each rule. Defaults move only via PB-E04
+  promotion numbers; the drill's rulings are synthetic and count
+  nothing.
+- done when: four decision rules name their triggers, budgets hold,
+  indexes fresh.
 
 ### REL. Release v1.0.0
 - phase: release · playbook: PB-E05 · claims: repo-wide
@@ -81,3 +96,5 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 - C2. Voice module (session S-0007, 2026-07-07).
 - D2. Worked example and reseed harvest (session S-0009, 2026-07-07).
 - E1. Inception system (session S-0010, 2026-07-07).
+- E2. S-scale drill: pass, eight findings, three fixed in session, two
+  queued as E3 and E4 (session S-0011, 2026-07-07).
