@@ -14,11 +14,11 @@ active_session: none
 
 ## Now
 
-Phases B and C1 complete (sessions S-0002 to S-0006, 2026-07-07): full
-kernel, scale matrix, seed rubric, live seed gate, compile rules and
-walk order. Building v1.0 per ADR-0001; the queue holds C2 to F.
-Venture A waits only on C2 before its reseed and Genesis; treat C2 to
-D2 as the critical path.
+Phases B and C complete (sessions S-0002 to S-0007, 2026-07-07): full
+kernel, scale matrix, seed rubric, live seed gate, compile rules, walk
+order and the voice module. Building v1.0 per ADR-0001; the queue
+holds D1 to F. Nothing blocks the Venture A reseed now; D1 and D2 are
+the critical path.
 
 ## Flags for Daniel
 
@@ -29,12 +29,13 @@ D2 as the critical path.
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at C1 close
-- phase: B and C1 done; next item C2 (voice module)
+- eos_version: pre-1.0.0, main at C2 close (phases B and C done)
+- phase: B and C done; next item D1 (Venture A reseed, time-critical)
 - last_verified: eos_check --repo 0 errors, expected warnings only;
   --seed green on the S fixture and red on the broken fixture; indexes
   fresh
-- next_action: entry mode 2, take C2 from org/QUEUE.md, playbook PB-E03
+- next_action: entry mode 2, take D1: run PB-E01 compile phases in the
+  Venture A repo on an isolated branch, then Daniel signs the rubric
 - blockers: none
 - constraints: voice law; wargame first; protected set needs an ADR and
   now includes the B1 templates (constitution Parts II and III, the

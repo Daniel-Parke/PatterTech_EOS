@@ -19,6 +19,9 @@ Derived file. Edit front-matter, then run
 | doctrine/devops/README.md | doctrine | ops | Devops module, queued for Phase F, hosting, environments, migrations, cost triggers |  |
 | doctrine/MODULE_SHAPE.md | governance | eos | What every doctrine module must have, may have, and must never become |  |
 | doctrine/README.md | governance | eos | The module map, what is populated, what is queued, and the extraction mandates |  |
+| doctrine/voice/DOCTRINE.md | doctrine | voice | The voice law, seven rules with examples, and the banned-list pattern |  |
+| doctrine/voice/README.md | doctrine | voice | Voice module, the writing law and the register wargame, compiled into every seed |  |
+| doctrine/voice/wargames/WG-VOX-001-audience-register.md | wargame | voice content brand | Which register does this surface speak in? | 2027-07 |
 | doctrine/web-design/DOCTRINE.md | doctrine | web | The twelve binding rules for any PatterTech web surface |  |
 | doctrine/web-design/foundations/COLOR.md | foundation | web colour | Deriving the surface ladder, accents and measured text tiers |  |
 | doctrine/web-design/foundations/LAYOUT_AND_GRID.md | foundation | web layout | The reading grid, measures and bleeds that kill drift |  |
@@ -90,6 +93,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0004.md | org | eos | Session S-0004, Phase B item B3, the playbooks, operators guide and router templates extracted |  |
 | org/logs/2026-07/S-0005.md | org | eos | Session S-0005, Phase B item B4, the scale matrix, seed rubric and live seed gate |  |
 | org/logs/2026-07/S-0006.md | org | eos | Session S-0006, Phase C item C1, the compile rules and walk order, dry run recorded |  |
+| org/logs/2026-07/S-0007.md | org | eos | Session S-0007, Phase C item C2, the voice module populated |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

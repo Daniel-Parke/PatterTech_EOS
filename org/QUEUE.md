@@ -13,12 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### C2. Voice module
-- phase: C · playbook: PB-E03 · claims: `doctrine/voice/`
-- DOCTRINE.md (the voice law with examples), the banned-list pattern,
-  WG-VOX-001 audience register. Compiled into every seed at every scale.
-- done when: module passes MODULE_SHAPE, indexed, budgets hold.
-
 ### D1. Venture A reseed (time-critical, doubles as the L-scale drill)
 - phase: D · playbook: PB-E01 (compile phases only) · claims: none here
   (writes happen in the Venture A repo)
@@ -101,3 +95,4 @@ the critical path: Venture A's reseed and Genesis wait on them.
 - B4. Scale matrix, seed rubric, venture templates, seed checks
   (session S-0005, 2026-07-07).
 - C1. Compile rules and walk order (session S-0006, 2026-07-07).
+- C2. Voice module (session S-0007, 2026-07-07).
