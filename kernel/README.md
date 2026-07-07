@@ -10,11 +10,11 @@ The organisational machinery that Session 0 compiles into each venture.
 Nothing in here is read by a venture at runtime; ventures get compiled
 copies, stamped with the EOS version they came from.
 
-Status: Phase B in flight. The org templates (constitution, start, the
-three role charters) landed with B1; the rest arrive through B4, all
-extracted from the AutoWatt seed pack at commit d2e3250.
-`templates/LOCKBOOK.tpl.md` is the migrated v0.1 lock-in awaiting its
-Phase B rebuild.
+Status: Phase B complete. The full template set is in (extracted from
+the AutoWatt seed pack at commit d2e3250, venture-facing templates
+authored at B4), `SCALE_MATRIX.md` names the law per scale,
+`SEED_RUBRIC.md` is the gate, and `eos_check.py --seed` enforces the
+auto half of it.
 
 ## The compile contract
 

@@ -31,7 +31,12 @@ registry, org, tools.
   queue. B3 added the venture router (compiled cap 40 lines, S points
   at the lock-book and worklog, M and L at the org), the operators
   guide with per-scale launcher libraries, and the playbook catalogue
-  PB-001 to PB-051.
+  PB-001 to PB-051. B4 closed the phase: SCALE_MATRIX (S eight files, M
+  eighteen, L nineteen plus empty dirs, trigger add-ons), SEED_RUBRIC
+  (auto items A1 to A10 keyed to check IDs, human items H1 to H5 headed
+  by the cold-start test), the lock-book rebuilt with the machine
+  rulings header, and the venture brief, feedback, compile report,
+  worklog, queue and NEXT templates.
 - **inception**: shape fixed, system due in phases C and E.
 - **registry**: created; projects, vendors, lessons and the static web
   stack profile seeded.

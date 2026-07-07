@@ -280,27 +280,144 @@ def check_repo(write_index=False):
     return finish()
 
 
+LOCKBOOK_KEYS = ("eos_version", "eos_commit", "scale", "stack")
+RULING_ROW = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·")
+RULING_OK = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·.+?·\s*(argued|inherited)\s*·")
+
+
+def parse_matrix():
+    """Parse kernel/SCALE_MATRIX.md. Returns (required, addons) where
+    required maps scale -> [paths] and addons maps name -> [paths]."""
+    path = REPO / "kernel" / "SCALE_MATRIX.md"
+    if not path.exists():
+        return None, None
+    text = read(path)
+    required = {"S": [], "M": [], "L": []}
+    row = re.compile(
+        r"^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(x?)\s*\|\s*(x?)\s*\|\s*(x?)\s*\|",
+        re.M)
+    for m in row.finditer(text):
+        fpath = m.group(1)
+        if fpath in ("path", "---") or fpath.startswith("-"):
+            continue
+        for scale, mark in zip(("S", "M", "L"), m.groups()[2:]):
+            if mark == "x":
+                required[scale].append(fpath)
+    addons = {}
+    addon_row = re.compile(
+        r"^\|\s*([a-z][a-z0-9-]*)\s*\|\s*([^|]+?)\s*\|\s*[^|]+\|\s*[^|]+\|",
+        re.M)
+    for m in addon_row.finditer(text):
+        name, fpath = m.group(1), m.group(2)
+        if name in ("addon", "path"):
+            continue
+        # only enforce path-like cells; prose cells describe row edits
+        if " " not in fpath and "/" in fpath:
+            addons.setdefault(name, []).append(fpath)
+        else:
+            addons.setdefault(name, [])
+    return required, addons
+
+
 def check_seed(seed_root):
     seed = Path(seed_root).resolve()
     if not seed.exists():
         print(f"seed path not found: {seed}")
         return 2
-    matrix = REPO / "kernel" / "SCALE_MATRIX.md"
+    required, addon_files = parse_matrix()
+    if required is None:
+        print("kernel/SCALE_MATRIX.md missing; cannot check a seed")
+        return 2
+
+    def srel(p):
+        return p.relative_to(seed).as_posix()
+
+    seed_md = [p.relative_to(seed).as_posix() for p in md_files(seed)]
+
+    # lock-book header (rubric A2, A3)
+    scale, addons = None, []
+    lb = seed / "docs" / "LOCKBOOK.md"
+    if lb.exists():
+        text = read(lb)
+        fm, _ = front_matter(text)
+        if fm is None:
+            err("E002", "docs/LOCKBOOK.md", "no front-matter block")
+        else:
+            for key in LOCKBOOK_KEYS:
+                if not fm.get(key):
+                    err("E002", "docs/LOCKBOOK.md", f"header missing {key}")
+            scale = fm.get("scale")
+            if scale not in ("S", "M", "L"):
+                err("E002", "docs/LOCKBOOK.md", f"scale must be S, M or L: {scale}")
+                scale = None
+            raw = re.match(r"\A---\n(.*?)\n---", text, flags=re.S)
+            if raw:
+                for line in raw.group(1).splitlines():
+                    if RULING_ROW.match(line) and not RULING_OK.match(line):
+                        err("E002", "docs/LOCKBOOK.md",
+                            f"ruling row not marked argued or inherited: {line.strip()}")
+            if isinstance(fm.get("addons"), list):
+                addons = fm["addons"]
+
+    # per-file checks (rubric A1, A4, A5)
     for p in md_files(seed):
-        r = p.relative_to(seed).as_posix()
+        r = srel(p)
         text = read(p)
-        fm, body = front_matter(text)
+        fm, _ = front_matter(text)
         if fm is None:
             err("E002", r, "no front-matter block")
         if re.search(r"\{\{[A-Z_]+\}\}", text):
             err("E008", r, "unfilled {{SLOT}} in compiled seed")
         if re.search(r"<!--\s*scale:", text):
             err("E008", r, "leftover scale marker in compiled seed")
-    if not matrix.exists():
-        warn("E008", "kernel/SCALE_MATRIX.md",
-             "matrix not yet written (Phase B), file-list check skipped")
-    else:
-        print("note: file-list check against SCALE_MATRIX not implemented until Phase B")
+
+    # router parity and cap (rubric A9, A10)
+    a, c = seed / "AGENTS.md", seed / "CLAUDE.md"
+    if a.exists() and c.exists():
+        if a.read_bytes() != c.read_bytes():
+            err("E003", "AGENTS.md", "CLAUDE.md is not a byte-identical copy")
+        n = len(read(a).splitlines())
+        if n > ROUTER_CAP:
+            err("E007", "AGENTS.md", f"compiled router is {n} lines, cap {ROUTER_CAP}")
+
+    # required files per scale (rubric A6)
+    if scale:
+        for fpath in required[scale]:
+            if not (seed / fpath).exists():
+                err("E008", fpath, f"required at scale {scale}, missing")
+
+    # add-ons named in the lock-book (rubric A7)
+    for name in addons:
+        if name not in (addon_files or {}):
+            err("E008", "docs/LOCKBOOK.md", f"addon not in SCALE_MATRIX: {name}")
+            continue
+        for fpath in addon_files[name]:
+            if "<" in fpath:
+                import fnmatch
+                pattern = re.sub(r"<[^>]+>", "*", fpath)
+                if not fnmatch.filter(seed_md, pattern):
+                    err("E008", fpath, f"addon {name} file missing (pattern)")
+            elif not (seed / fpath).exists():
+                err("E008", fpath, f"addon {name} file missing")
+
+    # compile-report ancestry (rubric A8)
+    cr = seed / "docs" / "COMPILE_REPORT.md"
+    if cr.exists() and scale:
+        text = read(cr)
+        listed = set()
+        for m in re.finditer(r"^\|\s*([^|]+?)\s*\|\s*[^|]+?\s*\|", text, flags=re.M):
+            cell = m.group(1)
+            if cell not in ("file", "---") and not cell.startswith("-"):
+                listed.add(cell)
+        for fpath in required[scale]:
+            if fpath == "docs/COMPILE_REPORT.md":
+                continue
+            if fpath not in listed:
+                err("E008", "docs/COMPILE_REPORT.md", f"ancestry missing for {fpath}")
+        for cell in sorted(listed):
+            if "/" in cell or cell.endswith(".md"):
+                if not (seed / cell).exists():
+                    err("E008", "docs/COMPILE_REPORT.md", f"report names absent file {cell}")
     return finish()
 
 
