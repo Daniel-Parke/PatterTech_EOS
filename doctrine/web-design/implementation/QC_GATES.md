@@ -6,7 +6,10 @@ lock-in.
 
 ## The gates
 
-1. **Build**: lint, unit tests and the production build all pass.
+1. **Build**: lint, unit tests and the production build all pass. Lint
+   includes the project's design lint where one exists (WG-013): the
+   machine-checked half of the width and media laws, with pragma escapes
+   that each carry a written reason.
 2. **Overflow**: no horizontal page scroll at 375px, verified by script (a
    headless browser reporting `scrollWidth === clientWidth` and zero
    uncontained offenders), on every changed route.

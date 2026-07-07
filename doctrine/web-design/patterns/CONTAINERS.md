@@ -9,9 +9,15 @@ content is. WG-003 argues the forks; this page is the anatomy.
 | --- | --- | --- |
 | Parallel facts (features, services, principles, layers) | **Ledger** | icon-tile cards |
 | Numbers with captions | **Plaque** | glowing stat cards |
+| The one number an argument turns on | **PullStat** (see LONGFORM.md) | a row of them |
+| Facts as a manifest (the measurable shape of a thing) | **SpecTable** | prose in disguise |
+| One measured transition between parts | **DataRule** | decorative repetition |
 | A self-contained thing (diagram, product, document, contact) | **Panel** | hover lift/sheen |
+| One calibrated artefact worth instrumenting | **Reticle** around its Panel | wrapping running text |
 | Reading matter | plain prose | boxes |
-| A pacing moment in a long read (quote, gallery, stat row) | **Interlude band** | same-surface slabs |
+| An aside or citation beside a block | **Marginalia** (see LONGFORM.md) | body argument in the margin |
+| A pacing moment in a long read (a quote, a tonal step) | **Interlude band** | media on the band (WG-014) |
+| Media (video, carousel, gallery) | a cited figure in the reading column | bands, full bleeds |
 | The page's closing actions | **Colophon** | CTA slab |
 
 ## Ledger
@@ -38,6 +44,31 @@ of parallel facts, you wanted a Ledger.
 
 ## Interlude band
 
-A full-bleed band one surface step up, hairline top and bottom rules, content
-constrained to the wide measure. Used to pace long reads (quotes, card
-strips, stat rows). A warm-tinted variant exists and a piece gets at most one.
+A contained band one surface step up, hairline top and bottom rules, composed
+as its own monument outside the prose grid (never through a bleed). Used to
+pace long reads with the piece's own moments: a marquee quote, a tonal step.
+A band never wraps media; a carousel or video is a cited figure in the
+reading column (WG-014). A warm-tinted variant exists and a piece gets at
+most one.
+
+## SpecTable
+
+Facts as a ruled mono manifest: a term column in the mono voice
+(accent-tinted), a short value, an optional right-hand mono note per row,
+hairline rules between rows. For the measurable shape of a thing (an
+engagement, a venture, a build). If a value needs a sentence it belongs in
+the body; if the facts are parallel arguments it is a Ledger; if they are
+numbers at a glance it is a Plaque.
+
+## DataRule
+
+A hairline carrying mono tick labels, the diagram kit's annotation voice
+applied between sections; it may charge once as it reveals. One DataRule
+marks one measured transition; it is never repeated as decoration.
+
+## Reticle
+
+The measurement voice as a frame: four corner ticks and up to two mono
+labels around a single self-contained artefact, which then reads as
+calibrated, an object under instrumentation. At most one per section; never
+around running text.

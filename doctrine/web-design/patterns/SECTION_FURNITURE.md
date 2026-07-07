@@ -11,9 +11,13 @@ the margin rail (see LAYOUT_AND_GRID.md); below, it joins the annotation row.
 
 - The index sequence is per page (01, 02, ...) and matches any on-page
   navigator's count, so the page reads as a numbered document.
+- Indices carry the brand accent by default, not grey; the instrument voice
+  is part of the brand's colour, not just its typography.
 - The kicker is the running label voice: short, mono, tracked, accent-tinted
   when a venture/product owns the section.
 - Titles left-aligned, sized from the display ladder; leads capped at ~65ch.
+  Where the light budget allows (WG-005), the title carries the one-shot
+  heading sweep as its reveal ignites (foundations/LIGHT.md).
 
 ## Chapter marks (long reads)
 
@@ -26,8 +30,11 @@ scroll margin (the on-page navigator depends on both).
 One per page, replacing the glowing CTA slab: a full-width hairline rule, a
 mono kicker, one display sentence, an optional quieter second line, then
 onward paths as mono text links with nudging arrows and at most one quiet
-button. Copy is written fresh per page and held to the voice law. Research
-pieces thread "Next: <the next piece>" here.
+button. The rule charges once as the band reveals; on a hub or home page the
+charge may be traded for the persistent slow traveller (the live rule,
+foundations/LIGHT.md, two per page at most). Copy is written fresh per page
+and held to the voice law. Research pieces thread "Next: <the next piece>"
+here.
 
 ## The line (chrome motif, optional)
 
