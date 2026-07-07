@@ -58,10 +58,16 @@ Derived file. Edit front-matter, then run
 | inception/README.md | kernel | eos | The Session 0 system, what it is and what lands here in Phase E |  |
 | kernel/README.md | kernel | eos | The compile contract, scale system and concurrency doctrine for the kernel |  |
 | kernel/templates/LOCKBOOK.tpl.md | template | eos | Venture lock-book template, rulings and contracts, Phase B rebuild pending |  |
+| kernel/templates/org/CONSTITUTION.tpl.md | template | eos | Venture constitution template, Part I product slot, Parts II and III the protected organisational law |  |
+| kernel/templates/org/roles/PLAN.tpl.md | template | eos | PLAN charter template, decides what and why, encodes work a cold session can run unaided |  |
+| kernel/templates/org/roles/VERIFY.tpl.md | template | eos | VERIFY charter template, independent review and audit, findings not fixes, evidence not vibes |  |
+| kernel/templates/org/roles/WORK.tpl.md | template | eos | WORK charter template, changes things under an order, small batches, immaculate paper trail |  |
+| kernel/templates/org/START.tpl.md | template | eos | Venture bootstrap template, the read order per role, ground rules and the close-out ritual |  |
 | OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, rhythm and troubleshooting | 2027-07 |
 | org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
+| org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

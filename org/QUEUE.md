@@ -13,16 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### B1. Kernel extraction: constitution, start, roles
-- phase: B · playbook: PB-E03 · claims: `kernel/templates/org/`
-- From AutoWatt@d2e3250: CONSTITUTION.tpl.md (Part I becomes the
-  `{{PRODUCT_DOCTRINE}}` slot; Parts II and III generic, protected),
-  START.tpl.md, roles/PLAN|WORK|VERIFY.tpl.md. Add the three-strikes
-  rule to the operating rules and all three charters. Scale markers on
-  everything M-and-up.
-- done when: files carry `template: true` and `extracted_from`, slots
-  and markers follow kernel/README.md, eos_check --repo green.
-
 ### B2. Kernel extraction: operating model, templates, state, cadence, questions
 - phase: B · playbook: PB-E03 · claims: `kernel/templates/org/`
 - OPERATING_MODEL.tpl.md (tiers and gates collapse at M scale via
@@ -132,3 +122,5 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 - A. Phase A: migration, roots, governance, registries, org instance,
   check tool (session S-0001, 2026-07-07).
+- B1. Kernel extraction: constitution, start, roles (session S-0002,
+  2026-07-07).
