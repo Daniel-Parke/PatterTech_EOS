@@ -46,7 +46,9 @@ registry, org, tools.
   module order, the draft-wargame escape, the twenty-ruling budget
   alarm).
 - **registry**: created; projects, vendors, lessons and the static web
-  stack profile seeded.
+  stack profile seeded. D1 updated the Venture A row: reseed compiled to
+  a green seed check on branch reseed/eos-v1, awaiting the rubric
+  signature.
 - **tools**: eos_check.py added (checks E001 to E010, --repo and --seed
   modes, index generation).
 - **roots**: AGENTS.md canonical with CLAUDE.md byte parity, START.md

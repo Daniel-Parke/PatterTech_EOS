@@ -94,6 +94,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0005.md | org | eos | Session S-0005, Phase B item B4, the scale matrix, seed rubric and live seed gate |  |
 | org/logs/2026-07/S-0006.md | org | eos | Session S-0006, Phase C item C1, the compile rules and walk order, dry run recorded |  |
 | org/logs/2026-07/S-0007.md | org | eos | Session S-0007, Phase C item C2, the voice module populated |  |
+| org/logs/2026-07/S-0008.md | org | eos | Session S-0008, Phase D item D1, the Venture A reseed compiled to green, signature pending |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

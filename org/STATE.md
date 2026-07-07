@@ -14,29 +14,29 @@ active_session: none
 
 ## Now
 
-Phases B and C complete (sessions S-0002 to S-0007, 2026-07-07): full
-kernel, scale matrix, seed rubric, live seed gate, compile rules, walk
-order and the voice module. Building v1.0 per ADR-0001; the queue
-holds D1 to F. Nothing blocks the Venture A reseed now; D1 and D2 are
-the critical path.
+Phases B and C complete; D1 compiled to a green seed check on Venture A
+branch reseed/eos-v1 and sits in Blocked awaiting Daniel's rubric
+signature (sessions S-0002 to S-0008, 2026-07-07). Building v1.0 per
+ADR-0001; the queue holds D2 to F.
 
 ## Flags for Daniel
 
-- The Venture A sprint clock is running (day 2 of 42). B2 to D2 are
-  sized at roughly six to eight sessions; launch build sessions as
-  often as slots allow.
+- **Sign the Venture A reseed**: the human rubric items H1 to H5 in
+  `Venture A/docs/COMPILE_REPORT.md` on branch reseed/eos-v1. H1 doubles
+  as the Genesis cold-start test. Merge the branch after signing;
+  Genesis is then unblocked. The sprint clock is on day 2 of 42.
 
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at C2 close (phases B and C done)
-- phase: B and C done; next item D1 (Venture A reseed, time-critical)
+- eos_version: pre-1.0.0, main at D1 close
+- phase: B, C and D1-compile done; D1 blocked on the signature; next
+  item D2 (worked example and reseed harvest)
 - last_verified: eos_check --repo 0 errors, expected warnings only;
-  --seed green on the S fixture and red on the broken fixture; indexes
-  fresh
-- next_action: entry mode 2, take D1: run PB-E01 compile phases in the
-  Venture A repo on an isolated branch, then Daniel signs the rubric
-- blockers: none
+  --seed 0/0 on the Venture A reseed branch; indexes fresh
+- next_action: entry mode 2, take D2 from org/QUEUE.md, playbook PB-E02
+- blockers: D1's rubric signature (Daniel), which gates the merge and
+  Genesis but not D2
 - constraints: voice law; wargame first; protected set needs an ADR and
   now includes the B1 templates (constitution Parts II and III, the
   three charters)
