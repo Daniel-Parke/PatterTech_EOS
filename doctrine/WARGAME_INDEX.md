@@ -24,6 +24,10 @@ Derived file. Edit wargame front-matter, then run
 | WG-DEL-002 | How much end-to-end, and which branch does it block? | delivery | delivery testing ci | active | 2027-07 |
 | WG-DEL-003 | Visual regression: nothing, component states, or full pages? | delivery | delivery testing web | active | 2027-07 |
 | WG-DEL-004 | When a test flakes: retry, quarantine, or root-cause now? | delivery | delivery testing ci | active | 2027-07 |
+| WG-OPS-001 | Managed PaaS, a cloud estate under contract, or self-hosting? | devops | ops hosting infra | active | 2027-07 |
+| WG-OPS-002 | Everything in containers, platform-native builds, or a mixed fleet? | devops | ops infra hosting | active | 2027-07 |
+| WG-OPS-003 | Trusted snapshots, scheduled restore tests, or full disaster rehearsal? | devops | ops data infra | active | 2027-07 |
+| WG-OPS-004 | How is spend governed: unwatched, budget-gated, or hard-capped? | devops | ops infra money | active | 2027-07 |
 | WG-VOX-001 | Which register does this surface speak in? | voice | voice content brand | active | 2027-07 |
 | WG-WEB-001 | Dark, light, or dual register? | web-design | web colour brand | active | 2027-07 |
 | WG-WEB-002 | Which vocabulary does this page speak? | web-design | web nav content | active | 2027-07 |

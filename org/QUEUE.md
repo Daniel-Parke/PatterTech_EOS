@@ -13,12 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### F3. Devops module
-- phase: F · playbook: PB-E03 · claims: `doctrine/devops/`
-- Migrations doctrine, environments, secrets, restore-test regime,
-  WG-OPS wargames (hosting, containers, backups, cost ceilings).
-- done when: as F1.
-
 ### E3. S-scale ergonomics (drill findings, S-0011)
 - phase: E follow-up · playbook: PB-E03 · claims: `kernel/templates/`
 - A sanctioned deferral convention for the lock-book's design slots at
@@ -81,3 +75,4 @@ the critical path: Venture A's reseed and Genesis wait on them.
 - R1. Stack profiles from the estate (session S-0012, 2026-07-07).
 - F1. Architecture module (session S-0013, 2026-07-07).
 - F2. Delivery module (session S-0014, 2026-07-07).
+- F3. Devops module (session S-0015, 2026-07-07).

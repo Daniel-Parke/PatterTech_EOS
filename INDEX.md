@@ -32,7 +32,12 @@ Derived file. Edit front-matter, then run
 | doctrine/delivery/wargames/WG-DEL-002-e2e-weighting.md | wargame | delivery testing ci | How much end-to-end, and which branch does it block? | 2027-07 |
 | doctrine/delivery/wargames/WG-DEL-003-vrt-scope.md | wargame | delivery testing web | Visual regression: nothing, component states, or full pages? | 2027-07 |
 | doctrine/delivery/wargames/WG-DEL-004-flake-policy.md | wargame | delivery testing ci | When a test flakes: retry, quarantine, or root-cause now? | 2027-07 |
-| doctrine/devops/README.md | doctrine | ops | Devops module, queued for Phase F, hosting, environments, migrations, cost triggers |  |
+| doctrine/devops/DOCTRINE.md | doctrine | ops | The six binding devops rules, migrations, parity, secrets, runbooks, restores, cost |  |
+| doctrine/devops/README.md | doctrine | ops | Devops module, six rules and four wargames on hosting, artefacts, restores and spend |  |
+| doctrine/devops/wargames/WG-OPS-001-hosting.md | wargame | ops hosting infra | Managed PaaS, a cloud estate under contract, or self-hosting? | 2027-07 |
+| doctrine/devops/wargames/WG-OPS-002-containers.md | wargame | ops infra hosting | Everything in containers, platform-native builds, or a mixed fleet? | 2027-07 |
+| doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md | wargame | ops data infra | Trusted snapshots, scheduled restore tests, or full disaster rehearsal? | 2027-07 |
+| doctrine/devops/wargames/WG-OPS-004-cost-ceilings.md | wargame | ops infra money | How is spend governed: unwatched, budget-gated, or hard-capped? | 2027-07 |
 | doctrine/MODULE_SHAPE.md | governance | eos | What every doctrine module must have, may have, and must never become |  |
 | doctrine/README.md | governance | eos | The module map, what is populated, what is queued, and the extraction mandates |  |
 | doctrine/voice/DOCTRINE.md | doctrine | voice | The voice law, seven rules with examples, and the banned-list pattern |  |
@@ -123,6 +128,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0012.md | org | eos | Session S-0012, item R1, the FastAPI and full-stack profiles extracted from WiseWattage |  |
 | org/logs/2026-07/S-0013.md | org | eos | Session S-0013, Phase F item F1, the architecture module populated |  |
 | org/logs/2026-07/S-0014.md | org | eos | Session S-0014, Phase F item F2, the delivery module populated |  |
+| org/logs/2026-07/S-0015.md | org | eos | Session S-0015, Phase F item F3, the devops module populated, Phase F complete |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
