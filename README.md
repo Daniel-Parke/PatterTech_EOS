@@ -1,57 +1,59 @@
-# PatterTech Framework
+---
+summary: What the PatterTech EOS is and how the repo is laid out
+type: root
+tags: [eos]
+---
 
-A documentation-based framework for taking a project from idea to shipped work
-without re-learning the same lessons every time. It codifies doctrine (what we
-never compromise), foundations (how to derive the specifics per project),
-patterns (the reusable shapes), wargames (the "it depends" decisions, argued
-out once so future agents can rule quickly), and templates (how a new project
-locks its choices in).
+# PatterTech EOS
 
-The framework is written for agents as much as for people. A capable agent
-dropped into a new project should be able to read this repo, lock in a
-project's choices, and produce work that holds the standard without anyone
-repeating the reasoning that got us here.
+The PatterTech Engineering Operating System. A documentation-and-process
+repo, no build, that seeds and governs our ventures so AI agents can
+take a project from idea to operated software without re-learning the
+same lessons every time.
 
-## Module map
+Two halves, unified in v1.0 (see `org/decisions/ADR-0001`):
 
-| Module | Status | Covers |
-| --- | --- | --- |
-| `modules/web-design/` | Populated (module 01) | Web design, UI/UX, front-end implementation, QC |
-| `modules/architecture/` | Mount point | System architecture, ADR practice |
-| `modules/devops-deployment/` | Mount point | CI/CD, hosting, environments, release |
-| `modules/cost/` | Mount point | Cost efficiency, budget wargames |
-| `modules/hardware/` | Mount point | Hardware selection and sizing |
+- **Knowledge**: `doctrine/` holds the argued rules, derivation methods,
+  patterns and wargames per domain. `registry/` holds what is true today
+  (stack profiles, trusted vendors, the venture directory, lessons).
+- **Execution**: `kernel/` holds the organisational machinery (roles,
+  work orders, gates, cadences, templates) that Session 0 compiles into
+  each venture at the smallest scale that fits. `inception/` is the
+  Session 0 system itself.
 
-Module 01 (web-design) is the worked pattern for the rest: doctrine ->
-foundations -> patterns -> wargames -> templates -> worked example. Future
-modules follow the same shape. See `VISION.md` for the plan that grows this
-into a kernel that can framework any project.
+The EOS runs on its own kernel: `org/` carries its state, work queue,
+cadences, playbooks, decisions and logs.
 
-## How to consume this repo
+## Map
 
-1. Read `START.md` (the bootstrap: read order and ground rules).
-2. Starting a new project: copy `modules/web-design/templates/PROJECT_LOCKIN.md`
-   into the project repo, walk the wargames it cites, and fill it in. The
-   lock-in file is the project's contract with the framework.
-3. Working in an existing project: read that project's lock-in first, then the
-   module docs it cites. The project file wins on specifics; the framework wins
-   on doctrine.
-4. Learned something new: append a worked ruling to the relevant wargame, or
-   file a new wargame from `templates/WG_TEMPLATE.md`. Doctrine changes come
-   last and require a wargame first.
+| Path | What lives there |
+| --- | --- |
+| `AGENTS.md` / `CLAUDE.md` | Entry point and never-list (byte-identical) |
+| `START.md` | Read order per entry mode, ground rules |
+| `INDEX.md` | Derived index of every file, grep the tag column |
+| `GOVERNANCE.md` | Promotion numbers, schema, tags, protected set |
+| `OPERATORS_GUIDE.md` | Daniel's manual for running the EOS |
+| `kernel/` | Templates compiled into ventures, scale matrix, seed rubric |
+| `inception/` | Session 0: interview, scale wargame, walk order, compile |
+| `doctrine/` | Knowledge modules and their wargames |
+| `registry/` | Projects, vendors, lessons, stack profiles |
+| `org/` | The EOS's own state, queue, cadences, playbooks, decisions |
+| `examples/` | Worked instantiations |
+| `tools/eos_check.py` | The check tool (`--repo`, `--seed`, `--write-index`) |
 
-## Worked examples
+## Consuming the EOS
 
-- `modules/web-design/examples/pattertech-website.md`: the PatterTech website
-  redesign (the "instrument and the journal" language), including the diagnosis
-  of why the earlier site read as AI-generated and the moves that fixed it.
+A venture never reads this repo at random. Session 0 compiles it a seed
+pack: thin agent routers, a lock-book of rulings, distilled standards
+and, where scale demands it, an org kernel. The venture pins the EOS
+version it was compiled from and upgrades deliberately. Working agents
+read the venture's own files first and follow citations back here.
 
 ## Related repos
 
-- `PatterTech_Website`: the first conforming project (its
-  `docs/DESIGN_SYSTEM.md` is the lock-in).
-- `PatterTech_Business`: brand, voice and chart standards
-  (`platform/docs/VOICE.md`, `CHART_STYLE.md`); the Studio print pipeline.
-- `Venture A`: the org kernel (`org/`) whose file-based operating model this
-  framework borrows; the seed-pack work there is the extraction source for the
-  future modules (see `VISION.md`).
+- `Venture A`: the org kernel ancestor; its seed pack is the extraction
+  source for `kernel/templates/`.
+- `PatterTech_Website`: the first conforming web project and the worked
+  example in `examples/pattertech-website.md`.
+- `WiseWattage`, `PatterTech_Business`: extraction sources for the
+  architecture, delivery and devops modules.
