@@ -14,10 +14,10 @@ active_session: none
 
 ## Now
 
-Phase B under way: B1 and B2 landed (sessions S-0002 and S-0003,
-2026-07-07). Building v1.0 per ADR-0001; the queue holds B3 to F.
+Phase B under way: B1 to B3 landed (sessions S-0002 to S-0004,
+2026-07-07). Building v1.0 per ADR-0001; the queue holds B4 to F.
 AutoWatt waits on phases B to D before its reseed and Genesis; treat
-B3 to D2 as the critical path.
+B4 to D2 as the critical path.
 
 ## Flags for Daniel
 
@@ -28,13 +28,12 @@ B3 to D2 as the critical path.
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at B2 close
-- phase: B in flight; B1 and B2 done, next item B3 (kernel extraction:
-  playbooks, operators guide, agent routers)
+- eos_version: pre-1.0.0, main at B3 close
+- phase: B in flight; B1 to B3 done, next item B4 (scale matrix, seed
+  rubric, venture templates, seed checks)
 - last_verified: eos_check --repo 0 errors, 6 expected warnings;
   indexes fresh
-- next_action: entry mode 2, take B3 from org/QUEUE.md, playbook PB-E03,
-  source AutoWatt@d2e3250
+- next_action: entry mode 2, take B4 from org/QUEUE.md, playbook PB-E03
 - blockers: none
 - constraints: voice law; wargame first; protected set needs an ADR and
   now includes the B1 templates (constitution Parts II and III, the
