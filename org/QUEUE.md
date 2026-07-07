@@ -8,21 +8,10 @@ tags: [eos]
 
 The EOS's work queue, ordered. A build session (entry mode 2) takes the
 top unblocked item, follows its playbook, and closes out. One item per
-session unless items are trivially small. WIP is 1. Items B1 to D2 are
-the critical path: AutoWatt's reseed and Genesis wait on them.
+session unless items are trivially small. WIP is 1. The v1.0 build is
+complete bar REL; AutoWatt's Genesis waits only on the D1 signature.
 
 ## Ready
-
-### E4. Web defaults that presuppose the house brand (drill findings, S-0011)
-- phase: E follow-up · playbook: PB-E03 · claims:
-  `doctrine/web-design/wargames/`
-- Sharpen decision rules (not defaults) of WG-WEB-004, 009, 010, 011 so
-  non-house brands stop arguing around house assumptions: name the
-  brand-physics trigger in each rule. Defaults move only via PB-E04
-  promotion numbers; the drill's rulings are synthetic and count
-  nothing.
-- done when: four decision rules name their triggers, budgets hold,
-  indexes fresh.
 
 ### REL. Release v1.0.0
 - phase: release · playbook: PB-E05 · claims: repo-wide
@@ -67,3 +56,5 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 - F2. Delivery module (session S-0014, 2026-07-07).
 - F3. Devops module (session S-0015, 2026-07-07).
 - E3. S-scale ergonomics from the drill (session S-0016, 2026-07-07).
+- E4. Web decision rules sharpened for non-house brands (session
+  S-0017, 2026-07-07).

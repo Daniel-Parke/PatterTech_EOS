@@ -48,9 +48,11 @@ and it moves what the user is trying to read: off-doctrine.
 
 If the brand's philosophy includes responsiveness or field physics, choose C
 with B's treatments as its base layer (the beam and brightening still play on
-hover). Choose B when the team cannot own a shared listener's upkeep or the
-audience skews formal. Never D. Whatever the ruling, the site must feel
-complete on touch: fields, conduits and ignition carry the life there.
+hover). That clause is brand physics, not house habit: a brand without
+responsiveness in its identity takes B even when the house builds it. Choose
+B when the team cannot own a shared listener's upkeep or the audience skews
+formal. Never D. Whatever the ruling, the site must feel complete on touch:
+fields, conduits and ignition carry the life there.
 
 ## Default
 
