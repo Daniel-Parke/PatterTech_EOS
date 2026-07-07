@@ -1,50 +1,55 @@
+---
+summary: Bootstrap for every session, read order per entry mode and the ground rules
+type: root
+tags: [eos]
+---
+
 # START
 
-The bootstrap for any agent or person working with this framework. Read this
-first, every time.
+The bootstrap for any agent or person working with the EOS. Read this
+first, every time. AGENTS.md told you your entry mode; this file tells
+you what to read for it.
 
-## Read order
+## Read order by entry mode
 
-1. `VISION.md` : what this repo is becoming and the standing mandate for the
-   next generalisation pass.
-2. The relevant module's `DOCTRINE.md` (for web work:
-   `modules/web-design/DOCTRINE.md`). Doctrine is binding.
-3. If you are working **on a project**: that project's lock-in file (copied
-   from `templates/PROJECT_LOCKIN.md`, usually living in the project repo's
-   docs). The lock-in wins on specifics; doctrine wins on principles.
-4. If you are **making a decision** the lock-in does not cover: find the
-   wargame (`modules/*/wargames/`), apply its decision rule, and record the
-   ruling in the project lock-in (and append it to the wargame's worked
-   rulings).
-5. Foundations and patterns as needed while executing.
+**Mode 1, working on a venture:**
+
+1. The venture's lock-book (in the venture repo). It wins on specifics.
+2. The doctrine and stack profiles its rulings cite, found via `INDEX.md`.
+3. If you hit a fork the lock-book does not answer: find the wargame in
+   `doctrine/WARGAME_INDEX.md`, apply its decision rule, record the
+   ruling in the lock-book (marked argued or inherited). No wargame
+   covers it: draft one in the venture's `docs/EOS_FEEDBACK.md` with
+   your ruling as its first worked entry, then carry on.
+
+**Mode 2, working on the EOS itself:**
+
+1. `org/STATE.md`: where the build is, and whether another session is
+   active. If `active_session` is set and fresh, stop and tell Daniel.
+2. `org/QUEUE.md`: take the top unblocked item.
+3. `org/PLAYBOOKS.md`: follow the playbook the item names.
+4. `GOVERNANCE.md` before touching anything in the protected set.
+
+**Mode 3, Session 0 for a new venture:**
+
+1. `inception/INCEPTION.md` and run its phases in order.
 
 ## Ground rules
 
-- **Files over memory.** If it is not written down here or in the project's
-  lock-in, it is not decided. Write down what you decide.
-- **A stranger must be able to continue from files alone.** Borrowed from the
-  AutoWatt org kernel, and it applies here: never leave a decision only in a
-  conversation.
-- **Wargame first, doctrine later.** To change a rule, first write or extend
-  the wargame that argues it, then change the rule. Doctrine edits without a
-  wargame are reverted on sight.
-- **Check currency.** Wargames and time-sensitive guidance carry `review_by`
-  dates. If a doc is past review, verify its claims before relying on them.
-- **Projects feed back.** Each project appends worked rulings. Repeated
-  rulings become defaults; hardened defaults become doctrine.
-- **Voice.** Framework prose follows the same writing law as the projects:
-  plain, spoken, British spelling, no em-dashes, no exclamation marks, no AI
-  clichés, no two-fragment antithesis.
-
-## Starting a new web project (the short version)
-
-1. Copy `modules/web-design/templates/PROJECT_LOCKIN.md` into the new repo,
-   and write the narrative brief first: it drives everything else.
-2. Walk the wargames it cites (WG-WEB-001 register, WG-WEB-002 archetypes, WG-WEB-005
-   light budget, WG-WEB-007 stack, WG-WEB-009 accents, WG-WEB-010 type, WG-WEB-011
-   reactivity, WG-WEB-012 imagery) and fill in the rulings.
-3. Derive the brand tokens with the foundations docs; stand up the styleguide
-   page before any real page (it is the acceptance surface).
-4. Build with the patterns; hold the QC gates
-   (`modules/web-design/implementation/QC_GATES.md`).
-5. When the project teaches you something, bring it back here.
+- **Files over memory.** If it is not written down, it is not decided.
+  Write down what you decide.
+- **A stranger must be able to continue from files alone.** Never leave
+  a decision only in a conversation.
+- **Wargame first, doctrine later.** To change a rule, first write or
+  extend the wargame that argues it. Doctrine edits without a wargame
+  are reverted on sight.
+- **Check currency.** Time-sensitive files carry `review_by` dates. Past
+  the date, verify before relying.
+- **Three strikes.** If the same check or gate fails after three distinct
+  fix attempts, stop. Record the attempts and your hypotheses, block the
+  item, flag it in the relevant STATE file, and file a question if a
+  human decision is needed. Never weaken a check to pass it.
+- **Close out properly.** Update the state file you own, write the
+  session log, and leave a Resume Packet a cold session can boot from.
+- **Voice.** Plain, spoken, British spelling, no em-dashes, no
+  exclamation marks, no AI clichés, no two-fragment antithesis.
