@@ -20,6 +20,10 @@ Derived file. Edit wargame front-matter, then run
 | WG-ARCH-006 | What proves a change changed nothing: green tests, pinned behaviour, or byte-stable output? | architecture | arch testing ci | active | 2027-07 |
 | WG-ARCH-007 | Vendor integration: their SDK everywhere, an owned adapter, or the raw protocol? | architecture | arch infra security | active | 2027-07 |
 | WG-ARCH-008 | One shared database, one per service, or a records core with a separate high-volume store? | architecture | arch data infra | active | 2027-07 |
+| WG-DEL-001 | What coverage floor, per surface, and how does it move? | delivery | delivery testing ci | active | 2027-07 |
+| WG-DEL-002 | How much end-to-end, and which branch does it block? | delivery | delivery testing ci | active | 2027-07 |
+| WG-DEL-003 | Visual regression: nothing, component states, or full pages? | delivery | delivery testing web | active | 2027-07 |
+| WG-DEL-004 | When a test flakes: retry, quarantine, or root-cause now? | delivery | delivery testing ci | active | 2027-07 |
 | WG-VOX-001 | Which register does this surface speak in? | voice | voice content brand | active | 2027-07 |
 | WG-WEB-001 | Dark, light, or dual register? | web-design | web colour brand | active | 2027-07 |
 | WG-WEB-002 | Which vocabulary does this page speak? | web-design | web nav content | active | 2027-07 |

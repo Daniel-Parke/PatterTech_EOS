@@ -13,13 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### F2. Delivery module
-- phase: F · playbook: PB-E03 · claims: `doctrine/delivery/`
-- Test-first-where-the-type-demands, ratchets, coverage floors, VRT
-  pinning, gate rubrics (fixing the v0.1 gap), WG-DEL wargames (coverage
-  level, e2e weighting, VRT scope, flake policy).
-- done when: as F1.
-
 ### F3. Devops module
 - phase: F · playbook: PB-E03 · claims: `doctrine/devops/`
 - Migrations doctrine, environments, secrets, restore-test regime,
@@ -87,3 +80,4 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
   queued as E3 and E4 (session S-0011, 2026-07-07).
 - R1. Stack profiles from the estate (session S-0012, 2026-07-07).
 - F1. Architecture module (session S-0013, 2026-07-07).
+- F2. Delivery module (session S-0014, 2026-07-07).
