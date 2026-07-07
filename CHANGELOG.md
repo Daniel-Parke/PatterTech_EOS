@@ -10,7 +10,14 @@ Newest first. One entry per release tag; the Unreleased section
 accumulates until the next tag. Sections: kernel, doctrine, inception,
 registry, org, tools.
 
-## Unreleased (building towards v1.0.0)
+## v1.0.0 · 2026-07-07
+
+The founding release: the full kernel, the inception system proven by
+a cold drill, five doctrine modules, the estate registries and the
+check tool, built across sessions S-0001 to S-0018 per ADR-0001. The
+folder rename to PatterTech_EOS, the private remote and the tag push
+are the operator's manual close (OPERATORS_GUIDE troubleshooting has
+the commands).
 
 - **org**: ADR-0001 accepted, the v1.0 architecture. The EOS now runs on
   its own lite kernel (state, queue, cadences, playbooks, logs).

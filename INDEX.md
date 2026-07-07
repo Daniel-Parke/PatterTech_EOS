@@ -131,6 +131,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0015.md | org | eos | Session S-0015, Phase F item F3, the devops module populated, Phase F complete |  |
 | org/logs/2026-07/S-0016.md | org | eos | Session S-0016, item E3, the S-scale ergonomics from the drill findings |  |
 | org/logs/2026-07/S-0017.md | org | eos | Session S-0017, item E4, four web decision rules sharpened for non-house brands |  |
+| org/logs/2026-07/S-0018.md | org | eos | Session S-0018, REL, v1.0.0 tagged locally, manual close handed to Daniel |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

@@ -13,15 +13,17 @@ complete bar REL; AutoWatt's Genesis waits only on the D1 signature.
 
 ## Ready
 
-### REL. Release v1.0.0
-- phase: release · playbook: PB-E05 · claims: repo-wide
-- CHANGELOG entry, tag v1.0.0. Then Daniel's manual step: folder rename,
-  the two PatterTech_Website reference updates, private GitHub remote,
-  push with tags (OPERATORS_GUIDE troubleshooting section has the
-  commands).
-- done when: tag pushed, PROJECTS rows note the new home.
 
 ## Blocked
+
+### REL. Release v1.0.0: awaiting Daniel's manual close
+- phase: release · playbook: PB-E05 · session S-0018
+- Checks green, CHANGELOG v1.0.0 entry written, tag v1.0.0 created
+  locally. Blocked on the manual close: folder rename to
+  PatterTech_EOS, the two PatterTech_Website reference updates, the
+  private GitHub remote, push with tags, PROJECTS rows updated with
+  the new home (commands in OPERATORS_GUIDE troubleshooting).
+- done when: tag pushed, PROJECTS rows note the new home.
 
 ### D1. AutoWatt reseed: awaiting Daniel's rubric signature
 - phase: D · playbook: PB-E01 (compile phases only) · session S-0008
