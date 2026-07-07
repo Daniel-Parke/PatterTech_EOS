@@ -13,12 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### C1. Compile rules and walk order
-- phase: C · playbook: PB-E03 · claims: `inception/`
-- COMPILE.md (prune, fill, distil, report) and WALK_ORDER.md (filter
-  WARGAME_INDEX by triggered domains, canonical ordering).
-- done when: a dry run on paper against the fixture seed reads clean.
-
 ### C2. Voice module
 - phase: C · playbook: PB-E03 · claims: `doctrine/voice/`
 - DOCTRINE.md (the voice law with examples), the banned-list pattern,
@@ -106,3 +100,4 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
   (session S-0004, 2026-07-07).
 - B4. Scale matrix, seed rubric, venture templates, seed checks
   (session S-0005, 2026-07-07).
+- C1. Compile rules and walk order (session S-0006, 2026-07-07).

@@ -55,7 +55,9 @@ Derived file. Edit front-matter, then run
 | doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set |  |
+| inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
 | inception/README.md | kernel | eos | The Session 0 system, what it is and what lands here in Phase E |  |
+| inception/WALK_ORDER.md | kernel | eos wargame | How to compile the venture's wargame walk from the index, filter by triggers, canonical order |  |
 | kernel/README.md | kernel | eos | The compile contract, scale system and concurrency doctrine for the kernel |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The exact seed file list per scale S, M and L, plus trigger add-ons, machine-checked |  |
 | kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to check IDs, human items headed by the cold-start test |  |
@@ -87,6 +89,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0003.md | org | eos | Session S-0003, Phase B item B2, the operating model and org state templates extracted |  |
 | org/logs/2026-07/S-0004.md | org | eos | Session S-0004, Phase B item B3, the playbooks, operators guide and router templates extracted |  |
 | org/logs/2026-07/S-0005.md | org | eos | Session S-0005, Phase B item B4, the scale matrix, seed rubric and live seed gate |  |
+| org/logs/2026-07/S-0006.md | org | eos | Session S-0006, Phase C item C1, the compile rules and walk order, dry run recorded |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
