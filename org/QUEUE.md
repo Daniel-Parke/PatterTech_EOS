@@ -13,12 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### R1. Stack profiles from the estate
-- phase: F · playbook: PB-E03 · claims: `registry/stacks/`
-- STACK-fastapi-postgres.md and STACK-fullstack-app.md from WiseWattage
-  (include the urllib3 cap and Docker-on-Windows lessons).
-- done when: profiles cited by stacks README, review_by set.
-
 ### F1. Architecture module
 - phase: F · playbook: PB-E03 · claims: `doctrine/architecture/`
 - Doctrine (rings, boundaries as records, ADR practice, deterministic
@@ -98,3 +92,4 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 - E1. Inception system (session S-0010, 2026-07-07).
 - E2. S-scale drill: pass, eight findings, three fixed in session, two
   queued as E3 and E4 (session S-0011, 2026-07-07).
+- R1. Stack profiles from the estate (session S-0012, 2026-07-07).

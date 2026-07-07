@@ -104,6 +104,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0009.md | org | eos | Session S-0009, Phase D item D2, the worked example and the first live harvest |  |
 | org/logs/2026-07/S-0010.md | org | eos | Session S-0010, Phase E item E1, the inception system completed |  |
 | org/logs/2026-07/S-0011.md | org | eos | Session S-0011, Phase E item E2, the S-scale drill report, pass with eight findings |  |
+| org/logs/2026-07/S-0012.md | org | eos | Session S-0012, item R1, the FastAPI and full-stack profiles extracted from WiseWattage |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
@@ -111,6 +112,8 @@ Derived file. Edit front-matter, then run
 | registry/LESSONS.md | registry | eos | The harvest ledger, lessons from the estate and what each one changed | 2026-10 |
 | registry/PROJECTS.md | registry | eos | The venture directory, who is seeded from what and when last harvested | 2026-10 |
 | registry/stacks/README.md | registry | eos infra hosting | Stack profiles, what each is for and when to reach for it | 2027-01 |
+| registry/stacks/STACK-fastapi-postgres.md | stack | infra hosting data testing | Profile 02, FastAPI on Postgres, shape, caps and hard-won constraints | 2027-01 |
+| registry/stacks/STACK-fullstack-app.md | stack | web infra hosting testing ci | Profile 03, Next.js front on FastAPI back, the contract seam and the gate set | 2027-01 |
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
 | registry/VENDORS.md | registry | eos infra hosting | Trusted third parties, what we trust each for and the exit route | 2027-01 |
 | START.md | root | eos | Bootstrap for every session, read order per entry mode and the ground rules |  |
