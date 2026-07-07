@@ -46,15 +46,18 @@ shape; verification bandwidth becomes the limiting resource.
 
 ## Decision rule
 
-All six triggers silent: S. Any of server state, auth, standing ops
-or a lifespan beyond a quarter: at least M. Any of money under
-contract, personal or regulated data as working material, a second
-human holding decisions, or a multi-surface estate with deploys: L.
-Trigger add-ons attach regardless of scale (a compliance registry the
-moment regulated data appears; see the matrix). Torn between two
-scales, take the smaller and write the rescale condition into the
-lock-book; rescale is cheap and deliberate, over-ceremony is a
-standing tax.
+All six triggers silent: S. Any of server state, auth or standing ops:
+at least M. Any of money under contract, personal or regulated data as
+working material, a second human holding decisions, or a multi-surface
+estate with deploys: L. Lifespan never forces a scale by itself: a
+long-lived venture with no other trigger stays S with its rescale
+conditions written in; what lifespan does is make the rescale
+conditions mandatory, because a venture that lives will eventually
+trip one. Trigger add-ons attach regardless of scale (a compliance
+registry the moment regulated data appears; see the matrix). Torn
+between two scales, take the smaller and write the rescale condition
+into the lock-book; rescale is cheap and deliberate, over-ceremony is
+a standing tax.
 
 ## Default
 

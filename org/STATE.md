@@ -14,11 +14,10 @@ active_session: none
 
 ## Now
 
-Phases B, C and D complete bar the D1 signature (sessions S-0002 to
-S-0009, 2026-07-07): kernel, matrix, rubric, seed gate, compile rules,
-voice module, the Venture A reseed compiled to green, the worked example
-and the first live harvest. Building v1.0 per ADR-0001; the queue holds
-E1 to F.
+Phases B, C, D (bar the D1 signature) and E complete, the drill passed
+cold (sessions S-0002 to S-0011, 2026-07-07). Building v1.0 per
+ADR-0001; the queue holds R1, F1 to F3, the drill follow-ups E3 and
+E4, then REL.
 
 ## Flags for Daniel
 
@@ -30,12 +29,12 @@ E1 to F.
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at E1 close
-- phase: B, C, D done (D1 blocked on the signature only), E1 done; next
-  item E2 (S-scale drill)
-- last_verified: eos_check --repo 0 errors, 0 warnings expected now the
-  EOS wargames exist; --seed 0/0 on the Venture A reseed branch
-- next_action: entry mode 2, take E2 from org/QUEUE.md, playbook PB-E07
+- eos_version: pre-1.0.0, main at E2 close
+- phase: B, C, D (D1 blocked on the signature only) and E done, drill
+  passed; next item R1 (stack profiles from the estate)
+- last_verified: eos_check --repo 0 errors, 0 warnings; --seed 0/0 on
+  the Venture A reseed branch and twice on the drill seed
+- next_action: entry mode 2, take R1 from org/QUEUE.md, playbook PB-E03
 - blockers: D1's rubric signature (Daniel), which gates the merge and
   Genesis but nothing in this queue
 - constraints: voice law; wargame first; protected set needs an ADR and

@@ -59,6 +59,7 @@ Derived file. Edit front-matter, then run
 | examples/venture-a-seed.md | example | eos | Worked example, the Venture A reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set |  |
+| inception/briefs/BRIEF-S-brochure.md | kernel | eos | Canned drill brief, a sole-trader joinery brochure site, scripted operator answers |  |
 | inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
 | inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
 | inception/INTERVIEW.md | kernel | eos | The intake protocol, question set and the three mandatory challenge steps |  |
@@ -102,6 +103,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0008.md | org | eos | Session S-0008, Phase D item D1, the Venture A reseed compiled to green, signature pending |  |
 | org/logs/2026-07/S-0009.md | org | eos | Session S-0009, Phase D item D2, the worked example and the first live harvest |  |
 | org/logs/2026-07/S-0010.md | org | eos | Session S-0010, Phase E item E1, the inception system completed |  |
+| org/logs/2026-07/S-0011.md | org | eos | Session S-0011, Phase E item E2, the S-scale drill report, pass with eight findings |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

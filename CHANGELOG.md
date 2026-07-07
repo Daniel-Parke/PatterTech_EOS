@@ -51,7 +51,12 @@ registry, org, tools.
   INTERVIEW.md (twelve questions, three challenge steps), WG-EOS-001
   (venture scale, six triggers, argued rulings from Venture A and the
   website) and WG-EOS-002 (repo shape, default monorepo, estate
-  rulings).
+  rulings). E2 ran the S-scale drill cold and passed it: seed check
+  green first run, the cold-start test passed live, and the findings
+  fixed the lifespan clause, the spend and concrete-facts interview
+  gaps and the walk budget, with S ergonomics and four house-brand
+  default assumptions queued as E3 and E4. The canned brief lives at
+  inception/briefs/BRIEF-S-brochure.md.
 - **registry**: created; projects, vendors, lessons and the static web
   stack profile seeded. D1 updated the Venture A row: reseed compiled to
   a green seed check on branch reseed/eos-v1, awaiting the rubric

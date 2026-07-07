@@ -14,8 +14,8 @@ for the walk.
 
 ## The question set
 
-Ask in this order, following up until each answer would satisfy a
-stranger:
+Thirteen questions, asked in this order, following up until each answer
+would satisfy a stranger:
 
 1. What is it, in one paragraph, in your words?
 2. Who is it for, and who pays (if anyone)?
@@ -24,15 +24,17 @@ stranger:
 5. What surfaces exist: site, app, api, hardware, documents?
 6. Does anything persist or log in (server state, auth)?
 7. Does money change hands under this venture's name?
-8. Does it touch personal or regulated data, anyone's?
-9. What has to be deployed, monitored or backed up?
-10. Who besides you holds any decision?
-11. What does success look like in ninety days?
-12. What is explicitly out of scope?
+8. What may this venture spend, and who approves spend (hosting,
+   tools, services)? A number or "nothing without me", never silence.
+9. Does it touch personal or regulated data, anyone's?
+10. What has to be deployed, monitored or backed up?
+11. Who besides you holds any decision?
+12. What does success look like in ninety days?
+13. What is explicitly out of scope?
 
-Answers to 4 through 10 become the trigger list for WG-EOS-001 and the
-walk. Vague answers to 6, 7 or 8 are resolved now, not later; they
-carry legal weight.
+Answers to 4 through 11 become the trigger list for WG-EOS-001 and the
+walk. Vague answers on server state, money or personal data are
+resolved now, not later; they carry legal weight.
 
 ## The challenge steps (mandatory, in order)
 
@@ -56,6 +58,9 @@ until it lands.
 
 ## Closing the interview
 
-Read the trigger list back as plain yes-or-no facts. Confirm the
-operator's availability for phase B (scale and shape) now and phase E
-(the gate) later. Then move to WG-EOS-001 with the triggers in hand.
+Read the trigger list back as plain yes-or-no facts. Collect the
+concrete facts the compile will print: the venture name as it appears
+in public, contact details for any contact surface, the domain if one
+is owned, brand assets if any exist. Confirm the operator's
+availability for phase B (scale and shape) now and phase E (the gate)
+later. Then move to WG-EOS-001 with the triggers in hand.
