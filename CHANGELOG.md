@@ -24,6 +24,11 @@ registry, org, tools.
   (product-doctrine slot, Parts II and III renumbered per part), START
   and the three role charters, the three-strikes rule woven through,
   scale fences specified with a closing marker in kernel/README.md.
+  B2 added the operating model (tiers and gates collapse at M scale),
+  the canonical artefact formats including the M queue-row shape, STATE
+  with the claim protocol and Resume Packet spec, the cadence schedule
+  (founder update generalised to stakeholder update) and the questions
+  queue.
 - **inception**: shape fixed, system due in phases C and E.
 - **registry**: created; projects, vendors, lessons and the static web
   stack profile seeded.
