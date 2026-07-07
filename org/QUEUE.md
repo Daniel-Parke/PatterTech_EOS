@@ -46,6 +46,9 @@ complete bar REL's manual close; Venture A is signed and in Genesis.
 
 ## Done
 
+- GUIDE. The all-in-one field guide (GUIDE.md): framework, Venture A
+  genesis, development lifecycle, teach-and-point, registered via
+  README, CHANGELOG and INDEX (session S-0020, 2026-07-07).
 - A. Phase A: migration, roots, governance, registries, org instance,
   check tool (session S-0001, 2026-07-07).
 - B1. Kernel extraction: constitution, start, roles (session S-0002,

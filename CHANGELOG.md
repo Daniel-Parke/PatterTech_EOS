@@ -10,6 +10,14 @@ Newest first. One entry per release tag; the Unreleased section
 accumulates until the next tag. Sections: kernel, doctrine, inception,
 registry, org, tools.
 
+## Unreleased (towards v1.1.0)
+
+- **roots**: GUIDE.md added, the all-in-one field guide. A teaching
+  layer over the whole system (framework, the Venture A genesis, the
+  development lifecycle) that cross-links to the canonical files rather
+  than duplicating them, so it stays honest under the one-writer-per-fact
+  rule. Session S-0020. Additive; the pointer lives in README.md.
+
 ## v1.0.0 · 2026-07-07
 
 The founding release: the full kernel, the inception system proven by
