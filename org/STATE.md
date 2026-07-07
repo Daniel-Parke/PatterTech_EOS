@@ -29,12 +29,12 @@ E4, then REL.
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at F2 close
-- phase: through F2 done (D1 blocked on the signature only); next item
-  F3 (devops module)
+- eos_version: pre-1.0.0, main at F3 close (Phase F complete)
+- phase: through F3 done (D1 blocked on the signature only); next items
+  E3 and E4 (drill follow-ups), then REL
 - last_verified: eos_check --repo 0 errors, 0 warnings; --seed 0/0 on
   the AutoWatt reseed branch and twice on the drill seed
-- next_action: entry mode 2, take F3 from org/QUEUE.md, playbook PB-E03
+- next_action: entry mode 2, take E3 from org/QUEUE.md, playbook PB-E03
 - blockers: D1's rubric signature (Daniel), which gates the merge and
   Genesis but nothing in this queue
 - constraints: voice law; wargame first; protected set needs an ADR and

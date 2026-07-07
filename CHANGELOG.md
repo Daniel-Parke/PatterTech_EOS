@@ -24,7 +24,13 @@ registry, org, tools.
   the architecture module: seven binding rules, eight WG-ARCH wargames
   argued from the estate's ADRs (boundary enforcement, ORM or raw SQL,
   derived state, job execution, the contract seam, proof of harmless
-  change, vendor seams, database topology) and the ADR template.
+  change, vendor seams, database topology) and the ADR template. F2
+  populated the delivery module: six rules including gate-is-a-rubric,
+  and WG-DEL-001 to 004 (coverage ratchets, e2e weighting, VRT scope,
+  flake policy). F3 populated the devops module: six rules (migrations,
+  local parity, secrets, no console-clicking, proven restores, cost as
+  design input) and WG-OPS-001 to 004 (hosting, containers, backups and
+  restore, cost ceilings).
 - **kernel**: created with the compile contract; LOCKBOOK.tpl.md
   migrated from the v0.1 project lock-in, full templates due in Phase B.
   D2's harvest amended two templates from reseed feedback: the
