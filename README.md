@@ -24,12 +24,18 @@ Two halves, unified in v1.0 (see `org/decisions/ADR-0001`):
 The EOS runs on its own kernel: `org/` carries its state, work queue,
 cadences, playbooks, decisions and logs.
 
+New here? `GUIDE.md` is the all-in-one field guide: it teaches the whole
+system from first principles, walks the AutoWatt genesis, and shows the
+development lifecycle end to end, pointing to the canonical files as it
+goes. Read it once, then use the map below and `INDEX.md` for lookup.
+
 ## Map
 
 | Path | What lives there |
 | --- | --- |
 | `AGENTS.md` / `CLAUDE.md` | Entry point and never-list (byte-identical) |
 | `START.md` | Read order per entry mode, ground rules |
+| `GUIDE.md` | The all-in-one field guide (framework, genesis, lifecycle) |
 | `INDEX.md` | Derived index of every file, grep the tag column |
 | `GOVERNANCE.md` | Promotion numbers, schema, tags, protected set |
 | `OPERATORS_GUIDE.md` | Daniel's manual for running the EOS |
