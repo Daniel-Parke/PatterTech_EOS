@@ -12,6 +12,14 @@ Derived file. Edit wargame front-matter, then run
 
 | id | question | module | tags | status | review_by |
 | --- | --- | --- | --- | --- |  --- |
+| WG-ARCH-001 | Where do module boundaries live: convention, machine contract, or the directory tree? | architecture | arch tooling | active | 2027-07 |
+| WG-ARCH-002 | ORM, query builder, or raw SQL behind repositories? | architecture | arch data | active | 2027-07 |
+| WG-ARCH-003 | Derived values: always computed, cached, or stored as immutable snapshots? | architecture | arch data state | active | 2027-07 |
+| WG-ARCH-004 | Background jobs: in-process, a durable database queue, or an external broker? | architecture | arch state infra | active | 2027-07 |
+| WG-ARCH-005 | How do frontend and backend share types: by hand, generated with a drift gate, or one language? | architecture | arch ci tooling | active | 2027-07 |
+| WG-ARCH-006 | What proves a change changed nothing: green tests, pinned behaviour, or byte-stable output? | architecture | arch testing ci | active | 2027-07 |
+| WG-ARCH-007 | Vendor integration: their SDK everywhere, an owned adapter, or the raw protocol? | architecture | arch infra security | active | 2027-07 |
+| WG-ARCH-008 | One shared database, one per service, or a records core with a separate high-volume store? | architecture | arch data infra | active | 2027-07 |
 | WG-VOX-001 | Which register does this surface speak in? | voice | voice content brand | active | 2027-07 |
 | WG-WEB-001 | Dark, light, or dual register? | web-design | web colour brand | active | 2027-07 |
 | WG-WEB-002 | Which vocabulary does this page speak? | web-design | web nav content | active | 2027-07 |
