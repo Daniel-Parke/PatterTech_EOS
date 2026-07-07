@@ -10,9 +10,11 @@ The organisational machinery that Session 0 compiles into each venture.
 Nothing in here is read by a venture at runtime; ventures get compiled
 copies, stamped with the EOS version they came from.
 
-Status: templates land in Phase B (see `org/QUEUE.md`), extracted from
-the Venture A seed pack at commit d2e3250. `templates/LOCKBOOK.tpl.md` is
-the migrated v0.1 lock-in awaiting its Phase B rebuild.
+Status: Phase B in flight. The org templates (constitution, start, the
+three role charters) landed with B1; the rest arrive through B4, all
+extracted from the Venture A seed pack at commit d2e3250.
+`templates/LOCKBOOK.tpl.md` is the migrated v0.1 lock-in awaiting its
+Phase B rebuild.
 
 ## The compile contract
 
@@ -22,8 +24,11 @@ the migrated v0.1 lock-in awaiting its Phase B rebuild.
   brief and lock-book. A compiled file with an unfilled slot fails the
   seed check (E008).
 - Scale markers look like `<!-- scale: M L -->` and fence sections that
-  only exist at those scales. The compiler prunes them; a leftover
-  marker fails the seed check.
+  only exist at those scales. A fence closes with `<!-- scale: end -->`,
+  and markers wrap whole sentences, bullets or sections, never fragments
+  of a sentence. The compiler keeps a fenced body only when the
+  venture's scale is listed and always removes the marker lines; a
+  leftover marker of either kind fails the seed check.
 - Every compiled file's template ancestry is listed in the venture's
   compile report. A seed file that cannot be traced to a template plus
   rulings is a compile failure.
