@@ -28,7 +28,10 @@ registry, org, tools.
   the canonical artefact formats including the M queue-row shape, STATE
   with the claim protocol and Resume Packet spec, the cadence schedule
   (founder update generalised to stakeholder update) and the questions
-  queue.
+  queue. B3 added the venture router (compiled cap 40 lines, S points
+  at the lock-book and worklog, M and L at the org), the operators
+  guide with per-scale launcher libraries, and the playbook catalogue
+  PB-001 to PB-051.
 - **inception**: shape fixed, system due in phases C and E.
 - **registry**: created; projects, vendors, lessons and the static web
   stack profile seeded.

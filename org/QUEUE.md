@@ -13,13 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### B3. Kernel extraction: playbooks, operators guide, agent routers
-- phase: B · playbook: PB-E03 · claims: `kernel/templates/`
-- playbooks/CATALOGUE.tpl.md (PB-001 to PB-051; founder update becomes
-  stakeholder update), OPERATORS_GUIDE.tpl.md (launchers with scale
-  markers), AGENTS.tpl.md (venture router, hard cap 40 lines).
-- done when: as B1.
-
 ### B4. Scale matrix, seed rubric, venture templates, seed checks
 - phase: B · playbook: PB-E03 · claims: `kernel/`, `tools/`
 - SCALE_MATRIX.md (exact file list per S, M, L plus trigger add-ons),
@@ -118,3 +111,5 @@ the critical path: Venture A's reseed and Genesis wait on them.
   2026-07-07).
 - B2. Kernel extraction: operating model, templates, state, cadence,
   questions (session S-0003, 2026-07-07).
+- B3. Kernel extraction: playbooks, operators guide, agent routers
+  (session S-0004, 2026-07-07).
