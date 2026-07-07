@@ -24,16 +24,15 @@ doctrine/README.md.
 
 ## Flags for Daniel
 
-- **Sign the AutoWatt reseed**: the human rubric items H1 to H5 in
-  `AutoWatt/docs/COMPILE_REPORT.md` on branch reseed/eos-v1. H1 doubles
-  as the Genesis cold-start test. Merge the branch after signing, move
-  the PROJECTS pin to the merged commit; Genesis is then unblocked. The
-  sprint clock is on day 2 of 42.
 - **Close the release**: rename the folder to PatterTech_EOS, update
   the two PatterTech_Website references, create the private GitHub
   remote, `git push -u origin main --tags`. Commands in the
   OPERATORS_GUIDE troubleshooting section. Update the PROJECTS rows
   with the new home afterwards.
+- AutoWatt: the reseed rubric was signed and merged 2026-07-07 (single
+  main, bc34018); Genesis is running. Q-008 (AWS account) and Q-004
+  (budget) carry week-1 deadlines per the CTO roadmap; they gate cloud
+  cutover, not local work.
 
 ## Resume Packet
 
