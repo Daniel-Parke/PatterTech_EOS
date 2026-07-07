@@ -37,10 +37,12 @@ sub-brand needs this, it needs its own site speaking the family language.
 
 ## Decision rule
 
-Sub-brands with independent identity and published work -> B, with the map
-capped around five accents and every accent passing contrast checks on the
-site's grounds. Purely topical sections -> A. Anything pushing on type or
-surfaces -> C's answer: a separate site.
+No family at all (one trade, one brand) -> A with a single accent; the map
+is overhead without imprints. Sub-brands with independent identity and
+published work -> B, with the map capped around five accents and every
+accent passing contrast checks on the site's grounds. Purely topical
+sections -> A. Anything pushing on type or surfaces -> C's answer: a
+separate site.
 
 ## Default
 

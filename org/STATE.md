@@ -14,10 +14,10 @@ active_session: none
 
 ## Now
 
-Phases B, C, D (bar the D1 signature) and E complete, the drill passed
-cold (sessions S-0002 to S-0011, 2026-07-07). Building v1.0 per
-ADR-0001; the queue holds R1, F1 to F3, the drill follow-ups E3 and
-E4, then REL.
+Every build phase is complete (sessions S-0002 to S-0017, 2026-07-07):
+kernel, inception system, drill passed cold, all five doctrine
+modules, stack profiles, drill follow-ups. Only REL remains; D1 waits
+on the rubric signature.
 
 ## Flags for Daniel
 
@@ -30,11 +30,12 @@ E4, then REL.
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
 - eos_version: pre-1.0.0, main at F3 close (Phase F complete)
-- phase: through E3 done (D1 blocked on the signature only); next E4,
-  then REL
+- phase: everything through E4 done (D1 blocked on the signature
+  only); next REL
 - last_verified: eos_check --repo 0 errors, 0 warnings; --seed 0/0 on
   the Venture A reseed branch and twice on the drill seed
-- next_action: entry mode 2, take E4 from org/QUEUE.md, playbook PB-E03
+- next_action: entry mode 2, take REL from org/QUEUE.md, playbook
+  PB-E05
 - blockers: D1's rubric signature (Daniel), which gates the merge and
   Genesis but nothing in this queue
 - constraints: voice law; wargame first; protected set needs an ADR and

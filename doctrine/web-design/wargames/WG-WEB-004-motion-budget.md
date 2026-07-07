@@ -43,10 +43,13 @@ costs.
 
 ## Decision rule
 
-If the project has signature visuals, choose B (or C only if an ambient
-layer genuinely extends the signature system rather than decorating). If it
-has none, choose A and invest in typography until a signature piece exists.
-Reading matter is still in every option; that part is doctrine, not budget.
+A brand with no signature visual system yet chooses A and invests in
+typography until a signature piece exists; craft and institutional brands
+often live here permanently, and that is a finished answer, not an interim
+one. If the project has signature visuals, choose B (or C only if an
+ambient layer genuinely extends the signature system rather than
+decorating). Reading matter is still in every option; that part is
+doctrine, not budget.
 
 ## Default
 

@@ -39,7 +39,9 @@ Not a face list but a pairing method:
 
 Follow the method; reject any trio that fails step 4 regardless of taste.
 Re-use a previous project's trio only if the brands genuinely share a feel;
-the trio is identity, not infrastructure.
+the trio is identity, not infrastructure. The default instance below is for
+technical-editorial brands only: any other brand character runs the method
+from scratch and must not inherit the house trio by inertia.
 
 ## Default
 
