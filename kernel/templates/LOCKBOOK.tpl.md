@@ -1,81 +1,75 @@
 ---
-summary: Venture lock-book template, rulings and contracts, Phase B rebuild pending
+summary: Venture lock-book template, the machine rulings header and the module contract sections
 type: template
 tags: [eos]
 template: true
+extracted_from: Venture A@d2e3250
+supersedes: the v0.1 PROJECT_LOCKIN migration
+eos_root: {{EOS_ROOT}}
+eos_version: {{EOS_VERSION}}
+eos_commit: {{EOS_COMMIT}}
+scale: {{SCALE}}
+stack: {{STACK_PROFILE}}
+addons: []
+compiled: {{COMPILED_DATE}}
+rulings:
+  - WG-EOS-001 · {{SCALE}} · argued · the scale ruling, triggers engaged at Session 0
 ---
 
-# <Venture> lock-book
+# {{VENTURE_NAME}} lock-book
 
-The venture's contract with the EOS (doctrine/web-design). Compiled at
-Session 0, kept current by the venture: this file wins on specifics, EOS
-doctrine wins on principles. Phase B rebuilds this template with the
-machine-readable YAML rulings header (eos_root, eos_version and commit,
-scale, stack, rulings marked argued or inherited); until then the v0.1
-web-design sections below stand.
-
-- EOS version/commit: <tag or hash>
-- Owner: <name>
-- Last reviewed: <date>
+The venture's contract with the EOS. This file wins on specifics; EOS
+doctrine wins on principles. The YAML header above is machine-read: the
+seed check validates it, the harvest counts its rulings, upgrades diff
+against its pins. Rulings rows are one line each,
+`WG-ID · ruling · argued|inherited · note`; argued means the triggers
+were engaged afresh, inherited means the default was taken without new
+argument. Only argued rulings are promotion evidence.
 
 ## Identity
 
-- One-word feel: <e.g. precise>
-- Signature motif (Doctrine 7): <the one motif, promoted everywhere>
-- Signature animated pieces (the sanctioned exceptions, by name): <list>
-- Voice reference: <path to profile / VOICE doc> · Banned list: <path>
+- One-word feel: {{FEEL}}
+- Signature motif (promoted everywhere): {{MOTIF}}
+- Signature animated pieces (the sanctioned exceptions, by name): {{SIGNATURE_PIECES}}
+- Voice register ruling (WG-VOX-001): in the header; banned list per
+  the voice module.
 
 ## Narrative brief
 
-The one-paragraph story the design must tell without saying it: what the
-visitor should feel, what stays concealed, what escapes anyway. Name the
-physics or motifs the brand draws from and how each becomes a mechanism, not
-a mood board. This paragraph drives the light budget (WG-WEB-005), the
-reactivity ruling (WG-WEB-011) and the imagery ruling (WG-WEB-012); the PatterTech
-example ("a calm vessel around an undeniable source; power that cannot be
-denied yet cannot be placed") shows the register.
+The one-paragraph story the design must tell without saying it: what
+the visitor should feel, what stays concealed, what escapes anyway.
+Name the physics or motifs the brand draws from and how each becomes a
+mechanism, not a mood board. This paragraph drives the light budget
+(WG-WEB-005), the reactivity ruling (WG-WEB-011) and the imagery ruling
+(WG-WEB-012).
 
-- Story: <paragraph>
-- Theme sources -> mechanisms: <e.g. circuits -> conduits along rules;
-  nebulae -> field strata on interludes; neural nets -> activation on hover>
-
-## Rulings
-
-| Wargame | Ruling | Notes |
-| --- | --- | --- |
-| WG-WEB-001 surface register | <A/B/C/D> | <one line> |
-| WG-WEB-002 archetypes in play | <list> | |
-| WG-WEB-004 motion budget | <A/B/C> | |
-| WG-WEB-005 light budget | <A/B/C> | tiers enabled + named exceptions |
-| WG-WEB-007 stack | <A/B/C> | profile: <e.g. STACK_next-static> |
-| WG-WEB-008 media pipeline | <A/B> | script: <path> |
-| WG-WEB-009 accents | <A/B> | map: <path> |
-| WG-WEB-010 type trio | <display / text / mono> | |
-| WG-WEB-011 reactivity | <A/B/C> | bloom carrier list |
-| WG-WEB-012 imagery | <A/B/C> | literal moments, if any |
+{{NARRATIVE}}
 
 ## Tokens
 
-- Token home: <path> · Code mirror: <path> · Styleguide route: </styleguide>
-- Surface ladder: <values>
-- Accents: <primary, counter, family map>
-- Text tiers and measured contrast: <values and ratios>
-- Measures: reading <x> · wide <x> · full <x> · block gap <x>
+- Token home: {{TOKEN_HOME}} · Code mirror: {{TOKEN_MIRROR}} ·
+  Styleguide route: {{STYLEGUIDE_ROUTE}}
+- Surface ladder: {{SURFACE_LADDER}}
+- Accents: {{ACCENTS}}
+- Text tiers and measured contrast: {{TEXT_TIERS}}
+- Measures: reading {{MEASURE_READING}} · wide {{MEASURE_WIDE}} · full
+  {{MEASURE_FULL}} · block gap {{BLOCK_GAP}}
 
 ## QC gates (exact commands)
 
-- Build: <cmd>
-- Overflow at 375: <cmd>
-- Page weight: <cmd or script>
-- Screenshots: <cmd>
-- Regression smokes: <cmd, e.g. capture toolkit>
+- Build: {{GATE_BUILD}}
+- Overflow at 375: {{GATE_OVERFLOW}}
+- Page weight: {{GATE_WEIGHT}}
+- Screenshots: {{GATE_SCREENSHOTS}}
+- Regression smokes: {{GATE_SMOKES}}
 
 ## Structural contracts (things future edits must not break)
 
-- <e.g. anchor ids + scroll margins for the on-page navigator>
-- <e.g. class names capture tooling depends on>
-- <e.g. width-agnostic components; grid-owned rhythm>
+- {{STRUCTURAL_CONTRACTS}}
 
 ## Deviations from doctrine
 
-None, or list each with the wargame that argued it.
+None, or one entry each: the doctrine deviated from, the trigger that
+justifies it, the wargame that argued it (a draft wargame in
+docs/EOS_FEEDBACK.md if none exists), and the operator's approval.
+Deviations are harvested as contrary rulings.

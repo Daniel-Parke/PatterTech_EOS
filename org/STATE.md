@@ -14,10 +14,11 @@ active_session: none
 
 ## Now
 
-Phase B under way: B1 to B3 landed (sessions S-0002 to S-0004,
-2026-07-07). Building v1.0 per ADR-0001; the queue holds B4 to F.
-Venture A waits on phases B to D before its reseed and Genesis; treat
-B4 to D2 as the critical path.
+Phase B complete (sessions S-0002 to S-0005, 2026-07-07): the full
+kernel template set, the scale matrix, the seed rubric and the live
+seed gate. Building v1.0 per ADR-0001; the queue holds C1 to F.
+Venture A waits on C1 and C2 before its reseed and Genesis; treat C1 to
+D2 as the critical path.
 
 ## Flags for Daniel
 
@@ -28,12 +29,12 @@ B4 to D2 as the critical path.
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at B3 close
-- phase: B in flight; B1 to B3 done, next item B4 (scale matrix, seed
-  rubric, venture templates, seed checks)
+- eos_version: pre-1.0.0, main at B4 close (Phase B complete)
+- phase: B done; next item C1 (compile rules and walk order)
 - last_verified: eos_check --repo 0 errors, 6 expected warnings;
-  indexes fresh
-- next_action: entry mode 2, take B4 from org/QUEUE.md, playbook PB-E03
+  --seed green on the S fixture and red on the broken fixture; indexes
+  fresh
+- next_action: entry mode 2, take C1 from org/QUEUE.md, playbook PB-E03
 - blockers: none
 - constraints: voice law; wargame first; protected set needs an ADR and
   now includes the B1 templates (constitution Parts II and III, the

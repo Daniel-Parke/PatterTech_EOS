@@ -13,15 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### B4. Scale matrix, seed rubric, venture templates, seed checks
-- phase: B · playbook: PB-E03 · claims: `kernel/`, `tools/`
-- SCALE_MATRIX.md (exact file list per S, M, L plus trigger add-ons),
-  SEED_RUBRIC.md (auto items keyed to check IDs, human items with the
-  cold-start test first), rebuild LOCKBOOK.tpl.md with the YAML rulings
-  header, VENTURE_BRIEF.tpl.md, EOS_FEEDBACK.tpl.md,
-  COMPILE_REPORT.tpl.md. Turn on eos_check --seed against the matrix.
-- done when: `eos_check.py --seed` validates a hand-made fixture seed.
-
 ### C1. Compile rules and walk order
 - phase: C · playbook: PB-E03 · claims: `inception/`
 - COMPILE.md (prune, fill, distil, report) and WALK_ORDER.md (filter
@@ -113,3 +104,5 @@ the critical path: Venture A's reseed and Genesis wait on them.
   questions (session S-0003, 2026-07-07).
 - B3. Kernel extraction: playbooks, operators guide, agent routers
   (session S-0004, 2026-07-07).
+- B4. Scale matrix, seed rubric, venture templates, seed checks
+  (session S-0005, 2026-07-07).
