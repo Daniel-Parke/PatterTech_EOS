@@ -1,7 +1,12 @@
-# WG-WEB-002: Which vocabulary does this page speak?
-
+---
+summary: Which vocabulary does this page speak?
+type: wargame
+tags: [web, nav, content]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-002: Which vocabulary does this page speak?
 
 ## The question
 

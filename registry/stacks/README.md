@@ -2,6 +2,8 @@
 summary: Stack profiles, what each is for and when to reach for it
 type: registry
 tags: [eos, infra, hosting]
+status: active
+review_by: 2027-01
 ---
 
 # Stack profiles

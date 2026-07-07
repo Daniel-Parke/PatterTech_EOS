@@ -1,3 +1,11 @@
+---
+summary: Profile 01, Next.js static export, shape and constraints
+type: stack
+tags: [web, hosting, infra]
+status: active
+review_by: 2027-01
+---
+
 # Stack profile 01: Next.js static export
 
 The default stack for marketing, editorial and research sites (ruled by

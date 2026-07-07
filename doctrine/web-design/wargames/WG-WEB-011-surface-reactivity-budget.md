@@ -1,7 +1,12 @@
-# WG-WEB-011: Should the surface react to presence?
-
+---
+summary: Should the surface react to presence?
+type: wargame
+tags: [web, motion, perf]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-011: Should the surface react to presence?
 
 ## The question
 

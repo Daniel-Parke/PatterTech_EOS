@@ -1,3 +1,9 @@
+---
+summary: Choosing and proving the three faces, scales and measures
+type: foundation
+tags: [web, typography]
+---
+
 # Typography
 
 How to derive a project's type system. Doctrine 4 applies: typography carries

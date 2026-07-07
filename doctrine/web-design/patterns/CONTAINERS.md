@@ -1,3 +1,9 @@
+---
+summary: Ledger, plaque, panel, table or prose, chosen by content
+type: pattern
+tags: [web, layout, density]
+---
+
 # Containers
 
 Doctrine 5: there is no universal card. Pick the container by what the

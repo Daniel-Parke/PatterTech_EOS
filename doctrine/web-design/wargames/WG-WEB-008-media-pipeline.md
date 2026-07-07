@@ -1,7 +1,12 @@
-# WG-WEB-008: How do images get to the page?
-
+---
+summary: How do images get to the page?
+type: wargame
+tags: [web, media, perf]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-008: How do images get to the page?
 
 ## The question
 

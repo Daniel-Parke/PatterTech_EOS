@@ -1,7 +1,12 @@
-# WG-WEB-009: One brand or a family of accents?
-
+---
+summary: One brand or a family of accents?
+type: wargame
+tags: [web, brand, colour]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-009: One brand or a family of accents?
 
 ## The question
 

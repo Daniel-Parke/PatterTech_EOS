@@ -1,7 +1,12 @@
-# WG-WEB-004: How much may this project move?
-
+---
+summary: How much may this project move?
+type: wargame
+tags: [web, motion]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-004: How much may this project move?
 
 ## The question
 

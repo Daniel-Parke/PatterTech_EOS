@@ -1,7 +1,12 @@
-# WG-WEB-013: Where does a design law live so it actually holds?
-
+---
+summary: Where does a design law live so it actually holds?
+type: wargame
+tags: [web, tooling, testing]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-013: Where does a design law live so it actually holds?
 
 ## The question
 

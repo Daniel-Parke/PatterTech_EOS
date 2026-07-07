@@ -1,3 +1,9 @@
+---
+summary: The accessibility floor, skip link to reduced motion
+type: ux
+tags: [web, a11y]
+---
+
 # Accessibility
 
 The floor, not a feature. These ship on every project.

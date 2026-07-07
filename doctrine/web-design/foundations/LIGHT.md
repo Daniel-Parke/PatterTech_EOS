@@ -1,3 +1,9 @@
+---
+summary: The graded light system, field to radiance, with budgets
+type: foundation
+tags: [web, colour, motion]
+---
+
 # Light
 
 The light system that makes Doctrine 2 buildable. Extracted from the

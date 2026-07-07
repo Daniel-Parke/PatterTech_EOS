@@ -1,3 +1,9 @@
+---
+summary: The executable gates and when each runs
+type: implementation
+tags: [web, testing, tooling]
+---
+
 # QC gates
 
 A page ships when the gates say so (Doctrine 9). Every gate is a script or a

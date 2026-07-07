@@ -1,3 +1,9 @@
+---
+summary: Figures, carousels, video facades, audio and document panels
+type: pattern
+tags: [web, media]
+---
+
 # Media
 
 Doctrine 11: media earns its weight. Media is a cited reference, not a

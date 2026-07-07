@@ -1,7 +1,12 @@
-# WG-WEB-014: Is a media block a citation or a monument?
-
+---
+summary: Is a media block a citation or a monument?
+type: wargame
+tags: [web, media, layout, content]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-014: Is a media block a citation or a monument?
 
 ## The question
 

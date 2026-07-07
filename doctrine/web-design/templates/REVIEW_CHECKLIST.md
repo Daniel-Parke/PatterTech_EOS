@@ -1,3 +1,9 @@
+---
+summary: Evidence-based review checklist before shipping
+type: template
+tags: [web, testing]
+---
+
 # Review checklist
 
 For reviewing a page or change set against the framework. Answer each with

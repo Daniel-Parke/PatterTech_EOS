@@ -1,3 +1,9 @@
+---
+summary: Three token layers and the mirroring contract
+type: implementation
+tags: [web, tooling, brand]
+---
+
 # Tokens
 
 Three layers, one source of truth, mirrored deliberately.

@@ -1,7 +1,12 @@
-# WG-WEB-007: Static export or a server?
-
+---
+summary: Static export or a server?
+type: wargame
+tags: [web, hosting, infra, state]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-007: Static export or a server?
 
 ## The question
 
