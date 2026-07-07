@@ -1,3 +1,9 @@
+---
+summary: Header, footer and index patterns, the journal threading model
+type: pattern
+tags: [web, nav]
+---
+
 # Navigation and chrome
 
 ## Header

@@ -1,7 +1,12 @@
-# WG-WEB-005: How much light does this project carry?
-
+---
+summary: How much light does this project carry?
+type: wargame
+tags: [web, colour, motion, brand]
 status: active (rewritten 2026-07 after the PatterTech v2 over-correction)
 review_by: 2027-07
+---
+
+# WG-WEB-005: How much light does this project carry?
 
 ## The question
 

@@ -1,11 +1,20 @@
-# <Project> design lock-in
+---
+summary: Venture lock-book template, rulings and contracts, Phase B rebuild pending
+type: template
+tags: [eos]
+template: true
+---
 
-The project's contract with the PatterTech Framework (modules/web-design).
-Copy this file into the project repo, fill it in by walking the cited
-wargames, and keep it current: this file wins on specifics, framework
-doctrine wins on principles.
+# <Venture> lock-book
 
-- Framework version/commit: <hash or date>
+The venture's contract with the EOS (doctrine/web-design). Compiled at
+Session 0, kept current by the venture: this file wins on specifics, EOS
+doctrine wins on principles. Phase B rebuilds this template with the
+machine-readable YAML rulings header (eos_root, eos_version and commit,
+scale, stack, rulings marked argued or inherited); until then the v0.1
+web-design sections below stand.
+
+- EOS version/commit: <tag or hash>
 - Owner: <name>
 - Last reviewed: <date>
 

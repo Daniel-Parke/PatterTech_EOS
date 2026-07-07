@@ -1,3 +1,9 @@
+---
+summary: Worked example, the PatterTech website redesign v1 to v4
+type: example
+tags: [web, brand]
+---
+
 # Worked example: the PatterTech website redesign (2026-07)
 
 The project that produced this module. Repo: `PatterTech_Website` (its

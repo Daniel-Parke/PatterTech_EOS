@@ -1,7 +1,12 @@
-# WG-WEB-003: Card, ledger, plaque, table or prose?
-
+---
+summary: Card, ledger, plaque, table or prose?
+type: wargame
+tags: [web, layout, density]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-003: Card, ledger, plaque, table or prose?
 
 ## The question
 

@@ -1,3 +1,9 @@
+---
+summary: Section marks, chapter marks, colophons and the andon line
+type: pattern
+tags: [web, layout]
+---
+
 # Section furniture
 
 The pieces that open and close sections. These replace the centred

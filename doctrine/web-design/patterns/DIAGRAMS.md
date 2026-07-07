@@ -1,3 +1,9 @@
+---
+summary: Diagram kit rules, positions from data, labels that never overlap
+type: pattern
+tags: [web, media]
+---
+
 # Diagrams and charts
 
 The diagram language is often the strongest candidate for a project's

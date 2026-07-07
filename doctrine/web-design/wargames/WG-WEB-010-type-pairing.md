@@ -1,7 +1,12 @@
-# WG-WEB-010: How to pick the type trio?
-
+---
+summary: How to pick the type trio?
+type: wargame
+tags: [web, typography, brand]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-010: How to pick the type trio?
 
 ## The question
 

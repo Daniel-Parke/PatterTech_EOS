@@ -1,3 +1,9 @@
+---
+summary: Motion with meaning, reveals, easing and reduced-motion duty
+type: foundation
+tags: [web, motion]
+---
+
 # Motion
 
 What may move, and how. Doctrine 8 applies: motion means something. The

@@ -1,3 +1,9 @@
+---
+summary: The long-read kit, pacing and numbering as identity
+type: pattern
+tags: [web, content, layout]
+---
+
 # Long-form reading
 
 The article pattern: how a 10-20,000px read stays a pleasure. Built on the

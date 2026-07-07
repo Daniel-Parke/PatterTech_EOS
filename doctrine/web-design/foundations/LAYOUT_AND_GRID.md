@@ -1,3 +1,9 @@
+---
+summary: The reading grid, measures and bleeds that kill drift
+type: foundation
+tags: [web, layout]
+---
+
 # Layout and grid
 
 How pages hold together. Doctrine 3 (structure over memory) and 6 (editorial

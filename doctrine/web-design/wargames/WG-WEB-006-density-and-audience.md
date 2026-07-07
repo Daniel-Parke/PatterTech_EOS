@@ -1,7 +1,12 @@
-# WG-WEB-006: How dense, for whom?
-
+---
+summary: How dense, for whom?
+type: wargame
+tags: [web, density, content]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-006: How dense, for whom?
 
 ## The question
 

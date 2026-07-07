@@ -1,7 +1,12 @@
-# WG-WEB-012: Literal imagery or generated fields?
-
+---
+summary: Literal imagery or generated fields?
+type: wargame
+tags: [web, imagery, brand]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-012: Literal imagery or generated fields?
 
 ## The question
 

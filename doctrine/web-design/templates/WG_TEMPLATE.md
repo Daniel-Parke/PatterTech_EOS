@@ -7,7 +7,7 @@ tags: [eos, wargame]
 # WG-<MOD>-NNN: <the question, as a question>
 
 The ID is module-prefixed and globally unique: WEB, ARCH, DEL, OPS, VOX,
-EOS. Numbers run per module (WG-WEB-015, WG-ARCH-001). One fork per
+EOS. Numbers run per module (`WG-WEB-015`, `WG-ARCH-001`). One fork per
 wargame; if a second independent question grows inside one, split it into
 a new wargame and cross-link (see doctrine/MODULE_SHAPE.md).
 

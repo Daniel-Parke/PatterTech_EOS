@@ -1,3 +1,9 @@
+---
+summary: Budgets and the structural choices that keep pages light
+type: ux
+tags: [web, perf]
+---
+
 # Performance
 
 Budgets are written down and gated, not aspired to.

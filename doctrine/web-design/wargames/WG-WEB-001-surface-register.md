@@ -1,7 +1,12 @@
-# WG-WEB-001: Dark, light, or dual register?
-
+---
+summary: Dark, light, or dual register?
+type: wargame
+tags: [web, colour, brand]
 status: active
 review_by: 2027-07
+---
+
+# WG-WEB-001: Dark, light, or dual register?
 
 ## The question
 

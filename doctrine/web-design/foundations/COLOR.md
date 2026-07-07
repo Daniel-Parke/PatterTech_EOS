@@ -1,3 +1,9 @@
+---
+summary: Deriving the surface ladder, accents and measured text tiers
+type: foundation
+tags: [web, colour]
+---
+
 # Colour
 
 How to derive a project's palette. Doctrine 2 (semantic ornament) governs how

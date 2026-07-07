@@ -281,7 +281,7 @@ references in PatterTech_Website are updated at the same time.
 Phase A (this session): migration, roots, governance, registries, org
 instance, check tool. Phase B: kernel extraction from the Venture A seed
 at commit d2e3250, scale matrix, seed rubric; four to five sessions and
-the highest-leverage writing in the plan. Phase C: compile rules and the
+the highest-value writing in the plan. Phase C: compile rules and the
 voice module. Phase D: the Venture A reseed, which doubles as the L-scale
 drill; Daniel ruled that Venture A reseeds from the new kernel before
 Genesis runs, so phases B to D are front-loaded to keep sprint delay

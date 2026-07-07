@@ -1,3 +1,9 @@
+---
+summary: How an agent works a web project without breaking it
+type: implementation
+tags: [web, tooling]
+---
+
 # Agent workflow
 
 How an agent executes web work on this framework without supervision.
