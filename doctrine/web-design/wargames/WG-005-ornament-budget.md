@@ -68,3 +68,14 @@ B otherwise.
   conduits; bloom via one delegated listener; refined neon on buttons, nav,
   focus; monuments radiate; body text still never glows; reading matter
   still never animates. This is the house default going forward.
+- **PatterTech v4 (2026-07)**: C with the dimmer one step higher. v3 passed
+  the laws but failed the owner's read: "there is a fine line between elegant
+  and invisible", and v3 sat on the wrong side of it on interior pages, where
+  the home hero carried most of the energy. The recalibration: conduit duty
+  cycles relaxed from >= ~18s to >= ~12s; a one-shot heading sweep
+  (white-to-cherenkov, settling to solid type) on section and page titles;
+  mono indices moved from grey to the brand blue by default; one persistent
+  slow-traveller rule allowed on monuments (two per page at most). The test
+  recorded with it: if a first-time visitor scrolls a page and can name no
+  moment, the dimmer is too low; if anything loops busily beside reading
+  matter, it is too high.

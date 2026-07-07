@@ -56,3 +56,11 @@ B. Concentrated.
   a semantic status-only mark; buttons and panels stopped lifting. Reveal
   was reimplemented as CSS + IntersectionObserver with a
   `@media (scripting: enabled)` guard.
+- **PatterTech Website v4 (2026-07)**: B held, with the arrival class made
+  louder after the owner's verdict on v3 was "too sparse, or too hard to
+  notice". The principle recorded: **motion is event-driven**. Arrival does
+  the loud work (headings sweep white-to-cherenkov once as they reveal, rules
+  charge once, stat values glint once) and the page stays calm between
+  events. One persistent slow traveller class was allowed (12s cycle, at
+  most two per page, monuments only). Reading matter stayed still and quiet
+  rooms (legal pages) stayed quiet.

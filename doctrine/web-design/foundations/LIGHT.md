@@ -46,6 +46,19 @@ online), **glint** (a single sweep when a counter completes), **radiate**
 - **Ignite**: `reveal.is-shown { animation: brightness(1.3) -> 1 over 0.5s }`
   with NO fill mode (a persistent filter would leave a containing block on
   every revealed element).
+- **Heading sweep (one-shot)**: `background-clip: text` over a 300%-wide
+  gradient whose two resting windows are plain text colour, with
+  `background-position` animated once (~1.1s, `both` fill) as the reveal
+  fires. The element keeps clipped text afterwards but shows exactly the
+  text colour, so the settled state is indistinguishable from an unswept
+  heading; reduced motion lands on the same state instantly. This is the one
+  sanctioned exception to the background-position ban below because it is a
+  one-shot, not a loop. Never combine with a text-shadow: a shadow paints
+  over clipped text.
+- **Live rule**: the persistent slow traveller for monuments: a 1px rule
+  with a ~35%-wide bright band on a `::before`, `translateX(-120% -> 380%)`
+  over ~12s ease-in-out, infinite, inside `overflow: hidden`. Budget: at
+  most two per page, monuments only (a colophon rule, a hub-page seam).
 - **Pseudo-element allocation**: budget the two pseudos per element up front
   (e.g. panel top-light on `::before`, bloom on `::after`); anything third
   (a border beam) ships as a real decorated span. A border beam is a
@@ -72,8 +85,18 @@ that triggers layout; no continuous filter or background-position animation.
 
 - If a screenshot of any single component looks "glowy", the tier budget is
   blown; light should be visible in the periphery and deniable up close.
+- The opposite failure is real too (PatterTech v4, 2026-07): there is a fine
+  line between elegant and invisible. The test that decides it: if a
+  first-time visitor scrolls a page and can name no moment, the dimmer is too
+  low; if anything loops busily beside reading matter, it is too high.
+- Arrival does the loud work. One-shot events (heading sweeps, rule charges,
+  stat glints) may be plainly visible because they happen once, on cue; the
+  page stays calm between events. Spend arrival freely before spending loops.
 - One warm field moment per long read; one travelling conduit per viewport;
   seams on marquee sections only. Repetition turns light back into wallpaper.
+- Colour is part of the light system: mono indices and journal numerals carry
+  the brand accent by default, not grey. A page can be starved of energy by
+  desaturation as surely as by stillness.
 - The mono annotation voice stays quiet alongside the light (tracking ~0.2em,
   roughly two mono voices per viewport region); light replaces the shouting,
   it does not join it.

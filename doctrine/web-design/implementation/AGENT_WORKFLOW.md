@@ -16,6 +16,12 @@ How an agent executes web work on this framework without supervision.
 - **New vocabulary lands as new files**; existing components are restyled in
   place or replaced, and legacy pieces are deleted only after their last
   importer migrates. The build stays green after every phase.
+- **Every new component carries its law in a JSDoc header**: what it is for
+  and what it must never do (width-agnostic, grid-owned rhythm, static
+  rendering, whichever constraint it enforces). If the law cannot be written,
+  the component is not ready. Kits keep a colocated GUIDE.md beside the code,
+  and pattern-checkable laws also live in a design lint inside the standard
+  lint command (WG-013): docs alone get broken politely.
 - Tokens first, then primitives on the styleguide, then pages, then
   deletions, then docs. Do not skip the styleguide step: it is where drift
   becomes visible before it ships.

@@ -19,14 +19,25 @@ spectacle.
 One card at a time: a single readable portrait card, grouped prev/next
 arrows, dot indicators, an "n / total" mono counter, keyboard and swipe, no
 autoplay, reduced-motion aware, tap to zoom. Never a row of tiny cards. In
-long reads a carousel sits on an interlude band.
+long reads a carousel is a cited figure in the reading column with a caption;
+media never sits on an interlude band and never bleeds full (WG-014; this
+sentence used to say the opposite, and the PatterTech chapter-six carousel
+shipped at three widths on one page because of it).
 
 ## Video
 
 Embeds are facades: a poster card with a play control that only loads the
 player (privacy-respecting domain where available) on click. A video is a
-compact card in the reading column, never a full-width slab. Self-hosted
-loops belong to signature visuals only and follow the motion budget.
+compact card in the reading column, never a full-width slab, and the player
+opens in the site's fullscreen overlay rather than expanding in place.
+Closing the overlay unmounts the player, which stops the audio. Two hard
+lessons behind that (2026-07): a grid child with auto margins gives up
+stretch and shrinks to fit, so a box whose only child is absolutely
+positioned collapses to a border shell while its audio plays; and a
+protection-grade CSP (`default-src 'self'`) silently blocks every
+third-party frame in production unless `frame-src` carves out the sanctioned
+embed domain. Self-hosted loops belong to signature visuals only and follow
+the motion budget.
 
 ## Audio
 

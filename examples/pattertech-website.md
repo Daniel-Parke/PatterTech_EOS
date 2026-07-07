@@ -92,3 +92,46 @@ switch); WG-011 -> C (field-reactive, fine pointers only); WG-012 -> A
 (generated light only; the brand's light must be computed, like Cherenkov
 radiation itself). The lesson that earned its own doctrine edit: restraint
 executed as absence reads robotic; execute restraint as containment.
+
+## v4: the incidents, the dial and the instruments (2026-07)
+
+Two defects surfaced on the flagship article and both traced to width
+decisions taken outside the kit. A carousel had been built onto a full bleed
+and an interlude band (the module's own MEDIA.md said to at the time), and
+because the full column was uncapped it rendered at three different widths
+on one page. A video card expanded its player in place inside a hand-rolled
+`mx-auto max-w-xl` wrapper; auto margins defeat a grid child's stretch, the
+wrapper shrank to fit a box whose only child was absolutely positioned, and
+the player collapsed to a 2px shell with its audio still playing. Production
+had a second, silent layer: the content-protection CSP shipped without a
+`frame-src` carve-out, so the embed was blocked outright on the deployed
+site.
+
+The fixes went to the root. The full column is now capped at the full
+measure with outer `1fr` tracks, so a bleed means the same width in every
+wrapper. Media became citations: the carousel is a reading-column figure,
+the video card opens its player in the fullscreen overlay, and the bands
+stayed with the quote and interlude monuments. Enforcement moved beside the
+code: a GUIDE.md in the kit folder, a JSDoc law header on every component,
+and a dependency-free design lint inside `npm run lint` with reasoned pragma
+escapes. WG-013 and WG-014 record the forks.
+
+The owner's second verdict on v3 was that the light passed the laws but sat
+too close to invisible on interior pages ("there is a fine line between
+elegant and invisible"), so the dimmer came up one step: a one-shot
+white-to-cherenkov sweep across section and page headings as they reveal,
+rules charging on arrival, mono indices and journal numerals in the brand
+blue rather than grey, conduit duty cycles relaxed to >= ~12s, and one
+persistent slow traveller allowed on monuments (two per page at most).
+Arrival does the loud work; the page stays calm between events; quiet rooms
+stay quiet. The mark itself was charged rather than replaced: heavier ring
+weights stepping towards a hotter core, and a one-shot orbital arc that
+sweeps the outer ring on arrival and on hover.
+
+The vocabulary grew by eight, each carrying its law in its JSDoc: PullStat
+(the one number an argument turns on), Marginalia (mono gutter notes),
+SpecTable (facts as a manifest), DataRule (a ticked, charging hairline),
+Reticle (corner-tick instrumentation around one artefact), Constellation
+(seeded generated divider art), FigureCompare (two states of one figure on a
+reveal slider) and Interlude (the band monument extracted from BigQuote).
+Everything shipped live on a page and on the styleguide in the same change.
