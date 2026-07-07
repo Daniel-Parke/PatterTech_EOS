@@ -23,6 +23,9 @@ registry, org, tools.
   default professional-calm), walked in every Session 0.
 - **kernel**: created with the compile contract; LOCKBOOK.tpl.md
   migrated from the v0.1 project lock-in, full templates due in Phase B.
+  D2's harvest amended two templates from reseed feedback: the
+  constitution footer's AMENDMENT_HISTORY slot and the compile report's
+  normalised and preserved ancestry row kinds.
   B1 landed the org templates from Venture A@d2e3250: the constitution
   (product-doctrine slot, Parts II and III renumbered per part), START
   and the three role charters, the three-strikes rule woven through,

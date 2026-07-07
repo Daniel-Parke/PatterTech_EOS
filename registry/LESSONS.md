@@ -26,3 +26,7 @@ below from the estate survey at EOS creation.
 | 2026-07 | Stale docs are a bug: delete, ban-list the old path in a test, never archive-in-place | WiseWattage | Absorbed into GOVERNANCE supersession rules |
 | 2026-07 | A design law that lives one directory away from the code might as well not exist | PatterTech_Website v4 | WG-WEB-013 filed (by Daniel) |
 | 2026-07 | Uniform ceremony kills small work; a bug fix must never need sixteen acceptance criteria | External (SDD research) | Became the scale system and WG-EOS-001 mandate |
+| 2026-07 | Template boilerplate that states venture history ("amendment history: none") must be a slot; a reseed with real history should fill, not overwrite | Venture A reseed (EOS_FEEDBACK) | Default changed: CONSTITUTION.tpl.md footer gained the AMENDMENT_HISTORY slot (this harvest) |
+| 2026-07 | The dark-first surface register loses to print-native institutional brands; the ink-like clause carried a real venture | Venture A reseed (EOS_FEEDBACK) | Ruling appended to WG-WEB-001 (argued); a second concordant ruling would change the default |
+| 2026-07 | Reseeds meet pre-EOS files; the ancestry table needs normalised and preserved row kinds beyond compiled and authored | Venture A reseed | Default changed: COMPILE_REPORT.tpl.md documents both kinds (this harvest) |
+| 2026-07 | The prune-and-fill compile is mechanical enough to script; twenty lines compiled the two largest files with zero manual fixes | Venture A reseed | E1 mandate: INCEPTION.md phase D should let the compiler script the mechanical core |

@@ -56,6 +56,7 @@ Derived file. Edit front-matter, then run
 | doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md | wargame | web imagery brand | Literal imagery or generated fields? | 2027-07 |
 | doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md | wargame | web tooling testing | Where does a design law live so it actually holds? | 2027-07 |
 | doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
+| examples/venture-a-seed.md | example | eos | Worked example, the Venture A reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set |  |
 | inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
@@ -95,6 +96,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0006.md | org | eos | Session S-0006, Phase C item C1, the compile rules and walk order, dry run recorded |  |
 | org/logs/2026-07/S-0007.md | org | eos | Session S-0007, Phase C item C2, the voice module populated |  |
 | org/logs/2026-07/S-0008.md | org | eos | Session S-0008, Phase D item D1, the Venture A reseed compiled to green, signature pending |  |
+| org/logs/2026-07/S-0009.md | org | eos | Session S-0009, Phase D item D2, the worked example and the first live harvest |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

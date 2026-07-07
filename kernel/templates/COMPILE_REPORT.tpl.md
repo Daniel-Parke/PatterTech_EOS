@@ -23,7 +23,10 @@ traced to a row below is a compile failure.
 
 One row per compiled file. Source is the kernel template path, `byte
 copy of AGENTS.md` for CLAUDE.md, or `authored` for trigger add-ons
-written at Session 0 from doctrine (name the doctrine).
+written at Session 0 from doctrine (name the doctrine). Reseeds add two
+row kinds: `normalised` (pre-EOS venture files that gained front-matter
+only, content untouched) and `preserved` (venture content the compile
+did not touch).
 
 | file | source | slots filled | fences pruned |
 | --- | --- | --- | --- |

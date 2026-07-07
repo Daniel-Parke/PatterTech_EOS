@@ -94,5 +94,4 @@ shared repository. Its integrity rests on ten articles:
   record it in the venture's feedback file so the harvest carries it
   home.
 
-*Adopted {{ADOPTED_DATE}} (Session 0). Amendment history since
-adoption: none.*
+*Adopted {{ADOPTED_DATE}} (Session 0). {{AMENDMENT_HISTORY}}*

@@ -68,3 +68,8 @@ pieces breathe.
   ladder (void -> surface -> surface-2 -> surface-3 -> ember) and interlude
   bands rather than a light register. D was considered and declined for QC
   cost; revisit if the journal grows past ~20 long reads.
+- **Venture A (2026-07, argued)**: chose B against the dark-first default.
+  An insurer-facing registry brand whose one physical object is an etched
+  plate is print-native, not glow-native; the decision rule's ink-like
+  clause carried it. Landed in the reseed lock-book (Venture A
+  docs/LOCKBOOK.md, branch reseed/eos-v1).

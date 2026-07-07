@@ -13,12 +13,6 @@ the critical path: Venture A's reseed and Genesis wait on them.
 
 ## Ready
 
-### D2. Worked example and reseed harvest
-- phase: D · playbook: PB-E02 · claims: `examples/`, `registry/`
-- Write examples/venture-a-seed.md from the reseed. Harvest lessons from
-  the compile into LESSONS.md with dispositions.
-- done when: example indexed, lessons landed.
-
 ### E1. Inception system
 - phase: E · playbook: PB-E03 · claims: `inception/`
 - INCEPTION.md (phases A to E), INTERVIEW.md (challenge steps),
@@ -92,3 +86,4 @@ the critical path: Venture A's reseed and Genesis wait on them.
   (session S-0005, 2026-07-07).
 - C1. Compile rules and walk order (session S-0006, 2026-07-07).
 - C2. Voice module (session S-0007, 2026-07-07).
+- D2. Worked example and reseed harvest (session S-0009, 2026-07-07).
