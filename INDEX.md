@@ -60,8 +60,12 @@ Derived file. Edit front-matter, then run
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set |  |
 | inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
+| inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
+| inception/INTERVIEW.md | kernel | eos | The intake protocol, question set and the three mandatory challenge steps |  |
 | inception/README.md | kernel | eos | The Session 0 system, what it is and what lands here in Phase E |  |
 | inception/WALK_ORDER.md | kernel | eos wargame | How to compile the venture's wargame walk from the index, filter by triggers, canonical order |  |
+| inception/wargames/WG-EOS-001-venture-scale.md | wargame | eos wargame | What scale of organisational machinery does this venture compile, S, M or L? | 2027-07 |
+| inception/wargames/WG-EOS-002-repo-shape.md | wargame | eos wargame infra | One repo, several, or a corner of an existing one? | 2027-07 |
 | kernel/README.md | kernel | eos | The compile contract, scale system and concurrency doctrine for the kernel |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The exact seed file list per scale S, M and L, plus trigger add-ons, machine-checked |  |
 | kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to check IDs, human items headed by the cold-start test |  |
@@ -97,6 +101,7 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0007.md | org | eos | Session S-0007, Phase C item C2, the voice module populated |  |
 | org/logs/2026-07/S-0008.md | org | eos | Session S-0008, Phase D item D1, the AutoWatt reseed compiled to green, signature pending |  |
 | org/logs/2026-07/S-0009.md | org | eos | Session S-0009, Phase D item D2, the worked example and the first live harvest |  |
+| org/logs/2026-07/S-0010.md | org | eos | Session S-0010, Phase E item E1, the inception system completed |  |
 | org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
 | org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |

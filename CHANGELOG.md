@@ -47,7 +47,11 @@ registry, org, tools.
   COMPILE.md (prune, fill, distil, report, and the compiler's
   never-list) and WALK_ORDER.md (trigger-filtered walk, canonical
   module order, the draft-wargame escape, the twenty-ruling budget
-  alarm).
+  alarm). E1 completed the system: INCEPTION.md (phases A to E),
+  INTERVIEW.md (twelve questions, three challenge steps), WG-EOS-001
+  (venture scale, six triggers, argued rulings from AutoWatt and the
+  website) and WG-EOS-002 (repo shape, default monorepo, estate
+  rulings).
 - **registry**: created; projects, vendors, lessons and the static web
   stack profile seeded. D1 updated the AutoWatt row: reseed compiled to
   a green seed check on branch reseed/eos-v1, awaiting the rubric

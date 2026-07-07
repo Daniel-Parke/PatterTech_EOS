@@ -30,12 +30,12 @@ E1 to F.
 ## Resume Packet
 
 - venture: the EOS itself (PatterTech_Framework, rename lands at REL)
-- eos_version: pre-1.0.0, main at D2 close
-- phase: B, C, D done (D1 blocked on the signature only); next item E1
-  (inception system)
-- last_verified: eos_check --repo 0 errors, expected warnings only;
-  --seed 0/0 on the AutoWatt reseed branch; indexes fresh
-- next_action: entry mode 2, take E1 from org/QUEUE.md, playbook PB-E03
+- eos_version: pre-1.0.0, main at E1 close
+- phase: B, C, D done (D1 blocked on the signature only), E1 done; next
+  item E2 (S-scale drill)
+- last_verified: eos_check --repo 0 errors, 0 warnings expected now the
+  EOS wargames exist; --seed 0/0 on the AutoWatt reseed branch
+- next_action: entry mode 2, take E2 from org/QUEUE.md, playbook PB-E07
 - blockers: D1's rubric signature (Daniel), which gates the merge and
   Genesis but nothing in this queue
 - constraints: voice law; wargame first; protected set needs an ADR and
