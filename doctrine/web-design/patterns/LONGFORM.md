@@ -26,7 +26,7 @@ reading grid:
   zoom control. Number figures sequentially through the piece.
 - **CardStrip**: a one-card carousel of branded cards, cited in the reading
   column like any figure. It used to sit on an interlude band; that doctrine
-  caused the three-widths incident and was overturned by WG-014. Media is a
+  caused the three-widths incident and was overturned by WG-WEB-014. Media is a
   citation.
 - **Interlude / BigQuote**: the tonal steps, composed as their own contained
   monuments outside the prose grid. A band never wraps media.
@@ -38,7 +38,7 @@ reading grid:
 The kit's working contract (grid contract, media law, add-a-component
 checklist) lives beside the code as a GUIDE.md in the kit folder, with a
 JSDoc law header on every component and a design lint in the standard lint
-command (WG-013). A law that lives only in module docs will eventually be
+command (WG-WEB-013). A law that lives only in module docs will eventually be
 broken politely.
 
 ## Pacing rules

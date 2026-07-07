@@ -1,4 +1,4 @@
-# WG-002: Which vocabulary does this page speak?
+# WG-WEB-002: Which vocabulary does this page speak?
 
 status: active
 review_by: 2027-07
@@ -15,7 +15,7 @@ or utility?
   twenty minutes, evaluate a product, operate a tool, or complete an errand.
 - Content lifetime: evergreen story vs growing index vs dated piece.
 - Density and audience: an exec skims, a practitioner reads, an operator acts
-  (see WG-006).
+  (see WG-WEB-006).
 
 ## Options
 

@@ -38,7 +38,7 @@ construction. PatterTech's `.prose-grid` is the reference implementation.
 Three measures cover everything: reading (~48rem), wide (~56rem, for figures
 and stat rows), full (~72rem, the cap of the full bleed). Body text, videos
 and carousels never leave the reading measure: media is a citation
-(patterns/MEDIA.md, WG-014).
+(patterns/MEDIA.md, WG-WEB-014).
 
 ## Marked sections and the hanging index
 

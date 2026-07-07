@@ -1,4 +1,4 @@
-# WG-012: Literal imagery or generated fields?
+# WG-WEB-012: Literal imagery or generated fields?
 
 status: active
 review_by: 2027-07

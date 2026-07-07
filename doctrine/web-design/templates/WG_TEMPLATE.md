@@ -1,7 +1,29 @@
-# WG-0XX: <the question, as a question>
+---
+summary: Copy-exact template for a new wargame in any module
+type: template
+tags: [eos, wargame]
+---
 
-status: draft | active | superseded by WG-0YY
-review_by: <date>
+# WG-<MOD>-NNN: <the question, as a question>
+
+The ID is module-prefixed and globally unique: WEB, ARCH, DEL, OPS, VOX,
+EOS. Numbers run per module (WG-WEB-015, WG-ARCH-001). One fork per
+wargame; if a second independent question grows inside one, split it into
+a new wargame and cross-link (see doctrine/MODULE_SHAPE.md).
+
+Start the file with this front-matter:
+
+```yaml
+---
+summary: <the question in one line>
+type: wargame
+tags: [<module tag>, <trigger tags such as auth, state, money, motion>]
+status: draft | active | contested | superseded
+review_by: <YYYY-MM, usually a year out>
+supersedes: <WG id, if any>
+superseded_by: <WG id, if any>
+---
+```
 
 ## The question
 
@@ -31,5 +53,9 @@ The option to take when the triggers are silent, and why.
 
 ## Worked rulings
 
-- **<Project> (<date>)**: chose <option> because <reason in one or two
-  sentences>. <Link or path to where it landed.>
+Rulings are marked argued (engaged the triggers afresh) or inherited (took
+the default without new argument). Only argued rulings count towards
+promotion (see GOVERNANCE.md).
+
+- **<Project> (<date>, argued|inherited)**: chose <option> because <reason
+  in one or two sentences>. <Link or path to where it landed.>

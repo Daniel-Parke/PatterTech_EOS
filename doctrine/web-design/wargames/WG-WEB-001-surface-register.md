@@ -1,4 +1,4 @@
-# WG-001: Dark, light, or dual register?
+# WG-WEB-001: Dark, light, or dual register?
 
 status: active
 review_by: 2027-07

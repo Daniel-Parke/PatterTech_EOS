@@ -16,7 +16,7 @@ the margin rail (see LAYOUT_AND_GRID.md); below, it joins the annotation row.
 - The kicker is the running label voice: short, mono, tracked, accent-tinted
   when a venture/product owns the section.
 - Titles left-aligned, sized from the display ladder; leads capped at ~65ch.
-  Where the light budget allows (WG-005), the title carries the one-shot
+  Where the light budget allows (WG-WEB-005), the title carries the one-shot
   heading sweep as its reveal ignites (foundations/LIGHT.md).
 
 ## Chapter marks (long reads)

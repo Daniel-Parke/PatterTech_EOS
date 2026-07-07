@@ -10,7 +10,7 @@ spectacle.
 - Figures sit in a quiet frame on the first surface step with an annotated
   caption (plate number where the piece numbers its figures).
 - Source-of-truth exports (print PNGs, social cards) never ship to a page.
-  A small script (see WG-008) generates committed web variants (webp + jpg
+  A small script (see WG-WEB-008) generates committed web variants (webp + jpg
   fallback at 1-2 sizes); pages consume them via `<picture>`/srcset through a
   helper so call sites stay one-liners.
 
@@ -20,7 +20,7 @@ One card at a time: a single readable portrait card, grouped prev/next
 arrows, dot indicators, an "n / total" mono counter, keyboard and swipe, no
 autoplay, reduced-motion aware, tap to zoom. Never a row of tiny cards. In
 long reads a carousel is a cited figure in the reading column with a caption;
-media never sits on an interlude band and never bleeds full (WG-014; this
+media never sits on an interlude band and never bleeds full (WG-WEB-014; this
 sentence used to say the opposite, and the PatterTech chapter-six carousel
 shipped at three widths on one page because of it).
 

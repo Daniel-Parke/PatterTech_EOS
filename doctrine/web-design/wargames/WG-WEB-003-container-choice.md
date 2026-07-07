@@ -1,4 +1,4 @@
-# WG-003: Card, ledger, plaque, table or prose?
+# WG-WEB-003: Card, ledger, plaque, table or prose?
 
 status: active
 review_by: 2027-07

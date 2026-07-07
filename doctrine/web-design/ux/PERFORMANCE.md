@@ -15,10 +15,10 @@ Budgets are written down and gated, not aspired to.
 
 ## Structural choices that keep it fast
 
-- Static-first delivery (WG-007): prerender everything that can be
+- Static-first delivery (WG-WEB-007): prerender everything that can be
   prerendered; a static export is impossible to take down with a bad request
   and trivially cacheable.
-- Pre-generated, committed image variants (WG-008) rather than runtime
+- Pre-generated, committed image variants (WG-WEB-008) rather than runtime
   optimisation when the host cannot resize.
 - Intrinsic dimensions on all media (zero layout shift), lazy loading below
   the fold.

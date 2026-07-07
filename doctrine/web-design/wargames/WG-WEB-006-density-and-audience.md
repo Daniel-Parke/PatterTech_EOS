@@ -1,4 +1,4 @@
-# WG-006: How dense, for whom?
+# WG-WEB-006: How dense, for whom?
 
 status: active
 review_by: 2027-07

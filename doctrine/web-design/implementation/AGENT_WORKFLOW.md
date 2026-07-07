@@ -21,7 +21,7 @@ How an agent executes web work on this framework without supervision.
   rendering, whichever constraint it enforces). If the law cannot be written,
   the component is not ready. Kits keep a colocated GUIDE.md beside the code,
   and pattern-checkable laws also live in a design lint inside the standard
-  lint command (WG-013): docs alone get broken politely.
+  lint command (WG-WEB-013): docs alone get broken politely.
 - Tokens first, then primitives on the styleguide, then pages, then
   deletions, then docs. Do not skip the styleguide step: it is where drift
   becomes visible before it ships.
