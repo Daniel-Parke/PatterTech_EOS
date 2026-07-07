@@ -37,7 +37,11 @@ registry, org, tools.
   by the cold-start test), the lock-book rebuilt with the machine
   rulings header, and the venture brief, feedback, compile report,
   worklog, queue and NEXT templates.
-- **inception**: shape fixed, system due in phases C and E.
+- **inception**: shape fixed, system due in phases C and E. C1 landed
+  COMPILE.md (prune, fill, distil, report, and the compiler's
+  never-list) and WALK_ORDER.md (trigger-filtered walk, canonical
+  module order, the draft-wargame escape, the twenty-ruling budget
+  alarm).
 - **registry**: created; projects, vendors, lessons and the static web
   stack profile seeded.
 - **tools**: eos_check.py added (checks E001 to E010, --repo and --seed
