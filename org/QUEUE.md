@@ -13,14 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### B2. Kernel extraction: operating model, templates, state, cadence, questions
-- phase: B · playbook: PB-E03 · claims: `kernel/templates/org/`
-- OPERATING_MODEL.tpl.md (tiers and gates collapse at M scale via
-  markers), TEMPLATES.tpl.md (front-matter contracts), STATE.tpl.md
-  (Resume Packet spec plus active_session line), CADENCE.tpl.md,
-  QUESTIONS.tpl.md.
-- done when: as B1.
-
 ### B3. Kernel extraction: playbooks, operators guide, agent routers
 - phase: B · playbook: PB-E03 · claims: `kernel/templates/`
 - playbooks/CATALOGUE.tpl.md (PB-001 to PB-051; founder update becomes
@@ -124,3 +116,5 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
   check tool (session S-0001, 2026-07-07).
 - B1. Kernel extraction: constitution, start, roles (session S-0002,
   2026-07-07).
+- B2. Kernel extraction: operating model, templates, state, cadence,
+  questions (session S-0003, 2026-07-07).
