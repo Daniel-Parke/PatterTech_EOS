@@ -20,7 +20,11 @@ registry, org, tools.
   learnings captured (heading sweep, live rule, WG-WEB-013, WG-WEB-014).
   C2 populated the voice module: the seven-rule voice law with
   examples, the banned-list pattern, and WG-VOX-001 (audience register,
-  default professional-calm), walked in every Session 0.
+  default professional-calm), walked in every Session 0. F1 populated
+  the architecture module: seven binding rules, eight WG-ARCH wargames
+  argued from the estate's ADRs (boundary enforcement, ORM or raw SQL,
+  derived state, job execution, the contract seam, proof of harmless
+  change, vendor seams, database topology) and the ADR template.
 - **kernel**: created with the compile contract; LOCKBOOK.tpl.md
   migrated from the v0.1 project lock-in, full templates due in Phase B.
   D2's harvest amended two templates from reseed feedback: the

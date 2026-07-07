@@ -13,13 +13,6 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 
 ## Ready
 
-### F1. Architecture module
-- phase: F · playbook: PB-E03 · claims: `doctrine/architecture/`
-- Doctrine (rings, boundaries as records, ADR practice, deterministic
-  builds, contract drift) plus six to ten WG-ARCH wargames extracted
-  from WiseWattage, PatterTech_Business, AutoWatt ADRs. ADR template.
-- done when: MODULE_SHAPE holds, wargames indexed, budgets hold.
-
 ### F2. Delivery module
 - phase: F · playbook: PB-E03 · claims: `doctrine/delivery/`
 - Test-first-where-the-type-demands, ratchets, coverage floors, VRT
@@ -93,3 +86,4 @@ the critical path: AutoWatt's reseed and Genesis wait on them.
 - E2. S-scale drill: pass, eight findings, three fixed in session, two
   queued as E3 and E4 (session S-0011, 2026-07-07).
 - R1. Stack profiles from the estate (session S-0012, 2026-07-07).
+- F1. Architecture module (session S-0013, 2026-07-07).
