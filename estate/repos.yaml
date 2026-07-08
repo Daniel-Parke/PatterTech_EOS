@@ -108,12 +108,20 @@ repos:
         the visual media capability), reusable across every future PatterTech site
 
   PatterTech_App:
-    path: (planned)
+    path: C:\Users\Daniel\Documents\Coding\Github\PatterTech_App
     role: The out-of-band business platform and the estate data spine.
-    status: planned
-    stack: FastAPI + Postgres (+ Listmonk) run locally first, hosted on Railway/Fly EU-West later
+    status: scaffolded (MVP on branch feat/data-spine; not hosted; verified locally only)
+    stack: FastAPI + Postgres run locally via Docker Compose now; Listmonk, SES and Railway/Fly EU-West hosting later
     owns:
-      - The data spine (patter-db profile, Organisation -> Venture -> Project), accounts (Clerk when needed),
-        the mailing list (self-hosted Listmonk, SES relay), lead capture, gated content, analytics (Umami)
+      - The data spine (patter-db profile, Organisation -> Venture -> Project), the canonical subscriber
+        and append-only consent ledger; later accounts (Clerk when needed), the mailing list (self-hosted
+        Listmonk, SES relay), lead capture, gated content, analytics (Umami)
     does_not_own:
       - The public marketing site (that stays a pure static client, PatterTech_Website)
+      - Outbound sending reputation (Amazon SES), mailbox security (Migadu), auth security (Clerk) - all rented
+    commands:
+      up: python dev.py up
+      down: python dev.py down
+    agent_files: AGENTS.md + byte-identical CLAUDE.md
+    built: MVP scaffold - docker-compose (Postgres 17 + FastAPI), core + marketing schemas, /subscribe with
+      the consent ledger. Alembic, Listmonk, analytics and production hosting are the next steps.
