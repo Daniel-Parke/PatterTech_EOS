@@ -35,7 +35,7 @@ model everywhere is Organisation, then Venture, then Project.
 | **PatterStage** | The agent control plane, its scheduler and Composer graph semantics | The shared run engine (it will consume PatterStack's) |
 | **WiseWattage** | A live energy SaaS with its own auth (Clerk), billing and hosting | The factory that produces it |
 | **PatterTech_WebKit** (planned) | The shared web design system, kit, document model and editor, reusable across sites | (extracted from the Website in Phase 3) |
-| **PatterTech_App** (planned) | The out-of-band business platform and the estate data spine | The static marketing site |
+| **PatterTech_App** (scaffolded) | The out-of-band business platform and the estate data spine (patter-db): FastAPI + Postgres, the canonical subscriber and append-only consent ledger; runs locally via Docker | The static marketing site; sending reputation (SES), mailboxes (Migadu), auth (Clerk) - all rented |
 
 ## How they interact
 
