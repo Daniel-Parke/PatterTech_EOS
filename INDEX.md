@@ -77,6 +77,7 @@ Derived file. Edit front-matter, then run
 | doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md | wargame | web imagery brand | Literal imagery or generated fields? | 2027-07 |
 | doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md | wargame | web tooling testing | Where does a design law live so it actually holds? | 2027-07 |
 | doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
+| estate/ESTATE_MAP.md | registry | eos | The estate map, which repo owns which responsibility and how they interact | 2026-10 |
 | examples/autowatt-seed.md | example | eos | Worked example, the AutoWatt reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set |  |
