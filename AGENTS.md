@@ -14,8 +14,8 @@ Pick your entry mode, then follow `START.md`:
 
 1. **Working on a venture**: read that venture's lock-book first. Come
    here only for the doctrine, wargames and stack profiles it cites.
-   `INDEX.md` and `doctrine/WARGAME_INDEX.md` are the maps; grep their
-   tag columns to find files.
+   `INDEX.md`, `doctrine/WARGAME_INDEX.md` and `estate/ESTATE_MAP.md`
+   (which repo owns what) are the maps; grep their tag columns.
 2. **Working on the EOS itself**: read `org/STATE.md`, take the top item
    in `org/QUEUE.md`, follow the playbook it names.
 3. **Starting a new venture (Session 0)**: run `inception/INCEPTION.md`
