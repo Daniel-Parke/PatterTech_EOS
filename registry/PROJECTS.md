@@ -16,6 +16,7 @@ ventures more than one minor version behind.
 | --- | --- | --- | --- | --- | --- |
 | Venture A | `C:\Users\Daniel\Documents\Coding\Github\Venture A` | L | pre-1.0.0 @ 0a2a044, merged to main at bc34018 (single branch) | Rubric signed 2026-07-07; Genesis in progress | 2026-07-07 (reseed feedback, two entries folded) |
 | PatterTech_Website | `C:\Users\Daniel\Documents\Coding\Github\PatterTech_Website` | S | pre-EOS (v0.1 lock-in in docs/DESIGN_SYSTEM.md) | Live, v4 pass in progress | never |
+| Guth | `C:\Users\Daniel\Documents\Coding\Github\Project_Guth` | M | v1.0.0 @ 3807eb1 | Rubric signed and S0 gate passed 2026-07-15; Genesis complete; S1 next | never |
 
 Notes:
 
