@@ -65,6 +65,13 @@ additive on marked sections.
 
 - No element may cause horizontal page scroll at 375px; this is a merge gate,
   verified by script, not by eye.
+- **One mobile gutter for every reading surface.** A site accretes gutter
+  expressions in different places (a container's padding, a grid's column
+  arithmetic, a column class's calc), and each drifts independently until an
+  article and a marketing page disagree about the left edge of a phone screen
+  (PatterTech shipped 16px against 24px, 2026-07). Decide the value once,
+  write it into the layout doctrine, and bind every expression that encodes
+  it with comments naming the others, so they move together or fail review.
 - Diagrams reflow (stack vertically) rather than shrink or scroll.
 - Display type steps down with breakpoints; body size holds.
 - Never disable zoom.
