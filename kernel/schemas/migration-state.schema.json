@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/migration-state.schema.json",
+  "title": "EOS venture migration state",
+  "description": "Per-venture migration plan and state, produced by eos migrate plan and advanced by eos migrate apply. This build is read-only towards sibling repos: plans are committed reports only, and apply is exercised on fixture seeds alone.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "venture",
+    "pin_current",
+    "route",
+    "steps",
+    "provenance_preserved",
+    "report_path"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "venture": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical venture name."
+    },
+    "pin_current": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The EOS ref (tag or commit) the venture is pinned to before migration."
+    },
+    "route": {
+      "type": "string",
+      "enum": ["recompile", "apply", "fresh-inception"],
+      "description": "recompile rebuilds the seed from the venture's rulings; apply upgrades files in place; fresh-inception runs a new Session 0."
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "desc", "status"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "desc": { "type": "string", "minLength": 1 },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in-progress", "done", "blocked", "skipped"]
+          }
+        }
+      }
+    },
+    "provenance_preserved": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Artefacts carried verbatim through the migration: rulings, ADRs, logs, wargame arguments of record."
+    },
+    "report_path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Repo-relative path of the committed human-readable migration report."
+    }
+  }
+}

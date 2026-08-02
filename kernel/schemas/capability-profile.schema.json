@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/capability-profile.schema.json",
+  "title": "EOS capability profile",
+  "description": "Evidence-earned, versioned and expiring authority record. Profile level tunes Express thresholds, the free decision band and review sampling; it never affects tier floors or non-waivable floors. The checker rejects profile changes without an operator authorisation entry: agents cannot expand their own authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "level",
+    "evidence",
+    "authorised_by",
+    "authorised_date",
+    "expires",
+    "regression_rule"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "level": {
+      "type": "string",
+      "enum": ["conservative", "standard", "frontier"]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["benchmark_runs", "sampled_review", "escaped_defects", "period"],
+      "properties": {
+        "benchmark_runs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "run_id values from the benchmark ledger (benchmark-result.schema.json)."
+        },
+        "sampled_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["n", "pass_rate"],
+          "properties": {
+            "n": { "type": "integer", "minimum": 0 },
+            "pass_rate": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "escaped_defects": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "period": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The window the evidence covers, for example 2026-02/2026-08."
+        }
+      }
+    },
+    "authorised_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The operator. Promotion needs new evidence plus separate operator authorisation."
+    },
+    "authorised_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "expires": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Default six months after authorisation. An expired profile falls back to conservative."
+    },
+    "regression_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["thresholds"],
+      "properties": {
+        "thresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sampled_review_pass_rate_min", "escaped_defects_max"],
+          "properties": {
+            "sampled_review_pass_rate_min": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "escaped_defects_max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "on_breach": {
+          "const": "regress-one-level",
+          "description": "Crossing a threshold regresses the profile one level automatically, logged."
+        }
+      }
+    }
+  }
+}

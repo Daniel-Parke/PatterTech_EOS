@@ -44,3 +44,9 @@ material), and the amendment reference where one exists.
   (bounded at one rejection-fix-reverify cycle), with metrics summed across
   the chain. Single sessions would violate v1's own rules and understate its
   measured cost. S-scale and emergency-path tasks stay single-session.
+- 2026-08-03 · P1 · minor · Authoring for P1 (and subsequently P2) overlaps
+  the P0 baseline benchmark execution, which is pure background compute in
+  isolated scratch directories with disjoint paths. Phase GATES still close
+  strictly in order: P0's gate closes only when the baseline ledger reaches
+  its minimum trial counts, before P1's gate. No semantic conflict is
+  possible between the overlapped work.
