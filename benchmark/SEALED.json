@@ -1,0 +1,9 @@
+{
+ "version": 1,
+ "handle": "SEALED-BENCH-2026-08",
+ "payload_sha256": "315ad9d07a4e8f9368233dcfb29929890ecf35b267fb0cbd57b3a19db9de5fc5",
+ "key_enc_sha256": "0e7935d4064f617c93b391c7e07df9826ecb1ac5f7c81ff4fc8e965df1b11ff5",
+ "sealed": "2026-08-03",
+ "custody": "Authored by a custody-separated evaluator-author session. RSA-2048 OAEP-SHA256 wrapping AES-256-CBC with encrypt-then-MAC HMAC-SHA256. The private key is held by Daniel only and is released only to the final evaluator session at the release checkpoint. No implementation or coordinator session has seen plaintext or key. The store location is deliberately not recorded here.",
+ "usage": "Runs once, against frozen v1 and final v2 in the same final evaluation window; neither result is exposed until both are scored. A failed sealed run is never tuned against or immediately re-run."
+}
