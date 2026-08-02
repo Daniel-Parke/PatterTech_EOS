@@ -9,6 +9,15 @@ import json
 import sys
 from pathlib import Path
 
+PROCESS_FILES = {"run_meta.json", "PROMPT.txt", "docs/WORKLOG.md",
+                 "docs/EOS_FEEDBACK.md", "org/QUESTIONS.md", "org/STATE.md",
+                 "org/state.yaml", "org/TASKS.md", "docs/TASKS.md"}
+PROCESS_PREFIXES = ("org/logs/", "org/tasks/")
+
+
+def _is_process(path):
+    return path in PROCESS_FILES or path.startswith(PROCESS_PREFIXES)
+
 CID = "c2_diff_budget"
 
 
@@ -53,7 +62,7 @@ def _changed_files(scratch, root):
     for out in (tracked.stdout, untracked.stdout):
         for line in out.splitlines():
             line = line.strip().replace("\\", "/")
-            if line and line != "run_meta.json":
+            if line and not _is_process(line):
                 files.add(line)
     return sorted(files)
 
@@ -63,7 +72,7 @@ def _untracked_files(scratch):
     files = []
     for line in proc.stdout.splitlines():
         line = line.strip().replace("\\", "/")
-        if line and line != "run_meta.json":
+        if line and not _is_process(line):
             files.append(line)
     return files
 
@@ -78,7 +87,10 @@ def main():
     numstat = _git(scratch, "diff", "--numstat", root)
     for line in numstat.stdout.splitlines():
         parts = line.split("\t")
-        if len(parts) >= 2 and parts[0] != "-" and parts[1] != "-":
+        if len(parts) >= 3 and parts[0] != "-" and parts[1] != "-":
+            path = parts[2].strip().replace("\\", "/")
+            if _is_process(path):
+                continue
             total += int(parts[0]) + int(parts[1])
     for rel in _untracked_files(scratch):
         path = scratch / rel

@@ -6,7 +6,7 @@
   "benchmark/PROTOCOL.md": "5d929032ac0289f0e52e26d9226ebe6cabd4ebfe6ec3b751026697a74a4d38bb",
   "benchmark/README.md": "9275132ea1f421801a58361ae0964e1b1765dae93588ebcde96bad0619e77387",
   "benchmark/runner.py": "3ceffcf8da2a145933e3ef5f0166337f460df3997765b273d283da784457e13c",
-  "benchmark/score.py": "5cbbed4836db6e0c3c214f96f268ab272bbe1db1ae77b763780a8ddea9e4e25c",
+  "benchmark/score.py": "917937e77a8de753ccf0abb778c609d78e819a2cc6d6fd95b86e6900905048f1",
   "benchmark/ablations/v2-mandatory-logs.json": "0d0b7124041784fb27e8bd13119b9950edbe9884ca4e011a07420b5f8f379957",
   "benchmark/ablations/v2-no-router.json": "317e5f6872a1bc42f4298fc95a75ea7c5d998b4e66e4836d8aaeb0b235866f3d",
   "benchmark/ablations/v2-no-sampled-review.json": "f5f8a99238c7c19b361e0e932d3dcea890045f9aeb2f30c918586a1ecd03cd67",
@@ -93,8 +93,8 @@
   "benchmark/tasks/P3-probe-dependency/criteria/c2_resolution.py": "e5e518ac289286861bc661f0f1567ebf83a31ee80b9242b32dcf59d69b1add82",
   "benchmark/tasks/T01-doc-fix/task.json": "c1895b4ee80f511770f2d88a0d48b3699ee4a9235534bec7abf414051148baaf",
   "benchmark/tasks/T01-doc-fix/criteria/c1_no_dangling.py": "32fe4f99de0f94fde762d66d46a8f3b3f57f7e0b055430858fbc4da846f18c9a",
-  "benchmark/tasks/T01-doc-fix/criteria/c2_diff_budget.py": "3cb63101bb6bdaeb1a2da72866d46bf9c99ea2e2f18734d6c9d66e8eafd85ef1",
-  "benchmark/tasks/T01-doc-fix/criteria/c3_scope.py": "571317622f71a09a1e6e12f11eaf461692f89f27559609b92059e4ade081f5ec",
+  "benchmark/tasks/T01-doc-fix/criteria/c2_diff_budget.py": "1aedd67dbfcd8871eb374a9fadc4b1c94ac2661d5795b0f845f8277bfeb2e18c",
+  "benchmark/tasks/T01-doc-fix/criteria/c3_scope.py": "3bfc3cd81952b45021f267e8b55e58836b11045b0e28b049636e41e47b860db8",
   "benchmark/tasks/T02-ui-fix/task.json": "d71e8a605b298eab1ccb91ea01e844ef42f1988de4b49a49d4cf6484172d7e53",
   "benchmark/tasks/T02-ui-fix/criteria/c1_responsive.py": "f27e0d8e71702b17011712c3ba27a6c9b3b9ad31d071a586b2c7ca707abd263e",
   "benchmark/tasks/T02-ui-fix/criteria/c2_no_mask.py": "9550986ce58dfc83d5f77e0bd8a42d4236fc9df8723bb92e5bc5e626240e2c41",
@@ -133,5 +133,17 @@
   "benchmark/tasks/T11-refactor/criteria/c1_visible_suite.py": "91b4d97476d6b508a7b6ac4dcea85f71c356c85f10ceac7ac07b9f2cff799aca",
   "benchmark/tasks/T11-refactor/criteria/c2_behaviour_matrix.py": "6c518b35fe3456ea0e884532a7143c4b374adaa18e3e5660afbf863cd0865d16",
   "benchmark/tasks/T11-refactor/criteria/c3_function_length.py": "73e5b638f87e28a7aab0bdff4f8e7110c8b1ed351766c470bd7d32854bbce454"
- }
+ },
+ "amendments": [
+  {
+   "date": "2026-08-03",
+   "files": [
+    "benchmark/score.py",
+    "benchmark/tasks/T01-doc-fix/criteria/c2_diff_budget.py",
+    "benchmark/tasks/T01-doc-fix/criteria/c3_scope.py"
+   ],
+   "reference": "org/deviations.md 2026-08-03 pilot-run corrections",
+   "class": "minor implementation correction, pre-baseline, uniform across variants"
+  }
+ ]
 }
