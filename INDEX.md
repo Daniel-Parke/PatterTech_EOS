@@ -116,6 +116,8 @@ Derived file. Edit front-matter, then run
 | OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, rhythm and troubleshooting | 2027-07 |
 | org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
+| org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
+| org/deviations.md | org | eos | Append-only implementation-deviation log for the EOS v2 build, per ADR-0002 |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
 | org/logs/2026-07/S-0003.md | org | eos | Session S-0003, Phase B item B2, the operating model and org state templates extracted |  |
