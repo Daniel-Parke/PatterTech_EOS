@@ -13,6 +13,49 @@ Derived file. Edit front-matter, then run
 | path | type | tags | summary | review_by |
 | --- | --- | --- | --- | --- |
 | AGENTS.md | root | eos | Thin agent entry point, the three entry modes and the never-list |  |
+| benchmark/fixtures/app-api/README.md | example | eos testing | Energy quote JSON API fixture with planted defects for benchmark tasks |  |
+| benchmark/fixtures/app-static/README.md | example | eos testing | Static brochure site fixture with three planted defects for the agent benchmark |  |
+| benchmark/fixtures/briefs/BRIEF-M-fieldkit.md | example | eos testing | Canned drill brief, a field-survey web app for one contractor firm, scripted operator answers |  |
+| benchmark/fixtures/eos-mini/AGENTS.md | root | eos | Router for the eos-mini fixture, a tiny EOS-style repo used by benchmark tasks |  |
+| benchmark/fixtures/eos-mini/CLAUDE.md | root | eos | Router for the eos-mini fixture, a tiny EOS-style repo used by benchmark tasks |  |
+| benchmark/fixtures/eos-mini/doctrine/mini/DOCTRINE.md | doctrine | web | Settled doctrine for the mini module, page weight and image delivery |  |
+| benchmark/fixtures/eos-mini/doctrine/mini/guidance/IMAGES.md | doctrine | web content | Page-level guidance on serving images for the mini module |  |
+| benchmark/fixtures/eos-mini/doctrine/mini/README.md | doctrine | web | Map of the mini doctrine module, one page of guidance and two wargames |  |
+| benchmark/fixtures/eos-mini/doctrine/mini/wargames/WG-MINI-001-page-weight.md | wargame | web | How heavy may a page be before the build must push back? | 2027-08 |
+| benchmark/fixtures/eos-mini/doctrine/mini/wargames/WG-MINI-002-image-formats.md | wargame | web content | Which formats and sizes do we serve images in? | 2027-08 |
+| benchmark/fixtures/eos-mini/doctrine/WARGAME_INDEX.md | index | eos wargame | Derived index of every wargame, the surface inception walks |  |
+| benchmark/fixtures/eos-mini/GOVERNANCE.md | governance | eos | The law of eos-mini, front-matter schema excerpt, tag vocabulary and the supersession rule |  |
+| benchmark/fixtures/eos-mini/INDEX.md | index | eos | Derived index of every file, one row each, grep the tag column |  |
+| benchmark/fixtures/eos-mini/org/STATE.md | org | eos | Org state for eos-mini, which session is active and where work stands |  |
+| benchmark/fixtures/seed-v1-M/AGENTS.md | template | eos | FieldKit agent entry point, the M-scale router into the org files |  |
+| benchmark/fixtures/seed-v1-M/CLAUDE.md | template | eos | FieldKit agent entry point, the M-scale router into the org files |  |
+| benchmark/fixtures/seed-v1-M/docs/COMPILE_REPORT.md | template | eos | FieldKit compile report, the seed's ancestry proof and sign-off record |  |
+| benchmark/fixtures/seed-v1-M/docs/EOS_FEEDBACK.md | template | eos | FieldKit feedback file, the one channel back to the EOS, harvested monthly |  |
+| benchmark/fixtures/seed-v1-M/docs/LOCKBOOK.md | template | eos | FieldKit lock-book, the M-scale rulings and contracts with the EOS |  |
+| benchmark/fixtures/seed-v1-M/docs/VENTURE_BRIEF.md | template | eos | FieldKit venture brief, a field-survey web app for one contractor firm, the business truth |  |
+| benchmark/fixtures/seed-v1-M/OPERATORS_GUIDE.md | template | eos | FieldKit operators guide, the owner's manual and M-scale launcher library |  |
+| benchmark/fixtures/seed-v1-M/org/CADENCE.md | template | eos | FieldKit recurring sessions, the heartbeat schedule and the rules that keep it honest |  |
+| benchmark/fixtures/seed-v1-M/org/CONSTITUTION.md | template | eos | The FieldKit constitution, product doctrine and the protected organisational law |  |
+| benchmark/fixtures/seed-v1-M/org/OPERATING_MODEL.md | template | eos | The FieldKit operating model, work types, risk tiers and gates, knowledge, cadences, humans |  |
+| benchmark/fixtures/seed-v1-M/org/QUESTIONS.md | template | eos | FieldKit human decision queue, open questions for the operator and the folding rule |  |
+| benchmark/fixtures/seed-v1-M/org/QUEUE.md | template | eos | FieldKit queue, the single ordered work file, rows per the templates contract |  |
+| benchmark/fixtures/seed-v1-M/org/roles/PLAN.md | template | eos | FieldKit PLAN charter, decides what and why, encodes work a cold session can run unaided |  |
+| benchmark/fixtures/seed-v1-M/org/roles/VERIFY.md | template | eos | FieldKit VERIFY charter, independent review and audit, findings not fixes, evidence not vibes |  |
+| benchmark/fixtures/seed-v1-M/org/roles/WORK.md | template | eos | FieldKit WORK charter, changes things under an order, small batches, immaculate paper trail |  |
+| benchmark/fixtures/seed-v1-M/org/START.md | template | eos | FieldKit worker bootstrap, the read order per role, ground rules and the close-out ritual |  |
+| benchmark/fixtures/seed-v1-M/org/STATE.md | template | eos | FieldKit live state, the session claim line, live sections and the Resume Packet |  |
+| benchmark/fixtures/seed-v1-M/org/TEMPLATES.md | template | eos | FieldKit canonical artefact formats, front-matter contracts for queue rows, decisions and logs |  |
+| benchmark/fixtures/seed-v1-S/AGENTS.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
+| benchmark/fixtures/seed-v1-S/CLAUDE.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
+| benchmark/fixtures/seed-v1-S/docs/COMPILE_REPORT.md | template | eos | Herbfield Lane compile report, the seed's ancestry proof and sign-off record |  |
+| benchmark/fixtures/seed-v1-S/docs/EOS_FEEDBACK.md | template | eos | Herbfield Lane feedback file, the one channel back to the EOS, harvested monthly |  |
+| benchmark/fixtures/seed-v1-S/docs/LOCKBOOK.md | template | eos | Herbfield Lane lock-book, the S-scale rulings and contracts with the EOS |  |
+| benchmark/fixtures/seed-v1-S/docs/VENTURE_BRIEF.md | template | eos | Herbfield Lane venture brief, a sole-trader joinery brochure site, the business truth |  |
+| benchmark/fixtures/seed-v1-S/docs/WORKLOG.md | template | eos | Herbfield Lane worklog, the S-scale single running log and open-items list |  |
+| benchmark/fixtures/seed-v1-S/OPERATORS_GUIDE.md | template | eos | Herbfield Lane operators guide, the sole trader's manual and S-scale launcher library |  |
+| benchmark/holdout/app-api/README.md | example | eos testing | Holdout tests for the app-api fixture, scored after tasks, never shown to agents |  |
+| benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
+| benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
 | CHANGELOG.md | governance | eos | One entry per release tag, sectioned by area |  |
 | CLAUDE.md | root | eos | Thin agent entry point, the three entry modes and the never-list |  |
 | doctrine/architecture/DOCTRINE.md | doctrine | arch | The seven binding architecture rules, argued by the estate's ADRs and the WG-ARCH wargames |  |
