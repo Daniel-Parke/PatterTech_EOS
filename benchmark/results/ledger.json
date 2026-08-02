@@ -1,4 +1,42 @@
 {
   "version": 1,
-  "rows": []
+  "rows": [
+    {
+      "run_id": "R-V1-T01-t1",
+      "task": "T01-doc-fix",
+      "variant": "v1",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_no_dangling",
+          "pass": true,
+          "reason": "all 1 cited docs/ paths resolve"
+        },
+        {
+          "id": "c2_diff_budget",
+          "pass": true,
+          "reason": "diff is 3 lines, within the 10 line budget"
+        },
+        {
+          "id": "c3_scope",
+          "pass": true,
+          "reason": "every change stayed inside docs/"
+        }
+      ],
+      "metrics": {
+        "files_read": 7,
+        "files_written": 3,
+        "ceremony_lines": 19,
+        "tokens_in": 1009684,
+        "tokens_out": 4967,
+        "wall_clock_s": 80.11,
+        "operator_events": 0,
+        "turns": 21
+      },
+      "notes": ""
+    }
+  ]
 }

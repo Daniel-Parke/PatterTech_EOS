@@ -28,8 +28,14 @@ WRITE_TOOLS = {"Write", "Edit", "NotebookEdit", "MultiEdit"}
 READ_TOOLS = {"Read"}
 COMMAND_TOOLS = {"Bash", "PowerShell", "Shell"}
 
+# Process-mandated artefacts across BOTH variants: v1 (session logs, STATE,
+# worklog, feedback, questions, queue rows) and v2 (task records, state.yaml).
+# Counted uniformly so the ceremony comparison is fair.
 CEREMONY_PATTERN = re.compile(
-    r"(org[\\/]+logs|STATE|session[-_]?log|resume[-_]?packet)", re.IGNORECASE
+    r"(org[\\/]+logs|org[\\/]+tasks|STATE|state\.ya?ml|session[-_]?log"
+    r"|resume[-_]?packet|WORKLOG|EOS_FEEDBACK|QUESTIONS|TASKS\.md"
+    r"|org[\\/]+QUEUE)",
+    re.IGNORECASE,
 )
 
 
@@ -113,6 +119,11 @@ def parse_transcript(path):
             stats["tokens_in"] += int(
                 usage.get("input_tokens", usage.get("tokens_in", 0)) or 0
             )
+            # cached context is still context the run consumed; count it so
+            # tokens_in reflects real context volume, uniformly per variant
+            stats["tokens_in"] += int(
+                usage.get("cache_read_input_tokens", 0) or 0
+            ) + int(usage.get("cache_creation_input_tokens", 0) or 0)
             stats["tokens_out"] += int(
                 usage.get("output_tokens", usage.get("tokens_out", 0)) or 0
             )
@@ -167,7 +178,14 @@ def collect_criteria_scripts(task_dir, task):
     task_path = Path(task_dir)
     named = task.get("criteria")
     if named:
-        scripts = [task_path / name for name in named]
+        # task.json schema: criteria is a list of {id, desc, script} objects
+        # (script relative to the task dir); plain strings also accepted.
+        scripts = []
+        for entry in named:
+            rel = entry.get("script") if isinstance(entry, dict) else entry
+            if not rel:
+                fail(f"criteria entry without script in {task_path}")
+            scripts.append(task_path / rel)
     else:
         criteria_dir = task_path / "criteria"
         if not criteria_dir.is_dir():
