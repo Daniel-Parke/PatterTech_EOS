@@ -1,0 +1,13 @@
+diff --git a/run.py b/run.py
+index db1145d..958d061 100644
+--- a/run.py
++++ b/run.py
+@@ -16,7 +16,7 @@ def main():
+     data_dir = ROOT / "data"
+     data_dir.mkdir(exist_ok=True)
+     conn = db.connect(str(data_dir / "app.db"))
+-    db.apply_migrations(conn, str(ROOT / "migrations"))
++    db.apply_migrations(conn, str(ROOT / "migration"))
+     user_count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+     if user_count == 0:
+         db.apply_sql_file(conn, str(data_dir / "seed.sql"))

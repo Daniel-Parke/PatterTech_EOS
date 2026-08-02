@@ -1,0 +1,1 @@
+jsonlogx==1.2.0  # structured logging helper, vendored fallback in app/loglite.py

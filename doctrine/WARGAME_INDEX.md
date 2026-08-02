@@ -12,6 +12,8 @@ Derived file. Edit wargame front-matter, then run
 
 | id | question | module | tags | status | review_by |
 | --- | --- | --- | --- | --- |  --- |
+| WG-MINI-001 | How heavy may a page be before the build must push back? | mini | web | active | 2027-08 |
+| WG-MINI-002 | Which formats and sizes do we serve images in? | mini | web content | active | 2027-08 |
 | WG-ARCH-001 | Where do module boundaries live: convention, machine contract, or the directory tree? | architecture | arch tooling | active | 2027-07 |
 | WG-ARCH-002 | ORM, query builder, or raw SQL behind repositories? | architecture | arch data | active | 2027-07 |
 | WG-ARCH-003 | Derived values: always computed, cached, or stored as immutable snapshots? | architecture | arch data state | active | 2027-07 |

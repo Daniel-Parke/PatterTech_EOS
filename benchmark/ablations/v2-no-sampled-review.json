@@ -1,0 +1,9 @@
+{
+  "id": "v2-no-sampled-review",
+  "description": "Remove sampled review. No reviewer pass on any tier below R3, so we can measure what sampled review buys us in caught defects.",
+  "overlay": {
+    "sampled_review": "disabled",
+    "review_floor_tier": "R3"
+  },
+  "status": "declared; wired to the policy engine in P2"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "T09-doctrine",
+  "title": "Supersede the stale image guidance in eos-mini",
+  "journey": "doctrine",
+  "fixture": "eos-mini",
+  "prompt": "The guidance file doctrine/mini/guidance/IMAGES.md still tells pages to serve a single fixed-width JPEG, but WG-MINI-002 ruled for responsive AVIF or WebP variants and the module doctrine cites that ruling. Retire the stale guidance the governed way: write the replacement guidance citing the ruling, link old and new with the supersession rule in GOVERNANCE.md, regenerate the derived indexes, and leave python tools/eos_check.py --repo reporting zero errors.",
+  "budgets": {
+    "tokens": 90000,
+    "wall_clock_min": 20
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": null,
+  "criteria": [
+    {
+      "id": "c1_supersession",
+      "desc": "Old and new guidance are linked bidirectionally and the stale claim is no longer active",
+      "script": "criteria/c1_supersession.py"
+    },
+    {
+      "id": "c2_checker_green",
+      "desc": "The fixture's own eos_check --repo exits 0",
+      "script": "criteria/c2_checker_green.py"
+    }
+  ],
+  "notes": "Runs against the eos-mini fixture, whose checker is a byte-for-byte copy of tools/eos_check.py. The stale sentence is the JPEG fixed-width line planted in IMAGES.md; WG-MINI-002's ruling contradicts it and was argued twice. Deleting IMAGES.md fails c1: supersession keeps history in place."
+}

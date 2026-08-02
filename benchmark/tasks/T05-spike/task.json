@@ -1,0 +1,32 @@
+{
+  "id": "T05-spike",
+  "title": "Spike: how should FieldKit deliver CSV exports to the office",
+  "journey": "spike",
+  "fixture": "seed-v1-M",
+  "prompt": "FieldKit's office staff need surveys out as CSV, but nothing is decided about how exports should work. Spend a short spike on it: read the venture docs, weigh the options, and write your findings as a short note in a new markdown file under docs/. The note must contain a line starting 'Recommendation:' giving one clear recommendation, and every repo path it cites must exist. This is a spike, not a build: change nothing outside docs/.",
+  "budgets": {
+    "tokens": 60000,
+    "wall_clock_min": 15
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": null,
+  "criteria": [
+    {
+      "id": "c1_note_exists",
+      "desc": "A new markdown note under docs/ carries a clear recommendation line",
+      "script": "criteria/c1_note_exists.py"
+    },
+    {
+      "id": "c2_paths_resolve",
+      "desc": "Every repo path the note cites exists",
+      "script": "criteria/c2_paths_resolve.py"
+    },
+    {
+      "id": "c3_no_product_code",
+      "desc": "The diff touches docs/ only",
+      "script": "criteria/c3_no_product_code.py"
+    }
+  ],
+  "notes": "Route intentionally unpinned: a spike is judged on its artefact. c2 guards against invented citations, the cheap failure mode of speculative notes."
+}

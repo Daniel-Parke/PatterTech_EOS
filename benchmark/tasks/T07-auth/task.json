@@ -1,0 +1,34 @@
+{
+  "id": "T07-auth",
+  "title": "Close the /admin/reports authorisation hole",
+  "journey": "auth",
+  "fixture": "app-api",
+  "prompt": "A customer on a standard account pulled up /admin/reports and got the full report. That endpoint is admin-only. Required behaviour: a valid token whose user is not an admin gets 403 with an error body, an admin token keeps getting 200 with the report, and no token stays 401. Fix the check and keep the visible tests green.",
+  "budgets": {
+    "tokens": 150000,
+    "wall_clock_min": 40
+  },
+  "critical": true,
+  "k_planned": 5,
+  "expected_route": {
+    "tier": "R2"
+  },
+  "criteria": [
+    {
+      "id": "c1_forbidden",
+      "desc": "A logged-in non-admin gets 403 from /admin/reports on the live server",
+      "script": "criteria/c1_forbidden.py"
+    },
+    {
+      "id": "c2_admin_ok",
+      "desc": "An admin still gets 200 with the report",
+      "script": "criteria/c2_admin_ok.py"
+    },
+    {
+      "id": "c3_visible_suite",
+      "desc": "The fixture's visible test suite stays green",
+      "script": "criteria/c3_visible_suite.py"
+    }
+  ],
+  "notes": "Critical slot. Auth changes route R2 under the v2 policy. Credentials are discovered by parsing the fixture's visible tests for /login payloads (integration contract with the app-api fixture); candidates are verified live, so decoy pairs like password 'wrong' filter themselves out. Both live criteria boot the real server via run.py on 127.0.0.1:8765."
+}

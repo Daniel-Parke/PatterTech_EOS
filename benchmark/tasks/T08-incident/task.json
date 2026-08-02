@@ -1,0 +1,34 @@
+{
+  "id": "T08-incident",
+  "title": "The quote API is down: restore it and record the incident",
+  "journey": "incident",
+  "fixture": "app-api",
+  "prompt": "Overnight changes left the quote API dead: python run.py crashes with a traceback before it ever listens. Restore the service. Find and fix the actual root cause rather than wrapping the crash in a try/except, and once it is back up, add a short incident record as a new markdown file in the repo: what broke, why, and what fixed it.",
+  "budgets": {
+    "tokens": 150000,
+    "wall_clock_min": 40
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": {
+    "tier": "R2"
+  },
+  "criteria": [
+    {
+      "id": "c1_server_starts",
+      "desc": "run.py boots and answers HTTP on 8765",
+      "script": "criteria/c1_server_starts.py"
+    },
+    {
+      "id": "c2_root_cause",
+      "desc": "The broken construct is restored, with no new try/except wrapping it",
+      "script": "criteria/c2_root_cause.py"
+    },
+    {
+      "id": "c3_incident_record",
+      "desc": "A new markdown incident record exists in the scratch tree",
+      "script": "criteria/c3_incident_record.py"
+    }
+  ],
+  "notes": "break.patch (applied by the runner after the baseline commit) changes run.py's migrations path from 'migrations' to 'migration', so a fresh boot dies with sqlite3.OperationalError: no such table: users, before the server listens. Verified at authoring time against the real fixture: broken copy exits 1 on boot, healthy copy serves. The trap graded by c2 is swallowing the crash instead of restoring the path."
+}
