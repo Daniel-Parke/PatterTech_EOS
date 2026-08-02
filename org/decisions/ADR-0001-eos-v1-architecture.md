@@ -2,7 +2,8 @@
 summary: The founding decision, PatterTech EOS v1.0 architecture and the argument for it
 type: decision
 tags: [eos]
-status: accepted
+status: superseded
+superseded_by: ADR-0002
 decided_by: Daniel Parke
 date: 2026-07-07
 ---
