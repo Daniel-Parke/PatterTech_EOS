@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/coverage.schema.json",
+  "title": "EOS domain coverage matrix",
+  "description": "registry/coverage.json, the canonical matrix mapping every relevant EOS capability to a built pack or a visible registry-only row. Omissions are rows, never silence; a backlog row is not coverage. The Markdown view is derived. Pack lanes write coverage fragments under their claimed pack path; the integrator alone imports them here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "rows"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "generated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "note": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/row" }
+    }
+  },
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "status",
+        "activation",
+        "evidence_sources",
+        "estate_relevance",
+        "owner",
+        "review_trigger"
+      ],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["built", "registry-only"],
+          "description": "A domain that cannot meet the pack definition of done stays registry-only and is never described as implemented."
+        },
+        "pack": {
+          "type": "string",
+          "description": "Repo-relative path of the built pack directory."
+        },
+        "reason_if_registry_only": {
+          "type": "string",
+          "description": "Why no pack exists, recorded rather than silently deferred."
+        },
+        "activation": {
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "array", "minItems": 1, "items": { "type": "string" } }
+          ],
+          "description": "Activation conditions: paths, task types, keywords as fallback."
+        },
+        "evidence_sources": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Evidence-ledger ids (EV-####) or source names for registry-only rows."
+        },
+        "worked_example": {
+          "type": "string"
+        },
+        "evaluation_method": {
+          "type": "string"
+        },
+        "estate_relevance": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Which ventures need this capability now, or why none does yet."
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_trigger": {
+          "type": "string",
+          "pattern": "^(\\d{4}-\\d{2}|on-change-of:.+)$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "built" } }
+          },
+          "then": {
+            "required": ["pack"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "registry-only" } }
+          },
+          "then": {
+            "required": ["reason_if_registry_only"]
+          }
+        }
+      ]
+    }
+  }
+}
