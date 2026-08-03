@@ -65,6 +65,8 @@ Derived file. Edit front-matter, then run
 | benchmark/fixtures/seed-v1-S/docs/WORKLOG.md | template | eos | Herbfield Lane worklog, the S-scale single running log and open-items list |  |
 | benchmark/fixtures/seed-v1-S/OPERATORS_GUIDE.md | template | eos | Herbfield Lane operators guide, the sole trader's manual and S-scale launcher library |  |
 | benchmark/fixtures/seed-v2-S/AGENTS.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
+| benchmark/fixtures/seed-v2-S/docs/COMPILE_REPORT.md | template | eos | Herbfield Lane compile report, the seed's ancestry proof and sign-off record |  |
+| benchmark/fixtures/seed-v2-S/docs/EOS_FEEDBACK.md | template | eos | Herbfield Lane feedback file, the one channel back to the EOS, harvested monthly |  |
 | benchmark/fixtures/seed-v2-S/docs/LOCKBOOK.md | template | eos | Herbfield Lane lock-book, the S-scale rulings and contracts with the EOS |  |
 | benchmark/fixtures/seed-v2-S/docs/TASKS.md | template | eos | Herbfield Lane task list, the S-scale work surface, open items, questions and log |  |
 | benchmark/fixtures/seed-v2-S/docs/VENTURE_BRIEF.md | template | eos | Herbfield Lane venture brief, a sole-trader joinery brochure site, the business truth |  |
