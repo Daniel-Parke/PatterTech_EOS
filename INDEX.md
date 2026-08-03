@@ -136,29 +136,26 @@ Derived file. Edit front-matter, then run
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
 | kernel/METADATA_SPEC.md | kernel | eos | The eight metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
-| kernel/README.md | kernel | eos | The compile contract, scale system and concurrency doctrine for the kernel |  |
+| kernel/README.md | kernel | eos | The kernel in v2, the law files, the compile contract and the current staging state |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The exact seed file list per scale S, M and L, plus trigger add-ons, machine-checked |  |
-| kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to check IDs, human items headed by the cold-start test |  |
-| kernel/templates/AGENTS.tpl.md | template | eos | Venture agent router template, thin entry per scale, compiled output hard capped at 40 lines |  |
+| kernel/SCALE_MATRIX_v2.staging.md | kernel | eos | Staged v2 seed law, the S and ORG file lists, first-use directories, trigger add-ons |  |
+| kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to v2 checker ids, human items headed by cold-start |  |
+| kernel/templates/AGENTS.tpl.md | template | eos | Venture router template, the policy-routed v2 entry, compiled output capped at 40 lines |  |
 | kernel/templates/COMPILE_REPORT.tpl.md | template | eos | Compile report template, the seed's ancestry proof and the rubric sign-off record |  |
 | kernel/templates/EOS_FEEDBACK.tpl.md | template | eos | Venture feedback file template, the one channel back to the EOS, harvested monthly |  |
 | kernel/templates/LOCKBOOK.tpl.md | template | eos | Venture lock-book template, the machine rulings header and the module contract sections |  |
-| kernel/templates/OPERATORS_GUIDE.tpl.md | template | eos | Venture operators guide template, the human's manual, launcher library per scale |  |
-| kernel/templates/org/CADENCE.tpl.md | template | eos | Cadence template, the recurring session schedule and the rules that keep it honest |  |
-| kernel/templates/org/CONSTITUTION.tpl.md | template | eos | Venture constitution template, Part I product slot, Parts II and III the protected organisational law |  |
-| kernel/templates/org/OPERATING_MODEL.tpl.md | template | eos | Operating model template, work types, risk tiers and gates, knowledge lifecycle, cadences, humans |  |
+| kernel/templates/OPERATORS_GUIDE.tpl.md | template | eos | Venture operators guide template, the human's manual, v2 launcher library per scale |  |
+| kernel/templates/org/CONSTITUTION.tpl.md | template | eos | Venture constitution template, Part I product slot, Parts II and III the protected v2 law |  |
+| kernel/templates/org/PLAYBOOKS.tpl.md | template | eos | Venture playbook template, per-mode procedures plus hardening, incident, upkeep and retro |  |
 | kernel/templates/org/QUESTIONS.tpl.md | template | eos | Questions template, the human decision queue and its folding rule |  |
-| kernel/templates/org/QUEUE.tpl.md | template | eos | M-scale queue template, the single work file, rows per the templates contract |  |
-| kernel/templates/org/roles/PLAN.tpl.md | template | eos | PLAN charter template, decides what and why, encodes work a cold session can run unaided |  |
-| kernel/templates/org/roles/VERIFY.tpl.md | template | eos | VERIFY charter template, independent review and audit, findings not fixes, evidence not vibes |  |
-| kernel/templates/org/roles/WORK.tpl.md | template | eos | WORK charter template, changes things under an order, small batches, immaculate paper trail |  |
-| kernel/templates/org/START.tpl.md | template | eos | Venture bootstrap template, the read order per role, ground rules and the close-out ritual |  |
-| kernel/templates/org/STATE.tpl.md | template | eos | Venture STATE template, the session claim line, live sections and the Resume Packet spec |  |
-| kernel/templates/org/TEMPLATES.tpl.md | template | eos | Canonical artefact formats template, front-matter contracts for orders, decisions, logs and registries |  |
-| kernel/templates/org/work/NEXT.tpl.md | template | eos | L-scale ordered queue template, the plain list PLAN maintains at triage |  |
-| kernel/templates/playbooks/CATALOGUE.tpl.md | template | eos | Venture playbook catalogue template, PB-001 to PB-051, one versioned procedure per session category |  |
+| kernel/templates/org/roles/EXECUTOR.tpl.md | template | eos | EXECUTOR charter template, the default owner who plans, implements, tests and documents |  |
+| kernel/templates/org/roles/ORACLE.tpl.md | template | eos | ORACLE charter template, independent gate-test author for high-assurance work |  |
+| kernel/templates/org/roles/REVIEWER.tpl.md | template | eos | REVIEWER charter template, acceptance judgement, sampled review and bounded repair |  |
+| kernel/templates/org/START.tpl.md | template | eos | Venture boot template, per-mode budgets, ground rules, close only when exceptional |  |
+| kernel/templates/org/TEMPLATES.tpl.md | template | eos | Canonical artefact shapes template, task records, spikes, ADRs, questions, incidents |  |
+| kernel/templates/org/TESTING.tpl.md | template | eos | Adaptive testing law template, timing by change class, the test map, quality signals |  |
+| kernel/templates/TASKS.tpl.md | template | eos | S-scale task list template, the single hand-kept work surface at the smallest scale |  |
 | kernel/templates/VENTURE_BRIEF.tpl.md | template | eos | Venture brief template, the business truth the interview produces, challenge steps recorded |  |
-| kernel/templates/WORKLOG.tpl.md | template | eos | S-scale worklog template, the single running log and open-items list |  |
 | OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, rhythm and troubleshooting | 2027-07 |
 | org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
