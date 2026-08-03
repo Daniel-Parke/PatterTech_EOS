@@ -6,10 +6,10 @@ authority: default
 basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0151, EV-0152, EV-0153, EV-0159, EV-0160, EV-0150, EV-0010]
-review: 2027-02
+review: 2027-03
 type: guide
 tags: [arch, infra]
-review_by: 2027-02
+review_by: 2027-03
 ---
 
 # GD-ARCH-001: what shape is the deployment?
@@ -79,7 +79,7 @@ with a drift gate, vendor adapters owning the raw protocol.
 seam tests can drive without the runtime behind it.
 
 **Costs.** Ceremony wherever no second device is plausible. Cockburn's
-1995 pattern statement (EV-0150) never bounded this, which is where
+2005 pattern statement (EV-0150) never bounded this, which is where
 the adapter-per-dependency habit comes from.
 
 ### D. Mixed, deliberately

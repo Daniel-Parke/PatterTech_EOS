@@ -51,9 +51,9 @@ egress, sandbox, injection, threat model, approval, exfiltration.
 - `handles_personal_data`: any processing of identifiable people.
 - `has_external_egress`: the code or the agent can reach the network.
 
-None true means the pack stays at level 1 and costs one paragraph.
-Any true loads this body. A binding requirement whose own predicate is
-false does not apply; the requirement says which predicate it needs.
+None true means the pack stays at level 1 and costs one paragraph. Any
+true loads this body. A binding requirement whose own predicate is
+false does not apply, and each requirement names the predicate it needs.
 
 **Policy routing.** These triggers do not set a tier. They activate
 factors in `kernel/POLICY_SPEC.md`, and the router rules the tier: key
@@ -193,8 +193,9 @@ Taste. Record the choice and move on. None of these bind.
 | How much assurance, and graded how | GD-SEC-003 | ASVS level 1 estate-wide, level 2 for personal data, per-practice maturity only when a practice is the bottleneck |
 | Who approves consequential external actions | GD-SEC-004 | Guard-classified verdicts with harness-recorded approval |
 
-The guides live in `packs/security-privacy/guides/`. Reference material
-the body defers to lives in `packs/security-privacy/refs/`.
+Guides sit in `packs/security-privacy/guides/`, and the level-3
+reference material this body defers to in
+`packs/security-privacy/refs/`.
 
 ## Failure modes and anti-patterns
 
@@ -242,15 +243,13 @@ catalogues cover the agent and are new enough that their categories
 have not been tested by much adversarial use (EV-0213). We keep both
 rather than choosing, and that is a judgement, not a finding.
 
-**Where the evidence is thin.** We have no controlled evidence that
-either of our two scan placements catches more real leaks than one
-would; both vendor sources are maintainer documentation, not studies
-(EV-0221, EV-0222). We have no evidence at all on the runtime budget
-number above; thirty minutes is a starting point to be corrected by
-observation, not a finding. The UK position rests on the Act itself
-(EV-0225) because the regulator's site refused automated access at the
-research cutoff, so the interpretive guidance is missing and B5 is
-deliberately modest in what it claims.
+**Where the evidence is thin.** No controlled evidence says our two
+scan placements catch more real leaks than one would; both sources are
+maintainer documentation (EV-0221, EV-0222). No evidence at all backs
+the runtime budget above, which is a starting point to be corrected by
+observation. The UK position rests on the Act itself (EV-0225) because
+the regulator's site refused automated access at the research cutoff,
+so the interpretive guidance is missing and B5 is deliberately modest.
 
 **Refresh triggers.** A new OWASP GenAI list edition; ICO guidance on
 the DUAA; an MCP specification revision; gitleaks reaching end of life

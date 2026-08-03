@@ -220,72 +220,109 @@ Derived file. Edit front-matter, then run
 | org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
 | org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |
 | org/TASKS.md | org | eos | Derived task table, one row per record under org/tasks/ |  |
+| packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |
+| packs/agentic-development/exemplars/EX-AGENT-001-logging-migration.md | example | eos arch tooling | Worked topology decision record for a coupled logging migration across one service, and why fan-out was refused |  |
 | packs/agentic-development/guides/GD-AGENT-001-topology-selection.md | guide | eos arch tooling | Which of the ten agent topologies does this work need, and what pressure justifies promoting past a single agent? | 2027-03 |
-| packs/agentic-development/guides/GD-AGENT-002-context-engineering.md | guide | eos arch tooling | How does context reach an agent, and what happens when the window runs out? | 2027-03 |
-| packs/agentic-development/guides/GD-AGENT-003-spawn-a-subagent.md | guide | eos arch tooling | Should this work be a subagent at all, and if so as a tool, a handoff or a peer worker? | 2027-03 |
-| packs/agentic-development/guides/GD-AGENT-004-verification-oracle.md | guide | eos delivery tooling | What holds the truth that checks an agent's work, and what do you do when nothing does? | 2027-03 |
-| packs/agentic-development/PACK.md | guide | eos arch tooling | Which agent topology to run, the invariants that bind every one of them, and how to bound, verify and trace a run | 2027-02 |
-| packs/agentic-development/refs/INVARIANTS_AND_BOUNDS.md | guide | eos arch tooling | How to bound a run, trace it, resume it safely, and where the estate's policy and guard take over | 2027-03 |
+| packs/agentic-development/guides/GD-AGENT-002-context-engineering.md | guide | eos arch tooling | How does context reach an agent, and what happens when the window runs out? | 2027-06 |
+| packs/agentic-development/guides/GD-AGENT-003-spawn-a-subagent.md | guide | eos arch tooling | Should this work be a subagent at all, and if so as a tool, a handoff or a peer worker? | 2027-06 |
+| packs/agentic-development/guides/GD-AGENT-004-verification-oracle.md | guide | eos delivery tooling | What holds the truth that checks an agent's work, and what do you do when nothing does? | 2027-06 |
+| packs/agentic-development/PACK.md | guide | eos arch tooling | Which agent topology to run, the invariants that bind every one of them, and how to bound, verify and trace a run | 2027-03 |
+| packs/agentic-development/refs/DECISION_RECORD_SHAPE.md | guide | eos arch tooling | The six-section shape of a topology decision record, and what each section must contain | 2027-10 |
+| packs/agentic-development/refs/INVARIANTS_AND_BOUNDS.md | guide | eos arch tooling | How to bound a run, trace it, resume it safely, and where the estate's policy and guard take over | 2027-06 |
 | packs/agentic-development/refs/TOPOLOGY_CARD.md | guide | eos arch tooling | The ten topologies by canonical name, the pressure that licenses each, and the evidence behind it | 2027-03 |
 | packs/agentic-development/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
 | packs/agentic-development/research/NOTES.md | example | eos | Research synthesis for the agentic development and orchestration pack, topologies, context, tools, checkpoints, guardrails |  |
-| packs/api-integration/guides/GD-API-001-contract-authoring.md | guide | arch tooling ci | Who writes the contract and when: by hand, in a definition language, generated from the handlers, or not at all? | 2027-03 |
+| packs/api-integration/CHECKS.md | guide | delivery ci testing | What a reviewer or checker can verify about API and integration work, split into what runs today and what needs judgement | 2028-02 |
+| packs/api-integration/exemplars/invoices-api-change.md | example | arch money security | A worked change to a live invoices API and its payment webhook, applying the pack end to end from activation to merge |  |
+| packs/api-integration/exemplars/stripe-versioning.md | example | arch money delivery | Stripe's pinned-date versioning read as an exemplar, what it actually costs, and the conditions under which copying it is right |  |
+| packs/api-integration/guides/GD-API-001-contract-authoring.md | guide | arch tooling ci | Who writes the contract and when: by hand, in a definition language, generated from the handlers, or not at all? | 2027-11 |
 | packs/api-integration/guides/GD-API-002-versioning-and-breaking-change.md | guide | arch ci delivery | How is a boundary allowed to change: add only, declared tier plus gate, explicit version parameter, or pinned date with transformers? | 2027-04 |
-| packs/api-integration/guides/GD-API-003-webhook-trust.md | guide | security money arch | How is an inbound webhook trusted: bare-body HMAC, a signed triple, RFC 9421 message signatures, or an asymmetric or provider-native scheme? | 2027-05 |
+| packs/api-integration/guides/GD-API-003-webhook-trust.md | guide | security money arch | How is an inbound webhook trusted: bare-body HMAC, a signed triple, RFC 9421 message signatures, or an asymmetric or provider-native scheme? | 2028-01 |
 | packs/api-integration/guides/GD-API-004-boundary-shape.md | guide | arch state realtime | What shape does a boundary take: REST over OpenAPI, typed RPC, an event stream, or GraphQL? | 2027-06 |
 | packs/api-integration/guides/GD-API-005-collection-traversal.md | guide | arch perf data | How does a consumer walk a collection: offset paging, opaque cursors, visible keyset, or a hybrid with an estimated total? | 2027-09 |
-| packs/api-integration/PACK.md | guide | arch security money | Binding requirements, defaults and decision guides for API contracts, webhooks, event payloads and integration change | 2027-08 |
+| packs/api-integration/PACK.md | guide | arch security money | Binding requirements, defaults and decision guides for API contracts, webhooks, event payloads and integration change | 2027-12 |
+| packs/api-integration/refs/breaking-change-catalogue.md | example | arch ci delivery | What counts as a breaking change, the compatibility tiers and modes available, and how the gate is wired |  |
+| packs/api-integration/refs/error-and-limits.md | example | arch content | The error envelope, rate limit advertisement and deprecation signalling a boundary carries, with the contested parts marked |  |
+| packs/api-integration/refs/idempotency-parameters.md | example | money state | The four decisions an idempotency header does not make, and how they are settled on money-touching paths |  |
+| packs/api-integration/refs/webhook-verification.md | example | security money | The verification order, tolerance, rotation and replay controls a webhook receiver needs, with the provider variance that defeats a single implementation |  |
 | packs/api-integration/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
 | packs/api-integration/research/NOTES.md | example | eos | Decision-relevant synthesis for the API and integration pack, covering contract style, versioning philosophy, webhook security, idempotency and pagination, with the disagreements between mature estates left visible. |  |
-| packs/architecture/guides/GD-ARCH-001-deployment-shape.md | guide | arch infra | One deployable, several deployables, or contract-shaped seams inside one process | 2027-02 |
-| packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md | guide | arch tooling ci | Where module boundaries live, whether convention, a machine contract, the directory tree, or a runtime call graph | 2027-02 |
-| packs/architecture/guides/WG-ARCH-007-vendor-seams.md | guide | arch security money | How deep a vendor is allowed into the codebase, whether SDK throughout, an owned adapter, the raw protocol, or a generated client | 2027-02 |
-| packs/architecture/guides/WG-ARCH-008-database-topology.md | guide | arch data infra | Where data rests, whether one shared database, private tables with distinct credentials, one store per deployable, or a records core with a separate readings store | 2027-02 |
+| packs/architecture/CHECKS.md | example | arch ci tooling | What a reviewer or checker can verify about architecture work, split into what is executable today and what stays a judgement call |  |
+| packs/architecture/exemplars/billing-catalogue-boundary.md | example | arch tooling ci | The pack applied end to end to a two-module Python repo where billing may read the catalogue and the catalogue must never know about billing |  |
+| packs/architecture/guides/GD-ARCH-001-deployment-shape.md | guide | arch infra | One deployable, several deployables, or contract-shaped seams inside one process | 2027-03 |
+| packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md | guide | arch tooling ci | Where module boundaries live, whether convention, a machine contract, the directory tree, or a runtime call graph | 2026-12 |
+| packs/architecture/guides/WG-ARCH-007-vendor-seams.md | guide | arch security money | How deep a vendor is allowed into the codebase, whether SDK throughout, an owned adapter, the raw protocol, or a generated client | 2027-01 |
+| packs/architecture/guides/WG-ARCH-008-database-topology.md | guide | arch data infra | Where data rests, whether one shared database, private tables with distinct credentials, one store per deployable, or a records core with a separate readings store | 2027-06 |
 | packs/architecture/PACK.md | guide | arch data infra tooling ci | Architecture pack for boundaries declared and machine-checked, decisions recorded as ADRs, and one deployable with one database until measured evidence says otherwise | 2027-02 |
+| packs/architecture/refs/architecture-description.md | example | arch content | The MADR heading set, the C4 levels worth authoring, the arc42 sections worth borrowing, and the ISO 42010 vocabulary behind them |  |
 | packs/architecture/refs/boundary-tooling.md | example | arch tooling ci | Contract shapes, config skeletons and known blind spots for import-linter, dependency-cruiser and ArchUnit, plus how each is wired into a build |  |
+| packs/architecture/refs/evidence-map.md | example | arch content | Which evidence row supports which requirement, what population it observed, and where its licence limits reuse to paraphrase |  |
 | packs/architecture/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the architecture pack, with deterministic machine-checkable criteria |  |
 | packs/architecture/research/NOTES.md | example | eos | What the evidence supports for the architecture pack, three contrasting philosophies with fit conditions, and the binding versus default versus preference split |  |
-| packs/coding/guides/GD-COD-001-oracle-strategy.md | guide | testing delivery wargame | Where does the oracle for this change come from, test-first, characterisation, contract or downstream gate? | 2027-02 |
+| packs/coding/CHECKS.md | guide | delivery ci tooling | What a reviewer or a checker can verify about coding work, split into executable today and judgement | 2027-05 |
+| packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md | example | delivery testing | The coding pack applied end to end to a webhook receiver that swallows a signature failure and returns success |  |
+| packs/coding/guides/GD-COD-001-oracle-strategy.md | guide | testing delivery wargame | Where does the oracle for this change come from, test-first, characterisation, contract or downstream gate? | 2027-05 |
 | packs/coding/guides/GD-COD-002-review-gate.md | guide | delivery ci wargame | Who reviews a change and how hard, from machine gate only to independent human review at every merge | 2027-02 |
 | packs/coding/guides/GD-COD-003-failure-mode-contract.md | guide | arch delivery wargame | How do callers learn a call failed, opaque errors, one sentinel, a declared taxonomy or typed results? | 2028-02 |
-| packs/coding/guides/GD-COD-004-pin-then-change.md | guide | testing delivery wargame | How do you change code nobody can specify, read carefully, pin behaviour, reconstruct a spec or rewrite behind a contract? | 2027-02 |
+| packs/coding/guides/GD-COD-004-pin-then-change.md | guide | testing delivery wargame | How do you change code nobody can specify, read carefully, pin behaviour, reconstruct a spec or rewrite behind a contract? | 2027-10 |
 | packs/coding/guides/GD-COD-005-repo-shape.md | guide | arch delivery wargame | One repository or several, and how the trunk flows through whichever you pick | 2027-08 |
 | packs/coding/PACK.md | playbook | eos delivery testing | How code is written and accepted in a venture repo, oracles, pinning, error paths and the merge gate |  |
 | packs/coding/refs/ERROR_PATH.md | foundation | delivery testing | The error-path reference, what counts as handled, how failures are declared, and the checks that catch a swallow | 2028-02 |
+| packs/coding/refs/ORACLES.md | foundation | testing delivery | Which oracle each change type needs, what counts as one, and the commit order that proves it came first | 2027-05 |
+| packs/coding/refs/REVIEW_GATE.md | foundation | delivery ci | What the machine gate must contain, how findings are split, and how a human reads a diff when one does | 2027-02 |
 | packs/coding/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the coding pack, pin then change an undocumented parser |  |
 | packs/coding/research/NOTES.md | example | eos | Research synthesis for the coding pack, four construction philosophies, review at scale, and what should bind |  |
+| packs/delivery-testing/CHECKS.md | guide | delivery testing ci | What a reviewer or a checker can verify about delivery and testing work, and which checks run today | 2027-08 |
+| packs/delivery-testing/exemplars/EX-DEL-001-drifted-fake-and-a-lying-suite.md | example | delivery testing ci | A worked run of the pack: a rounding defect, a drifted fake and a clock-dependent test, fixed in order |  |
 | packs/delivery-testing/guides/WG-DEL-005-test-doubles.md | guide | delivery testing arch | Which double stands in for this port: real, container, verified fake, or mock? | 2027-08 |
 | packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md | guide | delivery testing ci | How independent must the oracle be from the code it judges, and who authors it? | 2027-08 |
 | packs/delivery-testing/guides/WG-DEL-007-test-timing.md | guide | delivery testing ci | When are tests written relative to the code, and is that a rule or a default? | 2027-08 |
 | packs/delivery-testing/PACK.md | guide | delivery testing ci | Delivery, testing and quality: what binds, what defaults, and which fork routes to which guide | 2027-08 |
+| packs/delivery-testing/refs/CONTRACT_SUITES.md | example | delivery testing arch | How to build and run a contract suite that proves a double still matches the real thing |  |
+| packs/delivery-testing/refs/FLAKE_AND_DETERMINISM.md | example | delivery testing ci | Flake sources, the determinism budget, the quarantine record and why retries are not a policy |  |
+| packs/delivery-testing/refs/QUALITY_SIGNALS.md | example | delivery testing ci | What coverage, mutation score, property tests and test selection actually tell you, and what they cost |  |
 | packs/delivery-testing/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the delivery, testing and quality pack, checking double choice, contract verification and flake handling |  |
 | packs/delivery-testing/research/NOTES.md | example | eos | Research synthesis for the delivery, testing and quality pack, covering test doubles, mutation practice, property-based testing, contract maturity, flake policy and test selection |  |
-| packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md | guide | ops data migrations | Reversible migrations, expand-migrate-contract, online schema change, or a freeze window? | 2027-02 |
-| packs/devops-reliability/guides/GD-DEVOPS-002-release-control.md | guide | ops delivery infra | All at once, watched canary, analysis-gated rollout, or flag-decoupled release? | 2027-11 |
+| packs/devops-reliability/CHECKS.md | guide | ops delivery ci | What a reviewer or a checker can verify about devops and reliability work, split into executable today and judgement | 2028-01 |
+| packs/devops-reliability/exemplars/EX-DEVOPS-001-email-to-contacts.md | example | ops data migrations | Worked example, replacing users.email_address with a normalised contacts table without a change window |  |
+| packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md | guide | ops data migrations | Reversible migrations, expand-migrate-contract, online schema change, or a freeze window? | 2027-09 |
+| packs/devops-reliability/guides/GD-DEVOPS-002-release-control.md | guide | ops delivery infra | All at once, watched canary, analysis-gated rollout, or flag-decoupled release? | 2027-12 |
 | packs/devops-reliability/guides/GD-DEVOPS-003-error-budget-dial.md | guide | ops delivery | No budget, advisory budget, enforced budget policy, or calendar change freezes? | 2028-03 |
-| packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md | guide | ops delivery perf | Nothing, delivery keys only, SLO plus customer impact, or a multi-dimension set? | 2027-11 |
+| packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md | guide | ops delivery perf | Nothing, delivery keys only, SLO plus customer impact, or a multi-dimension set? | 2028-02 |
 | packs/devops-reliability/guides/WG-OPS-003-restore-proof.md | guide | ops data infra | Trusted snapshots, a restore test with a tick, an evidenced restore drill, or full estate rehearsal? | 2028-06 |
-| packs/devops-reliability/PACK.md | guide | ops data infra | Binding devops and reliability practice, migrations, restore proof, SLOs and error budgets, rollout, flags, incidents and cost | 2027-05 |
+| packs/devops-reliability/PACK.md | guide | ops data infra | Binding devops and reliability practice, migrations, restore proof, SLOs and error budgets, rollout, flags, incidents and cost | 2027-04 |
+| packs/devops-reliability/refs/FLAG_AND_ROLLOUT_LIFECYCLE.md | implementation | ops delivery infra | Flag registry fields, expiry and terminal value, and the rollout object's failure condition and abort |  |
 | packs/devops-reliability/refs/MIGRATION_RISK_CLASSES.md | implementation | ops data migrations | The four migration risk classes, which fail the build, and the change record fields that carry them |  |
+| packs/devops-reliability/refs/RESTORE_DRILL_EVIDENCE.md | implementation | ops data infra | The restore drill procedure, its steady-state hypothesis, and the evidence record a checker can read |  |
+| packs/devops-reliability/refs/SIGNAL_STABILITY_AND_COST.md | implementation | ops infra money | Observability signal stability tiers and the allocation precondition that makes cost work mean anything |  |
+| packs/devops-reliability/refs/SLO_AND_ERROR_BUDGET.md | implementation | ops delivery | The machine-readable SLO object, the error budget policy shape, and the aggregate metrics this estate refuses |  |
 | packs/devops-reliability/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
 | packs/devops-reliability/research/NOTES.md | example | eos | Research synthesis for the devops-reliability pack, covering migrations, restore proof, SLO governance, incident practice, FinOps, golden paths, progressive delivery and observability stability. |  |
+| packs/security-privacy/CHECKS.md | guide | security testing tooling | What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement | 2027-08 |
+| packs/security-privacy/exemplars/poisoned-integration-guide.md | example | security tooling | The pack applied end to end to a feature task whose vendor guide carries planted instructions |  |
 | packs/security-privacy/guides/GD-SEC-001-injection-defence.md | guide | security tooling | In-band detection, a configuration rule, out-of-band enforcement, or OS containment? | 2027-03 |
 | packs/security-privacy/guides/GD-SEC-002-secret-protection.md | guide | security tooling ci | Ignore rules alone, a pre-commit scan, a push-path scan, or a managed store with short-lived credentials? | 2027-04 |
 | packs/security-privacy/guides/GD-SEC-003-assurance-grading.md | guide | security testing | No declared level, a flat entry bar, a graded catalogue by data sensitivity, or per-practice maturity? | 2027-06 |
 | packs/security-privacy/guides/GD-SEC-004-external-action-approval.md | guide | security tooling ops | Model judgement, a static allowlist, guard-classified verdicts with recorded approval, or manual only? | 2027-05 |
 | packs/security-privacy/PACK.md | guide | security pii tooling | Security, privacy and safety for agent-run work, injection resistance, secrets, data protection and approval | 2027-02 |
-| packs/security-privacy/refs/data-protection-uk.md | guide | security pii | UK data protection for a small venture, lawful basis register, complaints route, DPIA threshold and what is unsettled | 2027-11 |
+| packs/security-privacy/refs/data-protection-uk.md | guide | security pii | UK data protection for a small venture, lawful basis register, complaints route, DPIA threshold and what is unsettled | 2028-01 |
 | packs/security-privacy/refs/instruction-source-boundary.md | guide | security tooling | What counts as untrusted content, how to report planted instructions, and the escalation artefact format | 2027-09 |
 | packs/security-privacy/refs/secret-handling.md | guide | security ci tooling | The deny list, the two scan placements, bypass records and what to do when a secret has already gone | 2027-10 |
+| packs/security-privacy/refs/threat-catalogue.md | guide | security arch | STRIDE for the system, the agentic catalogue for the agent, and how both map onto the ten guarded classes | 2027-12 |
 | packs/security-privacy/research/DRILL_PROPOSAL.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
 | packs/security-privacy/research/NOTES.md | example | eos | Research synthesis for the security, privacy and safety pack, patterns, trade-offs and what should bind |  |
+| packs/ui-ux/CHECKS.md | implementation | a11y testing tooling | What a reviewer or checker can verify about interface work, split into executable today and judgement |  |
+| packs/ui-ux/exemplars/two-surfaces-one-spine.md | example | web a11y layout | The pack applied end to end, a service task flow and an operations dashboard sharing one token source and one behaviour layer |  |
 | packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md | guide | web density layout | Which design philosophy does this surface take? | 2027-10 |
 | packs/ui-ux/guides/GD-UIUX-002-component-sourcing.md | guide | web tooling a11y | Where do this surface's interactive components come from? | 2027-11 |
 | packs/ui-ux/guides/GD-UIUX-003-a11y-assurance.md | guide | a11y testing web | How much accessibility assurance does this surface buy? | 2027-09 |
 | packs/ui-ux/guides/GD-UIUX-004-token-source.md | guide | tooling brand colour | Where do tokens live and how do they reach each platform? | 2027-12 |
 | packs/ui-ux/PACK.md | guide | web a11y layout perf | Interface work, one accessibility and token spine under eight design philosophies chosen per surface | 2027-09 |
-| packs/ui-ux/refs/A11Y_FLOOR.md | ux | a11y web forms | The accessibility floor in detail, the six gated classes, tag pinning, incomplete triage and what overlays cannot do | 2027-09 |
-| packs/ui-ux/refs/COMPONENT_CONTRACT.md | implementation | web a11y tooling | What a shared component owes its consumers, states manifest, pattern map and the admission gate | 2027-10 |
+| packs/ui-ux/refs/A11Y_FLOOR.md | ux | a11y web forms | The accessibility floor in detail, the six gated classes, tag pinning, incomplete triage and what overlays cannot do |  |
+| packs/ui-ux/refs/COMPONENT_CONTRACT.md | implementation | web a11y tooling | What a shared component owes its consumers, states manifest, pattern map and the admission gate |  |
+| packs/ui-ux/refs/LAYOUT_AND_MEASURE.md | foundation | layout density typography | Structural layout rules that hold under any visual philosophy, measures, bleeds, rhythm and density |  |
+| packs/ui-ux/refs/PERFORMANCE_AND_MOTION.md | ux | perf motion web | Field performance as a design constraint, budgets, measurement and the motion safety rules that carry everywhere |  |
+| packs/ui-ux/refs/TOKEN_PIPELINE.md | implementation | tooling brand colour | One token source, three layers, generated outputs and the guards that stop values drifting |  |
 | packs/ui-ux/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
 | packs/ui-ux/research/NOTES.md | example | eos | Research synthesis for the ui-ux pack, eight design philosophies, accessibility conformance, tokens and component contracts |  |
 | README.md | root | eos | What the PatterTech EOS is and how the repo is laid out |  |

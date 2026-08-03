@@ -83,6 +83,12 @@ Where the basis is decision rather than standard, that is stated
 plainly: it binds because the estate ruled it, not because evidence
 compels it.
 
+Every EV id points at a row in `registry/evidence.json` carrying that
+source's version, licence, access date, maintenance state and review
+trigger. This pack cites ids and never restates them, and it never
+copies source prose: several of the sources below are readable and not
+reusable.
+
 **B1. Conformance is stated as named criteria, not confidence.**
 `has_web_ui`. A surface claiming WCAG 2.2 at a level names the level
 and the criteria that pass (EV-0027). Prevents a conformance claim that

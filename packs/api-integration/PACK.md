@@ -8,10 +8,10 @@ evidence_grade: observational
 scope: estate
 applies_when: [exposes_service_boundary, consumes_external_api, receives_webhooks, publishes_events]
 volatility: slow
-review: 2027-08
+review: 2027-12
 type: guide
 tags: [arch, security, money]
-review_by: 2027-08
+review_by: 2027-12
 sources: [EV-0023, EV-0024, EV-0122, EV-0124, EV-0125, EV-0126, EV-0129, EV-0130, EV-0133, EV-0135, EV-0136, EV-0139]
 ---
 
@@ -143,16 +143,15 @@ reason.
 - **`Idempotency-Key` as the header name**, cited as de facto. The IETF
   draft has never reached RFC (EV-0127) and Azure mandates a different
   family (EV-0132), so this is a house choice, not a standard.
-- **CloudEvents envelope for events** (EV-0138). It standardises
-  routing and deduplication metadata only; payload evolution stays
-  yours.
+- **CloudEvents envelope for events** (EV-0138), which standardises
+  routing and deduplication metadata only; payload evolution stays yours.
 - **`BACKWARD_TRANSITIVE` for any log a consumer can rewind**
   (EV-0139). Non-transitive modes check only the last version and give
   false comfort on replay.
 - **Schema-derived property tests against the contract** (EV-0143, 1.4
   to 4.5 times more unique defects than the next-best fuzzer across
-  sixteen services; preprint, authors evaluating their own tool).
-- **Consumer-driven contract tests where two teams share a boundary**
+  sixteen services; preprint, authors evaluating their own tool), plus
+  consumer-driven contract tests where two teams share a boundary
   (EV-0091).
 - **Rate limit policy advertised separately from the live budget**,
   pinned to draft-11 (EV-0128).
@@ -196,11 +195,9 @@ Reference material the body defers to sits in
 ## Failure modes and anti-patterns
 
 - **Parse, then verify.** The most common webhook defect. The signature
-  covered bytes the framework has already replaced (EV-0126).
-- **`==` on a digest.** Timing-observable comparison, and free to fix
-  (EV-0125).
-- **Signing a re-serialised body.** Key order and whitespace change, the
-  signature stops matching, someone disables verification to ship.
+  covered bytes the framework has already replaced (EV-0126). Its
+  cousins: `==` on a digest, and signing a re-serialised body, which
+  ends with someone disabling verification to ship.
 - **Deprecation with no sunset date.** Not removal, only deferral. The
   schema accretes forever (EV-0140).
 - **Caching a 5xx under an idempotency key with no retry-with-new-key
@@ -215,8 +212,9 @@ Reference material the body defers to sits in
   construction rules changed while the schema stayed identical; the gate
   passes (EV-0136).
 - **Adopting CloudEvents and assuming payloads are now governed.** They
-  are not, and payloads are where events actually break (EV-0138).
-- **A non-transitive compatibility mode on a replayable log** (EV-0139).
+  are not, and payloads are where events actually break (EV-0138). Its
+  neighbour: a non-transitive compatibility mode on a log a consumer can
+  rewind (EV-0139).
 - **A lint-clean spec describing a service that does something else.**
   Linting checks form, never behaviour (EV-0137).
 
