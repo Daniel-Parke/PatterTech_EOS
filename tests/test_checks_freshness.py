@@ -42,17 +42,17 @@ def test_minirepo_is_fresh(tmp_path):
 
 def test_f001_past_review_by(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01", "review_by: 2020-01")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: 2020-01")
     fs = run_f(root)
-    assert only(fs, "F001") == [("warn", "doctrine/testmod/README.md",
+    assert only(fs, "F001") == [("warn", "packs/testmod/README.md",
                                  "review_by 2020-01 has passed, verify before relying")]
 
 
 def test_f001_malformed_review_by(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01", "review_by: whenever")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: whenever")
     fs = run_f(root)
-    assert only(fs, "F001") == [("error", "doctrine/testmod/README.md",
+    assert only(fs, "F001") == [("error", "packs/testmod/README.md",
                                  "review_by not YYYY-MM: whenever")]
 
 
@@ -158,13 +158,13 @@ def test_f003_ten_files_is_not_a_smell(tmp_path):
 
 def test_f004_previously_exempt_type_without_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01\n", "")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01\n", "")
     fs = run_f(root)
-    assert only(fs, "F004") == [("warn", "doctrine/testmod/README.md",
+    assert only(fs, "F004") == [("warn", "packs/testmod/README.md",
                                  "type doctrine carries no review_by or review date")]
 
 
 def test_f004_v2_review_field_counts_as_coverage(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01", "review: 2030-01")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review: 2030-01")
     assert only(run_f(root), "F004") == []

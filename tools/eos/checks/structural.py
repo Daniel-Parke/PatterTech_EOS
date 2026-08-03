@@ -26,7 +26,7 @@ from ..findings import Finding
 from ..repo import RepoModel
 from . import register
 
-DERIVED = {"INDEX.md", "doctrine/WARGAME_INDEX.md"}
+DERIVED = {"INDEX.md", "packs/GUIDE_INDEX.md"}
 ROUTERS = {"AGENTS.md", "CLAUDE.md"}
 ROUTER_CAP = 40
 BUDGET = 150
@@ -94,11 +94,11 @@ def build_index(model: RepoModel) -> str:
 
 
 def build_wargame_index(model: RepoModel) -> str:
-    rows = ["---", "summary: Derived index of every wargame, the surface inception walks",
+    rows = ["---", "summary: Derived index of every decision guide and archived wargame",
             "type: index", "tags: [eos, wargame]", "derived: true", "---", "",
-            "# WARGAME_INDEX", "",
-            "Derived file. Edit wargame front-matter, then run",
-            "`python tools/eos_check.py --write-index`.", "",
+            "# GUIDE_INDEX", "",
+            "Derived file. Edit guide front-matter, then run",
+            "`python -m tools.eos check --write-index`.", "",
             "| id | question | module | tags | status | review_by |",
             "| --- | --- | --- | --- | --- |  --- |"]
     for rec in model.files:
@@ -109,7 +109,9 @@ def build_wargame_index(model: RepoModel) -> str:
         wid = p.stem
         m = re.match(r"(WG-[A-Z]+-\d{3})", wid)
         wid = m.group(1) if m else wid
-        module = p.parent.parent.name if p.parent.name == "wargames" else ""
+        # v1: <module>/wargames/<id>.md. v2: packs/<pack>/guides/<id>.md.
+        module = (p.parent.parent.name
+                  if p.parent.name in ("wargames", "guides") else "")
         tags = " ".join(fm.get("tags", [])) if isinstance(fm.get("tags"), list) else ""
         rows.append("| {} | {} | {} | {} | {} | {} |".format(
             wid, fm.get("summary", ""), module, tags, fm.get("status", ""), fm.get("review_by", "")))
@@ -125,7 +127,7 @@ def check_e001_index_drift(ctx: dict) -> list:
     out = []
     want = {
         "INDEX.md": build_index(model),
-        "doctrine/WARGAME_INDEX.md": build_wargame_index(model),
+        "packs/GUIDE_INDEX.md": build_wargame_index(model),
     }
     for rel, want_text in want.items():
         have = model.read(rel)
@@ -141,7 +143,9 @@ def write_indexes(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
     (model.root / "INDEX.md").write_text(
         build_index(model), encoding="utf-8", newline="\n")
-    (model.root / "doctrine" / "WARGAME_INDEX.md").write_text(
+    guide_index = model.root / "packs" / "GUIDE_INDEX.md"
+    guide_index.parent.mkdir(parents=True, exist_ok=True)
+    guide_index.write_text(
         build_wargame_index(model), encoding="utf-8", newline="\n")
     fresh = RepoModel.load(model.root, today=model.today)
     reverify = dict(ctx)

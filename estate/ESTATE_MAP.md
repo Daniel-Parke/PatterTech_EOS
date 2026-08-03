@@ -1,70 +1,102 @@
 ---
-summary: The estate map, which repo owns which responsibility and how they interact
+summary: The estate narrative, how the repos relate, which are governed and what the seams between them are
 type: registry
 tags: [eos]
 status: active
-review_by: 2026-10
+review_by: 2026-11
 ---
 
 # ESTATE MAP
 
-The human narrative of who owns what across the PatterTech estate. The
-machine-readable version, with the per-repo `owns` and `does_not_own` fields, is
-`estate/repos.yaml`. The governance and harvest ledger (venture status, EOS
-pins) stays in `registry/PROJECTS.md`. When any of these disagree, this map and
-`repos.yaml` describe ownership and interaction; `PROJECTS.md` describes
-governance.
+The human narrative of the PatterTech estate. Membership, roles and
+per-repo ownership are in `estate/repos.json`, which is canonical, and
+this file does not restate them. Read that file for who owns what; read
+this one for how the pieces relate and where the seams are.
+`registry/PROJECTS.md` carries governance and harvest state for the
+seeded ventures. When these disagree, `estate/repos.json` describes
+ownership and `registry/PROJECTS.md` describes governance.
 
 ## The shape
 
-PatterTech is a multi-repo estate by deliberate decision (a repo per venture with
-the EOS as the shared brain, ADR-0001). The adopted north star lives in
-`PatterStudio/docs/PatterTech_Platform_Vision_Design.md`: a local-first venture
-factory, with a base (PatterOS), a shared service fabric (PatterStack, inside
-PatterStudio today), products as clients, and ventures as tenants. The domain
-model everywhere is Organisation, then Venture, then Project.
+PatterTech is a multi-repo estate by deliberate decision: one repo per
+venture, with the EOS as the shared brain (ADR-0001, unchanged by
+ADR-0002). The north star is a local-first venture factory with a base,
+a shared service fabric, products as clients and ventures as tenants.
+The domain model everywhere is organisation, then venture, then project.
 
-## Who owns what
+## Governed and not
 
-| Repo | Owns | Does not own |
-| --- | --- | --- |
-| **PatterTech_EOS** | Doctrine, wargames, kernel templates, governance, this estate manifest | Any runnable product code; runtime services; the design-system code |
-| **PatterTech_Website** | Public marketing and publishing; the V2 document model, field kit, dev-only editor and visual media capability (until WebKit extracts them) | Print documents; the design doctrine; accounts, mailing list, analytics, SaaS |
-| **PatterStudio** (remote `PatterTech_Business`) | Print and investor documents; PatterStack (the runtime fabric); the canonical patter-doc document model | Web article rendering; the public marketing story |
-| **PatterOS** | The local-first base and provisioner; the sovereignty charter and the reserved Patter brand | Products; the fabric |
-| **PatterStage** | The agent control plane, its scheduler and Composer graph semantics | The shared run engine (it will consume PatterStack's) |
-| **WiseWattage** | A live energy SaaS with its own auth (Clerk), billing and hosting | The factory that produces it |
-| **PatterTech_WebKit** (planned) | The shared web design system, kit, document model and editor, reusable across sites | (extracted from the Website in Phase 3) |
-| **PatterTech_App** (scaffolded) | The out-of-band business platform and the estate data spine (patter-db): FastAPI + Postgres, the canonical subscriber and append-only consent ledger; runs locally via Docker | The static marketing site; sending reputation (SES), mailboxes (Migadu), auth (Clerk) - all rented |
+Three repos are governed by the EOS: Venture A, Guth and
+PatterTech_Website. Governed means the EOS seeded it or has adopted it,
+it carries a pin, and it feeds rulings back through the harvest.
 
-## How they interact
+Every other repo in the manifest is an inventory row, `governed: false`
+and `status: candidate`. That is not a judgement about the repo. It is
+an honest statement that the EOS neither seeded it nor currently
+governs it, and it exists so the quarterly estate review has to answer
+adopt or defer for each one rather than quietly leaving them out.
 
-- The **document model** is meant to be one typed tree across print and web:
-  PatterStudio's `patter-doc` asset pack is canonical, and the Website's block
-  tree (`src/lib/doc`) is its web profile. They are not yet unified; that is the
-  convergence work.
-- The **design system** is triple-implemented today (EOS `TOKENS.md` doctrine,
-  the Website's `globals.css`, and PatterStudio's hand-ported print CSS). The
-  intent is one shared source, extracted into `PatterTech_WebKit`.
-- The **visual media** (branded MP4 and GIF recordings, and the new `/embed`
-  routes) are rendered by the Website and referenced by PatterStudio's content
-  bank.
+Two rows carry a different status for a reason. PatterTech_EOS is
+`self`: it is the manifest's own home, not a venture. PatterTech_WebKit
+is `planned`: it has no directory and no commits, and it stays listed
+because the extraction it names is a live intention inside
+PatterTech_Website.
+
+Exclusions are recorded too, in the `excluded` block of the manifest,
+each with the ruling that excluded it. A repo left out silently would be
+indistinguishable from one nobody remembered.
+
+## The seams that matter
+
+- **The document model** is meant to be one typed tree across print and
+  web. PatterStudio's asset-pack model is canonical and the Website's
+  block tree is its web profile. They are not unified yet, and that
+  convergence is the largest piece of unscheduled estate work.
+- **The design system** is implemented three times: the EOS token
+  doctrine, the Website's stylesheet, and PatterStudio's hand-ported
+  print CSS. The intended fix is one shared source extracted into
+  PatterTech_WebKit, which has not started.
+- **Visual media**, the branded recordings and the embed routes, is
+  rendered by the Website and referenced by PatterStudio's content bank.
+- **The agent control plane** in PatterStage intends to consume
+  PatterStack's run engine rather than keep its own. Today it keeps its
+  own.
+- **State the static site cannot hold** goes to PatterTech_App. The
+  Website stays a pure static client on purpose, so anything that must
+  remember a person or prove a consent belongs in the App. The App is
+  dormant, so today that seam has nothing behind it.
 
 ## The two shared brains
 
-The estate carries two complementary shared brains, split by lifecycle:
+The estate carries two complementary shared brains, split by lifecycle.
+**PatterTech_EOS** holds the git-pinned knowledge: the packs, this
+manifest, the registries, and in time the shared document-model schema
+as a compiled seed. **PatterStack**, inside PatterStudio, holds the
+live queryable capability: the tool gateway, the corpus, the run engine
+and the document engine. Git for knowledge, a service for capability.
 
-- **PatterTech_EOS** holds the git-pinned knowledge: doctrine, this manifest, and
-  (in time) the shared document-model schema as a compiled seed pack.
-- **PatterStack** (inside PatterStudio) holds the live, queryable capability:
-  the MCP tool gateway, the corpus, the run engine, and the document engine.
+The platform vision document inside PatterStudio predates the EOS and
+does not mention it. Reconciling the two along that split is standing
+estate work, and it is nobody's task yet.
 
-The Platform Vision predates the EOS v1.0.0 tag and does not yet mention it;
-reconciling the two by this plane (git for knowledge, MCP for capability) is a
-standing piece of estate work.
+## What the 2026-08-03 pass established
+
+Every row in the manifest was checked read-only against the repository
+on disk: its role, its branch tip, whether a remote is configured, and
+whether the repo's own README still describes it correctly. Nothing was
+written into any sibling repository, which the build's approval
+explicitly reserves.
+
+Three findings worth carrying: Venture A, PatterHome and PatterPower have
+no git remote configured locally, so nothing in them is pushed anywhere.
+PatterTech_App's README says it has no remote, and it does have one.
+PatterHome had a commit on the day of the pass, which makes it the most
+active repo the EOS does not govern.
 
 ## Agent files
 
-Every repo carries `AGENTS.md` as its canonical entry point, with `CLAUDE.md` a
-byte-identical copy (the EOS standard, enforced here by `eos_check` E003 and in
-PatterTech_Website by `scripts/check-agent-files.mjs`).
+Every repo that agents work in carries `AGENTS.md` as its entry point
+with `CLAUDE.md` a byte-identical copy: the EOS standard, enforced here
+by check E003 and in PatterTech_Website by its own lint script. The
+three document-and-guide repos (PatterOS, PatterHome, PatterPower) carry
+none, which is one of the things the adopt-or-defer review should settle.

@@ -1,57 +1,138 @@
 ---
-summary: The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set
+summary: The law of the EOS, the graded change path, precedence, promotion, the protected set, ids, budgets
 type: governance
 tags: [eos]
 ---
 
 # GOVERNANCE
 
-How the EOS itself is allowed to change, and the contracts every file
-obeys. This file is in the protected set: changing it requires an
-accepted ADR in `org/decisions/` with Daniel's approval recorded.
+How the EOS is allowed to change, and the contracts every file obeys.
+This file is in the protected set: changing it needs an accepted ADR in
+`org/decisions/` with Daniel's approval recorded. The architecture it
+governs is ADR-0002.
 
-## Protected set
+## The graded change path
 
-- `GOVERNANCE.md` (this file)
-- `kernel/templates/org/CONSTITUTION.tpl.md` Parts II and III
-- `kernel/templates/org/roles/` (all three charters)
-- The module-shape invariants in `doctrine/MODULE_SHAPE.md`
-- The wargame format (`doctrine/web-design/templates/WG_TEMPLATE.md`)
-- The ID schemes and front-matter schema below
-- `org/decisions/` (append-only, no retro-edits)
+Three rungs. Take the lowest one that fits the change, and never skip a
+rung to reach a faster one.
 
-Emergency clause, borrowed from the kernel: anything may be fixed to
-restore a broken repo state first, paperwork immediately after, but the
-protected set is never touched under the emergency clause.
+1. **Experimental edit.** A reversible default, marked
+   `lifecycle: experimental`, carrying its hypothesis in the body and an
+   expiry no more than ninety days out. It expires by itself. The
+   monthly governance review closes or promotes it; an expired
+   experiment left in place is a checker finding.
+2. **Evidence RFC.** A record under `org/rfcs/`, capped at eighty
+   lines, for any rule that binds across the estate, for changes to
+   pack shape, guide format, ID schemes or the front-matter schema, and
+   for standing exceptions to the risk router. It states the change, the
+   evidence, the counter-evidence and the applicability limits.
+3. **ADR.** For EOS architecture and for anything in the protected set.
+   ADRs are append-only in `org/decisions/`; the one sanctioned
+   amendment to an accepted ADR is a `superseded_by` stamp.
 
-## Front-matter schema
+Decision guides are written only for recurring forks: two occurrences
+across the estate, or one plus a venture about to meet it. A guide
+written for a fork that happened once is speculation with a filename.
 
-Every markdown file opens with YAML front-matter. `tools/eos_check.py`
-validates it (check E002). Keys:
+The monthly governance review samples five items: live experiments,
+recorded exceptions, contested rules. Sampling is the check on the
+whole path, so it is never skipped for being quiet.
 
-| Key | Required | Notes |
-| --- | --- | --- |
-| `summary` | always | One line, feeds INDEX.md |
-| `type` | always | One artefact type from the list below |
-| `tags` | always | Inline list from the tag vocabulary, `[web, motion]` |
-| `status` | wargame, decision, stack, registry | draft, active, contested, superseded, accepted, proposed |
-| `review_by` | wargame, stack, registry, guide | YYYY-MM |
-| `supersedes` / `superseded_by` | when lineage exists | Bidirectional |
-| `template` | kernel templates | `true`, exempts slot checks in --repo mode |
-| `derived` | generated files | `true`, hand-editing is a finding |
-| `length_waiver` | over-budget files | The reason, one line |
-| `extracted_from` | kernel extractions | e.g. `Venture A@d2e3250` |
+## Precedence
 
-Artefact types: `root`, `governance`, `decision`, `doctrine`,
-`foundation`, `pattern`, `ux`, `implementation`, `wargame`, `template`,
-`example`, `registry`, `stack`, `playbook`, `org`, `kernel`, `guide`,
-`index`.
+1. A newer argued venture ruling wins **inside that venture** and
+   nowhere else. It does not amend the estate default by existing.
+2. A venture ruling marks an estate default `contested` only when the
+   two applicability conditions overlap **and** a one-line
+   generalisability note is recorded saying why the ruling should travel.
+   Without both, the default stands unmarked.
+3. Contrary evidence against a binding rule triggers a **review**, never
+   an automatic demotion. Counting rulings cannot demote something that
+   was promoted on evidence.
+4. Rules whose `basis` is law or standard are immune to vote counts.
+   They change only through an RFC or ADR that cites the changed source,
+   and they carry a versioned source with an on-change-of trigger or a
+   dated review.
+5. Where two live rules genuinely conflict and neither is law or
+   standard, the stricter applies until the conflict is argued out.
+
+## Promotion on the confidence ladder
+
+The ladder is preference, advisory, default, binding. Authority is
+earned, and the evidence for each step is named.
+
+- **To default**: the rule holds in practice and nothing contradicts it.
+  Recorded with its basis and evidence grade.
+- **To binding candidate**: two argued rulings from two different
+  ventures, or one argued ruling plus a source with `basis: standard`
+  or `evidence_grade: controlled`.
+- **To binding**: an accepted ADR and Daniel's approval. Binding also
+  requires a basis of decision, law, standard or empirical evidence,
+  named sources, and `applies_when` predicates. Asserted-only material
+  never binds.
+
+Rulings count as promotion evidence only when marked argued. An
+inherited ruling took the default without engaging the fork and proves
+nothing.
+
+## The protected set
+
+Changing any of these needs an accepted ADR and Daniel (ADR-0002):
+
+- `GOVERNANCE.md`, this file.
+- Prompt-injection resistance.
+- Secret protection.
+- Production safety.
+- Data protection.
+- Approval for consequential external actions.
+- `org/decisions/`, append-only, one sanctioned amendment being the
+  `superseded_by` stamp.
+- The constitution Parts II and III in the kernel templates.
+- The three role charters, EXECUTOR, ORACLE and REVIEWER.
+- The policy risk and approvals blocks, with `kernel/POLICY_SPEC.md`.
+
+Four of those subjects have a canonical home and this file does not
+restate them. Prompt-injection resistance, secret protection, data
+protection and approval for consequential external actions live in
+`packs/security-privacy/PACK.md` as binding requirements B1 to B6.
+Production safety lives in `packs/devops-reliability/PACK.md`. Read the
+rule there; being in the protected set changes how those files may be
+edited, not where the rule is written.
+
+## What left the protected set
+
+Pack shape, guide format, the ID schemes and the front-matter schema
+are no longer protected. They change through the RFC path: a record
+under `org/rfcs/` with the argument and the migration. They are still
+contracts, and the checker still enforces them.
+
+## Metadata
+
+The metadata contract is `kernel/METADATA_SPEC.md`: eight orthogonal
+axes, required minima that vary by kind, derived defaults, and the axis
+compatibility table. It is not restated here, because a rule written
+twice goes stale in one of the two places.
+
+## ID schemes
+
+- `WG-<MOD>-NNN`: wargames, carried forward from v1 unchanged. Module
+  prefixes WEB, ARCH, DEL, OPS, VOX, EOS. Never renumbered, never
+  reused, wherever the file now lives.
+- `GD-<PACK>-NNN`: guides authored under a pack, for example
+  `GD-COD-001`. Numbered per pack.
+- `ADR-NNNN`: EOS decisions in `org/decisions/`.
+- `EV-NNNN`: evidence-ledger rows in `registry/evidence.json`.
+- `T-NNNN`: task records under `org/tasks/`.
+- `RFC-NNN`: records under `org/rfcs/`.
+- `PB-ENN`: EOS playbooks in `org/PLAYBOOKS.md`.
+- Venture artefacts keep the kernel's schemes: WO, SUGG, ADR, RN, GD,
+  STD, REG, PB and session logs `S-NNNN`.
 
 ## Tag vocabulary
 
-Tags outside this list fail check E009. Add a tag by editing this list
-in the same commit that first uses it, with a one-line reason in the
-commit message. One flat vocabulary, grouped for reading.
+Tags outside this list fail check E009, which parses the list live from
+this file. Add a tag by editing this list in the commit that first uses
+it, with a one-line reason in the commit message.
 
 Domains:
 
@@ -95,79 +176,48 @@ Triggers and topics:
 - `wargame`: decision procedures
 - `tooling`: scripts and checks
 
-## ID schemes
-
-- Wargames: `WG-<MOD>-NNN`, module prefixes WEB, ARCH, DEL, OPS, VOX,
-  EOS. Globally unique, numbered per module, never reused.
-- EOS decisions: `ADR-NNNN` in `org/decisions/`.
-- EOS playbooks: `PB-ENN` in `org/PLAYBOOKS.md`.
-- Venture artefacts keep the kernel's schemes: WO, SUGG, ADR, RN, GD,
-  STD, REG, PB, session logs `S-NNNN`.
-
 ## Line budgets
 
-- `AGENTS.md` and `CLAUDE.md`: hard cap 40 lines each (check E007).
-- Types `doctrine`, `foundation`, `pattern`, `ux`, `implementation`,
-  `wargame`: warning over 150 lines, error without a `length_waiver`.
-- All other types exempt. Registries must be complete rather than short.
+- `AGENTS.md` and `CLAUDE.md`: hard cap of forty lines each, byte
+  identical, enforced by checks E003 and E007.
+- A pack `PACK.md` body stays under five hundred lines, and a pack
+  across all its organs carries a soft cap of about eight hundred.
+- Types `doctrine`, `foundation`, `pattern`, `ux`, `implementation` and
+  `wargame`: a warning over one hundred and fifty lines, an error
+  without a `length_waiver`.
+- An RFC is capped at eighty lines, a task record at forty, a review
+  verdict at ten.
+- Registries and indexes are exempt. They must be complete rather than
+  short.
 
-## Knowledge promotion and demotion
+## Derived files
 
-Rulings on wargames are marked `argued` (engaged the triggers afresh) or
-`inherited` (took the default without new argument). Only argued rulings
-are promotion evidence.
+A file with `derived: true` in its front-matter is generated. Hand
+editing one is a checker finding, and the fix is always to correct the
+source and regenerate. The integrator alone runs the generators.
+Registered today: `INDEX.md`, `doctrine/WARGAME_INDEX.md`,
+`org/TASKS.md` and `org/STATE.md`, regenerated with
+`python -m tools.eos check --write-index`. Written by hand until the
+generators are repointed, and flagged derived so the gap stays visible:
+`packs/INDEX.md` and `registry/CAPABILITIES.md`.
 
-- **Ruling to default**: two concordant argued rulings from different
-  ventures with zero contrary rulings, or one argued ruling plus strong
-  cited external evidence. Applied by editing the wargame's Default
-  section, citing the rulings.
-- **Default to doctrine**: three concordant argued rulings across at
-  least two venture scales, plus a fresh adversarial re-argument of the
-  wargame in a cold context that fails to break it, plus Daniel's
-  sign-off. The wargame stays alive beneath the doctrine as its argument
-  of record.
-- **Demotion**: one contrary argued ruling marks the default or doctrine
-  `contested` and schedules a re-argument at the next promotion review.
-  Two contrary argued rulings demote automatically: doctrine falls to
-  default, default falls to open wargame.
-- Promotion and demotion run through playbook PB-E04 on the monthly
-  cadence, counting rulings from lock-book headers across the estate.
+Canonical machine files hold the truth; the Markdown beside them is a
+view. `registry/evidence.json`, `registry/coverage.json`,
+`estate/repos.json`, `org/claims.json` and the task records are
+canonical.
 
 ## Staleness and supersession
 
-Past `review_by` means suspect: verify the claims before relying, and
-the hygiene cadence queues expired items as work. Supersession is
-explicit and bidirectional (`supersedes` / `superseded_by`); the
-superseded file keeps its place for one release cycle, then the release
-playbook archives it. Silent deletion of guidance is a finding.
-
-## Doctrine exceptions
-
-A venture deviates from doctrine only through a Deviations entry in its
-lock-book citing the trigger that justifies it, approved by Daniel.
-Deviations are harvested and count as contrary rulings. If no wargame
-covers the fork, the deviation must file a draft wargame with its ruling
-as the first worked entry.
-
-## Conflict precedence
-
-1. The venture lock-book, on specifics.
-2. The kernel constitution articles.
-3. Module doctrine.
-4. Wargame defaults.
-5. Guidance.
-
-Across modules, the module that owns the decision (per the wargame
-index) wins. A discovered conflict is queued and resolved by a joint
-wargame; until resolved, the stricter rule applies. Doctrine may never
-contradict kernel constitution Parts II or III.
+Past a `review_by` or `review` date means suspect: verify before
+relying. Supersession is explicit and bidirectional, `supersedes` and
+`superseded_by`, and the checker enforces the pair. Superseded material
+is archived under `archive/`, never silently deleted.
 
 ## Versioning and release
 
-Semver tags on this repo: patch for wording and fixes, minor for
-additive change (new wargames, rulings, modules, stack profiles), major
-for breaking change (template contracts, ID schemes, doctrine
-reversals). Release is playbook PB-E05: checks green, CHANGELOG entry,
-tag, push. Ventures pin `eos_version` plus commit in their lock-book and
-never auto-upgrade; PB-E06 is the only upgrade path. The quarterly
-registry review flags ventures more than one minor version behind.
+Semver tags on this repo: patch for wording, minor for additive change,
+major for a broken contract. Ventures pin the EOS commit they compiled
+from and never auto-upgrade. A pin must resolve to a pushed tag or a
+commit reachable from origin, and the checker enforces it. Release runs
+through playbook PB-E05 and needs Daniel's explicit approval.
+

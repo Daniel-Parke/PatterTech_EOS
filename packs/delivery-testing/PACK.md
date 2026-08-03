@@ -186,7 +186,7 @@ Taste. Override freely, no reason needed.
 | What happens when a test flakes | WG-DEL-004 |
 
 The first three live in `packs/delivery-testing/guides/`. The last four
-are the v1 delivery wargames in `doctrine/delivery/wargames/`, carried
+are the v1 delivery wargames in `archive/v1/doctrine/delivery/wargames/`, carried
 forward unchanged and re-graded by this pack's evidence rather than
 rewritten. Mechanics that no fork depends on sit in
 `packs/delivery-testing/refs/`.

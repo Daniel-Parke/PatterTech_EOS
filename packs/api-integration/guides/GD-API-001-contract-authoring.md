@@ -98,7 +98,7 @@ recorded next to the code, not assumed.
 - **WiseWattage (2026, argued, inherited here)**: C. OpenAPI generated
   from the API app, compiled into a types package and a typed client,
   committed with a CI drift check. See
-  `doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md` and the
+  `archive/v1/doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md` and the
   2026-07 lesson in `registry/LESSONS.md`, which records that generated
   artefacts rot silently without the drift check.
 - **PatterTech_Business (2026-06, argued, inherited here)**: C, from

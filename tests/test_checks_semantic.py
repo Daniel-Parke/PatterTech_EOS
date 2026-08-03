@@ -48,19 +48,19 @@ def test_minirepo_is_semantically_green(tmp_path):
 
 def test_s001_invalid_v1_status(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/wargames/WG-TST-001-sample.md",
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
          "status: active", "status: bogus")
     fs = run_s(root)
-    assert only(fs, "S001") == [("warn", "doctrine/testmod/wargames/WG-TST-001-sample.md",
+    assert only(fs, "S001") == [("warn", "packs/testmod/guides/WG-TST-001-sample.md",
                                  "invalid status: bogus")]
 
 
 def test_s001_strict_flag_flips_severity(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/wargames/WG-TST-001-sample.md",
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
          "status: active", "status: bogus")
     fs = run_s(root, strict=True)
-    assert only(fs, "S001") == [("error", "doctrine/testmod/wargames/WG-TST-001-sample.md",
+    assert only(fs, "S001") == [("error", "packs/testmod/guides/WG-TST-001-sample.md",
                                  "invalid status: bogus")]
 
 
@@ -140,7 +140,7 @@ def test_s003_dangling_path_reference(tmp_path):
 def test_s003_resolvable_reference_clean(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
-         "See `doctrine/testmod/DOCTRINE.md` for details.")
+         "See `packs/testmod/PACK.md` for details.")
     assert only(run_s(root), "S003") == []
 
 
@@ -187,16 +187,16 @@ def test_s005_registered_indexes_clean(tmp_path):
 
 def test_s006_missing_doctrine_organ(tmp_path):
     root = make_repo(tmp_path)
-    (root / "doctrine" / "testmod" / "DOCTRINE.md").unlink()
+    (root / "packs" / "testmod" / "CHECKS.md").unlink()
     fs = run_s(root)
-    assert only(fs, "S006") == [("warn", "doctrine/testmod", "module missing DOCTRINE.md")]
+    assert only(fs, "S006") == [("warn", "packs/testmod", "pack missing CHECKS.md")]
 
 
-def test_s006_missing_wargames_dir(tmp_path):
+def test_s006_missing_guides_dir(tmp_path):
     root = make_repo(tmp_path)
-    shutil.rmtree(root / "doctrine" / "testmod" / "wargames")
+    shutil.rmtree(root / "packs" / "testmod" / "guides")
     fs = run_s(root)
-    assert only(fs, "S006") == [("warn", "doctrine/testmod", "module missing wargames/")]
+    assert only(fs, "S006") == [("warn", "packs/testmod", "pack missing guides/")]
 
 
 # --- S007 ---------------------------------------------------------------

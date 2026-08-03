@@ -1,65 +1,81 @@
 ---
-summary: What the PatterTech EOS is and how the repo is laid out
+summary: What the PatterTech EOS is, how the repo is laid out, how a venture consumes it, and the principles that hold
 type: root
 tags: [eos]
 ---
 
 # PatterTech EOS
 
-The PatterTech Engineering Operating System. A documentation-and-process
-repo, no build, that seeds and governs our ventures so AI agents can
-take a project from idea to operated software without re-learning the
-same lessons every time.
+The PatterTech Engineering Operating System. A documentation and process
+repository, no build, that seeds and governs our ventures so a capable
+agent can take a project from idea to operated software to the standard
+of an experienced senior engineer, with Daniel supplying judgement at a
+few named gates rather than repeating himself venture after venture.
 
-Two halves, unified in v1.0 (see `org/decisions/ADR-0001`):
+It does that by putting engineering judgement in files: packs of argued
+knowledge per domain, a kernel that decides how much ceremony a piece of
+work deserves, registries of what is true today, and a governance layer
+that lets all of it improve without rotting. The architecture of record
+is `org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md`.
 
-- **Knowledge**: `doctrine/` holds the argued rules, derivation methods,
-  patterns and wargames per domain. `registry/` holds what is true today
-  (stack profiles, trusted vendors, the venture directory, lessons).
-- **Execution**: `kernel/` holds the organisational machinery (roles,
-  work orders, gates, cadences, templates) that Session 0 compiles into
-  each venture at the smallest scale that fits. `inception/` is the
-  Session 0 system itself.
-
-The EOS runs on its own kernel: `org/` carries its state, work queue,
-cadences, playbooks, decisions and logs.
-
-New here? `GUIDE.md` is the all-in-one field guide: it teaches the whole
-system from first principles, walks the Venture A genesis, and shows the
-development lifecycle end to end, pointing to the canonical files as it
-goes. Read it once, then use the map below and `INDEX.md` for lookup.
+New here? Read `TOUR.md`. It teaches the system, says what changed from
+v1 and why, and points at the canonical files as it goes.
 
 ## Map
 
 | Path | What lives there |
 | --- | --- |
-| `AGENTS.md` / `CLAUDE.md` | Entry point and never-list (byte-identical) |
-| `START.md` | Read order per entry mode, ground rules |
-| `GUIDE.md` | The all-in-one field guide (framework, genesis, lifecycle) |
-| `INDEX.md` | Derived index of every file, grep the tag column |
-| `GOVERNANCE.md` | Promotion numbers, schema, tags, protected set |
+| `AGENTS.md` / `CLAUDE.md` | The router: entry modes and the never-list, byte identical |
+| `TOUR.md` | The teaching surface, regenerated each release |
+| `GOVERNANCE.md` | The graded change path, precedence, promotion, the protected set |
 | `OPERATORS_GUIDE.md` | Daniel's manual for running the EOS |
-| `kernel/` | Templates compiled into ventures, scale matrix, seed rubric |
-| `inception/` | Session 0: interview, scale wargame, walk order, compile |
-| `doctrine/` | Knowledge modules and their wargames |
-| `registry/` | Projects, vendors, lessons, stack profiles |
-| `org/` | The EOS's own state, queue, cadences, playbooks, decisions |
-| `examples/` | Worked instantiations |
-| `tools/eos_check.py` | The check tool (`--repo`, `--seed`, `--write-index`) |
+| `packs/` | The knowledge. `packs/INDEX.md` is the always-loaded surface |
+| `kernel/` | Policy, guard and metadata law, schemas, and the templates a seed compiles from |
+| `inception/` | Session 0: interview, scale, walk order, compile |
+| `org/` | The EOS's own state: task records, claims, decisions, playbooks, logs |
+| `registry/` | Projects, capabilities, evidence, vendors, lessons, stack profiles |
+| `estate/` | Which repo owns what, and which repos the EOS governs |
+| `benchmark/` | The frozen v1-against-v2 protocol, fixtures, drills and results |
+| `tools/` | The one executable, `python -m tools.eos` |
+| `archive/` | v1 material kept in place and marked archived, never deleted |
+| `INDEX.md` | Derived index of every file, grep the tag column |
 
-## Consuming the EOS
+## How a venture consumes the EOS
 
 A venture never reads this repo at random. Session 0 compiles it a seed
-pack: thin agent routers, a lock-book of rulings, distilled standards
-and, where scale demands it, an org kernel. The venture pins the EOS
-version it was compiled from and upgrades deliberately. Working agents
-read the venture's own files first and follow citations back here.
+pack: a thin router, a lock-book of its rulings, the distilled standards
+it needs and, at ORG scale, an org kernel. The seed is stamped with the
+EOS commit it came from. The venture pins that commit and never
+auto-upgrades; an upgrade is a deliberate run of the upgrade playbook. A
+pin must resolve to a pushed tag or a commit reachable from origin, and
+the checker enforces it.
 
-## Related repos
+Working agents read the venture's own files first and follow citations
+back here. Nothing in this repo is read by a venture at runtime.
 
-- `Venture A`: the org kernel ancestor; its seed pack is the extraction
-  source for `kernel/templates/`.
-- `PatterTech_Website`: the first conforming web project and the worked
-  example in `examples/pattertech-website.md`.
-- `WiseWattage`, `PatterTech_Business`: extraction sources for the
-  architecture, delivery and devops modules.
+## Principles
+
+What must stay true as the EOS grows.
+
+- **Agnostic core, locked-in ventures.** EOS files never assume one
+  brand, stack or client. Each venture freezes its choices in its own
+  lock-book. A rule that only makes sense for one venture belongs in a
+  worked ruling or an exemplar, not in a pack.
+- **Evidence before authority.** A rule earns its place by surviving
+  argument and citing sources, not by being written confidently.
+  Promotion has numbers and demotion exists (`GOVERNANCE.md`).
+- **Files over memory.** Everything an agent needs is in the repos.
+  Session memory is a convenience, never the source of truth.
+- **Packs argue; registries date.** Timeless rules and dated facts never
+  share a file. Time-sensitive claims carry a review trigger, and stale
+  guidance is a bug.
+- **Ceremony is proportional to risk.** The router rules a tier from
+  semantic facts, and the tier decides the paperwork. A doc fix does not
+  pay for a schema migration's assurance.
+- **Compiled, never composed.** Ventures are seeded by slot-filling
+  hand-written templates, with a compile report proving ancestry.
+- **Every venture feeds back.** Rulings and lessons are harvested,
+  repeated argued rulings become defaults, and defaults become binding
+  only with an ADR.
+- **Lean.** Capture the decision structure, not restatements of common
+  knowledge. If removing a line would not cause a mistake, cut it.

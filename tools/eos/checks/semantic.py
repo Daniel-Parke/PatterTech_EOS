@@ -31,7 +31,8 @@ from ..repo import RepoModel
 from . import register
 from .structural import build_index, build_wargame_index, strip_code
 
-V1_STATUS = {"draft", "active", "contested", "superseded", "accepted", "proposed"}
+V1_STATUS = {"draft", "active", "contested", "superseded", "accepted",
+             "proposed", "archived"}
 
 V2_AXES = {
     "kind": {"rule", "guide", "recipe", "exemplar", "stack-profile", "fact", "record"},
@@ -43,7 +44,9 @@ V2_AXES = {
 }
 V2_SCOPES = {"estate", "venture", "eos-internal"}
 
-DERIVED_GENERATED = {"INDEX.md", "doctrine/WARGAME_INDEX.md",
+DERIVED_GENERATED = {"INDEX.md",
+                     "packs/GUIDE_INDEX.md", "packs/INDEX.md",
+                     "registry/CAPABILITIES.md",
                      "org/TASKS.md", "org/STATE.md"}
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")
@@ -58,6 +61,7 @@ ID_SCHEMES = {
 
 ESTATE_ROW_REQUIRED = ("role", "status")
 ESTATE_ROW_ALLOWED = {
+    "governed",
     "path", "remote", "role", "status", "stack", "owns", "does_not_own",
     "commands", "agent_files", "eos_pin", "interacts_with", "notes", "built",
 }
@@ -273,25 +277,36 @@ def check_s005_derived(ctx: dict) -> list:
     return out
 
 
-# --- S006 module organ completeness ------------------------------------
+# --- S006 pack organ completeness --------------------------------------
 
 
 @register("S006")
 def check_s006_module_organs(ctx: dict) -> list:
+    """Every built pack carries its invariant organs.
+
+    packs/PACK_SHAPE.md fixes the contract: PACK.md (whose first
+    paragraph is the always-loaded metadata), guides/ for the decision
+    guides, and CHECKS.md for the evaluation criteria. Archived v1
+    modules under archive/ are history and are not held to it.
+    """
     model: RepoModel = ctx["model"]
-    modules: dict = {}
+    packs: dict = {}
     for rec in model.files:
         parts = rec.path.split("/")
-        if parts[0] == "doctrine" and len(parts) >= 3:
-            modules.setdefault(parts[1], set()).add(rec.path)
+        if parts[0] == "packs" and len(parts) >= 3:
+            packs.setdefault(parts[1], set()).add(rec.path)
     out = []
-    for mod in sorted(modules):
-        base = f"doctrine/{mod}"
-        for organ in ("README.md", "DOCTRINE.md"):
-            if f"{base}/{organ}" not in modules[mod]:
-                out.append(_f(ctx, "S006", base, f"module missing {organ}"))
-        if not any(p.startswith(f"{base}/wargames/") for p in modules[mod]):
-            out.append(_f(ctx, "S006", base, "module missing wargames/"))
+    for pack in sorted(packs):
+        base = f"packs/{pack}"
+        paths = packs[pack]
+        # A directory holding only research fragments is not yet a pack.
+        if all(p.startswith(f"{base}/research/") for p in paths):
+            continue
+        for organ in ("PACK.md", "CHECKS.md"):
+            if f"{base}/{organ}" not in paths:
+                out.append(_f(ctx, "S006", base, f"pack missing {organ}"))
+        if not any(p.startswith(f"{base}/guides/") for p in paths):
+            out.append(_f(ctx, "S006", base, "pack missing guides/"))
     return out
 
 

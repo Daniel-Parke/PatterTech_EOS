@@ -12,11 +12,77 @@ Derived file. Edit front-matter, then run
 
 | path | type | tags | summary | review_by |
 | --- | --- | --- | --- | --- |
-| AGENTS.md | root | eos | Thin agent entry point, the three entry modes and the never-list |  |
+| AGENTS.md | root | eos | The v2 router, entry modes, policy-routed mode entry and the never-list |  |
+| archive/v1/doctrine/architecture/DOCTRINE.md | doctrine | arch | The seven binding architecture rules, argued by the estate's ADRs and the WG-ARCH wargames |  |
+| archive/v1/doctrine/architecture/README.md | doctrine | arch | Architecture module, seven rules and eight wargames from the estate's ADRs |  |
+| archive/v1/doctrine/architecture/templates/ADR_TEMPLATE.md | template | arch eos | The ADR format, copy-exact, the record that carries the why |  |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-001-boundary-enforcement.md | wargame | arch tooling | Where do module boundaries live: convention, machine contract, or the directory tree? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md | wargame | arch data | ORM, query builder, or raw SQL behind repositories? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-003-derived-state.md | wargame | arch data state | Derived values: always computed, cached, or stored as immutable snapshots? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-004-job-execution.md | wargame | arch state infra | Background jobs: in-process, a durable database queue, or an external broker? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md | wargame | arch ci tooling | How do frontend and backend share types: by hand, generated with a drift gate, or one language? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-006-change-proof.md | wargame | arch testing ci | What proves a change changed nothing: green tests, pinned behaviour, or byte-stable output? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md | wargame | arch infra security | Vendor integration: their SDK everywhere, an owned adapter, or the raw protocol? | 2027-07 |
+| archive/v1/doctrine/architecture/wargames/WG-ARCH-008-database-topology.md | wargame | arch data infra | One shared database, one per service, or a records core with a separate high-volume store? | 2027-07 |
+| archive/v1/doctrine/delivery/DOCTRINE.md | doctrine | delivery testing ci | The six binding delivery rules, test-first by type, ratchets, rubric gates, determinism |  |
+| archive/v1/doctrine/delivery/README.md | doctrine | delivery | Delivery module, six rules and four wargames on proof, gates and determinism |  |
+| archive/v1/doctrine/delivery/wargames/WG-DEL-001-coverage-level.md | wargame | delivery testing ci | What coverage floor, per surface, and how does it move? | 2027-07 |
+| archive/v1/doctrine/delivery/wargames/WG-DEL-002-e2e-weighting.md | wargame | delivery testing ci | How much end-to-end, and which branch does it block? | 2027-07 |
+| archive/v1/doctrine/delivery/wargames/WG-DEL-003-vrt-scope.md | wargame | delivery testing web | Visual regression: nothing, component states, or full pages? | 2027-07 |
+| archive/v1/doctrine/delivery/wargames/WG-DEL-004-flake-policy.md | wargame | delivery testing ci | When a test flakes: retry, quarantine, or root-cause now? | 2027-07 |
+| archive/v1/doctrine/devops/DOCTRINE.md | doctrine | ops | The six binding devops rules, migrations, parity, secrets, runbooks, restores, cost |  |
+| archive/v1/doctrine/devops/README.md | doctrine | ops | Devops module, six rules and four wargames on hosting, artefacts, restores and spend |  |
+| archive/v1/doctrine/devops/wargames/WG-OPS-001-hosting.md | wargame | ops hosting infra | Managed PaaS, a cloud estate under contract, or self-hosting? | 2027-07 |
+| archive/v1/doctrine/devops/wargames/WG-OPS-002-containers.md | wargame | ops infra hosting | Everything in containers, platform-native builds, or a mixed fleet? | 2027-07 |
+| archive/v1/doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md | wargame | ops data infra | Trusted snapshots, scheduled restore tests, or full disaster rehearsal? | 2027-07 |
+| archive/v1/doctrine/devops/wargames/WG-OPS-004-cost-ceilings.md | wargame | ops infra money | How is spend governed: unwatched, budget-gated, or hard-capped? | 2027-07 |
+| archive/v1/doctrine/MODULE_SHAPE.md | governance | eos | What every doctrine module must have, may have, and must never become |  |
+| archive/v1/doctrine/README.md | governance | eos | The module map, what is populated, what is queued, and the extraction mandates |  |
+| archive/v1/doctrine/voice/DOCTRINE.md | doctrine | voice | The voice law, seven rules with examples, and the banned-list pattern |  |
+| archive/v1/doctrine/voice/README.md | doctrine | voice | Voice module, the writing law and the register wargame, compiled into every seed |  |
+| archive/v1/doctrine/voice/wargames/WG-VOX-001-audience-register.md | wargame | voice content brand | Which register does this surface speak in? | 2027-07 |
+| archive/v1/doctrine/WARGAME_INDEX.md | index | eos wargame | Derived index of every wargame, the surface inception walks |  |
+| archive/v1/doctrine/web-design/DOCTRINE.md | doctrine | web | The twelve binding rules for any PatterTech web surface |  |
+| archive/v1/doctrine/web-design/foundations/COLOR.md | foundation | web colour | Deriving the surface ladder, accents and measured text tiers |  |
+| archive/v1/doctrine/web-design/foundations/LAYOUT_AND_GRID.md | foundation | web layout | The reading grid, measures and bleeds that kill drift |  |
+| archive/v1/doctrine/web-design/foundations/LIGHT.md | foundation | web colour motion | The graded light system, field to radiance, with budgets |  |
+| archive/v1/doctrine/web-design/foundations/MOTION.md | foundation | web motion | Motion with meaning, reveals, easing and reduced-motion duty |  |
+| archive/v1/doctrine/web-design/foundations/TYPOGRAPHY.md | foundation | web typography | Choosing and proving the three faces, scales and measures |  |
+| archive/v1/doctrine/web-design/implementation/AGENT_WORKFLOW.md | implementation | web tooling | How an agent works a web project without breaking it |  |
+| archive/v1/doctrine/web-design/implementation/QC_GATES.md | implementation | web testing tooling | The executable gates and when each runs |  |
+| archive/v1/doctrine/web-design/implementation/TOKENS.md | implementation | web tooling brand | Three token layers and the mirroring contract |  |
+| archive/v1/doctrine/web-design/patterns/CONTAINERS.md | pattern | web layout density | Ledger, plaque, panel, table or prose, chosen by content |  |
+| archive/v1/doctrine/web-design/patterns/DIAGRAMS.md | pattern | web media | Diagram kit rules, positions from data, labels that never overlap |  |
+| archive/v1/doctrine/web-design/patterns/LONGFORM.md | pattern | web content layout | The long-read kit, pacing and numbering as identity |  |
+| archive/v1/doctrine/web-design/patterns/MEDIA.md | pattern | web media | Figures, carousels, video facades, audio and document panels |  |
+| archive/v1/doctrine/web-design/patterns/NAVIGATION.md | pattern | web nav | Header, footer and index patterns, the journal threading model |  |
+| archive/v1/doctrine/web-design/patterns/SECTION_FURNITURE.md | pattern | web layout | Section marks, chapter marks, colophons and the andon line |  |
+| archive/v1/doctrine/web-design/templates/REVIEW_CHECKLIST.md | template | web testing | Evidence-based review checklist before shipping |  |
+| archive/v1/doctrine/web-design/templates/WG_TEMPLATE.md | template | eos wargame | Copy-exact template for a new wargame in any module |  |
+| archive/v1/doctrine/web-design/ux/ACCESSIBILITY.md | ux | web a11y | The accessibility floor, skip link to reduced motion |  |
+| archive/v1/doctrine/web-design/ux/FLOWS.md | ux | web nav content | The five page archetypes and their linking strategy |  |
+| archive/v1/doctrine/web-design/ux/PERFORMANCE.md | ux | web perf | Budgets and the structural choices that keep pages light |  |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-001-surface-register.md | wargame | web colour brand | Dark, light, or dual register? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-002-page-archetype.md | wargame | web nav content | Which vocabulary does this page speak? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-003-container-choice.md | wargame | web layout density | Card, ledger, plaque, table or prose? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-004-motion-budget.md | wargame | web motion | How much may this project move? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-005-ornament-budget.md | wargame | web colour motion brand | How much light does this project carry? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md | wargame | web density content | How dense, for whom? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-007-static-vs-server.md | wargame | web hosting infra state | Static export or a server? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-008-media-pipeline.md | wargame | web media perf | How do images get to the page? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-009-brand-family-accents.md | wargame | web brand colour | One brand or a family of accents? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-010-type-pairing.md | wargame | web typography brand | How to pick the type trio? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-011-surface-reactivity-budget.md | wargame | web motion perf | Should the surface react to presence? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md | wargame | web imagery brand | Literal imagery or generated fields? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md | wargame | web tooling testing | Where does a design law live so it actually holds? | 2027-07 |
+| archive/v1/doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
+| archive/v1/GUIDE.md | guide | eos | The all-in-one guide to the EOS, the Venture A genesis and the development lifecycle | 2027-01 |
 | archive/v1/kernel/SCALE_MATRIX.md | kernel | eos | The exact seed file list per scale S, M and L, plus trigger add-ons, machine-checked |  |
 | archive/v1/org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
 | archive/v1/org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | archive/v1/org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
+| archive/v1/START.md | root | eos | Bootstrap for every session, read order per entry mode and the ground rules |  |
+| archive/v1/VISION.md | root | eos | The north star, what the EOS is for and the invariants that hold as it grows |  |
 | benchmark/drills/agentic-development.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
 | benchmark/drills/api-integration.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
 | benchmark/drills/architecture.md | example | eos | Single-run cold-agent acceptance drill for the architecture pack, with deterministic machine-checkable criteria |  |
@@ -93,74 +159,11 @@ Derived file. Edit front-matter, then run
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
 | benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
 | CHANGELOG.md | governance | eos | One entry per release tag, sectioned by area |  |
-| CLAUDE.md | root | eos | Thin agent entry point, the three entry modes and the never-list |  |
-| doctrine/architecture/DOCTRINE.md | doctrine | arch | The seven binding architecture rules, argued by the estate's ADRs and the WG-ARCH wargames |  |
-| doctrine/architecture/README.md | doctrine | arch | Architecture module, seven rules and eight wargames from the estate's ADRs |  |
-| doctrine/architecture/templates/ADR_TEMPLATE.md | template | arch eos | The ADR format, copy-exact, the record that carries the why |  |
-| doctrine/architecture/wargames/WG-ARCH-001-boundary-enforcement.md | wargame | arch tooling | Where do module boundaries live: convention, machine contract, or the directory tree? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md | wargame | arch data | ORM, query builder, or raw SQL behind repositories? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-003-derived-state.md | wargame | arch data state | Derived values: always computed, cached, or stored as immutable snapshots? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-004-job-execution.md | wargame | arch state infra | Background jobs: in-process, a durable database queue, or an external broker? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md | wargame | arch ci tooling | How do frontend and backend share types: by hand, generated with a drift gate, or one language? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-006-change-proof.md | wargame | arch testing ci | What proves a change changed nothing: green tests, pinned behaviour, or byte-stable output? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md | wargame | arch infra security | Vendor integration: their SDK everywhere, an owned adapter, or the raw protocol? | 2027-07 |
-| doctrine/architecture/wargames/WG-ARCH-008-database-topology.md | wargame | arch data infra | One shared database, one per service, or a records core with a separate high-volume store? | 2027-07 |
-| doctrine/delivery/DOCTRINE.md | doctrine | delivery testing ci | The six binding delivery rules, test-first by type, ratchets, rubric gates, determinism |  |
-| doctrine/delivery/README.md | doctrine | delivery | Delivery module, six rules and four wargames on proof, gates and determinism |  |
-| doctrine/delivery/wargames/WG-DEL-001-coverage-level.md | wargame | delivery testing ci | What coverage floor, per surface, and how does it move? | 2027-07 |
-| doctrine/delivery/wargames/WG-DEL-002-e2e-weighting.md | wargame | delivery testing ci | How much end-to-end, and which branch does it block? | 2027-07 |
-| doctrine/delivery/wargames/WG-DEL-003-vrt-scope.md | wargame | delivery testing web | Visual regression: nothing, component states, or full pages? | 2027-07 |
-| doctrine/delivery/wargames/WG-DEL-004-flake-policy.md | wargame | delivery testing ci | When a test flakes: retry, quarantine, or root-cause now? | 2027-07 |
-| doctrine/devops/DOCTRINE.md | doctrine | ops | The six binding devops rules, migrations, parity, secrets, runbooks, restores, cost |  |
-| doctrine/devops/README.md | doctrine | ops | Devops module, six rules and four wargames on hosting, artefacts, restores and spend |  |
-| doctrine/devops/wargames/WG-OPS-001-hosting.md | wargame | ops hosting infra | Managed PaaS, a cloud estate under contract, or self-hosting? | 2027-07 |
-| doctrine/devops/wargames/WG-OPS-002-containers.md | wargame | ops infra hosting | Everything in containers, platform-native builds, or a mixed fleet? | 2027-07 |
-| doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md | wargame | ops data infra | Trusted snapshots, scheduled restore tests, or full disaster rehearsal? | 2027-07 |
-| doctrine/devops/wargames/WG-OPS-004-cost-ceilings.md | wargame | ops infra money | How is spend governed: unwatched, budget-gated, or hard-capped? | 2027-07 |
-| doctrine/MODULE_SHAPE.md | governance | eos | What every doctrine module must have, may have, and must never become |  |
-| doctrine/README.md | governance | eos | The module map, what is populated, what is queued, and the extraction mandates |  |
-| doctrine/voice/DOCTRINE.md | doctrine | voice | The voice law, seven rules with examples, and the banned-list pattern |  |
-| doctrine/voice/README.md | doctrine | voice | Voice module, the writing law and the register wargame, compiled into every seed |  |
-| doctrine/voice/wargames/WG-VOX-001-audience-register.md | wargame | voice content brand | Which register does this surface speak in? | 2027-07 |
-| doctrine/web-design/DOCTRINE.md | doctrine | web | The twelve binding rules for any PatterTech web surface |  |
-| doctrine/web-design/foundations/COLOR.md | foundation | web colour | Deriving the surface ladder, accents and measured text tiers |  |
-| doctrine/web-design/foundations/LAYOUT_AND_GRID.md | foundation | web layout | The reading grid, measures and bleeds that kill drift |  |
-| doctrine/web-design/foundations/LIGHT.md | foundation | web colour motion | The graded light system, field to radiance, with budgets |  |
-| doctrine/web-design/foundations/MOTION.md | foundation | web motion | Motion with meaning, reveals, easing and reduced-motion duty |  |
-| doctrine/web-design/foundations/TYPOGRAPHY.md | foundation | web typography | Choosing and proving the three faces, scales and measures |  |
-| doctrine/web-design/implementation/AGENT_WORKFLOW.md | implementation | web tooling | How an agent works a web project without breaking it |  |
-| doctrine/web-design/implementation/QC_GATES.md | implementation | web testing tooling | The executable gates and when each runs |  |
-| doctrine/web-design/implementation/TOKENS.md | implementation | web tooling brand | Three token layers and the mirroring contract |  |
-| doctrine/web-design/patterns/CONTAINERS.md | pattern | web layout density | Ledger, plaque, panel, table or prose, chosen by content |  |
-| doctrine/web-design/patterns/DIAGRAMS.md | pattern | web media | Diagram kit rules, positions from data, labels that never overlap |  |
-| doctrine/web-design/patterns/LONGFORM.md | pattern | web content layout | The long-read kit, pacing and numbering as identity |  |
-| doctrine/web-design/patterns/MEDIA.md | pattern | web media | Figures, carousels, video facades, audio and document panels |  |
-| doctrine/web-design/patterns/NAVIGATION.md | pattern | web nav | Header, footer and index patterns, the journal threading model |  |
-| doctrine/web-design/patterns/SECTION_FURNITURE.md | pattern | web layout | Section marks, chapter marks, colophons and the andon line |  |
-| doctrine/web-design/templates/REVIEW_CHECKLIST.md | template | web testing | Evidence-based review checklist before shipping |  |
-| doctrine/web-design/templates/WG_TEMPLATE.md | template | eos wargame | Copy-exact template for a new wargame in any module |  |
-| doctrine/web-design/ux/ACCESSIBILITY.md | ux | web a11y | The accessibility floor, skip link to reduced motion |  |
-| doctrine/web-design/ux/FLOWS.md | ux | web nav content | The five page archetypes and their linking strategy |  |
-| doctrine/web-design/ux/PERFORMANCE.md | ux | web perf | Budgets and the structural choices that keep pages light |  |
-| doctrine/web-design/wargames/WG-WEB-001-surface-register.md | wargame | web colour brand | Dark, light, or dual register? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-002-page-archetype.md | wargame | web nav content | Which vocabulary does this page speak? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-003-container-choice.md | wargame | web layout density | Card, ledger, plaque, table or prose? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-004-motion-budget.md | wargame | web motion | How much may this project move? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-005-ornament-budget.md | wargame | web colour motion brand | How much light does this project carry? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md | wargame | web density content | How dense, for whom? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-007-static-vs-server.md | wargame | web hosting infra state | Static export or a server? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-008-media-pipeline.md | wargame | web media perf | How do images get to the page? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-009-brand-family-accents.md | wargame | web brand colour | One brand or a family of accents? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-010-type-pairing.md | wargame | web typography brand | How to pick the type trio? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-011-surface-reactivity-budget.md | wargame | web motion perf | Should the surface react to presence? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md | wargame | web imagery brand | Literal imagery or generated fields? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md | wargame | web tooling testing | Where does a design law live so it actually holds? | 2027-07 |
-| doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
-| estate/ESTATE_MAP.md | registry | eos | The estate map, which repo owns which responsibility and how they interact | 2026-10 |
+| CLAUDE.md | root | eos | The v2 router, entry modes, policy-routed mode entry and the never-list |  |
+| estate/ESTATE_MAP.md | registry | eos | The estate narrative, how the repos relate, which are governed and what the seams between them are | 2026-11 |
 | examples/venture-a-seed.md | example | eos | Worked example, the Venture A reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
-| GOVERNANCE.md | governance | eos | The law of the EOS, schema, tags, promotion numbers, precedence, versioning, protected set |  |
-| GUIDE.md | guide | eos | The all-in-one guide to the EOS, the Venture A genesis and the development lifecycle | 2027-01 |
+| GOVERNANCE.md | governance | eos | The law of the EOS, the graded change path, precedence, promotion, the protected set, ids, budgets |  |
 | inception/briefs/BRIEF-S-brochure.md | kernel | eos | Canned drill brief, a sole-trader joinery brochure site, scripted operator answers |  |
 | inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
 | inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
@@ -191,7 +194,7 @@ Derived file. Edit front-matter, then run
 | kernel/templates/org/TESTING.tpl.md | template | eos | Adaptive testing law template, timing by change class, the test map, quality signals |  |
 | kernel/templates/TASKS.tpl.md | template | eos | S-scale task list template, the single hand-kept work surface at the smallest scale |  |
 | kernel/templates/VENTURE_BRIEF.tpl.md | template | eos | Venture brief template, the business truth the interview produces, challenge steps recorded |  |
-| OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, rhythm and troubleshooting | 2027-07 |
+| OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong | 2027-03 |
 | org/CADENCE.md | org | eos | Pointer, the EOS heartbeat is machine state in org/cadence.json |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
 | org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
@@ -298,6 +301,8 @@ Derived file. Edit front-matter, then run
 | packs/devops-reliability/refs/SLO_AND_ERROR_BUDGET.md | implementation | ops delivery | The machine-readable SLO object, the error budget policy shape, and the aggregate metrics this estate refuses |  |
 | packs/devops-reliability/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
 | packs/devops-reliability/research/NOTES.md | example | eos | Research synthesis for the devops-reliability pack, covering migrations, restore proof, SLO governance, incident practice, FinOps, golden paths, progressive delivery and observability stability. |  |
+| packs/INDEX.md | index | eos | Derived index of every built pack, the always-loaded metadata surface |  |
+| packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |
 | packs/security-privacy/CHECKS.md | guide | security testing tooling | What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement | 2027-08 |
 | packs/security-privacy/exemplars/poisoned-integration-guide.md | example | security tooling | The pack applied end to end to a feature task whose vendor guide carries planted instructions |  |
 | packs/security-privacy/guides/GD-SEC-001-injection-defence.md | guide | security tooling | In-band detection, a configuration rule, out-of-band enforcement, or OS containment? | 2027-03 |
@@ -325,14 +330,14 @@ Derived file. Edit front-matter, then run
 | packs/ui-ux/refs/TOKEN_PIPELINE.md | implementation | tooling brand colour | One token source, three layers, generated outputs and the guards that stop values drifting |  |
 | packs/ui-ux/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
 | packs/ui-ux/research/NOTES.md | example | eos | Research synthesis for the ui-ux pack, eight design philosophies, accessibility conformance, tokens and component contracts |  |
-| README.md | root | eos | What the PatterTech EOS is and how the repo is laid out |  |
-| registry/LESSONS.md | registry | eos | The harvest ledger, lessons from the estate and what each one changed | 2026-10 |
-| registry/PROJECTS.md | registry | eos | The venture directory, who is seeded from what and when last harvested | 2026-10 |
+| README.md | root | eos | What the PatterTech EOS is, how the repo is laid out, how a venture consumes it, and the principles that hold |  |
+| registry/CAPABILITIES.md | registry | eos | Derived view of the domain coverage matrix, every capability with its honest status | 2026-11 |
+| registry/LESSONS.md | registry | eos | The harvest ledger, live lessons and their dispositions, plus what has been pruned into the packs | 2026-11 |
+| registry/PROJECTS.md | registry | eos | The venture directory, what each is pinned to, whether that pin resolves, and when it was last checked | 2026-11 |
 | registry/stacks/README.md | registry | eos infra hosting | Stack profiles, what each is for and when to reach for it | 2027-01 |
 | registry/stacks/STACK-fastapi-postgres.md | stack | infra hosting data testing | Profile 02, FastAPI on Postgres, shape, caps and hard-won constraints | 2027-01 |
 | registry/stacks/STACK-fullstack-app.md | stack | web infra hosting testing ci | Profile 03, Next.js front on FastAPI back, the contract seam and the gate set | 2027-01 |
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
 | registry/VENDORS.md | registry | eos infra hosting | Trusted third parties, what we trust each for and the exit route | 2027-01 |
-| START.md | root | eos | Bootstrap for every session, read order per entry mode and the ground rules |  |
 | tools/CLI_CONTRACTS.md | kernel | eos | Subcommand contracts for python -m tools.eos, inputs, JSON outputs, exit codes |  |
-| VISION.md | root | eos | The north star, what the EOS is for and the invariants that hold as it grows |  |
+| TOUR.md | guide | eos | The teaching surface for EOS v2, what changed from v1 and why, the kernel, the packs and where to look | 2027-01 |

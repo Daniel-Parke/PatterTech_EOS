@@ -85,7 +85,7 @@ Non-negotiable under every option, from BR-4: verify over the raw bytes
 before any parse, compare in constant time, and bound the timestamp.
 Wrap the provider in an owned adapter rather than importing their SDK
 across the codebase, per
-`doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md`. The
+`archive/v1/doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md`. The
 surrounding controls, secret storage, SSRF on any URL the payload
 carries, and log redaction, come from the security-privacy pack
 (EV-0034, EV-0039).
@@ -102,7 +102,7 @@ library, not a vendor SDK.
 - **WiseWattage (2026, argued, inherited here)**: raw protocol for
   webhooks, standard-library HMAC-SHA256, idempotency keys, no provider
   SDKs, recorded in its own architecture ADR. See
-  `doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md` and
+  `archive/v1/doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md` and
   `registry/stacks/STACK-fastapi-postgres.md`.
 - **Nothing in the estate emits webhooks yet**, so option B is a
   default without a ruling behind it. The first venture to emit should
