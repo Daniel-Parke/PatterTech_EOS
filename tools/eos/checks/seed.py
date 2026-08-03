@@ -15,8 +15,11 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
   authored, normalised or preserved, and that sits outside the Genesis
   directories, is an error.
 - D004 every 'set at first build' deferral must have an open queue
-  item scheduling the first-build lock-in (the queue file is
-  docs/WORKLOG.md at S, org/QUEUE.md at M, org/work/NEXT.md at L).
+  item scheduling the first-build lock-in. The queue surface follows
+  the governing matrix: v1 uses docs/WORKLOG.md at S, org/QUEUE.md at
+  M and org/work/NEXT.md at L; v2 uses docs/TASKS.md at S and the
+  org/tasks/ records at ORG, because org/TASKS.md is a derived view
+  and is never seeded.
 - D005 the matrix's empty directories exist at the ruled scale.
 - D006 every WG id the lock-book cites resolves in the pinned EOS
   (worktree fallback when the commit is unavailable, with a warning).
@@ -66,7 +69,9 @@ DEFERRAL = "set at first build"
 # v1: WORKLOG at S, QUEUE at M, NEXT at L. v2: task lists replace them.
 QUEUE_FILE = {"S": "docs/WORKLOG.md", "M": "org/QUEUE.md",
               "L": "org/work/NEXT.md"}
-QUEUE_FILE_V2 = {"S": "docs/TASKS.md", "ORG": "org/TASKS.md"}
+# At ORG the scheduled work lives in task records; org/TASKS.md is a
+# derived view and is never seeded, so the records are the surface.
+QUEUE_FILE_V2 = {"S": "docs/TASKS.md", "ORG": "org/tasks/"}
 
 
 def _queue_file(scale, required):
@@ -418,8 +423,17 @@ def run_seed(seed_root, ctx: dict) -> Findings:
     queue_rel = _queue_file(scale, required) if scale else None
     if scale and queue_rel:
         queue_path = seed / queue_rel
-        queue_text = queue_path.read_text(encoding="utf-8", errors="replace") \
-            if queue_path.is_file() else None
+        if queue_rel.endswith("/"):
+            # A record directory: any record scheduling the lock-in counts.
+            records = sorted(queue_path.glob("*.json")) \
+                if queue_path.is_dir() else []
+            queue_text = "\n".join(
+                r.read_text(encoding="utf-8", errors="replace")
+                for r in records) if records else None
+        else:
+            queue_text = queue_path.read_text(
+                encoding="utf-8", errors="replace") \
+                if queue_path.is_file() else None
         scheduled = bool(queue_text) and bool(LOCKIN_RE.search(queue_text))
         for r, text, _fm in parsed:
             if r == "docs/COMPILE_REPORT.md":
