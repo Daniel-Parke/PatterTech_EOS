@@ -86,8 +86,19 @@ generation adds triage effort.
 
 ## Decision rule
 
-- R2 or above, or anything crossing a boundary another party depends
-  on: **C**. This is already the tier's requirement, not a preference.
+- R2, or anything crossing a boundary another party depends on: **B**
+  is sufficient and **C** is preferred where a second session is cheap.
+  What the evidence protects is the author not having the implementation
+  in context while writing the oracle, and writing the oracle first in
+  the same session satisfies that: the implementation does not exist yet
+  (EV-0007). Ambiguity here is not academic. In benchmarking, a third of
+  R2 runs read this line as demanding a separate session, blocked waiting
+  for one, and delivered nothing, while the rest wrote the oracle first
+  and delivered correctly. A rule that half the readers obey by stopping
+  is a badly written rule.
+- R3, or anything irreversible: **C**. A separate author is required
+  here, and the session must stop and request one rather than proceed.
+  Defence in depth is worth a hand-off when the change cannot be undone.
 - R0 or R1 with a stateable acceptance condition: **B** as the floor.
 - A checkable invariant or a published schema exists: add **D** on top
   of whatever else is in force, because it is the cheapest independence

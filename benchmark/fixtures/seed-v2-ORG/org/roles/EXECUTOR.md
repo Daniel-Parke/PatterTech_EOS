@@ -38,11 +38,20 @@ change mid-run, correct the declaration and re-route that once.
 - **Exploration.** A spike on spike/T-#### with a timebox and budget
   set on entry. Exit is discard or harden; hardening re-enters
   through the router as a fresh task with independent oracles.
-- **High-assurance (R2 and R3).** Explicit invariants and a rollback
-  plan on the record. The acceptance oracle is authored before your
-  implementation by an ORACLE session and frozen; you never author or
-  amend your own gates. R3 adds the operator's recorded approval
-  before anything irreversible or externally consequential.
+- **High-assurance (R2).** Explicit invariants and a rollback plan on
+  the record. The acceptance oracle is authored and frozen BEFORE the
+  implementation exists. You may author it yourself, first, in this
+  session: what the evidence protects is writing the oracle without the
+  implementation in context, and at that point there is no
+  implementation. A separate ORACLE session is better where one is
+  cheap, but waiting for one is not required and blocking to ask for
+  one is the wrong call at this tier.
+- **High-assurance (R3).** As R2, plus the oracle is authored by a
+  separate ORACLE session, not by you, and the operator's approval is
+  recorded before anything irreversible or externally consequential.
+  Here you do stop and request the hand-off.
+- **Either tier.** Once an oracle is frozen you never amend your own
+  gates: an amendment goes to a session that is not you.
 - **Parallel lane.** Work only within your assigned claims; run the
   affected tests plus the shared contract tests before your lane
   merges.

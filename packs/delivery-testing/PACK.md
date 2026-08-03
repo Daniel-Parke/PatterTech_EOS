@@ -134,7 +134,8 @@ Overridable in a venture's lock-book with a recorded reason.
   | Change class | Default timing |
   | --- | --- |
   | FIX | Failing reproduction first, kept forever |
-  | FEAT at R2 or above | Oracle authored and frozen before implementation |
+  | FEAT at R2 | Oracle authored and frozen before implementation, same session permitted |
+  | FEAT at R3 | Oracle authored by a separate session and frozen |
   | FEAT at R0 or R1 | Oracle from the spec, written before or beside the code, never after it |
   | REFACTOR | Behaviour pinned before structure moves |
   | DOCS, MAINT | No behavioural tests; link, snippet and schema checks only |
