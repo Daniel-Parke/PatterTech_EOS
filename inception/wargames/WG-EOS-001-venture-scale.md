@@ -1,5 +1,13 @@
 ---
 summary: What scale of organisational machinery does this venture compile, S or ORG?
+kind: guide
+scope: eos-internal
+authority: default
+lifecycle: active
+basis: local-observation
+evidence_grade: observational
+volatility: slow
+review: 2027-07
 type: wargame
 tags: [eos, wargame]
 status: active
