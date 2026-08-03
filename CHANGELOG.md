@@ -10,7 +10,41 @@ Newest first. One entry per release tag; the Unreleased section
 accumulates until the next tag. Sections: kernel, doctrine, inception,
 registry, org, tools.
 
-## Unreleased (towards v1.1.0)
+## Unreleased (towards v2.0.0, not released)
+
+The v2 overhaul, built under ADR-0002. Held at the release checkpoint:
+the benchmark missed three of the six numeric gates and the plan says a
+missed gate does not release. See org/reports/V2_FINAL_REPORT.md.
+
+- **kernel**: ten-article constitution; EXECUTOR, ORACLE and REVIEWER
+  replace the PLAN, WORK and VERIFY trinity; policy and cadence become
+  JSON; the scale matrix moves to S and ORG, with a seed resolving
+  whichever matrix its pinned commit carries. Ten v1 templates retired
+  with every load-bearing rule's destination recorded.
+- **packs**: doctrine becomes twenty progressive-disclosure packs across
+  the estate's domains, each meeting an eleven-point definition of done.
+  The house visual language becomes an opt-in preference pack, so a
+  venture can choose another design philosophy without deviation
+  machinery. WG-DEL-005 is written at last, with 006 and 007 beside it.
+- **governance**: graded evidence path (experiment, RFC, ADR) replaces
+  wargame-first; precedence scopes venture rulings locally and protects
+  law and standard based rules from vote counts; the protected set
+  shrinks to seven items with security-privacy as canonical home for
+  four of them.
+- **tools**: one 445-line script becomes a tested package behind
+  python -m tools.eos, with structural, semantic, seed and freshness
+  checks, the deterministic router, the fail-closed guard, context
+  packets, task and claim operations, migration and benchmark commands.
+  267 tests on Python 3.11 and 3.14. The v1 checker is a forwarding shim.
+- **benchmark**: a frozen suite of thirteen tasks and probes, 84 scored
+  runs across both variants, an evidence ledger of 448 individually
+  recorded sources, and a sealed final suite awaiting the operator's key.
+- **inception**: Session 0 becomes a pack activation walk with a risk
+  surface map, plus an Express path for reversible S ventures.
+- **org**: the EOS runs on its own v2 machinery: policy, task records,
+  committed claims, generated views. v1 org files archived verbatim.
+
+## Superseded, towards v1.1.0 (never released)
 
 - **roots**: GUIDE.md added, the all-in-one field guide. A teaching
   layer over the whole system (framework, the AutoWatt genesis, the

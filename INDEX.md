@@ -234,6 +234,7 @@ Derived file. Edit front-matter, then run
 | org/migration/PLAYBOOK.md | org | eos | The per-venture v1 to v2 migration procedure, three routes, what is preserved, and the consent rule |  |
 | org/PLAYBOOKS.md | org | eos | The EOS-side playbooks, PB-E01 to PB-E10, one v2 procedure each |  |
 | org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
+| org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |
 | org/TASKS.md | org | eos | Derived task table, one row per record under org/tasks/ |  |
 | packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |
