@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "assigned": "2026-08-03",
+  "lanes": [
+    {
+      "lane_id": "integrator",
+      "task_id": "T-0001",
+      "session_id": "eos-v2-build",
+      "host": "NucBox_M6Ultra",
+      "harness_task_id": "eos-v2-build",
+      "path_claims": [
+        ".github/",
+        ".gitignore",
+        "AGENTS.md",
+        "CHANGELOG.md",
+        "CLAUDE.md",
+        "GOVERNANCE.md",
+        "GUIDE.md",
+        "INDEX.md",
+        "OPERATORS_GUIDE.md",
+        "README.md",
+        "START.md",
+        "VISION.md",
+        "archive/",
+        "benchmark/",
+        "doctrine/",
+        "estate/",
+        "examples/",
+        "inception/",
+        "kernel/",
+        "org/",
+        "pytest.ini",
+        "registry/",
+        "tests/",
+        "tools/"
+      ],
+      "acquired": "2026-08-03T09:00:00Z",
+      "expires": "2026-08-10T09:00:00Z"
+    }
+  ],
+  "note": "Single-lane assignment for the v2 overhaul: the integrator session eos-v2-build owns the whole repository under task T-0001. A claim is an exact path or a directory prefix and no empty prefix is legal under claims.schema.json, so the whole-repo claim enumerates the repository root; a new top-level path belongs to this lane by assignment intent. Phase lanes (P4 onwards) are dispatched only after this file is rewritten with their disjoint claims and committed first."
+}

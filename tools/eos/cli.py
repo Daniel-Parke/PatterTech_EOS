@@ -154,6 +154,13 @@ def cmd_task(args):
         for f in findings:
             print(f"{f.check_id} {f.path}: {f.message}", file=sys.stderr)
         return 1 if bad else 0
+    if args.op == "views":
+        findings = taskops.render_views(REPO)
+        bad = [f for f in findings if getattr(f, "severity", "error") == "error"]
+        for f in findings:
+            print(f"{f.check_id} {f.path}: {f.message}", file=sys.stderr)
+        print(json.dumps({"regenerated": ["org/TASKS.md", "org/STATE.md"]}))
+        return 1 if bad else 0
     print(f"error: unknown task op {args.op}", file=sys.stderr)
     return 2
 
@@ -241,8 +248,16 @@ def main(argv=None):
     x.add_argument("--diff")
     x.set_defaults(fn=cmd_context)
 
-    t = sub.add_parser("task")
-    t.add_argument("op", choices=["new", "show", "update", "claims-verify"])
+    t = sub.add_parser(
+        "task",
+        description="Task record and claim ops per tools/CLI_CONTRACTS.md. "
+                    "The views op regenerates the derived views org/TASKS.md "
+                    "and org/STATE.md from the canonical records; derived "
+                    "views belong to the integrator and are never lane-"
+                    "claimed or hand-edited.")
+    t.add_argument(
+        "op", choices=["new", "show", "update", "claims-verify", "views"],
+        help="views regenerates the derived views (integrator-only op)")
     t.add_argument("--id")
     t.add_argument("--record")
     t.add_argument("--patch")

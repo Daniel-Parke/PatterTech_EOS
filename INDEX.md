@@ -13,6 +13,9 @@ Derived file. Edit front-matter, then run
 | path | type | tags | summary | review_by |
 | --- | --- | --- | --- | --- |
 | AGENTS.md | root | eos | Thin agent entry point, the three entry modes and the never-list |  |
+| archive/v1/org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
+| archive/v1/org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
+| archive/v1/org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
 | benchmark/fixtures/app-api/README.md | example | eos testing | Energy quote JSON API fixture with planted defects for benchmark tasks |  |
 | benchmark/fixtures/app-static/README.md | example | eos testing | Static brochure site fixture with three planted defects for the agent benchmark |  |
 | benchmark/fixtures/briefs/BRIEF-M-fieldkit.md | example | eos testing | Canned drill brief, a field-survey web app for one contractor firm, scripted operator answers |  |
@@ -157,7 +160,7 @@ Derived file. Edit front-matter, then run
 | kernel/templates/TASKS.tpl.md | template | eos | S-scale task list template, the single hand-kept work surface at the smallest scale |  |
 | kernel/templates/VENTURE_BRIEF.tpl.md | template | eos | Venture brief template, the business truth the interview produces, challenge steps recorded |  |
 | OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, rhythm and troubleshooting | 2027-07 |
-| org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
+| org/CADENCE.md | org | eos | Pointer, the EOS heartbeat is machine state in org/cadence.json |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
 | org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
 | org/deviations.md | org | eos | Append-only implementation-deviation log for the EOS v2 build, per ADR-0002 |  |
@@ -181,9 +184,10 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0018.md | org | eos | Session S-0018, REL, v1.0.0 tagged locally, manual close handed to Daniel |  |
 | org/logs/2026-07/S-0019.md | org | eos | Session S-0019, the D1 gate closed, G1 and G2 queued, Genesis commissioned |  |
 | org/logs/2026-07/S-0020.md | org | eos | Session S-0020, the all-in-one field guide GUIDE.md authored and registered |  |
-| org/PLAYBOOKS.md | playbook | eos | The EOS-side playbooks, PB-E01 to PB-E09, one procedure each |  |
-| org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
-| org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
+| org/PLAYBOOKS.md | org | eos | The EOS-side playbooks, PB-E01 to PB-E10, one v2 procedure each |  |
+| org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
+| org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |
+| org/TASKS.md | org | eos | Derived task table, one row per record under org/tasks/ |  |
 | README.md | root | eos | What the PatterTech EOS is and how the repo is laid out |  |
 | registry/LESSONS.md | registry | eos | The harvest ledger, lessons from the estate and what each one changed | 2026-10 |
 | registry/PROJECTS.md | registry | eos | The venture directory, who is seeded from what and when last harvested | 2026-10 |
