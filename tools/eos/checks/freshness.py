@@ -121,10 +121,18 @@ def check_f002_evidence_review(ctx: dict) -> list:
             continue
         rid = row.get("id", "?")
         review = str(row.get("review", ""))
+        # METADATA_SPEC allows three review policies: a YYYY-MM date, an
+        # event trigger (on-change-of: <source>), or none for records and
+        # archives. Event-triggered rows fire on their source changing, so
+        # there is no date for expiry to compare against.
+        stripped = review.strip().lower()
+        if stripped.startswith("on-change-of") or stripped == "none":
+            continue
         passed = _month_passed(review, today)
         if passed is None:
             out.append(Finding("F002", "error", path,
-                               f"{rid}: review not YYYY-MM: {review}"))
+                               f"{rid}: review must be YYYY-MM, "
+                               f"on-change-of:<source> or none: {review}"))
         elif passed:
             out.append(Finding("F002", "warn", path,
                                f"{rid}: review {review} has passed"))
