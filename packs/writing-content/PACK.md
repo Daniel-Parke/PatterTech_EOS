@@ -1,0 +1,348 @@
+---
+summary: Writing and content, message structure and error behaviour bind, voice splits three ways, readability never gates
+type: playbook
+tags: [voice, content, a11y, forms]
+kind: rule
+authority: binding
+lifecycle: active
+basis: standard
+evidence_grade: observational
+scope: estate
+applies_when: [writes_user_facing_text, has_forms, ships_second_locale, writes_venture_documentation, writes_eos_internal_prose, reuses_external_style_guidance]
+volatility: slow
+review: on-change-of:CLDR-plural-categories
+sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, FRAG-WRITING-CONTENT-01, FRAG-WRITING-CONTENT-02, FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-04, FRAG-WRITING-CONTENT-05, FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-07, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-09, FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-11, FRAG-WRITING-CONTENT-12, FRAG-WRITING-CONTENT-13, FRAG-WRITING-CONTENT-14, FRAG-WRITING-CONTENT-15, FRAG-WRITING-CONTENT-16, FRAG-DOCS-DX-14]
+review_by: 2027-08
+---
+
+# writing-content
+
+This pack covers text people read: interface strings, error messages,
+product documentation and the prose in this repository. It activates on
+any task that writes or reviews user-facing copy, documentation, or a
+translatable string. Message structure, error behaviour and terminology
+bind. Voice splits three ways: law inside the EOS, a default for
+venture documentation, a preference for brand. Readability scores never
+gate anything.
+
+## Activation
+
+**Paths.** Locale and message files in any format, string tables and
+resource bundles, anything under a copy, content, locales, i18n, l10n
+or translations tree, the templates that render user-visible text, form
+and validation components, style guides and terminology lists, prose
+linter configuration, and every Markdown file in this repository.
+
+**Task types.** Write or change user-facing copy. Add, reword or move
+an error message. Add a locale, or prepare for one. Write or revise
+product documentation. Write or revise a house style guide or a brand
+voice. Review a change whose acceptance depends on someone reading
+something and getting it right.
+
+**Keywords, fallback only.** Copy, microcopy, wording, tone, voice,
+style guide, error message, validation message, empty state, plural,
+translation, localisation, i18n, terminology, readability, plain
+language. Keywords are the weakest signal and never override the
+predicates.
+
+**Applicability predicates.**
+
+| Predicate | True when |
+| --- | --- |
+| writes_user_facing_text | a person outside the team will read the string |
+| has_forms | the surface takes input and can reject it |
+| ships_second_locale | a second language is shipped, or is planned |
+| writes_venture_documentation | prose lands in a venture repo for its own readers |
+| writes_eos_internal_prose | the file lives in this repository |
+| reuses_external_style_guidance | an outside guide informs a house guide |
+
+A single-locale product with no second locale planned does not inherit
+the message-structure requirements as a build gate. It still inherits
+B1, because concatenation is the one defect that cannot be repaired
+later, and repairing it costs the same whether the second locale ever
+arrives or not.
+
+## Outcomes and non-goals
+
+**Outcomes.** A reader can find the thing, understand it, and act on it
+(FRAG-WRITING-CONTENT-01). A translator can express in their language a
+distinction the English source never had. A rejected form tells the
+person what a good answer looks like and keeps what they typed. The
+same product sounds like itself in three different places without one
+voice rule being applied where it does not belong. A claim that copy is
+clearer than what it replaced is either measured or not made.
+
+**Non-goals.** This pack does not carry the PatterTech brand voice,
+which is taste and lives in the pattertech-house pack as a preference a
+venture adopts. It does not own link integrity, snippet execution or
+generated reference, which sit in the docs-dx pack. It does not own
+form layout, focus behaviour or component structure, which sit in
+ui-ux. It does not own API error contracts, which sit in
+api-integration. It sets no reading-age target, ships no word list, and
+ranks none of the four philosophies in GD-WRIT-001.
+
+The seam with docs-dx on errors: docs-dx binds what a failure message
+says. This pack binds where it renders, when it fires, and what happens
+to the input that caused it.
+
+## The three voice scopes
+
+Version one of this estate applied one voice law everywhere, which was
+wrong: a rule written to keep a shared brain consistent was pressed
+into service as a product style guide and as a brand. ADR-0002
+re-scoped it. The three are separate and they are allowed to disagree.
+
+| Scope | Authority | What it governs | Basis |
+| --- | --- | --- | --- |
+| eos-internal | binding | every file in this repository | decision, ADR-0002 |
+| venture | default | documentation and product copy in a venture repo | standard, plain-language guidance |
+| brand:`<name>` | preference | how a venture sounds to its market | taste, adopted explicitly |
+
+A brand scope caps at preference by `kernel/METADATA_SPEC.md`, so no
+brand voice can ever bind a venture's engineers. Where the scopes
+conflict on a specific string, the narrower scope wins on tone and the
+wider scope wins on structure: a brand may choose its own register, and
+may not choose to build a sentence by concatenation. GD-WRIT-003
+carries the fork.
+
+## Binding requirements
+
+Ten requirements bind. Each names its predicate, its evidence and the
+failure it prevents, and each states its basis, because binding is the
+most expensive claim this pack makes. Most of what follows this section
+is default or preference, which is the correct shape for a domain where
+almost every published style guide is asserted rather than tested.
+
+Every EV id points at a row in `registry/evidence.json`. Every
+FRAG-WRITING-CONTENT id points at a row in
+`packs/writing-content/research/sources.fragment.json`, frozen at the
+2026-08-03 cutoff and awaiting import into the ledger under final EV
+ids. Each row carries its own version, licence, access date,
+maintenance state and review trigger. This pack cites ids, restates
+none of them, and copies no source prose: several of these sources are
+readable and not reusable.
+
+**B1. No user-facing sentence is assembled by string concatenation.**
+`writes_user_facing_text`. One message, one message id, with any
+variation selected inside the message
+(FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-12). Prevents the one
+localisation defect a translator cannot repair downstream, because word
+order, agreement and clause structure are decided by the source code
+rather than by the language. Basis: standard.
+
+**B2. Plural and gender selection resolves per locale through CLDR
+categories, never from the English pair.** `ships_second_locale`. The
+category `one` means "behaves like one in this language" and is not the
+number one (FRAG-WRITING-CONTENT-11). Prevents a locale with four
+plural forms being served two, and prevents a hardcoded switch on six
+tags that is already wrong for some locales. Basis: standard.
+
+**B3. A pseudo-locale build passes before any string reaches a
+translator.** `ships_second_locale`. No truncation, no missing glyphs,
+no unexternalised strings (FRAG-WRITING-CONTENT-14). Prevents paying
+for the same mechanical defect in every locale at once, which is what
+happens when the first real translation is also the first test.
+Basis: decision, taken on vendor guidance rather than on a trial. The
+source is a maintainer document last touched in 2024 with an
+unverified licence, and no study of its effect was found.
+
+**B4. Every blocking error identifies what failed and states the
+required input or the next action.** `has_forms`. WCAG 2.2 success
+criteria 3.3.1 and 3.3.3 make this a conformance obligation where they
+apply (EV-0027). Replacing a diagnosis with the shape of a correct
+answer is the highest-yield rewrite in the set
+(FRAG-WRITING-CONTENT-15). Prevents `Invalid input`, which tells the
+reader only that they have failed. Basis: standard.
+
+**B5. An error renders adjacent to its cause, does not fire before the
+person has finished, and never destroys what they typed.** `has_forms`.
+Placement and timing fail more often than wording
+(FRAG-WRITING-CONTENT-09, EV-0233), and structural components exist
+that fix placement so no writer has to remember it (EV-0062, EV-0063).
+Prevents the well-written message rendered in a banner at the top of
+the page, and prevents the retype. Basis: decision, on practitioner
+consensus rather than a measured effect.
+
+**B6. Human error text and machine error bodies are separate
+artefacts.** `writes_user_facing_text`. A problem-details response
+(EV-0122) is for a client, not for a person, and neither is derived
+from the other by string formatting. Prevents a machine `detail` field
+being rendered to a user, and prevents a client parsing a translated
+interface string. Basis: standard.
+
+**B7. One banned-and-preferred term list runs in CI over user-facing
+strings and documentation, and only one prose linter exists in the
+repository.** `writes_user_facing_text`. Vale is the recorded tool
+(FRAG-DOCS-DX-14). Prevents two spellings of one action reaching a
+translator as two concepts, and prevents the second linter that
+disagrees with the first. Basis: decision, and an admittedly cheap
+bet: no study was found showing that a maintained termbase improves
+comprehension or reduces support load.
+
+**B8. Prose in this repository follows the voice law.**
+`writes_eos_internal_prose`. Plain, spoken, British spelling, no
+em-dashes, no exclamation marks, no AI cliches, no two-fragment
+antithesis. Scope eos-internal only. Check E004 enforces the
+mechanical part today. Prevents drift in the one repository every agent
+reads. Basis: decision, ADR-0002. This rule has no evidence behind it
+and does not need any: it is a house ruling about a house, and it
+carries no authority over a venture's product copy or its brand.
+
+**B9. Licence obligations on external style guidance are recorded
+before the guidance informs a house guide.**
+`reuses_external_style_guidance`. Open Government Licence material
+requires attribution (FRAG-WRITING-CONTENT-03), and CC BY-NC material
+cannot be adopted into a commercial product's guide at all
+(FRAG-WRITING-CONTENT-16). Prevents a licensing event dressed up as a
+copy-paste. Basis: law.
+
+**B10. No readability formula gates a merge, a release or a review.**
+`writes_user_facing_text`. A score may be reported on a diff and may
+never block one. Formulas measure sentence length and syllable counts,
+which sit downstream of difficulty rather than being difficulty
+(FRAG-WRITING-CONTENT-04). Prevents copy being chopped into fragments
+to satisfy a number while the reader learns nothing new. Basis:
+decision. The study behind the doubt is narrow, and the ruling is the
+estate's, not the study's.
+
+## Defaults
+
+Followed unless the task records a reason to depart.
+
+- **Front-load the answer, lead with the verb, one instruction per
+  step** (FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-08,
+  FRAG-WRITING-CONTENT-15). The three flagship guides agree here, which
+  is the strongest signal available in a domain with almost no trials.
+- **Literal language in anything the reader must act on.** No idiom, no
+  metaphor, simple tense and voice in instructions and errors
+  (FRAG-WRITING-CONTENT-08). Contractions are fine everywhere.
+- **Write for the lowest literacy in the audience, not the median**
+  (FRAG-WRITING-CONTENT-03). Specialists cope with plain wording.
+- **Layout slack sized for two to three times expansion on strings
+  under ten characters** (FRAG-WRITING-CONTENT-13). Buttons, tabs and
+  labels are the shortest strings and therefore the highest risk. The
+  figures cover English into European languages only.
+- **Sentence case for headings and interface labels.** An arbitrary
+  call, made once so nobody argues it twice.
+- **A comprehension claim is tested with real readers before it is
+  made** (FRAG-WRITING-CONTENT-02). The transferable design is an A/B
+  of two renderings of one decision with comprehension questions as the
+  outcome (FRAG-WRITING-CONTENT-06).
+- **Venture documentation follows the plain-language defaults above**,
+  not the EOS voice law. A venture may use em-dashes.
+
+## Preferences
+
+Taste. Depart freely, no reason needed.
+
+- Report a readability score at all. B10 settles that it cannot gate;
+  whether it is worth printing is taste.
+- Tone varying with the reader's emotional state, celebration copy
+  reading differently from a failed payment (FRAG-WRITING-CONTENT-16).
+  Asserted by its author, and worth trying.
+- Serial comma, spacing after a full stop, contraction density. Settled
+  per scope by GD-WRIT-003 and not debated per pull request.
+- Writing about people treated as a first-class section of a style
+  guide rather than an appendix (FRAG-WRITING-CONTENT-16).
+- A short house term list over a full termbase, until the term list is
+  demonstrably not enough.
+
+## Decision map
+
+| Fork | What it decides | Guide |
+| --- | --- | --- |
+| Which clarity philosophy governs this text | Who holds the control point, and what the acceptance test is | `packs/writing-content/guides/GD-WRIT-001-clarity-philosophy.md` |
+| How a sentence is built for a second locale | Message format, migration cost, what a translator may express | `packs/writing-content/guides/GD-WRIT-002-message-structure.md` |
+| Which voice applies to this text | Register, style rules, who may overrule | `packs/writing-content/guides/GD-WRIT-003-voice-scope.md` |
+| How prose is checked in CI | What blocks a merge and what only reports | `packs/writing-content/guides/GD-WRIT-004-prose-gate.md` |
+
+Detail the body defers to sits in `packs/writing-content/refs/`, and a
+worked example in
+`packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md`.
+
+## Failure modes and anti-patterns
+
+- **One voice law everywhere.** The version one failure this pack
+  exists to correct. A rule about a shared brain applied to a market.
+- **The reading-age gate.** A formula score adopted as an acceptance
+  criterion. It can be satisfied by chopping sentences without changing
+  what anyone understands (FRAG-WRITING-CONTENT-04).
+- **The plainness claim.** Asserting that a rewrite improved
+  comprehension because it reads more easily. One trial found the gain,
+  one did not (FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-07).
+- **Pluralising by appending an s**, and its cousin, sizing a button to
+  its English label.
+- **The beautiful banner.** A precise, kind, well-worded error rendered
+  at the top of the page, three scroll heights from the field that
+  caused it.
+- **The eager validator.** An error fired on the second keystroke of an
+  email address, before anyone could have finished typing.
+- **Controlled language applied to explanation.** Simplified Technical
+  English on a marketing page produces text that is correct and
+  unreadable (FRAG-WRITING-CONTENT-05).
+- **Two prose linters.** The second one disagrees with the first, and
+  the team learns to ignore both.
+- **The wholesale lift.** An outside A to Z copied into a house guide,
+  which is a licensing event whatever the intent (B9).
+- **Terminology drift in the string file.** Two words for one action,
+  which reaches a translator as two concepts and comes back as two
+  concepts in every locale.
+
+## Open questions and counter-evidence
+
+- **The load-bearing contradiction.** Two randomised trials from one
+  programme, same intervention type, same content domain, disagree.
+  Parents showed preference and understanding gains
+  (FRAG-WRITING-CONTENT-06). Youths aged fifteen to twenty-four showed
+  higher usability and satisfaction and no significant understanding
+  gain, mean difference 5.2 per cent, 95 per cent confidence interval
+  minus 1.2 to 11.6 (FRAG-WRITING-CONTENT-07). Both populations were
+  self-selected, online, English-speaking, reading pandemic health
+  advice, and the null came from a group with high baseline literacy.
+  Neither result transfers to an interface string read in two seconds.
+  The honest reading: plain wording reliably buys reading experience
+  and only sometimes buys comprehension, and ISO 24495-1 makes
+  comprehension definitional, so on its own definition the youth trial
+  is a partial failure of the intervention.
+- **Literal against conversational is a real conflict.** W3C COGA says
+  literal language, no idiom (FRAG-WRITING-CONTENT-08). Microsoft says
+  write like you speak (FRAG-WRITING-CONTENT-15), and Mailchimp goes
+  further (FRAG-WRITING-CONTENT-16). This pack resolves it by surface
+  rather than by ranking the sources, and that resolution is a ruling,
+  not a finding.
+- **Readability formulas are weak, and the study is narrow.** Begeny
+  and Greene tested eight formulas against oral reading fluency in 360
+  United States elementary-aged children reading aloud
+  (FRAG-WRITING-CONTENT-04). That population is not an adult scanning
+  an interface, and oral fluency is not comprehension. The same study
+  found some formulas fair at some grade bands, so formulas are
+  unreliable rather than uninformative. B10 rests on the estate's
+  ruling, not on this study, and nothing here bans a formula from a
+  report.
+- **No source measures whether a house style guide changes any user
+  outcome.** Every style guide cited here is asserted, both large
+  vendors included. Assume a style guide buys consistency and reviewer
+  speed, and claim nothing else for it.
+- **Terminology management is the weakest area in this pack.** Tooling
+  and standards practice exist. Evidence that a termbase improves
+  comprehension or reduces support load does not. B7 is a cheap bet.
+- **Empty states and onboarding copy have no evidence base at all**,
+  only practitioner opinion. This pack carries no rule about them.
+- **COGA is drifting and non-normative.** Not republished since 2021
+  while WCAG moved to 2.2, so it can never be cited as a legal
+  obligation. Refresh trigger: a W3C republication, or a WCAG 3 draft
+  carrying a plain-language success criterion.
+- **The message-format ecosystem is not settled.** MessageFormat 2.0
+  and Fluent reached the same conclusion by different routes, parts of
+  the MessageFormat default function set were still Draft at the
+  cutoff, and Fluent has not moved since 2019
+  (FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-12). GD-WRIT-002
+  carries the bet.
+- **Two flagship sources moved host in the last eighteen months**
+  (FRAG-WRITING-CONTENT-02, FRAG-WRITING-CONTENT-03). Cite the section,
+  keep the link shallow.
+- **B1 is promoted above its research grade.** The research graded
+  concatenation on two converging design documents and no trial. It
+  binds anyway, because the defect is unrepairable after the fact and
+  nearly free to avoid before it. Basis decision would be equally
+  defensible, and the requirement is open to challenge on that ground.
