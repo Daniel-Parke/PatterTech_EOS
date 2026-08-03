@@ -2,10 +2,19 @@
  "version": 1,
  "level": "standard",
  "evidence": {
-  "benchmark_runs": [],
-  "sampled_review": {"n": 0, "pass_rate": 1.0},
+  "benchmark_runs": [
+   "timing-acceptance-first x6",
+   "timing-alongside x6",
+   "timing-harden-last x6",
+   "v1 baseline x45",
+   "v2-routed-once x45"
+  ],
+  "sampled_review": {
+   "n": 0,
+   "pass_rate": 1.0
+  },
   "escaped_defects": 0,
-  "period": "2026-08 (initial adoption with ADR-0002; benchmark run ids attach in P7, first sampled-review data at the first retro)"
+  "period": "2026-08 benchmark: 45 v1 baseline runs, 45 v2 runs after the routing and oracle corrections, 18 timing-ablation runs. Testing defaults are set from the ablation: all three timings passed 6 of 6, so timing did not separate quality on these task types, but implement-then-harden cost 65 per cent more tokens and 50 per cent more wall clock than acceptance-first or alongside. Defaults therefore stay acceptance-first for gate-bearing work and alongside for ordinary features; harden-last is reserved for spikes, where deferring the oracle is the point."
  },
  "authorised_by": "Daniel Parke",
  "authorised_date": "2026-08-02",
