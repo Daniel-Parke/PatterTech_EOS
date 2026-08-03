@@ -1,21 +1,22 @@
 ---
-summary: The intake protocol, question set and the three mandatory challenge steps
+summary: The v2 intake protocol, seventeen questions, the risk-surface set and the three challenge steps
 type: kernel
 tags: [eos]
 ---
 
 # INTERVIEW
 
-Phase A of Session 0. The operator talks, the agent transcribes,
+Phase A of Session 0. The operator talks; the agent transcribes,
 structures and challenges. Nothing here is invented: an unanswered
-question is a recorded question, never a guess. One sitting where
-possible; the output fills docs/VENTURE_BRIEF.md and the trigger list
-for the walk.
+question is a recorded question, never a guess, and it lands in
+docs/TASKS.md at S or org/QUESTIONS.md at ORG. One sitting where
+possible. The output fills docs/VENTURE_BRIEF.md, the trigger list for
+the pack walk, and the risk-surface map phase B turns into policy.
 
-## The question set
+## The venture set
 
-Thirteen questions, asked in this order, following up until each answer
-would satisfy a stranger:
+Thirteen questions, asked in this order, following up until each
+answer would satisfy a stranger.
 
 1. What is it, in one paragraph, in your words?
 2. Who is it for, and who pays (if anyone)?
@@ -32,9 +33,34 @@ would satisfy a stranger:
 12. What does success look like in ninety days?
 13. What is explicitly out of scope?
 
+Question 8 is the one that goes missing. It is absent from the canned
+brief the inception drill uses, and it carries real money, so ask it
+even when the venture looks free to run.
+
 Answers to 4 through 11 become the trigger list for WG-EOS-001 and the
-walk. Vague answers on server state, money or personal data are
-resolved now, not later; they carry legal weight.
+pack walk. Vague answers on server state, money or personal data are
+resolved now rather than later; they carry legal weight and they set
+the policy.
+
+## The risk-surface set
+
+Four more questions, asked once the venture set has landed. Their
+answers become the path patterns in the venture's policy file at phase
+D, so they need paths and not adjectives.
+
+14. Where in the tree will each risky thing live: the money code, the
+    auth code, the personal data, the deploy configuration? Directory
+    names are enough; a venture with no code yet answers from its stack
+    profile.
+15. What must never change without you in the room?
+16. What can be undone in a minute by anyone, without asking?
+17. What can this venture reach outside itself (payment providers,
+    email, hosting, an app store), and may an agent act there
+    unattended?
+
+Question 17 sets the guard posture. Until a validated adapter mapping
+exists, the honest answer compiles as manual-only for every guarded
+class, per kernel/GUARD_SPEC.md.
 
 ## The challenge steps (mandatory, in order)
 
@@ -43,24 +69,24 @@ until it lands.
 
 1. **Restate and be corrected.** The agent restates the venture in two
    or three sentences of its own words. The operator corrects until
-   they say it is right. The final restatement, corrected, opens the
+   they say it is right. The final corrected restatement opens the
    brief.
 2. **The three cheapest deaths.** The agent names the three cheapest
-   ways the venture dies (not the most dramatic: the cheapest). The
-   operator amends or replaces them. They land in the brief verbatim;
-   they are the risk register at birth.
+   ways the venture dies, the cheapest rather than the most dramatic.
+   The operator amends or replaces them. They land in the brief
+   verbatim; they are the risk register at birth.
 3. **The strictly smaller version.** The agent proposes the smallest
    version that still serves the stated audience, smaller than the
-   operator asked for. The operator explicitly adopts or rejects it,
-   and the verdict is recorded in their words. Adoption reshapes the
-   brief; rejection with a reason is promotion-grade evidence that the
-   scope is deliberate.
+   operator asked for. The operator explicitly adopts or rejects it and
+   the verdict is recorded in their words. Adoption reshapes the brief;
+   rejection with a reason is promotion-grade evidence that the scope
+   is deliberate.
 
 ## Closing the interview
 
-Read the trigger list back as plain yes-or-no facts. Collect the
-concrete facts the compile will print: the venture name as it appears
-in public, contact details for any contact surface, the domain if one
-is owned, brand assets if any exist. Confirm the operator's
-availability for phase B (scale and shape) now and phase E (the gate)
+Read the trigger list back as plain yes-or-no facts, then the
+risk-surface map back as paths. Collect the concrete facts the compile
+prints: the venture name as it appears in public, contact details for
+any contact surface, the domain if one is owned, brand assets if any
+exist. Confirm the operator's availability for phase B now and phase E
 later. Then move to WG-EOS-001 with the triggers in hand.

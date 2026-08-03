@@ -101,7 +101,10 @@ def cmd_route(args):
 def cmd_guard(args):
     from .guard import evaluate
 
-    action = {"class": args.action_class, "payload": args.payload or ""}
+    # guard.evaluate takes action_class and payload_summary; the flag form
+    # must build that shape, not a shorthand the evaluator cannot read.
+    action = {"action_class": args.action_class,
+              "payload_summary": args.payload or ""}
     if args.input:
         action = json.loads(Path(args.input).read_text(encoding="utf-8"))
         if args.tool:

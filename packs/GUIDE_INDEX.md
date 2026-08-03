@@ -45,5 +45,5 @@ Derived file. Edit guide front-matter, then run
 | WG-WEB-014 | Is a media block a citation or a monument? | web-design | web media layout content | archived | 2027-07 |
 | WG-MINI-001 | How heavy may a page be before the build must push back? | mini | web | active | 2027-08 |
 | WG-MINI-002 | Which formats and sizes do we serve images in? | mini | web content | active | 2027-08 |
-| WG-EOS-001 | What scale of organisational machinery does this venture compile, S, M or L? | inception | eos wargame | active | 2027-07 |
+| WG-EOS-001 | What scale of organisational machinery does this venture compile, S or ORG? | inception | eos wargame | active | 2027-07 |
 | WG-EOS-002 | One repo, several, or a corner of an existing one? | inception | eos wargame infra | active | 2027-07 |
