@@ -83,10 +83,15 @@ _JSONSCHEMA_INSTALL = (
 )
 
 # Derived files belong to the integrator permanently; no lane claim
-# covers them.
+# covers them. Keep this list in step with GOVERNANCE.md "Derived
+# files": it protected doctrine/wargame_index.md, a path that has not
+# existed since the pack restructure, and left the three real pack and
+# registry views open to any lane.
 DERIVED_FILES = (
     "index.md",
-    "doctrine/wargame_index.md",
+    "packs/index.md",
+    "packs/guide_index.md",
+    "registry/capabilities.md",
     "org/tasks.md",
     "org/state.md",
 )

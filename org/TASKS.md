@@ -16,3 +16,4 @@ The records under org/tasks/ are canonical.
 | T-0001 | high-assurance | R3 | active | eos-v2-build |
 | T-0002 | standard | R1 | proposed | unassigned |
 | T-0003 | standard | R1 | blocked | unassigned |
+| T-0004 | high-assurance | R1 | active | eos-v2-prerelease-review |

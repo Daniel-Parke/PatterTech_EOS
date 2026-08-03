@@ -9,10 +9,12 @@ supersedes: archive/v1/GUIDE.md
 # TOUR
 
 The one document that teaches the system. It replaces `GUIDE.md`, which
-taught v1 and is archived at `archive/v1/GUIDE.md`. TOUR is regenerated
-at every release rather than patched, because a teaching file that is
+taught v1 and is at `archive/v1-final:GUIDE.md`. TOUR is rewritten by
+hand at every release rather than patched, because a teaching file
 edited in place drifts away from the system it describes and nobody
-notices until it misleads someone.
+notices until it misleads someone. There is no generator: this is a
+discipline, not a build step, and calling it regenerated would imply a
+machine keeps it true when a person does.
 
 Read this once. After that, work from the router, `packs/INDEX.md` and
 the canonical files it points at.
