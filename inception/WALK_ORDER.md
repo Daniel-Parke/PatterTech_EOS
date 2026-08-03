@@ -1,75 +1,83 @@
 ---
-summary: How to compile the venture's wargame walk from the index, filter by triggers, canonical order
+summary: How the pack activation walk is built and ordered, the always-walk set and the budget rule
 type: kernel
-tags: [eos, wargame]
+tags: [eos]
 ---
 
 # WALK_ORDER
 
-How phase C of INCEPTION.md builds the list of wargames a venture
-actually walks, and the order it walks them in. The walk is bounded by
-design: only triggered wargames are argued; everything else inherits
-its default silently and costs nothing.
+How phase C of inception/INCEPTION.md builds the list of guides a
+venture actually rules, and the order it rules them in. Packs replace
+v1's doctrine modules, so the walk starts from the pack index. It stays
+bounded by design: only activated packs are walked, and everything else
+inherits its default silently and costs nothing.
 
 ## Build the walk
 
-1. Start from `doctrine/WARGAME_INDEX.md` (derived, one row per
-   wargame: id, question, module, tags, status).
-2. Collect the venture's trigger set: the domains and trigger tags the
-   interview surfaced (for example `web`, `auth`, `money`, `pii`,
-   `motion`, `hosting`), plus the add-ons the scale ruling attached.
-3. Keep a wargame if its module is a triggered domain or any of its
-   tags is in the trigger set. Drop superseded rows. Rows with status
-   contested are walked with fresh eyes and their tension noted in the
-   ruling.
-4. Two wargames always walk regardless of triggers: WG-EOS-001
-   (venture scale) and WG-EOS-002 (repo shape). The voice register
-   (WG-VOX-001) walks whenever the venture has any written surface,
-   which in practice is always.
+1. Start from packs/INDEX.md, the derived index of built packs. Each
+   row carries what the pack covers, what activates it, and how long
+   its body is.
+2. Collect the venture's trigger set: the surfaces, domains and risk
+   answers the interview surfaced, plus the add-ons the scale ruling
+   attached.
+3. Keep a pack when a path trigger or task type in its activation cell
+   matches. Then test its applicability predicates, which are the real
+   gate: a pack that trips a path trigger and satisfies no predicate
+   loads nothing beyond its first paragraph and is not walked.
+4. For every kept pack, walk the guides under its guides directory.
+   Wargames inherited from v1 keep their WG- ids and walk like any
+   other guide.
+
+Domains with no built pack are not gaps in the walk. Each carries an
+honest row in registry/CAPABILITIES.md, and a fork landing in one takes
+the draft-guide route below.
+
+## The always-walk set
+
+Three things are walked whatever the triggers say.
+
+1. WG-EOS-001, the scale ruling, before any pack. It gates the matrix
+   column and the ceremony of everything after it.
+2. WG-EOS-002, the repo shape.
+3. The security-privacy pack. Its predicate runs_agents holds for every
+   governed venture by construction, because the seed exists so agents
+   can work in the repo, and its binding requirements are protected-set
+   subjects.
 
 ## Canonical order
 
-Walk in this order, ascending WG number within each step:
+Scale, repo shape, security-privacy, architecture, API and integration,
+coding, delivery and testing, devops and reliability, UI and UX,
+agentic development. Ascending id within each step. Structure comes
+before surface, proof comes before operation, and the agentic pack
+comes last because its topology choice consumes the rulings above it.
 
-1. WG-EOS-001, the scale ruling. It gates the matrix column and the
-   ceremony of everything after it.
-2. WG-EOS-002, the repo shape.
-3. WG-VOX (voice): the register ruling colours every surface written
-   after it.
-4. WG-ARCH (architecture): structure before surface.
-5. WG-WEB (web design): the surface, ruled with the register and
-   architecture already fixed.
-6. WG-DEL (delivery), then WG-OPS (devops): how it is proven, then how
-   it runs.
-
-A wargame whose decision rule names another wargame's ruling as an
-input jumps behind that prerequisite; the index's question column makes
-these visible. Cross-module conflicts go to the module that owns the
-decision (GOVERNANCE.md precedence), and the stricter rule applies
-until a joint wargame exists.
+A guide whose decision rule names another guide's ruling as an input
+jumps behind that prerequisite. Where two packs genuinely conflict, the
+decision belongs to the pack that owns it under GOVERNANCE.md
+precedence, and the stricter rule applies until a joint guide exists.
+No activation lowers a tier floor or converts a manual-only action
+class into an autonomous one.
 
 ## Record the rulings
 
-Every walked wargame lands as one rulings row in the lock-book header,
-`WG-ID · ruling · argued|inherited · note`:
+Every walked guide lands as one rulings row in the lock-book header,
+id · ruling · argued|inherited · note. Argued means the venture's facts
+were engaged afresh against the guide's fork, and any guide a trigger
+names must be argued. Inherited means the default was taken without new
+argument, legitimate when the triggers are silent, and never promotion
+evidence.
 
-- **argued** means the triggers were engaged afresh against the
-  venture's facts. Any wargame a trigger names must be argued, not
-  inherited.
-- **inherited** means the default was taken without new argument,
-  legitimate when the triggers are silent. Inherited rulings never
-  count as promotion evidence.
-
-A fork the walk hits that no wargame covers: file a draft wargame in
-`docs/EOS_FEEDBACK.md` using the wargame template, with the venture's
-ruling as its first worked entry, and record the ruling in the
-lock-book as `WG-DRAFT-NNN` (numbered per venture). The harvest
-(PB-E02) assigns the real module id later and rewrites the row.
+A fork no guide covers: file a draft guide in docs/EOS_FEEDBACK.md with
+the question, the options seen, the decision rule used and the
+venture's ruling as its first worked entry. Record the ruling as
+GD-DRAFT-NNN, numbered per venture; the harvest assigns the real pack
+and id later and rewrites the row.
 
 ## Budget
 
-One sitting. A venture with any web surface walks the whole web module,
-so even S runs twelve to eighteen rulings; M and L add the modules
-their triggers pull in. A walk running past twenty rulings means the
-trigger set is wrong (too broad) or the venture is bigger than its
-scale ruling; stop and re-run WG-EOS-001 before continuing.
+One sitting. An S venture with a single surface typically activates two
+or three packs and rules under a dozen guides. Past twenty rulings the
+walk has stopped being a walk: either the trigger set is too broad or
+the venture is bigger than its scale ruling. Stop, re-run WG-EOS-001
+with the operator, and start again from the new ruling.

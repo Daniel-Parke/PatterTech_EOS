@@ -1,5 +1,5 @@
 ---
-summary: The kernel in v2, the law files, the compile contract and the current staging state
+summary: The kernel in v2, the law files and the compile contract
 type: kernel
 tags: [eos]
 ---
@@ -31,7 +31,7 @@ from; nothing here is read by a venture at runtime.
 Two seeds: S at nine files and ORG at nineteen; v1's M and L merge
 into ORG. `kernel/SCALE_MATRIX.md` is still the live v1 law because
 the in-flight v1 baseline scoring depends on it; the v2 matrix is
-staged at `kernel/SCALE_MATRIX_v2.staging.md` and the integrator
+staged at `kernel/SCALE_MATRIX.md` and the integrator
 swaps it in after that scoring completes. Until the swap, seed
 checks rule by the live file.
 

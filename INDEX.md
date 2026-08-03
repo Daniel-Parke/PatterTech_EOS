@@ -77,6 +77,11 @@ Derived file. Edit front-matter, then run
 | archive/v1/doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md | wargame | web tooling testing | Where does a design law live so it actually holds? | 2027-07 |
 | archive/v1/doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
 | archive/v1/GUIDE.md | guide | eos | The all-in-one guide to the EOS, the AutoWatt genesis and the development lifecycle | 2027-01 |
+| archive/v1/inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
+| archive/v1/inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
+| archive/v1/inception/INTERVIEW.md | kernel | eos | The intake protocol, question set and the three mandatory challenge steps |  |
+| archive/v1/inception/README.md | kernel | eos | The Session 0 system, what it is and what lands here in Phase E |  |
+| archive/v1/inception/WALK_ORDER.md | kernel | eos wargame | How to compile the venture's wargame walk from the index, filter by triggers, canonical order |  |
 | archive/v1/kernel/SCALE_MATRIX.md | kernel | eos | The exact seed file list per scale S, M and L, plus trigger add-ons, machine-checked |  |
 | archive/v1/org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
 | archive/v1/org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
@@ -163,19 +168,22 @@ Derived file. Edit front-matter, then run
 | estate/ESTATE_MAP.md | registry | eos | The estate narrative, how the repos relate, which are governed and what the seams between them are | 2026-11 |
 | examples/autowatt-seed.md | example | eos | Worked example, the AutoWatt reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
+| examples/v2-worked-high-assurance.md | example | eos | Worked example, an auth change routed R3 end to end, oracle first, reviewer and operator at the gate |  |
+| examples/v2-worked-lean.md | example | eos | Worked example, an Express run end to end in an S venture, from request to commit |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, the graded change path, precedence, promotion, the protected set, ids, budgets |  |
 | inception/briefs/BRIEF-S-brochure.md | kernel | eos | Canned drill brief, a sole-trader joinery brochure site, scripted operator answers |  |
-| inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
-| inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
-| inception/INTERVIEW.md | kernel | eos | The intake protocol, question set and the three mandatory challenge steps |  |
-| inception/README.md | kernel | eos | The Session 0 system, what it is and what lands here in Phase E |  |
-| inception/WALK_ORDER.md | kernel | eos wargame | How to compile the venture's wargame walk from the index, filter by triggers, canonical order |  |
-| inception/wargames/WG-EOS-001-venture-scale.md | wargame | eos wargame | What scale of organisational machinery does this venture compile, S, M or L? | 2027-07 |
+| inception/COMPILE.md | kernel | eos | The v2 seed compiler's rules, prune, fill, policy fill, distil, report, and the never-list |  |
+| inception/EXPRESS_INCEPTION.md | kernel | eos | The S-scale fast path for Session 0, six questions, inherited defaults, two human gate items |  |
+| inception/INCEPTION.md | kernel | eos | The Session 0 master playbook in v2, phases A to E, from idea to signed seed |  |
+| inception/INTERVIEW.md | kernel | eos | The v2 intake protocol, seventeen questions, the risk-surface set and the three challenge steps |  |
+| inception/README.md | kernel | eos | The Session 0 system in v2, the two paths and the files that run them |  |
+| inception/WALK_ORDER.md | kernel | eos | How the pack activation walk is built and ordered, the always-walk set and the budget rule |  |
+| inception/wargames/WG-EOS-001-venture-scale.md | wargame | eos wargame | What scale of organisational machinery does this venture compile, S or ORG? | 2027-07 |
 | inception/wargames/WG-EOS-002-repo-shape.md | wargame | eos wargame infra | One repo, several, or a corner of an existing one? | 2027-07 |
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
 | kernel/METADATA_SPEC.md | kernel | eos | The eight metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
-| kernel/README.md | kernel | eos | The kernel in v2, the law files, the compile contract and the current staging state |  |
+| kernel/README.md | kernel | eos | The kernel in v2, the law files and the compile contract |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The v2 seed law, the S and ORG file lists, first-use directories, trigger add-ons |  |
 | kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to v2 checker ids, human items headed by cold-start |  |
 | kernel/templates/AGENTS.tpl.md | template | eos | Venture router template, the policy-routed v2 entry, compiled output capped at 40 lines |  |
@@ -219,6 +227,11 @@ Derived file. Edit front-matter, then run
 | org/logs/2026-07/S-0018.md | org | eos | Session S-0018, REL, v1.0.0 tagged locally, manual close handed to Daniel |  |
 | org/logs/2026-07/S-0019.md | org | eos | Session S-0019, the D1 gate closed, G1 and G2 queued, Genesis commissioned |  |
 | org/logs/2026-07/S-0020.md | org | eos | Session S-0020, the all-in-one field guide GUIDE.md authored and registered |  |
+| org/migration/MIGRATION_MAP.md | org | eos | Every v1 concept and its v2 fate, with the load-bearing rule's new home for anything retired |  |
+| org/migration/plans/AutoWatt.md | org | eos | AutoWatt's read-only v2 migration plan, the recompile route and what the engine does not yet cover |  |
+| org/migration/plans/Guth.md | org | eos | Guth's read-only v2 migration plan, the pin normalisation and the nineteen queue rows |  |
+| org/migration/plans/PatterTech_Website.md | org | eos | PatterTech_Website's read-only plan, fresh v2 S inception whenever the operator wants it |  |
+| org/migration/PLAYBOOK.md | org | eos | The per-venture v1 to v2 migration procedure, three routes, what is preserved, and the consent rule |  |
 | org/PLAYBOOKS.md | org | eos | The EOS-side playbooks, PB-E01 to PB-E10, one v2 procedure each |  |
 | org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
 | org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |

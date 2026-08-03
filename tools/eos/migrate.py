@@ -116,13 +116,18 @@ def plan(seed_root):
 
     # Route heuristic per the plan: a pin predating 1.0.0 predates the
     # kernel freeze, so the seed recompiles from its rulings; a 1.x pin
-    # upgrades in place; no lock-book means fresh inception.
-    if re.match(r"^0\.", version):
+    # upgrades in place; no lock-book means fresh inception. Pins are written by hand and appear as 1.0.0, v1.0.0 or pre-1.0.0,
+    # so read the first version-like number rather than anchoring at the
+    # string start; an unreadable pin stays on the conservative route.
+    stated = str(version).strip()
+    prerelease = stated.lower().startswith("pre-")
+    m = re.search(r"(\d+)\.(\d+)", stated)
+    if m is None:
         route = "recompile"
-    elif re.match(r"^\d+\.", version):
-        route = "apply"
+    elif prerelease or int(m.group(1)) < 1:
+        route = "recompile"
     else:
-        route = "recompile"
+        route = "apply"
 
     steps = [
         {"id": "pin-policy", "status": "pending",
@@ -132,6 +137,15 @@ def plan(seed_root):
            for n in ("PLAN.md", "WORK.md", "VERIFY.md")):
         steps.append({"id": "roles-to-tier-note", "status": "pending",
                       "desc": "role charters swap for the tier policy note"})
+    # M-shape ventures carry a queue file; L-shape ventures carry per-file
+    # work orders under org/work/. Both convert to task records, and the
+    # L shape is the larger job, so it must not go unreported.
+    work_items = seed_root / "org" / "work" / "items"
+    if work_items.is_dir():
+        n = len(list(work_items.glob("*.md")))
+        steps.append({"id": "work-orders-to-tasks", "status": "pending",
+                      "desc": "convert %d work orders under org/work/items/ "
+                              "to task records" % n})
     if (seed_root / "org" / "QUEUE.md").is_file():
         steps.append({"id": "queue-to-tasks", "status": "pending",
                       "desc": "queue rows become org/tasks/T-####.json records"})

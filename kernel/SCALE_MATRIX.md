@@ -4,7 +4,7 @@ type: kernel
 tags: [eos]
 ---
 
-# SCALE_MATRIX v2 (staging)
+# SCALE_MATRIX
 
 The v2 law of what a compiled seed contains. Staged deliberately: the
 live law stays in kernel/SCALE_MATRIX.md until the in-flight v1
