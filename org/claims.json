@@ -38,101 +38,149 @@
    "expires": "2026-08-10T09:00:00Z"
   },
   {
-   "lane_id": "waveA-agentic-development",
+   "lane_id": "waveB-product-discovery",
    "task_id": "T-0001",
-   "session_id": "waveA-agentic-development",
+   "session_id": "waveB-product-discovery",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-agentic-development",
+   "harness_task_id": "waveB-product-discovery",
    "path_claims": [
-    "packs/agentic-development/"
+    "packs/product-discovery/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-coding",
+   "lane_id": "waveB-business-logic-modelling",
    "task_id": "T-0001",
-   "session_id": "waveA-coding",
+   "session_id": "waveB-business-logic-modelling",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-coding",
+   "harness_task_id": "waveB-business-logic-modelling",
    "path_claims": [
-    "packs/coding/"
+    "packs/business-logic-modelling/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-architecture",
+   "lane_id": "waveB-data-analytics",
    "task_id": "T-0001",
-   "session_id": "waveA-architecture",
+   "session_id": "waveB-data-analytics",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-architecture",
+   "harness_task_id": "waveB-data-analytics",
    "path_claims": [
-    "packs/architecture/"
+    "packs/data-analytics/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-delivery-testing",
+   "lane_id": "waveB-ai-ml-llm",
    "task_id": "T-0001",
-   "session_id": "waveA-delivery-testing",
+   "session_id": "waveB-ai-ml-llm",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-delivery-testing",
+   "harness_task_id": "waveB-ai-ml-llm",
    "path_claims": [
-    "packs/delivery-testing/"
+    "packs/ai-ml-llm/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-devops-reliability",
+   "lane_id": "waveB-marketing-growth",
    "task_id": "T-0001",
-   "session_id": "waveA-devops-reliability",
+   "session_id": "waveB-marketing-growth",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-devops-reliability",
+   "harness_task_id": "waveB-marketing-growth",
    "path_claims": [
-    "packs/devops-reliability/"
+    "packs/marketing-growth/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-security-privacy",
+   "lane_id": "waveB-business-model-pricing",
    "task_id": "T-0001",
-   "session_id": "waveA-security-privacy",
+   "session_id": "waveB-business-model-pricing",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-security-privacy",
+   "harness_task_id": "waveB-business-model-pricing",
    "path_claims": [
-    "packs/security-privacy/"
+    "packs/business-model-pricing/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-api-integration",
+   "lane_id": "waveB-docs-dx",
    "task_id": "T-0001",
-   "session_id": "waveA-api-integration",
+   "session_id": "waveB-docs-dx",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-api-integration",
+   "harness_task_id": "waveB-docs-dx",
    "path_claims": [
-    "packs/api-integration/"
+    "packs/docs-dx/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   },
   {
-   "lane_id": "waveA-ui-ux",
+   "lane_id": "waveB-native-client",
    "task_id": "T-0001",
-   "session_id": "waveA-ui-ux",
+   "session_id": "waveB-native-client",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveA-ui-ux",
+   "harness_task_id": "waveB-native-client",
    "path_claims": [
-    "packs/ui-ux/"
+    "packs/native-client/"
    ],
-   "acquired": "2026-08-03T12:00:00Z",
-   "expires": "2026-08-10T12:00:00Z"
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
+  },
+  {
+   "lane_id": "waveB-support-operations",
+   "task_id": "T-0001",
+   "session_id": "waveB-support-operations",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveB-support-operations",
+   "path_claims": [
+    "packs/support-operations/"
+   ],
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
+  },
+  {
+   "lane_id": "waveB-legal-licensing",
+   "task_id": "T-0001",
+   "session_id": "waveB-legal-licensing",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveB-legal-licensing",
+   "path_claims": [
+    "packs/legal-licensing/"
+   ],
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
+  },
+  {
+   "lane_id": "waveB-writing-content",
+   "task_id": "T-0001",
+   "session_id": "waveB-writing-content",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveB-writing-content",
+   "path_claims": [
+    "packs/writing-content/"
+   ],
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
+  },
+  {
+   "lane_id": "waveB-pattertech-house",
+   "task_id": "T-0001",
+   "session_id": "waveB-pattertech-house",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveB-pattertech-house",
+   "path_claims": [
+    "packs/pattertech-house/"
+   ],
+   "acquired": "2026-08-03T14:00:00Z",
+   "expires": "2026-08-10T14:00:00Z"
   }
  ],
- "note": "Integrator plus eight Wave A pack lanes, assigned and committed before dispatch. Each lane owns exactly its pack directory; shared registries and derived views stay integrator-only."
+ "note": "Integrator plus twelve Wave B pack lanes, assigned and committed before dispatch. Wave A lanes completed and their claims are released. Shared registries and derived views stay integrator-only."
 }
