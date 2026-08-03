@@ -9,7 +9,7 @@ sources: [EV-0041]
 review: on-change-of:ISO-10002-revision
 type: guide
 tags: [ops, product, pii]
-review_by: 2027-08
+review_by: 2028-07
 ---
 
 # GD-SUPPORT-002: May an item close without an answer, and on whose clock?

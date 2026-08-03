@@ -89,13 +89,26 @@ Derived file. Edit front-matter, then run
 | archive/v1/START.md | root | eos | Bootstrap for every session, read order per entry mode and the ground rules |  |
 | archive/v1/VISION.md | root | eos | The north star, what the EOS is for and the invariants that hold as it grows |  |
 | benchmark/drills/agentic-development.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
+| benchmark/drills/ai-ml-llm.md | example | eos testing | Cold-agent acceptance drill for the AI, ML and LLM pack, build the gate before tuning the classifier |  |
 | benchmark/drills/api-integration.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
 | benchmark/drills/architecture.md | example | eos | Single-run cold-agent acceptance drill for the architecture pack, with deterministic machine-checkable criteria |  |
+| benchmark/drills/business-logic-modelling.md | example | eos testing | Single-run cold-agent acceptance drill for the business logic and modelling pack, with deterministic machine-checkable criteria |  |
+| benchmark/drills/business-model-pricing.md | example | eos testing | Single-run cold-agent acceptance drill for the business model and pricing pack, with deterministic machine-checkable criteria |  |
 | benchmark/drills/coding.md | example | eos | Cold-agent acceptance drill for the coding pack, pin then change an undocumented parser |  |
+| benchmark/drills/data-analytics.md | example | eos testing | Single-run cold-agent acceptance drill for the data-analytics pack, with deterministic machine-checkable criteria |  |
 | benchmark/drills/delivery-testing.md | example | eos | Cold-agent acceptance drill for the delivery, testing and quality pack, checking double choice, contract verification and flake handling |  |
 | benchmark/drills/devops-reliability.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
+| benchmark/drills/docs-dx.md | example | eos testing | Cold-agent acceptance drill for the docs-dx pack, make a stale documented flag fail the build |  |
+| benchmark/drills/legal-licensing.md | example | eos testing | Proposed cold-agent acceptance drill for the legal, licensing and compliance routing pack |  |
+| benchmark/drills/marketing-growth.md | example | eos testing | Cold-agent acceptance drill for the marketing-growth pack, one launch surface plus one lifecycle sequence, machine-checked |  |
+| benchmark/drills/native-client.md | example | eos testing | Cold-agent acceptance drill for the native-client pack, an offline-capable client with a declared conflict policy and a forward-only release path |  |
+| benchmark/drills/pattertech-house.md | example | eos testing | Single-run cold-agent acceptance drill for the PatterTech house style, with deterministic machine-checkable criteria |  |
+| benchmark/drills/product-discovery.md | example | eos testing | Cold-agent acceptance drill for the product-discovery pack, frame a solution request back into a testable opportunity |  |
+| benchmark/drills/README.md | example | eos testing | What a pack acceptance drill is, how the runner grades one, and what is still missing before any of the twenty can return a verdict |  |
 | benchmark/drills/security-privacy.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
+| benchmark/drills/support-operations.md | example | eos testing | Single-run cold-agent acceptance drill for the support-operations pack, with deterministic machine-checkable criteria |  |
 | benchmark/drills/ui-ux.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
+| benchmark/drills/writing-content.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
 | benchmark/fixtures/app-api/README.md | example | eos testing | Energy quote JSON API fixture with planted defects for benchmark tasks |  |
 | benchmark/fixtures/app-static/README.md | example | eos testing | Static brochure site fixture with three planted defects for the agent benchmark |  |
 | benchmark/fixtures/briefs/BRIEF-M-fieldkit.md | example | eos testing | Canned drill brief, a field-survey web app for one contractor firm, scripted operator answers |  |
@@ -180,6 +193,7 @@ Derived file. Edit front-matter, then run
 | inception/WALK_ORDER.md | kernel | eos | How the pack activation walk is built and ordered, the always-walk set and the budget rule |  |
 | inception/wargames/WG-EOS-001-venture-scale.md | wargame | eos wargame | What scale of organisational machinery does this venture compile, S or ORG? | 2027-07 |
 | inception/wargames/WG-EOS-002-repo-shape.md | wargame | eos wargame infra | One repo, several, or a corner of an existing one? | 2027-07 |
+| kernel/adapters/README.md | kernel | eos | What a host enforcement adapter must provide, how validation works, and why an unvalidated adapter means manual-only |  |
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
 | kernel/METADATA_SPEC.md | kernel | eos | The eight metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
@@ -330,11 +344,11 @@ Derived file. Edit front-matter, then run
 | packs/coding/research/NOTES.md | example | eos | Research synthesis for the coding pack, four construction philosophies, review at scale, and what should bind |  |
 | packs/data-analytics/CHECKS.md | guide | data testing delivery | What a reviewer or a checker can verify about analytics, modelling and experiment work, split into executable today and judgement | 2027-08 |
 | packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md | example | data testing product | The data-analytics pack applied end to end to a raw event dump and an experiment whose assignment ratio is broken |  |
-| packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md | guide | data testing delivery | Where does the data quality rule live, a declared contract, computed metrics with anomaly detection, both, or no gate at all? | 2027-08 |
-| packs/data-analytics/guides/GD-DATA-002-model-shape.md | guide | data arch | What shape does the analytics model take, a source mirror, layered wide entities, a dimensional star, or one metrics layer over any of them? | 2027-08 |
-| packs/data-analytics/guides/GD-DATA-003-experiment-stopping.md | guide | data product testing | How is an experiment allowed to end, a locked fixed horizon, an always-valid sequential test, an asymmetric gate, or no experiment at all? | 2027-08 |
-| packs/data-analytics/guides/GD-DATA-004-storage-shape.md | guide | data infra arch | Where does the analytics data sit, a single managed warehouse, a warehouse over an open table format, a lakehouse, or files and a single-node engine? | 2027-08 |
-| packs/data-analytics/guides/GD-DATA-005-event-contract.md | guide | data product delivery | How are product events named and validated, hosted SDK defaults, a written convention, a reviewed tracking plan, or a registry that quarantines invalid events? | 2027-08 |
+| packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md | guide | data testing delivery | Where does the data quality rule live, a declared contract, computed metrics with anomaly detection, both, or no gate at all? | 2027-12 |
+| packs/data-analytics/guides/GD-DATA-002-model-shape.md | guide | data arch | What shape does the analytics model take, a source mirror, layered wide entities, a dimensional star, or one metrics layer over any of them? | 2027-12 |
+| packs/data-analytics/guides/GD-DATA-003-experiment-stopping.md | guide | data product testing | How is an experiment allowed to end, a locked fixed horizon, an always-valid sequential test, an asymmetric gate, or no experiment at all? | 2028-01 |
+| packs/data-analytics/guides/GD-DATA-004-storage-shape.md | guide | data infra arch | Where does the analytics data sit, a single managed warehouse, a warehouse over an open table format, a lakehouse, or files and a single-node engine? | 2028-01 |
+| packs/data-analytics/guides/GD-DATA-005-event-contract.md | guide | data product delivery | How are product events named and validated, hosted SDK defaults, a written convention, a reviewed tracking plan, or a registry that quarantines invalid events? | 2028-02 |
 | packs/data-analytics/PACK.md | playbook | eos data testing pii | Analytics data, event taxonomy, model shape, quality gates, experiment statistics and what the analytics layer may hold about a person |  |
 | packs/data-analytics/refs/DATA_CONTRACT.md | foundation | data delivery testing | What a data contract has to carry to satisfy B1 and B2, the rule kinds available, and how a contract fails silently | 2028-08 |
 | packs/data-analytics/refs/EXPERIMENT_STATS.md | foundation | data testing product | Experiment mechanics behind B4 and B5, the sample ratio check, power arithmetic, variance reduction and the interpretation errors that produce false conclusions | 2029-08 |
@@ -343,10 +357,10 @@ Derived file. Edit front-matter, then run
 | packs/data-analytics/research/NOTES.md | example | eos testing | Research synthesis for the data, analytics and experimentation pack, covering quality gates, modelling shape, experiment statistics, event design, storage fit and privacy, with the disagreements left visible |  |
 | packs/delivery-testing/CHECKS.md | guide | delivery testing ci | What a reviewer or a checker can verify about delivery and testing work, and which checks run today | 2027-08 |
 | packs/delivery-testing/exemplars/EX-DEL-001-drifted-fake-and-a-lying-suite.md | example | delivery testing ci | A worked run of the pack: a rounding defect, a drifted fake and a clock-dependent test, fixed in order |  |
-| packs/delivery-testing/guides/WG-DEL-005-test-doubles.md | guide | delivery testing arch | Which double stands in for this port: real, container, verified fake, or mock? | 2027-08 |
-| packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md | guide | delivery testing ci | How independent must the oracle be from the code it judges, and who authors it? | 2027-08 |
-| packs/delivery-testing/guides/WG-DEL-007-test-timing.md | guide | delivery testing ci | When are tests written relative to the code, and is that a rule or a default? | 2027-08 |
-| packs/delivery-testing/PACK.md | guide | delivery testing ci | Delivery, testing and quality: what binds, what defaults, and which fork routes to which guide | 2027-08 |
+| packs/delivery-testing/guides/WG-DEL-005-test-doubles.md | wargame | delivery testing arch | Which double stands in for this port: real, container, verified fake, or mock? | 2028-02 |
+| packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md | wargame | delivery testing ci | How independent must the oracle be from the code it judges, and who authors it? | 2028-03 |
+| packs/delivery-testing/guides/WG-DEL-007-test-timing.md | wargame | delivery testing ci | When are tests written relative to the code, and is that a rule or a default? | 2028-03 |
+| packs/delivery-testing/PACK.md | guide | delivery testing ci | Delivery, testing and quality: what binds, what defaults, and which fork routes to which guide | 2028-02 |
 | packs/delivery-testing/refs/CONTRACT_SUITES.md | example | delivery testing arch | How to build and run a contract suite that proves a double still matches the real thing |  |
 | packs/delivery-testing/refs/FLAKE_AND_DETERMINISM.md | example | delivery testing ci | Flake sources, the determinism budget, the quarantine record and why retries are not a policy |  |
 | packs/delivery-testing/refs/QUALITY_SIGNALS.md | example | delivery testing ci | What coverage, mutation score, property tests and test selection actually tell you, and what they cost |  |
@@ -369,14 +383,14 @@ Derived file. Edit front-matter, then run
 | packs/devops-reliability/research/NOTES.md | example | eos | Research synthesis for the devops-reliability pack, covering migrations, restore proof, SLO governance, incident practice, FinOps, golden paths, progressive delivery and observability stability. |  |
 | packs/docs-dx/CHECKS.md | guide | content delivery ci tooling | What a reviewer or a checker can verify about documentation work, split into executable today and judgement | 2027-08 |
 | packs/docs-dx/exemplars/EX-DOCS-001-stale-quickstart.md | example | content delivery ci tooling | A worked repair of a quickstart that stopped working, applying the pack from activation through to the gate that stops it recurring |  |
-| packs/docs-dx/guides/GD-DOCS-001-truth-location.md | guide | content delivery tooling | Where a document's truth lives, and therefore whether it can drift at all | 2027-08 |
-| packs/docs-dx/guides/GD-DOCS-002-executable-examples.md | guide | content delivery ci testing | How a code example in documentation stops lying, and what to do with the ones that cannot run | 2027-08 |
-| packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md | guide | content delivery ci | Who writes the changelog, and whether release notes can be derived from history at all | 2027-08 |
-| packs/docs-dx/guides/GD-DOCS-004-failure-messages.md | guide | content voice delivery | What a user-visible failure owes its reader, and how much structure to spend on it | 2027-08 |
-| packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md | guide | content delivery ci tooling | Which documentation checks are allowed to fail a build, and which stay advisory | 2027-08 |
+| packs/docs-dx/guides/GD-DOCS-001-truth-location.md | guide | content delivery tooling | Where a document's truth lives, and therefore whether it can drift at all | 2028-04 |
+| packs/docs-dx/guides/GD-DOCS-002-executable-examples.md | guide | content delivery ci testing | How a code example in documentation stops lying, and what to do with the ones that cannot run | 2028-04 |
+| packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md | guide | content delivery ci | Who writes the changelog, and whether release notes can be derived from history at all | 2028-04 |
+| packs/docs-dx/guides/GD-DOCS-004-failure-messages.md | guide | content voice delivery | What a user-visible failure owes its reader, and how much structure to spend on it | 2028-04 |
+| packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md | guide | content delivery ci tooling | Which documentation checks are allowed to fail a build, and which stay advisory | 2028-04 |
 | packs/docs-dx/PACK.md | playbook | content voice delivery ci tooling | Documentation and developer experience, where a document's truth lives and which documents can be made to fail a build |  |
-| packs/docs-dx/refs/DOC_FORMS.md | foundation | content voice product | The four documentation forms as a diagnostic, the README question set, and what an agent entry file owes a reader | 2027-08 |
-| packs/docs-dx/refs/DOC_GATE.md | foundation | content delivery ci tooling | The documentation gate reference, what runs, in what order, blocking or advisory, and how to prove each step works | 2027-08 |
+| packs/docs-dx/refs/DOC_FORMS.md | foundation | content voice product | The four documentation forms as a diagnostic, the README question set, and what an agent entry file owes a reader | 2028-05 |
+| packs/docs-dx/refs/DOC_GATE.md | foundation | content delivery ci tooling | The documentation gate reference, what runs, in what order, blocking or advisory, and how to prove each step works | 2028-05 |
 | packs/docs-dx/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the docs-dx pack, make a stale documented flag fail the build |  |
 | packs/docs-dx/research/NOTES.md | example | eos testing | Research synthesis for the docs-dx pack, four documentation philosophies, what is checkable, and what should bind |  |
 | packs/INDEX.md | index | eos | Derived index of every built pack, the always-loaded metadata surface |  |
@@ -406,13 +420,13 @@ Derived file. Edit front-matter, then run
 | packs/marketing-growth/research/NOTES.md | example | eos testing | Research synthesis for the marketing-growth pack, four growth philosophies, the measurement floor, and what is law versus taste |  |
 | packs/native-client/CHECKS.md | implementation | testing a11y delivery | What a reviewer or checker can verify about client work, split into executable today and judgement | 2027-08 |
 | packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md | example | eos state a11y delivery | The pack applied end to end to a single-surface task client with three write classes, one of them invariant-bearing |  |
-| packs/native-client/guides/GD-NAT-001-client-architecture.md | guide | arch delivery a11y | Which client architecture does this product take? | 2027-08 |
-| packs/native-client/guides/GD-NAT-002-offline-write-model.md | guide | state data delivery | What happens to a write made with no network? | 2027-08 |
-| packs/native-client/guides/GD-NAT-003-release-path.md | guide | delivery ops ci | How does a fix reach a user, given that no release can be taken back? | 2027-08 |
-| packs/native-client/guides/GD-NAT-004-a11y-profile.md | guide | a11y testing product | How much accessibility assurance does a non-web surface buy, and against which instrument? | 2027-08 |
-| packs/native-client/PACK.md | playbook | eos a11y delivery ops state | Software that ships as a binary, four client architectures, the offline write question, forward-only release and the non-web accessibility profile | 2027-08 |
-| packs/native-client/refs/A11Y_NON_WEB.md | ux | a11y testing product | The non-web accessibility profile, the unit of conformance, the semantics declaration, clause 11 extras and the audit route | 2027-08 |
-| packs/native-client/refs/RELEASE_MECHANICS.md | implementation | delivery ops ci | Store release mechanics side by side, the over-the-air envelope, the kill-switch contract and the distribution clock | 2027-08 |
+| packs/native-client/guides/GD-NAT-001-client-architecture.md | guide | arch delivery a11y | Which client architecture does this product take? | 2028-05 |
+| packs/native-client/guides/GD-NAT-002-offline-write-model.md | guide | state data delivery | What happens to a write made with no network? | 2028-05 |
+| packs/native-client/guides/GD-NAT-003-release-path.md | guide | delivery ops ci | How does a fix reach a user, given that no release can be taken back? | 2028-05 |
+| packs/native-client/guides/GD-NAT-004-a11y-profile.md | guide | a11y testing product | How much accessibility assurance does a non-web surface buy, and against which instrument? | 2028-05 |
+| packs/native-client/PACK.md | playbook | eos a11y delivery ops state | Software that ships as a binary, four client architectures, the offline write question, forward-only release and the non-web accessibility profile | 2027-04 |
+| packs/native-client/refs/A11Y_NON_WEB.md | ux | a11y testing product | The non-web accessibility profile, the unit of conformance, the semantics declaration, clause 11 extras and the audit route | 2028-06 |
+| packs/native-client/refs/RELEASE_MECHANICS.md | implementation | delivery ops ci | Store release mechanics side by side, the over-the-air envelope, the kill-switch contract and the distribution clock | 2027-05 |
 | packs/native-client/refs/WRITE_CLASSES.md | pattern | state data delivery | Write classification, the four conflict policies, the reservation pattern and what the outbox must guarantee | 2028-08 |
 | packs/native-client/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the native-client pack, an offline-capable client with a declared conflict policy and a forward-only release path |  |
 | packs/native-client/research/NOTES.md | example | eos testing | Research synthesis for the native-client pack, four client architectures, three sync philosophies, store release mechanics and the non-web accessibility profile |  |
@@ -431,13 +445,13 @@ Derived file. Edit front-matter, then run
 | packs/pattertech-house/research/NOTES.md | example | eos testing | Three competing visual-language philosophies, what the evidence supports, and where the PatterTech house style is taste rather than fact |  |
 | packs/product-discovery/CHECKS.md | guide | product testing tooling | What a reviewer or a script can verify about a discovery record, split into executable today and judgement | 2027-08 |
 | packs/product-discovery/exemplars/EX-DISC-001-approvals-inbox-request.md | example | product testing | The product-discovery pack applied end to end to a feature request for an approvals inbox, ending in a TEST verdict |  |
-| packs/product-discovery/guides/GD-DISC-001-discovery-depth.md | guide | product testing wargame | How much discovery does this decision deserve, a gated phase, a standing cadence, outcome elicitation alone, or ship and instrument? | 2027-08 |
-| packs/product-discovery/guides/GD-DISC-002-user-evidence-source.md | guide | product testing wargame | Where does the evidence about users come from, existing behaviour, talking to people, a controlled experiment, or a model standing in for them? | 2027-08 |
-| packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md | guide | product wargame | How do you choose between candidate opportunities, score them, rank by outcome contribution, test them all, or sequence by reversibility? | 2027-08 |
-| packs/product-discovery/guides/GD-DISC-004-acceptance-criteria-form.md | guide | product delivery wargame | Once the problem is settled, in what form do the acceptance criteria go, a user story, EARS clause order, an executable test, or a full specification chain? | 2027-08 |
+| packs/product-discovery/guides/GD-DISC-001-discovery-depth.md | guide | product testing wargame | How much discovery does this decision deserve, a gated phase, a standing cadence, outcome elicitation alone, or ship and instrument? | 2028-06 |
+| packs/product-discovery/guides/GD-DISC-002-user-evidence-source.md | guide | product testing wargame | Where does the evidence about users come from, existing behaviour, talking to people, a controlled experiment, or a model standing in for them? | 2028-06 |
+| packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md | guide | product wargame | How do you choose between candidate opportunities, score them, rank by outcome contribution, test them all, or sequence by reversibility? | 2028-07 |
+| packs/product-discovery/guides/GD-DISC-004-acceptance-criteria-form.md | guide | product delivery wargame | Once the problem is settled, in what form do the acceptance criteria go, a user story, EARS clause order, an executable test, or a full specification chain? | 2028-07 |
 | packs/product-discovery/PACK.md | playbook | eos product testing | Deciding what to build and whether to build it, problem framing, evidence provenance, the discovery record and the kill verdict |  |
-| packs/product-discovery/refs/DISCOVERY_RECORD.md | foundation | product testing | The fixed shape of a discovery record, its sections, its line grammars, and what counts as a citable source | 2027-08 |
-| packs/product-discovery/refs/SAMPLE_AND_SIGNAL.md | foundation | product testing | How many people to talk to, when an experiment can be powered, and what to do below the power floor | 2027-08 |
+| packs/product-discovery/refs/DISCOVERY_RECORD.md | foundation | product testing | The fixed shape of a discovery record, its sections, its line grammars, and what counts as a citable source | 2028-07 |
+| packs/product-discovery/refs/SAMPLE_AND_SIGNAL.md | foundation | product testing | How many people to talk to, when an experiment can be powered, and what to do below the power floor | 2028-07 |
 | packs/product-discovery/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the product-discovery pack, frame a solution request back into a testable opportunity |  |
 | packs/product-discovery/research/NOTES.md | example | eos testing | Research synthesis for the product-discovery pack, four schools of discovery, what the evidence actually supports, and what should bind |  |
 | packs/security-privacy/CHECKS.md | guide | security testing tooling | What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement | 2027-08 |
@@ -455,11 +469,11 @@ Derived file. Edit front-matter, then run
 | packs/security-privacy/research/NOTES.md | example | eos | Research synthesis for the security, privacy and safety pack, patterns, trade-offs and what should bind |  |
 | packs/support-operations/CHECKS.md | implementation | ops product testing tooling | What a reviewer or a script can verify about support work, split into executable today and judgement |  |
 | packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md | example | ops product pii money | The pack applied end to end over one week of forty inbound items for a paid product with sixty customers, including one customer-visible outage |  |
-| packs/support-operations/guides/GD-SUPPORT-001-triage-pattern.md | guide | ops product | How does inbound get classified, and what keeps the queue finite? | 2027-08 |
-| packs/support-operations/guides/GD-SUPPORT-002-close-policy.md | guide | ops product pii | May an item close without an answer, and on whose clock? | 2027-08 |
-| packs/support-operations/guides/GD-SUPPORT-003-declaration-route.md | guide | ops delivery | Who declares a customer-visible incident, and on what signal? | 2027-08 |
-| packs/support-operations/guides/GD-SUPPORT-004-support-measurement.md | guide | ops product testing | What do we measure about support, and what may the number be used for? | 2027-08 |
-| packs/support-operations/PACK.md | playbook | eos ops product pii | Customer support as an operating function, triage before backlog, honest incident communication, and the loop from inbox back into the product | 2027-08 |
+| packs/support-operations/guides/GD-SUPPORT-001-triage-pattern.md | guide | ops product | How does inbound get classified, and what keeps the queue finite? | 2028-07 |
+| packs/support-operations/guides/GD-SUPPORT-002-close-policy.md | guide | ops product pii | May an item close without an answer, and on whose clock? | 2028-07 |
+| packs/support-operations/guides/GD-SUPPORT-003-declaration-route.md | guide | ops delivery | Who declares a customer-visible incident, and on what signal? | 2028-08 |
+| packs/support-operations/guides/GD-SUPPORT-004-support-measurement.md | guide | ops product testing | What do we measure about support, and what may the number be used for? | 2028-08 |
+| packs/support-operations/PACK.md | playbook | eos ops product pii | Customer support as an operating function, triage before backlog, honest incident communication, and the loop from inbox back into the product | 2028-07 |
 | packs/support-operations/refs/INCIDENT_COMMS.md | implementation | ops voice delivery | The customer-facing update contract, the honesty rules including bypassed checks, audiences, cadence and the communication log shape |  |
 | packs/support-operations/refs/SEVERITY_AND_DECLARATION.md | implementation | ops delivery | The written severity ladder, the tie-break, the mode-changing band, the three-factor declaration score and the objective triggers |  |
 | packs/support-operations/refs/SYNTHESIS_PASS.md | implementation | ops product data | The weekly pass that turns an inbox into backlog items, the declared coding stance, the denominator and the theme record |  |
@@ -482,13 +496,13 @@ Derived file. Edit front-matter, then run
 | packs/ui-ux/research/NOTES.md | example | eos | Research synthesis for the ui-ux pack, eight design philosophies, accessibility conformance, tokens and component contracts |  |
 | packs/writing-content/CHECKS.md | implementation | content forms testing | What a reviewer or a script can verify about writing and content work, split into executable today and judgement | 2027-08 |
 | packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md | example | content forms a11y | The pack applied end to end to an order-status panel, a concatenated count and a banner error made survivable in a second language |  |
-| packs/writing-content/guides/GD-WRIT-001-clarity-philosophy.md | guide | voice content a11y | Which clarity philosophy governs this text, and where the control point sits? | 2027-08 |
-| packs/writing-content/guides/GD-WRIT-002-message-structure.md | guide | content forms tooling | How is a user-facing sentence built so a second locale can express what English never had? | 2027-08 |
-| packs/writing-content/guides/GD-WRIT-003-voice-scope.md | guide | voice brand content | Which voice applies to this text, and who is allowed to overrule it? | 2027-08 |
-| packs/writing-content/guides/GD-WRIT-004-prose-gate.md | guide | content ci tooling | How is prose checked before it merges, and which signals are allowed to block? | 2027-08 |
-| packs/writing-content/PACK.md | playbook | voice content a11y forms | Writing and content, message structure and error behaviour bind, voice splits three ways, readability never gates | 2027-08 |
-| packs/writing-content/refs/ERROR_CONTRACT.md | ux | forms a11y content | The error-message contract in detail, placement, timing, wording, input survival and the human against machine split | 2027-08 |
-| packs/writing-content/refs/I18N_MECHANICS.md | implementation | content forms tooling | Plural categories, text expansion figures, the pseudo-locale gate and what each of them does not catch | 2027-08 |
+| packs/writing-content/guides/GD-WRIT-001-clarity-philosophy.md | guide | voice content a11y | Which clarity philosophy governs this text, and where the control point sits? | 2028-09 |
+| packs/writing-content/guides/GD-WRIT-002-message-structure.md | guide | content forms tooling | How is a user-facing sentence built so a second locale can express what English never had? | 2028-09 |
+| packs/writing-content/guides/GD-WRIT-003-voice-scope.md | guide | voice brand content | Which voice applies to this text, and who is allowed to overrule it? | 2028-09 |
+| packs/writing-content/guides/GD-WRIT-004-prose-gate.md | guide | content ci tooling | How is prose checked before it merges, and which signals are allowed to block? | 2028-09 |
+| packs/writing-content/PACK.md | playbook | voice content a11y forms | Writing and content, message structure and error behaviour bind, voice splits three ways, readability never gates | 2028-09 |
+| packs/writing-content/refs/ERROR_CONTRACT.md | ux | forms a11y content | The error-message contract in detail, placement, timing, wording, input survival and the human against machine split | 2028-10 |
+| packs/writing-content/refs/I18N_MECHANICS.md | implementation | content forms tooling | Plural categories, text expansion figures, the pseudo-locale gate and what each of them does not catch | 2028-10 |
 | packs/writing-content/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
 | packs/writing-content/research/NOTES.md | example | eos testing | Research synthesis for the writing-content pack, four philosophies of clear text, what is machine-checkable, and what should bind |  |
 | README.md | root | eos | What the PatterTech EOS is, how the repo is laid out, how a venture consumes it, and the principles that hold |  |

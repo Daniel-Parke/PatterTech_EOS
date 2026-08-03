@@ -10,7 +10,7 @@ evidence_grade: observational
 scope: estate
 applies_when: [publishes_docs, documents_executable_surface, emits_user_visible_failure, renames_or_deletes_documented_page]
 volatility: slow
-review: 2027-08
+review: 2028-04
 sources: [EV-0023, EV-0044, EV-0095, EV-0102, EV-0136, EV-0137, EV-0170, EV-0171, EV-0175, EV-0189, EV-0322, EV-0323, EV-0324, EV-0325, EV-0326, EV-0327, EV-0328, EV-0329, EV-0330, EV-0331, EV-0332, EV-0333, EV-0334, EV-0335, EV-0336]
 ---
 

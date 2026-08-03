@@ -9,7 +9,7 @@ sources: [FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-11, FRAG-WRITING-CONTENT
 review: on-change-of:CLDR-plural-categories
 type: guide
 tags: [content, forms, tooling]
-review_by: 2027-08
+review_by: 2028-09
 ---
 
 # GD-WRIT-002: How is a sentence built for a second locale?

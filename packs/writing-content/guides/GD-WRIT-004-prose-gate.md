@@ -6,10 +6,10 @@ basis: decision
 evidence_grade: anecdotal
 scope: estate
 sources: [FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-04, FRAG-WRITING-CONTENT-05, FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-14, FRAG-DOCS-DX-14]
-review: 2027-08
+review: 2028-09
 type: guide
 tags: [content, ci, tooling]
-review_by: 2027-08
+review_by: 2028-09
 ---
 
 # GD-WRIT-004: How is prose checked before it merges?

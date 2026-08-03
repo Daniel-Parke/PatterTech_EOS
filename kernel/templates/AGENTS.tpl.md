@@ -14,14 +14,15 @@ Do this now, in order:
 
 <!-- scale: S -->
 1. Read docs/LOCKBOOK.md (rulings win on specifics) and the brief.
-2. Route before you work: docs/policy.json rules the tier and mode,
-   and the ruling decides the ceremony.
+2. Read the ruled tier and reasons from your task row in docs/TASKS.md;
+   the ruling is made once, when the row is written, and it decides the
+   ceremony.
 3. Record the task in docs/TASKS.md; friction and anything undecided
    go to docs/EOS_FEEDBACK.md.
 <!-- scale: end -->
 <!-- scale: ORG -->
 1. Read org/START.md and boot within your mode's context budget.
-2. Route before you work: org/policy.json rules the tier and mode;
+2. Read the ruled tier and reasons from your task record in org/tasks/;
    adopt the charter the task needs from org/roles/, EXECUTOR by default.
 3. Packs the lock-book adopts carry the knowledge; org/tasks/ records
    and the derived org/TASKS.md are the live work view.

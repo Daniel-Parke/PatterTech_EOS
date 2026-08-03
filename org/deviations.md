@@ -97,3 +97,29 @@ material), and the amendment reference where one exists.
   held. The probes were not run under the ablation, so it bounds the cost
   question only and makes no safety claim. Recorded as evidence for the
   release decision, not as grounds to amend a threshold.
+- 2026-08-03 · C1 · MATERIAL · Corrective iteration taken with Daniel's
+  explicit approval after the gate misses, per the plan's allowance of up to
+  two. Routing is now paid once at task-record creation and stored on the
+  record with its reasons; sessions read the ruling rather than invoking the
+  router. Gate-time recomputation against the actual diff is unchanged and
+  remains authoritative, upward only, which is what makes routing-once safe
+  rather than a loophole. Two protected-set files were edited under ADR-0002
+  to say so: kernel/POLICY_SPEC.md and the EXECUTOR charter template. The fix
+  also exposed two real defects in the gate path: the route command passed a
+  whole task record where the router expected its declared block, so declared
+  floors were invisible at the gate, and upward-only was not enforced against
+  the stored ruling. Both fixed.
+- 2026-08-03 · C2 · minor · Guard adapter for Claude Code built and validated
+  against the bypass suite; adapter_validated is now earned by a validation
+  record, never by a policy claiming it. Hook and settings paths classify as
+  destructive-git so a session cannot disable the guard from inside. Semantic
+  checks flipped to error severity with the live warnings fixed; archive/,
+  benchmark/ and org/logs/ are exempt as verbatim history rather than edited
+  to satisfy a checker.
+- 2026-08-03 · C3 · minor · Drill runner implemented. The twelve Wave B drill
+  specs were frozen AFTER their packs were authored, a weaker guarantee than
+  Wave A's freeze-before-authoring, so the manifest records
+  frozen_before_authoring per drill and a reader can tell which drills could
+  have been written to. A criterion with no machine grader reports manual and
+  is never counted as a pass; a drill whose criteria are all manual reports
+  null with a reason rather than a false green.

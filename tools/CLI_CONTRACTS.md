@@ -101,12 +101,44 @@ Exit 1 also when any criterion fails.
 
 ## drills
 
-Inputs: `--pack NAME` or `--all`. Runs the pack's frozen acceptance
-drill: a single cold-agent scenario with deterministic criteria, per
-the hash-committed drill spec frozen before that pack's authoring.
-Output: `{pack, drill, pass, criteria}` with per-criterion verdicts.
-Exit 1 on any failed criterion. A failed drill routes to fix the pack
-and re-run; the spec itself never changes without an ADR amendment.
+Inputs: `--pack NAME` or `--all` to run, neither to list, plus optional
+`--attempt DIR`, `--scratch DIR` and `--record`.
+
+Listing outputs one row per drill: pack, spec path, recorded sha256,
+whether the file still matches it, the criteria count, how many graders
+exist, and `frozen_before_authoring`. That last flag is load-bearing. A
+drill frozen before its pack was authored could not have been written
+to; one frozen afterwards could, and a reader must be able to tell the
+two apart without reading commit history.
+
+Running materialises the drill's frozen scenario
+(`benchmark/drills/scenarios/<pack>/`) into a scratch directory and
+runs one grader (`benchmark/drills/graders/<pack>/cN.py`) per numbered
+criterion. `--attempt DIR` grades the tree a cold agent delivered
+instead; without it the untouched fixture is graded, which proves the
+criteria discriminate and proves nothing about a pack. The command
+never runs the agent: that is the harness's job.
+
+Output: `{pack, drill, pass, criteria}` with a `verdict` per criterion,
+one of `pass`, `fail` or `manual`. `manual` means no grader exists for
+that criterion, or the scenario could not be materialised, so the
+criterion is prose a human must judge. A manual criterion is never
+counted as a pass. It follows that `pass` is `false` when any criterion
+failed, `true` only when every criterion was machine-evaluated and
+passed, and `null` with a stated reason otherwise. A drill whose
+criteria are all manual reports `null`, never a green.
+
+`--record` appends one entry per drill to `benchmark/drills/RESULTS.json`,
+which is append-only: rows are never rewritten or removed.
+
+Exit 0 only when every requested drill passed outright. Exit 1 on any
+failed criterion and on any drill left without a verdict, because a
+drill that did not run is not a drill that passed. Exit 2 when the
+command cannot run: no manifest, unknown pack, missing spec, or a spec
+whose hash no longer matches the freeze.
+
+A failed drill routes to fixing the pack and re-running; the spec
+itself never changes without an ADR amendment.
 
 ## Shared behaviour
 

@@ -7,10 +7,11 @@ lifecycle: active
 basis: standard
 evidence_grade: observational
 sources: [EV-0184, EV-0185, EV-0186, EV-0187, EV-0093, EV-0091, EV-0193, EV-0090]
-review: 2027-08
-type: guide
+review: 2028-02
+type: wargame
+status: active
 tags: [delivery, testing, arch]
-review_by: 2027-08
+review_by: 2028-02
 ---
 
 # WG-DEL-005: Which double stands in for this port?

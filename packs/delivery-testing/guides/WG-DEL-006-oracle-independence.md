@@ -8,10 +8,11 @@ basis: empirical-evidence
 evidence_grade: controlled
 applies_when: [ships_code, has_test_suite]
 sources: [EV-0006, EV-0007, EV-0009, EV-0017, EV-0189, EV-0191, EV-0092]
-review: 2027-08
-type: guide
+review: 2028-03
+type: wargame
+status: active
 tags: [delivery, testing, ci]
-review_by: 2027-08
+review_by: 2028-03
 ---
 
 # WG-DEL-006: How independent is the oracle?

@@ -1,7 +1,9 @@
 """Semantic S-series tests: one defect per check, exact findings.
 
-The series defaults to warn severity; ctx["strict_semantic"] flips it
-to error. Both behaviours are asserted.
+The series defaults to error severity; ctx["relax_semantic"] drops it
+back to warnings for a caller that wants the work list rather than the
+gate. Both behaviours are asserted, along with the exemptions that keep
+verbatim history and out-of-tree material out of scope.
 """
 
 import json
@@ -15,10 +17,11 @@ from tools.eos.repo import RepoModel
 TODAY = date(2026, 8, 3)
 
 
-def run_s(root, today=TODAY, strict=False, offline=True):
+def run_s(root, today=TODAY, strict=False, relax=False, offline=True):
     model = RepoModel.load(root, today=today)
     ctx = {"model": model, "root": model.root, "today": today,
-           "offline": offline, "strict_semantic": strict}
+           "offline": offline, "strict_semantic": strict,
+           "relax_semantic": relax}
     return run_all(ctx, series="S")
 
 
@@ -51,11 +54,11 @@ def test_s001_invalid_v1_status(tmp_path):
     edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
          "status: active", "status: bogus")
     fs = run_s(root)
-    assert only(fs, "S001") == [("warn", "packs/testmod/guides/WG-TST-001-sample.md",
+    assert only(fs, "S001") == [("error", "packs/testmod/guides/WG-TST-001-sample.md",
                                  "invalid status: bogus")]
 
 
-def test_s001_strict_flag_flips_severity(tmp_path):
+def test_s001_strict_flag_keeps_error_severity(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
          "status: active", "status: bogus")
@@ -64,14 +67,35 @@ def test_s001_strict_flag_flips_severity(tmp_path):
                                  "invalid status: bogus")]
 
 
+def test_s001_relax_flag_drops_to_warning(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
+         "status: active", "status: bogus")
+    fs = run_s(root, relax=True)
+    assert only(fs, "S001") == [("warn", "packs/testmod/guides/WG-TST-001-sample.md",
+                                 "invalid status: bogus")]
+
+
+def test_s_series_defaults_to_error_with_no_flag_at_all(tmp_path):
+    """No key in the context means strict: the P4 flip, defaulted."""
+    root = make_repo(tmp_path)
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
+         "status: active", "status: bogus")
+    model = RepoModel.load(root, today=TODAY)
+    ctx = {"model": model, "root": model.root, "today": TODAY, "offline": True}
+    assert only(run_all(ctx, series="S"), "S001") == [
+        ("error", "packs/testmod/guides/WG-TST-001-sample.md",
+         "invalid status: bogus")]
+
+
 def test_s001_invalid_v2_axis(tmp_path):
     root = make_repo(tmp_path)
     write(root, "org/RULE.md",
           "---\nsummary: A rule\ntype: org\ntags: [eos]\nkind: rule\n"
           "lifecycle: forever\nscope: galaxy\n---\n\nBody.\n")
     fs = run_s(root)
-    assert ("warn", "org/RULE.md", "invalid lifecycle: forever") in only(fs, "S001")
-    assert ("warn", "org/RULE.md", "invalid scope: galaxy") in only(fs, "S001")
+    assert ("error", "org/RULE.md", "invalid lifecycle: forever") in only(fs, "S001")
+    assert ("error", "org/RULE.md", "invalid scope: galaxy") in only(fs, "S001")
 
 
 def test_s001_brand_scope_legal(tmp_path):
@@ -98,7 +122,7 @@ def test_s002_unresolvable_reference(tmp_path):
           "---\nsummary: The successor\ntype: org\ntags: [eos]\n"
           "supersedes: org/GONE.md\n---\nBody.\n")
     fs = run_s(root)
-    assert only(fs, "S002") == [("warn", "org/NEW.md",
+    assert only(fs, "S002") == [("error", "org/NEW.md",
                                  "supersedes reference does not resolve: org/GONE.md")]
 
 
@@ -110,7 +134,7 @@ def test_s002_missing_back_pointer(tmp_path):
           "---\nsummary: The successor\ntype: org\ntags: [eos]\n"
           "supersedes: org/OLD.md\n---\nBody.\n")
     fs = run_s(root)
-    assert only(fs, "S002") == [("warn", "org/NEW.md",
+    assert only(fs, "S002") == [("error", "org/NEW.md",
                                  "supersedes org/OLD.md does not point back via superseded_by")]
 
 
@@ -131,10 +155,25 @@ def test_s002_bidirectional_pair_is_clean(tmp_path):
 def test_s003_dangling_path_reference(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
-         "See `docs/MISSING.md` for details.")
+         "See `org/MISSING.md` for details.")
     fs = run_s(root)
-    assert only(fs, "S003") == [("warn", "org/STATE.md",
-                                 "path reference does not resolve: docs/MISSING.md")]
+    assert only(fs, "S003") == [("error", "org/STATE.md",
+                                 "path reference does not resolve: org/MISSING.md")]
+
+
+def test_s003_path_outside_this_tree_is_not_a_reference(tmp_path):
+    """A venture seed naming its own docs/ is not claiming ours."""
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "The venture writes `docs/COMPILE_REPORT.md` in its own repo.")
+    assert only(run_s(root), "S003") == []
+
+
+def test_s003_placeholder_path_is_a_pattern_not_a_reference(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "Updates land at `org/product/updates/SU-YYYY-WW.md`.")
+    assert only(run_s(root), "S003") == []
 
 
 def test_s003_resolvable_reference_clean(tmp_path):
@@ -152,8 +191,40 @@ def test_s004_undefined_adr_reference(tmp_path):
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
          "Ruled by ADR-0009.")
     fs = run_s(root)
-    assert only(fs, "S004") == [("warn", "org/STATE.md",
+    assert only(fs, "S004") == [("error", "org/STATE.md",
                                  "reference to undefined id ADR-0009")]
+
+
+def test_s004_venture_owned_id_is_not_ours(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "AutoWatt's ADR-0003 rules local-first, and its ADR-0011 the shape.")
+    assert only(run_s(root), "S004") == []
+
+
+def test_s004_same_id_unqualified_elsewhere_is_still_checked(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "AutoWatt's ADR-0003 rules local-first. We follow ADR-0003 too.")
+    assert only(run_s(root), "S004") == [
+        ("error", "org/STATE.md", "reference to undefined id ADR-0003")]
+
+
+def test_s004_all_zero_id_is_the_placeholder_shape(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "Dates come from the S-0000 baseline, ids look like ADR-0000.")
+    assert only(run_s(root), "S004") == []
+
+
+def test_s004_fixture_wargame_still_defines_its_id(tmp_path):
+    """Exemptions govern what is checked, never what exists."""
+    root = make_repo(tmp_path)
+    write(root, "benchmark/fixtures/mini/wargames/WG-BEN-001-sample.md",
+          "---\nsummary: A fixture wargame\ntype: wargame\ntags: [eos]\n"
+          "status: active\nreview_by: 2030-01\n---\nBody.\n")
+    edit(root, "INDEX.md", "# INDEX", "# INDEX\n\nRow for WG-BEN-001.")
+    assert only(run_s(root), "S004") == []
 
 
 def test_s004_defined_adr_reference_clean(tmp_path):
@@ -174,7 +245,7 @@ def test_s005_derived_without_generator(tmp_path):
           "---\nsummary: A hand-derived view\ntype: org\ntags: [eos]\n"
           "derived: true\n---\nBody.\n")
     fs = run_s(root)
-    assert only(fs, "S005") == [("warn", "org/VIEW.md",
+    assert only(fs, "S005") == [("error", "org/VIEW.md",
                                  "derived file has no registered generator")]
 
 
@@ -189,14 +260,14 @@ def test_s006_missing_doctrine_organ(tmp_path):
     root = make_repo(tmp_path)
     (root / "packs" / "testmod" / "CHECKS.md").unlink()
     fs = run_s(root)
-    assert only(fs, "S006") == [("warn", "packs/testmod", "pack missing CHECKS.md")]
+    assert only(fs, "S006") == [("error", "packs/testmod", "pack missing CHECKS.md")]
 
 
 def test_s006_missing_guides_dir(tmp_path):
     root = make_repo(tmp_path)
     shutil.rmtree(root / "packs" / "testmod" / "guides")
     fs = run_s(root)
-    assert only(fs, "S006") == [("warn", "packs/testmod", "pack missing guides/")]
+    assert only(fs, "S006") == [("error", "packs/testmod", "pack missing guides/")]
 
 
 # --- S007 ---------------------------------------------------------------
@@ -218,10 +289,23 @@ def test_s007_machine_facts_mismatch(tmp_path):
          "```facts\nbranch: release\ncommit: 0000000\n```\n")
     fs = run_s(root)
     got = only(fs, "S007")
-    assert ("warn", "org/STATE.md",
+    assert ("error", "org/STATE.md",
             "machine fact branch: release but git says main") in got
-    assert any(m.startswith("machine fact commit: 0000000 but HEAD is")
-               for _, _, m in got)
+    assert ("error", "org/STATE.md",
+            "machine fact commit: 0000000 does not resolve") in got
+
+
+def test_s007_commit_behind_head_is_clean(tmp_path):
+    """A view records the commit it was built from, so it is always behind."""
+    root = make_repo(tmp_path)
+    _gitify(root)
+    head = git(root, "rev-parse", "HEAD").strip()
+    (root / "later.txt").write_text("later\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "moves on")
+    edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
+         f"```facts\nbranch: main\ncommit: {head[:12]}\n```\n")
+    assert only(run_s(root), "S007") == []
 
 
 def test_s007_matching_facts_clean(tmp_path):
@@ -249,7 +333,7 @@ def test_s008_canonical_fact_restated(tmp_path):
     edit(root, "GOVERNANCE.md", "Nothing in the fixture is protected.",
          "Nothing in the fixture is protected, and the cadence runs monthly.")
     fs = run_s(root)
-    assert only(fs, "S008") == [("warn", "GOVERNANCE.md",
+    assert only(fs, "S008") == [("error", "GOVERNANCE.md",
                                  "restates canonical fact owned by org/STATE.md: "
                                  "the cadence runs monthly")]
 
@@ -265,7 +349,7 @@ def test_s009_cadence_table_overdue(tmp_path):
           "| --- | --- | --- | --- | --- |\n"
           "| Hygiene | PB-E09 | Monthly | 2026-06-01 | 2026-07 |\n")
     fs = run_s(root)
-    assert ("warn", "org/CADENCE.md",
+    assert ("error", "org/CADENCE.md",
             "cadence 'Hygiene' overdue: next_due 2026-07") in only(fs, "S009")
 
 
@@ -274,7 +358,7 @@ def test_s009_machine_rows_overdue(tmp_path):
     write(root, "org/cadence.json",
           json.dumps([{"name": "harvest", "next_due": "2026-07-15"}]))
     fs = run_s(root)
-    assert only(fs, "S009") == [("warn", "org/cadence.json",
+    assert only(fs, "S009") == [("error", "org/cadence.json",
                                  "cadence 'harvest' overdue: next_due 2026-07-15")]
 
 
@@ -310,7 +394,7 @@ def test_s010_venture_missing_from_estate(tmp_path):
           "| --- | --- | --- | --- |\n"
           "| ghost | `ventures/ghost` | active | none |\n")
     fs = run_s(root)
-    assert only(fs, "S010") == [("warn", "registry/PROJECTS.md",
+    assert only(fs, "S010") == [("error", "registry/PROJECTS.md",
                                  "venture ghost not in the estate manifest (estate/repos.yaml)")]
 
 
@@ -324,7 +408,7 @@ def test_s010_unresolvable_pin(tmp_path):
           "| --- | --- | --- | --- |\n"
           "| alpha | `ventures/alpha` | active | v1 @ abc1234 |\n")
     fs = run_s(root)
-    assert only(fs, "S010") == [("warn", "registry/PROJECTS.md",
+    assert only(fs, "S010") == [("error", "registry/PROJECTS.md",
                                  "venture alpha pin abc1234 does not resolve")]
 
 
@@ -335,7 +419,7 @@ def test_s011_heading_without_tag(tmp_path):
     root = make_git_repo(tmp_path)
     write(root, "CHANGELOG.md", "# Changelog\n\n## v9.9.9 · 2026-08-01\n\n- a change\n")
     fs = run_s(root)
-    assert only(fs, "S011") == [("warn", "CHANGELOG.md",
+    assert only(fs, "S011") == [("error", "CHANGELOG.md",
                                  "heading v9.9.9 has no matching git tag")]
 
 
@@ -352,8 +436,8 @@ def test_s011_tag_without_heading_and_empty_unreleased(tmp_path):
     git(root, "commit", "-q", "-m", "post-release work")
     fs = run_s(root)
     got = only(fs, "S011")
-    assert ("warn", "CHANGELOG.md", "git tag v0.2.0 has no CHANGELOG heading") in got
-    assert ("warn", "CHANGELOG.md",
+    assert ("error", "CHANGELOG.md", "git tag v0.2.0 has no CHANGELOG heading") in got
+    assert ("error", "CHANGELOG.md",
             "1 commits since v0.2.0 but the Unreleased section is empty") in got
 
 
@@ -371,13 +455,48 @@ def test_s012_missing_top_key_and_row_keys(tmp_path):
           "    bogus: value\n")
     fs = run_s(root)
     got = only(fs, "S012")
-    assert ("warn", "estate/repos.yaml", "missing top-level key: version") in got
-    assert ("warn", "estate/repos.yaml", "repo alpha: missing role") in got
-    assert ("warn", "estate/repos.yaml", "repo alpha: missing status") in got
-    assert ("warn", "estate/repos.yaml", "repo alpha: unknown key bogus") in got
+    assert ("error", "estate/repos.yaml", "missing top-level key: version") in got
+    assert ("error", "estate/repos.yaml", "repo alpha: missing role") in got
+    assert ("error", "estate/repos.yaml", "repo alpha: missing status") in got
+    assert ("error", "estate/repos.yaml", "repo alpha: unknown key bogus") in got
 
 
 def test_s012_well_formed_manifest_clean(tmp_path):
     root = make_repo(tmp_path)
     write(root, "estate/repos.yaml", ESTATE_YAML)
     assert only(run_s(root), "S012") == []
+
+
+# --- exemptions: verbatim history and out-of-tree material --------------
+
+
+BROKEN = ("---\nsummary: A file with a dead reference\ntype: org\n"
+          "tags: [eos]\n---\n\nSee `org/GONE.md` and ADR-0099.\n")
+
+
+def test_archive_is_verbatim_history_and_exempt(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "archive/v1/doctrine/OLD.md", BROKEN)
+    assert run_s(root) == []
+
+
+def test_session_logs_are_append_only_and_exempt(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "org/logs/2026-07/S-0019.md", BROKEN)
+    assert run_s(root) == []
+
+
+def test_pack_research_fragments_are_exempt(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/research/DRILL_PROPOSAL.md", BROKEN)
+    assert run_s(root) == []
+
+
+def test_the_same_defect_in_a_live_file_is_an_error(tmp_path):
+    """The exemptions are about where, not about what."""
+    root = make_repo(tmp_path)
+    write(root, "org/LIVE.md", BROKEN)
+    got = only(run_s(root), "S003") + only(run_s(root), "S004")
+    assert ("error", "org/LIVE.md",
+            "path reference does not resolve: org/GONE.md") in got
+    assert ("error", "org/LIVE.md", "reference to undefined id ADR-0099") in got

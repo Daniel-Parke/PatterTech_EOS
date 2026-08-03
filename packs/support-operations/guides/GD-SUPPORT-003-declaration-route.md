@@ -6,10 +6,10 @@ basis: decision
 evidence_grade: anecdotal
 scope: estate
 sources: [EV-0020, EV-0096, EV-0200]
-review: 2027-08
+review: 2028-08
 type: guide
 tags: [ops, delivery]
-review_by: 2027-08
+review_by: 2028-08
 ---
 
 # GD-SUPPORT-003: Who declares a customer-visible incident, and on what signal?

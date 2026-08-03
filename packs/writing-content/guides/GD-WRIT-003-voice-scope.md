@@ -6,10 +6,10 @@ basis: decision
 evidence_grade: asserted
 scope: estate
 sources: [FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-15, FRAG-WRITING-CONTENT-16]
-review: 2027-08
+review: 2028-09
 type: guide
 tags: [voice, brand, content]
-review_by: 2027-08
+review_by: 2028-09
 ---
 
 # GD-WRIT-003: Which voice applies to this text?

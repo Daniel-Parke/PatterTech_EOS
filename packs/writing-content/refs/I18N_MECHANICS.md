@@ -7,7 +7,7 @@ volatility: slow
 review: on-change-of:CLDR-plural-categories
 type: implementation
 tags: [content, forms, tooling]
-review_by: 2027-08
+review_by: 2028-10
 ---
 
 # i18n mechanics

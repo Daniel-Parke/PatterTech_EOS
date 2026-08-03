@@ -7,7 +7,7 @@ volatility: fast
 review: on-change-of:play-staged-rollout-mechanics
 type: implementation
 tags: [delivery, ops, ci]
-review_by: 2027-08
+review_by: 2027-05
 ---
 
 # Release mechanics

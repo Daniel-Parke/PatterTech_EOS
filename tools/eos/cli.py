@@ -67,9 +67,12 @@ def cmd_check(args):
 
 
 def cmd_route(args):
-    from .router import derive_signals, route
+    from . import taskops
+    from .router import TIERS, derive_signals, route
 
+    rank = {t: i for i, t in enumerate(TIERS)}
     declared = {}
+    stored_tier = None
     if args.facts:
         declared = json.loads(Path(args.facts).read_text(encoding="utf-8"))
     elif args.task:
@@ -77,15 +80,22 @@ def cmd_route(args):
         if not rec.exists():
             print(f"error: no task record {rec}", file=sys.stderr)
             return 2
-        declared = json.loads(rec.read_text(encoding="utf-8"))
-    policy = None
-    policy_path = REPO / "org" / "policy.json"
-    if policy_path.exists():
-        policy = json.loads(policy_path.read_text(encoding="utf-8"))
+        record = json.loads(rec.read_text(encoding="utf-8"))
+        # The record's declared block is the fact set; the ruling stored
+        # on it at creation is the floor this recomputation may raise
+        # and never lower.
+        declared = record.get("declared") or {}
+        stored_tier = record.get("tier_ruled")
+    policy = taskops.load_policy(REPO)
     derived = {}
     if args.diff:
         derived = derive_signals(REPO, args.diff, declared, policy=policy)
     result = route(declared, derived, policy=policy)
+    if stored_tier in rank and rank[stored_tier] > rank.get(result["tier"], 0):
+        print(f"gate recomputation resolves upward only: holding "
+              f"{args.task} at the ruling stored on the record, "
+              f"{stored_tier}", file=sys.stderr)
+        result["tier"] = stored_tier
     print(json.dumps(result, indent=1))
     protected = [r for r in result.get("reasons", [])
                  if r.get("factor") == "protected-set"]
@@ -133,9 +143,28 @@ def cmd_task(args):
     from . import taskops
 
     if args.op == "new":
+        # Routing is paid once, here: create_task rules the tier from
+        # the declared facts and stores it on the record, so the caller
+        # sees the ruling without a second command and later sessions
+        # read it off the record.
         record = json.loads(Path(args.record).read_text(encoding="utf-8"))
         path = taskops.create_task(REPO, record)
-        print(json.dumps({"created": str(path)}))
+        tier = record.get("tier_ruled")
+        reasons = record.get("reasons") or []
+        print(json.dumps({"created": str(path), "tier_ruled": tier,
+                          "reasons": reasons}, indent=1))
+        if reasons:
+            print(f"ruled {tier}, from these factors:", file=sys.stderr)
+            for r in reasons:
+                print("  {factor} floor {tier_floor} ({source}): {evidence}"
+                      .format(**r), file=sys.stderr)
+        else:
+            print(f"ruled {tier}, no factor active, a clean {tier}",
+                  file=sys.stderr)
+        print("routed once, at record creation: read the ruling off the "
+              "record rather than routing again. The merge gate recomputes "
+              "against the actual diff and only ever raises it.",
+              file=sys.stderr)
         return 0
     if args.op == "show":
         rec = REPO / "org" / "tasks" / f"{args.id}.json"
@@ -211,8 +240,15 @@ def cmd_benchmark(args):
 def cmd_drills(args):
     from . import benchcli
 
-    return benchcli.drills("list" if not args.pack and not args.all else "run",
-                           pack=args.pack)
+    action = "run" if (args.pack or args.all) else "list"
+    payload, code = benchcli.drills(
+        REPO, action, pack=args.pack, scratch=args.scratch,
+        record=args.record, attempt=args.attempt)
+    print(json.dumps(payload, indent=1))
+    for f in benchcli.drill_findings(payload):
+        tag = "ERROR" if f.severity == "error" else "warn "
+        print(f"{tag} {f.check_id} {f.path}: {f.message}", file=sys.stderr)
+    return code
 
 
 def main(argv=None):
@@ -229,7 +265,14 @@ def main(argv=None):
     c.add_argument("--offline", action="store_true")
     c.set_defaults(fn=cmd_check)
 
-    r = sub.add_parser("route")
+    r = sub.add_parser(
+        "route",
+        description="Rule a tier from declared facts, optionally against a "
+                    "diff. Ordinary task routing is already paid once at "
+                    "record creation, where task new stores tier_ruled and "
+                    "the reasons on the record; this command is for "
+                    "gate-time recomputation with --diff and for routing a "
+                    "facts file before any record exists.")
     r.add_argument("--task")
     r.add_argument("--facts")
     r.add_argument("--diff")
@@ -254,13 +297,16 @@ def main(argv=None):
     t = sub.add_parser(
         "task",
         description="Task record and claim ops per tools/CLI_CONTRACTS.md. "
-                    "The views op regenerates the derived views org/TASKS.md "
-                    "and org/STATE.md from the canonical records; derived "
-                    "views belong to the integrator and are never lane-"
-                    "claimed or hand-edited.")
+                    "The new op routes the record as it creates it and "
+                    "prints the ruled tier and reasons, so no session needs "
+                    "a second routing command. The views op regenerates the "
+                    "derived views org/TASKS.md and org/STATE.md from the "
+                    "canonical records; derived views belong to the "
+                    "integrator and are never lane-claimed or hand-edited.")
     t.add_argument(
         "op", choices=["new", "show", "update", "claims-verify", "views"],
-        help="views regenerates the derived views (integrator-only op)")
+        help="new routes the record and stores the ruling on it; views "
+             "regenerates the derived views (integrator-only op)")
     t.add_argument("--id")
     t.add_argument("--record")
     t.add_argument("--patch")
@@ -285,9 +331,21 @@ def main(argv=None):
     b.add_argument("--run-id")
     b.set_defaults(fn=cmd_benchmark)
 
-    d = sub.add_parser("drills")
+    d = sub.add_parser(
+        "drills",
+        description="Pack acceptance drills. With neither --pack nor --all "
+                    "it lists the frozen drills, their hashes and whether "
+                    "each was frozen before its pack was authored.")
     d.add_argument("--pack")
     d.add_argument("--all", action="store_true")
+    d.add_argument("--scratch",
+                   help="scratch root to materialise scenarios into; a "
+                        "temporary directory is used and removed otherwise")
+    d.add_argument("--attempt",
+                   help="grade the tree a cold agent delivered, instead of a "
+                        "freshly materialised scenario; needs --pack")
+    d.add_argument("--record", action="store_true",
+                   help="append the run to benchmark/drills/RESULTS.json")
     d.set_defaults(fn=cmd_drills)
 
     args = ap.parse_args(argv)

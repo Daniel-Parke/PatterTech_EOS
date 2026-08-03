@@ -12,7 +12,7 @@ review: on-change-of:ISO-10002-revision
 sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233]
 type: playbook
 tags: [eos, ops, product, pii]
-review_by: 2027-08
+review_by: 2028-07
 ---
 
 # support-operations

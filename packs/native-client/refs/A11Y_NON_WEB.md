@@ -7,7 +7,7 @@ volatility: slow
 review: on-change-of:EN-301-549-v4-publication
 type: ux
 tags: [a11y, testing, product]
-review_by: 2027-08
+review_by: 2028-06
 ---
 
 # The non-web accessibility profile

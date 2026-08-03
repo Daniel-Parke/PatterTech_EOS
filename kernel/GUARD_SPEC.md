@@ -72,10 +72,32 @@ only when its mapping is shipped with the policy
 the validation report is committed. Seed validation fails any venture
 claiming autonomous guarded actions without one.
 
-## Claude Code adapter mapping outline
+The guard reads the mapping rather than believing the policy. A policy
+that claims validation while naming a mapping that is absent,
+unreadable, caseless or failing rules manual-only on every guarded
+class. A policy can withdraw validation; it can never grant it.
 
-The adapter for Claude Code combines permission rules with hooks, per
-class. The full mapping ships with the policy; this is its shape:
+## Coverage is per class, not per adapter
+
+A validated adapter does not lift every class at once. A guarded class
+is covered only where a passing bypass case exercised it, and every
+other class stays manual-only under exactly the same fail-closed rule.
+The mapping's ruling for a class is a ceiling: the guard takes the
+stricter of that ruling and the action's own, and no mapping moves a
+floor.
+
+## Claude Code adapter mapping
+
+`kernel/adapters/claude-code.json` is the shipped mapping and
+`kernel/adapters/README.md` is the contract every adapter meets. As
+validated on 2026-08-03, three classes are covered (external-write,
+destructive-git, dependency-install) and each rules require-approval,
+so a guarded action still resolves on a recorded operator event. The
+remaining seven classes have no case in the suite and stay manual-only.
+No class rules allow, because the run was mapping-level rather than a
+live host session.
+
+The mapping combines permission rules with hooks, per class:
 
 - **Permission rules** deny-by-default for the tools that can reach
   each class: network-capable tools for external-write and pii-egress,
@@ -106,3 +128,9 @@ A class the suite cannot demonstrate as enforced stays manual-only. The
 suite's results form the adapter validation report; `guard.validated`
 may be true only while that report is current, and any adapter or
 mapping change voids it until the suite passes again.
+
+Cases run against the hook surface: the tool name and the tool input,
+with file contents dropped, because that is all a pre-tool hook reads.
+A build runner whose payload sits in a Makefile therefore classifies by
+the conservative fallback rather than by its inner command, which
+lowers the precision of the class, never the strictness of the ruling.

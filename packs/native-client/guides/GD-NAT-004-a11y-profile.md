@@ -9,7 +9,7 @@ sources: [EV-0027, EV-0104, EV-0235, EV-0236]
 review: on-change-of:EN-301-549-v4-publication
 type: guide
 tags: [a11y, testing, product]
-review_by: 2027-08
+review_by: 2028-05
 ---
 
 # GD-NAT-004: How much non-web accessibility assurance?

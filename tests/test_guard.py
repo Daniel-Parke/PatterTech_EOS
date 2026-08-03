@@ -12,11 +12,25 @@ if str(REPO) not in sys.path:
 
 from tools.eos import guard  # noqa: E402
 
+MAPPING_REF = "kernel/adapters/claude-code.json"
+
 POLICY = {
-    "guard": {"adapter": "claude-code", "mapping_ref": "kernel/adapter.md",
+    "guard": {"adapter": "claude-code", "mapping_ref": MAPPING_REF,
               "validated": True},
     "approvals": {"always_human": ["deployment"]},
 }
+
+ABSENT_POLICY = {
+    "guard": {"adapter": "claude-code",
+              "mapping_ref": "kernel/adapters/no-such-host.json",
+              "validated": True},
+}
+
+
+def _state(covered=(), verdicts=None, validated=True):
+    """A synthetic adapter state, for verdicts the shipped mapping caps."""
+    return {"validated": validated, "covered": frozenset(covered),
+            "verdicts": dict(verdicts or {}), "mapping": {}, "reasons": []}
 
 
 def _validate_schema(doc):
@@ -34,7 +48,9 @@ def test_verdict_allow_needs_validated_adapter_and_mapping():
         {"action_class": "dependency-install",
          "payload_summary": "npm ci inside the sandbox",
          "mapped_verdict": "allow"},
-        POLICY, True)
+        POLICY, True,
+        state=_state(["dependency-install"],
+                     {"dependency-install": "allow"}))
     assert doc["verdict"] == "allow"
     assert doc["adapter_validated"] is True
     _validate_schema(doc)
@@ -185,7 +201,7 @@ def test_unvalidated_adapter_forces_manual_only():
 
 def test_policy_validated_false_fails_closed_too():
     policy = {"guard": {"adapter": "claude-code",
-                        "mapping_ref": "kernel/adapter.md",
+                        "mapping_ref": MAPPING_REF,
                         "validated": False}}
     doc = guard.evaluate(
         {"action_class": "external-write",
@@ -199,8 +215,91 @@ def test_always_human_class_requires_approval():
         {"action_class": "deployment",
          "payload_summary": "roll the staging deploy",
          "mapped_verdict": "allow"},
-        POLICY, True)
+        POLICY, True,
+        state=_state(["deployment"], {"deployment": "require-approval"}))
     assert doc["verdict"] == "require-approval"
+
+
+# The adapter: loaded, not believed.
+
+def test_shipped_adapter_loads_and_validates():
+    state = guard.adapter_state(POLICY)
+    assert state["validated"] is True
+    assert set(state["covered"]) == {"external-write", "destructive-git",
+                                     "dependency-install"}
+
+
+def test_committed_validation_record_matches_a_fresh_run():
+    """A stale record fails here rather than being quietly believed."""
+    mapping, _ = guard.load_adapter(POLICY)
+    fresh = guard.run_bypass_suite(mapping, BYPASS_CASES)
+    assert mapping["validation"]["cases"] == fresh
+    assert mapping["validation"]["covered_classes"] == guard.suite_coverage(fresh)
+    assert all(c["result"] == "pass" for c in fresh)
+
+
+def test_uncovered_class_stays_manual_only_under_a_validated_adapter():
+    doc = guard.evaluate(
+        {"action_class": "deployment",
+         "payload_summary": "roll the staging deploy",
+         "mapped_verdict": "allow"},
+        {"guard": POLICY["guard"]}, True)
+    assert doc["verdict"] == "manual-only"
+    assert doc["adapter_validated"] is True
+    assert any("did not demonstrate deployment" in r for r in doc["reasons"])
+
+
+def test_mapping_ruling_caps_an_action_level_allow():
+    doc = guard.evaluate(
+        {"action_class": "external-write",
+         "payload_summary": "post the release note",
+         "mapped_verdict": "allow"},
+        {"guard": POLICY["guard"]}, True)
+    assert doc["verdict"] == "require-approval"
+
+
+def test_absent_mapping_file_fails_closed():
+    doc = guard.evaluate(
+        {"action_class": "external-write",
+         "payload_summary": "push a branch", "mapped_verdict": "allow"},
+        ABSENT_POLICY, True)
+    assert doc["verdict"] == "manual-only"
+    assert doc["adapter_validated"] is False
+    assert any("absent" in r for r in doc["reasons"])
+
+
+def test_absent_mapping_blocks_every_bypass_case():
+    for action, _expected in BYPASS_CASES:
+        doc = guard.evaluate(dict(action, payload_summary="bypass probe"),
+                             ABSENT_POLICY, True)
+        assert doc["verdict"] in ("manual-only", "deny")
+        assert doc["adapter_validated"] is False
+
+
+def test_failing_case_in_the_record_fails_closed(tmp_path):
+    mapping, _ = guard.load_adapter(POLICY)
+    mapping["validation"]["cases"][0]["result"] = "fail"
+    (tmp_path / "kernel" / "adapters").mkdir(parents=True)
+    (tmp_path / "kernel" / "adapters" / "claude-code.json").write_text(
+        json.dumps(mapping), encoding="utf-8")
+    state = guard.adapter_state(POLICY, root=tmp_path)
+    assert state["validated"] is False
+    assert not state["covered"]
+
+
+def test_caseless_record_fails_closed(tmp_path):
+    (tmp_path / "kernel" / "adapters").mkdir(parents=True)
+    (tmp_path / "kernel" / "adapters" / "claude-code.json").write_text(
+        json.dumps({"classes": {}, "validation": {"cases": []}}),
+        encoding="utf-8")
+    assert guard.adapter_state(POLICY, root=tmp_path)["validated"] is False
+
+
+def test_hook_surface_drops_file_contents():
+    """The hook reads the tool call, not the Makefile it will run."""
+    action = {"command": "make deploy",
+              "script_content": "deploy:\n\tcurl -X POST https://api.example"}
+    assert "script_content" not in guard.hook_surface(action)
 
 
 # Bypass suite contract: every descriptor must classify into a guarded

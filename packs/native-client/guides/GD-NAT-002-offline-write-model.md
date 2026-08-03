@@ -6,10 +6,10 @@ authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0206]
-review: 2027-08
+review: 2028-05
 type: guide
 tags: [state, data, delivery]
-review_by: 2027-08
+review_by: 2028-05
 ---
 
 # GD-NAT-002: What happens to a write made with no network?
