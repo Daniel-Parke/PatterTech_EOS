@@ -62,7 +62,24 @@ SLOT_RE = re.compile(r"\{\{[A-Z_]+\}\}")
 SCALE_FENCE_RE = re.compile(r"<!--\s*scale:")
 WG_REF = re.compile(r"\bWG-[A-Z]+-\d{3}\b")
 DEFERRAL = "set at first build"
-QUEUE_FILE = {"S": "docs/WORKLOG.md", "M": "org/QUEUE.md", "L": "org/work/NEXT.md"}
+# The file that carries scheduled work, per scale and matrix generation.
+# v1: WORKLOG at S, QUEUE at M, NEXT at L. v2: task lists replace them.
+QUEUE_FILE = {"S": "docs/WORKLOG.md", "M": "org/QUEUE.md",
+              "L": "org/work/NEXT.md"}
+QUEUE_FILE_V2 = {"S": "docs/TASKS.md", "ORG": "org/TASKS.md"}
+
+
+def _queue_file(scale, required):
+    """The queue surface for this seed, chosen by the governing matrix.
+
+    A v2 matrix has an ORG column and ships task lists; a v1 matrix has
+    M and L columns and ships a worklog or queue. Reading the scale set
+    keeps D004 pointed at a file the seed is actually required to have.
+    """
+    if scale in QUEUE_FILE_V2 and ("ORG" in (required or {})
+                                   or scale == "ORG"):
+        return QUEUE_FILE_V2[scale]
+    return QUEUE_FILE.get(scale)
 LOCKIN_RE = re.compile(r"first[ -]build|lock-in", re.I)
 
 MATRIX_PATH = "kernel/SCALE_MATRIX.md"
@@ -398,7 +415,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                            "not an add-on, not marked authored in the compile report")
 
     # --- D004 deferrals need an open queue item ------------------------
-    queue_rel = QUEUE_FILE.get(scale) if scale else None
+    queue_rel = _queue_file(scale, required) if scale else None
     if scale and queue_rel:
         queue_path = seed / queue_rel
         queue_text = queue_path.read_text(encoding="utf-8", errors="replace") \

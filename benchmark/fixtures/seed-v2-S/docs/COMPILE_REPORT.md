@@ -47,8 +47,8 @@ Fence counts are fenced blocks resolved: blocks kept for the ruled
 scale have their fence lines removed, blocks for other scales are
 removed whole. The policy row counts the six real slots
 (`VENTURE_NAME`, `CAPABILITY_PROFILE_REF`, the three path lists and
-`GUARD_MAPPING_REF`); the seventh `{{SLOT}}` occurrence sits inside
-the template's own `_slots` note, which was deleted after filling per
+`GUARD_MAPPING_REF`); the seventh slot marker sits inside the
+template's own `_slots` note, which was deleted after filling per
 that note. The risk factor table, the express thresholds, the mode
 dials, the decision budget and the approvals list carry no slots, so
 they ship exactly as the template holds them; the approvals block is
@@ -93,15 +93,19 @@ Paste the `eos_check.py --seed` summary line and date. All auto items
 green before the human items are judged.
 
 - 2026-08-03 · `python -m tools.eos check --seed benchmark/fixtures/seed-v2-S`
-  · not yet green, and not for a fault in this seed: the seed check
-  resolves the governing matrix at the pinned `eos_commit`, and at
-  2c7468d `kernel/SCALE_MATRIX.md` still holds the v1 S/M/L matrix
-  while the v2 matrix waits at `kernel/SCALE_MATRIX_v2.staging.md`.
-  Every finding traces to that. Against the v2 matrix the seed reports
-  one error, D004, because the checker's queue-file map still points
-  scale S at `docs/WORKLOG.md`, a file the v2 matrix deletes in favour
-  of `docs/TASKS.md`. Both are recorded for the integrator; neither is
-  fixable from inside a seed.
+  · `5 errors, 0 warnings`. Not green, and not for a fault in this
+  seed. The seed check resolves the governing matrix at the pinned
+  `eos_commit`, and at 2c7468d `kernel/SCALE_MATRIX.md` still holds
+  the v1 S/M/L matrix while the v2 matrix waits at
+  `kernel/SCALE_MATRIX_v2.staging.md`. Three of the five findings are
+  that pin alone: a missing `docs/WORKLOG.md`, its missing ancestry
+  row, and `docs/TASKS.md` refused as not-in-matrix.
+- 2026-08-03 · the same seed against the staged v2 matrix ·
+  `2 errors, 0 warnings`, both D004 and both the same cause: the
+  checker's queue-file map still points scale S at `docs/WORKLOG.md`,
+  a file the v2 matrix drops in favour of `docs/TASKS.md`, and the map
+  has no row for ORG at all. A seed cannot fix either; both are
+  recorded for the integrator who lands the matrix and the map.
 
 ## Sign-off (human rubric items)
 

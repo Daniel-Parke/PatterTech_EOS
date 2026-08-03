@@ -1,5 +1,5 @@
 ---
-summary: Herbfield Lane feedback file, the one channel back to the EOS, harvested monthly
+summary: FieldKit feedback file, the one channel back to the EOS, harvested monthly
 type: template
 tags: [eos]
 compiled_from: kernel/templates/EOS_FEEDBACK.tpl.md
@@ -27,28 +27,27 @@ Entry format, newest first, one dated entry per item:
 
 ## Entries
 
-- `2026-08-03 · friction` · the seed check's D004 refuses this seed
-  because it looks for the first-build lock-in item in
-  docs/WORKLOG.md. The v2 matrix has no WORKLOG at any scale; the S
-  work surface is docs/TASKS.md, and that file carries the lock-in as
-  its top open item. The queue-file map in tools/eos/checks/seed.py
-  still reads S, M and L, so at S it names a deleted file and at ORG
-  it names nothing, which means ORG deferrals are never checked at
-  all. Nothing a seed can do about either.
+- `2026-08-03 · lesson` · rubric item A10 (the seed check's D004) says
+  every `set at first build` deferral must have an open item
+  scheduling the lock-in. At ORG the check never runs: the queue-file
+  map in tools/eos/checks/seed.py still reads S, M and L, so ORG has
+  no entry and seventeen deferrals passed unchecked. This seed points
+  them all at org/tasks/T-0001.json by hand, but a rubric item that
+  silently does not apply is worse than one that fails loudly.
 - `2026-08-03 · friction` · kernel/templates/LOCKBOOK.tpl.md still
   tells the reader that the first-build lock-in "notes it in the
   worklog or queue". Neither file exists at v2: S keeps docs/TASKS.md
   and ORG keeps task records with a derived org/TASKS.md. The sentence
   is unfenced template prose, so the compiler had to leave it while
-  pointing every deferral at docs/TASKS.md instead. Update the
+  pointing every deferral at org/tasks/T-0001.json instead. Update the
   sentence to name the v2 surfaces.
-- `2026-08-03 · friction` · kernel/templates/OPERATORS_GUIDE.tpl.md
-  ends with a Troubleshooting section that is not fenced by scale but
-  names the ORG launchers RESUME and RUN. Compiled at S the section
-  survives, so this guide tells the operator to run two launchers its
-  own library does not carry. The compiler does not reword template
-  text outside slots, so the text stands as compiled. The fix is a
-  scale fence around those two sentences, or launcher-neutral wording.
+- `2026-08-03 · friction` · kernel/templates/org/cadence.tpl.json
+  demands a stakeholder-update frequency and first due date, and the
+  Session 0 interview answers neither: FieldKit has one operator and
+  its users are the firm's own staff. Rather than invent a cadence the
+  compile set the row to on-demand with no due date and recorded Q-003
+  in org/QUESTIONS.md. A template that forces a value the interview
+  never asks for pushes a compiler towards inventing one.
 - `2026-08-03 · friction` · kernel/templates/org/policy.tpl.json ships
   the Express admission thresholds (`max_diff_lines` 100,
   `max_files` 5) as fixed values with no slot, so a compile cannot tune
@@ -61,13 +60,13 @@ Entry format, newest first, one dated entry per item:
   records that no matrix row ships, so a truthful compile has nothing
   to point at. This seed filled the capability profile with the level
   id `conservative` (the schema allows an id) and the mapping ref with
-  `docs/guard-mapping.json`, the path the mapping must land at before
+  `org/guard-mapping.json`, the path the mapping must land at before
   `guard.validated` can turn true. Neither file exists yet, which is
-  why every guarded class is manual-only.
-- `2026-08-03 · friction` · the canned brief
-  (inception/briefs/BRIEF-S-brochure.md) pins the venture name Ashdown
-  Joinery, but the compile instruction for this seed named the venture
-  Herbfield Lane. The instruction was followed: venture name Herbfield
-  Lane, every other fact from the brief, contact facts adapted to
-  `workshop@herbfieldlane.example` and `01444 000000`. A drill brief
-  and a compile instruction should not disagree on the name.
+  why every guarded class is manual-only and why Q-004 is open.
+- `2026-08-03 · lesson` · the v1 M-scale seed shipped its first item as
+  a queue row with no work order behind it, which is a Part II Article
+  4 problem the moment a session takes it: nothing declared the facts,
+  so nothing routed. This seed ships org/tasks/T-0001.json instead, a
+  record valid against kernel/schemas/task-record.schema.json with its
+  declaration, its ruling and its reasons list. It cost one file and it
+  removes the whole class of failure.
