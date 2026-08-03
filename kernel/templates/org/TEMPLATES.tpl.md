@@ -1,94 +1,80 @@
 ---
-summary: Canonical artefact formats template, front-matter contracts for orders, decisions, logs and registries
+summary: Canonical artefact shapes template, task records, spikes, ADRs, questions, incidents
 type: template
 tags: [eos]
 template: true
-extracted_from: AutoWatt@d2e3250
 ---
 
-# Templates · Canonical artefact formats
+# Templates · Canonical artefact shapes
 
-Copy exactly; front-matter keys are contracts other sessions and future
-automation rely on. Dates ISO (`YYYY-MM-DD`). IDs are allocated by
-taking the next number in the relevant directory or file; check before
-writing.
+Copy exactly; keys are contracts the tooling and future sessions rely
+on. Machine records are JSON written via write-temp-then-rename;
+dates are ISO. The task tooling allocates ids.
 
-<!-- scale: M -->
-## Queue item (a row of `org/QUEUE.md`)
+## Task record · org/tasks/T-####.json
 
-```markdown
-### WO-#### · <title>
-- type: FEAT|FIX|REFACTOR|PERF|MAINT|HARDEN|COMPLY|RESEARCH|DOCS|OPS|SPIKE
-  · tier: T1|T2|T3 · priority: P0|P1|P2|P3 · status: ready|in_progress|
-  in_verification|blocked
-- acceptance: [ ] checkable criteria, one box each
-- done when: <the observable finish line, including the gates>
+One record per task, validated by
+kernel/schemas/task-record.schema.json at the pinned EOS commit.
+Forty lines is the budget; the shape:
+
+```json
+{
+  "id": "T-0001",
+  "intent": "one or two sentences on what this task is for",
+  "declared": {
+    "capabilities": ["network"],
+    "side_effects": ["sends-external"]
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R1",
+  "reasons": [
+    {"factor": "boundary-contact", "tier_floor": "R1",
+     "source": "declared", "evidence": "sends-external declared"}
+  ],
+  "status": "active",
+  "owner_session": "S-0000",
+  "claims": ["src/notify/"],
+  "timestamps": {"opened": "2026-01-01T09:00", "updated": "2026-01-01T09:00"}
+}
 ```
 
-Queue sections: Ready (ordered), Blocked, Done (id, session, date).
-Done rows may be pruned a quarter after completion; git keeps history.
-<!-- scale: end -->
+The agent proposes the declared facts and tier_proposed; the router
+rules tier_ruled with reasons. High-assurance adds
+oracle_provenance; diagnosis adds the hypothesis ledger;
+interruption adds resume.
 
-<!-- scale: L -->
-## Work order · `org/work/items/WO-####-<slug>.md`
+## Resume keys (only while status is interrupted)
 
-```markdown
----
-id: WO-0000
-title:
-type: FEAT|FIX|REFACTOR|PERF|MAINT|HARDEN|COMPLY|RESEARCH|DOCS|OPS|SPIKE
-practice: product|engineering|quality|security|compliance|operations|data|experience|knowledge
-priority: P0|P1|P2|P3
-risk_tier: T1|T2|T3|T4
-status: draft|ready|in_progress|in_verification|done|blocked|cancelled
-claims: []            # path globs this WO may touch
-depends_on: []        # WO ids
-links: []             # specs, ADRs, registry rows
-created:
-updated:
-session: null         # owning session id when in_progress
----
-## Context
-Why this exists; link, don't restate.
+Seven keys inside the task record: eos_pin, phase, last_verified,
+next_action, blockers, constraints, files_in_flight. A fresh session
+must be able to continue from these plus the files they name, alone.
+Finished work never writes them.
 
-## Scope
-**In:** ...
-**Out:** ... (be explicit; this fence is what VERIFY enforces)
+## Hypothesis ledger row (the circuit breaker)
 
-## Acceptance criteria
-- [ ] ...
+`{"hypothesis": .., "test": .., "result": .., "learning": ..}`. Three
+materially distinct falsified rows with no reduction in uncertainty
+stop the line. Express converts to Standard before the first row is
+written, so every ledger has a task record.
 
-## Test specification
-Given / When / Then at the levels the type requires.
+## Spike note (Exploration entry)
 
-## Verification requirements
-What review must specifically confirm; anything unusual for the tier.
+On the task record at entry: the question, the timebox, the budget,
+and the exit rule, discard or harden. The branch is spike/T-####; the
+checker refuses to merge it. Harden by opening a fresh task through
+the router; the spike's code arrives as material, never as merged
+history.
 
-## Notes log
-- YYYY-MM-DD S-#### ...
+## Parallel plan (integrator only)
 
-## Verification record
-- gate / verdict / session / date / evidence
-```
+Before dispatch: lanes with disjoint path claims written to
+org/claims.json (kernel/schemas/claims.schema.json) and committed to
+the integration branch. Each lane's task record carries its claim
+copy. At merge the integrator verifies the actual diff against the
+assigned claims and regenerates the derived views.
 
-## Suggestion · `org/work/suggestions/SUGG-####-<slug>.md`
-
-```markdown
----
-id: SUGG-0000
-from_session: S-0000
-practice:
-created:
-status: open|promoted|merged|declined
-resolution: null      # WO id, or one-line reason
----
-**Observation:** what you saw, with evidence (file, line, commit).
-**Proposal:** what you think should happen.
-**Why it matters:** the cost of ignoring it.
-```
-<!-- scale: end -->
-
-## Decision · `org/decisions/ADR-####-<slug>.md`
+## Short-form ADR · org/decisions/ADR-####-<slug>.md
 
 ```markdown
 ---
@@ -98,92 +84,42 @@ status: proposed|accepted|superseded
 supersedes: null
 superseded_by: null
 created:
-approved_by: null     # the human, for protected-set changes
-review_by:
+approved_by: null
 ---
 ## Context
 ## Decision
-## Alternatives considered
-Each with the reason it lost.
-## Consequences and trade-offs accepted
-## Anti-patterns this guards against
+## Consequences
 ```
 
-<!-- scale: L -->
-## Research note · `org/knowledge/research/RN-YYYYMMDD-<slug>.md`
+Durable-band decisions get one before merge; protected-set changes
+need the operator's approval recorded in it. Accepted ADRs are
+immutable; reversal is a new superseding ADR.
+
+## Question (an org/QUESTIONS.md entry)
+
+`Q-### (domain): the question, the context link, the owner.` One
+decision per entry. Where a guard verdict raised it, name the verdict
+(require-approval or manual-only) so the operator knows what waits.
+
+## Incident record · org/incidents/INC-YYYYMMDD-<slug>.md
+
+Opened before any containment action, append-only:
 
 ```markdown
 ---
-id: RN-YYYYMMDD-slug
-question:
-practice:
-maturity: L0
-confidence: high|medium|low
-sources: []           # url plus date_accessed for each
-created:
-review_by:
-supersedes: null
+id: INC-YYYYMMDD-slug
+approval: operator, per event, harness reference
+opened:
+time_limit: default four hours; extension re-approved
 ---
-## Findings
-## Recommendation
-## What this changes (orders or suggestions filed, or "nothing, because...")
+## Containment
+The action taken, why it is the smallest reversible one, and the
+rollback path.
+## Gates bypassed
+Each recorded as bypassed, never as passing.
+## Retrospective oracle
+Authored after containment by a non-implementer session; reference
+and validation status. Closure is blocked until this is green.
+## Post-incident review
+The follow-up task record id.
 ```
-
-Guidance (`org/knowledge/guidance/`) and standards (`org/standards/`)
-use the same front-matter with `maturity: L1` or `L2`, plus
-`owner_practice:` and, for standards, `enforced_by:` (the L3 checks, or
-`manual` until automated).
-
-## Registry row (inside any `REG-*` file)
-
-```markdown
-### OBL-### · <short name>
-- **Obligation/target:** what must be true
-- **Source:** law, standard or decision, with link
-- **Applies to:** surfaces, data, processes
-- **Status:** met | partial | gap | deferred(trigger: ...) | n/a(reason)
-- **Control:** what we do or build so it is true
-- **Verification:** how we prove it (test, audit step, document, monitor)
-- **Owner:** practice · **Review by:** date · **Evidence:** links
-```
-<!-- scale: end -->
-
-## Session log · `org/logs/YYYY-MM/S-####-<role>.md`
-
-```markdown
----
-id: S-0000
-role: PLAN|WORK|VERIFY|HUMAN
-date:
-model:
-launcher:
-items_touched: []
-commits: []           # short hashes
-spend_estimate:
----
-## What happened
-5 to 15 lines, past tense, facts.
-## Decisions taken (within my authority)
-## Filed
-Questions, suggestions and orders created.
-## Handoff
-Exact next action if anything is unfinished.
-```
-
-<!-- scale: L -->
-## Audit report · `org/metrics/audits/AUD-YYYYMMDD-<practice>.md`
-
-```markdown
----
-id: AUD-YYYYMMDD-<practice>
-practice:
-session:
-scope_sampled:
----
-## Findings
-### F1 · <severity: critical|major|minor|observation> · <title>
-Evidence, impact, recommendation, filed as: WO or SUGG id.
-## Registry deltas applied
-## Scoreboard deltas applied
-```
-<!-- scale: end -->
