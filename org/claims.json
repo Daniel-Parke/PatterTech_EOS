@@ -1,42 +1,138 @@
 {
-  "version": 1,
-  "assigned": "2026-08-03",
-  "lanes": [
-    {
-      "lane_id": "integrator",
-      "task_id": "T-0001",
-      "session_id": "eos-v2-build",
-      "host": "NucBox_M6Ultra",
-      "harness_task_id": "eos-v2-build",
-      "path_claims": [
-        ".github/",
-        ".gitignore",
-        "AGENTS.md",
-        "CHANGELOG.md",
-        "CLAUDE.md",
-        "GOVERNANCE.md",
-        "GUIDE.md",
-        "INDEX.md",
-        "OPERATORS_GUIDE.md",
-        "README.md",
-        "START.md",
-        "VISION.md",
-        "archive/",
-        "benchmark/",
-        "doctrine/",
-        "estate/",
-        "examples/",
-        "inception/",
-        "kernel/",
-        "org/",
-        "pytest.ini",
-        "registry/",
-        "tests/",
-        "tools/"
-      ],
-      "acquired": "2026-08-03T09:00:00Z",
-      "expires": "2026-08-10T09:00:00Z"
-    }
-  ],
-  "note": "Single-lane assignment for the v2 overhaul: the integrator session eos-v2-build owns the whole repository under task T-0001. A claim is an exact path or a directory prefix and no empty prefix is legal under claims.schema.json, so the whole-repo claim enumerates the repository root; a new top-level path belongs to this lane by assignment intent. Phase lanes (P4 onwards) are dispatched only after this file is rewritten with their disjoint claims and committed first."
+ "version": 1,
+ "assigned": "2026-08-03",
+ "lanes": [
+  {
+   "lane_id": "integrator",
+   "task_id": "T-0001",
+   "session_id": "eos-v2-build",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v2-build",
+   "path_claims": [
+    ".github/",
+    ".gitignore",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "GOVERNANCE.md",
+    "GUIDE.md",
+    "INDEX.md",
+    "OPERATORS_GUIDE.md",
+    "README.md",
+    "START.md",
+    "VISION.md",
+    "archive/",
+    "benchmark/",
+    "doctrine/",
+    "estate/",
+    "examples/",
+    "inception/",
+    "kernel/",
+    "org/",
+    "pytest.ini",
+    "registry/",
+    "tests/",
+    "tools/"
+   ],
+   "acquired": "2026-08-03T09:00:00Z",
+   "expires": "2026-08-10T09:00:00Z"
+  },
+  {
+   "lane_id": "waveA-agentic-development",
+   "task_id": "T-0001",
+   "session_id": "waveA-agentic-development",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-agentic-development",
+   "path_claims": [
+    "packs/agentic-development/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-coding",
+   "task_id": "T-0001",
+   "session_id": "waveA-coding",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-coding",
+   "path_claims": [
+    "packs/coding/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-architecture",
+   "task_id": "T-0001",
+   "session_id": "waveA-architecture",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-architecture",
+   "path_claims": [
+    "packs/architecture/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-delivery-testing",
+   "task_id": "T-0001",
+   "session_id": "waveA-delivery-testing",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-delivery-testing",
+   "path_claims": [
+    "packs/delivery-testing/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-devops-reliability",
+   "task_id": "T-0001",
+   "session_id": "waveA-devops-reliability",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-devops-reliability",
+   "path_claims": [
+    "packs/devops-reliability/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-security-privacy",
+   "task_id": "T-0001",
+   "session_id": "waveA-security-privacy",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-security-privacy",
+   "path_claims": [
+    "packs/security-privacy/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-api-integration",
+   "task_id": "T-0001",
+   "session_id": "waveA-api-integration",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-api-integration",
+   "path_claims": [
+    "packs/api-integration/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  },
+  {
+   "lane_id": "waveA-ui-ux",
+   "task_id": "T-0001",
+   "session_id": "waveA-ui-ux",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "waveA-ui-ux",
+   "path_claims": [
+    "packs/ui-ux/"
+   ],
+   "acquired": "2026-08-03T12:00:00Z",
+   "expires": "2026-08-10T12:00:00Z"
+  }
+ ],
+ "note": "Integrator plus eight Wave A pack lanes, assigned and committed before dispatch. Each lane owns exactly its pack directory; shared registries and derived views stay integrator-only."
 }
