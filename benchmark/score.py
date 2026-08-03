@@ -174,6 +174,23 @@ def write_run_meta(scratch, stats):
     return meta_path
 
 
+def _human_gates(scratch):
+    """Outstanding human gates recorded by the runner, if any.
+
+    A process that leaves approved work awaiting an operator gate
+    has not delivered autonomously; the count is reported beside
+    the quality criteria rather than folded into them.
+    """
+    path = Path(scratch) / "human_gates_pending.json"
+    if not path.is_file():
+        return 0
+    try:
+        return int(json.loads(path.read_text(encoding="utf-8"))
+                   .get("human_gates_pending", 0))
+    except (ValueError, OSError):
+        return 0
+
+
 def collect_criteria_scripts(task_dir, task):
     task_path = Path(task_dir)
     named = task.get("criteria")
@@ -301,6 +318,7 @@ def main(argv=None):
             "wall_clock_s": wall_clock_s,
             "operator_events": stats["operator_events"],
             "turns": stats["turns"],
+            "human_gates_pending": _human_gates(scratch),
         },
         "notes": args.notes,
     }

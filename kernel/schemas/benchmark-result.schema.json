@@ -1,115 +1,166 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.pattertech.eos/benchmark-result.schema.json",
-  "title": "EOS benchmark ledger",
-  "description": "benchmark/results/ledger.json. Append only: score.py refuses duplicate run_id values and nothing is ever rewritten. Formalises the existing row shape written by score.py unchanged.",
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["version", "rows"],
-  "properties": {
-    "version": {
-      "type": "integer",
-      "minimum": 1
-    },
-    "rows": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/row" }
-    }
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://schemas.pattertech.eos/benchmark-result.schema.json",
+ "title": "EOS benchmark ledger",
+ "description": "benchmark/results/ledger.json. Append only: score.py refuses duplicate run_id values and nothing is ever rewritten. Formalises the existing row shape written by score.py unchanged.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "version",
+  "rows"
+ ],
+ "properties": {
+  "version": {
+   "type": "integer",
+   "minimum": 1
   },
-  "$defs": {
-    "row": {
+  "rows": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/row"
+   }
+  }
+ },
+ "$defs": {
+  "row": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "run_id",
+    "task",
+    "variant",
+    "ablation",
+    "date",
+    "model",
+    "source",
+    "criteria",
+    "metrics",
+    "notes"
+   ],
+   "properties": {
+    "run_id": {
+     "type": "string",
+     "minLength": 1,
+     "description": "Unique across the ledger; enforced at append time."
+    },
+    "task": {
+     "type": "string",
+     "pattern": "^(T\\d{2}|P\\d)-[A-Za-z0-9-]+$"
+    },
+    "variant": {
+     "type": "string",
+     "enum": [
+      "v1",
+      "v2"
+     ]
+    },
+    "ablation": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "Policy or timing ablation label (for example no-router, wip1), null for headline runs."
+    },
+    "date": {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "model": {
+     "type": "string",
+     "minLength": 1,
+     "description": "Pinned for the whole comparison; changing model voids it and requires re-baseline."
+    },
+    "source": {
+     "type": "string",
+     "enum": [
+      "fresh",
+      "reused"
+     ],
+     "description": "reused marks a row admitted from an identical-setting headline run rather than a new session; savings recorded, not assumed."
+    },
+    "criteria": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "run_id",
-        "task",
-        "variant",
-        "ablation",
-        "date",
-        "model",
-        "source",
-        "criteria",
-        "metrics",
-        "notes"
+       "id",
+       "pass",
+       "reason"
       ],
       "properties": {
-        "run_id": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Unique across the ledger; enforced at append time."
-        },
-        "task": {
-          "type": "string",
-          "pattern": "^(T\\d{2}|P\\d)-[A-Za-z0-9-]+$"
-        },
-        "variant": {
-          "type": "string",
-          "enum": ["v1", "v2"]
-        },
-        "ablation": {
-          "type": ["string", "null"],
-          "description": "Policy or timing ablation label (for example no-router, wip1), null for headline runs."
-        },
-        "date": {
-          "type": "string",
-          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-        },
-        "model": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Pinned for the whole comparison; changing model voids it and requires re-baseline."
-        },
-        "source": {
-          "type": "string",
-          "enum": ["fresh", "reused"],
-          "description": "reused marks a row admitted from an identical-setting headline run rather than a new session; savings recorded, not assumed."
-        },
-        "criteria": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["id", "pass", "reason"],
-            "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "pass": { "type": "boolean" },
-              "reason": { "type": "string" }
-            }
-          }
-        },
-        "metrics": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "files_read",
-            "files_written",
-            "ceremony_lines",
-            "tokens_in",
-            "tokens_out",
-            "wall_clock_s",
-            "operator_events",
-            "turns"
-          ],
-          "properties": {
-            "files_read": { "type": "integer", "minimum": 0 },
-            "files_written": { "type": "integer", "minimum": 0 },
-            "ceremony_lines": { "type": "integer", "minimum": 0 },
-            "tokens_in": { "type": "integer", "minimum": 0 },
-            "tokens_out": { "type": "integer", "minimum": 0 },
-            "wall_clock_s": { "type": "number", "minimum": 0 },
-            "operator_events": {
-              "type": "integer",
-              "minimum": 0,
-              "description": "Harness-recorded events only: AskUserQuestion invocations and permission or approval events from transcripts."
-            },
-            "turns": { "type": "integer", "minimum": 0 }
-          }
-        },
-        "notes": {
-          "type": "string"
-        }
+       "id": {
+        "type": "string",
+        "minLength": 1
+       },
+       "pass": {
+        "type": "boolean"
+       },
+       "reason": {
+        "type": "string"
+       }
       }
+     }
+    },
+    "metrics": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "files_read",
+      "files_written",
+      "ceremony_lines",
+      "tokens_in",
+      "tokens_out",
+      "wall_clock_s",
+      "operator_events",
+      "turns"
+     ],
+     "properties": {
+      "files_read": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "files_written": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "ceremony_lines": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "tokens_in": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "tokens_out": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "wall_clock_s": {
+       "type": "number",
+       "minimum": 0
+      },
+      "operator_events": {
+       "type": "integer",
+       "minimum": 0,
+       "description": "Harness-recorded events only: AskUserQuestion invocations and permission or approval events from transcripts."
+      },
+      "turns": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "human_gates_pending": {
+       "type": "integer",
+       "minimum": 0,
+       "description": "Human gates still outstanding when the run ended: work the process left awaiting operator approval. Reported beside quality criteria, never folded into them."
+      }
+     }
+    },
+    "notes": {
+     "type": "string"
     }
+   }
   }
+ }
 }
