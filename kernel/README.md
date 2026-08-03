@@ -29,11 +29,12 @@ from; nothing here is read by a venture at runtime.
 ## Scale in v2
 
 Two seeds: S at nine files and ORG at nineteen; v1's M and L merge
-into ORG. `kernel/SCALE_MATRIX.md` is still the live v1 law because
-the in-flight v1 baseline scoring depends on it; the v2 matrix is
-staged at `kernel/SCALE_MATRIX.md` and the integrator
-swaps it in after that scoring completes. Until the swap, seed
-checks rule by the live file.
+into ORG. `kernel/SCALE_MATRIX.md` holds the v2 law and the seed check
+parses it there. The swap happened once the v1 baseline scoring that
+depended on the old matrix completed; the v1 matrix, with its S, M and
+L columns, is at `archive/v1-final:kernel/SCALE_MATRIX.md`. A seed
+resolves whichever matrix its pinned commit carries, so a venture
+pinned before the swap still checks against v1's.
 
 ## The compile contract
 

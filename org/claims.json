@@ -1,13 +1,13 @@
 {
  "version": 1,
- "assigned": "2026-08-03",
+ "assigned": "2026-08-04",
  "lanes": [
   {
    "lane_id": "integrator",
-   "task_id": "T-0001",
-   "session_id": "eos-v2-build",
+   "task_id": "T-0004",
+   "session_id": "eos-v2-prerelease-review",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "eos-v2-build",
+   "harness_task_id": "eos-v2-prerelease-review",
    "path_claims": [
     ".github/",
     ".gitignore",
@@ -15,172 +15,26 @@
     "CHANGELOG.md",
     "CLAUDE.md",
     "GOVERNANCE.md",
-    "GUIDE.md",
     "INDEX.md",
     "OPERATORS_GUIDE.md",
     "README.md",
-    "START.md",
-    "VISION.md",
+    "TOUR.md",
     "archive/",
     "benchmark/",
-    "doctrine/",
     "estate/",
     "examples/",
     "inception/",
     "kernel/",
     "org/",
+    "packs/",
     "pytest.ini",
     "registry/",
     "tests/",
     "tools/"
    ],
-   "acquired": "2026-08-03T09:00:00Z",
-   "expires": "2026-08-10T09:00:00Z"
-  },
-  {
-   "lane_id": "waveB-product-discovery",
-   "task_id": "T-0001",
-   "session_id": "waveB-product-discovery",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-product-discovery",
-   "path_claims": [
-    "packs/product-discovery/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-business-logic-modelling",
-   "task_id": "T-0001",
-   "session_id": "waveB-business-logic-modelling",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-business-logic-modelling",
-   "path_claims": [
-    "packs/business-logic-modelling/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-data-analytics",
-   "task_id": "T-0001",
-   "session_id": "waveB-data-analytics",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-data-analytics",
-   "path_claims": [
-    "packs/data-analytics/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-ai-ml-llm",
-   "task_id": "T-0001",
-   "session_id": "waveB-ai-ml-llm",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-ai-ml-llm",
-   "path_claims": [
-    "packs/ai-ml-llm/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-marketing-growth",
-   "task_id": "T-0001",
-   "session_id": "waveB-marketing-growth",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-marketing-growth",
-   "path_claims": [
-    "packs/marketing-growth/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-business-model-pricing",
-   "task_id": "T-0001",
-   "session_id": "waveB-business-model-pricing",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-business-model-pricing",
-   "path_claims": [
-    "packs/business-model-pricing/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-docs-dx",
-   "task_id": "T-0001",
-   "session_id": "waveB-docs-dx",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-docs-dx",
-   "path_claims": [
-    "packs/docs-dx/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-native-client",
-   "task_id": "T-0001",
-   "session_id": "waveB-native-client",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-native-client",
-   "path_claims": [
-    "packs/native-client/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-support-operations",
-   "task_id": "T-0001",
-   "session_id": "waveB-support-operations",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-support-operations",
-   "path_claims": [
-    "packs/support-operations/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-legal-licensing",
-   "task_id": "T-0001",
-   "session_id": "waveB-legal-licensing",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-legal-licensing",
-   "path_claims": [
-    "packs/legal-licensing/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-writing-content",
-   "task_id": "T-0001",
-   "session_id": "waveB-writing-content",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-writing-content",
-   "path_claims": [
-    "packs/writing-content/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
-  },
-  {
-   "lane_id": "waveB-pattertech-house",
-   "task_id": "T-0001",
-   "session_id": "waveB-pattertech-house",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "waveB-pattertech-house",
-   "path_claims": [
-    "packs/pattertech-house/"
-   ],
-   "acquired": "2026-08-03T14:00:00Z",
-   "expires": "2026-08-10T14:00:00Z"
+   "acquired": "2026-08-04T09:00:00Z",
+   "expires": "2026-08-11T09:00:00Z"
   }
  ],
- "note": "Integrator plus twelve Wave B pack lanes, assigned and committed before dispatch. Wave A lanes completed and their claims are released. Shared registries and derived views stay integrator-only."
+ "note": "One integrator lane for the pre-release review, T-0004. The twelve Wave B pack lanes completed and their claims are released, as the Wave A lanes were before them. The previous integrator claim listed GUIDE.md, START.md, VISION.md and doctrine/, four paths that no longer exist, and did not list packs/ at all; both are corrected here."
 }

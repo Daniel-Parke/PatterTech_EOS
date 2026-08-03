@@ -7,9 +7,17 @@ tags: [eos]
 # EOS v2 final report
 
 Written at the release checkpoint, revised 2026-08-03 after both corrective
-iterations. The build is complete and pushed to
-`feat/eos-v2-agentic-development`. `main` is untouched. Nothing here has
-been tuned to pass a gate.
+iterations, and corrected 2026-08-04 by the pre-release review. The build is
+pushed to `feat/eos-v2-agentic-development`. `main` is untouched. Nothing
+here has been tuned to pass a gate.
+
+**Read the 2026-08-04 corrections first.** The review found that three
+statements in this report were stale or wrong, and that the gate table below
+cannot be trusted as it stands. Both are recorded in place, under
+"Corrections" at the end. The gate figures are left exactly as first
+published so the record of what was claimed survives; what changed is that
+the method behind them is now known, and one gate's verdict turns on an
+unwritten convention.
 
 ## The decision this report is for
 
@@ -119,33 +127,66 @@ output of the drills.
 - The three efficiency gates are unmet and the causes are diagnosed but
   not isolated. Adopting v2 on the strength of the heavy-task numbers
   means accepting that light work costs more.
-- The semantic checks ship warning-first. 161 warnings stand, most of them
-  metadata that predates v2 or archived v1 material. Flipping them to
-  errors is a P4 intention that has not happened.
-- The guard has no validated host enforcement adapter, so every guarded
-  class is manual-only. That is the fail-closed state working as designed,
-  but it means v2's autonomy claim is bounded: consequential actions still
-  need a human hand.
+- The guard's adapter is validated at mapping level only.
+  `kernel/adapters/claude-code.json` records `host_run: false`: the suite
+  classified each case from the hook surface offline and never watched a
+  hook fire inside a live Claude Code session. Three classes are mapped to
+  require-approval; the other seven stay manual-only, and an unrecognised
+  payload inside any class resolves to manual-only whatever the adapter
+  says. v2's autonomy claim is bounded accordingly: consequential actions
+  still need a human hand.
 - Venture A's migration is a recompile carrying 48 work orders. The plan
   reports it; nobody has run it.
 - Two v1 seed fixtures carry a real D004 finding (deferrals with no
   scheduled lock-in). They are frozen v1 artefacts and were left as found,
   because they are evidence of the gap v2's checker closes.
 
-## What I would do next
+## What the numbers say
 
-Fix the routing cost in the design, then re-measure. The ablation says the
-overhead is a command round trip per session, so the fix is to stop paying
-it per session: route once when the task record is created and carry the
-verdict on the record, or route at the gate in the checker where the diff
-already is. Neither weakens the control. Both are a P2 tooling change of
-modest size, and the re-run is thirty-nine sessions.
+v2 buys delivery and removes paperwork on heavy work, and costs tokens and
+time on light work. That split is the finding, and it is stable across both
+corrective iterations. Per task, against v1: T03-feature 57 per cent fewer
+tokens and 45 per cent faster, T06-migration 39 per cent fewer and 58 per
+cent faster, T04-bug-fix 39 per cent fewer, T07-auth 33 per cent fewer, with
+ceremony collapsing from 301 lines to 58 on the feature and 242 to 102 on
+the migration. Against that, T10-inception costs 180 per cent more tokens
+and T02-ui-fix runs four times longer.
 
-That is the corrective iteration the plan allows, and I have not taken it,
-because taking it after seeing the gate results is the moment where tuning
-to the test starts. It should be Daniel's call whether the fix is a
-legitimate correction or a second bite.
+## Corrections, 2026-08-04
 
-If the fix is taken and the numbers still miss, the finding stands as
-measured: v2 buys delivery and removes paperwork on heavy work, and costs
-tokens and time on light work.
+The pre-release review corrected three statements in this report and found
+one problem with the gate table.
+
+**The routing correction was taken.** An earlier version of this section
+said "I have not taken it" and left the call with Daniel. That was written
+before the correction and never deleted when the report was revised. The
+correction was made, measured, and is reported in the gate table's "after
+corrections" column. The section is gone.
+
+**The 161 warnings claim was wrong.** This report said the semantic checks
+ship warning-first with 161 warnings standing and the P4 flip outstanding.
+The flip had happened: `tools/eos/checks/semantic.py` sets
+`STRICT_DEFAULT = True`, and `check --repo --strict-semantic` reports zero
+errors and zero warnings.
+
+**The guard adapter claim was wrong in letter.** This report said there is
+no validated host enforcement adapter. There is an adapter, and it is
+validated, but only at mapping level with `host_run: false`. The residual
+risk is restated above in those terms.
+
+**The gate table's method is not written down anywhere, and one verdict
+depends on it.** No code computes any figure in that table; all six were
+derived by hand. The method that reproduces them is the median of per-task
+ratios of per-task medians. Under that method the ceremony gate reaches 58
+per cent only if `T09-doctrine`, where v1 and v2 both spend zero ceremony
+lines, is scored as nought per cent improvement rather than dropped as an
+undefined ratio. Drop the undefined slot and the figure is 62.4 per cent,
+which passes the 60 per cent gate. The convention appears in no protocol,
+no README and no script. Until the scorer exists in code with its method
+stated, "fail by two points" is not a finding this report can stand behind.
+
+The benchmark is being rebuilt before any gate is reported again: the
+scorer written in code, the freeze manifest verified, the fourteen ledger
+rows deleted by `2c7468d` restored as superseded, and the grid re-run
+interleaved and timestamped. Nothing in the table above should be quoted
+until that lands.

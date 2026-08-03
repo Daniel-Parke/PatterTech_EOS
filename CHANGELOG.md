@@ -12,9 +12,14 @@ registry, org, tools.
 
 ## Unreleased (towards v2.0.0, not released)
 
-The v2 overhaul, built under ADR-0002. Held at the release checkpoint:
-the benchmark missed three of the six numeric gates and the plan says a
-missed gate does not release. See org/reports/V2_FINAL_REPORT.md.
+The v2 overhaul, built under ADR-0002 and corrected under ADR-0003.
+Held at the release checkpoint. The first gate run reported three of
+six numeric gates missed; the 2026-08-04 pre-release review then found
+that no code computes any gate figure, that one gate's verdict turns on
+an unwritten convention for an undefined ratio, and that the freeze
+manifest fails its own hash check. The benchmark is being rebuilt and
+re-run before any gate is reported again. See
+org/reports/V2_FINAL_REPORT.md, "Corrections, 2026-08-04".
 
 - **kernel**: ten-article constitution; EXECUTOR, ORACLE and REVIEWER
   replace the PLAN, WORK and VERIFY trinity; policy and cadence become
@@ -35,10 +40,23 @@ missed gate does not release. See org/reports/V2_FINAL_REPORT.md.
   python -m tools.eos, with structural, semantic, seed and freshness
   checks, the deterministic router, the fail-closed guard, context
   packets, task and claim operations, migration and benchmark commands.
-  267 tests on Python 3.11 and 3.14. The v1 checker is a forwarding shim.
-- **benchmark**: a frozen suite of thirteen tasks and probes, 84 scored
-  runs across both variants, an evidence ledger of 448 individually
-  recorded sources, and a sealed final suite awaiting the operator's key.
+  338 tests on Python 3.11 and 3.14. The v1 checker is a forwarding shim.
+- **benchmark**: a frozen suite of eleven tasks and three probes, 155
+  scored runs in the ledger across v1, v2, v2-routed-once, the routing
+  ablation and the timing ablation, an evidence ledger of 448
+  individually recorded sources, and a sealed final suite awaiting the
+  operator's key. The 84 first quoted here counted only the v1 baseline
+  and the superseded v2 arm, and excluded the 45 runs the gate table is
+  actually computed from.
+- **governance**: ADR-0003 rules that retained material which misleads an
+  agent is a defect, that the archive of record is a pushed tag rather
+  than a directory, and that a file marked derived must have a live
+  generator. packs/INDEX.md had listed eight of twenty packs, so twelve
+  packs were unreachable through the sanctioned activation path;
+  packs/GUIDE_INDEX.md had omitted 79 of 86 guides. Both now generate,
+  scoped to live material. registry/coverage.json's twelve stale Wave B
+  rows are repaired and S013 validates the matrix against its schema and
+  against the packs on disk.
 - **inception**: Session 0 becomes a pack activation walk with a risk
   surface map, plus an Express path for reversible S ventures.
 - **org**: the EOS runs on its own v2 machinery: policy, task records,

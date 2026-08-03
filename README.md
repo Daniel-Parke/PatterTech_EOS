@@ -26,7 +26,7 @@ v1 and why, and points at the canonical files as it goes.
 | Path | What lives there |
 | --- | --- |
 | `AGENTS.md` / `CLAUDE.md` | The router: entry modes and the never-list, byte identical |
-| `TOUR.md` | The teaching surface, regenerated each release |
+| `TOUR.md` | The teaching surface, rewritten by hand each release |
 | `GOVERNANCE.md` | The graded change path, precedence, promotion, the protected set |
 | `OPERATORS_GUIDE.md` | Daniel's manual for running the EOS |
 | `packs/` | The knowledge. `packs/INDEX.md` is the always-loaded surface |

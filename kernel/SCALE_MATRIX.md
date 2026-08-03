@@ -6,11 +6,11 @@ tags: [eos]
 
 # SCALE_MATRIX
 
-The v2 law of what a compiled seed contains. Staged deliberately: the
-live law stays in kernel/SCALE_MATRIX.md until the in-flight v1
-baseline scoring that depends on it completes, then the integrator
-swaps this content in at that path and the seed check parses it
-there. The v2 scales are S and ORG; v1's M and L merge into ORG.
+The live law of what a compiled seed contains. The v2 scales are S and
+ORG; v1's M and L merge into ORG. This file is where the seed check
+parses the matrix. The v1 matrix it replaced, with its S, M and L
+columns, is at archive/v1-final:kernel/SCALE_MATRIX.md, and a seed
+resolves whichever matrix its pinned commit carries.
 
 Reading the numbers honestly: S is nine files, of which CLAUDE.md is
 a byte copy and the compile report is meta, so the operating surface
