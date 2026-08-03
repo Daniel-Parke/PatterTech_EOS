@@ -500,3 +500,90 @@ def test_the_same_defect_in_a_live_file_is_an_error(tmp_path):
     assert ("error", "org/LIVE.md",
             "path reference does not resolve: org/GONE.md") in got
     assert ("error", "org/LIVE.md", "reference to undefined id ADR-0099") in got
+
+
+# --- S013 domain coverage matrix ---------------------------------------
+
+REPO_ROOT_COV = "registry/coverage.json"
+
+
+def _matrix(root, rows):
+    """Give the fixture a coverage matrix and the schema that governs it."""
+    write(root, REPO_ROOT_COV, json.dumps({"version": 1, "rows": rows}, indent=1) + "\n")
+    src = (RepoModel.load(root, today=TODAY).root)
+    schema = shutil.copy(
+        str(__import__("conftest").REPO_ROOT / "kernel" / "schemas" / "coverage.schema.json"),
+        str(src / "kernel" / "schemas" / "coverage.schema.json"))
+    return schema
+
+
+def _built_row(**over):
+    row = {
+        "capability": "testing-things",
+        "status": "built",
+        "pack": "packs/testmod/",
+        "activation": "Any test. Predicates: does_a_thing.",
+        "evidence_sources": ["EV-0001", "EV-0002", "EV-0003"],
+        "worked_example": ["packs/testmod/PACK.md"],
+        "evaluation_method": "packs/testmod/CHECKS.md",
+        "estate_relevance": "The fixture needs one.",
+        "owner": "EOS integrator",
+        "review_trigger": "2030-01",
+    }
+    row.update(over)
+    return row
+
+
+def _prepare(root):
+    (root / "kernel" / "schemas").mkdir(parents=True, exist_ok=True)
+    write(root, "registry/evidence.json", json.dumps(
+        {"version": 1, "records": [{"id": f"EV-{n:04d}"} for n in (1, 2, 3)]}, indent=1) + "\n")
+
+
+def test_s013_clean_matrix(tmp_path):
+    root = make_repo(tmp_path)
+    _prepare(root)
+    _matrix(root, [_built_row()])
+    assert only(run_s(root), "S013") == []
+
+
+def test_s013_built_row_without_a_worked_example(tmp_path):
+    """The defect that shipped: twelve rows said built and carried no
+    worked_example key at all."""
+    root = make_repo(tmp_path)
+    _prepare(root)
+    row = _built_row()
+    del row["worked_example"]
+    _matrix(root, [row])
+    assert any("worked_example" in m for _, _, m in only(run_s(root), "S013"))
+
+
+def test_s013_prose_where_evidence_ids_belong(tmp_path):
+    """'18 records in registry/evidence.json' is not a source list."""
+    root = make_repo(tmp_path)
+    _prepare(root)
+    _matrix(root, [_built_row(evidence_sources=["18 records in registry/evidence.json"])])
+    msgs = " ".join(m for _, _, m in only(run_s(root), "S013"))
+    assert "EV-" in msgs
+
+
+def test_s013_worked_example_must_resolve(tmp_path):
+    root = make_repo(tmp_path)
+    _prepare(root)
+    _matrix(root, [_built_row(worked_example=["packs/testmod/exemplars/GONE.md"])])
+    assert any("does not resolve" in m for _, _, m in only(run_s(root), "S013"))
+
+
+def test_s013_a_pack_with_no_row_is_a_finding(tmp_path):
+    """Omissions are rows, never silence."""
+    root = make_repo(tmp_path)
+    _prepare(root)
+    _matrix(root, [])
+    assert any("no coverage row" in m for _, _, m in only(run_s(root), "S013"))
+
+
+def test_s013_unknown_evidence_id(tmp_path):
+    root = make_repo(tmp_path)
+    _prepare(root)
+    _matrix(root, [_built_row(evidence_sources=["EV-0001", "EV-0002", "EV-9999"])])
+    assert any("not in the ledger: EV-9999" in m for _, _, m in only(run_s(root), "S013"))
