@@ -1,0 +1,21 @@
+---
+summary: Derived index of every file, one row each, grep the tag column
+type: index
+tags: [eos]
+derived: true
+---
+
+# INDEX
+
+Derived file. Edit front-matter, then run
+`python tools/eos_check.py --write-index`. One row per file.
+
+| path | type | tags | summary | review_by |
+| --- | --- | --- | --- | --- |
+| AGENTS.md | root | eos | Minirepo agent entry point, the router for the test fixture repo |  |
+| CLAUDE.md | root | eos | Minirepo agent entry point, the router for the test fixture repo |  |
+| doctrine/testmod/DOCTRINE.md | doctrine | eos | Testmod doctrine, one plain principle for the test fixture | 2030-01 |
+| doctrine/testmod/README.md | doctrine | eos | Testmod module map, what the module holds and where to start | 2030-01 |
+| doctrine/testmod/wargames/WG-TST-001-sample.md | wargame | eos wargame | Should the fixture repo carry a wargame at all | 2030-01 |
+| GOVERNANCE.md | governance | eos | Minirepo governance, the tag vocabulary the checker parses live |  |
+| org/STATE.md | org | eos | Minirepo state file, the single line of session state |  |

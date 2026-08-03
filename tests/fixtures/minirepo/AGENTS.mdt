@@ -1,0 +1,13 @@
+---
+summary: Minirepo agent entry point, the router for the test fixture repo
+type: root
+tags: [eos]
+---
+
+# Minirepo
+
+A minimal repository the test suite copies into tmp_path. Every check
+in the E-series passes here. CLAUDE.md is a byte-identical copy of
+this file.
+
+Read `GOVERNANCE.md` first, then take work from `org/STATE.md`.

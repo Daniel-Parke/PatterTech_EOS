@@ -1,0 +1,22 @@
+# Canonical dependency declaration for the EOS tooling (ADR-0002
+# clarification 6 and directive: one canonical source; requirements files
+# are GENERATED from this with pinned transitive hashes and never edited
+# by hand). Regenerate with: python tools/gen_lock.py
+# Note: pip-tools 7.4.1 and 7.5.1 are incompatible with the installed pip
+# (PackageFinder API change), so the committed stdlib generator
+# tools/gen_lock.py produces the lock via pip download + pip hash. The pip
+# version used for the committed locks: see the header of the lock files.
+
+[project]
+name = "eos-tools"
+version = "2.0.0.dev0"
+description = "PatterTech EOS v2 tooling (checks, router, guard, context, tasks, migrate, benchmark)"
+requires-python = ">=3.11"
+dependencies = [
+    "jsonschema==4.23.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+]
