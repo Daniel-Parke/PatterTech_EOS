@@ -67,6 +67,11 @@ evidence: harness state or a dead PID on the recorded host; a
 timestamp alone is refused and the command directs to operator
 recovery).
 
+View op: `views` (integrator only) regenerates the derived
+`org/TASKS.md` and `org/STATE.md` from the task records, claims,
+cadence rows and git facts; hand-edits to those views are checker
+errors.
+
 Refusal semantics: when the invoking session is not named in the
 committed unexpired claim set, `new`, `update` and `close` refuse with
 exit 1 and output `{refused: true, reason, claim_set_ref}`. Unscheduled

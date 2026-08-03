@@ -1,0 +1,20 @@
+{
+ "version": 1,
+ "level": "standard",
+ "evidence": {
+  "benchmark_runs": [],
+  "sampled_review": {"n": 0, "pass_rate": 1.0},
+  "escaped_defects": 0,
+  "period": "2026-08 (initial adoption with ADR-0002; benchmark run ids attach in P7, first sampled-review data at the first retro)"
+ },
+ "authorised_by": "Daniel Parke",
+ "authorised_date": "2026-08-02",
+ "expires": "2027-02-02",
+ "regression_rule": {
+  "thresholds": {
+   "sampled_review_pass_rate_min": 0.8,
+   "escaped_defects_max": 2
+  },
+  "on_breach": "regress-one-level"
+ }
+}

@@ -20,6 +20,21 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
 - D005 the matrix's empty directories exist at the ruled scale.
 - D006 every WG id the lock-book cites resolves in the pinned EOS
   (worktree fallback when the commit is unavailable, with a warning).
+- D007 the seed's policy file (per the matrix at the ruled scale)
+  parses and validates against kernel/schemas/policy.schema.json.
+- D008 the policy's guard section either ships a validated adapter
+  mapping or declares every guarded class manual-only by leaving
+  validated false or absent (fail closed); claiming autonomous guarded
+  actions without a shipped mapping is an error.
+- D009 org/claims.json, when the matrix requires it and it is present,
+  validates against kernel/schemas/claims.schema.json and carries the
+  seeded state: an empty lanes list.
+
+The scale matrix that governs a seed is the one at the seed's pinned
+eos_commit, read with git show; the working-tree matrix is only a
+fallback, taken with a warning, when the pin or the blob at the pin is
+unavailable. D007 to D009 run only when that governing matrix requires
+the corresponding files, so v1 seeds are unaffected.
 
 ctx is the standard check context: {root (the EOS repo), today,
 offline}. A missing seed path or missing SCALE_MATRIX is reported as
@@ -29,7 +44,9 @@ an error finding; the CLI maps that shape to exit 2.
 from __future__ import annotations
 
 import fnmatch
+import json
 import re
+import subprocess
 from pathlib import Path, PurePosixPath
 
 from .. import gitfacts
@@ -48,43 +65,92 @@ DEFERRAL = "set at first build"
 QUEUE_FILE = {"S": "docs/WORKLOG.md", "M": "org/QUEUE.md", "L": "org/work/NEXT.md"}
 LOCKIN_RE = re.compile(r"first[ -]build|lock-in", re.I)
 
+MATRIX_PATH = "kernel/SCALE_MATRIX.md"
+POLICY_FILES = ("docs/policy.json", "org/policy.json")
+POLICY_SCHEMA = "kernel/schemas/policy.schema.json"
+CLAIMS_SCHEMA = "kernel/schemas/claims.schema.json"
 
-def parse_matrix(eos_root) -> tuple:
-    """Parse kernel/SCALE_MATRIX.md: (required, addons, empty_dirs).
+# Same install command taskops names when jsonschema is missing.
+_JSONSCHEMA_INSTALL = (
+    "jsonschema is required for schema validation: install with "
+    "python -m pip install --require-hashes -r tools/requirements.txt "
+    "(or python -m pip install jsonschema)"
+)
 
-    required maps scale -> [paths]; addons maps name -> [paths or
-    patterns]; empty_dirs maps scale -> [dir paths] from the
-    'Directories created empty' section (L includes M's, per 'L adds').
-    Returns (None, None, None) when the matrix file is absent.
+_GIT_TIMEOUT = 20
+
+
+def _show_at_commit(root, commit: str, path: str):
+    """Content of path at commit via git show, or None when unavailable.
+
+    Read-only and degrading like gitfacts: any git failure returns None
+    so the caller can fall back to the working tree with a warning.
     """
-    path = Path(eos_root) / "kernel" / "SCALE_MATRIX.md"
-    if not path.is_file():
-        return None, None, None
-    text = path.read_text(encoding="utf-8", errors="replace")
-    required = {"S": [], "M": [], "L": []}
-    row = re.compile(
-        r"^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(x?)\s*\|\s*(x?)\s*\|\s*(x?)\s*\|",
-        re.M)
-    for m in row.finditer(text):
-        fpath = m.group(1)
-        if fpath in ("path", "---") or fpath.startswith("-"):
-            continue
-        for scale, mark in zip(("S", "M", "L"), m.groups()[2:]):
-            if mark == "x":
-                required[scale].append(fpath)
+    try:
+        proc = subprocess.run(
+            ["git", "-C", str(Path(root)), "show", f"{commit}:{path}"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=_GIT_TIMEOUT,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if proc.returncode != 0:
+        return None
+    return proc.stdout
+
+
+def _cells(line: str) -> list:
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
+def parse_matrix_text(text: str) -> tuple:
+    """Parse SCALE_MATRIX content: (required, addons, empty_dirs).
+
+    The scale columns come from the matrix table header row, so the v1
+    layout (path, template, S, M, L) and the v2 layout (path, source,
+    S, ORG) both parse. required maps scale -> [paths]; addons maps
+    name -> [paths or patterns]; empty_dirs maps scale -> [dir paths]
+    from the 'Directories created empty' section (L includes M's, per
+    'L adds'). required is {} when no matrix table is found.
+    """
+    required: dict = {}
+    scales: list = []
     addons: dict = {}
-    addon_row = re.compile(
-        r"^\|\s*([a-z][a-z0-9-]*)\s*\|\s*([^|]+?)\s*\|\s*[^|]+\|\s*[^|]+\|",
-        re.M)
-    for m in addon_row.finditer(text):
-        name, fpath = m.group(1), m.group(2)
-        if name in ("addon", "path"):
+    mode = None
+    for line in text.splitlines():
+        if not line.lstrip().startswith("|"):
             continue
-        if " " not in fpath and "/" in fpath:
-            addons.setdefault(name, []).append(fpath)
-        else:
-            addons.setdefault(name, [])
-    empty_dirs = {"S": [], "M": [], "L": []}
+        cells = _cells(line)
+        if not cells or not cells[0]:
+            continue
+        if cells[0] == "path":
+            scales = [c for c in cells[2:] if c]
+            required = {s: [] for s in scales}
+            mode = "matrix"
+            continue
+        if cells[0] == "addon":
+            mode = "addon"
+            continue
+        if cells[0].startswith("-"):
+            continue
+        if mode == "matrix" and len(cells) >= 2:
+            marks = cells[2:2 + len(scales)]
+            marks += [""] * (len(scales) - len(marks))
+            for scale, mark in zip(scales, marks):
+                if mark == "x":
+                    required[scale].append(cells[0])
+        elif mode == "addon" and len(cells) >= 2:
+            name, fpath = cells[0], cells[1]
+            if not re.match(r"^[a-z][a-z0-9-]*$", name):
+                continue
+            if " " not in fpath and "/" in fpath:
+                addons.setdefault(name, []).append(fpath)
+            else:
+                addons.setdefault(name, [])
+    empty_dirs = {s: [] for s in scales}
     dm = re.search(r"## Directories created empty\n(.*?)(?=\n## |\Z)", text, re.S)
     if dm:
         section = dm.group(1)
@@ -96,6 +162,48 @@ def parse_matrix(eos_root) -> tuple:
         empty_dirs["M"] = m_dirs
         empty_dirs["L"] = m_dirs + l_dirs
     return required, addons, empty_dirs
+
+
+def parse_matrix(eos_root) -> tuple:
+    """Parse the working-tree kernel/SCALE_MATRIX.md.
+
+    Returns (None, None, None) when the matrix file is absent.
+    """
+    path = Path(eos_root) / "kernel" / "SCALE_MATRIX.md"
+    if not path.is_file():
+        return None, None, None
+    return parse_matrix_text(path.read_text(encoding="utf-8", errors="replace"))
+
+
+def _scale_label(scales: list) -> str:
+    if not scales:
+        return "S, M or L"
+    if len(scales) == 1:
+        return scales[0]
+    return ", ".join(scales[:-1]) + " or " + scales[-1]
+
+
+def _schema_validate(eos_root, schema_rel: str, doc) -> tuple:
+    """Validate doc against a kernel schema from the EOS working tree.
+
+    Returns (messages, unavailable): messages are 'pointer: problem'
+    strings; unavailable carries the jsonschema install command when
+    the library is missing (consistent with taskops), else None.
+    """
+    try:
+        import jsonschema
+    except ImportError:
+        return [], _JSONSCHEMA_INSTALL
+    schema_path = Path(eos_root) / Path(schema_rel)
+    if not schema_path.is_file():
+        return [f"schema {schema_rel} not found in the EOS worktree"], None
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    validator = jsonschema.Draft202012Validator(schema)
+    messages = []
+    for err in sorted(validator.iter_errors(doc), key=str):
+        pointer = "/".join(str(p) for p in err.absolute_path) or "(root)"
+        messages.append(f"{pointer}: {err.message}")
+    return messages, None
 
 
 def _md_files(seed: Path) -> list:
@@ -124,51 +232,77 @@ def run_seed(seed_root, ctx: dict) -> Findings:
     if not seed.exists():
         findings.add(Finding("D001", "error", str(seed_root), "seed path not found"))
         return findings
-    required, addon_files, empty_dirs = parse_matrix(eos_root)
-    if required is None:
-        findings.add(Finding("D003", "error", "kernel/SCALE_MATRIX.md",
-                             "missing; cannot check a seed"))
-        return findings
-
-    def srel(p: Path) -> str:
-        return p.relative_to(seed).as_posix()
 
     err = lambda check, path, msg: findings.add(Finding(check, "error", path, msg))
     warn = lambda check, path, msg: findings.add(Finding(check, "warn", path, msg))
+
+    # --- lock-book pin first: it decides which matrix governs ----------
+    eos_commit = None
+    lockbook_text = None
+    lb_fm = None
+    lb = seed / "docs" / "LOCKBOOK.md"
+    if lb.exists():
+        lockbook_text = lb.read_text(encoding="utf-8", errors="replace")
+        lb_fm = parse(lockbook_text)
+        if lb_fm.present:
+            eos_commit = lb_fm.data.get("eos_commit") or None
+
+    pin_available = bool(eos_commit) and gitfacts.rev_parse(eos_root, eos_commit) is not None
+
+    # --- the governing matrix: at the pin, worktree as a warned fallback
+    required = addon_files = empty_dirs = None
+    if pin_available:
+        pinned_matrix = _show_at_commit(eos_root, eos_commit, MATRIX_PATH)
+        if pinned_matrix is not None:
+            req, add, dirs = parse_matrix_text(pinned_matrix)
+            if req:
+                required, addon_files, empty_dirs = req, add, dirs
+    if required is None:
+        required, addon_files, empty_dirs = parse_matrix(eos_root)
+        if required is None:
+            findings.add(Finding("D003", "error", "kernel/SCALE_MATRIX.md",
+                                 "missing; cannot check a seed"))
+            return findings
+        if pin_available:
+            warn("D003", "kernel/SCALE_MATRIX.md",
+                 f"absent or unparseable at eos_commit {eos_commit}, "
+                 "matrix read from the working tree")
+        elif eos_commit:
+            warn("D003", "kernel/SCALE_MATRIX.md",
+                 f"matrix read from the working tree, not the unavailable "
+                 f"eos_commit {eos_commit}")
+
+    def srel(p: Path) -> str:
+        return p.relative_to(seed).as_posix()
 
     files = [(srel(p), p.read_text(encoding="utf-8", errors="replace")) for p in _md_files(seed)]
     parsed = [(r, text, parse(text)) for r, text in files]
     seed_md = [r for r, _ in files]
 
     # --- lock-book header (rubric A2, A3) ------------------------------
-    scale, addons, eos_commit = None, [], None
-    lockbook_text = None
-    lb = seed / "docs" / "LOCKBOOK.md"
-    if lb.exists():
-        lockbook_text = lb.read_text(encoding="utf-8", errors="replace")
-        fm = parse(lockbook_text)
-        if not fm.present:
+    scale, addons = None, []
+    if lockbook_text is not None:
+        if not lb_fm.present:
             err("E002", "docs/LOCKBOOK.md", "no front-matter block")
         else:
             for key in LOCKBOOK_KEYS:
-                if not fm.data.get(key):
+                if not lb_fm.data.get(key):
                     err("E002", "docs/LOCKBOOK.md", f"header missing {key}")
-            scale = fm.data.get("scale")
-            if scale not in ("S", "M", "L"):
-                err("E002", "docs/LOCKBOOK.md", f"scale must be S, M or L: {scale}")
+            scale = lb_fm.data.get("scale")
+            if scale not in required:
+                err("E002", "docs/LOCKBOOK.md",
+                    f"scale must be {_scale_label(list(required))}: {scale}")
                 scale = None
-            eos_commit = fm.data.get("eos_commit") or None
             raw = re.match(r"\A---\n(.*?)\n---", lockbook_text, flags=re.S)
             if raw:
                 for line in raw.group(1).splitlines():
                     if RULING_ROW.match(line) and not RULING_OK.match(line):
                         err("E002", "docs/LOCKBOOK.md",
                             f"ruling row not marked argued or inherited: {line.strip()}")
-            if isinstance(fm.data.get("addons"), list):
-                addons = fm.data["addons"]
+            if isinstance(lb_fm.data.get("addons"), list):
+                addons = lb_fm.data["addons"]
 
     # --- pinned-commit availability (shared by D002 and D006) ----------
-    pin_available = bool(eos_commit) and gitfacts.rev_parse(eos_root, eos_commit) is not None
     if eos_commit and not pin_available:
         warn("D002", "docs/LOCKBOOK.md",
              f"eos_commit {eos_commit} not in the EOS history, degrading to worktree checks")
@@ -264,8 +398,8 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                            "not an add-on, not marked authored in the compile report")
 
     # --- D004 deferrals need an open queue item ------------------------
-    if scale:
-        queue_rel = QUEUE_FILE[scale]
+    queue_rel = QUEUE_FILE.get(scale) if scale else None
+    if scale and queue_rel:
         queue_path = seed / queue_rel
         queue_text = queue_path.read_text(encoding="utf-8", errors="replace") \
             if queue_path.is_file() else None
@@ -303,4 +437,75 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             if not any(name.startswith(wid) for name in names):
                 err("D006", "docs/LOCKBOOK.md",
                     f"ruling cites {wid}, which does not resolve in {where}")
+
+    # --- D007, D008 policy file and guard adapter (matrix-gated) -------
+    if scale:
+        for rel in POLICY_FILES:
+            if rel not in required[scale]:
+                continue
+            policy_path = seed / rel
+            if not policy_path.is_file():
+                continue  # the required-file check (E008) already reports it
+            try:
+                policy = json.loads(policy_path.read_text(encoding="utf-8", errors="replace"))
+            except ValueError as exc:
+                err("D007", rel, f"malformed JSON: {exc}")
+                continue
+            messages, unavailable = _schema_validate(eos_root, POLICY_SCHEMA, policy)
+            if unavailable:
+                err("D007", rel, unavailable)
+            for msg in messages:
+                err("D007", rel, f"does not validate against {POLICY_SCHEMA}: {msg}")
+
+            # D008: fail closed. Autonomy over guarded classes exists
+            # only through a shipped, validated adapter mapping; with
+            # validated false or absent every guarded class is
+            # manual-only, which is the sanctioned declaration.
+            guard = policy.get("guard") if isinstance(policy, dict) else None
+            if not isinstance(guard, dict):
+                err("D008", rel,
+                    "policy has no guard section; guarded classes must ship "
+                    "an adapter mapping or stay manual-only")
+                continue
+            adapter = guard.get("adapter")
+            mapping_ref = guard.get("mapping_ref")
+            if not adapter or not isinstance(adapter, str):
+                err("D008", rel, "guard names no adapter")
+            if not mapping_ref or not isinstance(mapping_ref, str):
+                err("D008", rel, "guard names no mapping_ref")
+            validated = guard.get("validated", False)
+            if validated is True:
+                if not mapping_ref or not isinstance(mapping_ref, str):
+                    err("D008", rel,
+                        "guard.validated true without an adapter mapping: "
+                        "autonomous guarded actions fail closed")
+                elif not (seed / mapping_ref).is_file():
+                    err("D008", rel,
+                        f"guard.validated true but the adapter mapping "
+                        f"{mapping_ref} is not shipped in the seed; a policy "
+                        "claiming autonomous guarded actions without an "
+                        "adapter mapping fails closed")
+            elif validated not in (False, None):
+                err("D008", rel,
+                    f"guard.validated must be boolean; any other value "
+                    f"fails closed: {validated!r}")
+
+    # --- D009 seeded claims validate (matrix-gated) --------------------
+    if scale and "org/claims.json" in required[scale]:
+        rel = "org/claims.json"
+        claims_path = seed / rel
+        if claims_path.is_file():
+            try:
+                claims = json.loads(claims_path.read_text(encoding="utf-8", errors="replace"))
+            except ValueError as exc:
+                err("D009", rel, f"malformed JSON: {exc}")
+            else:
+                messages, unavailable = _schema_validate(eos_root, CLAIMS_SCHEMA, claims)
+                if unavailable:
+                    err("D009", rel, unavailable)
+                for msg in messages:
+                    err("D009", rel, f"does not validate against {CLAIMS_SCHEMA}: {msg}")
+                lanes = claims.get("lanes") if isinstance(claims, dict) else None
+                if isinstance(lanes, list) and lanes:
+                    err("D009", rel, "seeded claims must be an empty lanes list")
     return findings

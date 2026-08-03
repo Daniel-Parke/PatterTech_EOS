@@ -43,7 +43,8 @@ V2_AXES = {
 }
 V2_SCOPES = {"estate", "venture", "eos-internal"}
 
-DERIVED_GENERATED = {"INDEX.md", "doctrine/WARGAME_INDEX.md"}
+DERIVED_GENERATED = {"INDEX.md", "doctrine/WARGAME_INDEX.md",
+                     "org/TASKS.md", "org/STATE.md"}
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")
 PATH_BAD_CHARS = set("*<>{}$#()\\ \t")
