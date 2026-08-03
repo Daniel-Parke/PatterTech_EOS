@@ -10,8 +10,8 @@ evidence_grade: observational
 scope: estate
 applies_when: [deploys_to_environment, stores_persistent_data, runs_schema_migrations]
 volatility: slow
-review: 2027-05
-review_by: 2027-05
+review: 2027-04
+review_by: 2027-04
 sources: [EV-0020, EV-0026, EV-0043, EV-0058, EV-0059, EV-0071, EV-0096, EV-0197, EV-0198, EV-0199, EV-0200, EV-0201, EV-0202, EV-0203, EV-0204, EV-0205, EV-0206, EV-0207, EV-0208, EV-0209, EV-0210, EV-0211]
 ---
 

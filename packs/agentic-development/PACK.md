@@ -11,7 +11,7 @@ volatility: fast
 review: on-change-of:agent-sdk-major-release
 type: guide
 tags: [eos, arch, tooling]
-review_by: 2027-02
+review_by: 2027-03
 sources: [EV-0001, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121]
 ---
 
@@ -106,9 +106,12 @@ oracle exists, say so and do not claim an evaluator-optimizer loop.
 names the pressure that forced the promotion and the failure mode it
 removes (EV-0109). It carries six level-two sections: Topology,
 Pressures, Bounds, Resumability, Verification, Approval. Front-matter
-carries `summary`, `type` and `tags`, and the record stays under 120
-lines. Prevents topology chosen by fashion, and prevents a design no
-reviewer can check. The worked shape is in
+carries `summary`, `type` and `tags` including `eos`, it cites at least
+four evidence ids of which at least two come from this pack's own set,
+and it stays under 120 lines. Prevents topology chosen by fashion, and
+prevents a design no reviewer can check. The section-by-section requirements are in
+`packs/agentic-development/refs/DECISION_RECORD_SHAPE.md` and a worked
+record is
 `packs/agentic-development/exemplars/EX-AGENT-001-logging-migration.md`.
 
 **B6. Runs are traceable.** A stable span vocabulary (run, turn, agent,
@@ -155,14 +158,13 @@ indirection.
 history, not on compaction alone** (EV-0085, EV-0117). Reason: a
 compacted summary loses exactly the detail a resumed run needs.
 
-**D6. Cheap guardrails run beside the work and trip a wire; cross-
-cutting policy sits at the runner, not inside an agent** (EV-0076,
-EV-0120, EV-0119). Reason: a guardrail an agent can configure away is
-not a guardrail.
+**D6. Cheap guardrails run beside the work and trip a wire, and
+cross-cutting policy sits at the runner rather than inside an agent**
+(EV-0076, EV-0120, EV-0119). Reason: a guardrail an agent can configure
+away is not a guardrail.
 
 **D7. Memory is a swappable store behind one interface with an explicit
-trimming policy** (EV-0117). Reason: recall is not relevance, and the
-trimming rule should be visible configuration.
+trimming policy** (EV-0117). Reason: recall is not relevance.
 
 **D8. Evaluation suites start at twenty to fifty tasks harvested from
 real failures, scored with pass@k and pass^k** (EV-0087). Reason:
@@ -191,7 +193,9 @@ Taste. Freely overridable, no reason required.
 The ten topologies, their pressures and their evidence are carded in
 `packs/agentic-development/refs/TOPOLOGY_CARD.md`. Bounding, tracing
 and checkpoint mechanics are in
-`packs/agentic-development/refs/INVARIANTS_AND_BOUNDS.md`.
+`packs/agentic-development/refs/INVARIANTS_AND_BOUNDS.md`. What a
+reviewer or a script can verify about work in this domain is in
+`packs/agentic-development/CHECKS.md`.
 
 ## Failure modes and anti-patterns
 
@@ -244,21 +248,20 @@ better than another, and its absolute rates will have moved.
 **Interface effort looks capability-dependent.** Careful agent-computer
 interface design moved task success materially in 2024 (EV-0110), and a
 hundred-line agent with bash as its only tool later scored far higher
-(EV-0052). Read as a moving frontier rather than a contradiction, which
-is why D2 is a default and not a rule.
+(EV-0052). That is a moving frontier rather than a contradiction, and
+it is why D2 is a default rather than a rule.
 
 **Self-correction evidence is off-population.** The controlled result
 that models degrade their own answers without external feedback
 (EV-0111) studied short-form reasoning on the 2023 to 2024 generation,
-not long-horizon coding where compilers and tests supply exactly the
-signal it says is missing. B4 survives the caveat because it only
-requires external truth, but the strength of the effect in coding is
-unmeasured.
+not long-horizon coding where compilers and tests supply the signal it
+says is missing. B4 survives, because it only requires external truth,
+but the size of the effect in coding is unmeasured.
 
-**Where the evidence is thin.** We have no measured guidance on how
-many parallel workers is too many, on the real cost of condensers
-against artifact-based continuity, or on when an event log pays for
-itself. Those are judgement calls today and the guides say so.
+**Where the evidence is thin.** Nothing measured tells us how many
+parallel workers is too many, what condensers really cost against
+artifact-based continuity, or when an event log pays for itself. Those
+are judgement calls today and the guides say so.
 
 ## Evidence
 
