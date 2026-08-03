@@ -30,6 +30,7 @@ agent the wrong law. The three indexes and their sources:
 
 from __future__ import annotations
 
+import json
 import re
 from datetime import date, datetime, timedelta
 from pathlib import PurePosixPath
@@ -211,6 +212,66 @@ def build_guide_index(model: RepoModel) -> str:
 # --- checks -------------------------------------------------------------
 
 
+def build_capabilities(model: RepoModel) -> str:
+    """The readable view of the domain coverage matrix.
+
+    Every one of the eight required fields is rendered in full. The
+    previous view was a six-column table that dropped worked_example,
+    evaluation_method, estate_relevance and owner, and truncated what
+    was left mid-word. A matrix whose whole job is making omissions
+    visible cannot be rendered by cutting four columns off it, so this
+    is sections rather than a table: nothing here has to fit.
+    """
+    raw = model.read("registry/coverage.json")
+    rows = []
+    if raw:
+        try:
+            rows = json.loads(raw).get("rows") or []
+        except ValueError:
+            rows = []
+    built = sorted((r for r in rows if r.get("status") == "built"),
+                   key=lambda r: r.get("capability", ""))
+    only = sorted((r for r in rows if r.get("status") != "built"),
+                  key=lambda r: r.get("capability", ""))
+
+    out = ["---", "summary: Derived view of the domain coverage matrix, every field in full",
+           "type: registry", "tags: [eos]", "status: active", "review_by: 2027-02",
+           "derived: true", "---", "",
+           "# CAPABILITIES", "",
+           "Derived from `registry/coverage.json` by",
+           "`python -m tools.eos check --write-index`. Do not hand-edit.", "",
+           f"**Built: {len(built)}. Registry-only: {len(only)}.** A registry-only",
+           "row is not coverage, and this view says so first.", ""]
+
+    out += ["## Not built", ""]
+    if not only:
+        out += ["Every charted capability has a pack.", ""]
+    for r in only:
+        out += [f"### {r.get('capability', '')}", "",
+                f"- **Why not**: {_cell(r.get('reason_if_registry_only'))}",
+                f"- **Would activate on**: {_cell(r.get('activation'))}",
+                f"- **Estate relevance**: {_cell(r.get('estate_relevance'))}",
+                f"- **Evaluation**: {_cell(r.get('evaluation_method'))}",
+                f"- **Owner**: {_cell(r.get('owner'))}",
+                f"- **Review trigger**: {_cell(r.get('review_trigger'))}", ""]
+
+    out += ["## Built", ""]
+    for r in built:
+        examples = r.get("worked_example") or []
+        out += [f"### {r.get('capability', '')}", "",
+                f"- **Pack**: `{_cell(r.get('pack'))}`",
+                f"- **Activation**: {_cell(r.get('activation'))}",
+                f"- **Worked example**: " + ", ".join(f"`{e}`" for e in examples),
+                f"- **Evaluation**: {_cell(r.get('evaluation_method'))}",
+                f"- **Estate relevance**: {_cell(r.get('estate_relevance'))}",
+                f"- **Owner**: {_cell(r.get('owner'))}",
+                f"- **Review trigger**: {_cell(r.get('review_trigger'))}",
+                "- **Evidence**: {} rows, {}".format(
+                    len(r.get("evidence_sources") or []),
+                    ", ".join(r.get("evidence_sources") or []) or "none"), ""]
+    return "\n".join(out).rstrip("\n") + "\n"
+
+
 def _wanted_indexes(model: RepoModel) -> dict:
     """Every derived index and the text it should hold.
 
@@ -218,11 +279,15 @@ def _wanted_indexes(model: RepoModel) -> dict:
     whitelisted as generated and written by hand, so nothing compared it
     and it sat twelve packs short of reality against a green build.
     """
-    return {
+    want = {
         "INDEX.md": build_index(model),
         "packs/INDEX.md": build_pack_index(model),
         "packs/GUIDE_INDEX.md": build_guide_index(model),
     }
+    # Only where the matrix exists: the minirepo fixture has no registry.
+    if model.read("registry/coverage.json") is not None:
+        want["registry/CAPABILITIES.md"] = build_capabilities(model)
+    return want
 
 
 @register("E001")
@@ -238,16 +303,33 @@ def check_e001_index_drift(ctx: dict) -> list:
     return out
 
 
+MAX_INDEX_PASSES = 5
+
+
 def write_indexes(ctx: dict) -> list:
-    """Write every derived index, then re-verify against a fresh model."""
+    """Write every derived index to a fixpoint, then re-verify.
+
+    The indexes reference each other: INDEX.md carries one row per live
+    file, and registry/CAPABILITIES.md is a live file whose front-matter
+    INDEX.md indexes. Writing once in an arbitrary order can therefore
+    leave the first file written stale against the last. Iterating to a
+    fixpoint costs a few passes over an already-loaded model and removes
+    a whole class of ordering bug.
+    """
     model: RepoModel = ctx["model"]
-    for rel, text in _wanted_indexes(model).items():
-        path = model.root / rel
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8", newline="\n")
-    fresh = RepoModel.load(model.root, today=model.today)
+    for _ in range(MAX_INDEX_PASSES):
+        wrote = False
+        for rel, text in _wanted_indexes(model).items():
+            path = model.root / rel
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if not path.is_file() or path.read_text(encoding="utf-8") != text:
+                path.write_text(text, encoding="utf-8", newline="\n")
+                wrote = True
+        model = RepoModel.load(model.root, today=model.today)
+        if not wrote:
+            break
     reverify = dict(ctx)
-    reverify["model"] = fresh
+    reverify["model"] = model
     return check_e001_index_drift(reverify)
 
 

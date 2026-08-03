@@ -1,4 +1,4 @@
-"""Semantic checks S001-S012.
+"""Semantic checks S001-S013.
 
 Severity: the S-series lands as ERRORS. The repository is clean under
 the series, so the P4 flip has happened: a new semantic defect is a
@@ -723,4 +723,93 @@ def check_s012_estate_schema(ctx: dict) -> list:
                 out.append(_f(ctx, "S012", manifest_path, f"repo {name}: missing {key}"))
         for key in sorted(set(row) - ESTATE_ROW_ALLOWED):
             out.append(_f(ctx, "S012", manifest_path, f"repo {name}: unknown key {key}"))
+    return out
+
+
+# --- S013 domain coverage matrix ----------------------------------------
+
+COVERAGE_PATH = "registry/coverage.json"
+COVERAGE_SCHEMA = "kernel/schemas/coverage.schema.json"
+
+
+@register("S013")
+def check_s013_coverage_matrix(ctx: dict) -> list:
+    """The coverage matrix agrees with its schema and with the packs.
+
+    The matrix exists to make omissions visible. It did the opposite:
+    twelve rows read status built beside evaluation_method "None yet",
+    carried no worked_example key at all, and listed evidence as the
+    prose string "18 records in registry/evidence.json". Nothing
+    validated the file, so none of that was a finding.
+
+    Four things are checked here, because each of them failed:
+    the file matches its schema; every built row's pack directory
+    exists and every pack directory has a row; every cited path
+    resolves; and every EV id resolves in the evidence ledger.
+    """
+    model: RepoModel = ctx["model"]
+    raw = model.read(COVERAGE_PATH)
+    if raw is None:
+        return []
+    out = []
+    try:
+        cov = json.loads(raw)
+    except ValueError as exc:
+        return [_f(ctx, "S013", COVERAGE_PATH, f"not valid JSON: {exc}")]
+
+    schema_raw = model.read(COVERAGE_SCHEMA)
+    if schema_raw is not None:
+        try:
+            import jsonschema
+        except ImportError:
+            out.append(_f(ctx, "S013", COVERAGE_PATH,
+                          "jsonschema missing, matrix not validated against "
+                          "its schema; install tools/requirements.txt"))
+        else:
+            validator = jsonschema.Draft202012Validator(json.loads(schema_raw))
+            for err in sorted(validator.iter_errors(cov), key=lambda e: list(e.path)):
+                where = "/".join(str(p) for p in err.path) or "(root)"
+                out.append(_f(ctx, "S013", COVERAGE_PATH, f"{where}: {err.message}"))
+
+    rows = cov.get("rows") or []
+    ledger_raw = model.read("registry/evidence.json")
+    known_ev = set()
+    if ledger_raw:
+        try:
+            known_ev = {r["id"] for r in json.loads(ledger_raw).get("records", [])}
+        except (ValueError, KeyError, TypeError):
+            known_ev = set()
+
+    charted = set()
+    for row in rows:
+        cap = row.get("capability", "(unnamed)")
+        if row.get("status") != "built":
+            continue
+        pack = (row.get("pack") or "").rstrip("/")
+        if not pack:
+            continue
+        charted.add(pack)
+        if not model.exists(pack):
+            out.append(_f(ctx, "S013", COVERAGE_PATH,
+                          f"{cap}: built but {pack}/ does not exist"))
+            continue
+        for cited in row.get("worked_example") or []:
+            if not model.exists(cited):
+                out.append(_f(ctx, "S013", COVERAGE_PATH,
+                              f"{cap}: worked_example does not resolve: {cited}"))
+        if known_ev:
+            for ev in row.get("evidence_sources") or []:
+                if ev not in known_ev:
+                    out.append(_f(ctx, "S013", COVERAGE_PATH,
+                                  f"{cap}: evidence id not in the ledger: {ev}"))
+
+    # The other direction. A pack with no row is a silent omission, and
+    # silence is the one thing the matrix is not allowed to do.
+    for rec in model.files:
+        parts = rec.path.split("/")
+        if len(parts) == 3 and parts[0] == "packs" and parts[2] == "PACK.md":
+            base = f"packs/{parts[1]}"
+            if base not in charted:
+                out.append(_f(ctx, "S013", COVERAGE_PATH,
+                              f"{base}/ is a built pack with no coverage row"))
     return out

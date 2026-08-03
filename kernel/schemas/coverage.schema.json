@@ -64,13 +64,17 @@
         "evidence_sources": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "Evidence-ledger ids (EV-####) or source names for registry-only rows."
+          "description": "Evidence-ledger ids (EV-####) for built rows, or source names for registry-only rows. Prose is not a source list: a built row once carried the string '18 records in registry/evidence.json', which no tool can resolve."
         },
         "worked_example": {
-          "type": "string"
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Repo-relative paths to the pack's exemplars. Required for built rows; the checker verifies each path exists."
         },
         "evaluation_method": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "description": "How work in this domain is evaluated, and honestly where it is not. A built row may not defer this to future work."
         },
         "estate_relevance": {
           "type": "string",
@@ -92,7 +96,14 @@
             "properties": { "status": { "const": "built" } }
           },
           "then": {
-            "required": ["pack"]
+            "required": ["pack", "worked_example", "evaluation_method"],
+            "properties": {
+              "worked_example": { "minItems": 1 },
+              "evidence_sources": {
+                "minItems": 3,
+                "items": { "pattern": "^EV-\\d{4}$" }
+              }
+            }
           }
         },
         {

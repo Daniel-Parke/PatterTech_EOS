@@ -367,7 +367,7 @@ file. Frozen trees are not indexed.
 | packs/writing-content/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
 | packs/writing-content/research/NOTES.md | example | eos testing | Research synthesis for the writing-content pack, four philosophies of clear text, what is machine-checkable, and what should bind |  |
 | README.md | root | eos | What the PatterTech EOS is, how the repo is laid out, how a venture consumes it, and the principles that hold |  |
-| registry/CAPABILITIES.md | registry | eos | Derived view of the domain coverage matrix, one row per capability | 2027-02 |
+| registry/CAPABILITIES.md | registry | eos | Derived view of the domain coverage matrix, every field in full | 2027-02 |
 | registry/LESSONS.md | registry | eos | The harvest ledger, live lessons and their dispositions, plus what has been pruned into the packs | 2026-11 |
 | registry/PROJECTS.md | registry | eos | The venture directory, what each is pinned to, whether that pin resolves, and when it was last checked | 2026-11 |
 | registry/stacks/README.md | registry | eos infra hosting | Stack profiles, what each is for and when to reach for it | 2027-01 |

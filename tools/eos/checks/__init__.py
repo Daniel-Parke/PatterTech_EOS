@@ -32,6 +32,6 @@ def run_all(ctx: dict, series: str | None = None) -> list:
 
 
 from . import structural  # noqa: E402,F401  (registers E001-E010)
-from . import semantic    # noqa: E402,F401  (registers S001-S012)
+from . import semantic    # noqa: E402,F401  (registers S001-S013)
 from . import freshness   # noqa: E402,F401  (registers F001-F004)
 from . import seed        # noqa: E402,F401  (exposes run_seed)
