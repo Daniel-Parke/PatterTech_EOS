@@ -89,3 +89,11 @@ material), and the amendment reference where one exists.
   honestly and does NOT release. No threshold was amended and no v2 content
   was tuned to the test. The decision is Daniel's: amend thresholds by ADR
   with reasons, adopt partially, or halt with the branch preserved.
+- 2026-08-03 · P7 · minor · Routing ablation run (eight sessions, four
+  tasks, two trials) to separate v2's design cost from the benchmark's own
+  instruction to invoke the router and guard per session. The no-router arm
+  spends 10 per cent fewer tokens than v1 where the headline arm spends 87
+  per cent more, and roughly halves context on the two heavy tasks. Quality
+  held. The probes were not run under the ablation, so it bounds the cost
+  question only and makes no safety claim. Recorded as evidence for the
+  release decision, not as grounds to amend a threshold.

@@ -81,8 +81,43 @@ they matter:
 3. The v2 seeds and packs are larger than the v1 seeds, so the venture a
    session boots into carries more material even when little of it loads.
 
-Cause 1 is testable with an ablation that runs v2 without the routing
-instruction. That ablation has not been run.
+Cause 1 is testable, so I tested it.
+
+## The routing ablation, run 2026-08-03
+
+Eight runs, four tasks (two heavy, two light), two trials each. The only
+difference from the headline v2 arm is that the session was not told to
+route the task and consult the guard through the tooling. Everything else
+is identical: same seeds, same fixtures, same criteria.
+
+| Task | tokens v1 | tokens v2 | tokens v2 no-router |
+| --- | --- | --- | --- |
+| Documentation fix | 0.7M | 1.5M | 0.8M |
+| Small UI fix | 1.5M | 3.5M | 2.0M |
+| Feature | 6.1M | 5.6M | 2.9M |
+| Bug fix | 4.1M | 6.2M | 2.7M |
+
+Median against v1 across those four tasks: the headline arm spends 87 per
+cent more tokens and runs 58 per cent slower; the no-router arm spends 10
+per cent fewer tokens and runs 5 per cent slower. Quality held at 2 of 2
+on every ablation task.
+
+On the two heavy tasks the no-router arm beats v1 outright: 2.9M against
+6.1M on the feature, 2.7M against 4.1M on the bug fix, roughly half the
+context for the same delivered result.
+
+So most of the measured overhead is the cost of asking each session to
+shell out to the router and the guard, not the cost of v2's design. That
+is a benchmark artefact of my own making, and it is fixable in the design
+rather than in the measurement: route once when the task record is
+created, or let the checker route at the gate, instead of paying a
+command round trip inside every session.
+
+Three limits on that conclusion, stated plainly. Eight runs is a small
+sample. The no-router arm is not full v2, because a session that is not
+told to route may still route implicitly by reading the policy. And the
+safety probes were not run under the ablation, so nothing here shows the
+no-router configuration is safe. It shows only where the tokens went.
 
 ## What has not been done
 
