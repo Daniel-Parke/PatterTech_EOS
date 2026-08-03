@@ -12,7 +12,12 @@ from datetime import date
 
 from conftest import REPO_ROOT, make_repo
 from tools.eos.checks import run_all
-from tools.eos.checks.structural import build_index, build_wargame_index, write_indexes
+from tools.eos.checks.structural import (
+    build_guide_index,
+    build_index,
+    build_pack_index,
+    write_indexes,
+)
 from tools.eos.repo import SKIP_DIRS, RepoModel
 
 TODAY = date(2026, 8, 3)
@@ -91,13 +96,71 @@ def test_e001_write_then_reverify(tmp_path):
 def test_index_golden_byte_round_trip(tmp_path):
     root = make_repo(tmp_path)
     model = RepoModel.load(root, today=TODAY)
-    want_idx = build_index(model)
-    want_widx = build_wargame_index(model)
-    assert model.read("INDEX.md") == want_idx
-    assert model.read("packs/GUIDE_INDEX.md") == want_widx
+    want = {
+        "INDEX.md": build_index(model),
+        "packs/INDEX.md": build_pack_index(model),
+        "packs/GUIDE_INDEX.md": build_guide_index(model),
+    }
+    for rel, text in want.items():
+        assert model.read(rel) == text
     write_indexes(ctx_for(root))
-    assert (root / "INDEX.md").read_bytes() == want_idx.encode("utf-8")
-    assert (root / "packs" / "GUIDE_INDEX.md").read_bytes() == want_widx.encode("utf-8")
+    for rel, text in want.items():
+        assert (root / rel).read_bytes() == text.encode("utf-8")
+
+
+def test_e001_catches_a_stale_pack_index(tmp_path):
+    """The defect that shipped: packs/INDEX.md drifted twelve packs
+    short of reality and nothing compared it."""
+    root = make_repo(tmp_path)
+    p = root / "packs" / "INDEX.md"
+    p.write_text(
+        p.read_text(encoding="utf-8").replace("1 built packs", "9 built packs"),
+        encoding="utf-8", newline="\n")
+    fs = run_e(root)
+    assert only(fs, "E001") == [("error", "packs/INDEX.md", "stale, run --write-index")]
+
+
+def test_e001_catches_an_unindexed_pack(tmp_path):
+    """A new pack on disk with no row in the always-loaded surface is
+    unreachable. E001 must say so."""
+    root = make_repo(tmp_path)
+    new = root / "packs" / "second" / "PACK.md"
+    new.parent.mkdir(parents=True)
+    new.write_text(
+        "---\nsummary: A second pack for the fixture\ntype: doctrine\n"
+        "tags: [eos]\nreview_by: 2030-01\napplies_when: [does_a_thing]\n"
+        "authority: default\n---\n\n# Second\n\nThis pack covers a second"
+        " thing, and it activates when that thing happens.\n",
+        encoding="utf-8", newline="\n")
+    assert ("error", "packs/INDEX.md", "stale, run --write-index") in only(run_e(root), "E001")
+
+
+def test_guide_index_covers_gd_guides_not_only_wargames(tmp_path):
+    """79 of 86 guides were invisible because the generator selected on
+    type: wargame and the guides carry type: guide."""
+    root = make_repo(tmp_path)
+    guide = root / "packs" / "testmod" / "guides" / "GD-TST-001-a-fork.md"
+    guide.write_text(
+        "---\nsummary: Which of two ways should the fixture go?\n"
+        "type: guide\ntags: [eos]\nauthority: default\nreview: 2030-01\n"
+        "review_by: 2030-01\n---\n\n# GD-TST-001\n\nBody.\n",
+        encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    assert "GD-TST-001" in build_guide_index(model)
+
+
+def test_indexes_exclude_frozen_trees(tmp_path):
+    """A benchmark fixture's wargames are not EOS guidance."""
+    root = make_repo(tmp_path)
+    fixture = root / "benchmark" / "fixtures" / "mini" / "guides" / "WG-FIX-001-x.md"
+    fixture.parent.mkdir(parents=True)
+    fixture.write_text(
+        "---\nsummary: A fixture wargame that must never reach an agent\n"
+        "type: wargame\ntags: [eos]\nstatus: active\nreview_by: 2030-01\n---\n\n# WG-FIX-001\n",
+        encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    assert "WG-FIX-001" not in build_guide_index(model)
+    assert "benchmark/fixtures" not in build_index(model)
 
 
 # --- E002 ---------------------------------------------------------------

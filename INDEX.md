@@ -1,5 +1,5 @@
 ---
-summary: Derived index of every file, one row each, grep the tag column
+summary: Derived index of every live file, one row each, grep the tag column
 type: index
 tags: [eos]
 derived: true
@@ -8,86 +8,12 @@ derived: true
 # INDEX
 
 Derived file. Edit front-matter, then run
-`python tools/eos_check.py --write-index`. One row per file.
+`python -m tools.eos check --write-index`. One row per live
+file. Frozen trees are not indexed.
 
 | path | type | tags | summary | review_by |
 | --- | --- | --- | --- | --- |
 | AGENTS.md | root | eos | The v2 router, entry modes, policy-routed mode entry and the never-list |  |
-| archive/v1/doctrine/architecture/DOCTRINE.md | doctrine | arch | The seven binding architecture rules, argued by the estate's ADRs and the WG-ARCH wargames |  |
-| archive/v1/doctrine/architecture/README.md | doctrine | arch | Architecture module, seven rules and eight wargames from the estate's ADRs |  |
-| archive/v1/doctrine/architecture/templates/ADR_TEMPLATE.md | template | arch eos | The ADR format, copy-exact, the record that carries the why |  |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-001-boundary-enforcement.md | wargame | arch tooling | Where do module boundaries live: convention, machine contract, or the directory tree? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md | wargame | arch data | ORM, query builder, or raw SQL behind repositories? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-003-derived-state.md | wargame | arch data state | Derived values: always computed, cached, or stored as immutable snapshots? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-004-job-execution.md | wargame | arch state infra | Background jobs: in-process, a durable database queue, or an external broker? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md | wargame | arch ci tooling | How do frontend and backend share types: by hand, generated with a drift gate, or one language? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-006-change-proof.md | wargame | arch testing ci | What proves a change changed nothing: green tests, pinned behaviour, or byte-stable output? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-007-vendor-seams.md | wargame | arch infra security | Vendor integration: their SDK everywhere, an owned adapter, or the raw protocol? | 2027-07 |
-| archive/v1/doctrine/architecture/wargames/WG-ARCH-008-database-topology.md | wargame | arch data infra | One shared database, one per service, or a records core with a separate high-volume store? | 2027-07 |
-| archive/v1/doctrine/delivery/DOCTRINE.md | doctrine | delivery testing ci | The six binding delivery rules, test-first by type, ratchets, rubric gates, determinism |  |
-| archive/v1/doctrine/delivery/README.md | doctrine | delivery | Delivery module, six rules and four wargames on proof, gates and determinism |  |
-| archive/v1/doctrine/delivery/wargames/WG-DEL-001-coverage-level.md | wargame | delivery testing ci | What coverage floor, per surface, and how does it move? | 2027-07 |
-| archive/v1/doctrine/delivery/wargames/WG-DEL-002-e2e-weighting.md | wargame | delivery testing ci | How much end-to-end, and which branch does it block? | 2027-07 |
-| archive/v1/doctrine/delivery/wargames/WG-DEL-003-vrt-scope.md | wargame | delivery testing web | Visual regression: nothing, component states, or full pages? | 2027-07 |
-| archive/v1/doctrine/delivery/wargames/WG-DEL-004-flake-policy.md | wargame | delivery testing ci | When a test flakes: retry, quarantine, or root-cause now? | 2027-07 |
-| archive/v1/doctrine/devops/DOCTRINE.md | doctrine | ops | The six binding devops rules, migrations, parity, secrets, runbooks, restores, cost |  |
-| archive/v1/doctrine/devops/README.md | doctrine | ops | Devops module, six rules and four wargames on hosting, artefacts, restores and spend |  |
-| archive/v1/doctrine/devops/wargames/WG-OPS-001-hosting.md | wargame | ops hosting infra | Managed PaaS, a cloud estate under contract, or self-hosting? | 2027-07 |
-| archive/v1/doctrine/devops/wargames/WG-OPS-002-containers.md | wargame | ops infra hosting | Everything in containers, platform-native builds, or a mixed fleet? | 2027-07 |
-| archive/v1/doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md | wargame | ops data infra | Trusted snapshots, scheduled restore tests, or full disaster rehearsal? | 2027-07 |
-| archive/v1/doctrine/devops/wargames/WG-OPS-004-cost-ceilings.md | wargame | ops infra money | How is spend governed: unwatched, budget-gated, or hard-capped? | 2027-07 |
-| archive/v1/doctrine/MODULE_SHAPE.md | governance | eos | What every doctrine module must have, may have, and must never become |  |
-| archive/v1/doctrine/README.md | governance | eos | The module map, what is populated, what is queued, and the extraction mandates |  |
-| archive/v1/doctrine/voice/DOCTRINE.md | doctrine | voice | The voice law, seven rules with examples, and the banned-list pattern |  |
-| archive/v1/doctrine/voice/README.md | doctrine | voice | Voice module, the writing law and the register wargame, compiled into every seed |  |
-| archive/v1/doctrine/voice/wargames/WG-VOX-001-audience-register.md | wargame | voice content brand | Which register does this surface speak in? | 2027-07 |
-| archive/v1/doctrine/WARGAME_INDEX.md | index | eos wargame | Derived index of every wargame, the surface inception walks |  |
-| archive/v1/doctrine/web-design/DOCTRINE.md | doctrine | web | The twelve binding rules for any PatterTech web surface |  |
-| archive/v1/doctrine/web-design/foundations/COLOR.md | foundation | web colour | Deriving the surface ladder, accents and measured text tiers |  |
-| archive/v1/doctrine/web-design/foundations/LAYOUT_AND_GRID.md | foundation | web layout | The reading grid, measures and bleeds that kill drift |  |
-| archive/v1/doctrine/web-design/foundations/LIGHT.md | foundation | web colour motion | The graded light system, field to radiance, with budgets |  |
-| archive/v1/doctrine/web-design/foundations/MOTION.md | foundation | web motion | Motion with meaning, reveals, easing and reduced-motion duty |  |
-| archive/v1/doctrine/web-design/foundations/TYPOGRAPHY.md | foundation | web typography | Choosing and proving the three faces, scales and measures |  |
-| archive/v1/doctrine/web-design/implementation/AGENT_WORKFLOW.md | implementation | web tooling | How an agent works a web project without breaking it |  |
-| archive/v1/doctrine/web-design/implementation/QC_GATES.md | implementation | web testing tooling | The executable gates and when each runs |  |
-| archive/v1/doctrine/web-design/implementation/TOKENS.md | implementation | web tooling brand | Three token layers and the mirroring contract |  |
-| archive/v1/doctrine/web-design/patterns/CONTAINERS.md | pattern | web layout density | Ledger, plaque, panel, table or prose, chosen by content |  |
-| archive/v1/doctrine/web-design/patterns/DIAGRAMS.md | pattern | web media | Diagram kit rules, positions from data, labels that never overlap |  |
-| archive/v1/doctrine/web-design/patterns/LONGFORM.md | pattern | web content layout | The long-read kit, pacing and numbering as identity |  |
-| archive/v1/doctrine/web-design/patterns/MEDIA.md | pattern | web media | Figures, carousels, video facades, audio and document panels |  |
-| archive/v1/doctrine/web-design/patterns/NAVIGATION.md | pattern | web nav | Header, footer and index patterns, the journal threading model |  |
-| archive/v1/doctrine/web-design/patterns/SECTION_FURNITURE.md | pattern | web layout | Section marks, chapter marks, colophons and the andon line |  |
-| archive/v1/doctrine/web-design/templates/REVIEW_CHECKLIST.md | template | web testing | Evidence-based review checklist before shipping |  |
-| archive/v1/doctrine/web-design/templates/WG_TEMPLATE.md | template | eos wargame | Copy-exact template for a new wargame in any module |  |
-| archive/v1/doctrine/web-design/ux/ACCESSIBILITY.md | ux | web a11y | The accessibility floor, skip link to reduced motion |  |
-| archive/v1/doctrine/web-design/ux/FLOWS.md | ux | web nav content | The five page archetypes and their linking strategy |  |
-| archive/v1/doctrine/web-design/ux/PERFORMANCE.md | ux | web perf | Budgets and the structural choices that keep pages light |  |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-001-surface-register.md | wargame | web colour brand | Dark, light, or dual register? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-002-page-archetype.md | wargame | web nav content | Which vocabulary does this page speak? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-003-container-choice.md | wargame | web layout density | Card, ledger, plaque, table or prose? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-004-motion-budget.md | wargame | web motion | How much may this project move? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-005-ornament-budget.md | wargame | web colour motion brand | How much light does this project carry? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md | wargame | web density content | How dense, for whom? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-007-static-vs-server.md | wargame | web hosting infra state | Static export or a server? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-008-media-pipeline.md | wargame | web media perf | How do images get to the page? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-009-brand-family-accents.md | wargame | web brand colour | One brand or a family of accents? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-010-type-pairing.md | wargame | web typography brand | How to pick the type trio? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-011-surface-reactivity-budget.md | wargame | web motion perf | Should the surface react to presence? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md | wargame | web imagery brand | Literal imagery or generated fields? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md | wargame | web tooling testing | Where does a design law live so it actually holds? | 2027-07 |
-| archive/v1/doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md | wargame | web media layout content | Is a media block a citation or a monument? | 2027-07 |
-| archive/v1/GUIDE.md | guide | eos | The all-in-one guide to the EOS, the Venture A genesis and the development lifecycle | 2027-01 |
-| archive/v1/inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill, distil, report, and the never-list |  |
-| archive/v1/inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
-| archive/v1/inception/INTERVIEW.md | kernel | eos | The intake protocol, question set and the three mandatory challenge steps |  |
-| archive/v1/inception/README.md | kernel | eos | The Session 0 system, what it is and what lands here in Phase E |  |
-| archive/v1/inception/WALK_ORDER.md | kernel | eos wargame | How to compile the venture's wargame walk from the index, filter by triggers, canonical order |  |
-| archive/v1/kernel/SCALE_MATRIX.md | kernel | eos | The exact seed file list per scale S, M and L, plus trigger add-ons, machine-checked |  |
-| archive/v1/org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
-| archive/v1/org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
-| archive/v1/org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
-| archive/v1/START.md | root | eos | Bootstrap for every session, read order per entry mode and the ground rules |  |
-| archive/v1/VISION.md | root | eos | The north star, what the EOS is for and the invariants that hold as it grows |  |
 | benchmark/drills/agentic-development.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
 | benchmark/drills/ai-ml-llm.md | example | eos testing | Cold-agent acceptance drill for the AI, ML and LLM pack, build the gate before tuning the classifier |  |
 | benchmark/drills/api-integration.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
@@ -109,71 +35,6 @@ Derived file. Edit front-matter, then run
 | benchmark/drills/support-operations.md | example | eos testing | Single-run cold-agent acceptance drill for the support-operations pack, with deterministic machine-checkable criteria |  |
 | benchmark/drills/ui-ux.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
 | benchmark/drills/writing-content.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
-| benchmark/fixtures/app-api/README.md | example | eos testing | Energy quote JSON API fixture with planted defects for benchmark tasks |  |
-| benchmark/fixtures/app-static/README.md | example | eos testing | Static brochure site fixture with three planted defects for the agent benchmark |  |
-| benchmark/fixtures/briefs/BRIEF-M-fieldkit.md | example | eos testing | Canned drill brief, a field-survey web app for one contractor firm, scripted operator answers |  |
-| benchmark/fixtures/eos-mini/AGENTS.md | root | eos | Router for the eos-mini fixture, a tiny EOS-style repo used by benchmark tasks |  |
-| benchmark/fixtures/eos-mini/CLAUDE.md | root | eos | Router for the eos-mini fixture, a tiny EOS-style repo used by benchmark tasks |  |
-| benchmark/fixtures/eos-mini/doctrine/mini/DOCTRINE.md | doctrine | web | Settled doctrine for the mini module, page weight and image delivery |  |
-| benchmark/fixtures/eos-mini/doctrine/mini/guidance/IMAGES.md | doctrine | web content | Page-level guidance on serving images for the mini module |  |
-| benchmark/fixtures/eos-mini/doctrine/mini/README.md | doctrine | web | Map of the mini doctrine module, one page of guidance and two wargames |  |
-| benchmark/fixtures/eos-mini/doctrine/mini/wargames/WG-MINI-001-page-weight.md | wargame | web | How heavy may a page be before the build must push back? | 2027-08 |
-| benchmark/fixtures/eos-mini/doctrine/mini/wargames/WG-MINI-002-image-formats.md | wargame | web content | Which formats and sizes do we serve images in? | 2027-08 |
-| benchmark/fixtures/eos-mini/doctrine/WARGAME_INDEX.md | index | eos wargame | Derived index of every wargame, the surface inception walks |  |
-| benchmark/fixtures/eos-mini/GOVERNANCE.md | governance | eos | The law of eos-mini, front-matter schema excerpt, tag vocabulary and the supersession rule |  |
-| benchmark/fixtures/eos-mini/INDEX.md | index | eos | Derived index of every file, one row each, grep the tag column |  |
-| benchmark/fixtures/eos-mini/org/STATE.md | org | eos | Org state for eos-mini, which session is active and where work stands |  |
-| benchmark/fixtures/seed-v1-M/AGENTS.md | template | eos | FieldKit agent entry point, the M-scale router into the org files |  |
-| benchmark/fixtures/seed-v1-M/CLAUDE.md | template | eos | FieldKit agent entry point, the M-scale router into the org files |  |
-| benchmark/fixtures/seed-v1-M/docs/COMPILE_REPORT.md | template | eos | FieldKit compile report, the seed's ancestry proof and sign-off record |  |
-| benchmark/fixtures/seed-v1-M/docs/EOS_FEEDBACK.md | template | eos | FieldKit feedback file, the one channel back to the EOS, harvested monthly |  |
-| benchmark/fixtures/seed-v1-M/docs/LOCKBOOK.md | template | eos | FieldKit lock-book, the M-scale rulings and contracts with the EOS |  |
-| benchmark/fixtures/seed-v1-M/docs/VENTURE_BRIEF.md | template | eos | FieldKit venture brief, a field-survey web app for one contractor firm, the business truth |  |
-| benchmark/fixtures/seed-v1-M/OPERATORS_GUIDE.md | template | eos | FieldKit operators guide, the owner's manual and M-scale launcher library |  |
-| benchmark/fixtures/seed-v1-M/org/CADENCE.md | template | eos | FieldKit recurring sessions, the heartbeat schedule and the rules that keep it honest |  |
-| benchmark/fixtures/seed-v1-M/org/CONSTITUTION.md | template | eos | The FieldKit constitution, product doctrine and the protected organisational law |  |
-| benchmark/fixtures/seed-v1-M/org/OPERATING_MODEL.md | template | eos | The FieldKit operating model, work types, risk tiers and gates, knowledge, cadences, humans |  |
-| benchmark/fixtures/seed-v1-M/org/QUESTIONS.md | template | eos | FieldKit human decision queue, open questions for the operator and the folding rule |  |
-| benchmark/fixtures/seed-v1-M/org/QUEUE.md | template | eos | FieldKit queue, the single ordered work file, rows per the templates contract |  |
-| benchmark/fixtures/seed-v1-M/org/roles/PLAN.md | template | eos | FieldKit PLAN charter, decides what and why, encodes work a cold session can run unaided |  |
-| benchmark/fixtures/seed-v1-M/org/roles/VERIFY.md | template | eos | FieldKit VERIFY charter, independent review and audit, findings not fixes, evidence not vibes |  |
-| benchmark/fixtures/seed-v1-M/org/roles/WORK.md | template | eos | FieldKit WORK charter, changes things under an order, small batches, immaculate paper trail |  |
-| benchmark/fixtures/seed-v1-M/org/START.md | template | eos | FieldKit worker bootstrap, the read order per role, ground rules and the close-out ritual |  |
-| benchmark/fixtures/seed-v1-M/org/STATE.md | template | eos | FieldKit live state, the session claim line, live sections and the Resume Packet |  |
-| benchmark/fixtures/seed-v1-M/org/TEMPLATES.md | template | eos | FieldKit canonical artefact formats, front-matter contracts for queue rows, decisions and logs |  |
-| benchmark/fixtures/seed-v1-S/AGENTS.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
-| benchmark/fixtures/seed-v1-S/CLAUDE.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
-| benchmark/fixtures/seed-v1-S/docs/COMPILE_REPORT.md | template | eos | Herbfield Lane compile report, the seed's ancestry proof and sign-off record |  |
-| benchmark/fixtures/seed-v1-S/docs/EOS_FEEDBACK.md | template | eos | Herbfield Lane feedback file, the one channel back to the EOS, harvested monthly |  |
-| benchmark/fixtures/seed-v1-S/docs/LOCKBOOK.md | template | eos | Herbfield Lane lock-book, the S-scale rulings and contracts with the EOS |  |
-| benchmark/fixtures/seed-v1-S/docs/VENTURE_BRIEF.md | template | eos | Herbfield Lane venture brief, a sole-trader joinery brochure site, the business truth |  |
-| benchmark/fixtures/seed-v1-S/docs/WORKLOG.md | template | eos | Herbfield Lane worklog, the S-scale single running log and open-items list |  |
-| benchmark/fixtures/seed-v1-S/OPERATORS_GUIDE.md | template | eos | Herbfield Lane operators guide, the sole trader's manual and S-scale launcher library |  |
-| benchmark/fixtures/seed-v2-ORG/AGENTS.md | template | eos | FieldKit agent entry point, the ORG-scale router into the organisation files |  |
-| benchmark/fixtures/seed-v2-ORG/CLAUDE.md | template | eos | FieldKit agent entry point, the ORG-scale router into the organisation files |  |
-| benchmark/fixtures/seed-v2-ORG/docs/COMPILE_REPORT.md | template | eos | FieldKit compile report, the seed's ancestry proof and sign-off record |  |
-| benchmark/fixtures/seed-v2-ORG/docs/EOS_FEEDBACK.md | template | eos | FieldKit feedback file, the one channel back to the EOS, harvested monthly |  |
-| benchmark/fixtures/seed-v2-ORG/docs/LOCKBOOK.md | template | eos | FieldKit lock-book, the ORG-scale rulings and contracts with the EOS |  |
-| benchmark/fixtures/seed-v2-ORG/docs/VENTURE_BRIEF.md | template | eos | FieldKit venture brief, a field-survey web app for one contractor firm, the business truth |  |
-| benchmark/fixtures/seed-v2-ORG/OPERATORS_GUIDE.md | template | eos | FieldKit operators guide, the human's manual and the ORG-scale launcher library |  |
-| benchmark/fixtures/seed-v2-ORG/org/CONSTITUTION.md | template | eos | The FieldKit constitution, Part I product doctrine, Parts II and III the protected law |  |
-| benchmark/fixtures/seed-v2-ORG/org/PLAYBOOKS.md | template | eos | FieldKit playbooks, per-mode procedures plus hardening, incident, upkeep and retro |  |
-| benchmark/fixtures/seed-v2-ORG/org/QUESTIONS.md | template | eos | FieldKit human decision queue, open questions for the operator and the folding rule |  |
-| benchmark/fixtures/seed-v2-ORG/org/roles/EXECUTOR.md | template | eos | FieldKit EXECUTOR charter, the default owner who plans, implements, tests and documents |  |
-| benchmark/fixtures/seed-v2-ORG/org/roles/ORACLE.md | template | eos | FieldKit ORACLE charter, independent gate-test author for high-assurance work |  |
-| benchmark/fixtures/seed-v2-ORG/org/roles/REVIEWER.md | template | eos | FieldKit REVIEWER charter, acceptance judgement, sampled review and bounded repair |  |
-| benchmark/fixtures/seed-v2-ORG/org/START.md | template | eos | FieldKit session boot, per-mode budgets, ground rules, close only when exceptional |  |
-| benchmark/fixtures/seed-v2-ORG/org/TEMPLATES.md | template | eos | FieldKit canonical artefact shapes, task records, spikes, ADRs, questions, incidents |  |
-| benchmark/fixtures/seed-v2-ORG/org/TESTING.md | template | eos | FieldKit adaptive testing law, timing by change class, the test map, quality signals |  |
-| benchmark/fixtures/seed-v2-S/AGENTS.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
-| benchmark/fixtures/seed-v2-S/CLAUDE.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
-| benchmark/fixtures/seed-v2-S/docs/COMPILE_REPORT.md | template | eos | Herbfield Lane compile report, the seed's ancestry proof and sign-off record |  |
-| benchmark/fixtures/seed-v2-S/docs/EOS_FEEDBACK.md | template | eos | Herbfield Lane feedback file, the one channel back to the EOS, harvested monthly |  |
-| benchmark/fixtures/seed-v2-S/docs/LOCKBOOK.md | template | eos | Herbfield Lane lock-book, the S-scale rulings and contracts with the EOS |  |
-| benchmark/fixtures/seed-v2-S/docs/TASKS.md | template | eos | Herbfield Lane task list, the S-scale work surface, open items, questions and log |  |
-| benchmark/fixtures/seed-v2-S/docs/VENTURE_BRIEF.md | template | eos | Herbfield Lane venture brief, a sole-trader joinery brochure site, the business truth |  |
-| benchmark/fixtures/seed-v2-S/OPERATORS_GUIDE.md | template | eos | Herbfield Lane operators guide, the sole trader's manual and S-scale launcher library |  |
-| benchmark/holdout/app-api/README.md | example | eos testing | Holdout tests for the app-api fixture, scored after tasks, never shown to agents |  |
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
 | benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
 | CHANGELOG.md | governance | eos | One entry per release tag, sectioned by area |  |
@@ -220,6 +81,7 @@ Derived file. Edit front-matter, then run
 | org/CADENCE.md | org | eos | Pointer, the EOS heartbeat is machine state in org/cadence.json |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
 | org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
+| org/decisions/ADR-0003-lightness-and-honest-generation.md | decision | eos | Retained material that misleads an agent is a defect, the archive of record is a tag, and every derived file has a live generator |  |
 | org/deviations.md | org | eos | Append-only implementation-deviation log for the EOS v2 build, per ADR-0002 |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
@@ -393,7 +255,6 @@ Derived file. Edit front-matter, then run
 | packs/docs-dx/refs/DOC_GATE.md | foundation | content delivery ci tooling | The documentation gate reference, what runs, in what order, blocking or advisory, and how to prove each step works | 2028-05 |
 | packs/docs-dx/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the docs-dx pack, make a stale documented flag fail the build |  |
 | packs/docs-dx/research/NOTES.md | example | eos testing | Research synthesis for the docs-dx pack, four documentation philosophies, what is checkable, and what should bind |  |
-| packs/INDEX.md | index | eos | Derived index of every built pack, the always-loaded metadata surface |  |
 | packs/legal-licensing/CHECKS.md | guide | security pii delivery | What a reviewer or a checker can verify about licensing and data-protection routing, split into executable today and judgement | 2026-12 |
 | packs/legal-licensing/exemplars/EX-LEGAL-001-waitlist-with-a-poisoned-tree.md | example | security pii delivery | The pack applied end to end to a small hosted feature whose dependency tree hides a network copyleft term, an unlicensed vendored directory and an unmade choice |  |
 | packs/legal-licensing/guides/GD-LEGAL-001-copyleft-trigger.md | guide | security delivery | Can we use this copyleft dependency for what we actually ship, and what fires the obligation | 2027-11 |

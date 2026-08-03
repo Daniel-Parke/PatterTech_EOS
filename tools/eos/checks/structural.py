@@ -14,6 +14,18 @@ same messages, same severities). Two sanctioned differences:
 The tag vocabulary is parsed live from GOVERNANCE.md so governance
 stays the single source. Fixture files (benchmark/fixtures/,
 benchmark/holdout/) run the full E-series exactly as v1 did.
+
+The derived indexes are scoped to live material. Frozen trees are
+checked but never indexed: a benchmark fixture's wargames are not EOS
+guidance, and an index that mixes them with the real thing teaches an
+agent the wrong law. The three indexes and their sources:
+
+- INDEX.md, every live file with front-matter.
+- packs/INDEX.md, the always-loaded activation surface, one row per
+  built pack, sourced from PACK.md front-matter and its first
+  paragraph.
+- packs/GUIDE_INDEX.md, every decision guide under a pack, plus any
+  remaining type: wargame file outside one.
 """
 
 from __future__ import annotations
@@ -26,7 +38,11 @@ from ..findings import Finding
 from ..repo import RepoModel
 from . import register
 
-DERIVED = {"INDEX.md", "packs/GUIDE_INDEX.md"}
+DERIVED = {"INDEX.md", "packs/GUIDE_INDEX.md", "packs/INDEX.md"}
+# Frozen trees: checked, never indexed. Indexing them puts archived law
+# and benchmark fixtures in front of an agent as if they were current.
+NOT_INDEXED = ("archive/", "benchmark/fixtures/", "benchmark/holdout/")
+GUIDE_ID = re.compile(r"((?:WG|GD)-[A-Z]+-\d{3})")
 ROUTERS = {"AGENTS.md", "CLAUDE.md"}
 ROUTER_CAP = 40
 BUDGET = 150
@@ -70,66 +86,150 @@ def _warn(check, path, msg):
     return Finding(check, "warn", path, msg)
 
 
-# --- derived index builders (byte-identical to v1 output) ---------------
+def indexable(rec) -> bool:
+    """Live material. Frozen trees are checked but never indexed."""
+    return not rec.path.startswith(NOT_INDEXED)
+
+
+def _cell(value) -> str:
+    """One table cell: single line, pipes escaped, never breaks the row."""
+    if isinstance(value, list):
+        value = " ".join(str(v) for v in value)
+    return " ".join(str(value or "").split()).replace("|", "\\|")
+
+
+def _first_paragraph(body: str) -> str:
+    """A pack's level-one metadata: the first prose paragraph of PACK.md.
+
+    This is the paragraph PACK_SHAPE.md keeps under eighty words because
+    it sits in every agent's context whether the pack loads or not.
+    """
+    for block in body.split("\n\n"):
+        block = block.strip()
+        if block and not block.startswith("#"):
+            return block
+    return ""
+
+
+def is_guide(rec) -> bool:
+    """A decision guide: anything under a pack's guides/, plus any
+    remaining type: wargame file that lives outside one."""
+    p = PurePosixPath(rec.path)
+    under_pack = (len(p.parts) == 4 and p.parts[0] == "packs"
+                  and p.parts[2] == "guides")
+    return under_pack or rec.fm.data.get("type") == "wargame"
+
+
+# --- derived index builders ---------------------------------------------
 
 
 def build_index(model: RepoModel) -> str:
-    rows = ["---", "summary: Derived index of every file, one row each, grep the tag column",
+    rows = ["---", "summary: Derived index of every live file, one row each, grep the tag column",
             "type: index", "tags: [eos]", "derived: true", "---", "",
             "# INDEX", "",
             "Derived file. Edit front-matter, then run",
-            "`python tools/eos_check.py --write-index`. One row per file.", "",
+            "`python -m tools.eos check --write-index`. One row per live",
+            "file. Frozen trees are not indexed.", "",
             "| path | type | tags | summary | review_by |",
             "| --- | --- | --- | --- | --- |"]
     for rec in model.files:
-        if rec.path in DERIVED:
-            continue
-        if not rec.fm.present:
+        if rec.path in DERIVED or not rec.fm.present or not indexable(rec):
             continue
         fm = rec.fm.data
-        tags = " ".join(fm.get("tags", [])) if isinstance(fm.get("tags"), list) else str(fm.get("tags", ""))
         rows.append("| {} | {} | {} | {} | {} |".format(
-            rec.path, fm.get("type", ""), tags, fm.get("summary", ""), fm.get("review_by", "")))
+            rec.path, _cell(fm.get("type")), _cell(fm.get("tags")),
+            _cell(fm.get("summary")), _cell(fm.get("review_by"))))
     return "\n".join(rows) + "\n"
 
 
-def build_wargame_index(model: RepoModel) -> str:
-    rows = ["---", "summary: Derived index of every decision guide and archived wargame",
+def build_pack_index(model: RepoModel) -> str:
+    """The always-loaded activation surface, one row per built pack.
+
+    A pack directory holding a PACK.md is built by definition: the
+    contract forbids stub packs, so presence on disk is the status.
+    """
+    rows = ["---", "summary: Derived index of every built pack, the always-loaded metadata surface",
+            "type: index", "tags: [eos]", "derived: true", "---", "",
+            "# PACK INDEX", "",
+            "The always-loaded knowledge surface. One row per built pack: what",
+            "it covers, the predicates that gate it, and how big its body is.",
+            "Nothing else in `packs/` is loaded until a row here activates.", "",
+            "Derived file. Edit `PACK.md` front-matter and its first paragraph,",
+            "then run `python -m tools.eos check --write-index`.", "",
+            "Domains without a pack are not omissions here. Every domain, built",
+            "or not, carries an honest row in `registry/CAPABILITIES.md`,",
+            "generated from `registry/coverage.json`.", "",
+            "| Pack | What it covers, and when it activates | Predicates | Authority | Body lines |",
+            "| --- | --- | --- | --- | --- |"]
+    packs = []
+    for rec in model.files:
+        p = PurePosixPath(rec.path)
+        if len(p.parts) != 3 or p.parts[0] != "packs" or p.parts[2] != "PACK.md":
+            continue
+        if not rec.fm.present or not indexable(rec):
+            continue
+        packs.append(rec)
+    total = 0
+    for rec in packs:
+        fm = rec.fm.data
+        body_lines = len(rec.fm.body.strip("\n").splitlines())
+        total += body_lines
+        rows.append("| `{}` | {} | {} | {} | {} |".format(
+            rec.path, _cell(_first_paragraph(rec.fm.body)),
+            _cell(fm.get("applies_when")), _cell(fm.get("authority")),
+            body_lines))
+    rows += ["",
+             "{} built packs, {:,} body lines. The pack contract is".format(len(packs), total),
+             "`packs/PACK_SHAPE.md`; a domain that cannot meet its definition of",
+             "done stays a registry row and is never described as implemented."]
+    return "\n".join(rows) + "\n"
+
+
+def build_guide_index(model: RepoModel) -> str:
+    rows = ["---", "summary: Derived index of every decision guide, one fork each",
             "type: index", "tags: [eos, wargame]", "derived: true", "---", "",
             "# GUIDE_INDEX", "",
             "Derived file. Edit guide front-matter, then run",
             "`python -m tools.eos check --write-index`.", "",
-            "| id | question | module | tags | status | review_by |",
-            "| --- | --- | --- | --- | --- |  --- |"]
+            "| id | question | pack | authority | review |",
+            "| --- | --- | --- | --- | --- |"]
     for rec in model.files:
-        if not rec.fm.present or rec.fm.data.get("type") != "wargame":
+        if not rec.fm.present or not indexable(rec) or not is_guide(rec):
             continue
         fm = rec.fm.data
         p = PurePosixPath(rec.path)
-        wid = p.stem
-        m = re.match(r"(WG-[A-Z]+-\d{3})", wid)
-        wid = m.group(1) if m else wid
-        # v1: <module>/wargames/<id>.md. v2: packs/<pack>/guides/<id>.md.
+        m = GUIDE_ID.match(p.stem)
+        gid = m.group(1) if m else p.stem
         module = (p.parent.parent.name
                   if p.parent.name in ("wargames", "guides") else "")
-        tags = " ".join(fm.get("tags", [])) if isinstance(fm.get("tags"), list) else ""
-        rows.append("| {} | {} | {} | {} | {} | {} |".format(
-            wid, fm.get("summary", ""), module, tags, fm.get("status", ""), fm.get("review_by", "")))
+        rows.append("| {} | {} | {} | {} | {} |".format(
+            gid, _cell(fm.get("summary")), module,
+            _cell(fm.get("authority")), _cell(fm.get("review"))))
     return "\n".join(rows) + "\n"
 
 
 # --- checks -------------------------------------------------------------
 
 
+def _wanted_indexes(model: RepoModel) -> dict:
+    """Every derived index and the text it should hold.
+
+    packs/INDEX.md is in here deliberately. It was flagged derived,
+    whitelisted as generated and written by hand, so nothing compared it
+    and it sat twelve packs short of reality against a green build.
+    """
+    return {
+        "INDEX.md": build_index(model),
+        "packs/INDEX.md": build_pack_index(model),
+        "packs/GUIDE_INDEX.md": build_guide_index(model),
+    }
+
+
 @register("E001")
 def check_e001_index_drift(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
     out = []
-    want = {
-        "INDEX.md": build_index(model),
-        "packs/GUIDE_INDEX.md": build_wargame_index(model),
-    }
-    for rel, want_text in want.items():
+    for rel, want_text in _wanted_indexes(model).items():
         have = model.read(rel)
         if have is None:
             out.append(_err("E001", rel, "missing, run --write-index"))
@@ -139,14 +239,12 @@ def check_e001_index_drift(ctx: dict) -> list:
 
 
 def write_indexes(ctx: dict) -> list:
-    """Write both derived indexes, then re-verify against a fresh model."""
+    """Write every derived index, then re-verify against a fresh model."""
     model: RepoModel = ctx["model"]
-    (model.root / "INDEX.md").write_text(
-        build_index(model), encoding="utf-8", newline="\n")
-    guide_index = model.root / "packs" / "GUIDE_INDEX.md"
-    guide_index.parent.mkdir(parents=True, exist_ok=True)
-    guide_index.write_text(
-        build_wargame_index(model), encoding="utf-8", newline="\n")
+    for rel, text in _wanted_indexes(model).items():
+        path = model.root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8", newline="\n")
     fresh = RepoModel.load(model.root, today=model.today)
     reverify = dict(ctx)
     reverify["model"] = fresh

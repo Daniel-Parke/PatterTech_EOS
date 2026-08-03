@@ -195,11 +195,26 @@ Triggers and topics:
 A file with `derived: true` in its front-matter is generated. Hand
 editing one is a checker finding, and the fix is always to correct the
 source and regenerate. The integrator alone runs the generators.
-Registered today: `INDEX.md`, `doctrine/WARGAME_INDEX.md`,
-`org/TASKS.md` and `org/STATE.md`, regenerated with
-`python -m tools.eos check --write-index`. Written by hand until the
-generators are repointed, and flagged derived so the gap stays visible:
-`packs/INDEX.md` and `registry/CAPABILITIES.md`.
+
+Derived means generated, and there is no third state (ADR-0003). Every
+file below has a live generator and is in the checker's compare set;
+marking a hand-written file derived hides it from the checks that would
+keep it honest, which is how `packs/INDEX.md` sat twelve packs short of
+reality against a green build.
+
+| File | Generator |
+| --- | --- |
+| `INDEX.md` | `check --write-index` |
+| `packs/INDEX.md` | `check --write-index` |
+| `packs/GUIDE_INDEX.md` | `check --write-index` |
+| `registry/CAPABILITIES.md` | `check --write-index` |
+| `org/TASKS.md` | `task views` |
+| `org/STATE.md` | `task views` |
+
+Every derived index is scoped to live material. Frozen trees, meaning
+`archive/` and the benchmark fixtures, are checked and never indexed: a
+fixture's wargames are not EOS guidance, and an index that mixes them
+with the real thing teaches an agent the wrong law.
 
 Canonical machine files hold the truth; the Markdown beside them is a
 view. `registry/evidence.json`, `registry/coverage.json`,
@@ -210,8 +225,19 @@ canonical.
 
 Past a `review_by` or `review` date means suspect: verify before
 relying. Supersession is explicit and bidirectional, `supersedes` and
-`superseded_by`, and the checker enforces the pair. Superseded material
-is archived under `archive/`, never silently deleted.
+`superseded_by`, and the checker enforces the pair.
+
+Superseded material is preserved at a pushed tag and removed from the
+working tree once nothing live refers to it (ADR-0003). It is never
+lost, and it is never left where an agent will read it as current law.
+The v1 tree is at `archive/v1-final`; `archive/README.md` says how to
+retrieve any file from it. Retained material that misleads an agent is
+a defect, not an asset.
+
+The ordering is binding: resolve every live reference first, then
+retire. Where a live pack delegates a decision into superseded
+material, the fix is to write the guide in the pack, never to delete
+the target and leave a dangling link.
 
 ## Versioning and release
 

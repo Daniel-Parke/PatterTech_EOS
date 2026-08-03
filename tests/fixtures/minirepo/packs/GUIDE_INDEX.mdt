@@ -1,5 +1,5 @@
 ---
-summary: Derived index of every decision guide and archived wargame
+summary: Derived index of every decision guide, one fork each
 type: index
 tags: [eos, wargame]
 derived: true
@@ -10,6 +10,6 @@ derived: true
 Derived file. Edit guide front-matter, then run
 `python -m tools.eos check --write-index`.
 
-| id | question | module | tags | status | review_by |
-| --- | --- | --- | --- | --- |  --- |
-| WG-TST-001 | Should the fixture repo carry a wargame at all | testmod | eos wargame | active | 2030-01 |
+| id | question | pack | authority | review |
+| --- | --- | --- | --- | --- |
+| WG-TST-001 | Should the fixture repo carry a wargame at all | testmod |  |  |

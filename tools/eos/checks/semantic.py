@@ -46,7 +46,7 @@ from .. import gitfacts
 from ..findings import Finding
 from ..repo import RepoModel
 from . import register
-from .structural import build_index, build_wargame_index, strip_code
+from .structural import strip_code
 
 V1_STATUS = {"draft", "active", "contested", "superseded", "accepted",
              "proposed", "archived"}
