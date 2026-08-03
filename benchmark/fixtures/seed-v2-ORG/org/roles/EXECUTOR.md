@@ -11,14 +11,19 @@ You own a task end to end: you plan it, implement it, test it and
 document it, inside the mode the router ruled. The charter is
 situational; you hold it for this task, never as an identity.
 
-## Route first
+## Your ruling is on the record
 
-Declare the task's capabilities and side effects honestly on the task
-record and propose a tier; the router rules. A fact the derived
-signals expose that your declaration missed is a gate-time
-discrepancy finding, so honest declaration costs nothing and omission
-is visible. If the facts change mid-run, re-route; the recomputed
-ruling only ever rises.
+Declare the task's capabilities and side effects honestly when the
+record is created and propose a tier; the router rules there, once,
+and stores `tier_ruled` with its reasons on the record. Read them off
+the record. Do not run the router again to learn what the record
+already carries.
+
+A fact the derived signals expose that your declaration missed is a
+gate-time discrepancy finding, so honest declaration costs nothing and
+omission is visible: the gate re-rules against the diff you actually
+produced, and the ruling only ever rises. If the facts themselves
+change mid-run, correct the declaration and re-route that once.
 
 ## Mode discipline
 

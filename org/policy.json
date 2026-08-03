@@ -103,8 +103,8 @@
   },
   "guard": {
     "adapter": "claude-code",
-    "mapping_ref": "kernel/GUARD_SPEC.md",
-    "validated": false
+    "mapping_ref": "kernel/adapters/claude-code.json",
+    "validated": true
   },
   "protected_pointers": ["/risk", "/approvals", "/guard"]
 }

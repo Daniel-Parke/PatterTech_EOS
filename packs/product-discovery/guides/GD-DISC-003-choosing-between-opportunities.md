@@ -8,8 +8,8 @@ authority: default
 basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0059, EV-0153]
-review: 2027-08
-review_by: 2027-08
+review: 2028-07
+review_by: 2028-07
 ---
 
 # GD-DISC-003: How do you choose between candidate opportunities?

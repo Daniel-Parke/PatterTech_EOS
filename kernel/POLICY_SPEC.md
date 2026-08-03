@@ -93,6 +93,25 @@ expose but the declaration missed is a gate-time discrepancy finding:
 the work does not merge until the declaration is corrected and the task
 re-routed. Honest declaration costs nothing; omission is visible.
 
+## Routing is paid once
+
+The ruling is computed when the task record is created and stored on
+the record: `tier_ruled` with the machine-readable reasons beside it. A
+session reads its tier and its reasons from the record, which is a
+plain file read, and does not run the router again to learn what the
+record already carries. A record created without declared facts routes
+from an empty fact set and rules a clean R0; its reasons list is empty,
+and an empty reasons list is how a record says no factor is active.
+
+Express work below the record threshold is unchanged. It has no record
+because the commit message is the whole record, and the record is
+created at the moment the work converts to Standard or above, which is
+where the ruling is stored.
+
+Two recomputations remain, and neither is a per-session round trip. The
+owner re-routes when the declared facts themselves change mid-run. The
+gate recomputes at merge, next.
+
 ## Gate-time recomputation, upward only
 
 At the merge gate the router recomputes the tier against the actual
@@ -100,6 +119,14 @@ diff, not the declared intent. The recomputed tier can only raise the
 ruling, never lower it. Work that arrived as R1 and turns out to touch
 an R2 surface is re-routed and re-verified at R2. The only path down is
 an exception, below.
+
+This recomputation is what makes routing once safe rather than a
+loophole. A session cannot under-declare its way to a lower tier and
+keep it: the checker re-rules against the diff the session actually
+produced, a fact the declaration missed is a discrepancy finding that
+blocks the merge until the record is corrected and re-routed, and the
+ruling only ever rises. The stored ruling decides the ceremony a
+session works under; the gate ruling decides what merges.
 
 ## Exceptions
 

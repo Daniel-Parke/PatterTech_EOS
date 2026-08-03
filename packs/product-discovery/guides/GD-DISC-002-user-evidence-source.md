@@ -8,8 +8,8 @@ authority: default
 basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0059]
-review: 2027-08
-review_by: 2027-08
+review: 2028-06
+review_by: 2028-06
 ---
 
 # GD-DISC-002: Where does the evidence about users come from?

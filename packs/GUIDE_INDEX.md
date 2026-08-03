@@ -47,3 +47,6 @@ Derived file. Edit guide front-matter, then run
 | WG-MINI-002 | Which formats and sizes do we serve images in? | mini | web content | active | 2027-08 |
 | WG-EOS-001 | What scale of organisational machinery does this venture compile, S or ORG? | inception | eos wargame | active | 2027-07 |
 | WG-EOS-002 | One repo, several, or a corner of an existing one? | inception | eos wargame infra | active | 2027-07 |
+| WG-DEL-005 | Which double stands in for this port: real, container, verified fake, or mock? | delivery-testing | delivery testing arch | active | 2028-02 |
+| WG-DEL-006 | How independent must the oracle be from the code it judges, and who authors it? | delivery-testing | delivery testing ci | active | 2028-03 |
+| WG-DEL-007 | When are tests written relative to the code, and is that a rule or a default? | delivery-testing | delivery testing ci | active | 2028-03 |

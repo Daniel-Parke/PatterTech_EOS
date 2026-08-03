@@ -9,7 +9,7 @@ sources: [EV-0055, EV-0200]
 review: on-change-of:ISO-10002-revision
 type: guide
 tags: [ops, product]
-review_by: 2027-08
+review_by: 2028-07
 ---
 
 # GD-SUPPORT-001: How does inbound get classified, and what keeps the queue finite?

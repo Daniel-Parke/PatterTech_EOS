@@ -6,10 +6,10 @@ authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0171, EV-0230]
-review: 2027-08
+review: 2028-05
 type: guide
 tags: [arch, delivery, a11y]
-review_by: 2027-08
+review_by: 2028-05
 ---
 
 # GD-NAT-001: Which client architecture does this product take?

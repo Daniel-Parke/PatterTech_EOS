@@ -179,3 +179,21 @@ def test_factor_table_mirrors_policy_spec_shape():
         assert factor["sources"]
     deniers = [f["id"] for f in router.FACTOR_TABLE if f["denies_express"]]
     assert sorted(deniers) == ["boundary-contact", "size-threshold"]
+
+
+def test_declaration_only_route_is_what_a_record_stores():
+    # Creation-time routing has no diff, so the derived set is empty.
+    # The ruling still comes with its reasons, and a record with no
+    # declared facts rules a clean R0 with an empty reasons list.
+    declared = {"capabilities": [], "side_effects": ["migrates-schema"]}
+    ruling = router.route(declared, {}, None)
+    assert ruling["tier"] == "R2"
+    assert [r["factor"] for r in ruling["reasons"]] == ["schema-change"]
+    assert ruling["reasons"][0]["source"] == "declared"
+    assert ruling["discrepancies"] == []
+    # No reason row carries a discrepancy key, which the record schema
+    # forbids on a stored reason.
+    assert all("discrepancy" not in r for r in ruling["reasons"])
+
+    clean = router.route({"capabilities": [], "side_effects": []}, {}, None)
+    assert clean == {"tier": "R0", "reasons": [], "discrepancies": []}

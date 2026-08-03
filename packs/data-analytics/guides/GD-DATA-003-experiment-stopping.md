@@ -8,8 +8,8 @@ authority: default
 basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0059]
-review: 2027-08
-review_by: 2027-08
+review: 2028-01
+review_by: 2028-01
 ---
 
 # GD-DATA-003: How is an experiment allowed to end?

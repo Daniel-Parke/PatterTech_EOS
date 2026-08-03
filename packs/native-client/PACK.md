@@ -12,7 +12,7 @@ review: on-change-of:EN-301-549-v4-publication
 sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236]
 type: playbook
 tags: [eos, a11y, delivery, ops, state]
-review_by: 2027-08
+review_by: 2027-04
 ---
 
 # native-client

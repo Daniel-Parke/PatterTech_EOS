@@ -8,8 +8,8 @@ authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0057]
-review: 2027-08
-review_by: 2027-08
+review: 2027-12
+review_by: 2027-12
 ---
 
 # GD-DATA-002: What shape does the analytics model take?

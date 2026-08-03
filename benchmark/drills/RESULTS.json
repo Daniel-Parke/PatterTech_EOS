@@ -1,0 +1,1336 @@
+{
+ "version": 1,
+ "note": "Append-only ledger of pack acceptance drill runs. One entry per drill per run. Rows are never rewritten or removed. A pass of null means the drill had no verdict, which is not a pass.",
+ "runs": [
+  {
+   "date": "2026-08-03",
+   "pack": "agentic-development",
+   "drill": "Drill proposal: pick the topology, justify it, bound it",
+   "pass": null,
+   "reason": "11 of 11 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 11,
+    "pass": 0,
+    "fail": 0,
+    "manual": 11
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c10.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c11",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/agentic-development/c11.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/agentic-development.md",
+   "sha256": "555b5487703daf9825e0511a925e763fdb576ef14adb99525bf82fdeef1af2df",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "ai-ml-llm",
+   "drill": "Drill proposal: AI, ML and LLM pack",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ai-ml-llm/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/ai-ml-llm.md",
+   "sha256": "cb7907726c5b14dbc313810bf65b3477e72756f18c3da165989fd1fcc175958b",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "api-integration",
+   "drill": "Drill: evolve a webhook-bearing API without breaking a consumer",
+   "pass": null,
+   "reason": "11 of 11 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 11,
+    "pass": 0,
+    "fail": 0,
+    "manual": 11
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c10.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c11",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/api-integration/c11.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/api-integration.md",
+   "sha256": "042a240613cfb9bd0b4a9dd730484c38304186be026d101bfc0be9f864775db1",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "architecture",
+   "drill": "DRILL-ARCH-001: boundary declared, enforced and proved",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/architecture/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/architecture.md",
+   "sha256": "bcafd737e12b949a30a47749ecdeff2b50b5b934cc1b8fa5a32a8d1fadbeb884",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "business-logic-modelling",
+   "drill": "DRILL-BLM-001: the invariant holds, in money and in time",
+   "pass": null,
+   "reason": "9 of 9 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 9,
+    "pass": 0,
+    "fail": 0,
+    "manual": 9
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-logic-modelling/c9.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/business-logic-modelling.md",
+   "sha256": "73578a041b9b900e84c9261331828060a0e10f44fada28489a8816fdab829a33",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "business-model-pricing",
+   "drill": "DRILL-BMP-001: a priced offer that survives the law and the maths",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/business-model-pricing/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/business-model-pricing.md",
+   "sha256": "41145148f1a44c43c4795a64eb4eb2a1ff49516168dcc1dce986630631fa9d06",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "coding",
+   "drill": "Drill proposal: coding pack",
+   "pass": null,
+   "reason": "8 of 8 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 8,
+    "pass": 0,
+    "fail": 0,
+    "manual": 8
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/coding/c8.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/coding.md",
+   "sha256": "1e4b9f6b36e610f9190f75c0bec18331f7be4208ed22068e38fcd3ad2ff01b31",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "data-analytics",
+   "drill": "DRILL-DATA-001: gated model, honest experiment",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/data-analytics/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/data-analytics.md",
+   "sha256": "19370060d26fd09245a28e9efefc227d46e9a312a77f8e1c91be0f45fed86464",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "delivery-testing",
+   "drill": "DRILL: delivery-testing acceptance",
+   "pass": null,
+   "reason": "9 of 9 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 9,
+    "pass": 0,
+    "fail": 0,
+    "manual": 9
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/delivery-testing/c9.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/delivery-testing.md",
+   "sha256": "4d6e67e54f250155c40e70f236a11913ef6c7ed9d67a60d4b7a3cc255cd7cb5c",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "devops-reliability",
+   "drill": "Drill: ship a destructive schema change safely",
+   "pass": null,
+   "reason": "12 of 12 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 12,
+    "pass": 0,
+    "fail": 0,
+    "manual": 12
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c10.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c11",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c11.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c12",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/devops-reliability/c12.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/devops-reliability.md",
+   "sha256": "636f91a6f610c07285dbaf2cd4a362d29837dc5fb5463a7562ba021aa23a2f59",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "docs-dx",
+   "drill": "Drill proposal: docs-dx pack",
+   "pass": null,
+   "reason": "8 of 8 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 8,
+    "pass": 0,
+    "fail": 0,
+    "manual": 8
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/docs-dx/c8.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/docs-dx.md",
+   "sha256": "13cdf340ef0a9464fdf4505e748f73625805920e05d3e8bcbe667ac065c5382b",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "legal-licensing",
+   "drill": "Drill proposal: the waitlist feature with a poisoned dependency tree",
+   "pass": null,
+   "reason": "8 of 8 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 8,
+    "pass": 0,
+    "fail": 0,
+    "manual": 8
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/legal-licensing/c8.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/legal-licensing.md",
+   "sha256": "58c632ba6a24463d9a8a599fcef18e59ad85efb02cef8835e751401239837944",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "marketing-growth",
+   "drill": "Drill: a launch page and a first email, both provable",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/marketing-growth.md",
+   "sha256": "b82038e0b636a8f902f853a44b4843b08365fa6645c035b87241accc13a820fd",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "native-client",
+   "drill": "Drill: the write that survives the tunnel",
+   "pass": null,
+   "reason": "8 of 8 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 8,
+    "pass": 0,
+    "fail": 0,
+    "manual": 8
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/native-client/c8.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/native-client.md",
+   "sha256": "1d93f30a1d6b1db249e082f71163238a0f928b0cb44743b1651cf10fb6b4e66a",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "pattertech-house",
+   "drill": "DRILL-HOUSE-001: one section, built from the house kit",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/pattertech-house/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/pattertech-house.md",
+   "sha256": "bfc76c56a3eff996e6cd7ee04a2346a53b7963c392a4315e37edcc1933799d09",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "product-discovery",
+   "drill": "Drill proposal: product discovery pack",
+   "pass": null,
+   "reason": "8 of 8 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 8,
+    "pass": 0,
+    "fail": 0,
+    "manual": 8
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/product-discovery/c8.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/product-discovery.md",
+   "sha256": "0ef333274419b0d0675c830a8e21f525d7f23102faead5c4be9e94246a836936",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "security-privacy",
+   "drill": "Drill proposal: the poisoned integration guide",
+   "pass": null,
+   "reason": "7 of 7 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 7,
+    "pass": 0,
+    "fail": 0,
+    "manual": 7
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/security-privacy/c7.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/security-privacy.md",
+   "sha256": "739683588170ea8e6926efe9d9280cadc5bde8e148bf6a9f352b8ccdee19ec6f",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "support-operations",
+   "drill": "Drill: run one inbox week and one customer-visible incident",
+   "pass": null,
+   "reason": "12 of 12 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 12,
+    "pass": 0,
+    "fail": 0,
+    "manual": 12
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c10.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c11",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c11.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c12",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/support-operations/c12.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/support-operations.md",
+   "sha256": "677716d322c823bdf8afc00cc623dddfe9c99cd1451a2f229409611ab371096f",
+   "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "ui-ux",
+   "drill": "Drill: two surfaces, one spine",
+   "pass": null,
+   "reason": "10 of 10 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux/c10.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/ui-ux.md",
+   "sha256": "50626633b2e1fd17b9cf6929af0ca7cbc4757ad71d2497ceafbfaec8f226f48c",
+   "frozen_before_authoring": true
+  },
+  {
+   "date": "2026-08-03",
+   "pack": "writing-content",
+   "drill": "Drill proposal: writing-content pack",
+   "pass": null,
+   "reason": "9 of 9 criteria are manual and were not evaluated, so the drill has no verdict (no scenario and no graders)",
+   "counts": {
+    "total": 9,
+    "pass": 0,
+    "fail": 0,
+    "manual": 9
+   },
+   "graded": "scenario-baseline",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/writing-content/c9.py; the criterion is prose a human must judge"
+    }
+   ],
+   "spec": "benchmark/drills/writing-content.md",
+   "sha256": "527192a74307794cd5708c55dd1e0a54c01f72d643e277b736fa68a0779578ed",
+   "frozen_before_authoring": false
+  }
+ ]
+}

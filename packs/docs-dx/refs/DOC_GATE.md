@@ -7,7 +7,7 @@ scope: estate
 sources: [EV-0102, EV-0136, EV-0170, EV-0189, EV-0330, EV-0331, EV-0332, EV-0335]
 volatility: slow
 review: on-change-of:lychee-exit-codes-or-fragment-checking
-review_by: 2027-08
+review_by: 2028-05
 ---
 
 # Documentation gate reference

@@ -6,10 +6,10 @@ basis: standard
 evidence_grade: observational
 scope: estate
 sources: [FRAG-WRITING-CONTENT-01, FRAG-WRITING-CONTENT-02, FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-05, FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-07, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-09, FRAG-WRITING-CONTENT-10]
-review: 2027-08
+review: 2028-09
 type: guide
 tags: [voice, content, a11y]
-review_by: 2027-08
+review_by: 2028-09
 ---
 
 # GD-WRIT-001: Which clarity philosophy governs this text?

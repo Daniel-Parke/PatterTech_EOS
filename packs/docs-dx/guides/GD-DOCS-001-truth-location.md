@@ -8,8 +8,8 @@ authority: default
 basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0023, EV-0095, EV-0102, EV-0136, EV-0189, EV-0322, EV-0323, EV-0330, EV-0332, EV-0333]
-review: 2027-08
-review_by: 2027-08
+review: 2028-04
+review_by: 2028-04
 ---
 
 # GD-DOCS-001: Where does this document's truth live?

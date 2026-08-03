@@ -6,6 +6,13 @@ them; a session not named in the committed unexpired set is refused;
 expired claims surface their liveness identity and are never taken
 over automatically. All writes are atomic temp-then-rename.
 
+Routing is paid once, here. create_task rules the tier from the
+record's declared facts and stores tier_ruled with its machine-readable
+reasons on the record, so a session reads its ruling off the record
+instead of invoking the router again. The merge gate still recomputes
+against the actual diff and resolves upward only, which is what makes
+routing once safe rather than a loophole (kernel/POLICY_SPEC.md).
+
 render_views regenerates the derived views org/TASKS.md and
 org/STATE.md from the canonical records (org/tasks/*.json,
 org/claims.json, org/cadence.json) and read-only git facts. Derived
@@ -135,8 +142,59 @@ def validate_task_record(root, record):
     return findings
 
 
-def create_task(root, record):
-    """Validate and write org/tasks/<id>.json atomically; return path.
+def load_policy(root):
+    """The venture policy document, or {} when there is none to read.
+
+    Creation-time routing reads declared facts only, so the policy
+    affects nothing here beyond the Express thresholds, and a venture
+    without a policy file still routes. A malformed policy is left to
+    the D007 seed check to report rather than crashing record creation.
+    """
+    for rel in ("org/policy.json", "docs/policy.json"):
+        path = Path(root) / rel
+        if path.is_file():
+            try:
+                doc = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                return {}
+            return doc if isinstance(doc, dict) else {}
+    return {}
+
+
+def route_record(root, record, *, policy=None):
+    """Rule the record's tier from its declared facts; stamp it in place.
+
+    Declaration-only: no diff is read and no git command runs, so this
+    is the cheap half of routing. The record gains tier_ruled and the
+    machine-readable reasons, one row per active factor, which is what
+    a session later reads instead of running the router itself.
+
+    A record created without declared facts routes from an empty fact
+    set and rules a clean R0. Its reasons list is empty, which is how
+    the record says no factor is active: the schema reserves an empty
+    reasons list for exactly that case.
+
+    Returns the ruling dict from router.route.
+    """
+    from tools.eos import router
+
+    if policy is None:
+        policy = load_policy(root)
+    ruling = router.route(record.get("declared") or {}, {}, policy)
+    record["tier_ruled"] = ruling["tier"]
+    record["reasons"] = ruling["reasons"]
+    return ruling
+
+
+def create_task(root, record, *, policy=None):
+    """Route, validate and write org/tasks/<id>.json atomically.
+
+    Returns the written path. The record is routed first: the router,
+    not the agent, rules the tier, and the ruling plus its reasons are
+    stored on the record so no session has to recompute them. The
+    record dict is stamped in place, so the caller reads the ruling
+    straight back without a second command. tier_proposed is left
+    alone; the agent proposes and the router rules.
 
     Raises ValueError when validation finds errors (missing jsonschema
     is an error finding too; the CLI maps that case to exit 2).
@@ -145,6 +203,7 @@ def create_task(root, record):
     task_id = record.get("id", "")
     if not _TASK_ID_RE.match(task_id):
         raise ValueError("task id must match T-####: %r" % (task_id,))
+    route_record(root, record, policy=policy)
     findings = validate_task_record(root, record)
     if findings.errors:
         raise ValueError("task record invalid:\n" + findings.to_text())

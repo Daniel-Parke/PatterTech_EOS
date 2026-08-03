@@ -13,8 +13,9 @@ worker over its files. CLAUDE.md is a byte-identical copy of this file.
 Do this now, in order:
 
 1. Read docs/LOCKBOOK.md (rulings win on specifics) and the brief.
-2. Route before you work: docs/policy.json rules the tier and mode,
-   and the ruling decides the ceremony.
+2. Read the ruled tier and reasons from your task row in docs/TASKS.md;
+   the ruling is made once, when the row is written, and it decides the
+   ceremony.
 3. Record the task in docs/TASKS.md; friction and anything undecided
    go to docs/EOS_FEEDBACK.md.
 

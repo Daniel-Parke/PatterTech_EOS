@@ -7,8 +7,10 @@ compiled_from: kernel/templates/org/START.tpl.md
 
 # START · Session boot
 
-Boot to the mode the router ruled, within its budget. Everything you
-need is on disk; nothing important lives in a chat.
+Boot to the mode the router ruled, within its budget. The ruling is
+already on your task record: read `tier_ruled` and its reasons there
+rather than routing again. Everything you need is on disk; nothing
+important lives in a chat.
 
 ## Boot by mode
 
@@ -30,7 +32,9 @@ need is on disk; nothing important lives in a chat.
 ## Ground rules
 
 - Files outrank memory. Anything the files do not say is undecided:
-  surface it rather than invent it.
+  surface it rather than invent it. Your ruling is one of those files:
+  routing is paid once when the record is created, and the merge gate
+  recomputes against the actual diff, upward only.
 - Code and tests outrank notes. When a view disagrees with the
   repository, trust the repository and flag the view.
 - Circuit breaker: stop after three materially distinct falsified

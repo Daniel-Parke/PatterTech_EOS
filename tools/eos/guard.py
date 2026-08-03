@@ -8,6 +8,15 @@ kernel/schemas/guard-action.schema.json.
 evaluate(action, policy, adapter_validated) returns one document valid
 under guard-action.schema.json.
 
+The host enforcement adapter is loaded, not believed. A policy that
+says guard.validated is true proves nothing on its own: this module
+reads the mapping file the policy names, checks that it carries a
+bypass-suite validation record whose cases all passed, and derives
+validation from that. A missing, malformed or failing mapping fails
+closed, and a guarded class the suite never demonstrated as enforced
+stays manual-only even under a validated adapter. See
+kernel/adapters/README.md.
+
 The action descriptor is a dict. Recognised keys:
 
 - action_class: one of the ten classes, when the caller knows it.
@@ -30,8 +39,12 @@ guarded and rules manual-only. The guard never guesses an allow.
 
 from __future__ import annotations
 
+import json
 import re
 import shlex
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 GUARDED_CLASSES = (
     "external-write",
@@ -153,6 +166,160 @@ def classify(action):
     return None
 
 
+# --- host enforcement adapter -----------------------------------------
+
+# Strictness order for capping. A verdict may only ever move right.
+_VERDICT_STRICTNESS = {"allow": 0, "require-approval": 1,
+                       "manual-only": 2, "deny": 3}
+
+
+def _stricter(a, b):
+    return a if _VERDICT_STRICTNESS[a] >= _VERDICT_STRICTNESS[b] else b
+
+
+def load_adapter(policy, root=None):
+    """Read the mapping file named by policy.guard.mapping_ref.
+
+    Returns (mapping, reason). mapping is None when the policy names no
+    mapping, when the file is absent, or when it does not parse. The
+    reason says which, so the fail-closed ruling can explain itself.
+    """
+    guard_cfg = ((policy or {}).get("guard") or {})
+    ref = guard_cfg.get("mapping_ref")
+    if not ref:
+        return None, "policy names no adapter mapping (guard.mapping_ref)"
+    path = Path(root or REPO_ROOT) / str(ref).replace("\\", "/")
+    if not path.is_file():
+        return None, "adapter mapping file absent: %s" % ref
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as exc:
+        return None, "adapter mapping unreadable: %s (%s)" % (ref, exc)
+    if not isinstance(doc, dict):
+        return None, "adapter mapping is not an object: %s" % ref
+    return doc, "adapter mapping loaded: %s" % ref
+
+
+def adapter_state(policy, root=None):
+    """Derive the adapter's real state from the mapping on disk.
+
+    validated is true only when the policy names a mapping, the mapping
+    file exists, and it carries a validation record with at least one
+    bypass-suite case and no case that failed. The policy's own
+    guard.validated can withdraw validation; it can never grant it.
+
+    covered holds the classes the suite actually demonstrated as
+    enforced. Every other guarded class stays manual-only, per
+    kernel/GUARD_SPEC.md, however the mapping rules it.
+    """
+    guard_cfg = ((policy or {}).get("guard") or {})
+    reasons = []
+    mapping, reason = load_adapter(policy, root)
+    reasons.append(reason)
+    if mapping is None:
+        return {"validated": False, "covered": frozenset(), "mapping": None,
+                "verdicts": {}, "reasons": reasons}
+
+    validation = mapping.get("validation") or {}
+    cases = validation.get("cases") or []
+    failed = [c.get("id", "?") for c in cases
+              if isinstance(c, dict) and c.get("result") != "pass"]
+    validated = True
+    if not cases:
+        validated = False
+        reasons.append("adapter mapping carries no bypass-suite cases")
+    elif failed:
+        validated = False
+        reasons.append("bypass-suite cases failed: %s" % ", ".join(failed))
+    if guard_cfg.get("validated", True) is False:
+        validated = False
+        reasons.append("policy guard.validated is false: validation withdrawn")
+
+    classes = mapping.get("classes") or {}
+    verdicts = {}
+    for name, entry in classes.items():
+        if name in GUARDED_CLASSES and isinstance(entry, dict):
+            verdict = entry.get("verdict", "manual-only")
+            verdicts[name] = verdict if verdict in VERDICTS else "manual-only"
+    recorded = set(validation.get("covered_classes") or [])
+    covered = frozenset(
+        name for name in recorded
+        if name in GUARDED_CLASSES
+        and (classes.get(name) or {}).get("covered") is True)
+    if not validated:
+        covered = frozenset()
+    uncovered = sorted(set(GUARDED_CLASSES) - covered)
+    if validated and uncovered:
+        reasons.append("classes the suite did not demonstrate as enforced "
+                       "stay manual-only: %s" % ", ".join(uncovered))
+    return {"validated": validated, "covered": covered, "mapping": mapping,
+            "verdicts": verdicts, "reasons": reasons}
+
+
+def hook_surface(action):
+    """What a host PreToolUse hook can actually read from a tool call.
+
+    The hook sees the tool name and the tool input. It does not see the
+    contents of files the command will later read, so script_content is
+    dropped here even when the caller supplied it. Running the bypass
+    cases against this reduced surface is what makes the validation
+    record honest: it measures the adapter, not the test fixture.
+    """
+    surface = {"tool": action.get("tool") or ("Bash" if action.get("command")
+                                              else None)}
+    for key in ("command", "action_class", "declared_irreversible",
+                "targets_production", "emits_secret", "new_destination",
+                "accepts_legal_terms"):
+        if action.get(key) is not None:
+            surface[key] = action[key]
+    return {k: v for k, v in surface.items() if v is not None}
+
+
+def run_bypass_suite(mapping, cases):
+    """Run the bypass contract cases against a mapping, offline.
+
+    Each case is a (action_descriptor, expected_class) pair. A case
+    passes when the mapping routes that tool through a hook event, the
+    guard classifies the hook surface into a guarded class, and the
+    mapping's ruling for that class is not allow. Anything else is a
+    fail, and a class with no passing case is uncovered.
+    """
+    matchers = set((mapping or {}).get("hook_matchers") or [])
+    classes = (mapping or {}).get("classes") or {}
+    results = []
+    for index, (action, expected_class) in enumerate(cases, start=1):
+        surface = hook_surface(action)
+        tool = surface.get("tool") or "Bash"
+        try:
+            seen = classify(surface)
+        except ValueError:
+            seen = None
+        entry = classes.get(seen) or {}
+        verdict = entry.get("verdict", "manual-only")
+        hooked = tool in matchers
+        blocked = (seen in GUARDED_CLASSES
+                   and verdict in ("require-approval", "manual-only", "deny"))
+        text = _action_text(surface)
+        named = any(p.search(text) for _, p in _TEXT_RULES)
+        results.append({
+            "id": "B%02d" % index,
+            "tool": tool,
+            "surface": surface.get("command", surface.get("action_class", "")),
+            "expected_class": expected_class,
+            "classified": seen or "none",
+            "by": "named-rule" if named else "unrecognised-command fallback",
+            "mapping_verdict": verdict,
+            "hook_fires": hooked,
+            "result": "pass" if (hooked and blocked) else "fail",
+        })
+    return results
+
+
+def suite_coverage(results):
+    """Classes the suite demonstrated as enforced, sorted."""
+    return sorted({r["classified"] for r in results if r["result"] == "pass"})
+
+
 def _floor(action, action_class, text):
     """Return (floor_hit, floor_verdict) or (None, None)."""
     if action_class == "money-movement":
@@ -174,13 +341,19 @@ def _floor(action, action_class, text):
     return None, None
 
 
-def evaluate(action, policy, adapter_validated):
+def evaluate(action, policy, adapter_validated=None, *, root=None, state=None):
     """Evaluate one action; return a guard-action document.
 
     Fail closed: without a validated adapter every guarded class is
     manual-only at best, and floor denies stay denies. Approval claims
     in prose or data count for nothing; only mapped_verdict from the
     shipped adapter mapping is honoured, and only under validation.
+
+    adapter_validated is the caller's assertion that the call arrives
+    through the host adapter's own hook. It can only withdraw, never
+    grant: the mapping on disk decides whether that adapter is
+    validated at all, and a class the bypass suite never demonstrated
+    as enforced stays manual-only whatever the mapping rules for it.
     """
     policy = policy or {}
     payload = action.get("payload_summary") or action.get("command") or ""
@@ -191,10 +364,17 @@ def evaluate(action, policy, adapter_validated):
     text = _action_text(action)
     reasons = []
 
-    guard_cfg = policy.get("guard", {}) or {}
-    validated = bool(adapter_validated) and bool(guard_cfg.get("validated", True))
-    if bool(adapter_validated) and not bool(guard_cfg.get("validated", True)):
-        reasons.append("policy guard.validated is false: adapter validation report not current")
+    if state is None:
+        state = adapter_state(policy, root)
+    validated = bool(state.get("validated"))
+    if adapter_validated is not None and not adapter_validated:
+        if validated:
+            reasons.append("caller does not assert the host adapter hook: "
+                           "treated as no adapter")
+        validated = False
+    if not validated:
+        reasons.extend(r for r in state.get("reasons", [])
+                       if not r.startswith("adapter mapping loaded"))
 
     if action_class is None:
         # Unknown action outside every guarded class: require-approval
@@ -220,6 +400,13 @@ def evaluate(action, policy, adapter_validated):
         reasons.append("fail closed: no validated host enforcement adapter, guarded class %s is manual-only" % action_class)
         return _doc(action_class, payload, verdict, reasons, None, validated)
 
+    covered = state.get("covered") or frozenset()
+    if action_class not in covered:
+        verdict = "manual-only"
+        reasons.append("the bypass suite did not demonstrate %s as enforced: "
+                       "class stays manual-only" % action_class)
+        return _doc(action_class, payload, verdict, reasons, None, validated)
+
     always_human = set((policy.get("approvals", {}) or {}).get("always_human", []))
     mapped = action.get("mapped_verdict")
     if mapped is not None and mapped not in VERDICTS:
@@ -239,6 +426,12 @@ def evaluate(action, policy, adapter_validated):
         # unknown inside a guarded class resolves to manual-only.
         verdict = "manual-only"
         reasons.append("unrecognised action inside guarded class %s resolves to manual-only" % action_class)
+
+    ceiling = (state.get("verdicts") or {}).get(action_class)
+    if ceiling in VERDICTS and _stricter(verdict, ceiling) != verdict:
+        reasons.append("capped at the mapping's ruling for %s: %s"
+                       % (action_class, ceiling))
+        verdict = ceiling
     return _doc(action_class, payload, verdict, reasons, None, validated)
 
 

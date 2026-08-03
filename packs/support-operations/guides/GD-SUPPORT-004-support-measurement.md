@@ -6,10 +6,10 @@ basis: empirical-evidence
 evidence_grade: controlled
 scope: estate
 sources: [EV-0210, EV-0211]
-review: 2027-08
+review: 2028-08
 type: guide
 tags: [ops, product, testing]
-review_by: 2027-08
+review_by: 2028-08
 ---
 
 # GD-SUPPORT-004: What do we measure about support, and what may the number be used for?

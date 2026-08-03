@@ -6,8 +6,8 @@ kind: fact
 scope: estate
 sources: [EV-0059]
 volatility: slow
-review: 2027-08
-review_by: 2027-08
+review: 2028-07
+review_by: 2028-07
 ---
 
 # Samples, power and the low-traffic case

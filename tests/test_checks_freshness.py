@@ -168,3 +168,40 @@ def test_f004_v2_review_field_counts_as_coverage(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review: 2030-01")
     assert only(run_f(root), "F004") == []
+
+
+def test_f003_counts_a_file_once_not_once_per_key(tmp_path):
+    """review and review_by on one file is one re-read, not two."""
+    root = make_repo(tmp_path)
+    for i in range(8):
+        write(root, f"bulk/f{i:02d}.md",
+              "---\nsummary: Bulk file\ntype: org\ntags: [eos]\n"
+              "kind: guide\nreview: 2029-01\nreview_by: 2029-01\n---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+# --- exemptions: verbatim history ---------------------------------------
+
+
+STALE = ("---\nsummary: A stale record\ntype: doctrine\ntags: [eos]\n"
+         "review_by: 2020-01\n---\n\nBody.\n")
+
+
+def test_archive_keeps_its_dates_unjudged(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "archive/v1/doctrine/OLD.md", STALE)
+    assert run_f(root) == []
+
+
+def test_session_logs_keep_their_dates_unjudged(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "org/logs/2026-07/S-0001.md", STALE)
+    assert run_f(root) == []
+
+
+def test_the_same_stale_date_in_a_live_file_is_reported(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "org/LIVE.md", STALE)
+    assert ("warn", "org/LIVE.md",
+            "review_by 2020-01 has passed, verify before relying") in only(
+                run_f(root), "F001")

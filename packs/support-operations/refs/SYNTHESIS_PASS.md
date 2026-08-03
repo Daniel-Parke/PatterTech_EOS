@@ -4,7 +4,7 @@ kind: fact
 scope: estate
 sources: [EV-0041, EV-0210]
 volatility: slow
-review: 2027-08
+review: 2028-09
 type: implementation
 tags: [ops, product, data]
 ---

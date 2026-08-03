@@ -7,10 +7,11 @@ lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0003, EV-0006, EV-0007, EV-0016, EV-0178, EV-0192, EV-0194]
-review: 2027-08
-type: guide
+review: 2028-03
+type: wargame
+status: active
 tags: [delivery, testing, ci]
-review_by: 2027-08
+review_by: 2028-03
 ---
 
 # WG-DEL-007: When are tests written?

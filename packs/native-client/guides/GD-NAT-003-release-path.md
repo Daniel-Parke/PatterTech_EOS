@@ -9,7 +9,7 @@ sources: [EV-0026, EV-0204]
 review: on-change-of:play-staged-rollout-mechanics
 type: guide
 tags: [delivery, ops, ci]
-review_by: 2027-08
+review_by: 2028-05
 ---
 
 # GD-NAT-003: How does a fix reach a user?

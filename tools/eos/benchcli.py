@@ -6,8 +6,9 @@ never reimplements any scoring: every call is a subprocess with the
 arguments passed straight through, so the frozen behaviour is the only
 behaviour.
 
-drills is a stub in this build: packs do not exist yet, so it returns
-not-yet-implemented findings for the CLI to surface.
+drills is different in kind: the pack acceptance drills are not part of
+the frozen suite, so this module hands the work to tools.eos.drills and
+only shapes the result for the CLI. It adds no scoring of its own.
 """
 
 from __future__ import annotations
@@ -43,14 +44,85 @@ def score(root, args):
     return _invoke(root, "score.py", args)
 
 
-def drills(action, pack=None):
-    """Drills stub: packs are not built yet in this build."""
+def drills(root, action, pack=None, scratch=None, record=False, date=None,
+           attempt=None):
+    """List or run the pack acceptance drills.
+
+    Returns `(payload, code)`. `payload` is the JSON document the CLI
+    prints, `code` the process exit code: 0 when every requested drill
+    passed outright, 1 on any failed criterion or any drill left without
+    a verdict, 2 when the command cannot run at all.
+
+    A drill whose criteria are all manual reports `pass: null` and is
+    never counted as a pass. That is the whole point of the command.
+    """
+    from . import drills as drillmod
+
     if action not in ("list", "run"):
         raise ValueError("drills action must be 'list' or 'run': %r" % (action,))
+    try:
+        manifest = drillmod.load_manifest(root)
+        if action == "list":
+            rows = drillmod.list_drills(root, manifest=manifest)
+            payload = {
+                "action": "list",
+                "count": len(rows),
+                "runnable": sum(1 for r in rows if r["runnable"]),
+                "frozen_before_authoring": sum(
+                    1 for r in rows if r["frozen_before_authoring"] is True),
+                "drills": rows,
+            }
+            bad = [r["pack"] for r in rows if not r["hash_ok"]]
+            if bad:
+                payload["hash_mismatch"] = bad
+                return payload, 2
+            return payload, 0
+
+        if pack:
+            results = [drillmod.run_drill(
+                root, pack, scratch_root=scratch, manifest=manifest,
+                attempt=attempt)]
+        elif attempt:
+            raise drillmod.DrillError(
+                "--attempt grades one delivered tree, so it needs --pack")
+        else:
+            results = drillmod.run_all(
+                root, scratch_root=scratch, manifest=manifest)
+    except drillmod.DrillError as exc:
+        return {"action": action, "error": str(exc)}, 2
+
+    if record:
+        drillmod.append_results(root, results, date=date)
+    code = drillmod.exit_code(results)
+    if pack and len(results) == 1:
+        payload = dict(results[0])
+        payload["recorded"] = bool(record)
+        return payload, code
+    return {
+        "action": "run",
+        "summary": drillmod.summarise(results),
+        "recorded": bool(record),
+        "drills": results,
+    }, code
+
+
+def drill_findings(payload):
+    """Render a drills payload as Findings for human-readable stderr."""
     findings = Findings()
-    target = pack or "(all packs)"
-    findings.add(Finding(
-        "DR000", "error", "benchmark/drills",
-        "drills %s %s: not yet implemented; pack acceptance drills land "
-        "with the pack waves" % (action, target)))
+    if "error" in payload:
+        findings.add(Finding("DR000", "error", "benchmark/drills",
+                             payload["error"]))
+        return findings
+    rows = payload.get("drills") if isinstance(payload.get("drills"), list) \
+        else [payload]
+    for row in rows:
+        if not isinstance(row, dict) or "pass" not in row:
+            continue
+        path = row.get("spec", "benchmark/drills")
+        if row["pass"] is False:
+            findings.add(Finding("DR002", "error", path,
+                                 "%s: %s" % (row["pack"], row["reason"])))
+        elif row["pass"] is None:
+            findings.add(Finding("DR001", "error", path,
+                                 "%s: %s" % (row["pack"], row["reason"])))
     return findings

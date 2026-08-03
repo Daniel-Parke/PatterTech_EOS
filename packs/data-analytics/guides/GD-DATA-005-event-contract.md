@@ -8,8 +8,8 @@ authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0138, EV-0139]
-review: 2027-08
-review_by: 2027-08
+review: 2028-02
+review_by: 2028-02
 ---
 
 # GD-DATA-005: How are events named and validated?

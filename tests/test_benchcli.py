@@ -89,19 +89,16 @@ def test_real_frozen_scripts_are_present_and_untouched_by_this_lane():
     assert (REPO / "benchmark" / "score.py").is_file()
 
 
-def test_drills_list_is_not_yet_implemented():
-    findings = benchcli.drills("list")
-    assert findings.exit_code() == 1
-    assert len(findings.errors) == 1
-    assert "not yet implemented" in findings.errors[0].message
-
-
-def test_drills_run_names_the_pack():
-    findings = benchcli.drills("run", pack="agentic-orchestration")
-    assert findings.exit_code() == 1
-    assert "agentic-orchestration" in findings.errors[0].message
+# The drills command is no longer a stub. Its behaviour is covered in
+# tests/test_drills.py; these two only hold the wiring contract that the
+# CLI depends on.
+def test_drills_list_reads_the_frozen_manifest():
+    payload, code = benchcli.drills(REPO, "list")
+    assert code == 0
+    assert payload["count"] == len(payload["drills"])
+    assert payload["drills"][0]["sha256"]
 
 
 def test_drills_rejects_unknown_action():
     with pytest.raises(ValueError):
-        benchcli.drills("frobnicate")
+        benchcli.drills(REPO, "frobnicate")

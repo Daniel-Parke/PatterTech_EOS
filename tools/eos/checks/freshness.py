@@ -10,9 +10,14 @@ illegal review value is an error (the contract). F001 overlaps E006 on
 the v1 review_by field by design, exactly as S004 overlaps E005: the
 E-series retires in P4 and the F-series is its successor surface.
 
-Exemptions match the semantic series: benchmark/** (frozen suite) and
-template: true files are out of scope; derived files carry their
-sources' dates and are skipped where noted.
+Exemptions match the semantic series and for the same reasons:
+benchmark/** is the frozen suite, archive/** is verbatim v1 history
+and org/logs/** is the append-only session log. History is kept as it
+was written, so a stale date inside it is a fact about the past rather
+than a job for anyone; editing it to satisfy a checker would destroy
+the record. template: true files are out of scope as syntax
+documentation, and derived files carry their sources' dates and are
+skipped where noted.
 """
 
 from __future__ import annotations
@@ -35,8 +40,11 @@ BULK_THRESHOLD = 10
 PREVIOUSLY_EXEMPT = {"doctrine", "foundation", "pattern", "ux", "implementation", "playbook"}
 
 
+EXEMPT_PREFIXES = ("benchmark/", "archive/", "org/logs/")
+
+
 def _in_scope(rec) -> bool:
-    if rec.path.startswith("benchmark/"):
+    if rec.path.startswith(EXEMPT_PREFIXES):
         return False
     if not rec.fm.present:
         return False
@@ -145,7 +153,13 @@ def check_f002_evidence_review(ctx: dict) -> list:
 @register("F003")
 def check_f003_bulk_review_dates(ctx: dict) -> list:
     """More than BULK_THRESHOLD files sharing one review date is a smell:
-    the date was bulk-set, so no one scheduled the actual re-reads."""
+    the date was bulk-set, so no one scheduled the actual re-reads.
+
+    A file counts once. Most v2 files carry the same month in both
+    review and review_by, the v2 axis and its v1 compatibility twin,
+    and counting both doubled every group: one file is one re-read, not
+    two.
+    """
     model: RepoModel = ctx["model"]
     groups: dict = {}
     for rec in model.files:
@@ -154,12 +168,12 @@ def check_f003_bulk_review_dates(ctx: dict) -> list:
         for key in ("review_by", "review"):
             value = rec.fm.data.get(key)
             if isinstance(value, str) and MONTH_RE.match(value.strip()):
-                groups.setdefault(value.strip(), []).append(rec.path)
+                groups.setdefault(value.strip(), set()).add(rec.path)
     out = []
     for value in sorted(groups):
-        paths = groups[value]
+        paths = sorted(groups[value])
         if len(paths) > BULK_THRESHOLD:
-            out.append(Finding("F003", "warn", sorted(paths)[0],
+            out.append(Finding("F003", "warn", paths[0],
                                f"review date {value} shared by {len(paths)} files, bulk-set smell"))
     return out
 

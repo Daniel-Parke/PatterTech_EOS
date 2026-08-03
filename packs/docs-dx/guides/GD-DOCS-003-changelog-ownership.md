@@ -9,7 +9,7 @@ basis: standard
 evidence_grade: observational
 sources: [EV-0136, EV-0170, EV-0171, EV-0333]
 review: on-change-of:keep-a-changelog-beyond-1.1.0
-review_by: 2027-08
+review_by: 2028-04
 ---
 
 # GD-DOCS-003: Who writes the changelog?

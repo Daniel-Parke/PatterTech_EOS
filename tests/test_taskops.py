@@ -95,6 +95,74 @@ def test_create_task_rejects_bad_id(repo_root):
         taskops.create_task(repo_root, _record(task_id="TASK-1"))
 
 
+def test_create_task_routes_once_at_creation(repo_root):
+    # Routing is paid here, not per session: the record carries the
+    # ruled tier and the machine-readable reasons from creation on.
+    rec = _record()
+    rec["tier_proposed"] = "R0"
+    rec["declared"]["side_effects"] = ["touches-auth"]
+    path = taskops.create_task(repo_root, rec)
+    loaded = json.loads(Path(path).read_text(encoding="utf-8"))
+    assert loaded["tier_ruled"] == "R2"
+    # The agent proposes and the router rules; the proposal stands.
+    assert loaded["tier_proposed"] == "R0"
+    assert [r["factor"] for r in loaded["reasons"]] == ["auth-surface"]
+    reason = loaded["reasons"][0]
+    assert reason["tier_floor"] == "R2"
+    assert reason["source"] == "declared"
+    assert "touches-auth" in reason["evidence"]
+    # Stamped in place, so the caller reads the ruling back without a
+    # second command.
+    assert rec["tier_ruled"] == "R2"
+    assert rec["reasons"] == loaded["reasons"]
+
+
+def test_create_task_without_declared_facts_rules_a_clean_r0(repo_root):
+    rec = _record()
+    path = taskops.create_task(repo_root, rec)
+    loaded = json.loads(Path(path).read_text(encoding="utf-8"))
+    assert loaded["tier_ruled"] == "R0"
+    # An empty reasons list is how the record says no factor is active.
+    assert loaded["reasons"] == []
+
+
+def test_create_task_ruling_overrides_an_optimistic_claim(repo_root):
+    rec = _record()
+    rec["tier_ruled"] = "R0"
+    rec["declared"]["side_effects"] = ["migrates-schema", "irreversible-action"]
+    taskops.create_task(repo_root, rec)
+    assert rec["tier_ruled"] == "R3"
+    factors = {r["factor"] for r in rec["reasons"]}
+    assert factors == {"irreversible-action", "schema-change"}
+
+
+def test_create_task_routing_reads_no_diff(repo_root, monkeypatch):
+    # Creation-time routing is declaration-only: no git, no diff, which
+    # is what makes it cheap enough to pay once and read thereafter.
+    from tools.eos import router
+
+    def boom(*args, **kwargs):
+        raise AssertionError("creation-time routing must not read a diff")
+
+    monkeypatch.setattr(router, "derive_signals", boom)
+    monkeypatch.setattr(router, "_git", boom)
+    path = taskops.create_task(repo_root, _record())
+    assert Path(path).is_file()
+
+
+def test_load_policy_reads_either_home_and_degrades_quietly(repo_root):
+    assert taskops.load_policy(repo_root) == {}
+    (repo_root / "docs").mkdir(parents=True, exist_ok=True)
+    (repo_root / "docs" / "policy.json").write_text(
+        json.dumps({"express": {"max_files": 3}}), encoding="utf-8")
+    assert taskops.load_policy(repo_root)["express"]["max_files"] == 3
+    # The org home wins, and a malformed policy never breaks creation.
+    (repo_root / "org").mkdir(parents=True, exist_ok=True)
+    (repo_root / "org" / "policy.json").write_text("{broken", encoding="utf-8")
+    assert taskops.load_policy(repo_root) == {}
+    assert taskops.create_task(repo_root, _record())
+
+
 def test_update_task_merges_and_rewrites(repo_root):
     taskops.create_task(repo_root, _record())
     taskops.update_task(repo_root, "T-0001", {

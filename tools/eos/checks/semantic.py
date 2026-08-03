@@ -1,15 +1,32 @@
 """Semantic checks S001-S012.
 
-Severity: the whole S-series lands as WARNINGS by default. Passing
-ctx["strict_semantic"] = True flips every S finding to error severity.
-P4 flips the default to strict once the repository is clean under the
-series; until then the warnings are the work list.
+Severity: the S-series lands as ERRORS. The repository is clean under
+the series, so the P4 flip has happened: a new semantic defect is a
+build failure, not an item on a list nobody reads. ctx["strict_semantic"]
+still forces strict, and ctx["relax_semantic"] = True drops the series
+back to warnings for a caller that wants the work list rather than the
+gate. There is no CLI flag for the relaxed form yet; wiring one is a
+one-line change in tools/eos/cli.py.
 
 Exemptions, applied uniformly unless a check says otherwise:
 
 - benchmark/** is the frozen suite (fixtures, holdout, tasks): v1-era
   metadata by design, exempt from v2 semantics, still indexed and
   still under the structural E-series.
+- archive/** is verbatim v1 history. It is kept exactly as it was
+  written and must not be edited, so a finding against it has no legal
+  fix. With the series at error severity an unfixable finding would
+  fail every build for ever, which is why archive/** is exempt rather
+  than tidied.
+- org/logs/** is the append-only session log, and carries the same
+  argument as archive/**: a log records what was true when the session
+  ran, and rewriting one to satisfy a checker destroys the audit
+  trail. Its references are history, not claims about the tree today.
+- packs/*/research/** holds imported fragments and drill proposals
+  written before a pack was authored. They describe workspaces that
+  are not this repository, so their paths and ids are not references
+  into it. S006 already treats a directory of research fragments as
+  not yet a pack.
 - template: true files document syntax (placeholder enums, slot
   values) and are exempt from value-level semantic checks.
 
@@ -51,6 +68,8 @@ DERIVED_GENERATED = {"INDEX.md",
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")
 PATH_BAD_CHARS = set("*<>{}$#()\\ \t")
+# Naming patterns, not references: SU-YYYY-WW.md, report-MM.json.
+PLACEHOLDER_SEGMENT = re.compile(r"(?<![A-Za-z0-9])(YYYY|MM|DD|WW|HH|NNN?N?)(?![A-Za-z0-9])")
 
 ID_SCHEMES = {
     "WG": re.compile(r"\bWG-[A-Z]+-\d{3}\b"),
@@ -58,6 +77,11 @@ ID_SCHEMES = {
     "PB": re.compile(r"\bPB-E\d{2}\b"),
     "S": re.compile(r"\bS-\d{4}\b"),
 }
+
+# An id whose number is all zeros is the documented placeholder shape.
+ZERO_ID = re.compile(r"-0+$")
+# A possessive immediately before an id gives it to another venture.
+OWNED_ELSEWHERE = re.compile(r"(?:\w+'s|\bits|\btheir)\s+$", re.I)
 
 ESTATE_ROW_REQUIRED = ("role", "status")
 ESTATE_ROW_ALLOWED = {
@@ -68,8 +92,19 @@ ESTATE_ROW_ALLOWED = {
 ESTATE_TOP_REQUIRED = ("version", "updated", "root", "repos")
 
 
+STRICT_DEFAULT = True
+
+# Verbatim material and out-of-tree material: see the module docstring.
+EXEMPT_PREFIXES = ("benchmark/", "archive/", "org/logs/")
+RESEARCH_SEGMENT = re.compile(r"^packs/[^/]+/research/")
+
+
 def _sev(ctx: dict) -> str:
-    return "error" if ctx.get("strict_semantic") else "warn"
+    if ctx.get("strict_semantic"):
+        return "error"
+    if ctx.get("relax_semantic"):
+        return "warn"
+    return "error" if STRICT_DEFAULT else "warn"
 
 
 def _f(ctx, check, path, msg):
@@ -78,7 +113,9 @@ def _f(ctx, check, path, msg):
 
 def _semantic_scope(rec) -> bool:
     """True when the record is inside the v2 semantic contract."""
-    if rec.path.startswith("benchmark/"):
+    if rec.path.startswith(EXEMPT_PREFIXES):
+        return False
+    if RESEARCH_SEGMENT.match(rec.path):
         return False
     if not rec.fm.present:
         return False
@@ -192,31 +229,61 @@ def _path_tokens(text: str):
             continue
         if PATH_BAD_CHARS.intersection(token):
             continue
+        if PLACEHOLDER_SEGMENT.search(token):
+            continue
         yield token.lstrip("./")
 
 
 @register("S003")
 def check_s003_path_references(ctx: dict) -> list:
+    """Backticked paths must resolve, where they claim this repository.
+
+    Two narrowings keep the check honest now that it fails a build.
+    A token carrying a placeholder run (SU-YYYY-WW.md) is a naming
+    pattern, not a reference. And a token is a reference into this tree
+    only when its leading segment is a directory of this repository:
+    prose that documents another workspace, a venture repo or a drill
+    scratch directory is not making a claim about this one.
+
+    The cost of the second rule is stated plainly: a reference into a
+    whole tree this repository no longer has resolves to nothing and is
+    no longer reported. A moved file is caught; a deleted tree is not.
+    """
     model: RepoModel = ctx["model"]
     out = []
     for rec in model.files:
         if not _semantic_scope(rec):
             continue
         for token in sorted(set(_path_tokens(rec.text))):
+            if not _anchored(model, token):
+                continue
             if not model.exists(token):
                 out.append(_f(ctx, "S003", rec.path,
                               f"path reference does not resolve: {token}"))
     return out
 
 
+def _anchored(model: RepoModel, token: str) -> bool:
+    """True when the token's leading segment is a tree of this repo."""
+    head = token.split("/", 1)[0]
+    if not head or head in (".", ".."):
+        return False
+    return (model.root / head).is_dir()
+
+
 # --- S004 generalised id references ------------------------------------
 
 
 def _id_definitions(model: RepoModel) -> dict:
+    """Every id the repository defines, wherever the defining file sits.
+
+    Exemptions govern what gets checked, never what exists: a wargame
+    under benchmark/fixtures/ still defines its id, and the derived
+    indexes reference it, so excluding it here would report the index
+    as broken when it is exactly right.
+    """
     defs: dict = {"WG": set(), "ADR": set(), "PB": set(), "S": set()}
     for rec in model.files:
-        if rec.path.startswith("benchmark/"):
-            continue
         stem = PurePosixPath(rec.path).stem
         if rec.fm.present and rec.fm.data.get("type") == "wargame":
             m = re.match(r"WG-[A-Z]+-\d{3}", stem)
@@ -236,6 +303,16 @@ def _id_definitions(model: RepoModel) -> dict:
 
 @register("S004")
 def check_s004_id_references(ctx: dict) -> list:
+    """Ids cited in prose must be defined here, where they claim to be.
+
+    Two references are not claims about this repository's id space. An
+    all-zero id (WG-MOD-000, S-0000, ADR-0000) is the documented
+    placeholder for the shape of an id. And an id carrying a possessive
+    ("Venture A's ADR-0003", "its ADR-0011") belongs to the venture named
+    beside it: ADR numbering is per repository, and the estate cites
+    venture rulings by owner. An id that also appears unqualified
+    somewhere is still checked.
+    """
     model: RepoModel = ctx["model"]
     defs = _id_definitions(model)
     out = []
@@ -246,13 +323,23 @@ def check_s004_id_references(ctx: dict) -> list:
         for scheme, pattern in ID_SCHEMES.items():
             if scheme == "PB" and rec.path == "org/PLAYBOOKS.md":
                 continue
-            for ref in sorted(set(pattern.findall(prose))):
-                if ref.endswith("-000"):
+            for ref in sorted(_unqualified_refs(prose, pattern)):
+                if ZERO_ID.search(ref):
                     continue
                 if ref not in defs[scheme]:
                     out.append(_f(ctx, "S004", rec.path,
                                   f"reference to undefined id {ref}"))
     return out
+
+
+def _unqualified_refs(prose: str, pattern) -> set:
+    """Ids cited without a possessive naming another venture as owner."""
+    found = set()
+    for m in pattern.finditer(prose):
+        if OWNED_ELSEWHERE.search(prose[:m.start()]):
+            continue
+        found.add(m.group(0))
+    return found
 
 
 # --- S005 derived files need a registered generator --------------------
@@ -339,10 +426,22 @@ def check_s007_machine_facts(ctx: dict) -> list:
                 out.append(_f(ctx, "S007", rec.path,
                               f"machine fact branch: {facts['branch']} but git says {actual}"))
         if "commit" in facts:
+            # A derived view records the commit it was generated from,
+            # and that commit is behind HEAD the moment the view is
+            # committed. Equality can never hold in a repository that
+            # keeps moving, so the honest invariant is ancestry: the
+            # recorded commit must exist and must be reachable from
+            # HEAD. A commit that does not resolve, or that sits on a
+            # branch HEAD does not contain, is the real drift.
             head = gitfacts.rev_parse(model.root, "HEAD")
-            if head is not None and not head.startswith(facts["commit"]):
-                out.append(_f(ctx, "S007", rec.path,
-                              f"machine fact commit: {facts['commit']} but HEAD is {head[:12]}"))
+            fact = facts["commit"]
+            if head is not None:
+                if not gitfacts.object_exists(model.root, f"{fact}^{{commit}}"):
+                    out.append(_f(ctx, "S007", rec.path,
+                                  f"machine fact commit: {fact} does not resolve"))
+                elif not gitfacts.is_ancestor(model.root, fact, head):
+                    out.append(_f(ctx, "S007", rec.path,
+                                  f"machine fact commit: {fact} is not an ancestor of HEAD {head[:12]}"))
         if "tag" in facts:
             known = gitfacts.tags(model.root)
             if known and facts["tag"] not in known:

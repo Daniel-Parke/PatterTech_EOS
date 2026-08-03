@@ -9,7 +9,7 @@ basis: standard
 evidence_grade: observational
 sources: [EV-0189, EV-0326, EV-0330, EV-0331, EV-0332]
 review: on-change-of:rustdoc-doctest-semantics
-review_by: 2027-08
+review_by: 2028-04
 ---
 
 # GD-DOCS-002: How does a code example stop lying?

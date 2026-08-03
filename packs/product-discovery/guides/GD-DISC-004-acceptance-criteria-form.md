@@ -8,8 +8,8 @@ authority: default
 basis: standard
 evidence_grade: observational
 sources: [EV-0074, EV-0075]
-review: 2027-08
-review_by: 2027-08
+review: 2028-07
+review_by: 2028-07
 ---
 
 # GD-DISC-004: In what form do the acceptance criteria go?
