@@ -1,0 +1,39 @@
+{
+ "version": 1,
+ "frozen": "2026-08-03",
+ "note": "Pack acceptance drills, frozen BEFORE the pack content was authored (approved plan 12.3). A drill spec never changes without an ADR amendment; a failed drill routes to fixing the pack and re-running.",
+ "drills": {
+  "agentic-development": {
+   "spec": "benchmark/drills/agentic-development.md",
+   "sha256": "555b5487703daf9825e0511a925e763fdb576ef14adb99525bf82fdeef1af2df"
+  },
+  "api-integration": {
+   "spec": "benchmark/drills/api-integration.md",
+   "sha256": "042a240613cfb9bd0b4a9dd730484c38304186be026d101bfc0be9f864775db1"
+  },
+  "architecture": {
+   "spec": "benchmark/drills/architecture.md",
+   "sha256": "bcafd737e12b949a30a47749ecdeff2b50b5b934cc1b8fa5a32a8d1fadbeb884"
+  },
+  "coding": {
+   "spec": "benchmark/drills/coding.md",
+   "sha256": "1e4b9f6b36e610f9190f75c0bec18331f7be4208ed22068e38fcd3ad2ff01b31"
+  },
+  "delivery-testing": {
+   "spec": "benchmark/drills/delivery-testing.md",
+   "sha256": "4d6e67e54f250155c40e70f236a11913ef6c7ed9d67a60d4b7a3cc255cd7cb5c"
+  },
+  "devops-reliability": {
+   "spec": "benchmark/drills/devops-reliability.md",
+   "sha256": "636f91a6f610c07285dbaf2cd4a362d29837dc5fb5463a7562ba021aa23a2f59"
+  },
+  "security-privacy": {
+   "spec": "benchmark/drills/security-privacy.md",
+   "sha256": "739683588170ea8e6926efe9d9280cadc5bde8e148bf6a9f352b8ccdee19ec6f"
+  },
+  "ui-ux": {
+   "spec": "benchmark/drills/ui-ux.md",
+   "sha256": "50626633b2e1fd17b9cf6929af0ca7cbc4757ad71d2497ceafbfaec8f226f48c"
+  }
+ }
+}

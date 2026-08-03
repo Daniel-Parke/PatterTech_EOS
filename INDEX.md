@@ -16,6 +16,14 @@ Derived file. Edit front-matter, then run
 | archive/v1/org/CADENCE.md | org | eos | The EOS heartbeat, what recurs, how often, and when each last ran |  |
 | archive/v1/org/QUEUE.md | org | eos | The ordered build queue for the EOS, phases B to F and the release |  |
 | archive/v1/org/STATE.md | org | eos | Live state of the EOS itself, the active session claim and the Resume Packet |  |
+| benchmark/drills/agentic-development.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
+| benchmark/drills/api-integration.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
+| benchmark/drills/architecture.md | example | eos | Single-run cold-agent acceptance drill for the architecture pack, with deterministic machine-checkable criteria |  |
+| benchmark/drills/coding.md | example | eos | Cold-agent acceptance drill for the coding pack, pin then change an undocumented parser |  |
+| benchmark/drills/delivery-testing.md | example | eos | Cold-agent acceptance drill for the delivery, testing and quality pack, checking double choice, contract verification and flake handling |  |
+| benchmark/drills/devops-reliability.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
+| benchmark/drills/security-privacy.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
+| benchmark/drills/ui-ux.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
 | benchmark/fixtures/app-api/README.md | example | eos testing | Energy quote JSON API fixture with planted defects for benchmark tasks |  |
 | benchmark/fixtures/app-static/README.md | example | eos testing | Static brochure site fixture with three planted defects for the agent benchmark |  |
 | benchmark/fixtures/briefs/BRIEF-M-fieldkit.md | example | eos testing | Canned drill brief, a field-survey web app for one contractor firm, scripted operator answers |  |
@@ -56,6 +64,11 @@ Derived file. Edit front-matter, then run
 | benchmark/fixtures/seed-v1-S/docs/VENTURE_BRIEF.md | template | eos | Herbfield Lane venture brief, a sole-trader joinery brochure site, the business truth |  |
 | benchmark/fixtures/seed-v1-S/docs/WORKLOG.md | template | eos | Herbfield Lane worklog, the S-scale single running log and open-items list |  |
 | benchmark/fixtures/seed-v1-S/OPERATORS_GUIDE.md | template | eos | Herbfield Lane operators guide, the sole trader's manual and S-scale launcher library |  |
+| benchmark/fixtures/seed-v2-S/AGENTS.md | template | eos | Herbfield Lane agent entry point, the S-scale router into the venture files |  |
+| benchmark/fixtures/seed-v2-S/docs/LOCKBOOK.md | template | eos | Herbfield Lane lock-book, the S-scale rulings and contracts with the EOS |  |
+| benchmark/fixtures/seed-v2-S/docs/TASKS.md | template | eos | Herbfield Lane task list, the S-scale work surface, open items, questions and log |  |
+| benchmark/fixtures/seed-v2-S/docs/VENTURE_BRIEF.md | template | eos | Herbfield Lane venture brief, a sole-trader joinery brochure site, the business truth |  |
+| benchmark/fixtures/seed-v2-S/OPERATORS_GUIDE.md | template | eos | Herbfield Lane operators guide, the sole trader's manual and S-scale launcher library |  |
 | benchmark/holdout/app-api/README.md | example | eos testing | Holdout tests for the app-api fixture, scored after tasks, never shown to agents |  |
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
 | benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
@@ -188,6 +201,22 @@ Derived file. Edit front-matter, then run
 | org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
 | org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |
 | org/TASKS.md | org | eos | Derived task table, one row per record under org/tasks/ |  |
+| packs/agentic-development/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
+| packs/agentic-development/research/NOTES.md | example | eos | Research synthesis for the agentic development and orchestration pack, topologies, context, tools, checkpoints, guardrails |  |
+| packs/api-integration/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
+| packs/api-integration/research/NOTES.md | example | eos | Decision-relevant synthesis for the API and integration pack, covering contract style, versioning philosophy, webhook security, idempotency and pagination, with the disagreements between mature estates left visible. |  |
+| packs/architecture/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the architecture pack, with deterministic machine-checkable criteria |  |
+| packs/architecture/research/NOTES.md | example | eos | What the evidence supports for the architecture pack, three contrasting philosophies with fit conditions, and the binding versus default versus preference split |  |
+| packs/coding/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the coding pack, pin then change an undocumented parser |  |
+| packs/coding/research/NOTES.md | example | eos | Research synthesis for the coding pack, four construction philosophies, review at scale, and what should bind |  |
+| packs/delivery-testing/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the delivery, testing and quality pack, checking double choice, contract verification and flake handling |  |
+| packs/delivery-testing/research/NOTES.md | example | eos | Research synthesis for the delivery, testing and quality pack, covering test doubles, mutation practice, property-based testing, contract maturity, flake policy and test selection |  |
+| packs/devops-reliability/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
+| packs/devops-reliability/research/NOTES.md | example | eos | Research synthesis for the devops-reliability pack, covering migrations, restore proof, SLO governance, incident practice, FinOps, golden paths, progressive delivery and observability stability. |  |
+| packs/security-privacy/research/DRILL_PROPOSAL.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
+| packs/security-privacy/research/NOTES.md | example | eos | Research synthesis for the security, privacy and safety pack, patterns, trade-offs and what should bind |  |
+| packs/ui-ux/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
+| packs/ui-ux/research/NOTES.md | example | eos | Research synthesis for the ui-ux pack, eight design philosophies, accessibility conformance, tokens and component contracts |  |
 | README.md | root | eos | What the PatterTech EOS is and how the repo is laid out |  |
 | registry/LESSONS.md | registry | eos | The harvest ledger, lessons from the estate and what each one changed | 2026-10 |
 | registry/PROJECTS.md | registry | eos | The venture directory, who is seeded from what and when last harvested | 2026-10 |
