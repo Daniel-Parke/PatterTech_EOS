@@ -53,7 +53,7 @@ def _changed_files(scratch, root):
     for out in (tracked.stdout, untracked.stdout):
         for line in out.splitlines():
             line = line.strip().replace("\\", "/")
-            if line and line != "run_meta.json":
+            if line and line not in ("run_meta.json", "human_gates_pending.json"):
                 files.add(line)
     return sorted(files)
 
@@ -63,16 +63,26 @@ def _untracked_files(scratch):
     files = []
     for line in proc.stdout.splitlines():
         line = line.strip().replace("\\", "/")
-        if line and line != "run_meta.json":
+        if line and line not in ("run_meta.json", "human_gates_pending.json"):
             files.append(line)
     return files
 
+
+PROCESS_FILES = {"run_meta.json", "human_gates_pending.json", "PROMPT.txt", "docs/WORKLOG.md",
+                 "docs/EOS_FEEDBACK.md", "org/QUESTIONS.md", "org/STATE.md",
+                 "org/state.yaml", "org/TASKS.md", "docs/TASKS.md",
+                 "org/QUEUE.md", "org/CADENCE.md", "docs/COMPILE_REPORT.md"}
+PROCESS_PREFIXES = ("org/logs/", "org/tasks/", "org/work/", "org/decisions/")
+
+
+def _is_process(path):
+    return path in PROCESS_FILES or path.startswith(PROCESS_PREFIXES)
 
 def main():
     scratch = scratch_dir()
     root = _root_commit(scratch)
     outside = [f for f in _changed_files(scratch, root)
-               if not f.startswith("docs/")]
+               if not f.startswith("docs/") and not _is_process(f)]
     if outside:
         emit(False, "spike touched files outside docs/: %s"
              % ", ".join(outside))

@@ -53,7 +53,7 @@ def _changed_files(scratch, root):
     for out in (tracked.stdout, untracked.stdout):
         for line in out.splitlines():
             line = line.strip().replace("\\", "/")
-            if line and line != "run_meta.json":
+            if line and line not in ("run_meta.json", "human_gates_pending.json"):
                 files.add(line)
     return sorted(files)
 
@@ -63,7 +63,7 @@ def _untracked_files(scratch):
     files = []
     for line in proc.stdout.splitlines():
         line = line.strip().replace("\\", "/")
-        if line and line != "run_meta.json":
+        if line and line not in ("run_meta.json", "human_gates_pending.json"):
             files.append(line)
     return files
 

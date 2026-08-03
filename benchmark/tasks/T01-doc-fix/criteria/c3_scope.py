@@ -9,7 +9,7 @@ import json
 import sys
 from pathlib import Path
 
-PROCESS_FILES = {"run_meta.json", "PROMPT.txt", "docs/WORKLOG.md",
+PROCESS_FILES = {"run_meta.json", "human_gates_pending.json", "PROMPT.txt", "docs/WORKLOG.md",
                  "docs/EOS_FEEDBACK.md", "org/QUESTIONS.md", "org/STATE.md",
                  "org/state.yaml", "org/TASKS.md", "docs/TASKS.md"}
 PROCESS_PREFIXES = ("org/logs/", "org/tasks/")
