@@ -5,7 +5,7 @@ tags: [eos]
 compiled_from: kernel/templates/LOCKBOOK.tpl.md
 eos_root: PatterTech_EOS
 eos_version: 2.0.0-dev
-eos_commit: 2c7468d
+eos_commit: 00fbaba
 scale: ORG
 stack: STACK-fastapi-postgres
 policy_profile: org/policy.json

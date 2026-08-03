@@ -58,16 +58,27 @@ def test_seed_v1_m_fixture_only_finding_is_the_unscheduled_lockin():
 
 
 def test_matrix_parses():
+    """The live matrix is v2 (S and ORG); the v1 layout lives in the archive."""
     required, addons, empty_dirs = parse_matrix(REPO_ROOT)
-    assert "docs/WORKLOG.md" in required["S"]
-    assert "docs/WORKLOG.md" not in required["M"]
-    assert "org/QUEUE.md" in required["M"]
-    assert "org/work/NEXT.md" in required["L"]
+    assert set(required) == {"S", "ORG"}
+    assert "docs/TASKS.md" in required["S"]
+    assert "org/policy.json" in required["ORG"]
+    v1 = parse_matrix_text(
+        (REPO_ROOT / "archive" / "v1" / "kernel" / "SCALE_MATRIX.md")
+        .read_text(encoding="utf-8"))[0]
+    assert "docs/WORKLOG.md" in v1["S"]
+    assert "org/QUEUE.md" in v1["M"]
+    assert "org/work/NEXT.md" in v1["L"]
     assert set(addons) == {"compliance", "ops-runbook", "restore-test"}
-    assert empty_dirs["S"] == []
-    assert empty_dirs["M"] == ["org/decisions/", "org/logs/"]
-    assert set(empty_dirs["M"]).issubset(set(empty_dirs["L"]))
-    assert "org/work/items/" in empty_dirs["L"]
+    # v2 creates directories on first use, so the live matrix seeds none.
+    assert empty_dirs.get("S", []) == []
+    assert empty_dirs.get("ORG", []) == []
+    v1_dirs = parse_matrix_text(
+        (REPO_ROOT / "archive" / "v1" / "kernel" / "SCALE_MATRIX.md")
+        .read_text(encoding="utf-8"))[2]
+    assert v1_dirs["M"] == ["org/decisions/", "org/logs/"]
+    assert set(v1_dirs["M"]).issubset(set(v1_dirs["L"]))
+    assert "org/work/items/" in v1_dirs["L"]
 
 
 # --- cannot-run shapes --------------------------------------------------
@@ -257,9 +268,11 @@ def test_d002_unknown_pin_degrades_to_worktree(tmp_path):
     assert ("error", "docs/WORKLOG.md",
             "compiled_from kernel/templates/WORKLOG.tpl.md "
             "absent from the EOS worktree") in got
-    # The matrix falls back to the working tree too, with a warning.
-    assert [(sev, path) for sev, path, _ in only(fs, "D003")] == [
-        ("warn", "kernel/SCALE_MATRIX.md")]
+    # The matrix falls back to the working tree too, with a warning. That
+    # tree now carries the v2 matrix, so a v1 seed also reports the v2
+    # files it lacks: the fallback is visibly lossy, which is the point.
+    d003 = [(sev, path) for sev, path, _ in only(fs, "D003")]
+    assert ("warn", "kernel/SCALE_MATRIX.md") in d003
 
 
 def test_d003_rogue_file(tmp_path):
@@ -412,7 +425,7 @@ def test_matrix_absent_at_pin_falls_back_to_worktree_with_warning(tmp_path):
 
 def test_v2_matrix_layout_parses():
     required, addons, empty_dirs = parse_matrix_text(
-        (REPO_ROOT / "kernel" / "SCALE_MATRIX_v2.staging.md")
+        (REPO_ROOT / "kernel" / "SCALE_MATRIX.md")
         .read_text(encoding="utf-8"))
     assert set(required) == {"S", "ORG"}
     assert "docs/policy.json" in required["S"]
