@@ -120,7 +120,7 @@ def test_f002_malformed_review(tmp_path):
         {"records": [{"id": "EV-0003", "review": "soon"}]}))
     fs = run_f(root)
     assert only(fs, "F002") == [("error", "registry/evidence.json",
-                                 "EV-0003: review not YYYY-MM: soon")]
+                                 "EV-0003: review must be YYYY-MM, on-change-of:<source> or none: soon")]
 
 
 def test_f002_malformed_json(tmp_path):

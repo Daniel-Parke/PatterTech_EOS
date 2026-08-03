@@ -1,0 +1,120 @@
+---
+summary: FieldKit lock-book, the ORG-scale rulings and contracts with the EOS
+type: template
+tags: [eos]
+compiled_from: kernel/templates/LOCKBOOK.tpl.md
+eos_root: PatterTech_EOS
+eos_version: 2.0.0-dev
+eos_commit: 2c7468d
+scale: ORG
+stack: STACK-fastapi-postgres
+policy_profile: org/policy.json
+packs_adopted: []
+addons: []
+compiled: 2026-08-03
+rulings:
+  - WG-EOS-001 · ORG · argued · server state and auth fire; no money; login email the only pii
+  - WG-WEB-007 · server · argued · survey records need a database and sign-in
+  - WG-ARCH-002 · raw SQL · inherited · stack profile default taken
+  - WG-OPS-001 · managed host · inherited · default taken
+  - WG-OPS-003 · nightly backups · inherited · restore-test add-on attaches at first production data
+  - WG-DEL-001 · standard coverage · inherited · profile default taken
+---
+
+# FieldKit lock-book
+
+The venture's contract with the EOS. This file wins on specifics; EOS
+doctrine wins on principles. The YAML header above is machine-read: the
+seed check validates it, the harvest counts its rulings, upgrades diff
+against its pins. `policy_profile` names the compiled policy instance;
+`packs_adopted` lists the knowledge packs this venture activates, and
+house style activates only by adoption here. Rulings rows are one line
+each, `WG-ID · ruling · argued|inherited · note`; argued means the
+triggers were engaged afresh, inherited means the default was taken
+without new argument. Only argued rulings are promotion evidence.
+
+Note on `addons: []`: nothing is deployed at Session 0, so no add-on
+trigger has fired yet. The ops-runbook add-on attaches at the first
+deploy and the restore-test add-on at the first production data, per
+the trigger table in the scale matrix; both are noted here and in the
+brief so neither is forgotten. `packs_adopted: []` for the same
+reason: no knowledge pack has been argued in yet.
+
+## Identity
+
+- One-word feel: dependable
+- Signature motif (promoted everywhere): set at first build; ruled at
+  the first-build lock-in under org/tasks/T-0001.json
+- Signature animated pieces (the sanctioned exceptions, by name): set
+  at first build; ruled at the first-build lock-in under
+  org/tasks/T-0001.json
+- Voice register ruling (WG-VOX-001): in the header; banned list per
+  the voice module.
+
+## Narrative brief
+
+The one-paragraph story the design must tell without saying it: what
+the visitor should feel, what stays concealed, what escapes anyway.
+Name the physics or motifs the brand draws from and how each becomes a
+mechanism, not a mood board. This paragraph drives the light budget
+(WG-WEB-005), the reactivity ruling (WG-WEB-011) and the imagery ruling
+(WG-WEB-012).
+
+A surveyor on a windy site with one bar of signal should feel the app
+is quicker than paper, and the office should feel the record is the
+firm's own: complete, current and exportable. Nothing decorative
+stands between a field worker and a saved survey; the design's whole
+argument is speed, legibility on a phone in daylight, and the quiet
+confidence of a record that does not get lost.
+
+## Tokens
+
+Before a first build exists, design-system slots below take the
+sanctioned deferral: `set at first build` plus where the value gets
+ruled. The first-build lock-in session replaces every deferral in one
+sitting and notes it in the worklog or queue.
+
+- Token home: set at first build; ruled at the first-build lock-in
+  under org/tasks/T-0001.json · Code mirror: set at first build; ruled
+  at the first-build lock-in under org/tasks/T-0001.json · Styleguide
+  route: set at first build; ruled at the first-build lock-in under
+  org/tasks/T-0001.json
+- Surface ladder: set at first build; ruled at the first-build lock-in
+  under org/tasks/T-0001.json
+- Accents: set at first build; ruled at the first-build lock-in under
+  org/tasks/T-0001.json
+- Text tiers and measured contrast: set at first build; ruled at the
+  first-build lock-in under org/tasks/T-0001.json
+- Measures: reading set at first build · wide set at first build ·
+  full set at first build · block gap set at first build; all ruled at
+  the first-build lock-in under org/tasks/T-0001.json
+
+## QC gates (exact commands)
+
+- Build: set at first build; ruled at the first-build lock-in under
+  org/tasks/T-0001.json
+- Overflow at 375: set at first build; ruled at the first-build
+  lock-in under org/tasks/T-0001.json
+- Page weight: set at first build; ruled at the first-build lock-in
+  under org/tasks/T-0001.json
+- Screenshots: set at first build; ruled at the first-build lock-in
+  under org/tasks/T-0001.json
+- Regression smokes: set at first build; ruled at the first-build
+  lock-in under org/tasks/T-0001.json
+
+## Structural contracts (things future edits must not break)
+
+- Survey records are append-only; a correction is a new version, never
+  an edit in place.
+- The login email is the only personal data stored, and it never lands
+  in logs.
+- Exports leave clean as CSV, so the firm's data is never captive.
+
+## Deviations from doctrine
+
+None, or one entry each: the doctrine deviated from, the trigger that
+justifies it, the wargame that argued it (a draft wargame in
+docs/EOS_FEEDBACK.md if none exists), and the operator's approval.
+Deviations are harvested as contrary rulings.
+
+None.
