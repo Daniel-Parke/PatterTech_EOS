@@ -6,128 +6,109 @@ tags: [eos]
 
 # EOS v2 final report
 
-Written at the release checkpoint, 2026-08-03. The build is complete and
-pushed to `feat/eos-v2-agentic-development`. `main` is untouched. Nothing
-here has been tuned to pass a gate.
+Written at the release checkpoint, revised 2026-08-03 after both corrective
+iterations. The build is complete and pushed to
+`feat/eos-v2-agentic-development`. `main` is untouched. Nothing here has
+been tuned to pass a gate.
 
 ## The decision this report is for
 
-v2 misses three of the six numeric release gates. Under the approved plan
-that means it does not release, and the choice is Daniel's: amend the
-thresholds by ADR with reasons, adopt v2 partially, or halt with the
-branch preserved. The evidence follows so the choice can be made on
-numbers rather than on the fact that the work is finished.
+v2 passes three of the six numeric gates and misses three. Under the
+approved plan a missed gate does not release, and the choice is Daniel's:
+amend the thresholds by ADR with reasons, adopt partially, or halt with the
+branch preserved. Both corrective iterations the plan allowed have now been
+spent, so there is no third attempt on the table.
 
-## What was measured
+## Final gate table
 
-Two variants, thirteen tasks each, three valid trials per slot, the same
-fixtures and the same frozen criteria. 84 scored runs: 45 v1, 39 v2. The
-v1 baseline ran before any v2 code existed, and its failures were
-recorded unchanged.
+| Gate | Threshold | First run | After corrections | Verdict |
+| --- | --- | --- | --- | --- |
+| Ceremony lines | 60 per cent fewer | 49 per cent | 58 per cent fewer | fail by two points |
+| Context tokens | 30 per cent fewer | 64 per cent more | 8 per cent fewer | fail |
+| Wall clock | 25 per cent faster | 49 per cent slower | 37 per cent slower | fail |
+| Critical-task regression | none | none | none | pass |
+| Aggregate quality | within 3 points | 100 against 96 | 96 against 96 | pass |
+| Completeness | three trials a slot | met | met | pass |
 
-| Gate | Threshold | Measured | Verdict |
-| --- | --- | --- | --- |
-| Ceremony lines | at least 60 per cent fewer | 49 per cent fewer | fail |
-| Context tokens | at least 30 per cent fewer | 64 per cent more | fail |
-| Wall clock | at least 25 per cent faster | 49 per cent slower | fail |
-| Critical-task regression | none | none | pass |
-| Aggregate quality | within 3 points of v1 | 100 per cent against 96 | pass |
-| Completeness | three trials per slot | met on both sides | pass |
+Human gates left pending at the end of a run: v1 twelve, v2 zero. That
+number did not move across any correction, and it is the finding I would
+put above the rest.
 
-Human gates left pending at the end of a run: v1 twelve, v2 zero.
+## What the two corrections changed, and what found them
 
-## What the ceremony median hides
+The first correction came from an ablation: the benchmark had told every v2
+session to shell out to the router and guard once per session, and that
+round trip was most of the overhead. Routing now happens once, when the task
+record is written, and sessions read the ruling off the record. Gate-time
+recomputation against the actual diff is unchanged and still resolves upward
+only, which is what makes paying once safe rather than a loophole. Tokens
+moved 72 points, from 64 per cent worse than v1 to 8 per cent better.
 
-The median is taken across all thirteen tasks, and it is dragged down by
-tasks where v1 had almost no ceremony to remove.
+Implementing that fix exposed two real defects in the gate path that
+predate it: the route command was handing the router a whole task record
+where it expected the record's declared block, so declared risk factors were
+invisible at the gate, and upward-only was never enforced against the
+stored ruling. Both are fixed.
 
-- Heavy work, where v1 wrote 90 lines of paperwork or more: ceremony down
-  65 per cent, tokens down 41 per cent. v2 wins on both.
-- Light work, where v1 wrote under 20 lines: ceremony 7 per cent worse,
-  tokens 107 per cent worse. v2 loses on both.
+The second correction came from the benchmark itself. WG-DEL-006 said
+oracle independence at R2 or above required an independent author. A third
+of R2 runs read that as demanding a separate session, blocked waiting for
+one and delivered nothing, while the rest wrote the oracle first and
+delivered correctly. A rule half its readers obey by stopping is badly
+written. R2 now permits same-session oracle-first, because the property the
+evidence protects is writing the oracle with no implementation in context
+and at that point none exists; R3 still requires the hand-off. That closed
+the only critical-task regression.
 
-Per task, v2 removed 68 per cent of the paperwork on the feature, 69 per
-cent on the bug fix, 62 per cent on the migration and 54 per cent on the
-authorisation change, and took the spike and the trivial documentation
-fix to zero. It added paperwork on the small UI fix and on inception.
+## The timing ablation, and the defaults it sets
 
-## The finding that matters most
+Eighteen runs, three tasks, three timings, six runs each.
 
-On every task above the ordinary risk line, v1 did not deliver. The work
-reached VERIFY-approved on a branch and stopped, waiting for an operator
-gate that never arrives in an autonomous run. That is v1's constitution
-working exactly as written: a session may not merge its own R2-or-above
-work. Across the baseline v1 left twelve outstanding human gates; v2 left
-none, at equal or better quality.
+| Arm | Pass | Tokens | Wall clock | Ceremony |
+| --- | --- | --- | --- | --- |
+| Acceptance-first | 6 of 6 | 2.4M | 217s | 36 |
+| Alongside | 6 of 6 | 2.3M | 208s | 28 |
+| Implement then harden | 6 of 6 | 3.8M | 313s | 44 |
 
-This is not a small difference in convenience. It is the difference
-between a process that finishes and one that queues.
+Every arm passed, so this ranks cost and says nothing about which timing
+catches more faults. Cost separates clearly: hardening last spends 65 per
+cent more tokens and 50 per cent more wall clock. The testing matrix
+therefore stands as written, with its reason now measured rather than
+asserted, and the capability profile carries the evidence.
 
-## Why v2 costs more, honestly
+## The twenty pack drills
 
-v2 sessions read fewer files than v1 (a median of one or two against five
-to twenty-two), so progressive disclosure is doing its job. They spend
-more turns and more tokens anyway. Three causes, in the order I believe
-they matter:
+Twenty cold agents, one per pack, each told that an honest negative was
+worth more than a polite pass. Not one returned a clean pass, and the
+criticism was mostly structural rather than about the doctrine:
 
-1. The benchmark instructed v2 sessions to route the task and consult the
-   guard through the tooling. v1 sessions had no such instruction because
-   v1 has no such tooling. Some of the measured cost is a real property of
-   v2 (routing is not free) and some is an asymmetry the harness
-   introduced. I have not separated the two, and I will not claim a number
-   I have not measured.
-2. Shell exploration replaced file reads. Fewer Read calls, more command
-   output flowing back into context.
-3. The v2 seeds and packs are larger than the v1 seeds, so the venture a
-   session boots into carries more material even when little of it loads.
+- The drill specs ship no fixtures and no graders, so every agent built the
+  scenario it was then judged against. Several said plainly that their own
+  result should not be read as an independent pass. They are right.
+- Most packs' exemplars sit close enough to their drill that passing does
+  not prove the pack was used. One called its exemplar a step-by-step
+  answer key.
+- Real defects found in the content: the architecture pack ships a broken
+  import-linter contract; ai-ml-llm states a dated model-id rule that is
+  factually wrong for current models; three of ui-ux's binding requirements
+  state an intent without stating a test; the house pack's exemplar CSS
+  contradicts its own budgets file; legal-licensing has two criteria that
+  conflict; devops-reliability never resolves how its own mandated
+  destructive step passes its own mandated gate.
 
-Cause 1 is testable, so I tested it.
-
-## The routing ablation, run 2026-08-03
-
-Eight runs, four tasks (two heavy, two light), two trials each. The only
-difference from the headline v2 arm is that the session was not told to
-route the task and consult the guard through the tooling. Everything else
-is identical: same seeds, same fixtures, same criteria.
-
-| Task | tokens v1 | tokens v2 | tokens v2 no-router |
-| --- | --- | --- | --- |
-| Documentation fix | 0.7M | 1.5M | 0.8M |
-| Small UI fix | 1.5M | 3.5M | 2.0M |
-| Feature | 6.1M | 5.6M | 2.9M |
-| Bug fix | 4.1M | 6.2M | 2.7M |
-
-Median against v1 across those four tasks: the headline arm spends 87 per
-cent more tokens and runs 58 per cent slower; the no-router arm spends 10
-per cent fewer tokens and runs 5 per cent slower. Quality held at 2 of 2
-on every ablation task.
-
-On the two heavy tasks the no-router arm beats v1 outright: 2.9M against
-6.1M on the feature, 2.7M against 4.1M on the bug fix, roughly half the
-context for the same delivered result.
-
-So most of the measured overhead is the cost of asking each session to
-shell out to the router and the guard, not the cost of v2's design. That
-is a benchmark artefact of my own making, and it is fixable in the design
-rather than in the measurement: route once when the task record is
-created, or let the checker route at the gate, instead of paying a
-command round trip inside every session.
-
-Three limits on that conclusion, stated plainly. Eight runs is a small
-sample. The no-router arm is not full v2, because a session that is not
-told to route may still route implicitly by reading the policy. And the
-safety probes were not run under the ablation, so nothing here shows the
-no-router configuration is safe. It shows only where the tokens went.
+None of that is fixed. It is a work list, and it is the most valuable
+output of the drills.
 
 ## What has not been done
 
-- The policy ablations (no-router, wip1, mandatory-logs, no-sampled-
-  review) and the test-timing ablation are specified and frozen but not
-  executed. The timing ablation is what sets the capability-profile
-  testing defaults, so those defaults remain unset and the testing matrix
-  stands as a default set rather than an evidence-set one.
-- The pack acceptance drills are frozen with hashes but have not been run
-  against the twenty built packs.
+- The remaining policy ablations (wip1, mandatory-logs, no-sampled-review)
+  are specified and frozen but not executed. The routing and timing
+  ablations were run.
+- The twenty pack drills were run by cold agents, but self-fixtured and
+  self-graded, so they are evidence about the packs' usability and not an
+  independent pass. Building real fixtures and graders for them is
+  outstanding.
+- The defects the drills found in six packs are recorded and unfixed.
 - The sealed final suite has not been opened. It requires the private key
   Daniel holds, and by protocol it runs once, against frozen v1 and final
   v2 together, after corrective iteration. Opening it now would spend the

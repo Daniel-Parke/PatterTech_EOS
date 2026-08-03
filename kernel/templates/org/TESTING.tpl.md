@@ -71,3 +71,18 @@ A failing check is never weakened, skipped or deleted to pass, in any
 mode, at any tier. A check believed wrong is escalated through the
 oracle amendment workflow or a question, with the reasoning on
 record.
+
+## Measured, 2026-08
+
+The timing matrix above was a default set until the ablation ran. Eighteen
+runs across three tasks, three timings, six runs each: every arm passed six
+of six, so timing did not separate quality on this work. Cost did separate,
+clearly. Implement-then-harden spent 3.8M tokens and 313 seconds against
+2.3M and 208 seconds for alongside, and 2.4M and 217 seconds for
+acceptance-first.
+
+So the matrix stands as written, and the reason is now evidence rather than
+assertion: acceptance-first where a gate depends on the oracle, alongside
+for ordinary features, and harden-last kept for spikes where deferring the
+oracle is the entire point. The sample is small and every arm passed, so
+this ranks cost and says nothing about which timing catches more faults.

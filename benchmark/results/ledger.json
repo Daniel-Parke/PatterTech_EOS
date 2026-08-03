@@ -4578,6 +4578,858 @@
         "human_gates_pending": 0
       },
       "notes": ""
+    },
+    {
+      "run_id": "R-V2F-T04-t1",
+      "task": "T04-bug-fix",
+      "variant": "v2-routed-once",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_billing.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 4,
+        "ceremony_lines": 23,
+        "tokens_in": 1802323,
+        "tokens_out": 11732,
+        "wall_clock_s": 181.891,
+        "operator_events": 0,
+        "turns": 32,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2F-T04-t2",
+      "task": "T04-bug-fix",
+      "variant": "v2-routed-once",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_billing.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 5,
+        "ceremony_lines": 40,
+        "tokens_in": 2371618,
+        "tokens_out": 14589,
+        "wall_clock_s": 239.089,
+        "operator_events": 0,
+        "turns": 39,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2F-T04-t3",
+      "task": "T04-bug-fix",
+      "variant": "v2-routed-once",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_refund_rounding_oracle.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 5,
+        "ceremony_lines": 68,
+        "tokens_in": 2583066,
+        "tokens_out": 13479,
+        "wall_clock_s": 217.712,
+        "operator_events": 0,
+        "turns": 42,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2F-T07-t1",
+      "task": "T07-auth",
+      "variant": "v2-routed-once",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_forbidden",
+          "pass": true,
+          "reason": "non-admin alice@example.com correctly got 403 from /admin/reports"
+        },
+        {
+          "id": "c2_admin_ok",
+          "pass": true,
+          "reason": "admin admin@example.com still gets 200 with the full report"
+        },
+        {
+          "id": "c3_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 4,
+        "ceremony_lines": 34,
+        "tokens_in": 2521732,
+        "tokens_out": 12866,
+        "wall_clock_s": 198.433,
+        "operator_events": 0,
+        "turns": 42,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2F-T07-t2",
+      "task": "T07-auth",
+      "variant": "v2-routed-once",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_forbidden",
+          "pass": true,
+          "reason": "non-admin alice@example.com correctly got 403 from /admin/reports"
+        },
+        {
+          "id": "c2_admin_ok",
+          "pass": true,
+          "reason": "admin admin@example.com still gets 200 with the full report"
+        },
+        {
+          "id": "c3_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 4,
+        "ceremony_lines": 66,
+        "tokens_in": 2904831,
+        "tokens_out": 13964,
+        "wall_clock_s": 226.58,
+        "operator_events": 0,
+        "turns": 47,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2F-T07-t3",
+      "task": "T07-auth",
+      "variant": "v2-routed-once",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_forbidden",
+          "pass": true,
+          "reason": "non-admin alice@example.com correctly got 403 from /admin/reports"
+        },
+        {
+          "id": "c2_admin_ok",
+          "pass": true,
+          "reason": "admin admin@example.com still gets 200 with the full report"
+        },
+        {
+          "id": "c3_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 7,
+        "ceremony_lines": 65,
+        "tokens_in": 3505112,
+        "tokens_out": 14494,
+        "wall_clock_s": 255.626,
+        "operator_events": 0,
+        "turns": 54,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T02accfirst-t1",
+      "task": "T02-ui-fix",
+      "variant": "timing-acceptance-first",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_responsive",
+          "pass": true,
+          "reason": ".hero-stats carries no fixed pixel width outside media queries"
+        },
+        {
+          "id": "c2_no_mask",
+          "pass": true,
+          "reason": "no overflow mask on html, body or the universal selector"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 6,
+        "ceremony_lines": 44,
+        "tokens_in": 2391159,
+        "tokens_out": 12805,
+        "wall_clock_s": 387.004,
+        "operator_events": 0,
+        "turns": 42,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T02accfirst-t2",
+      "task": "T02-ui-fix",
+      "variant": "timing-acceptance-first",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_responsive",
+          "pass": true,
+          "reason": ".hero-stats carries no fixed pixel width outside media queries"
+        },
+        {
+          "id": "c2_no_mask",
+          "pass": true,
+          "reason": "no overflow mask on html, body or the universal selector"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 5,
+        "ceremony_lines": 38,
+        "tokens_in": 2005095,
+        "tokens_out": 14848,
+        "wall_clock_s": 220.176,
+        "operator_events": 0,
+        "turns": 36,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T02along-t1",
+      "task": "T02-ui-fix",
+      "variant": "timing-alongside",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_responsive",
+          "pass": true,
+          "reason": ".hero-stats carries no fixed pixel width outside media queries"
+        },
+        {
+          "id": "c2_no_mask",
+          "pass": true,
+          "reason": "no overflow mask on html, body or the universal selector"
+        }
+      ],
+      "metrics": {
+        "files_read": 1,
+        "files_written": 3,
+        "ceremony_lines": 23,
+        "tokens_in": 2507337,
+        "tokens_out": 9698,
+        "wall_clock_s": 219.858,
+        "operator_events": 0,
+        "turns": 44,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T02along-t2",
+      "task": "T02-ui-fix",
+      "variant": "timing-alongside",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_responsive",
+          "pass": true,
+          "reason": ".hero-stats carries no fixed pixel width outside media queries"
+        },
+        {
+          "id": "c2_no_mask",
+          "pass": true,
+          "reason": "no overflow mask on html, body or the universal selector"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 5,
+        "ceremony_lines": 13,
+        "tokens_in": 1873934,
+        "tokens_out": 9046,
+        "wall_clock_s": 189.313,
+        "operator_events": 0,
+        "turns": 33,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T02hardlast-t1",
+      "task": "T02-ui-fix",
+      "variant": "timing-harden-last",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_responsive",
+          "pass": true,
+          "reason": ".hero-stats carries no fixed pixel width outside media queries"
+        },
+        {
+          "id": "c2_no_mask",
+          "pass": true,
+          "reason": "no overflow mask on html, body or the universal selector"
+        }
+      ],
+      "metrics": {
+        "files_read": 1,
+        "files_written": 9,
+        "ceremony_lines": 37,
+        "tokens_in": 4491422,
+        "tokens_out": 19640,
+        "wall_clock_s": 339.966,
+        "operator_events": 0,
+        "turns": 72,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T02hardlast-t2",
+      "task": "T02-ui-fix",
+      "variant": "timing-harden-last",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_responsive",
+          "pass": true,
+          "reason": ".hero-stats carries no fixed pixel width outside media queries"
+        },
+        {
+          "id": "c2_no_mask",
+          "pass": true,
+          "reason": "no overflow mask on html, body or the universal selector"
+        }
+      ],
+      "metrics": {
+        "files_read": 1,
+        "files_written": 9,
+        "ceremony_lines": 44,
+        "tokens_in": 2550932,
+        "tokens_out": 10710,
+        "wall_clock_s": 244.524,
+        "operator_events": 0,
+        "turns": 44,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T03accfirst-t1",
+      "task": "T03-feature",
+      "variant": "timing-acceptance-first",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 7,
+        "ceremony_lines": 30,
+        "tokens_in": 2753416,
+        "tokens_out": 11714,
+        "wall_clock_s": 213.314,
+        "operator_events": 0,
+        "turns": 45,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T03accfirst-t2",
+      "task": "T03-feature",
+      "variant": "timing-acceptance-first",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 7,
+        "ceremony_lines": 22,
+        "tokens_in": 2300566,
+        "tokens_out": 11762,
+        "wall_clock_s": 203.97,
+        "operator_events": 0,
+        "turns": 36,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T03along-t1",
+      "task": "T03-feature",
+      "variant": "timing-alongside",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 2,
+        "files_written": 8,
+        "ceremony_lines": 34,
+        "tokens_in": 2926098,
+        "tokens_out": 14130,
+        "wall_clock_s": 255.053,
+        "operator_events": 0,
+        "turns": 44,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T03along-t2",
+      "task": "T03-feature",
+      "variant": "timing-alongside",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 10,
+        "ceremony_lines": 35,
+        "tokens_in": 3743674,
+        "tokens_out": 18853,
+        "wall_clock_s": 299.401,
+        "operator_events": 0,
+        "turns": 55,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T03hardlast-t1",
+      "task": "T03-feature",
+      "variant": "timing-harden-last",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 13,
+        "ceremony_lines": 59,
+        "tokens_in": 4612543,
+        "tokens_out": 25771,
+        "wall_clock_s": 439.084,
+        "operator_events": 0,
+        "turns": 63,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T03hardlast-t2",
+      "task": "T03-feature",
+      "variant": "timing-harden-last",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "metrics": {
+        "files_read": 6,
+        "files_written": 10,
+        "ceremony_lines": 61,
+        "tokens_in": 4639214,
+        "tokens_out": 25910,
+        "wall_clock_s": 388.863,
+        "operator_events": 0,
+        "turns": 67,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T04accfirst-t1",
+      "task": "T04-bug-fix",
+      "variant": "timing-acceptance-first",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_refund_oracle.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 4,
+        "ceremony_lines": 35,
+        "tokens_in": 2432159,
+        "tokens_out": 11605,
+        "wall_clock_s": 198.879,
+        "operator_events": 0,
+        "turns": 39,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T04accfirst-t2",
+      "task": "T04-bug-fix",
+      "variant": "timing-acceptance-first",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_refund_rounding.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 5,
+        "ceremony_lines": 51,
+        "tokens_in": 2575905,
+        "tokens_out": 13973,
+        "wall_clock_s": 221.396,
+        "operator_events": 0,
+        "turns": 42,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T04along-t1",
+      "task": "T04-bug-fix",
+      "variant": "timing-alongside",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_billing_refund_oracle.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 3,
+        "ceremony_lines": 39,
+        "tokens_in": 1965524,
+        "tokens_out": 12000,
+        "wall_clock_s": 195.915,
+        "operator_events": 0,
+        "turns": 33,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T04along-t2",
+      "task": "T04-bug-fix",
+      "variant": "timing-alongside",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_billing_refund_rounding.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 4,
+        "ceremony_lines": 21,
+        "tokens_in": 2061113,
+        "tokens_out": 10380,
+        "wall_clock_s": 179.77,
+        "operator_events": 0,
+        "turns": 36,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T04hardlast-t1",
+      "task": "T04-bug-fix",
+      "variant": "timing-harden-last",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_billing.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 0,
+        "files_written": 7,
+        "ceremony_lines": 43,
+        "tokens_in": 2936222,
+        "tokens_out": 17819,
+        "wall_clock_s": 285.053,
+        "operator_events": 0,
+        "turns": 46,
+        "human_gates_pending": 0
+      },
+      "notes": ""
+    },
+    {
+      "run_id": "R-V2T-T04hardlast-t2",
+      "task": "T04-bug-fix",
+      "variant": "timing-harden-last",
+      "ablation": null,
+      "date": "2026-08-03",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        },
+        {
+          "id": "c2_repro_test",
+          "pass": true,
+          "reason": "regression test fails on the baseline as it should: tests/test_billing.py"
+        },
+        {
+          "id": "c3_half_even",
+          "pass": true,
+          "reason": "all 6 refund cases round half to even"
+        }
+      ],
+      "metrics": {
+        "files_read": 11,
+        "files_written": 5,
+        "ceremony_lines": 19,
+        "tokens_in": 3152334,
+        "tokens_out": 15783,
+        "wall_clock_s": 227.15,
+        "operator_events": 0,
+        "turns": 47,
+        "human_gates_pending": 0
+      },
+      "notes": ""
     }
   ]
 }
