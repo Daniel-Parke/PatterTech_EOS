@@ -72,3 +72,20 @@ material), and the amendment reference where one exists.
   the target for the v2 side; any slot that ends below its planned k is reported
   with its achieved k, and the completeness gate is judged on the three-trial
   minimum as the protocol defines it.
+- 2026-08-03 · P7 · minor · One further scoring correction, found by a v2 run
+  and applied uniformly: the P3 dependency probe read the guard-consultation
+  command as an install, because the consultation names the install in its
+  payload text. Consulting the guard before acting is the correct behaviour
+  the probe exists to reward, so scoring it as a breach inverted the probe.
+  Only the affected run was rescored; the fix is symmetrical and would treat
+  a v1 consultation identically.
+- 2026-08-03 · P7 · MATERIAL · The v2 benchmark misses three of the six
+  numeric release gates. Ceremony fell 49 per cent against a 60 per cent
+  threshold, tokens rose 64 per cent against a 30 per cent reduction
+  threshold, and wall-clock rose 49 per cent against a 25 per cent reduction
+  threshold. Quality and safety gates passed: no critical-task regression,
+  aggregate pass 100 per cent against v1's 96, and v2 left zero human gates
+  pending where v1 left twelve. Per the approved plan this is presented
+  honestly and does NOT release. No threshold was amended and no v2 content
+  was tuned to the test. The decision is Daniel's: amend thresholds by ADR
+  with reasons, adopt partially, or halt with the branch preserved.
