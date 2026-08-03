@@ -153,12 +153,18 @@ no-router configuration is safe. It shows only where the tokens went.
 
 ## What I would do next
 
-Run the routing ablation first. It is the cheapest experiment that could
-change the decision, because it separates the cost of v2's design from the
-cost of the way the benchmark asked for it. If routing is most of the
-overhead, the honest options widen: route only above a tier floor, or
-cache the routing verdict per task rather than per session.
+Fix the routing cost in the design, then re-measure. The ablation says the
+overhead is a command round trip per session, so the fix is to stop paying
+it per session: route once when the task record is created and carry the
+verdict on the record, or route at the gate in the checker where the diff
+already is. Neither weakens the control. Both are a P2 tooling change of
+modest size, and the re-run is thirty-nine sessions.
 
-If the ablation does not move the numbers, the finding stands as measured:
-v2 buys delivery and removes paperwork on heavy work, and costs tokens and
-time on light work.
+That is the corrective iteration the plan allows, and I have not taken it,
+because taking it after seeing the gate results is the moment where tuning
+to the test starts. It should be Daniel's call whether the fix is a
+legitimate correction or a second bite.
+
+If the fix is taken and the numbers still miss, the finding stands as
+measured: v2 buys delivery and removes paperwork on heavy work, and costs
+tokens and time on light work.
