@@ -123,3 +123,15 @@ material), and the amendment reference where one exists.
   have been written to. A criterion with no machine grader reports manual and
   is never counted as a pass; a drill whose criteria are all manual reports
   null with a reason rather than a false green.
+- 2026-08-03 · C4 · MATERIAL · Second and final corrective iteration, on a
+  defect the benchmark itself found. WG-DEL-006 said oracle independence at
+  R2 or above required an independent author. A third of R2 benchmark runs
+  read that as demanding a separate session, blocked waiting for one and
+  delivered nothing; the rest wrote the oracle first in-session and delivered
+  correctly. The evidence protects the author not holding the implementation
+  in context, and writing the oracle first satisfies that because no
+  implementation exists yet. The rule is now explicit: R2 permits same-session
+  oracle-first, R3 requires a separate author and a hand-off, and nobody ever
+  amends their own frozen gates. WG-DEL-006, both charters, the delivery pack
+  and the ORG seed are aligned. Only the two affected tasks are re-run; this
+  exhausts the plan's allowance of two corrective iterations.
