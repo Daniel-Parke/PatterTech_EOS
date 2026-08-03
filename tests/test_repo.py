@@ -19,7 +19,7 @@ def test_loads_minirepo_files(tmp_path):
     model = RepoModel.load(root, today=TODAY)
     paths = [f.path for f in model.files]
     assert "AGENTS.md" in paths
-    assert "doctrine/testmod/wargames/WG-TST-001-sample.md" in paths
+    assert "packs/testmod/guides/WG-TST-001-sample.md" in paths
     # traversal order is deterministic: a reload sees the same order
     assert paths == [f.path for f in RepoModel.load(root, today=TODAY).files]
 

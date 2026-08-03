@@ -44,30 +44,21 @@ def edit(root, rel, old, new):
 V1_LINE = re.compile(r"^(ERROR|warn)\s+(E\d{3})\s+(.+?): (.*)$")
 
 
-def test_parity_with_v1_checker_over_this_repo():
+def test_v1_checker_is_a_forwarding_shim():
+    """The v1 checker was the port's parity gate and is now retired.
+
+    It proved the E-series port faithful while both could see the same
+    tree. The pack restructure moved the knowledge layer, so v1's
+    hardcoded doctrine and wargame-index paths no longer resolve and
+    parity is not a meaningful assertion. The original is kept at
+    archive/v1/tools/eos_check.py; the live path forwards.
+    """
     proc = subprocess.run(
         [sys.executable, str(REPO_ROOT / "tools" / "eos_check.py"), "--repo"],
         capture_output=True, text=True, encoding="utf-8", cwd=str(REPO_ROOT),
     )
-    v1 = set()
-    for line in proc.stdout.splitlines():
-        m = V1_LINE.match(line)
-        if m:
-            sev = "error" if m.group(1) == "ERROR" else "warn"
-            path = m.group(3)
-            # v1 skips only .git; v2's traversal also sanctions skipping
-            # tool caches, so findings inside them fall out of the gate.
-            if SKIP_DIRS.intersection(path.split("/")):
-                continue
-            v1.add((sev, m.group(2), path, m.group(4)))
-    ours = {(f.severity, f.check_id, f.path, f.message)
-            for f in run_e(REPO_ROOT, today=date.today())}
-    assert ours == v1
-    assert proc.returncode in (0, 1)
-
-
-# --- minirepo is green --------------------------------------------------
-
+    assert "deprecated" in proc.stderr
+    assert "errors," in proc.stderr or "errors," in proc.stdout
 
 def test_minirepo_is_green(tmp_path):
     assert run_e(make_repo(tmp_path)) == []
@@ -103,10 +94,10 @@ def test_index_golden_byte_round_trip(tmp_path):
     want_idx = build_index(model)
     want_widx = build_wargame_index(model)
     assert model.read("INDEX.md") == want_idx
-    assert model.read("doctrine/WARGAME_INDEX.md") == want_widx
+    assert model.read("packs/GUIDE_INDEX.md") == want_widx
     write_indexes(ctx_for(root))
     assert (root / "INDEX.md").read_bytes() == want_idx.encode("utf-8")
-    assert (root / "doctrine" / "WARGAME_INDEX.md").read_bytes() == want_widx.encode("utf-8")
+    assert (root / "packs" / "GUIDE_INDEX.md").read_bytes() == want_widx.encode("utf-8")
 
 
 # --- E002 ---------------------------------------------------------------
@@ -135,12 +126,12 @@ def test_e002_unknown_type(tmp_path):
 
 def test_e002_type_requires_status_and_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/wargames/WG-TST-001-sample.md", "status: active\n", "")
-    edit(root, "doctrine/testmod/wargames/WG-TST-001-sample.md", "review_by: 2030-01\n", "")
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "status: active\n", "")
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "review_by: 2030-01\n", "")
     fs = run_e(root)
     got = only(fs, "E002")
-    assert ("error", "doctrine/testmod/wargames/WG-TST-001-sample.md", "type requires status") in got
-    assert ("error", "doctrine/testmod/wargames/WG-TST-001-sample.md", "type requires review_by") in got
+    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires status") in got
+    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires review_by") in got
 
 
 def test_e002_unterminated_block_reported(tmp_path):
@@ -201,37 +192,37 @@ def test_e004_cliche(tmp_path):
 
 def test_e005_wargame_without_id(tmp_path):
     root = make_repo(tmp_path)
-    (root / "doctrine" / "testmod" / "wargames" / "nameless.md").write_text(
+    (root / "packs" / "testmod" / "guides" / "nameless.md").write_text(
         "---\nsummary: A nameless wargame\ntype: wargame\ntags: [eos, wargame]\n"
         "status: active\nreview_by: 2030-01\n---\n\nBody.\n", encoding="utf-8")
     fs = run_e(root)
     assert only(fs, "E005") == [(
-        "error", "doctrine/testmod/wargames/nameless.md",
+        "error", "packs/testmod/guides/nameless.md",
         "wargame filename lacks a WG-<MOD>-NNN id")]
 
 
 def test_e005_duplicate_id(tmp_path):
     root = make_repo(tmp_path)
-    src = root / "doctrine" / "testmod" / "wargames" / "WG-TST-001-sample.md"
+    src = root / "packs" / "testmod" / "guides" / "WG-TST-001-sample.md"
     shutil.copy(src, src.with_name("WG-TST-001-copy.md"))
     fs = run_e(root)
-    assert ("error", "doctrine/testmod/wargames/WG-TST-001-sample.md",
+    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md",
             "duplicate wargame id WG-TST-001") in only(fs, "E005")
 
 
 def test_e005_undefined_reference(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/DOCTRINE.md",
+    edit(root, "packs/testmod/PACK.md",
          "The single ruling surface is WG-TST-001.",
          "The single ruling surface is WG-TST-001. See also WG-TST-999.")
     fs = run_e(root)
-    assert only(fs, "E005") == [("warn", "doctrine/testmod/DOCTRINE.md",
+    assert only(fs, "E005") == [("warn", "packs/testmod/PACK.md",
                                  "reference to undefined wargame WG-TST-999")]
 
 
 def test_e005_zero_suffix_reference_allowed(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/DOCTRINE.md",
+    edit(root, "packs/testmod/PACK.md",
          "The single ruling surface is WG-TST-001.",
          "The single ruling surface is WG-TST-001, described in WG-TST-000.")
     fs = run_e(root)
@@ -243,23 +234,23 @@ def test_e005_zero_suffix_reference_allowed(tmp_path):
 
 def test_e006_past_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01", "review_by: 2020-01")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: 2020-01")
     fs = run_e(root)
-    assert only(fs, "E006") == [("warn", "doctrine/testmod/README.md",
+    assert only(fs, "E006") == [("warn", "packs/testmod/README.md",
                                  "past review_by 2020-01, verify before relying")]
 
 
 def test_e006_malformed_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01", "review_by: soonish")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: soonish")
     fs = run_e(root)
-    assert only(fs, "E006") == [("error", "doctrine/testmod/README.md",
+    assert only(fs, "E006") == [("error", "packs/testmod/README.md",
                                  "review_by not YYYY-MM: soonish")]
 
 
 def test_e006_current_month_not_flagged(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "doctrine/testmod/README.md", "review_by: 2030-01", "review_by: 2026-08")
+    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: 2026-08")
     fs = run_e(root)
     assert only(fs, "E006") == []
 
@@ -281,18 +272,18 @@ def test_e007_router_cap(tmp_path):
 
 def test_e007_budget_and_waiver(tmp_path):
     root = make_repo(tmp_path)
-    p = root / "doctrine" / "testmod" / "DOCTRINE.md"
+    p = root / "packs" / "testmod" / "PACK.md"
     filler = "".join(f"Filler line {i}.\n" for i in range(150))
     p.write_text(p.read_text(encoding="utf-8") + filler, encoding="utf-8")
     n = len(p.read_text(encoding="utf-8").splitlines())
     fs = run_e(root)
-    assert only(fs, "E007") == [("error", "doctrine/testmod/DOCTRINE.md",
+    assert only(fs, "E007") == [("error", "packs/testmod/PACK.md",
                                  f"{n} lines over the 150 budget, no length_waiver")]
-    edit(root, "doctrine/testmod/DOCTRINE.md", "review_by: 2030-01",
+    edit(root, "packs/testmod/PACK.md", "review_by: 2030-01",
          "review_by: 2030-01\nlength_waiver: agreed for the test")
     fs = run_e(root)
     n2 = n + 1
-    assert only(fs, "E007") == [("warn", "doctrine/testmod/DOCTRINE.md",
+    assert only(fs, "E007") == [("warn", "packs/testmod/PACK.md",
                                  f"{n2} lines under waiver: agreed for the test")]
 
 

@@ -170,12 +170,12 @@ exceptions are a cache with a named invalidation owner and an
 immutable snapshot carrying its input digest. Reason: a stored
 derivation drifts from its source silently, and a cache without an
 owner is a slow bug. Argued at
-`doctrine/architecture/wargames/WG-ARCH-003-derived-state.md`.
+`archive/v1/doctrine/architecture/wargames/WG-ARCH-003-derived-state.md`.
 
 **D6. Background jobs run on a durable database claim queue.** Reason:
 one store, exactly the database's guarantees, and jobs survive a
 deploy. Argued at
-`doctrine/architecture/wargames/WG-ARCH-004-job-execution.md`. Where a
+`archive/v1/doctrine/architecture/wargames/WG-ARCH-004-job-execution.md`. Where a
 state change must also produce a message, use an outbox in the same
 transaction and make every consumer idempotent (EV-0157).
 
@@ -199,7 +199,7 @@ a default for exactly that reason.
 output is deterministic.** Otherwise pin behaviour with
 characterisation tests over the touched surface before changing it.
 Argued at
-`doctrine/architecture/wargames/WG-ARCH-006-change-proof.md`.
+`archive/v1/doctrine/architecture/wargames/WG-ARCH-006-change-proof.md`.
 
 ## Preferences
 
@@ -214,7 +214,7 @@ Taste. Argue freely, no record needed.
   event-driven. The four have different costs (EV-0163).
 - Raw SQL behind a repository layer, over an ORM, when the data is
   hot. Argued at
-  `doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md`.
+  `archive/v1/doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md`.
 - Defer domain grouping and per-domain gateways until service count
   makes them a real problem. Uber reached for them at roughly 2,200
   services (EV-0160).
@@ -227,13 +227,13 @@ Taste. Argue freely, no record needed.
 | Boundary enforcement | Convention, machine contract, or the tree itself? | `packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md` | Machine contract, rising to tree |
 | Vendor depth | SDK throughout, owned adapter, or raw protocol? | `packs/architecture/guides/WG-ARCH-007-vendor-seams.md` | Owned adapter, raw protocol at webhooks |
 | Data topology | One database, one per service, or records plus readings? | `packs/architecture/guides/WG-ARCH-008-database-topology.md` | One, until a second real owner |
-| Derived state | Computed, cached, or snapshotted? | `doctrine/architecture/wargames/WG-ARCH-003-derived-state.md` | Computed |
-| Job substrate | In-process, database queue, or broker? | `doctrine/architecture/wargames/WG-ARCH-004-job-execution.md` | Database claim queue |
-| Contract seam | Hand-maintained, generated and gated, or one language? | `doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md` | Generated, committed, gated |
-| Change proof | Green suite, pinned behaviour, or byte-stable output? | `doctrine/architecture/wargames/WG-ARCH-006-change-proof.md` | Output canary where deterministic |
-| ORM or SQL | ORM, raw SQL behind repositories, or a builder? | `doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md` | Raw SQL behind repositories |
+| Derived state | Computed, cached, or snapshotted? | `archive/v1/doctrine/architecture/wargames/WG-ARCH-003-derived-state.md` | Computed |
+| Job substrate | In-process, database queue, or broker? | `archive/v1/doctrine/architecture/wargames/WG-ARCH-004-job-execution.md` | Database claim queue |
+| Contract seam | Hand-maintained, generated and gated, or one language? | `archive/v1/doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md` | Generated, committed, gated |
+| Change proof | Green suite, pinned behaviour, or byte-stable output? | `archive/v1/doctrine/architecture/wargames/WG-ARCH-006-change-proof.md` | Output canary where deterministic |
+| ORM or SQL | ORM, raw SQL behind repositories, or a builder? | `archive/v1/doctrine/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md` | Raw SQL behind repositories |
 
-The four forks still pointing at `doctrine/architecture/wargames/`
+The four forks still pointing at `archive/v1/doctrine/architecture/wargames/`
 carry their v1 argument unchanged and have not been re-graded against
 the 2026 evidence sweep. Treat their defaults as current and their
 grading as pending.
