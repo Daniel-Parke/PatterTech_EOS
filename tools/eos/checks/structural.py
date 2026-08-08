@@ -61,7 +61,10 @@ CLICHES = [
 ]
 WG_DEF = re.compile(r"^WG-[A-Z]+-\d{3}")
 WG_REF = re.compile(r"\bWG-[A-Z]+-\d{3}\b")
-SLOT_RE = re.compile(r"\{\{[A-Z_]+\}\}")
+# Digits included: the kernel ships {{SUCCESS_90}}, and a pattern of
+# [A-Z_]+ let it through a green seed check unfilled. Reported by Guth's
+# cold-start probe, 2026-07-15, and harvested 2026-08-08.
+SLOT_RE = re.compile(r"\{\{[A-Z0-9_]+\}\}")
 
 
 def strip_code(text: str) -> str:

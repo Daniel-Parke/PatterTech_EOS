@@ -6,7 +6,7 @@ tags: [eos, testing]
 
 # PatterTech house style: research notes
 
-The domain is taste, carried forward from `archive/v1/doctrine/web-design`.
+The domain is taste, carried forward from `archive/v1-final:doctrine/web-design`.
 Taste cannot be proved, but the mechanisms underneath it can be. These notes
 separate the parts of the house language that rest on measured behaviour, the
 parts that rest on a defensible default, and the parts that are simply ours.

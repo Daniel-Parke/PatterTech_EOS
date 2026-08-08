@@ -3,7 +3,7 @@ summary: The teaching surface for EOS v2, what changed from v1 and why, the kern
 type: guide
 tags: [eos]
 review_by: 2027-01
-supersedes: archive/v1/GUIDE.md
+supersedes: archive/v1-final:GUIDE.md
 ---
 
 # TOUR
@@ -134,7 +134,7 @@ the eleven-point definition of done. A domain that cannot meet that bar
 stays a row in `registry/coverage.json` and is never described as
 implemented.
 
-`START.md` is retired and archived at `archive/v1/START.md`. Its job,
+`START.md` is retired and archived at `archive/v1-final:START.md`. Its job,
 telling you what to read for your entry mode, is done by two things
 now: the mode you are routed into by `python -m tools.eos route`, and
 the activation rows in `packs/INDEX.md`. You no longer read a fixed
@@ -153,4 +153,4 @@ list before starting; the work decides what loads.
 | Why is it like this? | `org/decisions/`, newest first |
 | Which repos exist and which are governed? | `estate/ESTATE_MAP.md` |
 | Where did that claim come from? | `registry/evidence.json` |
-| What did v1 say? | `archive/v1/`, kept in place, marked archived |
+| What did v1 say? | the `archive/v1-final` tag, `archive/README.md` says how |

@@ -115,4 +115,4 @@ the floor is a conformance matter, and only the floor may be claimed.
 - **2026-07**: conduit duty cycle relaxed from about 18 seconds to about
   12 seconds, argued in WG-WEB-005 against the v4 read.
 - **2026-08**: all figures gathered here from the v1 foundations, which
-  are now history under `archive/v1/doctrine/web-design/`.
+  are now history under `archive/v1-final:doctrine/web-design`.

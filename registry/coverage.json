@@ -612,7 +612,7 @@
     "packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md"
    ],
    "evaluation_method": "packs/writing-content/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/writing-content/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/writing-content.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
-   "estate_relevance": "Every repo writes prose, and the v1 voice module is now archived at archive/v1/doctrine/voice/.",
+   "estate_relevance": "Every repo writes prose, and the v1 voice module is now archived at archive/v1-final:doctrine/voice/.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:CLDR-plural-categories"
   },

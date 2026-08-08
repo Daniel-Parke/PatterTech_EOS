@@ -2,7 +2,7 @@
 """Deprecation shim: forwards to python -m tools.eos.
 
 The v1 checker was the parity anchor for the v2 port and is kept at
-archive/v1/tools/eos_check.py as history. It cannot validate the v2
+archive/v1-final:tools/eos_check.py as history. It cannot validate the v2
 tree: it looks for doctrine modules and a wargame index that the pack
 restructure retired. Every caller should move to the package.
 """

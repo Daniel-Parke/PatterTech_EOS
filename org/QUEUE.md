@@ -6,7 +6,7 @@ tags: [eos]
 
 # QUEUE
 
-The v1 queue is archived at `archive/v1/org/QUEUE.md`. Work now lives
+The v1 queue is archived at `archive/v1-final:org/QUEUE.md`. Work now lives
 as per-task JSON records in org/tasks/, one T-#### file each, with a
 derived TASKS view regenerated only by the integrator. Two v1 items
 survive as records: T-0002, the test-doubles decision guide, its

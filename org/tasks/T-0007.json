@@ -1,0 +1,23 @@
+{
+  "id": "T-0007",
+  "intent": "PatterTech_Website carries no docs/EOS_FEEDBACK.md, so the first PB-E02 harvest could read nothing from a governed venture. It was seeded before the feedback template existed. Either compile the template into it at the next upgrade, or record in estate/repos.json that the venture is exempt and why. A governed venture with no channel back to the EOS is a hole in the harvest, not a quiet absence.",
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "proposed",
+  "owner_session": "unassigned",
+  "claims": [
+    "estate/",
+    "registry/"
+  ],
+  "timestamps": {
+    "opened": "2026-08-08T12:00:00Z",
+    "updated": "2026-08-08T12:00:00Z"
+  },
+  "hypothesis_ledger": []
+}

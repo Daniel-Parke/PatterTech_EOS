@@ -30,6 +30,11 @@ Derived file. Edit guide front-matter, then run
 | GD-API-005 | How does a consumer walk a collection: offset paging, opaque cursors, visible keyset, or a hybrid with an estimated total? | api-integration | advisory | on-change-of:EV-0130 |
 | GD-ARCH-001 | One deployable, several deployables, or contract-shaped seams inside one process | architecture | default | 2027-03 |
 | WG-ARCH-001 | Where module boundaries live, whether convention, a machine contract, the directory tree, or a runtime call graph | architecture | default | 2026-12 |
+| WG-ARCH-002 | How the service reaches its data, whether an ORM, raw SQL behind a repository, a query builder, or SQL files compiled to typed access, and where the seam sits | architecture | default | 2027-07 |
+| WG-ARCH-003 | Where a derived value is allowed to rest, whether computed on read, cached with a named owner, frozen as an immutable snapshot, or maintained by the write path | architecture | default | 2027-07 |
+| WG-ARCH-004 | Where background work runs, whether in the request process, on a durable database claim queue, on an external broker, or on a scheduled pass over state | architecture | default | 2027-07 |
+| WG-ARCH-005 | How frontend and backend come to agree on types, whether hand-maintained, generated and gated, one language end to end, or parsed at the edge | architecture | default | 2027-07 |
+| WG-ARCH-006 | What proves a change changed nothing, whether a green suite, behaviour pinned first, a byte-stable output canary, or a differential run against the old version | architecture | default | 2027-07 |
 | WG-ARCH-007 | How deep a vendor is allowed into the codebase, whether SDK throughout, an owned adapter, the raw protocol, or a generated client | architecture | default | 2027-01 |
 | WG-ARCH-008 | Where data rests, whether one shared database, private tables with distinct credentials, one store per deployable, or a records core with a separate readings store | architecture | default | 2027-06 |
 | GD-BLM-001 | How much model does this domain earn, from plain procedures to declared decisions? | business-logic-modelling | default | 2027-09 |
