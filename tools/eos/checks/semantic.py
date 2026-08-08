@@ -939,3 +939,65 @@ def check_s015_activation_triggers(ctx: dict) -> list:
                           "no applies_when: predicates are the real gate "
                           "under packs/PACK_SHAPE.md"))
     return out
+
+
+@register("S016")
+def check_s016_cited_by_is_derived(ctx: dict) -> list:
+    """registry/evidence.json's cited_by matches the citations that exist.
+
+    The field used to be written by the fragment importer and meant
+    "a pack fragment contributed this record", which is a different
+    fact from "a pack cites this record" recorded under the citing
+    name. Every record imported from estate-wide research carried an
+    empty list while being cited by id in pack prose, so 107 of 448
+    read as uncited when 12 actually were.
+
+    The scan is imported from the generator rather than reimplemented
+    here. A checker with its own copy of the rule is how the two come
+    to disagree, which is the defect this field already had once.
+
+    Regenerate with `python tools/import_fragments.py`.
+    """
+    import json
+
+    model: RepoModel = ctx["model"]
+    raw = model.read("registry/evidence.json")
+    if raw is None:
+        return []
+    try:
+        ledger = json.loads(raw)
+    except ValueError as exc:
+        return [_f(ctx, "S016", "registry/evidence.json",
+                   f"not valid JSON: {exc}")]
+
+    try:
+        import sys
+        root = str(model.root)
+        if root not in sys.path:
+            sys.path.insert(0, root)
+        from tools.import_fragments import scan_citations
+    except ImportError as exc:
+        return [_f(ctx, "S016", "registry/evidence.json",
+                   f"cannot load the citation scanner: {exc}")]
+
+    actual = scan_citations(model.root)
+
+    out = []
+    stale = []
+    for record in ledger.get("records", []):
+        rid = record.get("id")
+        recorded = set(record.get("cited_by") or ())
+        if actual.get(rid, set()) != recorded:
+            stale.append(rid)
+    if stale:
+        out.append(_f(ctx, "S016", "registry/evidence.json",
+                      "cited_by is stale for %d record(s) (%s%s): it is "
+                      "derived, so regenerate with "
+                      "python tools/import_fragments.py"
+                      % (len(stale), ", ".join(stale[:5]),
+                         ", ..." if len(stale) > 5 else "")))
+    if not ledger.get("research_cutoff"):
+        out.append(_f(ctx, "S016", "registry/evidence.json",
+                      "no research_cutoff: the ledger cannot say how old "
+                      "its own reading is"))
+    return out
