@@ -30,7 +30,7 @@ human input.
 | C-03 | The inventory exists and is not empty | The scan step produced an inventory with an entry count above zero and above the lockfile's direct dependency count | D2 |
 | C-04 | Every component has a licence value | No entry resolves to an unasserted, none or empty value unless that component is named in `LICENCE_DECISION.md` | B2 |
 | C-05 | No unmade choices | No verdict column contains a choice expression; each is exactly one identifier | B3 |
-| C-06 | Buckets are applied | Every identifier maps to a bucket, and every bucket-two or bucket-three component has a dated `LICENCE_DECISION.md` entry naming the identifier, the triggering event and the disposition | D1, B4 |
+| C-06 | Buckets are applied | Every identifier maps to a bucket, and every bucket-two or bucket-three component has a dated `LICENCE_DECISION.md` entry naming the identifier, the triggering event and the disposition, where `referred` plus a handover reference is the required disposition for any component that also trips a B7 trigger | D1, B4 |
 | C-07 | Vendored directories carry provenance | Every vendored path has a licence file and a provenance note naming source and revision | D5, B2 |
 | C-08 | Per-file declaration on published repositories | The declaration lint passes with no unlicensed or uncovered file | D3 |
 | C-09 | Attribution reaches the artefact | The notice file in the built artefact contains an entry for every bucket-one component requiring attribution | D1 |
@@ -39,7 +39,7 @@ human input.
 | C-12 | Registration recorded | A record exists naming either the payment or the schedule exemption relied on, with a date | B5 |
 | C-13 | The decision record is current | The newest `LICENCE_DECISION.md` entry is no older than the most recent change to the dependency manifest | B4 |
 | C-14 | No fee figure is quoted | No pack or venture file states a charge amount sourced from this pack | B5 |
-| C-15 | Escalation was not answered | No `LICENCE_DECISION.md` entry resolves an escalation trigger; each carries a handover reference instead | B7 |
+| C-15 | Escalation was not answered | No `LICENCE_DECISION.md` entry resolves an escalation trigger on the agent's own authority; each such entry carries the disposition `referred` and a handover reference. An entry with no disposition at all fails C-06, so the two checks are satisfied by the same value rather than by opposite ones | B7 |
 | C-16 | The run stayed inside its budget | Elapsed time is recorded with the decision and is within the stated passes | D8 |
 | C-17 | The work still shipped | The venture's own test suite passes on the tip, so a clean licence result was not bought by refusing the feature | D8 |
 

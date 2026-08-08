@@ -29,7 +29,7 @@ the evidence.
 | C6 | Manual verdict file entry count equals the scanner incomplete count | B2 | compare counts, fail on mismatch |
 | C7 | Six failure classes asserted individually | B3 | one test each: contrast, image alternatives, form labels, empty links, empty buttons, page language |
 | C8 | Keyboard contract per interactive component | B4 | tab order reaches every control, focus visible in computed style, pattern keys produce the stated state change |
-| C9 | States manifest exported and each state renders | B7 | manifest walk, one assertion per state |
+| C9 | States manifest exported, and every component covers all six states as rendered or declared absent with a reason | B7 | manifest walk, one assertion per entry; a component missing an entry fails rather than passing by omission |
 | C10 | Decisions file names one philosophy per surface with at least one evidence id | B8 | schema validation of the decisions file |
 | C11 | Evidence ids in the decisions file exist in the ledger | B8 | lookup against the evidence registry |
 | C12 | No overlay script in either build output | B5 | scan built assets for known vendors and for runtime accessibility patchers |

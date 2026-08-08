@@ -50,6 +50,7 @@ owns them.
 | C17 | Section text is identical with scripting disabled | H5, degradation ladder | two headless runs, compare text content |
 | C18 | Page image transfer inside budget after a full scroll | budgets | headless run totalling image bytes |
 | C19 | Every animated custom property is registered in the token layer | defaults | parse registrations, cross-reference against animated property names |
+| C20 | Every looping conduit holds offscreen for most of its cycle | H3, budgets | parse the keyframes block, assert the travelling stop sits at or below a tenth of the cycle and the remaining stops hold the offscreen transform; a two-stop `from`/`to` translate fails, and a core on screen for most of the period is a persistent slow traveller and must sit on a monument |
 
 C11 needs a real browser engine, because contrast depends on computed
 style and does not resolve in a simulated document (EV-0236). C15 is the

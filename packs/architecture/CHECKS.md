@@ -36,10 +36,18 @@ These need no judgement. A script or a CI step decides.
 | A-15 | Webhook verification uses a non-zero recency tolerance | config or constant inspection | B5 |
 | A-16 | Every migration adding a table has a matching consumer and retention note | migration file and table registry comparison | D9 |
 | A-17 | No new deployable or datastore appears without a decision record naming the signal that justified it | manifest delta plus record lookup | D1, D8 |
+| A-18 | Every module named in the contract resolves in the source tree | resolve each source and forbidden module against the package tree; an unresolved name fails | B1 |
 
 A-01 to A-05, A-07 and A-09 are exactly the shape of criteria 1 to 9
 in `benchmark/drills/architecture.md`, so a pack that passes the drill
 passes most of this column by construction.
+
+A-18 is here because this pack shipped a skeleton forbidding
+`catalogue.repository`, a module that was never in the tree, and A-01
+through A-04 all passed over it: it parses, it names a direction, the
+run is green, and an injected violation of a different rule still trips.
+A rule pointed at nothing is the one shape that column cannot see. It is
+also what a package rename leaves behind, which is the common case.
 
 ## Judgement, not executable
 

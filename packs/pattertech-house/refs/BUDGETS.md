@@ -42,6 +42,16 @@ the change lands here first.
 | Mono annotation voices | about 2 per viewport region | |
 | Pseudo-elements per element | 2, budgeted up front | a third decorated layer ships as a real span |
 
+**Travelling conduit or persistent slow traveller.** Both rows above
+describe a moving rule, and the duty cycle is what separates them. A
+travelling conduit moves during the first tenth of its cycle and holds
+offscreen for the rest, so the light is a passing event: one per
+viewport, anywhere. A rule whose core is on screen for most of its
+period is a persistent slow traveller, whatever it is called in the
+markup: monuments only, at most two per page. Read the keyframe
+percentages rather than the animation name, because the two are the
+same CSS apart from where the stops sit.
+
 **The resolved conduit figure.** The v1 archive stated eighteen seconds
 or longer in two foundation documents. The newer argued ruling in
 WG-WEB-005, recorded against the v4 recalibration, relaxed it to twelve

@@ -91,8 +91,11 @@ reusable.
 
 **B1. Conformance is stated as named criteria, not confidence.**
 `has_web_ui`. A surface claiming WCAG 2.2 at a level names the level
-and the criteria that pass (EV-0027). Prevents a conformance claim that
-rests on how the reviewer felt. Basis: standard.
+and the criteria that pass (EV-0027). The artefact is a conformance
+record listing the level, every criterion in it and that criterion's
+verdict; C5 settles it, and a claim with no such record fails whatever
+the scanner says. Prevents a conformance claim that rests on how the
+reviewer felt. Basis: standard.
 
 **B2. The claim is evidenced by a real-browser run with pinned tags,
 plus a written verdict on every incomplete.** `has_web_ui`. Automated
@@ -117,10 +120,14 @@ Basis: standard.
 
 **B5. No accessibility overlay, bought or hand-rolled.**
 `has_web_ui`. No script that claims to repair accessibility at runtime,
-and no assistive-technology sniffing (EV-0237). Prevents a
-non-conforming product being marketed as conforming, and prevents
-disability status being detected without consent. Basis: decision,
-supported by a consensus statement rather than a trial.
+and no assistive-technology sniffing (EV-0237). C12 settles it against
+a written list of vendor names and runtime-patching patterns kept beside
+the scan and reviewed when it changes; "no overlay" with no list behind
+it is an assertion rather than a check, and a scan of built output finds
+nothing it was not told to look for. Prevents a non-conforming product
+being marketed as conforming, and prevents disability status being
+detected without consent. Basis: decision, supported by a consensus
+statement rather than a trial.
 
 **B6. Tokens are defined once and generated; derived files are never
 hand-edited.** `has_design_tokens`. One source in the DTCG shape, with
@@ -130,15 +137,23 @@ output being silently overwritten. Basis: standard.
 
 **B7. Every component declares its interaction states.**
 `has_user_interface`. Focus, hover, active, disabled, loading and error
-are named and each renders. Focus visibility is a WCAG criterion
-(EV-0027); the full six is an estate decision, taken because a
-restrained visual style removes affordance that has to be paid back
-somewhere (EV-0234, EV-0232, both weak). Basis: decision.
+are named in an exported states manifest, one entry per component per
+state, and C9 walks that manifest with one render assertion per entry.
+A state a component cannot enter is declared absent in the manifest
+with a reason rather than left out of it, because a missing entry and
+a deliberate omission are indistinguishable to the walk. Focus
+visibility is a WCAG criterion (EV-0027); the full six is an estate
+decision, taken because a restrained visual style removes affordance
+that has to be paid back somewhere (EV-0234, EV-0232, both weak).
+Basis: decision.
 
 **B8. One named philosophy per surface, recorded before pixel work.**
 `has_user_interface`. The record names the philosophy from the list in
 `packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md` and cites at
-least one evidence id. Prevents a house style arriving by default and
+least one evidence id; C10 and C11 settle those two. "Before pixel
+work" is settled by the record's first commit preceding the first
+commit that touches the surface's styles, which is a question the
+history can answer. Prevents a house style arriving by default and
 prevents the estate losing the reason a surface looks as it does.
 Basis: decision. This is the pluralism contract, and it is the only
 thing this pack binds about how a surface looks.
