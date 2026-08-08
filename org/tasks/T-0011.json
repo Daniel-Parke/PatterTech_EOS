@@ -1,0 +1,21 @@
+{
+  "id": "T-0011",
+  "intent": "Build scenarios and graders for the twenty-one drills that have neither. benchmark/drills/graders/architecture/ and scenarios/architecture/ are the worked reference: ten graders, a toy repository, and tests asserting the set fails the untouched fixture and passes a correct tree. Until a drill has both it reports every criterion manual and no verdict, which is honest and is not evidence about a pack. The two Wave C drills need scenarios too, and the marketing one needs a product repository carrying a pricing page and eleven support tickets.",
+  "claims": [
+    "benchmark/drills/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "proposed",
+  "owner_session": "eos-v2-prerelease-review",
+  "timestamps": {
+    "opened": "2026-08-08T00:00:00Z",
+    "updated": "2026-08-08T00:00:00Z"
+  }
+}

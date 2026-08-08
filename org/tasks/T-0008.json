@@ -1,0 +1,22 @@
+{
+  "id": "T-0008",
+  "intent": "Write pack-local research records for LangGraph and OpenHands in packs/agentic-development/research/. Two of the seven agentic systems the v2 scope named individually have no pack-local record: the pack's thirteen cover the Claude Agent SDK, the OpenAI Agents SDK, Google ADK, Microsoft Agent Framework and SWE-agent, and stop there. EV-0049, the OpenHands main app, sits in the estate ledger cited by nothing, which is the same gap seen from the registry. This needs the sources read at a recorded access date and must not be written from recall: a research record is a claim about what a source says on a date, and inventing one is the failure the ledger exists to prevent. Blocked on live source access. Once written, run python tools/import_fragments.py to merge and recount.",
+  "claims": [
+    "packs/agentic-development/",
+    "registry/evidence.json"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "proposed",
+  "owner_session": "eos-v2-prerelease-review",
+  "timestamps": {
+    "opened": "2026-08-08T00:00:00Z",
+    "updated": "2026-08-08T00:00:00Z"
+  }
+}

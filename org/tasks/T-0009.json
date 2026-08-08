@@ -1,0 +1,21 @@
+{
+  "id": "T-0009",
+  "intent": "Resolve the ninety evidence records carrying licence unknown, which violates item 11 of packs/PACK_SHAPE.md. They are mostly arXiv preprints, twenty-five of them, and vendor documentation, where the licence is per submission or per site and has to be read off the page. Either record the real licence at a fresh access date, or replace unknown with a stated reason class so the gap is governed rather than silent. Do not infer a licence from the domain. Counted by kind: thirty-six maintainer, twenty-nine controlled, thirteen standard, twelve exemplar.",
+  "claims": [
+    "registry/evidence.json"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "proposed",
+  "owner_session": "eos-v2-prerelease-review",
+  "timestamps": {
+    "opened": "2026-08-08T00:00:00Z",
+    "updated": "2026-08-08T00:00:00Z"
+  }
+}
