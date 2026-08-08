@@ -78,7 +78,7 @@ The axes are orthogonal, and not every combination is legal:
   rule with no activation condition is a finding.
 - `basis: law` or `basis: standard` requires a versioned source and a
   review trigger (on-change-of or a date). Such rules are immune to
-  vote counts; they change only via RFC or ADR citing the changed
+  vote counts; they change only via an ADR citing the changed
   source.
 - `basis: empirical-evidence` requires `evidence_grade` controlled or
   observational, and the sources must be evidence-ledger rows.

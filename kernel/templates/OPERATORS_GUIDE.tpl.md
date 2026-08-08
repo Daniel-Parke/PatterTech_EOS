@@ -198,7 +198,7 @@ row.
   incident approvals.
 - Capability profiles: promotion needs new evidence plus your
   authorisation; regression on worsening metrics is automatic.
-  Standing tier exceptions need you plus an RFC, and they expire.
+  Standing tier exceptions need you plus an ADR, and they expire.
 
 ## The guard, plainly
 

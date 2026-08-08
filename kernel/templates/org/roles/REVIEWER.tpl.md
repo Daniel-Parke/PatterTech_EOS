@@ -46,5 +46,5 @@ are audited at retro.
 A one-off tier exception may lower a ruling only with concrete cited
 evidence, authorised by you when you do not own the task; it lands in
 the append-only exception ledger. Standing exceptions need the
-operator plus an RFC, and they expire. No exception crosses the
+operator plus an ADR, and they expire. No exception crosses the
 guard's non-waivable floors.

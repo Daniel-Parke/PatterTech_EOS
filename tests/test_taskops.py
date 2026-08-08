@@ -412,3 +412,77 @@ def test_render_views_in_review_is_an_operator_flag(tmp_path):
     taskops.render_views(root)
     state_view = (root / "org" / "STATE.md").read_text(encoding="utf-8")
     assert "- T-0001 in-review: awaiting the approval verdict" in state_view
+
+
+# --- claim refusal ------------------------------------------------------
+
+
+def _claim_set(root, lane_id="integrator", session="s1", paths=("org/",)):
+    (root / "org").mkdir(parents=True, exist_ok=True)
+    (root / "org" / "claims.json").write_text(json.dumps({
+        "version": 1, "assigned": "2026-08-08",
+        "lanes": [{"lane_id": lane_id, "task_id": "T-0001",
+                   "session_id": session, "host": "h",
+                   "harness_task_id": session,
+                   "path_claims": list(paths),
+                   "acquired": "2026-08-08T09:00:00Z",
+                   "expires": "2026-08-15T09:00:00Z"}],
+    }, indent=1), encoding="utf-8")
+
+
+def _claim_record(task_id="T-0042"):
+    return {
+        "id": task_id,
+        "intent": "A record written to test the claim control.",
+        "declared": {"capabilities": [], "side_effects": []},
+        "mode": "standard", "tier_proposed": "R1", "tier_ruled": "R1",
+        "reasons": [], "status": "proposed", "owner_session": "s1",
+        "claims": ["org/"],
+        "timestamps": {"opened": "2026-08-08T09:00:00Z",
+                       "updated": "2026-08-08T09:00:00Z"},
+        "hypothesis_ledger": [],
+    }
+
+
+def test_create_task_refuses_an_unclaimed_session(repo_root):
+    """AGENTS.md, TOUR.md and CLI_CONTRACTS.md all stated this control.
+    create_task did no claim check at all."""
+    root = repo_root
+    _claim_set(root)
+    with pytest.raises(taskops.ClaimRefused) as exc:
+        taskops.create_task(root, _claim_record(), session="drive-by")
+    assert exc.value.payload["refused"] is True
+    assert "not named in the committed claim set" in exc.value.payload["reason"]
+    assert exc.value.payload["claim_set_ref"] == "org/claims.json"
+    assert not (root / "org" / "tasks" / "T-0042.json").exists()
+
+
+def test_create_task_allows_the_claimed_session(repo_root):
+    root = repo_root
+    _claim_set(root)
+    path = taskops.create_task(root, _claim_record(), session="s1")
+    assert Path(path).is_file()
+
+
+def test_create_task_refuses_a_lane_without_the_path(repo_root):
+    """Being named is not enough; the claim has to cover the write."""
+    root = repo_root
+    _claim_set(root, paths=("packs/",))
+    with pytest.raises(taskops.ClaimRefused) as exc:
+        taskops.create_task(root, _claim_record(), session="s1")
+    assert "holds no claim covering" in exc.value.payload["reason"]
+
+
+def test_update_task_is_guarded_too(repo_root):
+    root = repo_root
+    _claim_set(root)
+    taskops.create_task(root, _claim_record(), session="s1")
+    with pytest.raises(taskops.ClaimRefused):
+        taskops.update_task(root, "T-0042", {"status": "active"}, session="drive-by")
+
+
+def test_no_claims_file_means_the_model_is_not_running(repo_root):
+    """A repo with no claim set is not using assigned claims, and the
+    control does not apply to it."""
+    assert not (repo_root / "org" / "claims.json").exists()
+    assert taskops.create_task(repo_root, _claim_record(), session="anyone")

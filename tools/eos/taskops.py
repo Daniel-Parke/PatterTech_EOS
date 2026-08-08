@@ -191,7 +191,84 @@ def route_record(root, record, *, policy=None):
     return ruling
 
 
-def create_task(root, record, *, policy=None):
+class ClaimRefused(Exception):
+    """A session not named in the committed claim set tried to write.
+
+    AGENTS.md, TOUR.md and CLI_CONTRACTS.md all state this control.
+    None of them was true: create_task and update_task did no claim
+    check at all, and nothing in the tree ever emitted the documented
+    refusal shape. The payload below is that shape.
+    """
+
+    def __init__(self, reason, claim_set_ref="org/claims.json"):
+        super().__init__(reason)
+        self.payload = {"refused": True, "reason": reason,
+                        "claim_set_ref": claim_set_ref}
+
+
+def _session_id(root, record=None, session=None):
+    """Who is writing. Explicit beats the environment beats the record."""
+    if session:
+        return session
+    env = os.environ.get("EOS_SESSION_ID")
+    if env:
+        return env
+    return (record or {}).get("owner_session") or ""
+
+
+def require_claim(root, task_path, *, record=None, session=None):
+    """Refuse a task-record write by a session with no claim on it.
+
+    Returns the lane that authorises the write. Raises ClaimRefused
+    otherwise. Where no claims file exists at all the repository is not
+    running the assigned-claims model, and the control does not apply.
+    """
+    root = Path(root)
+    claims_path = root / "org" / "claims.json"
+    if not claims_path.is_file():
+        return None
+    try:
+        doc = json.loads(claims_path.read_text(encoding="utf-8"))
+    except ValueError as exc:
+        raise ClaimRefused("claim set is not readable: %s" % exc)
+
+    who = _session_id(root, record=record, session=session)
+    if not who:
+        raise ClaimRefused(
+            "refused: no session identity for this write. Set EOS_SESSION_ID "
+            "or name owner_session on the record, and be named in the "
+            "committed claim set.")
+
+    lanes = doc.get("lanes") or []
+    lane = next((l for l in lanes
+                 if who in (l.get("session_id"), l.get("lane_id"))), None)
+    if lane is None:
+        named = ", ".join(sorted(
+            {str(l.get("session_id") or l.get("lane_id")) for l in lanes})) or "none"
+        raise ClaimRefused(
+            "refused: session %r is not named in the committed claim set; "
+            "unscheduled work stays quarantined on its branch for the "
+            "integrator to adopt or discard. Named lanes: %s" % (who, named))
+
+    rel = Path(task_path)
+    try:
+        rel = rel.relative_to(root)
+    except ValueError:
+        pass
+    target = rel.as_posix().casefold()
+    for claim in lane.get("path_claims") or []:
+        c = str(claim).casefold()
+        if c.endswith("/"):
+            if target.startswith(c):
+                return lane
+        elif target == c:
+            return lane
+    raise ClaimRefused(
+        "refused: lane %r holds no claim covering %s; its claims are %s"
+        % (who, rel.as_posix(), ", ".join(lane.get("path_claims") or []) or "none"))
+
+
+def create_task(root, record, *, policy=None, session=None, enforce_claims=True):
     """Route, validate and write org/tasks/<id>.json atomically.
 
     Returns the written path. The record is routed first: the router,
@@ -208,21 +285,25 @@ def create_task(root, record, *, policy=None):
     task_id = record.get("id", "")
     if not _TASK_ID_RE.match(task_id):
         raise ValueError("task id must match T-####: %r" % (task_id,))
+    path = root / "org" / "tasks" / ("%s.json" % task_id)
+    if enforce_claims:
+        require_claim(root, path, record=record, session=session)
     route_record(root, record, policy=policy)
     findings = validate_task_record(root, record)
     if findings.errors:
         raise ValueError("task record invalid:\n" + findings.to_text())
-    path = root / "org" / "tasks" / ("%s.json" % task_id)
     return _atomic_write(path, json.dumps(record, indent=2) + "\n")
 
 
-def update_task(root, task_id, patch):
+def update_task(root, task_id, patch, *, session=None, enforce_claims=True):
     """Shallow-merge patch into an existing record; validate; rewrite."""
     root = Path(root)
     path = root / "org" / "tasks" / ("%s.json" % task_id)
     if not path.is_file():
         raise FileNotFoundError("no task record at %s" % path)
     record = json.loads(path.read_text(encoding="utf-8"))
+    if enforce_claims:
+        require_claim(root, path, record=record, session=session)
     for key, value in patch.items():
         if key == "timestamps" and isinstance(value, dict):
             record.setdefault("timestamps", {}).update(value)

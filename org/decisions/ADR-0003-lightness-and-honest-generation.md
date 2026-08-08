@@ -100,7 +100,7 @@ never indexed.
 Amends `GOVERNANCE.md`, "Derived files": the registry of derived files names
 `INDEX.md`, `packs/INDEX.md`, `packs/GUIDE_INDEX.md`, `registry/CAPABILITIES.md`,
 `org/TASKS.md` and `org/STATE.md`, each with a generator that runs. The stale
-entry `doctrine/WARGAME_INDEX.md` is removed; that path has not existed since
+entry naming the old doctrine wargame index is removed; it has not existed since
 the pack restructure.
 
 ## Consequences

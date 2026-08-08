@@ -25,6 +25,7 @@ def _ctx(args):
         "today": today,
         "offline": getattr(args, "offline", False),
         "strict_semantic": getattr(args, "strict_semantic", False),
+        "relax_semantic": getattr(args, "relax_semantic", False),
     }
 
 
@@ -49,6 +50,10 @@ def cmd_check(args):
     from .checks import seed as seed_checks
     from .checks import structural
 
+    if args.repo and args.seed:
+        print("error: --repo and --seed are different runs; pass one",
+              file=sys.stderr)
+        return 2
     ctx = _ctx(args)
     if args.write_index:
         findings = structural.write_indexes(ctx)
@@ -97,11 +102,18 @@ def cmd_route(args):
               f"{stored_tier}", file=sys.stderr)
         result["tier"] = stored_tier
     print(json.dumps(result, indent=1))
+    # The router's factor id is protected-set-contact (router.py
+    # FACTOR_TABLE). This filtered for "protected-set", which never
+    # matched, so the only return 3 in the codebase was unreachable and
+    # the enforcement AGENTS.md, POLICY_SPEC.md and CLI_CONTRACTS.md all
+    # describe never ran once.
     protected = [r for r in result.get("reasons", [])
-                 if r.get("factor") == "protected-set"]
+                 if r.get("factor") == "protected-set-contact"]
     if protected and not args.adr:
-        print("protected-set touch without --adr authorisation",
-              file=sys.stderr)
+        for reason in protected:
+            print(f"protected-set touch without --adr authorisation: "
+                  f"{reason.get('evidence', 'no evidence recorded')}",
+                  file=sys.stderr)
         return 3
     if args.diff and result.get("discrepancies"):
         return 1
@@ -123,7 +135,14 @@ def cmd_guard(args):
     policy_path = REPO / "org" / "policy.json"
     if policy_path.exists():
         policy = json.loads(policy_path.read_text(encoding="utf-8"))
-    verdict = evaluate(action, policy, adapter_validated=args.adapter_validated)
+    try:
+        verdict = evaluate(action, policy, adapter_validated=args.adapter_validated)
+    except ValueError as exc:
+        # CLI_CONTRACTS promises exit 2 when evaluation cannot run. This
+        # raised an uncaught ValueError and exited 1, which a caller
+        # reads as "blocked" rather than "I could not judge this".
+        print(f"error: guard cannot evaluate this action: {exc}", file=sys.stderr)
+        return 2
     print(json.dumps(verdict, indent=1))
     return 0 if verdict.get("verdict") == "allow" else 1
 
@@ -142,13 +161,25 @@ def cmd_context(args):
 def cmd_task(args):
     from . import taskops
 
+    try:
+        return _cmd_task(args, taskops)
+    except taskops.ClaimRefused as refusal:
+        # The documented shape, on stdout so a caller can parse it, with
+        # exit 1. Nothing emitted this before: the control was described
+        # in three files and implemented in none.
+        print(json.dumps(refusal.payload, indent=1))
+        return 1
+
+
+def _cmd_task(args, taskops):
+    session = getattr(args, "session", None)
     if args.op == "new":
         # Routing is paid once, here: create_task rules the tier from
         # the declared facts and stores it on the record, so the caller
         # sees the ruling without a second command and later sessions
         # read it off the record.
         record = json.loads(Path(args.record).read_text(encoding="utf-8"))
-        path = taskops.create_task(REPO, record)
+        path = taskops.create_task(REPO, record, session=session)
         tier = record.get("tier_ruled")
         reasons = record.get("reasons") or []
         print(json.dumps({"created": str(path), "tier_ruled": tier,
@@ -174,7 +205,7 @@ def cmd_task(args):
         return 0
     if args.op == "update":
         patch = json.loads(args.patch)
-        taskops.update_task(REPO, args.id, patch)
+        taskops.update_task(REPO, args.id, patch, session=session)
         return 0
     if args.op == "claims-verify":
         claims_doc = json.loads(
@@ -261,7 +292,13 @@ def main(argv=None):
     c.add_argument("--write-index", action="store_true")
     c.add_argument("--json", action="store_true")
     c.add_argument("--series")
-    c.add_argument("--strict-semantic", action="store_true")
+    c.add_argument("--strict-semantic", action="store_true",
+                   help="force the S-series to error severity. It is already "
+                        "the default; this pins it against a future relaxation.")
+    c.add_argument("--relax-semantic", action="store_true",
+                   help="drop the S-series to warnings, for a caller who wants "
+                        "the work list rather than the gate. The module "
+                        "docstring promised this flag and it did not exist.")
     c.add_argument("--offline", action="store_true")
     c.set_defaults(fn=cmd_check)
 
@@ -312,13 +349,23 @@ def main(argv=None):
     t.add_argument("--patch")
     t.add_argument("--lane")
     t.add_argument("--paths", nargs="*")
+    t.add_argument("--session",
+                   help="the writing session's id; falls back to EOS_SESSION_ID "
+                        "then to the record's owner_session. It must be named "
+                        "in org/claims.json or the write is refused.")
     t.set_defaults(fn=cmd_task)
 
     m = sub.add_parser("migrate")
     m.add_argument("op", choices=["plan", "apply"])
     m.add_argument("--seed")
     m.add_argument("--state")
-    m.add_argument("--dry-run", action="store_true", default=True)
+    # store_true with default=True made --dry-run permanently on, with
+    # no way to turn it off, so migrate apply could never apply and 273
+    # lines of migrate.py had no reachable write path.
+    m.add_argument("--dry-run", dest="dry_run", action="store_true", default=True)
+    m.add_argument("--no-dry-run", dest="dry_run", action="store_false",
+                   help="actually write. Without this, apply reports what it "
+                        "would do and changes nothing.")
     m.set_defaults(fn=cmd_migrate)
 
     b = sub.add_parser("benchmark")

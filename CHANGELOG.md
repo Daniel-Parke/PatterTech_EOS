@@ -31,7 +31,7 @@ org/reports/V2_FINAL_REPORT.md, "Corrections, 2026-08-04".
   The house visual language becomes an opt-in preference pack, so a
   venture can choose another design philosophy without deviation
   machinery. WG-DEL-005 is written at last, with 006 and 007 beside it.
-- **governance**: graded evidence path (experiment, RFC, ADR) replaces
+- **governance**: graded evidence path (experiment, ADR) replaces
   wargame-first; precedence scopes venture rulings locally and protects
   law and standard based rules from vote counts; the protected set
   shrinks to seven items with security-privacy as canonical home for
