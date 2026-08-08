@@ -9,6 +9,7 @@ basis: decision
 evidence_grade: observational
 scope: estate
 applies_when: [runs_agents, holds_credentials, handles_personal_data, has_external_egress]
+activation_paths: [**/.env*, **/secrets/**, **/auth/**, **/*auth*.py, **/*.pem, **/*.key, **/security/**, **/*credential*, **/.claude/**, **/hooks/**]
 volatility: fast
 review: on-change-of:EV-0213
 sources: [EV-0011, EV-0034, EV-0035, EV-0036, EV-0038, EV-0039, EV-0041, EV-0068, EV-0069, EV-0070, EV-0076, EV-0081, EV-0212, EV-0213, EV-0214, EV-0215, EV-0216, EV-0217, EV-0218, EV-0219, EV-0220, EV-0221, EV-0222, EV-0223, EV-0224, EV-0225, EV-0226]

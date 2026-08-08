@@ -9,6 +9,7 @@ basis: decision
 evidence_grade: observational
 scope: estate
 applies_when: [proposes_capability, prioritises_work, cites_user_claim, runs_experiment, writes_acceptance_criteria]
+activation_paths: [**/roadmap*, **/backlog*, **/specs/**, **/*brief*.md, **/*prd*.md, **/discovery/**, **/*acceptance*]
 volatility: slow
 review: 2028-06
 sources: [EV-0010, EV-0059, EV-0074, EV-0075, EV-0153]

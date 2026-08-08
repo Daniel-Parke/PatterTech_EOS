@@ -76,6 +76,18 @@ must be a non-keyword trigger**: a path pattern or a task type. A pack
 that can only be reached by keyword matching is not routable, because
 routing has to be deterministic given the same inputs.
 
+The declaration is machine-readable and lives in the pack's own
+front-matter, so there is no second list to drift:
+
+- `activation_paths`, a list of globs where `**` crosses directory
+  separators and `*` does not.
+- `applies_when`, the predicates.
+
+`python -m tools.eos context` evaluates the globs and returns the
+activated set with the paths that matched. Check S015 refuses a pack
+that declares neither. Stating triggers in prose alone is what left
+`activated_packs` an empty list while twenty packs sat on disk.
+
 Applicability predicates are the real gate. A task that trips a path
 trigger but satisfies no predicate loads nothing beyond the first
 paragraph. Activation gives advice, never permission: no pack lowers a

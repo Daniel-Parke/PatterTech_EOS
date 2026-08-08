@@ -9,6 +9,7 @@ basis: empirical-evidence
 evidence_grade: controlled
 scope: estate
 applies_when: [calls_a_model, changes_prompt_or_model, builds_retrieval, evaluates_model_output, ships_model_output]
+activation_paths: [**/prompts/**, **/evals/**, **/eval/**, **/retrieval/**, **/embeddings/**, **/*model*.py, **/*llm*.py, **/*judge*.py, **/*.prompt, **/*.prompt.md]
 volatility: fast
 review: 2027-02
 sources: [EV-0242, EV-0243, EV-0244, EV-0245, EV-0246, EV-0247, EV-0248, EV-0249, EV-0250, EV-0251, EV-0252, EV-0253, EV-0254, EV-0255, EV-0256, EV-0257, EV-0258, EV-0259, EV-0260, EV-0261, EV-0262, EV-0263, EV-0264, EV-0265, EV-0266, EV-0267, EV-0268, EV-0085, EV-0086, EV-0087, EV-0212, EV-0213, EV-0214, EV-0215]

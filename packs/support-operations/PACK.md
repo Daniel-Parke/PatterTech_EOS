@@ -7,6 +7,7 @@ basis: standard
 evidence_grade: observational
 scope: estate
 applies_when: [has_customer_inbound, has_paying_customers, has_customer_visible_incident, runs_public_tracker, reports_support_metric, single_responder]
+activation_paths: [**/support/**, **/tickets/**, **/status/**, **/incidents/**, **/*complaint*, **/*feedback*]
 volatility: slow
 review: on-change-of:ISO-10002-revision
 sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233]

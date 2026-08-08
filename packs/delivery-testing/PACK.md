@@ -7,6 +7,7 @@ basis: empirical-evidence
 evidence_grade: controlled
 scope: estate
 applies_when: [ships_code, has_test_suite]
+activation_paths: [**/tests/**, **/test/**, **/*_test.py, **/test_*.py, **/*.test.ts, **/*.spec.ts, **/conftest.py, **/.github/workflows/**, **/*.ci.y*ml, **/fixtures/**, **/e2e/**]
 volatility: slow
 review: 2028-02
 sources: [EV-0006, EV-0007, EV-0009, EV-0015, EV-0016, EV-0017, EV-0018, EV-0019, EV-0090, EV-0091, EV-0092, EV-0093, EV-0094, EV-0105, EV-0184, EV-0185, EV-0186, EV-0187, EV-0188, EV-0189, EV-0190, EV-0191, EV-0192, EV-0193, EV-0194, EV-0195, EV-0196]

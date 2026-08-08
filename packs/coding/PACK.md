@@ -9,6 +9,7 @@ basis: empirical-evidence
 evidence_grade: observational
 scope: estate
 applies_when: [edits_source, reviews_change, decides_merge]
+activation_paths: [**/*.py, **/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.go, **/*.rs, **/*.java, **/*.rb, **/*.c, **/*.cpp, **/*.h, **/pyproject.toml, **/package.json, **/Cargo.toml]
 volatility: slow
 review: 2027-02
 sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183]

@@ -2,6 +2,8 @@
 summary: Testmod doctrine, one plain principle for the test fixture
 type: doctrine
 tags: [eos]
+applies_when: [does_a_fixture_thing]
+activation_paths: [**/testmod/**, **/*.fixture]
 review: 2030-01
 ---
 

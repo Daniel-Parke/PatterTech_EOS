@@ -9,6 +9,7 @@ basis: standard
 evidence_grade: observational
 scope: estate
 applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data]
+activation_paths: [**/LICENCE*, **/LICENSE*, **/NOTICE*, **/requirements*.txt, **/package-lock.json, **/uv.lock, **/Cargo.lock, **/pyproject.toml, **/*privacy*, **/*terms*]
 volatility: slow
 review: 2027-04
 sources: [EV-0041, EV-0069, EV-0225, EV-0337, EV-0338, EV-0339, EV-0340, EV-0341, EV-0342, EV-0343, EV-0344, EV-0345, EV-0346, EV-0347, EV-0348, EV-0349, EV-0350, EV-0351, EV-0352]

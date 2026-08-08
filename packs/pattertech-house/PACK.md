@@ -7,6 +7,7 @@ basis: decision
 evidence_grade: observational
 scope: brand:pattertech
 applies_when: [adopts_pattertech_house]
+activation_paths: [**/*.css, **/*.scss, **/tokens/**, **/theme/**, **/tailwind.config.*, **/design-system/**]
 volatility: slow
 review: on-change-of:WCAG-2.2
 sources: [EV-0027, EV-0030, EV-0065, EV-0232, EV-0234, EV-0236, EV-0239]

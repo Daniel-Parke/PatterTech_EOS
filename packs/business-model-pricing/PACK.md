@@ -9,6 +9,7 @@ basis: law
 evidence_grade: observational
 scope: estate
 applies_when: [sets_a_price, publishes_a_price, sells_to_consumers, sells_by_subscription, sells_to_public_sector, bundles_or_discounts, reports_commercial_metrics]
+activation_paths: [**/pricing/**, **/*pricing*.md, **/plans/**, **/tiers/**, **/*subscription*, **/*checkout*, **/*invoice*]
 volatility: event-driven
 review: on-change-of:DMCC-Part-4-Chapter-2-commencement
 sources: [EV-0287, EV-0288, EV-0289, EV-0290, EV-0291, EV-0292, EV-0293, EV-0294, EV-0295, EV-0296, EV-0297, EV-0298, EV-0299, EV-0300, EV-0301, EV-0302, EV-0303, EV-0304, EV-0055, EV-0059, EV-0095, EV-0096, EV-0197, EV-0199, EV-0210]

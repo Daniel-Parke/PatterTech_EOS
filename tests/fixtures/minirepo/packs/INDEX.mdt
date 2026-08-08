@@ -20,7 +20,7 @@ generated from `registry/coverage.json`.
 
 | Pack | What it covers, and when it activates | Predicates | Authority | Body lines |
 | --- | --- | --- | --- | --- |
-| `packs/testmod/PACK.md` | Keep fixture files small and plain. A test that needs a bigger repo builds one in tmp_path rather than growing this one. |  |  | 6 |
+| `packs/testmod/PACK.md` | Keep fixture files small and plain. A test that needs a bigger repo builds one in tmp_path rather than growing this one. | does_a_fixture_thing |  | 6 |
 
 1 built packs, 6 body lines. The pack contract is
 `packs/PACK_SHAPE.md`; a domain that cannot meet its definition of
