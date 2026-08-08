@@ -39,6 +39,7 @@ record. No judgement.
 | C12 flags are owned and dated | Requirement 7 | Every flag entry has a non-empty `owner` and an `expires` that parses as a date after today |
 | C13 the abort path works | Rollout default | The rollout configuration declares a failure condition and automatic abort, and a dry run against an injected failing metric returns abort rather than promotion |
 | C14 no secrets in the diff | Guard | No secret-shaped string in the diff |
+| C15 the contract step is earned | Requirements 1, 3 | Every destructive migration declares itself the contract phase of a named sequence, names its expand and migrate migrations by id, and names the deploy that removed the last reader; the linter fails a destructive finding without that declaration, and fails one whose named predecessors are not both already deployed |
 | C15 the repo checker passes | Estate | `python -m tools.eos check --repo` gains no new errors |
 
 C1 to C14 are the pack's own criteria and are the same set the drill in

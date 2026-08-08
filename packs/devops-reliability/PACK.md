@@ -136,6 +136,21 @@ earns it. Departure needs an accepted ADR, not a task-level judgement.
    those two fail and the rest warn (EV-0202). *Prevents*: an
    irreversible DDL reaching production because the diff looked small.
 
+   **How the contract step gets through this gate.** The contract phase
+   requirement 1 mandates is a destructive migration, so this linter is
+   built to fail the one step the pack requires. A drill found that the
+   pack never said how both hold, and an agent obeying them in order
+   stalls at the drop. The route through is evidence, not an override.
+   A destructive migration passes only when it declares itself the
+   contract phase of a named expand, migrate, contract sequence, names
+   the two earlier migrations by id, and names the deploy in which the
+   last reader of the old shape went away. The linter fails a
+   destructive finding carrying no such declaration, and fails one whose
+   named predecessors are not both already deployed. There is no bare
+   skip flag, because what makes the drop safe is the sequence, and the
+   sequence is a fact CI can check. A drop with nothing behind it is
+   the failure this gate is for, and it still fails.
+
 4. **Every service carries at least one SLI and SLO as a
    machine-readable object.** OpenSLO gives a vendor-neutral declarative
    shape for SLI, SLO, error budget and alert policy, so the target is

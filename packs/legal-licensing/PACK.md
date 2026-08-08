@@ -136,7 +136,20 @@ decision before merge, not at release.** `hosts_service`,
 `publishes_code`, `adds_dependency`. The entry in `LICENCE_DECISION.md`
 names the component, its exact identifier, the event that would fire the
 obligation, in the words distribution, network interaction or
-combination, and the disposition. AGPL section 13 attaches to a modified
+combination, and the disposition.
+
+Where the same component also trips an escalation trigger under B7, and
+copyleft entering something we host in modified form trips both, the
+disposition is the single word `referred` plus the handover reference.
+The entry is still written and still names the component, the identifier
+and the event, because those are facts the agent can establish; what it
+must not do is supply the answer. Read on its own, B4 asks for a
+disposition and B7 forbids the agent from reaching one, and an agent
+obeying each in turn fails whichever check it satisfies second. The
+`referred` disposition is what satisfies both, and the lawyer's answer
+replaces it when it arrives. A drill found the collision.
+
+AGPL section 13 attaches to a modified
 version reached by users remotely over a network, with nothing
 distributed (EV-0341). Prevents
 the standard miss: a policy written around source and binary

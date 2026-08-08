@@ -81,7 +81,11 @@ one attribute are not a record.
 .ledger-row:hover { border-top-color: var(--rule-bright); }
 .ledger-meta { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-@keyframes charge { from { transform: translateX(-101%); } to { transform: translateX(101%); } }
+@keyframes charge {
+  0%   { transform: translateX(-101%); }
+  10%  { transform: translateX(101%); }
+  100% { transform: translateX(101%); }
+}
 @keyframes ignite { from { filter: brightness(var(--ignite-peak)); } to { filter: brightness(1); } }
 
 .section-rule::after { animation: charge var(--conduit-duty) linear infinite; }
@@ -97,9 +101,21 @@ Two keyframe blocks, two properties between them, both on the whitelist.
 Every duration and factor arrives as a token fed from
 `packs/pattertech-house/refs/BUDGETS.md`, so the charge loop runs at the
 resolved duty cycle rather than the older figure the v1 foundations
-carried, and no number is retyped here. The reduced-motion block is a
-global kill rather than a per-component opt-out, because a
-per-component list is a list somebody will forget to extend.
+carried, and no number is retyped here.
+
+The percentages in `charge` are the duty cycle, and they are the point
+of the block. `packs/pattertech-house/refs/LIGHT_MECHANICS.md` builds a
+conduit to move during the first tenth and hold offscreen for the rest,
+so the bright core is a passing event on a mostly still rule. This
+exemplar used to run a plain `from`/`to` translate, which travels for
+the whole period: same token, same duration, same property, and a light
+that is never off screen. That is a persistent slow traveller, which
+`BUDGETS.md` allows on monuments only, and criterion 8 below says this
+section has no monument. A drill found it.
+
+The reduced-motion block is a global kill rather than a per-component
+opt-out, because a per-component list is a list somebody will forget to
+extend.
 
 ## Worked against the drill's criteria
 

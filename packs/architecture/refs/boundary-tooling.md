@@ -32,6 +32,16 @@ contracts for the crossings that matter most.
 Config lives in `.importlinter`, `setup.cfg` or `pyproject.toml`. The
 command is `lint-imports`, exit 0 clean, non-zero on any violation.
 
+The skeleton below is written against this tree, and every module it
+names exists in it:
+
+```
+billing/       __init__.py, price_lookup.py
+catalogue/     __init__.py, api.py            # api is the public interface
+catalogue/internal/  __init__.py, repository.py, pricing.py
+shared/        __init__.py, money.py
+```
+
 ```ini
 [importlinter]
 root_packages =
@@ -54,7 +64,6 @@ source_modules =
     billing
 forbidden_modules =
     catalogue.internal
-    catalogue.repository
 
 [importlinter:contract:layering]
 name = Layering
@@ -68,6 +77,21 @@ layers =
 Layers are listed highest first. A forbidden contract naming a
 submodule is how a public interface is enforced: the package exposes
 one module, and everything else is off limits to outsiders.
+
+**Name only modules that exist.** This skeleton used to forbid
+`catalogue.repository` alongside `catalogue.internal`, and no such
+module was ever in the tree; the private repository sits at
+`catalogue.internal.repository`. A pack acceptance drill found it. A
+contract naming a module outside the graph protects nothing, and what
+you see depends on the version: some raise an invalid-contract error
+and some report the contract kept, which reads as a green check. The
+second is worse, and it is the usual shape of this failure after a
+rename rather than a typo.
+
+That is the argument for step 4 of
+`packs/architecture/exemplars/billing-catalogue-boundary.md`: add the
+forbidden import on purpose and watch the run go red before you trust
+it. B1 binds the check, not the file, for exactly this reason.
 
 **Blind spots, stated by the project.** Static imports only. Runtime
 imports, plugin registries, dependency-injection containers and
