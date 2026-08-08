@@ -35,6 +35,7 @@ so a reader never has to infer it.
 
 import argparse
 import json
+import os
 import random
 import shutil
 import subprocess
@@ -180,6 +181,51 @@ def write_venture_content(dest, venture, fixture_readme):
     return ["docs/VENTURE_BRIEF.md", "docs/LOCKBOOK.md"]
 
 
+NOISE_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache",
+              "node_modules", ".venv"}
+NOISE_SUFFIX = (".pyc", ".pyo")
+
+
+def rmtree_force(path):
+    """Remove a tree containing a git repository, on Windows too.
+
+    Objects under .git are written read-only, and shutil.rmtree cannot
+    unlink a read-only file on Windows: it raises PermissionError part
+    way through and leaves the tree half deleted.
+    """
+    import stat
+
+    def onexc(func, target, _exc):
+        try:
+            os.chmod(target, stat.S_IWRITE)
+            func(target)
+        except OSError:
+            pass
+
+    shutil.rmtree(path, onexc=onexc)
+
+
+def ignore_fixture_noise(runner):
+    """Skip holdout material, and build artefacts left in the fixture.
+
+    A fixture directory accumulates `__pycache__` from anyone who ran
+    its tests locally. Git never sees those, so the committed fixture
+    looks clean, but copytree copies whatever is on disk and the
+    scratch tree's baseline commit then contains them. The session runs
+    the tests, the bytecode changes, and every diff-based criterion
+    reads that as work the agent did: `c2_diff_budget` counts it
+    against a ten-line budget. Ten stale .pyc files were sitting in
+    app-api when this was found.
+    """
+    def ignore(directory, names):
+        skipped = set(runner.ignore_holdout(directory, names))
+        for name in names:
+            if name in NOISE_DIRS or name.endswith(NOISE_SUFFIX):
+                skipped.add(name)
+        return skipped
+    return ignore
+
+
 def run_git(dest, *args):
     cmd = ["git", "-c", "user.name=eos-benchmark",
            "-c", "user.email=benchmark@pattertech.invalid",
@@ -214,7 +260,7 @@ def cmd_prepare(args):
 
     sys.path.insert(0, str(BENCH_DIR))
     import runner
-    shutil.copytree(src, dest, ignore=runner.ignore_holdout,
+    shutil.copytree(src, dest, ignore=ignore_fixture_noise(runner),
                     dirs_exist_ok=True)
 
     overlaid = []
@@ -270,6 +316,80 @@ def cmd_plan(args):
                       "runs": plan}, indent=1))
 
 
+CRITICAL = {"T03-feature", "T04-bug-fix", "T06-migration", "T07-auth"}
+PROBES = {"P1-probe-migration-doc", "P2-probe-injection",
+          "P3-probe-dependency"}
+# T10 names its fixture in prose (a worktree at a tag plus a brief), so
+# it cannot be materialised from benchmark/fixtures and is left out
+# rather than faked. T09's fixture is a v1-shaped mini EOS with no v2
+# twin, so it runs on one arm and its slot is not a comparison.
+GRID_SKIP = {"T10-inception"}
+GRID_ONE_ARM = {"T09-doctrine": ["v1"]}
+
+
+def cmd_grid(args):
+    """Prepare every session in the grid, in a counterbalanced order.
+
+    PROTOCOL.md:43 requires v1 and v2 to alternate so environment drift
+    lands on both arms evenly. The 2026-08-03 batch ran every v1, then
+    every v2, then the corrected v2 arm, which is why its wall-clock
+    gate cannot be attributed to the system rather than the machine.
+    The order here is a seeded shuffle, and the seed is recorded with
+    the plan.
+    """
+    dest_root = Path(args.dest)
+    if dest_root.exists() and any(dest_root.iterdir()):
+        if not args.force:
+            fail("grid destination is not empty: %s (pass --force to "
+                 "rebuild it)" % dest_root)
+        rmtree_force(dest_root)
+    dest_root.mkdir(parents=True, exist_ok=True)
+
+    slots = []
+    for task_dir in sorted((BENCH_DIR / "tasks").iterdir()):
+        if not (task_dir / "task.json").is_file():
+            continue
+        task = json.loads((task_dir / "task.json").read_text(encoding="utf-8"))
+        tid = task.get("id", task_dir.name)
+        if tid in GRID_SKIP:
+            continue
+        k = 5 if (tid in CRITICAL or tid in PROBES) else 3
+        arms = GRID_ONE_ARM.get(tid, ["v1", "v2"])
+        for trial in range(1, k + 1):
+            for variant in arms:
+                slots.append({"task_dir": str(task_dir), "task": tid,
+                              "variant": variant, "trial": trial,
+                              "run_id": "G-%s-%s-t%d" % (variant, tid, trial)})
+
+    random.Random(args.seed).shuffle(slots)
+
+    runs, failed = [], []
+    for slot in slots:
+        dest = dest_root / slot["run_id"]
+        proc = subprocess.run(
+            [sys.executable, str(Path(__file__).resolve()), "prepare",
+             "--task", slot["task_dir"], "--variant", slot["variant"],
+             "--run-id", slot["run_id"], "--dest", str(dest),
+             "--trial", str(slot["trial"])],
+            capture_output=True, text=True)
+        if proc.returncode != 0:
+            failed.append({"run_id": slot["run_id"],
+                           "why": proc.stderr.strip()[:200]})
+            continue
+        info = json.loads(proc.stdout)
+        runs.append({**slot, "scratch": info["scratch"],
+                     "prompt": info["prompt"],
+                     "surface": info["surface"]})
+
+    plan = {"seed": args.seed, "prepared": len(runs), "failed": failed,
+            "runs": runs}
+    (dest_root / "plan.json").write_text(json.dumps(plan, indent=1),
+                                         encoding="utf-8")
+    print(json.dumps({"prepared": len(runs), "failed": failed,
+                      "plan": str(dest_root / "plan.json")}, indent=1))
+    return 1 if failed else 0
+
+
 def cmd_map(args):
     """Match transcripts to runs by the run id carried in the prompt.
 
@@ -323,6 +443,12 @@ def main(argv=None):
     p.add_argument("--trials", type=int, default=3)
     p.add_argument("--seed", type=int, default=20260808)
     p.set_defaults(func=cmd_plan)
+
+    p = sub.add_parser("grid")
+    p.add_argument("--dest", required=True)
+    p.add_argument("--seed", type=int, default=20260808)
+    p.add_argument("--force", action="store_true")
+    p.set_defaults(func=cmd_grid)
 
     p = sub.add_parser("map")
     p.add_argument("--transcripts", required=True)
