@@ -9,7 +9,6 @@ sources: [EV-0055, EV-0200]
 review: on-change-of:ISO-10002-revision
 type: guide
 tags: [ops, product]
-review_by: 2028-07
 ---
 
 # GD-SUPPORT-001: How does inbound get classified, and what keeps the queue finite?
@@ -44,8 +43,8 @@ that takes the higher band when the call is unclear, and one threshold
 that mechanically switches the organisation into a different mode.
 Communication is a named role held by someone who is not fixing, and
 declaration runs on objective triggers rather than judgement
-(FRAG-SUPPORT-OPERATIONS-01, FRAG-SUPPORT-OPERATIONS-03,
-FRAG-SUPPORT-OPERATIONS-02, EV-0200). Buys a fast, defensible response
+(EV-0421, EV-0423,
+EV-0422, EV-0200). Buys a fast, defensible response
 when one cause hits many customers, and a record that survives the
 postmortem. Costs a written ladder maintained ahead of time, and it
 does nothing for a billing question.
@@ -55,7 +54,7 @@ Inbound is labelled on orthogonal axes, kind, priority, owner, plus a
 separate accepted flag so untriaged is queryable. Support questions are
 routed out of the defect tracker by label rather than answered inside
 it, and items lacking reproduction close on a timer
-(FRAG-SUPPORT-OPERATIONS-04). Buys a finite queue and a backlog whose
+(EV-0424). Buys a finite queue and a backlog whose
 priorities can be argued with. Costs real bugs to the timer, which the
 maintainers of the project that runs the best-known stale bot have
 themselves complained about.
@@ -66,8 +65,8 @@ loop closes only when the complainant has been told the outcome. The
 route to complain is visible and free. Complaint data is analysed in
 aggregate and fed back into the product, so recording without a
 periodic synthesis pass is a failure of the process rather than a
-missed nicety (FRAG-SUPPORT-OPERATIONS-05,
-FRAG-SUPPORT-OPERATIONS-06). Buys the most defensible position under a
+missed nicety (EV-0425,
+EV-0426). Buys the most defensible position under a
 contractual or regulatory relationship, and consistent answers to the
 same defect. Costs the most per item, and the management-system
 apparatus is disproportionate below a handful of staff.
@@ -76,10 +75,10 @@ apparatus is disproportionate below a handful of staff.
 Support is deliberately unscalable and deliberately temporary. The
 founder answers everything, operates the product manually on the
 customer's behalf where that helps, and treats each contact as product
-research (FRAG-SUPPORT-OPERATIONS-12, EV-0055). Buys the fastest
+research (EV-0432, EV-0055). Buys the fastest
 product learning available at small numbers, and word of mouth as a
 side effect. Costs a ceiling that arrives non-linearly
-(FRAG-SUPPORT-OPERATIONS-10), and it has no exit signal of its own, so
+(EV-0430), and it has no exit signal of its own, so
 one has to be written.
 
 ## Decision rule

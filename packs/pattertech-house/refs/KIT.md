@@ -7,7 +7,6 @@ volatility: slow
 review: 2028-09
 type: pattern
 tags: [web, layout, content, media, nav]
-review_by: 2028-09
 ---
 
 # The house kit

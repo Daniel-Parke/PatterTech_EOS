@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0010, EV-0069, EV-0070, EV-0164, EV-0165, EV-0166, EV-0167, EV-0181]
 review: 2027-02
-review_by: 2027-02
 ---
 
 # GD-COD-002: Who reviews this change, and how hard?

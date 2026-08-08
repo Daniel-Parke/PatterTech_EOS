@@ -2,7 +2,6 @@
 summary: Security, privacy and safety for agent-run work, injection resistance, secrets, data protection and approval
 type: guide
 tags: [security, pii, tooling]
-review_by: 2027-02
 kind: rule
 authority: binding
 lifecycle: active

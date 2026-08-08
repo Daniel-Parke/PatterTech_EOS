@@ -7,7 +7,6 @@ volatility: fast
 review: on-change-of:agent-sdk-major-release
 type: guide
 tags: [eos, arch, tooling]
-review_by: 2027-03
 ---
 
 # Topology card

@@ -2,7 +2,6 @@
 summary: Ignore rules alone, a pre-commit scan, a push-path scan, or a managed store with short-lived credentials?
 type: guide
 tags: [security, tooling, ci]
-review_by: 2027-04
 kind: guide
 scope: estate
 authority: default

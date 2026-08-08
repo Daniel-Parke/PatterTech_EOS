@@ -2,7 +2,6 @@
 summary: What counts as untrusted content, how to report planted instructions, and the escalation artefact format
 type: guide
 tags: [security, tooling]
-review_by: 2027-09
 kind: fact
 scope: estate
 volatility: fast

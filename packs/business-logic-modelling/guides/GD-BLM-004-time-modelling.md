@@ -9,7 +9,6 @@ sources: [EV-0275, EV-0281, EV-0282]
 review: on-change-of:RFC-9557
 type: guide
 tags: [data, arch, product]
-review_by: 2027-11
 ---
 
 # GD-BLM-004: How much time does this fact carry?

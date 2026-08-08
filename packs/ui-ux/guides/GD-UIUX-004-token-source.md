@@ -9,7 +9,6 @@ sources: [EV-0030, EV-0064, EV-0065, EV-0227, EV-0228, EV-0229]
 review: on-change-of:DTCG-format-module
 type: guide
 tags: [tooling, brand, colour]
-review_by: 2027-12
 ---
 
 # GD-UIUX-004: Where do tokens live and how do they reach each platform?

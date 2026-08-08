@@ -3,7 +3,7 @@ summary: Profile 03, Next.js front on FastAPI back, the contract seam and the ga
 type: stack
 tags: [web, infra, hosting, testing, ci]
 status: active
-review_by: 2027-01
+review: 2027-01
 ---
 
 # Stack profile 03: Full-stack app (Next.js + FastAPI + Postgres)

@@ -9,7 +9,6 @@ sources: [EV-0161, EV-0150, EV-0061, EV-0023, EV-0025]
 review: 2027-01
 type: guide
 tags: [arch, security, money]
-review_by: 2027-01
 ---
 
 # WG-ARCH-007: SDK, owned adapter, raw protocol, or generated client?

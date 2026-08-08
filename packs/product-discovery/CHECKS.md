@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: not-applicable
 sources: [EV-0059]
 review: 2027-08
-review_by: 2027-08
 ---
 
 # Product discovery pack checks

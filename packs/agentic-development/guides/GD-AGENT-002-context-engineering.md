@@ -10,7 +10,6 @@ sources: [EV-0080, EV-0083, EV-0085, EV-0086, EV-0106, EV-0113, EV-0114, EV-0117
 review: on-change-of:anthropic-context-engineering-publication
 type: guide
 tags: [eos, arch, tooling]
-review_by: 2027-06
 ---
 
 # GD-AGENT-002: How does context reach the agent?

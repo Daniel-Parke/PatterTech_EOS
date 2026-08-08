@@ -3,7 +3,7 @@ summary: Profile 04, local-first PWA with a WASM compute core, shape, constraint
 type: stack
 tags: [web, infra, perf, testing]
 status: active
-review_by: 2027-02
+review: 2027-02
 ---
 
 # Stack profile 04: local-first PWA with a WASM core

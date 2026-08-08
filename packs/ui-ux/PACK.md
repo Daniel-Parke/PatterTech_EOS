@@ -12,7 +12,6 @@ review: on-change-of:WCAG-2.2
 sources: [EV-0027, EV-0028, EV-0029, EV-0030, EV-0062, EV-0064, EV-0065, EV-0066, EV-0230, EV-0235, EV-0236, EV-0237, EV-0240, EV-0241]
 type: guide
 tags: [web, a11y, layout, perf]
-review_by: 2027-09
 ---
 
 # ui-ux

@@ -19,7 +19,7 @@ Derived file. Edit guide front-matter, then run
 | GD-AGENT-003 | Should this work be a subagent at all, and if so as a tool, a handoff or a peer worker? | agentic-development | default | on-change-of:agent-sdk-major-release |
 | GD-AGENT-004 | What holds the truth that checks an agent's work, and what do you do when nothing does? | agentic-development | default | on-change-of:anthropic-evals-publication |
 | GD-AIML-001 | What evidence accepts or refuses a change to a model-backed feature, offline set, judge, human sample or production telemetry? | ai-ml-llm | default | 2026-11 |
-| GD-AIML-002 | Where does the model get the facts, retrieval, whole context, per-query routing or fine-tuning? | ai-ml-llm | default | on-change-of:FRAG-AI-ML-LLM-04 |
+| GD-AIML-002 | Where does the model get the facts, retrieval, whole context, per-query routing or fine-tuning? | ai-ml-llm | default | on-change-of:EV-0245 |
 | GD-AIML-003 | Who grades model output, a deterministic scorer, a human, a validated model judge or the user, and what each can settle | ai-ml-llm | default | 2026-12 |
 | GD-AIML-004 | How is a prompt maintained over time, hand-written and versioned, few-shot, compiled by an optimiser, or replaced by fine-tuning? | ai-ml-llm | default | 2026-12 |
 | GD-AIML-005 | Which model backs this feature and what happens when it retires, one pinned model, a cascade, self-assessed routing or a portfolio? | ai-ml-llm | default | 2027-03 |

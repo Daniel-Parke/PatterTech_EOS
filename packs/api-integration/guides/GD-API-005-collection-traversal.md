@@ -9,7 +9,6 @@ sources: [EV-0130, EV-0134, EV-0131, EV-0128]
 review: on-change-of:EV-0130
 type: guide
 tags: [arch, perf, data]
-review_by: 2027-09
 ---
 
 # GD-API-005: how does a consumer walk a collection?

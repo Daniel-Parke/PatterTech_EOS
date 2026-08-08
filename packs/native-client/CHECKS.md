@@ -7,7 +7,6 @@ volatility: slow
 review: on-change-of:EN-301-549-v4-publication
 type: implementation
 tags: [testing, a11y, delivery]
-review_by: 2027-08
 ---
 
 # CHECKS

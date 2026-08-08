@@ -2,12 +2,11 @@
 summary: The error-message contract in detail, placement, timing, wording, input survival and the human against machine split
 kind: fact
 scope: estate
-sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-09, FRAG-WRITING-CONTENT-15]
+sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, EV-0440, EV-0441, EV-0447]
 volatility: slow
 review: on-change-of:WCAG-2.2
 type: ux
 tags: [forms, a11y, content]
-review_by: 2028-10
 ---
 
 # Error contract
@@ -15,7 +14,7 @@ review_by: 2028-10
 Detail behind B4, B5 and B6 in `packs/writing-content/PACK.md`. An
 error message has four separable jobs, and most bad ones fail on the
 first two before wording is even reached
-(FRAG-WRITING-CONTENT-09).
+(EV-0441).
 
 ## Placement
 
@@ -44,8 +43,8 @@ Name the condition, then state the required input or the next action
 (EV-0027, criteria 3.3.1 and 3.3.3). Replace a diagnosis with the shape
 of a correct answer: an identifier that is not valid becomes a
 statement of what a valid identifier looks like
-(FRAG-WRITING-CONTENT-15). Literal language, one instruction, no idiom
-and no metaphor (FRAG-WRITING-CONTENT-08). Do not blame the reader, and
+(EV-0447). Literal language, one instruction, no idiom
+and no metaphor (EV-0440). Do not blame the reader, and
 do not apologise at length either: the reader wants the fix.
 
 Severity matches consequence. A recoverable field error and a lost
@@ -57,7 +56,7 @@ signal (EV-0233).
 After a failed submit, every value the person typed is still there.
 This is the single most operational rule in the set: a message with
 clumsy grammar that preserves input is better than an elegant one that
-does not (FRAG-WRITING-CONTENT-09). Passwords are the usual exception
+does not (EV-0441). Passwords are the usual exception
 and the usual excuse; clearing every other field alongside them is the
 defect.
 

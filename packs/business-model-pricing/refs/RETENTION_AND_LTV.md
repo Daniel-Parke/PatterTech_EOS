@@ -4,10 +4,9 @@ type: foundation
 tags: [money, data]
 kind: fact
 scope: estate
-sources: [FRAG-BUSINESS-MODEL-PRICING-10, FRAG-BUSINESS-MODEL-PRICING-11, EV-0197]
+sources: [EV-0296, EV-0297, EV-0197]
 volatility: stable
 review: 2029-08
-review_by: 2029-08
 ---
 
 # Retention and lifetime value
@@ -21,7 +20,7 @@ Customers differ in how likely they are to lapse. The ones most likely
 to lapse do so first. Every period the surviving mix is made of better
 retainers than the period before, so the observed retention rate of a
 cohort rises with cohort age even when no individual customer changes
-behaviour at all (FRAG-BUSINESS-MODEL-PRICING-10).
+behaviour at all (EV-0296).
 
 Two consequences follow, and both are unintuitive enough that they get
 rediscovered every year.
@@ -98,12 +97,12 @@ which a first-year venture does not have. Until then:
   Non-contractual and metered revenue need a different model family,
   because expansion and contraction move inside a live account and there
   is no lapse event to observe
-  (FRAG-BUSINESS-MODEL-PRICING-10, and see
+  (EV-0296, and see
   `packs/business-model-pricing/guides/GD-BMP-002-charging-unit.md`).
 - It says nothing about why customers churn, and nothing about what a
   price change would do to the curve.
 - Revenue in the numerator is recognised revenue, not cash collected
-  (FRAG-BUSINESS-MODEL-PRICING-11), and the cost side is the allocated
+  (EV-0297), and the cost side is the allocated
   cost to serve (EV-0197). A margin computed from cash receipts against
   unallocated cost is two errors compounding.
 

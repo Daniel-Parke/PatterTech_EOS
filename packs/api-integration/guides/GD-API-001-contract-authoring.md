@@ -9,7 +9,6 @@ sources: [EV-0023, EV-0137, EV-0144, EV-0145, EV-0057]
 review: on-change-of:EV-0023
 type: guide
 tags: [arch, tooling, ci]
-review_by: 2027-11
 ---
 
 # GD-API-001: who authors the contract, and when?

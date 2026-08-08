@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: not-applicable
 sources: [EV-0022, EV-0059, EV-0225]
 review: on-change-of:PECR-reg-22-amendment
-review_by: 2027-07
 ---
 
 # marketing-growth pack checks

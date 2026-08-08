@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: asserted
-sources: [FRAG-LEGAL-LICENSING-09, FRAG-LEGAL-LICENSING-12, FRAG-LEGAL-LICENSING-16]
+sources: [EV-0345, EV-0348, EV-0352]
 review: on-change-of:https://developercertificate.org/
-review_by: 2028-06
 ---
 
 # GD-LEGAL-004: How do rights arrive with inbound code?
@@ -37,7 +36,7 @@ The contributor asserts that they wrote the change and may submit it,
 or that it derives from work they are entitled to submit under a
 compatible licence, or that someone who so certified passed it to them
 unmodified, and they accept that the record is public and permanent
-(FRAG-LEGAL-LICENSING-09). One sign-off line per commit, hook-checked.
+(EV-0345). One sign-off line per commit, hook-checked.
 The line is the one the certification defines: the `Signed-off-by`
 prefix, the contributor's real name, and their address in angle
 brackets, one per commit and never in a squashed summary only. Buys:
@@ -69,7 +68,7 @@ default position is not always what a venture assumes.
 Take the code and carry on. Buys: no process. Costs: absence of a
 licence means exclusive copyright, and a public repository being
 forkable grants no right to use what is in it
-(FRAG-LEGAL-LICENSING-12). The cost is invisible until the code is
+(EV-0348). The cost is invisible until the code is
 load-bearing, which is exactly when it is unaffordable to remove.
 
 ## Decision rule
@@ -98,14 +97,14 @@ is not a claim that the output is authored by that person. Ownership of
 machine-generated output is being answered in staged public reports by
 a national authority and is not settled, with no equivalent UK
 determination located at this cutoff
-(FRAG-LEGAL-LICENSING-16). The position the pack takes is narrow:
+(EV-0352). The position the pack takes is narrow:
 record provenance, do not assume authorship, and do not put a
 copyright assertion on machine output that nobody has tested.
 
 ## Evidence boundary
 
 The certification route is a primary source, short and unambiguous
-(FRAG-LEGAL-LICENSING-09). Option B has no primary source in this pack
+(EV-0345). Option B has no primary source in this pack
 and no outcome comparison exists in anything read at this cutoff, so
 the choice between A and B currently rests on assertion. That is why
 this guide is authority default rather than binding on the choice

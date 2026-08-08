@@ -12,7 +12,6 @@ review: on-change-of:EN-301-549-v4-publication
 sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236]
 type: playbook
 tags: [eos, a11y, delivery, ops, state]
-review_by: 2027-04
 ---
 
 # native-client
@@ -63,9 +62,9 @@ profile instead. This pack is that profile. ui-ux keeps what an
 interface must achieve for the person using it, the philosophy, tokens,
 interaction states, and the numeric floors, which come from WCAG 2.2
 (EV-0027) because the platform guidance publishes none
-(FRAG-NATIVE-18). This pack owns the conformance model: unit of
+(EV-0387). This pack owns the conformance model: unit of
 conformance, reviewable artefact, audit route, and the obligations WCAG
-never states (FRAG-NATIVE-01, FRAG-NATIVE-02). Both packs load on a
+never states (EV-0370, EV-0371). Both packs load on a
 native surface, and neither lowers a `kernel/POLICY_SPEC.md` or
 `kernel/GUARD_SPEC.md` floor.
 
@@ -102,9 +101,9 @@ exactly one policy from `converge`, `last-writer-wins`,
 citing at least three evidence ids. Prevents the library choosing the
 policy by default: convergence proofs say replicas agree and no update
 is lost, and say nothing about whether the agreed value satisfies an
-invariant (FRAG-NATIVE-10), while the shipped server-authoritative
+invariant (EV-0379), while the shipped server-authoritative
 product states outright that there is no single correct choice for
-handling a write failure (FRAG-NATIVE-14). Basis: decision. See
+handling a write failure (EV-0383). Basis: decision. See
 `packs/native-client/guides/GD-NAT-002-offline-write-model.md`.
 
 **B2. No offline acceptance of an invariant-bearing write without a
@@ -113,7 +112,7 @@ reservation or compensation path.** `has_invariant_bearing_writes` and
 reservation before accepting the write, or the write is rejected
 offline, or a named compensation event fires for the loser on
 reconnection. Prevents two users holding one slot after a merge the
-algorithm correctly calls converged (FRAG-NATIVE-10). Basis: decision.
+algorithm correctly calls converged (EV-0379). Basis: decision.
 
 **B3. The outbox is durable, ordered and idempotent, and its blocked
 state is named.** `has_local_write_store`. A write acknowledged to the
@@ -122,15 +121,15 @@ blocked state is surfaced within a stated timeout while reads keep
 working. Prevents the two failures of a FIFO upload queue: the write
 lost to a crash between acknowledgement and flush, and head-of-line
 blocking, where one unacknowledged mutation stalls the whole client and
-nothing on screen says so (FRAG-NATIVE-14). Basis: decision.
+nothing on screen says so (EV-0383). Basis: decision.
 
 **B4. Release is forward-only.** `distributes_via_app_store`. Every
 shipping binary carries a remote kill switch for the behaviour it
 introduces, and no runbook step says roll back. Apple ramps automatic
 updates on a fixed schedule with no developer dial and no rollback
-(FRAG-NATIVE-05); Play gives the dial and a halt, but halting only
+(EV-0374); Play gives the dial and a halt, but halting only
 stops further delivery and the documented remedy for a bad build is to
-ship another one (FRAG-NATIVE-06). Flags are the rollback on a client
+ship another one (EV-0375). Flags are the rollback on a client
 (EV-0026). Prevents an incident plan whose first step is impossible.
 Basis: standard. See `packs/native-client/guides/GD-NAT-003-release-path.md`.
 
@@ -139,19 +138,19 @@ capability.** `has_remote_update_channel`. Copy, styling, assets and
 layout may ship out of band. Native code, native dependencies,
 permissions, SDK levels and anything a reasonable person would call a
 new feature may not. Prevents rejection or removal: the technical
-boundary sits at native code (FRAG-NATIVE-08) and the review rule sits
-tighter still, at introducing or changing features (FRAG-NATIVE-03).
+boundary sits at native code (EV-0377) and the review rule sits
+tighter still, at introducing or changing features (EV-0372).
 Basis: standard, taking the narrower of two documented lines.
 
 **B6. Non-web accessibility conformance is stated per screen, declared
 in code, and gated by an automated audit with a written verdict on
 every undecided item.** `has_native_ui`. The unit of conformance is a
-screen, not a page (FRAG-NATIVE-01), and the reviewable artefact is the
-semantics declaration, not a screenshot (FRAG-NATIVE-18). The audit
+screen, not a page (EV-0370), and the reviewable artefact is the
+semantics declaration, not a screenshot (EV-0387). The audit
 runs inside the platform test runner over every screen and fails the
-build on any violation (FRAG-NATIVE-19); the verdict file's entry count
+build on any violation (EV-0388); the verdict file's entry count
 equals the audit's undecided count. Where EN 301 549 applies, the
-target is clause 11 plus its WCAG mapping (FRAG-NATIVE-02, EV-0027),
+target is clause 11 plus its WCAG mapping (EV-0371, EV-0027),
 which adds assistive-technology interoperability and user preference
 support. Prevents web conformance language being waved at an app, and a
 green audit being read as proof, which the web census warns against
@@ -172,24 +171,24 @@ Followed unless the task records a reason to depart.
 **D1. Shared logic with a native user interface.** Sharing domain logic
 and sharing pixels are two decisions; the first is graded Stable per
 target while the interface layer carries its own grade
-(FRAG-NATIVE-17). Reason: it removes business-rule divergence without
+(EV-0386). Reason: it removes business-rule divergence without
 forfeiting platform behaviour.
 
 **D2. Online-first with a read cache, until an offline write is a named
 requirement.** Reason: no local writes means no conflicts and no policy
 to maintain, and a serious sync project narrowed itself to the read
-path and left writes to the application (FRAG-NATIVE-13).
+path and left writes to the application (EV-0382).
 
 **D3. A one per cent first slice on Play with the halt trigger written
 down before the release starts, and phased release left on for Apple.**
 Reason: Play's only real containment lever is how small the first slice
-is (FRAG-NATIVE-06) and Apple's ramp is fixed, unsteerable and
-bypassable by anyone updating manually (FRAG-NATIVE-05), so the trigger
+is (EV-0375) and Apple's ramp is fixed, unsteerable and
+bypassable by anyone updating manually (EV-0374), so the trigger
 comes from your own telemetry on both.
 
 **D4. Budget one rejection cycle into every release calendar.** Roughly
 one submission in four was rejected in the 2025 reporting year, the
-largest bucket by a wide margin being Performance (FRAG-NATIVE-04).
+largest bucket by a wide margin being Performance (EV-0373).
 That is a vendor census of its own decisions and sizes a calendar risk
 only; the scope note sits in
 `packs/native-client/refs/RELEASE_MECHANICS.md`.
@@ -197,17 +196,17 @@ only; the scope note sits in
 **D5. The annual target SDK bump is fixed roadmap work.** From 31
 August 2026 Play requires API 36 for new submissions and API 35 for an
 existing app to stay visible to new users on current devices
-(FRAG-NATIVE-07). Reason: an unmaintained client goes quietly
+(EV-0376). Reason: an unmaintained client goes quietly
 invisible.
 
 **D6. Plan against a low automated accessibility catch rate and put the
 weight on the manual verdict list.** No coverage figure is published
-for the native audits (FRAG-NATIVE-19) and the web figure is contested
+for the native audits (EV-0388) and the web figure is contested
 between roughly 57 per cent and roughly a third (EV-0236, EV-0104).
 
 **D7. Storage and compaction are budgeted on day one wherever a
 convergent store is used.** Text-suitable CRDTs only grow and the
-answer is conditional tombstone collection (FRAG-NATIVE-12). Reason:
+answer is conditional tombstone collection (EV-0381). Reason:
 compaction found at month six is a migration, not a tuning pass.
 
 **D8. Start from the platform's own control with its own behaviour**,
@@ -222,7 +221,7 @@ chosen architecture; language for a shared core; the specific CRDT or
 sync vendor once B1 has fixed the policy; document store or relational
 store; release cadence beyond the store's constraints; whether a
 companion watch or TV surface exists at all, noting only that those
-targets carry lower stability grades (FRAG-NATIVE-17).
+targets carry lower stability grades (EV-0386).
 
 ## Decision map
 
@@ -241,30 +240,30 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
 
 - **Choosing the sync library first.** The policy is then whatever the
   library does, found in production on the one write class that could
-  not take it (FRAG-NATIVE-10, FRAG-NATIVE-14).
+  not take it (EV-0379, EV-0383).
 - **Reading "conflict-free" as "correct".** Convergence is a claim
   about replicas agreeing, not about the agreed value being wanted
-  (FRAG-NATIVE-10).
+  (EV-0379).
 - **The rollback step in the runbook**, and its cousin, one runbook
   assuming both stores behave alike. Neither can take a version back
-  and the two ramps are mirror images (FRAG-NATIVE-05, FRAG-NATIVE-06).
+  and the two ramps are mirror images (EV-0374, EV-0375).
 - **Treating Apple's phased release as a control plane.** Fixed
   percentages, no steering, no metric halt, manual updaters walking
   past it. Not progressive delivery in EV-0204's sense.
 - **Shipping a feature over the air because it technically works.**
   The technical boundary and the review boundary are in different
-  places (FRAG-NATIVE-08, FRAG-NATIVE-03). Its sibling is the wrapped
+  places (EV-0377, EV-0372). Its sibling is the wrapped
   website, rejected outright under rule 4.2: a web shell has to earn
   its binary.
 - **A screenshot offered as the accessibility artefact**, or an empty
   verdict file beside a green audit. The semantics tree is what a
-  screen reader reads (FRAG-NATIVE-18), and no coverage figure exists
-  for these audits at all (FRAG-NATIVE-19).
+  screen reader reads (EV-0387), and no coverage figure exists
+  for these audits at all (EV-0388).
 - **The silently blocked client.** A stuck mutation stalls sync, the
   screen shows stale data with no message, and support hears "it is
-  slow" for a week (FRAG-NATIVE-14).
+  slow" for a week (EV-0383).
 - **The client that stopped shipping**, which decays on a fixed annual
-  clock (FRAG-NATIVE-07).
+  clock (EV-0376).
 
 ## Open questions and counter-evidence
 
@@ -275,15 +274,15 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
 - **Apple's rules 2.5.2 and 4.7 are in visible tension.** One forbids
   downloaded code that introduces or changes features, the other
   permits classes of non-embedded software under conditions
-  (FRAG-NATIVE-03). B5 takes the narrower reading; the wider one would
+  (EV-0372). B5 takes the narrower reading; the wider one would
   be an argued departure.
 - **The accessibility instruments disagree.** EN 301 549 v3.2.1 is in
   force, references an older WCAG level than the mobile mapping
   targets, and a v4 revision was in approval and unpublished at cutoff
-  (FRAG-NATIVE-02), so an app on WCAG 2.2 is ahead of the binding
+  (EV-0371), so an app on WCAG 2.2 is ahead of the binding
   standard. The mapping is a Group Draft Note, informative,
   replaceable, Level A and AA only, closed functionality acknowledged
-  as a gap (FRAG-NATIVE-01): it translates and does not oblige.
+  as a gap (EV-0370): it translates and does not oblige.
 - **The two conflict philosophies contradict each other by design.**
   Convergent replication has no head-of-line blocking and accepts a
   value nobody chose. Server-authoritative sync removes local conflicts
@@ -291,11 +290,11 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
   about the other's weakness, and neither answers B1.
 - **The local-first argument is advocacy**, seven ideals from a 2019
   position paper by CRDT authors evaluating CRDTs, no measurement, no
-  user study (FRAG-NATIVE-09). Library benchmarks are no better: the
+  user study (EV-0378). Library benchmarks are no better: the
   two main projects benchmark against each other and each claim is the
-  vendor's own (FRAG-NATIVE-11, FRAG-NATIVE-12).
+  vendor's own (EV-0380, EV-0381).
 - **Two Apple primary sources resisted plain fetch** (EV-0230 and
-  FRAG-NATIVE-19), rest partly on secondary write-ups, and want
+  EV-0388), rest partly on secondary write-ups, and want
   re-verifying before anything is quoted.
 - **The evidence import is incomplete.** The nineteen `FRAG-NATIVE-`
   rows are frozen in this pack's research directory and are not yet in

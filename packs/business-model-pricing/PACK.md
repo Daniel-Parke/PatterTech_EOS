@@ -11,7 +11,7 @@ scope: estate
 applies_when: [sets_a_price, publishes_a_price, sells_to_consumers, sells_by_subscription, sells_to_public_sector, bundles_or_discounts, reports_commercial_metrics]
 volatility: event-driven
 review: on-change-of:DMCC-Part-4-Chapter-2-commencement
-sources: [FRAG-BUSINESS-MODEL-PRICING-01, FRAG-BUSINESS-MODEL-PRICING-02, FRAG-BUSINESS-MODEL-PRICING-03, FRAG-BUSINESS-MODEL-PRICING-04, FRAG-BUSINESS-MODEL-PRICING-05, FRAG-BUSINESS-MODEL-PRICING-06, FRAG-BUSINESS-MODEL-PRICING-07, FRAG-BUSINESS-MODEL-PRICING-08, FRAG-BUSINESS-MODEL-PRICING-09, FRAG-BUSINESS-MODEL-PRICING-10, FRAG-BUSINESS-MODEL-PRICING-11, FRAG-BUSINESS-MODEL-PRICING-12, FRAG-BUSINESS-MODEL-PRICING-13, FRAG-BUSINESS-MODEL-PRICING-14, FRAG-BUSINESS-MODEL-PRICING-15, FRAG-BUSINESS-MODEL-PRICING-16, FRAG-BUSINESS-MODEL-PRICING-17, FRAG-BUSINESS-MODEL-PRICING-18, EV-0055, EV-0059, EV-0095, EV-0096, EV-0197, EV-0199, EV-0210]
+sources: [EV-0287, EV-0288, EV-0289, EV-0290, EV-0291, EV-0292, EV-0293, EV-0294, EV-0295, EV-0296, EV-0297, EV-0298, EV-0299, EV-0300, EV-0301, EV-0302, EV-0303, EV-0304, EV-0055, EV-0059, EV-0095, EV-0096, EV-0197, EV-0199, EV-0210]
 ---
 
 # business-model-pricing
@@ -90,7 +90,7 @@ cannot avoid appears in the advertised number, not at the end of the
 journey. Prevents drip pricing, which the CMA now enforces against
 directly under the commenced consumer provisions of the DMCC Act, with
 penalties reported up to ten per cent of global turnover
-(FRAG-BUSINESS-MODEL-PRICING-13). The contested boundary is between
+(EV-0299). The contested boundary is between
 unavoidable and genuinely optional; record which side each charge sits
 and why. See `packs/business-model-pricing/refs/UK_OBLIGATIONS.md`.
 
@@ -100,7 +100,7 @@ pre-contract information given separately, an express acknowledgement of
 the payment obligation at the final step, reminder notices before
 renewal payments, a straightforward online exit route, and cooling-off
 on entry and on specified renewals
-(FRAG-BUSINESS-MODEL-PRICING-12). Prevents the renewal flow that treats
+(EV-0298). Prevents the renewal flow that treats
 silence as consent, which is the pattern the statute was written to
 stop. Scope note: the DMCC subscription chapter was enacted in 2024 and
 was still awaiting commencement regulations at the cutoff, with
@@ -112,17 +112,17 @@ Predicates: sets_a_price, sells_to_public_sector. Where nothing is
 agreed, a commercial payment is late thirty days after the later of
 invoice receipt and delivery; terms may run to sixty days between
 businesses where fair, and public authorities pay within thirty
-(FRAG-BUSINESS-MODEL-PRICING-15). Every public contract carries an
+(EV-0301). Every public contract carries an
 implied thirty-day term that no clause can override, and a valid invoice
 needs the supplier name, a description, the amount and a unique
-identifier (FRAG-BUSINESS-MODEL-PRICING-16). Prevents the quote that
+identifier (EV-0302). Prevents the quote that
 ships with no term and the belief that nothing is therefore late.
 
 **B4. Revenue is recognised, never counted at the bank.** Predicates:
 bundles_or_discounts, reports_commercial_metrics. Follow the five-step
 model, and decompose every bundle, discount and add-on into distinct
 performance obligations with defensible stand-alone selling prices
-(FRAG-BUSINESS-MODEL-PRICING-11). Prevents the tier invented for the
+(EV-0297). Prevents the tier invented for the
 pricing page that nobody can allocate a transaction price to later.
 Scope note: IFRS 15 applies where the entity reports under IFRS; a UK
 micro-entity may sit under FRS 102 or FRS 105 and a US filer under ASC
@@ -132,10 +132,10 @@ micro-entity may sit under FRS 102 or FRS 105 and a US filer under ASC
 sets_a_price, reports_commercial_metrics. VAT registration is compulsory
 once taxable turnover over any rolling twelve months exceeds ninety
 thousand pounds, or is expected to within thirty days
-(FRAG-BUSINESS-MODEL-PRICING-17). Making Tax Digital for Income Tax
+(EV-0303). Making Tax Digital for Income Tax
 starts 6 April 2026 above fifty thousand pounds of qualifying income,
 2027 above thirty thousand and 2028 above twenty thousand
-(FRAG-BUSINESS-MODEL-PRICING-18). Prevents crossing the VAT threshold
+(EV-0304). Prevents crossing the VAT threshold
 and discovering the effective consumer price has fallen by the VAT rate
 overnight. Both are dated policy numbers with refresh triggers, held in
 `packs/business-model-pricing/refs/UK_OBLIGATIONS.md`, never inlined
@@ -146,11 +146,11 @@ Predicates: publishes_a_price, sells_to_consumers. Drip pricing, sludge,
 dark nudges, decoys, choice overload, sensory manipulation and
 information overload are classified by the CMA's own evidence review as
 practices the literature finds almost always harmful
-(FRAG-BUSINESS-MODEL-PRICING-14). Prevents building a conversion tactic
+(EV-0300). Prevents building a conversion tactic
 that is an enforcement exposure. Note the separation: whether a pattern
 is harmful and whether it works are different questions, and the decoy
 evidence answers the second one badly
-(FRAG-BUSINESS-MODEL-PRICING-07).
+(EV-0293).
 
 Guarded actions stay outside this pack. Taking money, refunding money
 and changing a live price are ruled by `kernel/GUARD_SPEC.md` and its
@@ -166,9 +166,9 @@ Say whether the price is value-informed, competition-informed or
 cost-informed, and say what makes that the right anchor here. Reason:
 more than four fifths of surveyed firms priced from cost or competitor
 levels while agreeing value pricing works, and the blockers were all
-capability rather than belief (FRAG-BUSINESS-MODEL-PRICING-01); later
+capability rather than belief (EV-0287); later
 work finds the three practices pay off under different conditions rather
-than ranking (FRAG-BUSINESS-MODEL-PRICING-02). Scope note: both are
+than ranking (EV-0288). Scope note: both are
 self-reported surveys of mid-size and large firms, pre-SaaS, with no
 causal identification. See
 `packs/business-model-pricing/guides/GD-BMP-001-price-anchor.md`.
@@ -176,7 +176,7 @@ causal identification. See
 **D2. A price change is announced with its cause, and the cause is cost
 or delivered value.** Reason: buyers judge a rise that protects an
 existing margin against a cost increase as fair, and a rise that
-exploits a demand shift as unfair (FRAG-BUSINESS-MODEL-PRICING-06).
+exploits a demand shift as unfair (EV-0292).
 Scope note: 1986 telephone-survey fairness judgements, not observed
 churn; the paper puts no number on what a violation costs. Override
 where you can show the retention consequence in your own cohorts. See
@@ -184,8 +184,8 @@ where you can show the retention consequence in your own cohorts. See
 
 **D3. Trial length starts near a week and is tested across the whole
 funnel.** Reason: one SaaS firm found seven days beat fourteen and
-thirty (FRAG-BUSINESS-MODEL-PRICING-08) while another found seven beat
-three (FRAG-BUSINESS-MODEL-PRICING-09), which together support an
+thirty (EV-0294) while another found seven beat
+three (EV-0295), which together support an
 interior optimum rather than a direction. The second study also moved
 delayed conversion and trial adoption while immediate conversion stayed
 flat, so a test judged on the first stage alone reads as a null and gets
@@ -198,7 +198,7 @@ never revenue over blended churn.** Reason: the observed period-over-
 period retention rate of a cohort rises with age purely because
 high-churn customers leave first, so a single average churn projected
 forward is wrong in a knowable direction
-(FRAG-BUSINESS-MODEL-PRICING-10). Scope note: the model needs several
+(EV-0296). Scope note: the model needs several
 periods of contractual cohort data, which a first-year venture does not
 have; until then report the observed curve and refuse the single number.
 See `packs/business-model-pricing/refs/RETENTION_AND_LTV.md`.
@@ -216,9 +216,9 @@ so D5 rests on internal reasoning and is weaker than it should be. See
 **D6. A survey-derived price is a bracket, never the decision.** Reason:
 only incentive-compatible elicitation passed against real purchase
 behaviour, and hypothetical answers overstate willingness to pay
-(FRAG-BUSINESS-MODEL-PRICING-03); the vendor selling the price
+(EV-0289); the vendor selling the price
 sensitivity meter lists its own limits, including no competitive context
-and no volume prediction (FRAG-BUSINESS-MODEL-PRICING-04). Treat the
+and no volume prediction (EV-0290). Treat the
 range as an upper bound until a real transaction tests it.
 
 **D7. Unit cost is allocated before a margin is claimed.** Every charged
@@ -238,7 +238,7 @@ Taste. Record them, do not gate on them, override them without asking.
 
 - **Price endings.** Nine endings raised demand in three field
   experiments, most for items new to the buyer and least where sale cues
-  were present (FRAG-BUSINESS-MODEL-PRICING-05). That was US catalogue
+  were present (EV-0291). That was US catalogue
   retail of physical goods in the late 1990s, and it does not transplant
   to a subscription list price as a rule.
 - **Tier count and tier names.** Nothing in the evidence sets a number.
@@ -269,31 +269,31 @@ run in
 ## Failure modes and anti-patterns
 
 - **Fees revealed at checkout and called transparency.** Drip pricing
-  with a new name (FRAG-BUSINESS-MODEL-PRICING-13). Alongside it:
-  counting cash as revenue (FRAG-BUSINESS-MODEL-PRICING-11), a renewal
-  that treats silence as consent (FRAG-BUSINESS-MODEL-PRICING-12), and a
+  with a new name (EV-0299). Alongside it:
+  counting cash as revenue (EV-0297), a renewal
+  that treats silence as consent (EV-0298), and a
   price rise announced with a demand cause
-  (FRAG-BUSINESS-MODEL-PRICING-06).
+  (EV-0292).
 - **A margin percentage carried over from a different business**, or a
   price copied from a competitor whose cost base and funding you do not
   share. Competition-informed pricing is legitimate under its conditions
-  (FRAG-BUSINESS-MODEL-PRICING-02); copying a funded rival's loss-leader
+  (EV-0288); copying a funded rival's loss-leader
   is not one of them.
 - **Declaring value-based pricing without building the value
   assessment.** That produces a higher number with no argument behind it
-  (FRAG-BUSINESS-MODEL-PRICING-01). The cheap version of the same error
+  (EV-0287). The cheap version of the same error
   is calling the price sensitivity meter crossing point the price, which
-  the vendor says it is not (FRAG-BUSINESS-MODEL-PRICING-04).
+  the vendor says it is not (EV-0290).
 - **A decoy tier.** It is on the regulator's harmful list
-  (FRAG-BUSINESS-MODEL-PRICING-14) and only eleven of ninety-one
+  (EV-0300) and only eleven of ninety-one
   replication attempts found the effect with realistic stimuli
-  (FRAG-BUSINESS-MODEL-PRICING-07). Liability on one side, no reliable
+  (EV-0293). Liability on one side, no reliable
   benefit on the other.
 - **A fixed trial length with no test plan**, or a trial test judged on
   immediate conversion alone when the stage that moved was the delayed
-  one (FRAG-BUSINESS-MODEL-PRICING-08, FRAG-BUSINESS-MODEL-PRICING-09).
+  one (EV-0294, EV-0295).
 - **Lifetime value as revenue over blended churn.** Wrong in a knowable
-  direction (FRAG-BUSINESS-MODEL-PRICING-10).
+  direction (EV-0296).
 - **Metering something the buyer cannot forecast or control.** That
   converts a pricing model into a support queue.
 - **Quoting a benchmark from usage-based-pricing marketing.** See the
@@ -307,22 +307,22 @@ and blog aggregations, and they are exposed to survivorship and
 self-selection: firms whose customers grow adopt usage pricing and also
 retain better. No source worth recording was found at the cutoff that
 isolates the effect. This pack therefore carries the structural argument
-for metering (FRAG-BUSINESS-MODEL-PRICING-11 on obligations,
-FRAG-BUSINESS-MODEL-PRICING-10 on why expansion and contraction wreck a
+for metering (EV-0297 on obligations,
+EV-0296 on why expansion and contraction wreck a
 blended projection) and no benchmark number from that literature.
 
 **The two pricing-practice sources disagree about what cost-plus is.**
 One treats cost and competitor anchoring as capability failure to be
-overcome (FRAG-BUSINESS-MODEL-PRICING-01), the other as conditionally
-rational (FRAG-BUSINESS-MODEL-PRICING-02). D1 takes the reconciliation:
+overcome (EV-0287), the other as conditionally
+rational (EV-0288). D1 takes the reconciliation:
 name the practice and the condition, set a date, and skip the allegiance.
 
 **Hypothetical willingness-to-pay methods are unsettled.** The
 comparison against real purchases favours incentive-compatible methods
-(FRAG-BUSINESS-MODEL-PRICING-03), while published evaluations report the
+(EV-0289), while published evaluations report the
 price sensitivity meter reaching predictive quality comparable to the
 incentive-aligned mechanism despite its bias
-(FRAG-BUSINESS-MODEL-PRICING-04). D6 assumes neither settles it.
+(EV-0290). D6 assumes neither settles it.
 
 **Metric definitions rest on internal reasoning.** D5 is the weakest
 rule in the pack by provenance, and it stays a default for that reason.
@@ -344,7 +344,7 @@ for DMCC Part 4 Chapter 2; a revision of CMA207 or CMA209; a Budget
 change to the VAT registration threshold; an HMRC change to the MTD
 timetable; a multi-firm trial-length experiment; a causal study of
 usage-based versus seat-based pricing; obtaining the full text behind
-FRAG-BUSINESS-MODEL-PRICING-02.
+EV-0288.
 
 **Evidence pointer.** The eighteen sources behind this pack are held as
 validated fragments in

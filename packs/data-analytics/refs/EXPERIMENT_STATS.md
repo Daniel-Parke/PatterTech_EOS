@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0059]
 volatility: stable
 review: 2029-08
-review_by: 2029-08
 ---
 
 # Experiment statistics reference
@@ -39,7 +38,7 @@ of assigned units.
 ratio means something interfered between assignment and measurement, and
 whatever interfered almost certainly also moved the metric. There is no
 confidence level at which the number becomes usable
-(`FRAG-DATA-ANALYTICS-12`).
+(`EV-0316`).
 
 **The search order when it fails.** Causes sort by where they arise, and
 this ordering is the useful part:
@@ -78,7 +77,7 @@ Using each unit's pre-experiment behaviour as a covariate removes the
 part of the metric that has nothing to do with the treatment. On one
 large search product this cut variance by roughly half, which is the
 same power at half the users or half the duration
-(`FRAG-DATA-ANALYTICS-11`).
+(`EV-0315`).
 
 Preconditions, all of them required: a stable randomisation unit, that
 unit observed before the experiment started, and a pre-period metric
@@ -90,7 +89,7 @@ when the unit is stable.
 ## The interpretation errors that produce false conclusions
 
 Each of these is an error of reading, not of computation
-(`FRAG-DATA-ANALYTICS-09`).
+(`EV-0313`).
 
 - **The p-value read as the probability the result is chance.** It is
   not. It is the probability of data at least this extreme if there were

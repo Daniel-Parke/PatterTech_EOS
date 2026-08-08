@@ -5,11 +5,10 @@ authority: default
 basis: standard
 evidence_grade: observational
 scope: estate
-sources: [FRAG-WRITING-CONTENT-01, FRAG-WRITING-CONTENT-02, FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-05, FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-07, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-09, FRAG-WRITING-CONTENT-10]
+sources: [EV-0433, EV-0434, EV-0435, EV-0437, EV-0438, EV-0439, EV-0440, EV-0441, EV-0442]
 review: 2028-09
 type: guide
 tags: [voice, content, a11y]
-review_by: 2028-09
 ---
 
 # GD-WRIT-001: Which clarity philosophy governs this text?
@@ -40,20 +39,20 @@ result being incoherent. Pick one per body of text and say which.
 
 ### A. Plain language, control at the writer
 Plainness is defined by reader outcome: the intended readers can find,
-understand and use the thing (FRAG-WRITING-CONTENT-01). GOV.UK
-(FRAG-WRITING-CONTENT-03) and the United States federal guidance
-(FRAG-WRITING-CONTENT-02) are the two mature implementations. Buys a
+understand and use the thing (EV-0433). GOV.UK
+(EV-0435) and the United States federal guidance
+(EV-0434) are the two mature implementations. Buys a
 transferable set of moves that work on almost any prose: front-load the
 answer, use the reader's own words, write for the lowest literacy in
 the audience. Costs a skill that degrades the moment the writer is
 rushed or is a subject expert, and nothing in the guidance detects that
 degradation. Its own definition makes comprehension the test, and
-comprehension is only sometimes gained (FRAG-WRITING-CONTENT-07).
+comprehension is only sometimes gained (EV-0439).
 
 ### B. Controlled language, control at the word
 Remove the writer's choice. Roughly fifty-three rules and about nine
 hundred approved words, each constrained to one meaning and one part of
-speech (FRAG-WRITING-CONTENT-05). The claim is that ambiguity is best
+speech (EV-0437). The claim is that ambiguity is best
 attacked at the vocabulary layer, because one word with two meanings
 defeats any amount of sentence discipline. Buys machine-checkable
 correctness for procedures read under pressure by people whose first
@@ -63,9 +62,9 @@ comprehension gains was located.
 
 ### C. Content design, control at the reader
 The user need comes first and the page exists only to serve it
-(FRAG-WRITING-CONTENT-03). In interfaces this becomes microcopy
+(EV-0435). In interfaces this becomes microcopy
 discipline: placement and timing decided before wording
-(FRAG-WRITING-CONTENT-09), and a diagnosis replaced by the shape of the
+(EV-0441), and a diagnosis replaced by the shape of the
 correct input. Buys the highest-yield rewrites in this pack and forces
 the prior question of whether the text should exist. Costs research
 time, and it says nothing about how the sentence is assembled.
@@ -73,7 +72,7 @@ time, and it says nothing about how the sentence is assembled.
 ### D. Message data, control at the structure
 The translatable unit is a message with a data model, not a string with
 holes in it, and selection on plurality, gender and case happens inside
-the message (FRAG-WRITING-CONTENT-10). Buys a translator the freedom to
+the message (EV-0442). Buys a translator the freedom to
 add a distinction the source language never had, and it is the only one
 of the four that fixes a defect the others cannot see. Costs a format
 decision, tooling, and a migration from whatever exists. Says nothing

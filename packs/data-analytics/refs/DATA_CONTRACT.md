@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0056, EV-0057]
 volatility: slow
 review: 2028-08
-review_by: 2028-08
 ---
 
 # Data contract reference
@@ -20,7 +19,7 @@ fails. It does not bind the format.
 ## The five things one document has to carry
 
 A contract that omits any of these leaves an unowned gap
-(`FRAG-DATA-ANALYTICS-01`).
+(`EV-0305`).
 
 | Element | What it states | Why it cannot live elsewhere |
 | --- | --- | --- |
@@ -52,7 +51,7 @@ infrastructure metadata, are dead weight inside a single venture.
 
 The first eight are declared. The ninth is computed, needs history, and
 is the only one that catches what you failed to anticipate
-(`FRAG-DATA-ANALYTICS-02`).
+(`EV-0306`).
 
 ## Blocking against monitoring
 
@@ -82,7 +81,7 @@ consumer outside the session that wrote it? If not, no contract.
   column name and treat unexplained metric step changes as bugs.
 - **Suggested constraints.** Rules derived from the current data encode
   whatever the data currently does, including the defect
-  (`FRAG-DATA-ANALYTICS-02`). Read every suggestion before accepting it.
+  (`EV-0306`). Read every suggestion before accepting it.
 - **Expectation rot.** A suite checks what you declared, not what you
   forgot to declare, and the gap grows as the product changes (EV-0056).
 - **The contract nobody runs.** The most common failure. Criteria 1 and

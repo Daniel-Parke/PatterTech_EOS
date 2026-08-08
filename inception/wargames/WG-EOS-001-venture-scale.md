@@ -11,7 +11,6 @@ review: 2027-07
 type: wargame
 tags: [eos, wargame]
 status: active
-review_by: 2027-07
 ---
 
 # WG-EOS-001: What scale of organisational machinery does this venture compile?

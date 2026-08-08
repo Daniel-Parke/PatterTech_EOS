@@ -2,7 +2,7 @@
 summary: Testmod module map, what the module holds and where to start
 type: doctrine
 tags: [eos]
-review_by: 2030-01
+review: 2030-01
 ---
 
 # testmod

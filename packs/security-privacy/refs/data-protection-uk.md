@@ -2,7 +2,6 @@
 summary: UK data protection for a small venture, lawful basis register, complaints route, DPIA threshold and what is unsettled
 type: guide
 tags: [security, pii]
-review_by: 2028-01
 kind: fact
 scope: estate
 volatility: event-driven

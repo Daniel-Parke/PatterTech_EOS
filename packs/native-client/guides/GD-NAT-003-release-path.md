@@ -9,7 +9,6 @@ sources: [EV-0026, EV-0204]
 review: on-change-of:play-staged-rollout-mechanics
 type: guide
 tags: [delivery, ops, ci]
-review_by: 2028-05
 ---
 
 # GD-NAT-003: How does a fix reach a user?
@@ -21,10 +20,10 @@ client, neither store can take a version back. Apple ramps automatic
 updates on a fixed 1, 2, 5, 10, 20, 50 then 100 per cent schedule over
 seven days, the percentages are not developer-selectable, the cohort is
 not steerable, there is no automatic halt on a metric, and anyone can
-fetch the new build manually at any moment (FRAG-NATIVE-05). Play gives
+fetch the new build manually at any moment (EV-0374). Play gives
 the percentage dial and a halt button, but the halt only stops further
 delivery: users who already took the update keep it, and the documented
-remedy for a bad build is to ship a fixed one (FRAG-NATIVE-06).
+remedy for a bad build is to ship a fixed one (EV-0375).
 
 So the question is not how to roll back. It is which containment levers
 you build into the binary before you need them.
@@ -34,10 +33,10 @@ you build into the binary before you need them.
 - **Blast radius of the worst plausible bug** in this release.
 - **How fast a fixed build can clear review.** Roughly one submission
   in four was rejected in 2025, the largest bucket by a wide margin
-  being Performance (FRAG-NATIVE-04).
+  being Performance (EV-0373).
 - **Whether the change is presentation or capability**, which decides
-  whether the over-the-air path is even lawful (FRAG-NATIVE-08,
-  FRAG-NATIVE-03).
+  whether the over-the-air path is even lawful (EV-0377,
+  EV-0372).
 - **Whether this is an update or a first launch.** Play's staged
   rollout applies to updates only, so a new app gets no gradual
   exposure at all.
@@ -67,11 +66,11 @@ is removed.
 
 ### D. C plus an over-the-air channel for presentation
 Adds an update channel that ships copy, styling, assets and layout
-without a store round trip (FRAG-NATIVE-08). Buys a same-day fix for
+without a store round trip (EV-0377). Buys a same-day fix for
 the class of defect that is only presentation. Costs a fleet fragmented
 by runtime version, a manifest you must prove cannot carry native code
 or permissions, and a hard rule that it never changes capability
-(FRAG-NATIVE-03).
+(EV-0372).
 
 ## Decision rule
 
@@ -102,11 +101,11 @@ while the flag is off.
   containing no rollback wording. See
   `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`.
 - **The calendar ruling (2026-08, argued)**: every release plan carries
-  one rejection cycle by default (FRAG-NATIVE-04). Scope note: that is
+  one rejection cycle by default (EV-0373). Scope note: that is
   Apple's self-reported census of its own decisions, counting
   submissions rather than apps, with no published method. It sizes a
   calendar risk and nothing else.
 - **The distribution clock (external, inherited)**: the annual target
-  API deadline (FRAG-NATIVE-07) is a release-train obligation, not
+  API deadline (EV-0376) is a release-train obligation, not
   upkeep. An app that stops shipping goes invisible to new users on
   current devices rather than failing outright, so the decay is quiet.

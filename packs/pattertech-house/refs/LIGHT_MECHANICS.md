@@ -7,7 +7,6 @@ sources: [EV-0030, EV-0065]
 review: on-change-of:CSS-Masking-Module-Level-1
 type: implementation
 tags: [web, motion, colour, perf]
-review_by: 2028-10
 ---
 
 # Light mechanics
@@ -66,7 +65,7 @@ shadow paints over clipped text.
 compositing with exclusion, driven by a registered angle. Masking is a
 paint-time operation on the whole box, so the animation drives the angle
 or a transform underneath a static mask rather than animating the mask
-itself (FRAG-PATTERTECH-HOUSE-13). Support is uneven and prefixed in
+itself (EV-0401). Support is uneven and prefixed in
 places, so a masked ring carries a documented fallback, and a masked
 decorative element is hidden from assistive technology explicitly.
 
@@ -77,14 +76,14 @@ elements, and static background image layers. Nothing that triggers
 layout. No continuous filter and no looping background-position
 animation. This is mechanical rather than aesthetic: those are the
 properties that stay on the compositing stage, and everything else forces
-layout or paint on every frame (FRAG-PATTERTECH-HOUSE-07). The whitelist
+layout or paint on every frame (EV-0395). The whitelist
 is conservative rather than exact, because modern engines composite more
 than the guidance assumes, and a measurement on target hardware beats the
 rule where the two disagree.
 
 Layer promotion is what makes the cheap properties cheap, and each layer
 costs memory, so promotion is budgeted rather than sprinkled
-(FRAG-PATTERTECH-HOUSE-08). A page putting fields, conduits and blooms on
+(EV-0396). A page putting fields, conduits and blooms on
 many elements at once is spending layers, and low-memory phones are the
 binding constraint. No published numeric ceiling exists, so the count in
 `packs/pattertech-house/refs/BUDGETS.md` is local calibration.
@@ -95,7 +94,7 @@ Any effect built on an animated angle, length or colour depends on that
 custom property being registered with a declared syntax, initial value
 and inheritance behaviour. Without registration the value is untyped and
 the animation silently does nothing
-(FRAG-PATTERTECH-HOUSE-10). The house declares every animated custom
+(EV-0398). The house declares every animated custom
 property in one place, as part of the token layer, alongside the
 generated token outputs (EV-0030, EV-0065). The specification is still a
 working draft, and registration makes an animation possible rather than
@@ -115,7 +114,7 @@ Honouring the reduced-motion preference is the floor rather than the
 answer, because most readers never set it. The character of the motion is
 what makes a surface safe by default: small, local and opacity-led rather
 than large-area, parallax or scroll-coupled
-(FRAG-PATTERTECH-HOUSE-09).
+(EV-0397).
 
 ## Calibration notes
 

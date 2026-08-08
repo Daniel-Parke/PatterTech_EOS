@@ -9,7 +9,6 @@ sources: [EV-0150, EV-0283, EV-0284, EV-0285]
 review: on-change-of:ISO-4217-amendment
 type: guide
 tags: [money, data, arch]
-review_by: 2027-10
 ---
 
 # GD-BLM-003: How is money represented?

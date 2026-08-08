@@ -9,7 +9,6 @@ sources: [EV-0155, EV-0156, EV-0180, EV-0191]
 review: 2027-07
 type: guide
 tags: [arch, testing, ci]
-review_by: 2027-07
 ---
 
 # WG-ARCH-006: what proves a change changed nothing?
@@ -113,16 +112,21 @@ pinned container is C for a user interface.
 
 ## Worked rulings
 
-- **PatterTech_Business (2026-06, argued)**: C. An output-hash canary
-  over composed kit output, its ADR-0004, which survived the physical
-  ring move of its ADR-0007 with both hashes unchanged, and
-  re-baselining governed as a reviewed event by its ADR-0011.
+- **PatterStudio (2026-06, argued)**: C. An output-hash canary over
+  composed kit output, its ADR-0004, which survived the physical ring
+  move of its ADR-0007 with both hashes unchanged, and re-baselining
+  governed as a reviewed event by its ADR-0011. The same venture's
+  byte-stable build, with nothing generative in the build step, became
+  the estate principle that plan and build decouple
+  (`registry/LESSONS.md`).
 - **WiseWattage (2026, argued)**: C for pixels, Lost Pixel at zero
   threshold inside a pinned container, and B by policy for refactors
   where the suite is thin, its PB-012.
-- **PatterStudio (2026-07, argued)**: C. A byte-stable build with
-  nothing generative in the build step; `registry/LESSONS.md` records
-  it becoming the estate principle that plan and build decouple.
+
+Two ventures, not three. The v1 source recorded this venture as
+PatterTech_Business, which is its remote name; `estate/repos.json` makes
+PatterStudio the canonical one, and the same repo under both names would
+count twice on the promotion ladder.
 
 ## Counter-evidence
 

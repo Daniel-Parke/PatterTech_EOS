@@ -2,7 +2,6 @@
 summary: No declared level, a flat entry bar, a graded catalogue by data sensitivity, or per-practice maturity?
 type: guide
 tags: [security, testing]
-review_by: 2027-06
 kind: guide
 scope: estate
 authority: default

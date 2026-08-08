@@ -56,7 +56,7 @@ labelled `unverified` and carry nothing. This is the rule that keeps a
 model-shaped guess from becoming a segment decision, and the reason for
 it is that on segment targeting, simulated respondents inflate
 between-segment gaps and point teams at the wrong segment often enough
-to be worse than useless (`FRAG-PRODUCT-DISCOVERY-11`).
+to be worse than useless (`EV-0413`).
 
 ## Step three, decide the depth
 
@@ -70,7 +70,7 @@ reversible. The ruling is C then a hand-read signal.
 
 ## Step four, the risks, viability first
 
-`FRAG-PRODUCT-DISCOVERY-14` and B4. Viability is written first because
+`EV-0416` and B4. Viability is written first because
 it is the one a solo operator skips. The requested inbox needs a
 permissions model, which is a support surface and a recurring cost. That
 is the fact that changes the answer, and nothing in the original note

@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [FRAG-LEGAL-LICENSING-04, FRAG-LEGAL-LICENSING-05, FRAG-LEGAL-LICENSING-06, FRAG-LEGAL-LICENSING-02]
+sources: [EV-0340, EV-0341, EV-0342, EV-0338]
 review: on-change-of:https://opensource.org/license/agpl-v3
-review_by: 2027-11
 ---
 
 # GD-LEGAL-001: Does this copyleft dependency's obligation actually fire?
@@ -36,7 +35,7 @@ attaches to, and whether this venture performs that event.
 
 The mature published policy sorts licences into freely includable,
 includable under conditions, and never, reasoning throughout about
-source and binary releases (FRAG-LEGAL-LICENSING-06). Buys: a standing
+source and binary releases (EV-0342). Buys: a standing
 verdict anyone can apply without judgement, and a defensible line for
 anything shipped as an artefact. Costs: it says nothing about a hosted
 service, because nothing is distributed, so on our most common shape
@@ -46,7 +45,7 @@ the whole framework returns no answer.
 
 Section 13 of the network copyleft licence attaches the obligation to a
 modified version that users reach remotely, with no distribution needed
-(FRAG-LEGAL-LICENSING-05). Buys: it catches the one term most likely to
+(EV-0341). Buys: it catches the one term most likely to
 bite a venture selling a hosted product. Costs: it turns on what counts
 as modification and where the program boundary sits, and the licence
 text resolves neither.
@@ -56,7 +55,7 @@ text resolves neither.
 Compatibility means merging the code and still complying with every
 licence at once, and it is directional: lax licences absorb into
 anything, reciprocal licences are mutually incompatible unless one
-carries an explicit provision (FRAG-LEGAL-LICENSING-04). Buys: the
+carries an explicit provision (EV-0340). Buys: the
 right frame when the question is whether two licences can sit in one
 program. Costs: it addresses combination of source into one program and
 does not settle where a program boundary lies for a service, an image
@@ -93,25 +92,25 @@ rather than during the argument about one.
 
 The three-bucket policy is tuned to one distributor's promise that
 everything it releases stays permissively licensed
-(FRAG-LEGAL-LICENSING-06). Its categories are that promise, not the
+(EV-0342). Its categories are that promise, not the
 law, and the page carries no revision date. The compatibility position
 is one advocacy organisation's doctrine, stated rather than tested in
-court (FRAG-LEGAL-LICENSING-04). The network trigger is licence text,
+court (EV-0340). The network trigger is licence text,
 which is the strongest source here, and it is still silent on the two
-questions people actually ask (FRAG-LEGAL-LICENSING-05). Read narrowly,
+questions people actually ask (EV-0341). Read narrowly,
 an unmodified component run as a back end triggers nothing extra, which
 is why some teams use these licences freely and others ban them. The
 disagreement is about the modification boundary rather than the text.
 
 Whatever the answer, it is recorded as one identifier and never as a
-raw choice expression (FRAG-LEGAL-LICENSING-02).
+raw choice expression (EV-0338).
 
 ## Worked rulings
 
 - **PatterTech EOS legal-licensing pack (2026-08, argued)**: A for
   artefacts and B for hosted products, with the modification boundary
   routed to a lawyer rather than ruled. Argued from
-  FRAG-LEGAL-LICENSING-05 against FRAG-LEGAL-LICENSING-06, where the
+  EV-0341 against EV-0342, where the
   dominant industry policy and the term most likely to bite point at
   different events.
 - **PatterTech EOS itself (2026-08, inherited)**: A. This repository is

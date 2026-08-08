@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [FRAG-BUSINESS-MODEL-PRICING-10, FRAG-BUSINESS-MODEL-PRICING-11, FRAG-BUSINESS-MODEL-PRICING-13, FRAG-BUSINESS-MODEL-PRICING-14, EV-0197]
+sources: [EV-0296, EV-0297, EV-0299, EV-0300, EV-0197]
 review: 2028-01
-review_by: 2028-01
 ---
 
 # GD-BMP-002: what is the unit of charge?
@@ -28,7 +27,7 @@ generates on its own.
 - Can the buyer control the thing being counted?
 - Does consumption track the benefit the buyer gets, or only your cost?
 - Does the bundle decompose into distinct promises with defensible
-  stand-alone prices (FRAG-BUSINESS-MODEL-PRICING-11)?
+  stand-alone prices (EV-0297)?
 - Does the venture have the metering, and can it prove the count?
 
 ## Options
@@ -56,9 +55,9 @@ must be able to forecast and control the counted thing, or the model
 turns into a support queue. Recognition gets harder, because variable
 consideration and stand-alone selling prices for metered add-ons need
 working out rather than asserting
-(FRAG-BUSINESS-MODEL-PRICING-11). Cohort revenue also stops being a
+(EV-0297). Cohort revenue also stops being a
 clean renew-or-lapse event, which breaks the retention model the pack
-otherwise relies on (FRAG-BUSINESS-MODEL-PRICING-10).
+otherwise relies on (EV-0296).
 
 ### D. Outcome or transaction share
 
@@ -79,9 +78,9 @@ and a measurement obligation that never ends.
 - Anything else, and the first release of anything: A.
 
 Whatever the unit, every unavoidable component of it appears in the
-headline price (FRAG-BUSINESS-MODEL-PRICING-13), and a tier built to
+headline price (EV-0299), and a tier built to
 make another tier look better is on the regulator's harmful list
-(FRAG-BUSINESS-MODEL-PRICING-14).
+(EV-0300).
 
 ## Default
 
@@ -97,8 +96,8 @@ retention or revenue. The claims in circulation that usage-based pricing
 lifts net revenue retention trace to vendor surveys exposed to
 survivorship, and none is carried here. What is carried is structural:
 the recognition consequence
-(FRAG-BUSINESS-MODEL-PRICING-11), the retention-modelling consequence
-(FRAG-BUSINESS-MODEL-PRICING-10) and the allocation requirement
+(EV-0297), the retention-modelling consequence
+(EV-0296) and the allocation requirement
 (EV-0197). Anyone presenting a unit-of-charge choice as settled by
 evidence is asserting.
 

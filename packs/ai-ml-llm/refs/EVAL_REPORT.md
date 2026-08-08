@@ -4,9 +4,9 @@ type: foundation
 tags: [testing, delivery, data]
 kind: fact
 scope: estate
-sources: [FRAG-AI-ML-LLM-09, FRAG-AI-ML-LLM-14, FRAG-AI-ML-LLM-15, FRAG-AI-ML-LLM-16, FRAG-AI-ML-LLM-23, FRAG-AI-ML-LLM-24]
+sources: [EV-0250, EV-0255, EV-0256, EV-0257, EV-0264, EV-0265]
 volatility: slow
-review: on-change-of:FRAG-AI-ML-LLM-14
+review: on-change-of:EV-0255
 ---
 
 # Eval report reference
@@ -31,9 +31,9 @@ cannot accept or refuse a change.
 | --- | --- |
 | `accuracy` or the task's primary metric | The result |
 | `n` | The item count, without which the metric means nothing |
-| `stderr` or `ci_low` and `ci_high` | An eval is a sample from an unseen super-population (FRAG-AI-ML-LLM-14) |
-| `abstain_rate` | Accuracy alone selects for confident error (FRAG-AI-ML-LLM-09) |
-| `prompt_template_path` and `prompt_template_sha256` | A run under a different template is a different experiment (FRAG-AI-ML-LLM-15) |
+| `stderr` or `ci_low` and `ci_high` | An eval is a sample from an unseen super-population (EV-0255) |
+| `abstain_rate` | Accuracy alone selects for confident error (EV-0250) |
+| `prompt_template_path` and `prompt_template_sha256` | A run under a different template is a different experiment (EV-0256) |
 | `model_id` | Dated identifier, never an alias |
 | `dataset_id` and `split` | Which items, and which side of the held-out line |
 | `held_out_set` | Named so a reader can see what was not tuned against |
@@ -49,7 +49,7 @@ human-labelled sample.
 Two variants are compared on the same items, and the report names the
 pairing explicitly, for example `paired_on: item_id`. Paired
 differences remove item-difficulty variance and raise power sharply
-against comparing two independent means (FRAG-AI-ML-LLM-14). Where
+against comparing two independent means (EV-0255). Where
 items share a passage or a source, cluster the standard error at that
 level rather than at the item.
 
@@ -79,7 +79,7 @@ Two files. One the prompt-selection and optimiser path may read, one
 it may not. The report names the held-out file, and a check greps the
 selection code for its filename and fails on any match. Public
 benchmark numbers are an upper bound and a private set is the only
-thing that measures your system (FRAG-AI-ML-LLM-16).
+thing that measures your system (EV-0257).
 
 Rotate items into the held-out set from production failures. Never
 rotate them out because a variant scored badly on them.
@@ -87,11 +87,11 @@ rotate them out because a variant scored badly on them.
 ## Structure of the eval itself
 
 Dataset, solver and scorer stay separate and versioned
-(FRAG-AI-ML-LLM-23), so a model swap does not rewrite the eval and a
+(EV-0264), so a model swap does not rewrite the eval and a
 scorer swap does not rewrite the dataset. For retrieval systems, split
 the metrics by stage: context precision and recall for the retriever,
 faithfulness and answer relevance for the generator
-(FRAG-AI-ML-LLM-24). One end-to-end score cannot tell you which half
+(EV-0265). One end-to-end score cannot tell you which half
 to fix.
 
 ## Reproducibility
@@ -110,5 +110,5 @@ and say so in the report.
 The interval arithmetic assumes roughly independent items and a scalar
 score, and it does not model judge error, so intervals from that
 method alone are too narrow when a model does the grading
-(FRAG-AI-ML-LLM-14). Agent trajectories, where the unit of observation
+(EV-0255). Agent trajectories, where the unit of observation
 is ambiguous, have no validated method here at all.

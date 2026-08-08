@@ -8,7 +8,6 @@ authority: default
 basis: decision
 evidence_grade: not-applicable
 review: 2028-01
-review_by: 2028-01
 sources: [EV-0020, EV-0201, EV-0202, EV-0204, EV-0209]
 ---
 

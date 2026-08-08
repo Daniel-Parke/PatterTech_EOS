@@ -9,7 +9,6 @@ sources: [EV-0027]
 review: 2028-06
 type: guide
 tags: [web, colour, a11y, brand]
-review_by: 2028-06
 ---
 
 # GD-HOUSE-003: Which polarity register does the surface take?
@@ -45,7 +44,7 @@ Buys glow-native signature pieces, one register to hold consistent, and
 the house identity as designed. Costs the measured polarity advantage:
 positive polarity gave better acuity and better proofreading for both
 younger and older adults, concentrated at small character sizes
-(FRAG-PATTERTECH-HOUSE-05). The house leans its annotation voice on
+(EV-0393). The house leans its annotation voice on
 exactly that size band, so the cost lands where it hurts most.
 
 ### B. Light-first, single register
@@ -59,7 +58,7 @@ costs the brand story where the story is emitted light.
 
 What it is: both, chosen by the reader. Buys the honest answer to a
 literature that says register is a preference rather than a truth
-(FRAG-PATTERTECH-HOUSE-06), and it serves the readers with impairments
+(EV-0394), and it serves the readers with impairments
 who genuinely do better dark. Costs twice the surface to design, test
 and review, and it doubles the chance the two drift.
 

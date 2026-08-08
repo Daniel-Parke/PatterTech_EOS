@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0008, EV-0070, EV-0177, EV-0178, EV-0180, EV-0181]
 review: 2027-05
-review_by: 2027-05
 ---
 
 # GD-COD-001: Where does the oracle come from?

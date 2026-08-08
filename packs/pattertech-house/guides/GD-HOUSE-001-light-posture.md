@@ -9,7 +9,6 @@ sources: [EV-0232, EV-0234]
 review: 2028-04
 type: guide
 tags: [web, motion, colour, brand]
-review_by: 2028-04
 ---
 
 # GD-HOUSE-001: How much light does this surface carry?
@@ -34,7 +33,7 @@ carries WG-WEB-005 forward with its numbers moved out to
   spend.
 - **Touch share and the performance floor.** Fields and conduits are
   cheap in CSS. Bloom needs a fine pointer and a delegated listener.
-  Every promoted layer costs memory (FRAG-PATTERTECH-HOUSE-08).
+  Every promoted layer costs memory (EV-0396).
 
 ## Options
 
@@ -111,7 +110,7 @@ calm between them.
 ## Counter-evidence
 
 The one-shot heading sweep animates a paint property, which the
-compositor guidance warns against (FRAG-PATTERTECH-HOUSE-07). It is
+compositor guidance warns against (EV-0395). It is
 sanctioned because it runs once rather than in a loop, and because its
 settled state is indistinguishable from an unswept heading, so reduced
 motion lands on the same pixels instantly. If a measurement shows the

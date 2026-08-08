@@ -9,7 +9,6 @@ sources: [EV-0066, EV-0067, EV-0227, EV-0228, EV-0229, EV-0230, EV-0231, EV-0238
 review: 2027-11
 type: guide
 tags: [web, tooling, a11y]
-review_by: 2027-11
 ---
 
 # GD-UIUX-002: Where do this surface's interactive components come from?

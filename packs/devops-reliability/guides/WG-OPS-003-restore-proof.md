@@ -9,7 +9,6 @@ authority: binding
 basis: standard
 evidence_grade: observational
 review: 2028-06
-review_by: 2028-06
 sources: [EV-0201, EV-0203]
 ---
 

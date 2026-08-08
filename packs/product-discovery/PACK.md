@@ -100,26 +100,26 @@ resolve to one of those two files.
 proposal that cannot be wrong: the goals-signals-metrics ladder holds
 that a proposal with no stated signal is untestable and that a metric
 picked before its goal is a vanity metric by construction
-(`FRAG-PRODUCT-DISCOVERY-08`). Basis: decision, on that ladder.
+(`EV-0410`). Basis: decision, on that ladder.
 
 **B2. The problem is stated without naming the proposed solution.**
 `proposes_capability`. The problem section describes what a person
 cannot do today and what it costs them, and it does not contain the
 name of the requested feature. Prevents a solution wearing a problem's
 clothes, which the discovery exit criteria exist to catch
-(`FRAG-PRODUCT-DISCOVERY-01`). Basis: standard.
+(`EV-0403`). Basis: standard.
 
 **B3. Every signal names a threshold and a source that exists.**
 `proposes_capability`. Each signal line carries the observation, the
 number or state that would count as the signal firing, and the artefact
 it will be read from. A source is a file, a table, a ticket export or a
 named instrument that already exists. Prevents the readout that gets
-invented after the fact (`FRAG-PRODUCT-DISCOVERY-08`). Basis: decision.
+invented after the fact (`EV-0410`). Basis: decision.
 
 **B4. All four risks are retired explicitly, viability in writing.**
 `proposes_capability`. Value, usability, feasibility and viability each
 get a written answer, and none may be left blank
-(`FRAG-PRODUCT-DISCOVERY-14`). Prevents the solo failure the source
+(`EV-0416`). Prevents the solo failure the source
 itself predicts: with one operator holding all four, the two that are
 interesting get tested and the other two get assumed, and viability is
 the one that goes. Basis: decision. The research graded this a default;
@@ -132,7 +132,7 @@ base cannot be reached is struck rather than softened. Prevents the
 folklore statistic: the famous claim that 64 per cent of features are
 rarely or never used traces to a 2002 keynote about four internal
 applications and was repeated for two decades unchecked
-(`FRAG-PRODUCT-DISCOVERY-17`). Basis: decision, and the reason this
+(`EV-0419`). Basis: decision, and the reason this
 repo keeps an evidence ledger at all.
 
 **B6. Claims about people that a model produced are labelled
@@ -143,7 +143,7 @@ segment: against two real survey datasets, no tested model beat the
 strongest non-LLM baseline at the individual level, and on segment
 targeting the models inflated between-segment gaps two to fourfold and
 would have pointed a team at the wrong segment in half the US cases
-(`FRAG-PRODUCT-DISCOVERY-11`). Scope note: that benchmark is
+(`EV-0413`). Scope note: that benchmark is
 attitudinal survey prediction, not interview simulation or task
 observation. Basis: empirical-evidence.
 
@@ -152,7 +152,7 @@ sample before data arrives.** `runs_experiment`. All four are written
 in the record before the change ships. Prevents the practices that are
 wrong by construction, chiefly stopping at first significance and
 reading small-sample results as directional
-(`FRAG-PRODUCT-DISCOVERY-04`), and matches the asymmetric gate where
+(`EV-0406`), and matches the asymmetric gate where
 goal metrics drive the ship decision and guardrails block only on
 significant harm (EV-0059). Basis: empirical-evidence.
 
@@ -161,7 +161,7 @@ significant harm (EV-0059). Basis: empirical-evidence.
 under it. Prevents the verdict that is really a deferral. Stopping at
 the end of discovery counts as a successful discovery, which is what
 makes kill part of the definition rather than an embarrassment
-(`FRAG-PRODUCT-DISCOVERY-01`). Basis: standard.
+(`EV-0403`). Basis: standard.
 
 Activation gives advice, never permission. Nothing here lowers a tier
 floor in `kernel/POLICY_SPEC.md` or converts a manual-only action class
@@ -176,31 +176,31 @@ Each applies unless the record states a reason to depart.
 An irreversible commitment earns a phase; a reversible change on a live
 surface earns an instrument and a week. Reason: the four-to-eight-week
 discovery box was calibrated for teams whose build step was the
-expensive part (`FRAG-PRODUCT-DISCOVERY-01`), and boundaries are
+expensive part (`EV-0403`), and boundaries are
 discovered under change rather than designed in advance (EV-0153). See
 `packs/product-discovery/guides/GD-DISC-001-discovery-depth.md`.
 
 **D2. Elicit outcomes, not features.** Write what the person is trying
 to achieve at a step of their job, in a form that could be measured.
 Reason: an outcome statement survives a change of technology and a
-feature request does not (`FRAG-PRODUCT-DISCOVERY-16`). Take the
+feature request does not (`EV-0418`). Take the
 elicitation and leave the arithmetic; see Preferences.
 
 **D3. Carry more than one candidate solution before committing.**
 Reason: the first idea is otherwise compared against nothing
-(`FRAG-PRODUCT-DISCOVERY-13`). The specific count of three is a
+(`EV-0415`). The specific count of three is a
 convention, not a finding.
 
 **D4. Say whether you are diverging or converging, and separate them in
 time.** Reason: a team that converges while still diverging picks the
-first idea and calls it a decision (`FRAG-PRODUCT-DISCOVERY-09`).
+first idea and calls it a decision (`EV-0411`).
 
 **D5. Prefer throughput of cheap reversible tests over accuracy of
 ranking, where there is traffic to read.** Reason: across a large corpus
 of randomised online experiments roughly a third of ideas moved the
 target metric positively, a third were flat and a third were negative,
 and expert judgement inside the team did not predict which
-(`FRAG-PRODUCT-DISCOVERY-03`). Scope note: that population is very
+(`EV-0405`). Scope note: that population is very
 high-traffic consumer search and portal surfaces where a powered test
 finishes in days. Below the power floor the base rate is a prior about
 idea quality, not a runnable method.
@@ -208,22 +208,22 @@ idea quality, not a runnable method.
 **D6. Give a model the structuring job on real human input, never the
 origination job on invented input.** Reason: human discussion followed
 by model synthesis of the transcript beat both unaided collaboration and
-direct model generation (`FRAG-PRODUCT-DISCOVERY-10`), while simulated
+direct model generation (`EV-0412`), while simulated
 respondents fail hardest on the segment question teams most want to ask
-(`FRAG-PRODUCT-DISCOVERY-11`). Scope note: the first is a preprint
+(`EV-0413`). Scope note: the first is a preprint
 scored against a documentation standard, which rewards well-formed prose
 and cannot detect a well-written requirement for the wrong thing.
 
 **D7. Reason about the worst case of a small sample, not its average.**
 Across random sets of five participants the share of known problems
 found ranged from 99 per cent down to 55; ten raised the floor to about
-80 and twenty to about 95 (`FRAG-PRODUCT-DISCOVERY-05`). Reason: you
+80 and twenty to about 95 (`EV-0407`). Reason: you
 draw one sample and cannot tell which one you drew. Scope note: one 2003
 web application, usability defect finding rather than demand.
 
 **D8. Recruit by frame, then by count.** Decide which ways of using the
 product are in scope, including assisted and offline routes, before
-deciding how many people to talk to (`FRAG-PRODUCT-DISCOVERY-02`).
+deciding how many people to talk to (`EV-0404`).
 Reason: the recruitment frame is what makes a discovery wrong. Scope
 note: a public service must serve everyone, so a venture choosing a
 niche is making a scoping decision and writes down who it excluded.
@@ -231,7 +231,7 @@ niche is making a scoping decision and writes down who it excluded.
 **D9. Write acceptance criteria in EARS clause order once the problem is
 settled.** While a precondition, when a trigger, the named system shall
 produce a response, one trigger at most and one system exactly
-(`FRAG-PRODUCT-DISCOVERY-07`). Reason: a requirement that will not fit
+(`EV-0409`). Reason: a requirement that will not fit
 the template is usually a wish, a design decision, or two requirements
 stuck together. Scope note: EARS was derived on airworthiness
 regulations where the trigger set is closed. It constrains form only.
@@ -251,16 +251,16 @@ asking.
 - **RICE, reduced to its confidence multiplier.** The one part worth
   keeping is being made to write down how much of the score is
   guesswork; its own author says the score is not a rule
-  (`FRAG-PRODUCT-DISCOVERY-15`). The rest multiplies three subjective
+  (`EV-0417`). The rest multiplies three subjective
   estimates into a precise-looking number with invisible error bars.
 - **Opportunity solution trees as the drawing.** A useful way to see
   one outcome, its opportunities and their candidate solutions on one
-  page (`FRAG-PRODUCT-DISCOVERY-13`). The drawing is a convenience; the
+  page (`EV-0415`). The drawing is a convenience; the
   three rules inside it are what do the work, and two of those are D2
   and D3 above.
 - **Double diamond vocabulary.** Fine as shared language, empty as a
   method: it carries no criterion for when a diamond is finished
-  (`FRAG-PRODUCT-DISCOVERY-09`).
+  (`EV-0411`).
 - **Where the record lives.** One `discovery.md` per decision, beside
   the work, rather than a research wiki.
 
@@ -284,24 +284,24 @@ in `packs/product-discovery/CHECKS.md`.
   for this one case.
 - **Four weeks of discovery on something an agent could build and
   instrument in a day.** The phase length was priced for expensive
-  builds (`FRAG-PRODUCT-DISCOVERY-01`).
+  builds (`EV-0403`).
 - **A test at low traffic, reported with statistics.** Below the power
   floor the numbers are decoration, and the practices that manufacture
   false confidence are well catalogued
-  (`FRAG-PRODUCT-DISCOVERY-04`).
+  (`EV-0406`).
 - **Stopping the test when it first crosses significance.** Wrong by
-  construction, not merely optimistic (`FRAG-PRODUCT-DISCOVERY-04`).
+  construction, not merely optimistic (`EV-0406`).
 - **Invented personas doing real work.** A persona with no interview
   behind it is a hypothesis wearing a name and a photograph
-  (`FRAG-PRODUCT-DISCOVERY-11`).
+  (`EV-0413`).
 - **The unchecked headline number.** Any figure quoted without its base
-  (`FRAG-PRODUCT-DISCOVERY-17`).
+  (`EV-0419`).
 - **Prioritisation scores presented as findings.** Three subjective
   estimates multiplied together still have no error bars
-  (`FRAG-PRODUCT-DISCOVERY-15`).
+  (`EV-0417`).
 - **Effort smuggled into the value comparison.** Comparing
   opportunities by cost lets cheapness pose as value
-  (`FRAG-PRODUCT-DISCOVERY-13`).
+  (`EV-0415`).
 - **Discovery that cannot produce a kill.** If nobody has killed
   anything, the process is a queue with paperwork.
 - **Believing you moved fast.** Experienced developers were 19 per cent
@@ -319,22 +319,22 @@ of this pack sits in Defaults and Preferences, and why only two of the
 eight binding requirements rest on measurement.
 
 **No prioritisation framework has controlled evidence.** RICE
-(`FRAG-PRODUCT-DISCOVERY-15`) is one company's internal tool published
+(`EV-0417`) is one company's internal tool published
 as a blog post with no evaluation against an alternative. The
 outcome-driven opportunity score
-(`FRAG-PRODUCT-DISCOVERY-16`) adds an importance rating to a difference
+(`EV-0418`) adds an importance rating to a difference
 of two ratings on the same scale with no stated justification, needs 180
 to 600 respondents, and every effectiveness claim comes from the firm
 that sells it. Opportunity solution trees
-(`FRAG-PRODUCT-DISCOVERY-13`) are coaching practice. None of the three
+(`EV-0415`) are coaching practice. None of the three
 is refuted; none is supported either. The pack takes their elicitation
 halves and refuses their arithmetic.
 
 **Five users against worst-case five users.** The five-user convention
 optimises expected problems found per pound across iterations
-(`FRAG-PRODUCT-DISCOVERY-06`); the resampling study measures the
+(`EV-0408`); the resampling study measures the
 variance that expected value hides
-(`FRAG-PRODUCT-DISCOVERY-05`). These are different objective functions
+(`EV-0407`). These are different objective functions
 rather than contradictory data. D7 takes the worst case. Note also that
 the five-user article is twenty-six years old, has never been revised,
 and is routinely cited to justify five customer interviews, which is a
@@ -343,12 +343,12 @@ different activity from the usability defect finding it models.
 **Spec-driven development is unproven at the cutoff.** EV-0074 and
 EV-0075 present it as an established improvement. The registered report
 that tests exactly that question had its protocol accepted and no
-results collected at 2026-08-03 (`FRAG-PRODUCT-DISCOVERY-12`), and the
+results collected at 2026-08-03 (`EV-0414`), and the
 spec-kit repository calls itself experimental. D9 teaches EARS on its
 own merits and borrows no authority from the spec-driven claim.
 
 **The 80 per cent unused figure is direction, not magnitude.** The
-instrumented telemetry version (`FRAG-PRODUCT-DISCOVERY-18`) is vendor
+instrumented telemetry version (`EV-0420`) is vendor
 research with a commercial interest in the answer, no published
 methodology for what counts as a feature or as used, a sample confined
 to firms that bought product analytics, and seven years stale. Cite it
@@ -368,14 +368,14 @@ about agentic speed are unreliable, and EV-0153 the nearest structural
 analogue.
 
 **Two things this pack cannot answer.** Whether the one-third base rate
-of `FRAG-PRODUCT-DISCOVERY-03` holds for agent-generated ideas, and at
+of `EV-0405` holds for agent-generated ideas, and at
 what traffic level an experiment stops being theatre for a venture with
 hundreds rather than millions of users. No data either way at the
 cutoff. `packs/product-discovery/refs/SAMPLE_AND_SIGNAL.md` gives a
 working rule and labels it as a working rule.
 
 **Refresh triggers.** Re-argue this pack on: results landing for
-`FRAG-PRODUCT-DISCOVERY-12`; any independent controlled evaluation of a
+`EV-0414`; any independent controlled evaluation of a
 prioritisation framework; a newer telemetry study of feature usage; a
 revision of the GOV.UK discovery guidance; a current-model replication
 of the synthetic-respondent benchmark.

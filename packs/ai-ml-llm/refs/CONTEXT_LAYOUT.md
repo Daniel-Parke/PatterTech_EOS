@@ -4,9 +4,9 @@ type: foundation
 tags: [perf, data, delivery]
 kind: fact
 scope: estate
-sources: [FRAG-AI-ML-LLM-02, FRAG-AI-ML-LLM-03, FRAG-AI-ML-LLM-04, FRAG-AI-ML-LLM-20, EV-0086]
+sources: [EV-0243, EV-0244, EV-0245, EV-0261, EV-0086]
 volatility: fast
-review: on-change-of:FRAG-AI-ML-LLM-20
+review: on-change-of:EV-0261
 ---
 
 # Context layout reference
@@ -22,12 +22,12 @@ multiple more, and the minimum cacheable prefix varies by model, so a
 prompt whose first bytes change per request pays the write price and
 never collects the read discount. Short prompts fail to cache with no
 error at all, which is why the cache token counts have to be read back
-from the response rather than assumed (FRAG-AI-ML-LLM-20).
+from the response rather than assumed (EV-0261).
 
 **Position wants evidence at the edges.** Accuracy is highest when the
 needed evidence sits at the very start or the very end of the context
 and degrades markedly in the middle, including on models sold as
-long-context (FRAG-AI-ML-LLM-02).
+long-context (EV-0243).
 
 Both cannot own the front of the prompt.
 
@@ -53,7 +53,7 @@ The advertised window is a capacity limit. Reliability falls as input
 grows even on tasks that are trivially easy at short length, and the
 fall is modulated by how semantically close the needed material is to
 the question, by whether plausible distractors are present, and by how
-the haystack is structured (FRAG-AI-ML-LLM-03). A two hundred thousand
+the haystack is structured (EV-0244). A two hundred thousand
 token window can show serious loss well before it is full.
 
 Measure your own usable length. Take the real task, hold the needed
@@ -73,7 +73,7 @@ model and not to the task.
   wrong documents does more damage than retrieving one right one and
   nothing else.
 - Where the corpus fits and the tokens are affordable, whole context
-  can beat retrieval on average quality (FRAG-AI-ML-LLM-04). The tail
+  can beat retrieval on average quality (EV-0245). The tail
   is the part to check before believing the average.
 
 ## Evidence boundary
@@ -82,7 +82,7 @@ The position results are 2023-vintage models on single-needle
 retrieval and short-answer questions, which do not represent
 synthesis, code editing or agent trajectories, and the degradation is
 not the tidy curve the headline suggests once distractors and
-similarity are varied (FRAG-AI-ML-LLM-03). The context-rot work comes
+similarity are varied (EV-0244). The context-rot work comes
 from a retrieval vendor with an interest in long context looking
 unreliable, published with an open replication toolkit and not peer
 reviewed. The caching numbers are one vendor's pricing table as read

@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: not-applicable
 sources: [EV-0056, EV-0057, EV-0059, EV-0139, EV-0225]
 review: 2027-08
-review_by: 2027-08
 ---
 
 # Data and analytics pack checks
@@ -64,7 +63,7 @@ later; none is executable now.
 | J-07 | The experiment was reachable at all | Reviewer, comparing required sample size to assignable traffic and to the window in which the answer matters | D4 |
 | J-08 | The stopping rule was followed, not chosen afterwards | Reviewer, against the pre-declaration from C-12 | B4 |
 | J-09 | Causal language is used only where assignment was randomised | Reviewer, on every written claim from analytics | Outcomes |
-| J-10 | A large effect was checked for instrumentation error before being believed | Reviewer (`FRAG-DATA-ANALYTICS-09`) | B5 |
+| J-10 | A large effect was checked for instrumentation error before being believed | Reviewer (`EV-0313`) | B5 |
 | J-11 | Two models do not compute the same business number by different routes | Reviewer, across the marts layer | D2 |
 | J-12 | The storage choice matches the measured working set | Reviewer, at the review trigger rather than continuously | D5 |
 | J-13 | The tracking plan has an owner who is still there | Reviewer, at each review date | B1 |

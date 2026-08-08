@@ -4,10 +4,9 @@ type: foundation
 tags: [money, data]
 kind: fact
 scope: estate
-sources: [FRAG-BUSINESS-MODEL-PRICING-10, FRAG-BUSINESS-MODEL-PRICING-11, EV-0199, EV-0210]
+sources: [EV-0296, EV-0297, EV-0199, EV-0210]
 volatility: slow
 review: 2028-08
-review_by: 2028-08
 ---
 
 # Commercial metric definitions
@@ -49,10 +48,10 @@ recorded reason, and then owns keeping the replacement true.
 
 | Metric | Formula | Notes |
 | --- | --- | --- |
-| Recognised revenue, period | Sum of transaction price allocated to performance obligations satisfied in the period | Cash collected is not this (FRAG-BUSINESS-MODEL-PRICING-11) |
+| Recognised revenue, period | Sum of transaction price allocated to performance obligations satisfied in the period | Cash collected is not this (EV-0297) |
 | Deferred revenue | Cash received for obligations not yet satisfied | The other half of the same entry |
 | Average revenue per account | Recognised revenue in period divided by accounts active at any point in the period | State the denominator; averaging over month-end accounts gives a different number |
-| Cohort retention at age n | Accounts from the cohort still active at age n divided by accounts in the cohort at age zero | Reported as a curve, never as one blended rate (FRAG-BUSINESS-MODEL-PRICING-10) |
+| Cohort retention at age n | Accounts from the cohort still active at age n divided by accounts in the cohort at age zero | Reported as a curve, never as one blended rate (EV-0296) |
 | Blended churn | Accounts lapsing in a period divided by accounts active at the start | Reportable as an operational number, refused as a lifetime value input |
 | Lifetime value | Sum over projected cohort ages of retention at age n times contribution per account at age n | Contribution uses allocated cost to serve, not price |
 | Allocated unit cost | Cost to serve one unit under the venture's FinOps allocation | Owned by the devops-reliability pack |

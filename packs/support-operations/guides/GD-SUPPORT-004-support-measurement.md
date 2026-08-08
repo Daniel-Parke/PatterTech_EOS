@@ -9,7 +9,6 @@ sources: [EV-0210, EV-0211]
 review: 2028-08
 type: guide
 tags: [ops, product, testing]
-review_by: 2028-08
 ---
 
 # GD-SUPPORT-004: What do we measure about support, and what may the number be used for?
@@ -40,11 +39,11 @@ nothing.
 ### A. Single-question loyalty score
 One likelihood-to-recommend question, scored as promoters minus
 detractors. The claimed virtue is that the front line can act on it
-without interpretation (FRAG-SUPPORT-OPERATIONS-07). Buys a cheap
+without interpretation (EV-0427). Buys a cheap
 recurring trend line. Costs credibility if the superiority claim is
 repeated: the replication using the same exemplar industries found
 explanatory power statistically indistinguishable from a conventional
-satisfaction index (FRAG-SUPPORT-OPERATIONS-08). Scope note: 21 firms,
+satisfaction index (EV-0428). Scope note: 21 firms,
 more than 15,500 interviews, one national panel, an era predating
 subscription software.
 
@@ -52,7 +51,7 @@ subscription software.
 How much work the customer had to do. High-effort interactions were
 strongly associated with reported disloyalty while exceeding
 expectations was not associated with loyalty at all
-(FRAG-SUPPORT-OPERATIONS-09). Buys a measure that points at something
+(EV-0429). Buys a measure that points at something
 fixable, usually a channel switch. Costs the same instrument-vendor
 caveat as A. Scope note: roughly 97,000 customers of contact centres,
 self-reported loyalty intent rather than observed retention, and
@@ -64,13 +63,13 @@ Volume by kind, count untriaged, count reopened, count of duplicate
 reports per cause, and durations reported at stated percentiles.
 Buys numbers the venture owns end to end, with no instrument and no
 panel. Costs interpretation: a count is only a finding once it has a
-denominator (FRAG-SUPPORT-OPERATIONS-11).
+denominator (EV-0431).
 
 ### D. Utilisation of the responder
 Fraction of available response capacity consumed. Buys the one leading
 indicator in this pack with a mechanism behind it: wait time rises as
 utilisation over one minus utilisation, so the queue collapses before
-any visible capacity problem (FRAG-SUPPORT-OPERATIONS-10). Costs an
+any visible capacity problem (EV-0430). Costs an
 honest denominator for available hours, which a founder rarely has.
 Scope note: single server, first come first served, no priority
 classes, nobody giving up.

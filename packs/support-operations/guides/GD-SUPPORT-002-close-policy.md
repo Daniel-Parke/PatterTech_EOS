@@ -9,7 +9,6 @@ sources: [EV-0041]
 review: on-change-of:ISO-10002-revision
 type: guide
 tags: [ops, product, pii]
-review_by: 2028-07
 ---
 
 # GD-SUPPORT-002: May an item close without an answer, and on whose clock?
@@ -19,9 +18,9 @@ review_by: 2028-07
 Two maintained sources give opposite instructions. A large public
 tracker closes unreproducible reports after twenty days of silence and
 marks anything untouched for ninety as stale
-(FRAG-SUPPORT-OPERATIONS-04). The complaints standard says the loop
+(EV-0424). The complaints standard says the loop
 closes only once the complainant has been told the outcome
-(FRAG-SUPPORT-OPERATIONS-05). Both are defensible, for different
+(EV-0425). Both are defensible, for different
 relationships. The failure is letting a ticketing tool's default answer
 the question by accident.
 
@@ -44,7 +43,7 @@ the question by accident.
 ### A. Close on silence, with a timer
 Unreproducible or information-starved items close automatically after a
 stated silence, and stale items are labelled after a longer one
-(FRAG-SUPPORT-OPERATIONS-04). Buys a finite queue with no human cost
+(EV-0424). Buys a finite queue with no human cost
 and a defensible answer to "why is this still open". Costs real bugs:
 the maintainers of the project that runs the best-known implementation
 have filed complaints about their own bot closing important issues,
@@ -53,7 +52,7 @@ which is honest counter-evidence from inside the practice.
 ### B. Close on answer only
 Nothing closes until the reporter has been told an outcome, even if the
 outcome is "we cannot reproduce this and are stopping here"
-(FRAG-SUPPORT-OPERATIONS-05). Buys fairness that survives a challenge,
+(EV-0425). Buys fairness that survives a challenge,
 and it is what a paying relationship is owed. Costs a standing human
 obligation that scales linearly with volume.
 

@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0069, EV-0070, EV-0164, EV-0165, EV-0166, EV-0167, EV-0181]
 volatility: slow
 review: 2027-02
-review_by: 2027-02
 ---
 
 # Review gate reference

@@ -11,7 +11,7 @@ scope: estate
 applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data]
 volatility: slow
 review: 2027-04
-sources: [EV-0041, EV-0069, EV-0225, FRAG-LEGAL-LICENSING-01, FRAG-LEGAL-LICENSING-02, FRAG-LEGAL-LICENSING-03, FRAG-LEGAL-LICENSING-04, FRAG-LEGAL-LICENSING-05, FRAG-LEGAL-LICENSING-06, FRAG-LEGAL-LICENSING-07, FRAG-LEGAL-LICENSING-08, FRAG-LEGAL-LICENSING-09, FRAG-LEGAL-LICENSING-10, FRAG-LEGAL-LICENSING-11, FRAG-LEGAL-LICENSING-12, FRAG-LEGAL-LICENSING-13, FRAG-LEGAL-LICENSING-14, FRAG-LEGAL-LICENSING-15, FRAG-LEGAL-LICENSING-16]
+sources: [EV-0041, EV-0069, EV-0225, EV-0337, EV-0338, EV-0339, EV-0340, EV-0341, EV-0342, EV-0343, EV-0344, EV-0345, EV-0346, EV-0347, EV-0348, EV-0349, EV-0350, EV-0351, EV-0352]
 ---
 
 # legal-licensing
@@ -90,8 +90,8 @@ security controls, threat modelling, secret handling or data
 minimisation, which sit in the security-privacy pack. It does not own
 contracts, company law, employment, tax, trademarks or disputes. It
 does not rate licences itself, and it does not maintain the identifier
-list; both are imported (FRAG-LEGAL-LICENSING-01,
-FRAG-LEGAL-LICENSING-07).
+list; both are imported (EV-0337,
+EV-0343).
 
 ## Binding requirements
 
@@ -109,24 +109,24 @@ where the person giving the data can read it.
 **B1. Every repository declares its own licence.** `publishes_code`. A
 licence file at the root and a declared SPDX expression in the project
 manifest, using an identifier from the list or an explicit `LicenseRef`
-(FRAG-LEGAL-LICENSING-01). Prevents publishing something nobody has
+(EV-0337). Prevents publishing something nobody has
 permission to use, because silence means exclusive copyright and the
 hosting platform's terms grant no right to use or redistribute
-(FRAG-LEGAL-LICENSING-12). Basis: standard.
+(EV-0348). Basis: standard.
 
 **B2. No dependency enters without a recorded licence expression, and
 absence is a blocking finding.** `adds_dependency`, `vendors_code`. Each
 component in the inventory carries an SPDX expression. A value of
 `NOASSERTION`, `NONE` or empty blocks the merge until it is resolved or
-named in `LICENCE_DECISION.md` (FRAG-LEGAL-LICENSING-02). The entry
+named in `LICENCE_DECISION.md` (EV-0338). The entry
 names the path, states that no licence was found, and states that this
 means exclusive copyright rather than an unknown to fill in later
-(FRAG-LEGAL-LICENSING-12). Basis: standard.
+(EV-0348). Basis: standard.
 
 **B3. An OR expression is resolved to one identifier before merge.**
 `adds_dependency`. `MIT OR GPL-2.0-only` is a choice the project has to
 make and record; the raw expression never survives into the inventory
-verdict column (FRAG-LEGAL-LICENSING-02). Prevents carrying an unmade
+verdict column (EV-0338). Prevents carrying an unmade
 choice into a shipped artefact, where the obligations that apply are
 undetermined. Basis: standard.
 
@@ -137,10 +137,10 @@ names the component, its exact identifier, the event that would fire the
 obligation, in the words distribution, network interaction or
 combination, and the disposition. AGPL section 13 attaches to a modified
 version reached by users remotely over a network, with nothing
-distributed (FRAG-LEGAL-LICENSING-05). Prevents
+distributed (EV-0341). Prevents
 the standard miss: a policy written around source and binary
 distribution is silent on a hosted service, which is the shape most
-ventures ship (FRAG-LEGAL-LICENSING-06, scoped to one foundation's
+ventures ship (EV-0342, scoped to one foundation's
 promise about its own releases). Basis: standard.
 
 **B5. Before any personal data is processed, the notice and the
@@ -148,19 +148,19 @@ registration are both done.** `processes_personal_data`. The privacy
 notice file exists before the collecting surface ships, and carries
 every Article 13 item, including both statutory complaint routes, to
 the controller and to the Commissioner
-(FRAG-LEGAL-LICENSING-13, EV-0225). Separately, the registration
+(EV-0349, EV-0225). Separately, the registration
 self-assessment is run and its outcome recorded, either the charge paid
-or the schedule exemption named (FRAG-LEGAL-LICENSING-14). Prevents two
+or the schedule exemption named (EV-0350). Prevents two
 independent failures: collecting data with no lawful notice, and
 missing a charge duty that exists whatever the notice says. Basis: law.
 
 **B6. Inbound work carries a provenance assertion.**
 `accepts_contribution`. One sign-off line per commit, in the form the
 certification defines, a real name and a reachable address, checked by
-a hook (FRAG-LEGAL-LICENSING-09). Agent-written commits are included,
+a hook (EV-0345). Agent-written commits are included,
 because
 authorship of machine output is unsettled and provenance is the part we
-can record (FRAG-LEGAL-LICENSING-16). Prevents code of unknown origin
+can record (EV-0352). Prevents code of unknown origin
 becoming load-bearing before anyone asks where it came from. Basis:
 decision, and see the open question about contributor agreements below.
 
@@ -183,7 +183,7 @@ Each applies unless the venture's lock-book records a reason to depart.
 written next to each bucket.** Freely usable, usable under stated
 conditions, never. Decided once, applied mechanically, enforced in CI.
 Reason: high volume and low stakes per item is exactly what a standing
-verdict is for (FRAG-LEGAL-LICENSING-06). Import the shape, not the
+verdict is for (EV-0342). Import the shape, not the
 categories: the published example bans a licence family outright to
 keep a promise about permissive releases, and a venture that makes no
 such promise inherits a rule that blocks safe dependencies. See
@@ -192,7 +192,7 @@ such promise inherits a rule that blocks safe dependencies. See
 **D2. The scanner produces the inventory and a person produces the
 verdict.** A licence scan is wired as an inventory step routed to a
 human, never as a gate that passes silently
-(FRAG-LEGAL-LICENSING-10). Reason: detection compares texts against a
+(EV-0346). Reason: detection compares texts against a
 curated database and reports what a file claims about itself, which is
 not a compliance result. Scope note: the accuracy claim on that project
 is a vendor claim with no published figure, and accuracy is not
@@ -201,7 +201,7 @@ portable between codebases anyway.
 **D3. Per-file declaration for anything published.** Tags in file
 headers, a sibling file where a comment cannot go, full texts in a
 `LICENSES/` directory, bulk cases by glob, and a lint step in CI
-(FRAG-LEGAL-LICENSING-08). Reason: it is the only pattern here a cold
+(EV-0344). Reason: it is the only pattern here a cold
 agent satisfies without judgement. Cost: real per-file overhead on a
 small repository, which is why repository-level declaration is the
 default for anything unpublished. A green lint proves declarations are
@@ -209,8 +209,8 @@ present and consistent, never that they are correct.
 
 **D4. Permissive outbound unless there is a stated reason to
 reciprocate**, chosen against the ten criteria first
-(FRAG-LEGAL-LICENSING-03) and the drafting rating second
-(FRAG-LEGAL-LICENSING-07). Reason: the outbound licence is a promise,
+(EV-0339) and the drafting rating second
+(EV-0343). Reason: the outbound licence is a promise,
 and the cheapest promise to keep has the fewest conditions. See
 `packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md`.
 
@@ -218,7 +218,7 @@ and the cheapest promise to keep has the fewest conditions. See
 the moment it is copied.** Where it came from, which revision, which
 licence, who copied it. Reason: nothing later reconstructs this, and a
 directory with no licence file is the hardest finding to clear
-(FRAG-LEGAL-LICENSING-12).
+(EV-0348).
 
 **D6. Ceremony scales with risk to people.** A full impact assessment is
 for high-risk processing (EV-0041). Reason: a venture that writes one
@@ -226,7 +226,7 @@ for every form stops writing them.
 
 **D7. Record the EU market position once, with the reasoning, and
 re-check it before 2026-09-11 and before 2027-12-11**
-(FRAG-LEGAL-LICENSING-15).
+(EV-0351).
 
 **D8. The routing loop has a budget, and the run records what it
 spent.** One inventory pass, one decision pass, one re-check after the
@@ -240,14 +240,14 @@ Taste. Depart freely, no reason needed.
 
 - MIT for a small library with no patent exposure, Apache-2.0 where
   patents matter, with the drafting rating as the tiebreak between
-  otherwise equal candidates (FRAG-LEGAL-LICENSING-07).
+  otherwise equal candidates (EV-0343).
 - Which scanner. The inventory matters, the tool does not
-  (FRAG-LEGAL-LICENSING-10).
+  (EV-0346).
 - The process-certification checklist read once as a prompt about
   sustainability, which is the only part of it a one-person venture
-  cannot answer trivially (FRAG-LEGAL-LICENSING-11).
+  cannot answer trivially (EV-0347).
 - Notice wording and reading level. The checklist is fixed, the prose is
-  not (FRAG-LEGAL-LICENSING-13).
+  not (EV-0349).
 - Whether the repository's own automated health checks watch for the
   licence file, which reads the repository's actual state rather than
   its self-description (EV-0069).
@@ -268,31 +268,31 @@ run in `packs/legal-licensing/exemplars/`.
 
 - **Importing someone else's categories without their reason.** The
   copied ban misfires, and it gets defended because it is written down
-  (FRAG-LEGAL-LICENSING-06).
+  (EV-0342).
 - **A distribution-shaped policy on a hosted product.** Every rule
   reasons about releases; the term that bites triggers on network
-  interaction (FRAG-LEGAL-LICENSING-05).
+  interaction (EV-0341).
 - **Treating a green lint as a compliance result.** Conformant
-  declarations can be wrong declarations (FRAG-LEGAL-LICENSING-08). Its
+  declarations can be wrong declarations (EV-0344). Its
   sibling: a scan that ran, found nothing and was read as a pass, when
   most real output lands on values the tidy grammar does not cover
-  (FRAG-LEGAL-LICENSING-02).
+  (EV-0338).
 - **Copying an OR expression into the inventory.** The choice was never
   made, so no set of obligations is known to apply
-  (FRAG-LEGAL-LICENSING-02).
+  (EV-0338).
 - **Reading a fork button as permission.** Platform terms may allow
   viewing and forking while granting no right to use
-  (FRAG-LEGAL-LICENSING-12).
+  (EV-0348).
 - **Collapsing three axes into one.** Whether a licence restricts the
   wrong things, whether it is well drafted, and whether it fits our
-  promise are separate questions (FRAG-LEGAL-LICENSING-01,
-  FRAG-LEGAL-LICENSING-03, FRAG-LEGAL-LICENSING-07).
+  promise are separate questions (EV-0337,
+  EV-0339, EV-0343).
 - **A privacy notice written after launch**, when the duty attaches at
-  collection (FRAG-LEGAL-LICENSING-13), and its sibling, a good notice
+  collection (EV-0349), and its sibling, a good notice
   standing in for a registration duty that exists separately
-  (FRAG-LEGAL-LICENSING-14).
+  (EV-0350).
 - **Self-certifying against a checklist you wrote yourself** and calling
-  it assurance (FRAG-LEGAL-LICENSING-11).
+  it assurance (EV-0347).
 - **Answering an escalation trigger.** An agent that reasons its way to
   a confident answer about a modification boundary has broken B7.
 - **Buying a clean result by refusing the work.** A run that declines to
@@ -306,44 +306,44 @@ run in `packs/legal-licensing/exemplars/`.
 completely that GPLv2 and GPLv3 do not combine and that the Apache 2.0
 patent terms are incompatible with GPLv2 while GPLv3 accepts them. One
 reads that as a reason to release under a later copyleft version
-(FRAG-LEGAL-LICENSING-04); the other reads it as a reason to exclude
-that family entirely (FRAG-LEGAL-LICENSING-06). Neither is wrong. The
+(EV-0340); the other reads it as a reason to exclude
+that family entirely (EV-0342). Neither is wrong. The
 question underneath is which promise you are keeping to your own
 downstream, and a venture answers that before adopting either rule.
 
 **Where the AGPL boundary sits is genuinely unresolved.** The licence
 text does not say what counts as modification, nor where the program
 boundary lies when the component sits behind an internal service
-(FRAG-LEGAL-LICENSING-05). Read narrowly, an unmodified component run
+(EV-0341). Read narrowly, an unmodified component run
 as a back end triggers nothing extra. That is why B4 requires a written
 decision and B7 sends the hard version to a lawyer, rather than the
 pack ruling it.
 
 **Contributor agreements against sign-off.** We hold a primary source
-for the certification route (FRAG-LEGAL-LICENSING-09) and nothing
+for the certification route (EV-0345) and nothing
 comparable on agreements, and no source compares the two on outcomes.
 B6 rests on cost and on evidence sitting in the history, which is an
 argument rather than a measurement.
 
 **Who owns agent-written code.** A national authority is answering
 copyrightability and training data as staged, separate inquiries and has
-not finished (FRAG-LEGAL-LICENSING-16). No equivalent UK determination
+not finished (EV-0352). No equivalent UK determination
 was located at this cutoff, so this is unresolved rather than unread.
 Record provenance; do not assume authorship.
 
 **Scanner accuracy is unmeasured.** No figure was found for any
 detector, and scanning a repository that declares per file is a
 different problem from scanning one that does not
-(FRAG-LEGAL-LICENSING-10, FRAG-LEGAL-LICENSING-08).
+(EV-0346, EV-0344).
 
 **The commercial activity line.** The regulator's summary asserts the
 boundary without resolving the cases that matter, such as a sponsored
 maintainer or a hosted version of one's own project
-(FRAG-LEGAL-LICENSING-15). D7 records a position rather than claiming
+(EV-0351). D7 records a position rather than claiming
 one is correct. On the same theme of unread detail, only the structure
 of the charges regulations was retrieved and not the tier amounts, and
 the version read is the text as made, so no fee figure is ever quoted
-from this pack (FRAG-LEGAL-LICENSING-14).
+from this pack (EV-0350).
 
 **Refresh triggers.** Re-argue this pack on: a new identifier list
 release; a change to the published third-party policy page; the dates

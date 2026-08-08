@@ -43,7 +43,7 @@ Until then the extra rungs are five ways to write the same sentence.
 
 Customer-facing declaration is scored, not felt. Score three factors
 and write the combining rule before the incident
-(FRAG-SUPPORT-OPERATIONS-02):
+(EV-0422):
 
 1. **Visibility.** Core service or an ancillary one.
 2. **Actual impact now.** At the current traffic level, not the
@@ -59,7 +59,7 @@ may not leave it unwritten.
 ## Objective declaration triggers
 
 Independently of the score, declare when any of these holds
-(FRAG-SUPPORT-OPERATIONS-03):
+(EV-0423):
 
 - A second person is needed.
 - The failure is visible to people outside the venture.

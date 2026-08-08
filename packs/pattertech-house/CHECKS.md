@@ -9,7 +9,6 @@ sources: [EV-0027, EV-0236]
 review: 2028-11
 type: guide
 tags: [web, testing, tooling, a11y]
-review_by: 2028-11
 ---
 
 # House checks

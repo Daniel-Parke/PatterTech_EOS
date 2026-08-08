@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-sources: [FRAG-BUSINESS-MODEL-PRICING-08, FRAG-BUSINESS-MODEL-PRICING-09, FRAG-BUSINESS-MODEL-PRICING-12, FRAG-BUSINESS-MODEL-PRICING-14, EV-0059]
+sources: [EV-0294, EV-0295, EV-0298, EV-0300, EV-0059]
 review: on-change-of:multi-firm-trial-length-replication
-review_by: 2028-03
 ---
 
 # GD-BMP-003: how does someone try this before paying?
@@ -44,7 +43,7 @@ low enough to risk or the reputation is already made.
 
 Full product, fixed window, then it stops. Buys: the buyer learns
 whether it works on their own material, which is the mechanism the
-evidence identifies (FRAG-BUSINESS-MODEL-PRICING-08). Costs: the window
+evidence identifies (EV-0294). Costs: the window
 is a real variable that has to be tested, and a badly chosen one loses
 buyers who never reached the first useful result.
 
@@ -87,12 +86,12 @@ duration and agree on method.
 - A seven-day trial beat fourteen and thirty at one SaaS firm, raising
   subscriptions by about 5.6 per cent, with consumer learning as the
   mechanism and end-of-trial inactivity predicting non-conversion
-  (FRAG-BUSINESS-MODEL-PRICING-08).
+  (EV-0294).
 - Extending from three to seven days at a different firm raised trial
   adoption by about eleven per cent and delayed conversion by about
   forty-two per cent, with no significant movement in immediate
   conversion and overall subscriptions up about twenty-one per cent
-  (FRAG-BUSINESS-MODEL-PRICING-09).
+  (EV-0295).
 
 Together they support an interior optimum around a week rather than a
 direction, and they kill any sentence of the form "use an N day trial".
@@ -122,16 +121,16 @@ to be validated. Nothing here says what a free tier costs you.
 A consumer trial that rolls into a paid subscription is a subscription
 contract. The renewal reminder, the express acknowledgement of the
 payment obligation, the online exit route and cooling-off apply
-(FRAG-BUSINESS-MODEL-PRICING-12), and a trial designed so that the
+(EV-0298), and a trial designed so that the
 easiest path is to keep paying by accident is on the regulator's
-almost-always-harmful list (FRAG-BUSINESS-MODEL-PRICING-14).
+almost-always-harmful list (EV-0300).
 
 ## Worked rulings
 
 - **PatterTech EOS business-model-pricing pack (2026-08, argued)**: B,
   near a week, with a test plan required before the number ships.
-  Argued from FRAG-BUSINESS-MODEL-PRICING-08 and
-  FRAG-BUSINESS-MODEL-PRICING-09 read as a pair.
+  Argued from EV-0294 and
+  EV-0295 read as a pair.
 - **First UK consumer subscription, composed (2026-08, inherited)**:
   B at seven days, carrying test plan TP-01 with a three-stage funnel
   readout. See

@@ -9,7 +9,6 @@ sources: [EV-0146, EV-0147, EV-0148, EV-0154, EV-0159]
 review: 2026-12
 type: guide
 tags: [arch, tooling, ci]
-review_by: 2026-12
 ---
 
 # WG-ARCH-001: where do module boundaries live?

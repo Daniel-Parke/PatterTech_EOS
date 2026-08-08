@@ -1,4 +1,4 @@
-"""Semantic checks S001-S013.
+"""Semantic checks S001-S014.
 
 Severity: the S-series lands as ERRORS. The repository is clean under
 the series, so the P4 flip has happened: a new semantic defect is a
@@ -838,4 +838,36 @@ def check_s013_coverage_matrix(ctx: dict) -> list:
             if base not in charted:
                 out.append(_f(ctx, "S013", COVERAGE_PATH,
                               f"{base}/ is a built pack with no coverage row"))
+    return out
+
+
+# --- S014 pack-local fragment ids in the read surface --------------------
+
+FRAG_ID = re.compile(r"\bFRAG-[A-Z0-9-]+-\d{2}\b")
+
+
+@register("S014")
+def check_s014_fragment_citations(ctx: dict) -> list:
+    """A pack cites evidence ids, never its own fragment namespace.
+
+    Ten packs kept citing FRAG-* ids in prose after the integrator had
+    imported those fragments and assigned real EV ids. 1,035 citations
+    pointed at a namespace that existed only inside one file per pack,
+    against the rule the agentic-development pack states plainly: cite
+    ids, never re-record sources.
+
+    research/ is exempt. It is the pre-import record, and its fragment
+    ids are the local namespace sources.fragment.json still uses;
+    rewriting one without the other would desync the pair.
+    """
+    model: RepoModel = ctx["model"]
+    out = []
+    for rec in model.files:
+        if not rec.path.startswith("packs/") or RESEARCH_SEGMENT.match(rec.path):
+            continue
+        hits = sorted(set(FRAG_ID.findall(strip_code(rec.text))))
+        for hit in hits:
+            out.append(_f(ctx, "S014", rec.path,
+                          f"pack-local fragment id in the read surface: {hit}; "
+                          f"cite the EV id the import assigned"))
     return out

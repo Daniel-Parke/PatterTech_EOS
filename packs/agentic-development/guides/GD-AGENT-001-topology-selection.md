@@ -10,7 +10,6 @@ sources: [EV-0001, EV-0048, EV-0051, EV-0052, EV-0053, EV-0077, EV-0078, EV-0079
 review: on-change-of:agent-sdk-major-release
 type: guide
 tags: [eos, arch, tooling]
-review_by: 2027-03
 ---
 
 # GD-AGENT-001: Which topology does this work need?

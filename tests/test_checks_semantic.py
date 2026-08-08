@@ -593,3 +593,30 @@ def test_s013_unknown_evidence_id(tmp_path):
     _prepare(root)
     _matrix(root, [_built_row(evidence_sources=["EV-0001", "EV-0002", "EV-9999"])])
     assert any("not in the ledger: EV-9999" in m for _, _, m in only(run_s(root), "S013"))
+
+
+# --- S014 pack-local fragment ids --------------------------------------
+
+
+def test_s014_fragment_id_in_the_read_surface(tmp_path):
+    """1,035 citations pointed at a namespace that existed only inside
+    one file per pack, after the import had assigned real EV ids."""
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/PACK.md",
+          "---\nsummary: A pack citing its own fragment namespace\n"
+          "type: doctrine\ntags: [eos]\nreview_by: 2030-01\n---\n\n"
+          "# Testmod\n\nThe rule rests on FRAG-TESTMOD-01.\n")
+    assert only(run_s(root), "S014") == [
+        ("error", "packs/testmod/PACK.md",
+         "pack-local fragment id in the read surface: FRAG-TESTMOD-01; "
+         "cite the EV id the import assigned")]
+
+
+def test_s014_research_is_the_pre_import_record(tmp_path):
+    """research/ keeps its fragment ids: sources.fragment.json still
+    uses them, and rewriting one without the other desyncs the pair."""
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/research/NOTES.md",
+          "---\nsummary: Research notes before import\ntype: org\n"
+          "tags: [eos]\n---\n\nFRAG-TESTMOD-01 says so.\n")
+    assert only(run_s(root), "S014") == []

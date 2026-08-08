@@ -9,7 +9,6 @@ sources: [EV-0062, EV-0063, EV-0103, EV-0227, EV-0228, EV-0229, EV-0230, EV-0231
 review: 2027-10
 type: guide
 tags: [web, density, layout]
-review_by: 2027-10
 ---
 
 # GD-UIUX-001: Which design philosophy does this surface take?

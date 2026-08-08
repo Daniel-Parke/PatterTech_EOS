@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [FRAG-LEGAL-LICENSING-06, FRAG-LEGAL-LICENSING-07, FRAG-LEGAL-LICENSING-08, FRAG-LEGAL-LICENSING-10, FRAG-LEGAL-LICENSING-11]
+sources: [EV-0342, EV-0343, EV-0344, EV-0346, EV-0347]
 review: on-change-of:https://www.apache.org/legal/resolved.html
-review_by: 2028-01
 ---
 
 # GD-LEGAL-002: Which compliance posture does this venture run?
@@ -36,9 +35,9 @@ cold agent can check and what still needs a person.
 
 A small group decides once that licences fall into buckets, and
 everyone downstream applies the verdict mechanically
-(FRAG-LEGAL-LICENSING-06). A permissive family gradient published as
+(EV-0342). A permissive family gradient published as
 machine-readable data is the same idea, imported rather than read
-(FRAG-LEGAL-LICENSING-07). Buys: high volume handled at near zero cost
+(EV-0343). Buys: high volume handled at near zero cost
 per item, and no argument at the point of use. Costs: the verdict
 encodes the decider's situation, so importing categories without their
 reason produces a rule that misfires and then gets defended.
@@ -49,7 +48,7 @@ Licensing becomes a property of each file: identifier and copyright in
 the header, a sibling file where comments are impossible, full texts
 collected in one directory, bulk cases by glob, and a lint step that
 turns the question into a CI pass or fail
-(FRAG-LEGAL-LICENSING-08). Buys: the only pattern here a cold agent
+(EV-0344). Buys: the only pattern here a cold agent
 satisfies without judgement, and evidence that lives in the repository.
 Costs: real per-file overhead, and it proves declarations are present
 and consistent, never that they are correct.
@@ -58,7 +57,7 @@ and consistent, never that they are correct.
 
 Name where in the lifecycle compliance decisions happen, who makes
 them, and show the arrangement survives the person who set it up
-(FRAG-LEGAL-LICENSING-11). Buys: the sustainability question, which
+(EV-0347). Buys: the sustainability question, which
 nothing else here asks. Costs: written for organisations with staff to
 assign roles to. A one-person venture satisfies the letter in an
 afternoon and learns nothing, and self-certification against your own
@@ -68,7 +67,7 @@ checklist is the failure mode a standard is meant to prevent.
 
 A detector compares full licence texts against a curated database and
 picks up copyrights, manifests and declared dependencies in one pass,
-producing an inventory (FRAG-LEGAL-LICENSING-10). Buys: coverage of a
+producing an inventory (EV-0346). Buys: coverage of a
 dependency tree nobody could read by hand. Costs: it reports what files
 claim about themselves. Treated as a verdict producer it manufactures
 false confidence, and its accuracy is unmeasured.
@@ -98,11 +97,11 @@ rather than adopted. That combination is what
 Every source here is a standard, a policy or a maintainer document, and
 none is a measurement. No source read compares the four postures on
 outcomes, and no source reports whether organisations running any of
-them have fewer licence incidents (FRAG-LEGAL-LICENSING-11). The
+them have fewer licence incidents (EV-0347). The
 gradient ratings are the collective judgement of a group of lawyers,
 not a measurement and not a legal opinion for any specific use
-(FRAG-LEGAL-LICENSING-07). The detection accuracy claim is a vendor
-claim with no published figure (FRAG-LEGAL-LICENSING-10). The decision
+(EV-0343). The detection accuracy claim is a vendor
+claim with no published figure (EV-0346). The decision
 rule above is therefore an argument about cost and checkability, and it
 should be read as one.
 

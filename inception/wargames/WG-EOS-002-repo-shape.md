@@ -12,7 +12,6 @@ review: 2027-07
 type: wargame
 tags: [eos, wargame, infra]
 status: active
-review_by: 2027-07
 ---
 
 # WG-EOS-002: One repo, several, or a corner of an existing one?

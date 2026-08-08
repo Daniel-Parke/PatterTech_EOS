@@ -9,7 +9,6 @@ sources: [EV-0095]
 review: on-change-of:Google-spam-policies-revision
 type: guide
 tags: [content, seo, voice]
-review_by: 2027-09
 ---
 
 # GD-MKTG-004: Who owns a published page and why does it exist?
@@ -18,7 +17,7 @@ review_by: 2027-09
 
 An agent can write a hundred pages in an afternoon. The index operator
 does not test how text was produced; it tests why the page exists
-(FRAG-MKTG-02). PACK.md D6 requires a named owner and a stated purpose
+(EV-0354). PACK.md D6 requires a named owner and a stated purpose
 per page. This guide decides how much provenance machinery a venture
 needs and what publishing rate that machinery supports.
 
@@ -30,9 +29,9 @@ needs and what publishing rate that machinery supports.
 - **Whether the page would exist if search did not.** If not, it is
   ranking bait and the policy names it.
 - **How much automation went in**, since the guidance asks that
-  substantial automation be evident to the visitor (FRAG-MKTG-04).
+  substantial automation be evident to the visitor (EV-0356).
 - **Whether the venture publishes third-party content on its domain**,
-  which is where site reputation abuse lives (FRAG-MKTG-02).
+  which is where site reputation abuse lives (EV-0354).
 
 ## Options
 
@@ -82,7 +81,7 @@ entry with no page, so the two sets are identical by construction.
 - **marketing-growth pack exemplar (2026-08, argued)**: A, with five
   pages, five owners and a test asserting set equality in both
   directions, plus an assertion that no page carries a keywords meta tag
-  because the index operator says it is unused (FRAG-MKTG-01). See
+  because the index operator says it is unused (EV-0353). See
   `packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
 - **Estate default (2026-08, argued)**: machine authorship is not the
   test and this pack does not treat it as one. A page drafted by an

@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0008, EV-0094, EV-0177, EV-0179, EV-0180, EV-0182]
 review: 2027-10
-review_by: 2027-10
 ---
 
 # GD-COD-004: How do you change code nobody can specify?

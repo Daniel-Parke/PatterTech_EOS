@@ -9,7 +9,6 @@ sources: [EV-0150, EV-0202, EV-0010]
 review: 2027-07
 type: guide
 tags: [arch, data]
-review_by: 2027-07
 ---
 
 # WG-ARCH-002: how does a service reach its data, and where is the seam?
@@ -83,15 +82,22 @@ builder code rather than the SQL that runs.
 
 **What it is.** The query lives in a `.sql` file and a generator
 compiles it against the real schema into typed functions. sqlc for Go,
-PgTyped for TypeScript, jOOQ on the JVM. The output is drift-gated
-exactly as B4 asks of generated artefacts.
+PgTyped for TypeScript. jOOQ belongs to C, not here: it is a
+query-builder DSL with schema code generation, and the artefact a
+reviewer reads is builder code rather than SQL.
 
-**Buys.** The reviewed artefact is SQL, and the drift B cannot see
-until runtime fails the build instead.
+**Buys.** The reviewed artefact is the SQL that runs, checked against
+the real schema before anything ships. A column renamed under a query
+is a build failure rather than a runtime one, which is the class of
+drift no option above catches at all.
 
-**Costs.** A database has to be reachable at generate time, dynamic
-filters fall back to strings, and the generator has to support your
-language. For Python that support is thin, so D loses here on tooling.
+**Costs.** A database has to be reachable at generate time, so
+generation is not offline and does not satisfy B4 of
+`packs/architecture/PACK.md` as it stands; a venture taking D owes
+either a schema-only generation path or a recorded exception. Dynamic
+filters fall back to strings. The generator has to support the
+language, and for Python that support is thin, so D loses here on
+tooling rather than on merit.
 
 ## Decision rule
 
@@ -120,12 +126,16 @@ not plausible here, and a port bought for one is ceremony.
   batched `executemany` against hypertables once row-by-row inserts
   proved a cliff, and the repository layer kept the change local. An
   ORM could not have hidden that cost better, only for longer.
-- **AutoWatt (2026-07, inherited)**: B by taking stack profile 02,
-  which rules psycopg 3 behind repositories and no ORM by default
-  (`registry/stacks/STACK-fastapi-postgres.md`). No separate argument.
-- **Guth (2026, argued)**: not applicable. The venture holds no
-  relational store anywhere, so the fork never fires and the row says so
-  rather than picking a dialect it will never use.
+- **Guth (2026-07, inherited)**: not applicable. The venture holds no
+  relational store anywhere, storing through Dexie over IndexedDB, so
+  the fork never fires and its lock-book says so rather than picking a
+  dialect it will never use. Recorded inherited, not argued: the
+  premise is absent, and a fork that cannot fire was never engaged.
+
+AutoWatt is not listed. Its lock-book carries no WG-ARCH row at all,
+because its pin predates the pack system and its Session 0 walked only
+the WG-EOS, WG-VOX and WG-WEB triggers. Reading a ruling into it from
+the stack profile it inherited would be inventing evidence.
 
 ## Counter-evidence
 

@@ -3,7 +3,7 @@ summary: The harvest ledger, live lessons and their dispositions, plus what has 
 type: registry
 tags: [eos]
 status: active
-review_by: 2026-11
+review: 2026-11
 ---
 
 # LESSONS
