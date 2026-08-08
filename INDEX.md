@@ -26,13 +26,15 @@ file. Frozen trees are not indexed.
 | benchmark/drills/devops-reliability.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
 | benchmark/drills/docs-dx.md | example | eos testing | Cold-agent acceptance drill for the docs-dx pack, make a stale documented flag fail the build |  |
 | benchmark/drills/legal-licensing.md | example | eos testing | Proposed cold-agent acceptance drill for the legal, licensing and compliance routing pack |  |
+| benchmark/drills/marketing-growth-positioning.md | example | eos | Single-run cold-agent acceptance drill for positioning, testing whether the marketing pack produces a defended position or a feature list with adjectives |  |
 | benchmark/drills/marketing-growth.md | example | eos testing | Cold-agent acceptance drill for the marketing-growth pack, one launch surface plus one lifecycle sequence, machine-checked |  |
 | benchmark/drills/native-client.md | example | eos testing | Cold-agent acceptance drill for the native-client pack, an offline-capable client with a declared conflict policy and a forward-only release path |  |
 | benchmark/drills/pattertech-house.md | example | eos testing | Single-run cold-agent acceptance drill for the PatterTech house style, with deterministic machine-checkable criteria |  |
 | benchmark/drills/product-discovery.md | example | eos testing | Cold-agent acceptance drill for the product-discovery pack, frame a solution request back into a testable opportunity |  |
-| benchmark/drills/README.md | example | eos testing | What a pack acceptance drill is, how the runner grades one, and what is still missing before any of the twenty can return a verdict |  |
+| benchmark/drills/README.md | example | eos testing | What a pack acceptance drill is, how the runner grades one, and what is still missing before most of them can return a verdict |  |
 | benchmark/drills/security-privacy.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
 | benchmark/drills/support-operations.md | example | eos testing | Single-run cold-agent acceptance drill for the support-operations pack, with deterministic machine-checkable criteria |  |
+| benchmark/drills/ui-ux-greenfield.md | example | eos | Single-run cold-agent acceptance drill for a greenfield non-PatterTech interface, testing that the pluralism contract survives contact with a brief the house style does not fit |  |
 | benchmark/drills/ui-ux.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
 | benchmark/drills/writing-content.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |

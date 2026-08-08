@@ -1331,6 +1331,138 @@
    "spec": "benchmark/drills/writing-content.md",
    "sha256": "527192a74307794cd5708c55dd1e0a54c01f72d643e277b736fa68a0779578ed",
    "frozen_before_authoring": false
+  },
+  {
+   "date": "2026-08-08",
+   "pack": "ui-ux-greenfield",
+   "drill": "DRILL-UIUX-002: a greenfield surface that is not ours",
+   "pass": null,
+   "reason": "the drill was written at the pre-release review and has never been run: no scenario, no graders and no cold-agent session, so all 10 criteria are manual and unevaluated",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "never-run",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/ui-ux-greenfield/c10.py; the criterion is prose a human must judge"
+    }
+   ]
+  },
+  {
+   "date": "2026-08-08",
+   "pack": "marketing-growth-positioning",
+   "drill": "DRILL-MKTG-002: a position that excludes somebody",
+   "pass": null,
+   "reason": "the drill was written at the pre-release review and has never been run: no scenario, no graders and no cold-agent session, so all 10 criteria are manual and unevaluated",
+   "counts": {
+    "total": 10,
+    "pass": 0,
+    "fail": 0,
+    "manual": 10
+   },
+   "graded": "never-run",
+   "criteria": [
+    {
+     "id": "c1",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c1.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c2",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c2.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c3",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c3.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c4",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c4.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c5",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c5.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c6",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c6.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c7",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c7.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c8",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c8.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c9",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c9.py; the criterion is prose a human must judge"
+    },
+    {
+     "id": "c10",
+     "verdict": "manual",
+     "reason": "no grader at benchmark/drills/graders/marketing-growth-positioning/c10.py; the criterion is prose a human must judge"
+    }
+   ]
   }
  ]
 }

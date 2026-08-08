@@ -32,7 +32,9 @@ Layout the runner expects, all under `benchmark/drills/`:
 A grader follows the same contract as the frozen benchmark criteria
 scripts: `argv[1]` is the scratch directory, it prints one JSON object
 `{"id", "pass", "reason"}` on stdout and exits 0 on pass, non-zero on
-fail. Stdlib only.
+fail. Stdlib only. Exit 2 is reserved: it means the grader ran and
+could not settle the criterion in this environment, which is recorded
+as manual rather than as a failure of the work.
 """
 
 from __future__ import annotations
@@ -238,7 +240,17 @@ def materialise(root, pack, dest):
 
 
 def run_grader(grader, scratch):
-    """Run one grader against the scratch tree. Returns (verdict, reason)."""
+    """Run one grader against the scratch tree. Returns (verdict, reason).
+
+    Exit 0 is a pass and any other code a fail, with one exception:
+    exit 2 means the grader ran and could not settle the criterion in
+    this environment, usually because the tool it drives is not
+    installed. That is the manual verdict, not a fail. A grader has no
+    way to distinguish "the work is wrong" from "I cannot look" through
+    a boolean, and reporting the second as the first invents failures on
+    any machine without the toolchain. Manual still blocks a green
+    drill, so the safe direction is preserved.
+    """
     try:
         proc = subprocess.run(
             [sys.executable, str(grader), str(scratch)],
@@ -260,6 +272,8 @@ def run_grader(grader, scratch):
         reason = (proc.stderr.strip().splitlines() or [""])[-1]
     if proc.returncode == 0:
         return PASS, reason or "grader exited 0"
+    if proc.returncode == 2:
+        return MANUAL, reason or "grader could not settle this criterion here"
     return FAIL, reason or "grader exited %d" % proc.returncode
 
 

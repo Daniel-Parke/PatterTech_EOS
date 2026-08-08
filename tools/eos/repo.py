@@ -18,6 +18,14 @@ from .frontmatter import FrontMatter, parse
 
 SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", "node_modules"}
 FIXTURE_PREFIXES = ("benchmark/fixtures/", "benchmark/holdout/")
+# Drill scenarios are read past entirely rather than treated as lenient
+# fixtures. A scenario is a toy repository a cold agent is dropped into
+# and works inside, so it has to read as an ordinary project: EOS
+# front-matter in one of its files is a tell that the run is a test,
+# and the marketing scenario ships a client's pricing page and support
+# tickets, which are exactly the kind of file that must not carry our
+# metadata. They are still hashed and still version controlled.
+SKIP_PREFIXES = ("benchmark/drills/scenarios/",)
 
 
 @dataclass
@@ -43,8 +51,10 @@ class RepoModel:
         for p in sorted(root.rglob("*.md")):
             if SKIP_DIRS.intersection(p.parts):
                 continue
-            text = p.read_text(encoding="utf-8", errors="replace")
             rel = p.relative_to(root).as_posix()
+            if rel.startswith(SKIP_PREFIXES):
+                continue
+            text = p.read_text(encoding="utf-8", errors="replace")
             files.append(
                 FileRecord(
                     path=rel,

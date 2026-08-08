@@ -214,6 +214,26 @@
    "pack_first_commit": "a43c20b",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
    "source_first_commit": "a43c20b"
+  },
+  "ui-ux-greenfield": {
+   "spec": "benchmark/drills/ui-ux-greenfield.md",
+   "source": null,
+   "pack": "ui-ux",
+   "wave": "C",
+   "frozen": "2026-08-08",
+   "frozen_before_authoring": false,
+   "note": "Written at the pre-release review, after the pack. Covers the case the pack's pluralism contract is only testable on: a brief the house style is wrong for. No pack-local proposal preceded it, so source is null.",
+   "sha256": "7fb872ad702e8edd87354cc8459d07455179c0b4e9ab1a01da5a0d2c93c643c8"
+  },
+  "marketing-growth-positioning": {
+   "spec": "benchmark/drills/marketing-growth-positioning.md",
+   "source": null,
+   "pack": "marketing-growth",
+   "wave": "C",
+   "frozen": "2026-08-08",
+   "frozen_before_authoring": false,
+   "note": "Written at the pre-release review, after the pack. The existing marketing drill covers campaigns and measurement and never touches positioning. No pack-local proposal preceded it, so source is null.",
+   "sha256": "5aafa915fb1eaf4a17b00ac5c6ed5ad14410b572851748f475e4e19aa983958c"
   }
  },
  "waves": {
@@ -232,10 +252,11 @@
   "spec": "The frozen copy under benchmark/drills/, and the only copy of the drill text. The pack's research organ used to hold a second byte-identical copy that nothing compared, so it now points here instead.",
   "sha256": "SHA-256 of the frozen copy at freeze time. A mismatch is a cannot-run.",
   "source": "The pack's own drill proposal the frozen copy was taken from. Provenance, not a second copy: read it at source_first_commit to see the text as proposed.",
-  "wave": "A or B. Wave A packs were authored first, Wave B second.",
+  "wave": "A, B or C. Wave A packs were authored first, Wave B second, and Wave C drills were added at the 2026-08-08 pre-release review to cover gaps the earlier two left.",
   "frozen_before_authoring": "True when the spec was committed before any of its pack's content existed, so the pack could not have been written to the drill.",
   "source_first_commit": "First commit holding the drill spec.",
   "pack_first_commit": "First commit holding the pack's PACK.md.",
-  "how_to_read_it": "Wave A specs landed in fb634ab and their packs in 00fbaba, four commits later, so the flag is true. Wave B specs and packs both landed in a43c20b, the same commit, so the flag is false and the evidence for it is in the two commit fields."
+  "how_to_read_it": "Wave A specs landed in fb634ab and their packs in 00fbaba, four commits later, so the flag is true. Wave B specs and packs both landed in a43c20b, the same commit, so the flag is false and the evidence for it is in the two commit fields.",
+  "pack": "The pack the drill exercises. Present where the drill key is not itself a pack name, which happens when a pack has more than one drill."
  }
 }

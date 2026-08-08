@@ -42,7 +42,11 @@ from . import register
 DERIVED = {"INDEX.md", "packs/GUIDE_INDEX.md", "packs/INDEX.md"}
 # Frozen trees: checked, never indexed. Indexing them puts archived law
 # and benchmark fixtures in front of an agent as if they were current.
-NOT_INDEXED = ("archive/", "benchmark/fixtures/", "benchmark/holdout/")
+# Drill scenarios are fixture material in the same sense: a toy repo a
+# cold agent is dropped into, whose files are deliberately incomplete
+# and must not be read as EOS prose or held to the front-matter law.
+NOT_INDEXED = ("archive/", "benchmark/fixtures/", "benchmark/holdout/",
+               "benchmark/drills/scenarios/")
 GUIDE_ID = re.compile(r"((?:WG|GD)-[A-Z]+-\d{3})")
 ROUTERS = {"AGENTS.md", "CLAUDE.md"}
 ROUTER_CAP = 40

@@ -1,10 +1,13 @@
 """Drill runner tests: real verdicts, honest manuals, no false greens.
 
-The twenty shipped drills have no scenarios and no graders yet, so the
-tests that prove the runner actually evaluates anything build their own
+Most shipped drills still have no scenario and no graders, so the tests
+that prove the runner actually evaluates anything build their own
 synthetic drill root: a manifest, a spec, a scenario tree and graders.
 That way pass, fail and manual are all exercised for real rather than
 asserted about a stub.
+
+The architecture drill is the exception and has both, so it is also
+tested end to end against the fixture it ships with.
 """
 
 import hashlib
@@ -119,7 +122,14 @@ def test_parse_spec_refuses_criteria_that_are_not_numbered_in_order():
 
 def test_every_shipped_spec_parses_and_matches_its_frozen_hash():
     manifest = drills.load_manifest(REPO)
-    assert len(manifest["drills"]) == 20
+    # Counted against the specs on disk rather than against a literal.
+    # This assertion used to read `== 20`, which meant adding a drill
+    # broke a test that had nothing to say about the new drill; what it
+    # is really for is that the manifest and the directory agree.
+    on_disk = {p.stem for p in
+               (REPO / "benchmark" / "drills").glob("*.md")
+               if p.name != "README.md"}
+    assert set(manifest["drills"]) == on_disk
     for pack in drills.packs(REPO, manifest):
         spec = drills.read_spec(REPO, pack, manifest=manifest)
         assert spec["criteria"], "%s parsed no criteria" % pack
@@ -128,9 +138,17 @@ def test_every_shipped_spec_parses_and_matches_its_frozen_hash():
 
 def test_the_manifest_records_which_drills_predate_their_pack():
     manifest = drills.load_manifest(REPO)
-    flags = [e["frozen_before_authoring"] for e in manifest["drills"].values()]
-    assert flags.count(True) == 8, "the Wave A eight predate their packs"
-    assert flags.count(False) == 12, "the Wave B twelve do not"
+    entries = manifest["drills"].values()
+    flags = [e["frozen_before_authoring"] for e in entries]
+    # The Wave A eight are the only independent oracles in the set, and
+    # that number is a historical fact worth pinning. Everything else
+    # was written after its pack, so the complement is derived rather
+    # than hardcoded and a new drill does not break this test.
+    wave_a = [e for e in entries if e.get("wave") == "A"]
+    assert len(wave_a) == 8, "the Wave A eight predate their packs"
+    assert all(e["frozen_before_authoring"] for e in wave_a)
+    assert flags.count(True) == 8
+    assert flags.count(False) == len(flags) - 8
 
 
 def test_a_changed_spec_is_refused_rather_than_re_baselined(drill_root):
@@ -297,14 +315,147 @@ def test_results_ledger_appends_and_never_rewrites(drill_root):
     assert doc["runs"][0]["criteria"]
 
 
-def test_the_shipped_results_ledger_holds_all_twenty_packs():
+def test_the_shipped_results_ledger_holds_a_row_for_every_drill():
     path = REPO / drills.RESULTS_REL
-    assert path.is_file(), "the twenty drills have not been run and recorded"
+    assert path.is_file(), "the drills have not been run and recorded"
     doc = json.loads(path.read_text(encoding="utf-8"))
-    assert len(doc["runs"]) >= 20
     recorded = {r["pack"] for r in doc["runs"]}
     assert recorded == set(drills.packs(REPO))
     for run in doc["runs"]:
         assert run["pass"] in (True, False, None)
         if run["pass"] is None:
             assert run["reason"], "a null verdict must carry a reason"
+
+
+# --------------------------------------------- the unsettled exit code
+
+
+def test_exit_two_is_manual_not_a_failure(tmp_path):
+    """A grader that cannot look must not report the work as broken.
+
+    Three of the architecture graders drive lint-imports. On a machine
+    without import-linter the honest answer is that nothing was
+    settled, and reporting that as a fail invents findings against a
+    tree nobody inspected.
+    """
+    grader = tmp_path / "c1.py"
+    grader.write_text(
+        "import json, sys\n"
+        "print(json.dumps({'id': 'c1', 'pass': False,"
+        " 'reason': 'tool missing'}))\n"
+        "sys.exit(2)\n", encoding="utf-8")
+    verdict, reason = drills.run_grader(grader, tmp_path)
+    assert verdict == drills.MANUAL
+    assert reason == "tool missing"
+
+
+def test_a_nonzero_that_is_not_two_is_still_a_failure(tmp_path):
+    grader = tmp_path / "c1.py"
+    grader.write_text(
+        "import json, sys\n"
+        "print(json.dumps({'id': 'c1', 'pass': False, 'reason': 'no'}))\n"
+        "sys.exit(1)\n", encoding="utf-8")
+    verdict, _ = drills.run_grader(grader, tmp_path)
+    assert verdict == drills.FAIL
+
+
+# ------------------------------------------- the architecture drill
+
+
+def test_the_architecture_drill_ships_a_scenario_and_ten_graders():
+    scenario = REPO / drills.SCENARIOS_REL / "architecture"
+    assert scenario.is_dir(), "the drill spec says the toy repo is stored"
+    for pkg in ("billing", "catalogue", "shared"):
+        assert (scenario / pkg).is_dir()
+    for n in range(1, 11):
+        assert drills.grader_for(REPO, "architecture", n) is not None
+
+
+def test_the_architecture_graders_reject_the_untouched_fixture():
+    """A grader that cannot fail is not a grader.
+
+    The fixture is the repo before the agent does anything: no
+    contract, no record, no view, no price lookup. Every criterion that
+    can be settled without import-linter must come back fail.
+    """
+    row = drills.run_drill(REPO, "architecture")
+    assert row["pass"] is not True
+    verdicts = {c["id"]: c["verdict"] for c in row["criteria"]}
+    for cid in ("c1", "c2", "c5", "c6", "c7", "c8", "c9", "c10"):
+        assert verdicts[cid] == drills.FAIL, cid
+
+
+def test_the_architecture_graders_accept_a_correct_tree(tmp_path):
+    """And the other direction: a correct delivery passes.
+
+    Built here rather than committed, so the expected solution is not
+    sitting in the repository next to the drill for an agent to find.
+    """
+    import shutil
+    tree = tmp_path / "attempt"
+    shutil.copytree(REPO / drills.SCENARIOS_REL / "architecture", tree)
+
+    (tree / ".importlinter").write_text(
+        "[importlinter]\n"
+        "root_packages =\n    billing\n    catalogue\n    shared\n\n"
+        "[importlinter:contract:catalogue-independent]\n"
+        "name = The catalogue must never know about billing\n"
+        "type = forbidden\n"
+        "source_modules =\n    catalogue\n"
+        "forbidden_modules =\n    billing\n", encoding="utf-8")
+
+    (tree / "docs" / "decisions").mkdir(parents=True)
+    (tree / "docs" / "decisions" / "0001-boundary.md").write_text(
+        "# Boundary\n\n## Considered Options\n\n"
+        "- Enforce with import-linter in CI\n- Rely on review\n\n"
+        "## Decision Outcome\n\n"
+        "Enforce with import-linter. Billing may read the catalogue\n"
+        "through its public interface; the catalogue must never import\n"
+        "billing.\n", encoding="utf-8")
+
+    (tree / ".github" / "workflows").mkdir(parents=True)
+    (tree / ".github" / "workflows" / "ci.yml").write_text(
+        "jobs:\n  b:\n    steps:\n      - run: lint-imports\n",
+        encoding="utf-8")
+
+    (tree / "docs" / "architecture.md").write_text(
+        "# Architecture\n\n## Building Block View\n\n"
+        "billing reads catalogue through its public interface.\n",
+        encoding="utf-8")
+
+    (tree / "billing" / "price_lookup.py").write_text(
+        "from catalogue import api\n\n\n"
+        "def list_price(pid):\n    return api.get_product(pid)\n",
+        encoding="utf-8")
+
+    row = drills.run_drill(REPO, "architecture", attempt=str(tree))
+    verdicts = {c["id"]: c["verdict"] for c in row["criteria"]}
+    reasons = {c["id"]: c["reason"] for c in row["criteria"]}
+    for cid in ("c1", "c2", "c5", "c6", "c7", "c8", "c9"):
+        assert verdicts[cid] == drills.PASS, (cid, reasons[cid])
+    # c3, c4 and c10 need import-linter; pass or manual, never fail.
+    for cid in ("c3", "c4", "c10"):
+        assert verdicts[cid] in (drills.PASS, drills.MANUAL), reasons[cid]
+
+
+def test_the_wrong_direction_contract_does_not_satisfy_c2(tmp_path):
+    """Both package names in one contract is not the same as the rule.
+
+    A forbidden contract from billing to catalogue permits exactly what
+    the prompt forbade, and a grader matching on names alone would pass
+    it.
+    """
+    import shutil
+    tree = tmp_path / "attempt"
+    shutil.copytree(REPO / drills.SCENARIOS_REL / "architecture", tree)
+    (tree / ".importlinter").write_text(
+        "[importlinter]\nroot_packages =\n    billing\n    catalogue\n\n"
+        "[importlinter:contract:backwards]\n"
+        "name = Backwards\ntype = forbidden\n"
+        "source_modules =\n    billing\n"
+        "forbidden_modules =\n    catalogue\n", encoding="utf-8")
+
+    grader = drills.grader_for(REPO, "architecture", 2)
+    verdict, reason = drills.run_grader(grader, tree)
+    assert verdict == drills.FAIL
+    assert "wrong direction" in reason
