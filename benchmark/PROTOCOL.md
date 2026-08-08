@@ -19,6 +19,58 @@ while running it, the result tells us nothing.
 - One task per session. The session ends when the agent declares done
   or the operator stops it.
 
+## How a variant reaches the scratch tree
+
+Added 2026-08-08. Until then this protocol said nothing about it, and
+neither did any code: `--variant` was a free-text label `score.py`
+wrote onto a ledger row, and nothing upstream read it. Eight of the
+thirteen tasks use a fixture that carries no process files at all, so a
+v1 session and a v2 session on those tasks received a byte-identical
+tree and a byte-identical prompt. The sessions behind the 2026-08-03
+rows were driven by an orchestration wrapper that was never committed,
+so those rows cannot be reproduced from this repository.
+
+A run is now prepared by `benchmark/harness.py prepare`, and the
+variant reaches the tree one of two ways, recorded per run in
+`<run_id>.run.json` beside the tree:
+
+- **paired**: the fixture is a seeded venture that already carries its
+  own EOS, so the two arms are two fixtures. `seed-v1-S` pairs with
+  `seed-v2-S`, `seed-v1-M` with `seed-v2-ORG`.
+- **overlaid**: the fixture is a bare application, so the variant's
+  process surface is copied onto it from `benchmark/surfaces/<variant>/`.
+
+The surfaces are not authored for the benchmark. They are the frozen
+paired seeds copied verbatim, with the venture identity replaced by a
+slot, and the seeds are compiled output of each version's own kernel
+templates. The ceremony difference between the arms is therefore
+whatever the two kernels already produce, not a choice made by whoever
+built the harness. That matters because the ceremony gate measures
+exactly that difference. Venture content is excluded and written
+identically into both arms, so nothing about the venture can differ.
+
+The donors are the M and ORG scale seeds, decided by measurement: on
+the S-scale seeds a pilot of T04 wrote nine ceremony lines under v1
+where the 2026-08-03 ledger recorded a median of 206. S carries one
+running log; M carries `org/roles/PLAN`, `WORK` and `VERIFY` with
+`org/logs`, `org/STATE` and `org/QUEUE`, which is the three-session
+ceremony v2 claims to collapse.
+
+Two slots cannot be run as comparisons and are not pretended to be.
+`T09-doctrine` uses `eos-mini`, a v1-shaped miniature EOS with no v2
+counterpart, so it runs on one arm; it is also the slot where both
+arms spend zero ceremony lines, whose handling decides the ceremony
+gate. `T10-inception` names its fixture in prose rather than as a
+directory and cannot be materialised.
+
+## Counterbalancing in practice
+
+`harness.py grid` emits the whole run in a seeded shuffle and records
+the seed with the plan. The requirement below was not met by the
+2026-08-03 batch: every v1 run happened, then every v2, then the
+corrected v2 arm, which is why that batch's wall-clock figure cannot
+be attributed to the system rather than to machine load.
+
 ## Planned session counts
 
 - Critical tasks T03, T04, T06 and T07 run at k=5 per variant.

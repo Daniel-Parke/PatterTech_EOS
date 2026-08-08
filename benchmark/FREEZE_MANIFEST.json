@@ -3,7 +3,7 @@
  "frozen": "2026-08-03",
  "note": "SHA-256 of every frozen benchmark file. Changes after freeze require an ADR-0002 amendment. results/ is excluded (mutable ledger). Paths use forward slashes. Check B001 verifies this manifest.",
  "files": {
-  "benchmark/PROTOCOL.md": "5d929032ac0289f0e52e26d9226ebe6cabd4ebfe6ec3b751026697a74a4d38bb",
+  "benchmark/PROTOCOL.md": "b19b7a4598a130b6911b97ece44cb8c151fa0d6b5a903962a6e467d9b7caec9e",
   "benchmark/README.md": "c35a79bdee3d17bb1d69bf66aa73a5e00e731da3312f9fd8b312ee0b40c1c703",
   "benchmark/ablations/v2-mandatory-logs.json": "39a906a20b124e2995fb4c2226fa6b7600ab4eb698b2c0d6bc2308c874db3007",
   "benchmark/ablations/v2-no-router.json": "1a678ace06caa37d80bcfa9ab6ad54126dfd7bceeb439aaef66beeaceeaeec55",
@@ -224,6 +224,15 @@
    "reference": "org/decisions/ADR-0004, pre-release review",
    "class": "instrumentation, no change to any criterion's judgement",
    "note": "score.py records scored_at and a sha256 per criteria script, so run order is auditable and a corrected criterion can be traced to the rows it scored. runner.py gains an order subcommand printing a seeded interleaved plan. The ledger previously carried a date and no clock, so a same-day batch could not be told from an interleaved one and the wall-clock gate could not be attributed to the system rather than machine load."
+  },
+  {
+   "date": "2026-08-08",
+   "files": [
+    "benchmark/PROTOCOL.md"
+   ],
+   "reference": "org/decisions/ADR-0002, pre-release review",
+   "class": "documents a step that was missing, changes no threshold",
+   "note": "The protocol described session settings, counts and gates and never said how a session is placed under v1 or v2. There was no code for it either: the variant was a label score.py wrote onto a row and nothing upstream read. Eight of thirteen tasks use a fixture carrying no process files, so both arms got an identical tree and prompt. Two sections are added recording how harness.py places a variant, why the process surfaces are taken verbatim from the frozen seeds rather than authored, which two slots are not comparisons, and that the counterbalancing this protocol already required was not done on 2026-08-03. No gate, threshold, session count or scoring rule is changed."
   }
  ]
 }
