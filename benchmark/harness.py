@@ -186,6 +186,12 @@ NOISE_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache",
 NOISE_SUFFIX = (".pyc", ".pyo")
 
 
+def run_meta_path(scratch):
+    """Where a run's harness metadata lives: beside the tree, not in it."""
+    scratch = Path(scratch)
+    return scratch.parent / (scratch.name + ".run.json")
+
+
 def rmtree_force(path):
     """Remove a tree containing a git repository, on Windows too.
 
@@ -291,7 +297,15 @@ def cmd_prepare(args):
         "surface_files": overlaid,
         "trial": args.trial,
     }
-    (dest / "run.json").write_text(json.dumps(meta, indent=1) + "\n",
+    # Beside the scratch tree, never inside it. A metadata file in the
+    # tree is an untracked file the session did not create, and the
+    # criteria count untracked files as the agent's work: on an
+    # untouched T01 tree a run.json inside made c3_scope fail with
+    # "changes outside docs/: run.json" and put c2_diff_budget at its
+    # ten-line budget before the session had done anything. The frozen
+    # criteria exclude run_meta.json and human_gates_pending.json
+    # because score.py has to write those inside; this one does not.
+    run_meta_path(dest).write_text(json.dumps(meta, indent=1) + "\n",
                                    encoding="utf-8")
     print(json.dumps({"scratch": str(dest), "prompt": prompt, **meta},
                      indent=1))
@@ -402,9 +416,9 @@ def cmd_map(args):
         fail("transcript directory not found: %s" % tdir)
     dest = Path(args.dest)
     wanted = {}
-    for run_json in sorted(dest.glob("*/run.json")):
+    for run_json in sorted(dest.glob("*.run.json")):
         meta = json.loads(run_json.read_text(encoding="utf-8"))
-        wanted[meta["run_id"]] = run_json.parent
+        wanted[meta["run_id"]] = run_json.parent / meta["run_id"]
 
     found = {}
     for path in sorted(tdir.glob("agent-*.jsonl")):
