@@ -144,8 +144,18 @@ def compute(rows, baseline="v1", candidate="v2-routed-once") -> dict:
         "baseline": None if base_rate is None else round(base_rate, 4),
         "candidate": None if cand_rate is None else round(cand_rate, 4),
         "baseline_runs": base_n, "candidate_runs": cand_n,
+        # One-sided, because the gate is a no-regression gate:
+        # PROTOCOL.md reads "Aggregate pass rate within 3 points, with
+        # gate 4 holding". Implemented as abs(), it failed a candidate
+        # that scored *better* than the baseline, which is not a
+        # regression and not something a release gate should block. The
+        # 2026-08-08 batch made it visible: v2 passed every criterion
+        # it was scored on and v1 did not, and the gate called that a
+        # fail.
         "passes": None if None in (base_rate, cand_rate)
-        else abs(base_rate - cand_rate) <= 0.03,
+        else cand_rate >= base_rate - 0.03,
+        "note": "no-regression: the candidate may exceed the baseline "
+                "freely and may fall at most 3 points below it",
     })
 
     ok, short, slots = completeness(rows, candidate)
@@ -156,6 +166,17 @@ def compute(rows, baseline="v1", candidate="v2-routed-once") -> dict:
     out["human_gates_pending"] = {
         baseline: human_gates(rows, baseline),
         candidate: human_gates(rows, candidate)}
+    # This metric reads human_gates_pending.json out of the scratch
+    # tree, and nothing in this repository writes that file: score.py
+    # calls it "recorded by the runner" and the runner that recorded it
+    # was the uncommitted orchestration wrapper. Absent the file the
+    # count defaults to zero for every run, so a zero here means "not
+    # measured", not "none pending". The headline finding of the
+    # v2 report, twelve pending under v1 against zero under v2, rests
+    # on it and cannot be reproduced from this tree.
+    out["human_gates_pending_note"] = (
+        "unmeasured unless a runner writes human_gates_pending.json into "
+        "the scratch tree; zero here means the file was absent")
 
     # Gates the ledger cannot answer. Named rather than dropped: the
     # final report tabled six of eight and omitted these two, which are
