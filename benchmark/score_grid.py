@@ -68,6 +68,14 @@ def main(argv=None):
     ap.add_argument("--grid", required=True)
     ap.add_argument("--transcripts", required=True)
     ap.add_argument("--notes", default="")
+    # The ledger already holds rows labelled v1 and v2 from the
+    # 2026-08-03 batch, whose variant mechanism was never encoded and
+    # cannot be reproduced. Pooling those with a fresh grid would
+    # average two measurements that are not the same measurement, so a
+    # new batch takes its own labels and the old rows stay where they
+    # are as history. gates.py already selects arms by label.
+    ap.add_argument("--variant-suffix", default="",
+                    help="appended to each row's variant, e.g. -2026-08-08")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
@@ -87,7 +95,8 @@ def main(argv=None):
             scored.append(rid)
             continue
         proc = score_one(run["task_dir"], run["scratch"], found[rid],
-                         run["variant"], rid, args.notes)
+                         run["variant"] + args.variant_suffix, rid,
+                         args.notes)
         if proc.returncode != 0:
             failed.append({"run_id": rid,
                            "why": (proc.stderr or proc.stdout).strip()[:200]})
