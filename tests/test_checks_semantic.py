@@ -620,3 +620,29 @@ def test_s014_research_is_the_pre_import_record(tmp_path):
           "---\nsummary: Research notes before import\ntype: org\n"
           "tags: [eos]\n---\n\nFRAG-TESTMOD-01 says so.\n")
     assert only(run_s(root), "S014") == []
+
+
+# --- retired trees ------------------------------------------------------
+
+
+def test_s003_reference_into_a_retired_tree(tmp_path):
+    """The exemption for out-of-tree paths also hid every reference into
+    a tree we deleted, which is how GOVERNANCE.md pointed at
+    doctrine/WARGAME_INDEX.md unseen."""
+    root = make_repo(tmp_path)
+    write(root, "archive/RETIRED_IDS.json",
+          json.dumps({"version": 1, "ids": {}, "retired_paths": ["doctrine/"]}))
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "See `doctrine/WARGAME_INDEX.md` for the index.")
+    msgs = [m for _, _, m in only(run_s(root), "S003")]
+    assert any("retired tree doctrine/" in m for m in msgs)
+
+
+def test_s003_venture_paths_stay_exempt(tmp_path):
+    """Prose about another workspace was never a claim about this tree."""
+    root = make_repo(tmp_path)
+    write(root, "archive/RETIRED_IDS.json",
+          json.dumps({"version": 1, "ids": {}, "retired_paths": ["doctrine/"]}))
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "The venture writes `docs/COMPILE_REPORT.md` in its own repo.")
+    assert only(run_s(root), "S003") == []

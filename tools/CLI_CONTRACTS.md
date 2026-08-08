@@ -22,22 +22,25 @@ Exit codes, uniform across commands:
 
 ## check
 
-Inputs: `--repo` (default), `--seed PATH`, `--write-index`, optional
-`--json`. Runs the E (structural), S (semantic), D (seed) and F
-(freshness) series. Output: a findings list `[{check, path, message,
-severity}]`. `--write-index` regenerates the derived indexes and is the
-only sanctioned way to update them. Exit 1 on any error-severity
-finding, 3 if regeneration would touch protected content unacknowledged.
+Inputs: `--repo` (the default; passing it with `--seed` exits 2 because
+they are different runs), `--seed PATH`, `--write-index`, `--series E|S|D|F`
+to run one series, `--strict-semantic` and `--relax-semantic` to pin or
+drop the S-series severity, `--offline` to skip checks needing git remotes,
+and `--json`. Output: a findings list `[{check, path, message, severity}]`.
+`--write-index` regenerates every derived index to a fixpoint and is the
+only sanctioned way to update them. Exit 1 on any error-severity finding.
 
 ## route
 
 Inputs: `--task T-####` or `--facts FILE` (declared facts JSON), plus
-optional `--diff RANGE` for gate-time recomputation. Output: `{tier_ruled,
-reasons, discrepancies}` where `reasons` rows follow
-`task-record.schema.json` and `discrepancies` lists derived facts the
-declaration missed. Deterministic given the same inputs and policy
-version. Gate-time recomputation only ever raises the ruling. Exit 1
-when discrepancies are found at the gate.
+optional `--diff RANGE` for gate-time recomputation and `--adr ADR-####`
+to acknowledge a protected-set touch. Output: `{tier, reasons,
+discrepancies}` where `reasons` rows follow `task-record.schema.json` and
+`discrepancies` lists derived facts the declaration missed. Deterministic
+given the same inputs and policy version. Gate-time recomputation only
+ever raises the ruling. Exit 1 when discrepancies are found at the gate.
+Exit 3 when a reason carries the factor `protected-set-contact` and no
+`--adr` was given; the message names the file that matched.
 
 ## guard eval
 
@@ -49,43 +52,48 @@ blocking verdict, 2 when evaluation itself cannot run.
 
 ## context
 
-Inputs: `--task T-####` or `--diff RANGE`. Output: the changed-surface
-context packet as Markdown on stdout, at most 300 lines: touched files,
-owning packs, applicable rules, affected tests from the test map.
-Unchanged context is never re-supplied within a run.
+Inputs: `--diff RANGE`. Output: the changed-surface context packet as
+JSON on stdout, truncated to 300 lines: `{changed, summaries,
+referencing_files, activated_packs, routed}`. Unchanged context is never
+re-supplied within a run.
 
 ## task
 
-Record ops: `new`, `show`, `update`, `close`, each reading and writing
+Record ops: `new`, `show`, `update`, each reading and writing
 `org/tasks/T-####.json` (`task-record.schema.json`) via
-write-temp-then-rename. Claim ops: `claims assign` (integrator only:
-writes `org/claims.json` per `claims.schema.json` for commit before
-dispatch), `claims verify` (compares a lane's actual diff against its
-assigned claims; exit 1 on any file outside them), `claims renew`
-(only within the renewal window), `claims recover` (requires liveness
-evidence: harness state or a dead PID on the recorded host; a
-timestamp alone is refused and the command directs to operator
-recovery).
+write-temp-then-rename. A record is closed by `update` setting its
+status; there is no separate `close` op.
+
+Claim ops: `claims-verify --lane ID --paths ...` compares a lane's diff
+against its assigned claims and exits 1 on any file outside them.
+`org/claims.json` is written by the integrator by hand and committed
+before dispatch; there is no `claims assign`, `renew` or `recover`
+command. Recovery of an expired claim needs liveness evidence and the
+operator, and a timestamp alone never authorises it.
 
 View op: `views` (integrator only) regenerates the derived
 `org/TASKS.md` and `org/STATE.md` from the task records, claims,
 cadence rows and git facts; hand-edits to those views are checker
 errors.
 
-Refusal semantics: when the invoking session is not named in the
-committed unexpired claim set, `new`, `update` and `close` refuse with
-exit 1 and output `{refused: true, reason, claim_set_ref}`. Unscheduled
-work stays quarantined on its branch for the integrator to adopt or
-discard; it is never deleted without operator authority.
+Refusal semantics: `new` and `update` refuse with exit 1 and output
+`{refused: true, reason, claim_set_ref}` when the writing session is not
+named in the committed claim set, or when the lane holds no claim
+covering the record's path. The session is `--session ID`, else
+`EOS_SESSION_ID`, else the record's `owner_session`. A repository with no
+`org/claims.json` is not running the assigned-claims model and the
+control does not apply. Unscheduled work stays quarantined on its branch
+for the integrator to adopt or discard; it is never deleted without
+operator authority.
 
 ## migrate
 
-`migrate plan --venture NAME`: read-only against the venture; writes
-only a committed plan report in this repo and outputs
-`migration-state.schema.json`. `migrate apply --state FILE`: executes
-the steps and advances their statuses; this build it runs on fixture
-seeds only, and it exits 2 if pointed at a sibling repo. Exit 1 when
-any step ends blocked.
+`migrate plan --seed PATH`: read-only against the seed; outputs
+`migration-state.schema.json`. `migrate apply --state FILE
+[--no-dry-run]`: without `--no-dry-run` it reports what it would do and
+changes nothing; with it, the steps execute and advance their statuses.
+This build runs on fixture seeds inside this repo only, and exits 2 if
+pointed at a sibling repo. Exit 1 when any step ends blocked.
 
 ## benchmark
 
@@ -114,7 +122,8 @@ two apart without reading commit history.
 Running materialises the drill's frozen scenario
 (`benchmark/drills/scenarios/<pack>/`) into a scratch directory and
 runs one grader (`benchmark/drills/graders/<pack>/cN.py`) per numbered
-criterion. `--attempt DIR` grades the tree a cold agent delivered
+criterion. Neither directory exists yet, so every criterion currently
+reports `manual` and every drill reports `pass: null`. `--attempt DIR` grades the tree a cold agent delivered
 instead; without it the untouched fixture is graded, which proves the
 criteria discriminate and proves nothing about a pack. The command
 never runs the agent: that is the harness's job.

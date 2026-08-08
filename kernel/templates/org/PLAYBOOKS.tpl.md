@@ -105,7 +105,7 @@ Monthly, on evidence: sample the review pool and the exception
 ledger, read escaped defects, oracle amendment frequency and ceremony
 spend against budgets. Tune the sampling rate and the cadences;
 propose policy or doctrine changes through the graded path
-(experimental edit, RFC, ADR); set one deliberate experiment. The
+(experimental edit, ADR); set one deliberate experiment. The
 organisation edits itself here and nowhere else.
 
 ## stakeholder-update

@@ -255,22 +255,46 @@ def check_s003_path_references(ctx: dict) -> list:
     prose that documents another workspace, a venture repo or a drill
     scratch directory is not making a claim about this one.
 
-    The cost of the second rule is stated plainly: a reference into a
-    whole tree this repository no longer has resolves to nothing and is
-    no longer reported. A moved file is caught; a deleted tree is not.
+    The second rule used to hide a whole class: a reference into a tree
+    this repository no longer has resolved to nothing and was not
+    reported, so a moved file was caught and a deleted tree was not.
+    That is exactly the staleness a migration produces, and it is how
+    GOVERNANCE.md sat pointing at doctrine/WARGAME_INDEX.md unseen.
+    Trees we deliberately retired are named in
+    archive/RETIRED_IDS.json and a reference into one is a finding
+    again. Prose about a venture repo stays exempt, because that was
+    never a claim about this tree.
     """
     model: RepoModel = ctx["model"]
+    retired = retired_paths(model)
     out = []
     for rec in model.files:
         if not _semantic_scope(rec):
             continue
         for token in sorted(set(_path_tokens(rec.text))):
+            gone = next((r for r in retired if token.startswith(r)), None)
+            if gone:
+                out.append(_f(ctx, "S003", rec.path,
+                              f"reference into the retired tree {gone}: "
+                              f"{token}; it is at the archive/v1-final tag"))
+                continue
             if not _anchored(model, token):
                 continue
             if not model.exists(token):
                 out.append(_f(ctx, "S003", rec.path,
                               f"path reference does not resolve: {token}"))
     return out
+
+
+def retired_paths(model: RepoModel) -> list:
+    """Prefixes this repository deliberately no longer has."""
+    raw = model.read("archive/RETIRED_IDS.json")
+    if not raw:
+        return []
+    try:
+        return list(json.loads(raw).get("retired_paths") or [])
+    except ValueError:
+        return []
 
 
 def _anchored(model: RepoModel, token: str) -> bool:
@@ -479,6 +503,16 @@ def check_s007_machine_facts(ctx: dict) -> list:
 
 @register("S008")
 def check_s008_canonical_facts(ctx: dict) -> list:
+    """One writer per fact, for facts that opt in.
+
+    No live file declares canonical_facts today, so this check has no
+    subscribers and has never fired. That is recorded rather than hidden:
+    the check works, tested below, and it is opt-in by design because
+    exact-string ownership over teaching prose would flag every
+    deliberate restatement in TOUR.md and OPERATORS_GUIDE.md. Declare a
+    fact here when a phrase must live in exactly one place and going
+    stale in the second one would mislead.
+    """
     model: RepoModel = ctx["model"]
     owners = []
     for rec in model.files:

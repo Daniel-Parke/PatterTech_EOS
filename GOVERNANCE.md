@@ -13,22 +13,25 @@ governs is ADR-0002.
 
 ## The graded change path
 
-Three rungs. Take the lowest one that fits the change, and never skip a
-rung to reach a faster one.
+Two rungs. Take the lower one that fits the change (ADR-0004).
 
 1. **Experimental edit.** A reversible default, marked
    `lifecycle: experimental`, carrying its hypothesis in the body and an
    expiry no more than ninety days out. It expires by itself. The
    monthly governance review closes or promotes it; an expired
    experiment left in place is a checker finding.
-2. **Evidence RFC.** A record under `org/rfcs/`, capped at eighty
-   lines, for any rule that binds across the estate, for changes to
-   pack shape, guide format, ID schemes or the front-matter schema, and
-   for standing exceptions to the risk router. It states the change, the
-   evidence, the counter-evidence and the applicability limits.
-3. **ADR.** For EOS architecture and for anything in the protected set.
-   ADRs are append-only in `org/decisions/`; the one sanctioned
-   amendment to an accepted ADR is a `superseded_by` stamp.
+2. **ADR.** For EOS architecture, for anything in the protected set, for
+   any rule that binds across the estate, for changes to pack shape,
+   guide format, ID schemes or the front-matter schema, and for standing
+   exceptions to the risk router. It states the change, the evidence, the
+   counter-evidence and the applicability limits. ADRs are append-only in
+   `org/decisions/`; the one sanctioned amendment to an accepted ADR is a
+   `superseded_by` stamp.
+
+There was a third rung, an evidence RFC under `org/rfcs/`. It is
+withdrawn. In the whole v2 build not one was written and the directory
+never existed, so what the rung bought was a plausible path nobody took.
+Its work moved to the ADR path.
 
 Decision guides are written only for recurring forks: two occurrences
 across the estate, or one plus a venture about to meet it. A guide
@@ -50,7 +53,7 @@ whole path, so it is never skipped for being quiet.
    an automatic demotion. Counting rulings cannot demote something that
    was promoted on evidence.
 4. Rules whose `basis` is law or standard are immune to vote counts.
-   They change only through an RFC or ADR that cites the changed source,
+   They change only through an ADR that cites the changed source,
    and they carry a versioned source with an on-change-of trigger or a
    dated review.
 5. Where two live rules genuinely conflict and neither is law or
@@ -102,8 +105,8 @@ edited, not where the rule is written.
 ## What left the protected set
 
 Pack shape, guide format, the ID schemes and the front-matter schema
-are no longer protected. They change through the RFC path: a record
-under `org/rfcs/` with the argument and the migration. They are still
+are no longer protected. They change through the ADR path, with the
+argument and the migration in the record (ADR-0004). They are still
 contracts, and the checker still enforces them.
 
 ## Metadata
@@ -123,7 +126,6 @@ twice goes stale in one of the two places.
 - `ADR-NNNN`: EOS decisions in `org/decisions/`.
 - `EV-NNNN`: evidence-ledger rows in `registry/evidence.json`.
 - `T-NNNN`: task records under `org/tasks/`.
-- `RFC-NNN`: records under `org/rfcs/`.
 - `PB-ENN`: EOS playbooks in `org/PLAYBOOKS.md`.
 - Venture artefacts keep the kernel's schemes: WO, SUGG, ADR, RN, GD,
   STD, REG, PB and session logs `S-NNNN`.
@@ -180,13 +182,14 @@ Triggers and topics:
 
 - `AGENTS.md` and `CLAUDE.md`: hard cap of forty lines each, byte
   identical, enforced by checks E003 and E007.
-- A pack `PACK.md` body stays under five hundred lines, and a pack
-  across all its organs carries a soft cap of about eight hundred.
+- A pack `PACK.md` body stays under five hundred lines, and one guide
+  under one hundred and fifty. There is no all-organs cap: nothing loads
+  a whole pack, so total size never measured a cost anyone pays
+  (ADR-0004). A pack holds as many guides and refs as its domain earns.
 - Types `doctrine`, `foundation`, `pattern`, `ux`, `implementation` and
   `wargame`: a warning over one hundred and fifty lines, an error
   without a `length_waiver`.
-- An RFC is capped at eighty lines, a task record at forty, a review
-  verdict at ten.
+- A task record is capped at forty lines, a review verdict at ten.
 - Registries and indexes are exempt. They must be complete rather than
   short.
 

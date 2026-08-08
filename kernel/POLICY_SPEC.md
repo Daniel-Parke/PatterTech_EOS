@@ -137,15 +137,19 @@ sanctioned way back down. That way is the audited exception:
   cite concrete evidence (for example: DDL detected, but the hunk is
   comment-only, shown inline) and be authorised by a REVIEWER who does
   not own the task.
-- A **standing exception** covers a recurring pattern. It requires the
-  operator plus an RFC, and it always carries an expiry date. An
-  expired standing exception is a checker finding.
-- Every exception lands in the append-only ledger
-  `org/exceptions.jsonl` with evidence, authoriser and date. Nothing in
-  the ledger is ever edited or removed.
-- Retro samples the ledger: exceptions are re-examined for evidence
-  quality, and an exception pattern that keeps recurring is a signal to
-  fix the factor table by RFC, not to keep excepting.
+- A **standing exception** covers a recurring pattern. It is an accepted
+  ADR in `org/decisions/`, authorised by the operator, carrying an
+  expiry date (ADR-0004). An expired standing exception is a checker
+  finding.
+- One-off exceptions are recorded on the task record they apply to,
+  beside the ruling they lower, with evidence, authoriser and date.
+  There is no separate ledger: `org/exceptions.jsonl` was specified,
+  never implemented and never read, so the one sanctioned route back
+  down from an upward-only ruling was a document. An exception now
+  lives where the decision lives.
+- Retro samples both: exceptions are re-examined for evidence quality,
+  and an exception pattern that keeps recurring is a signal to fix the
+  factor table by ADR, not to keep excepting.
 
 No exception, standing or one-off, can cross the guard's non-waivable
 floors in `kernel/GUARD_SPEC.md`.

@@ -26,5 +26,12 @@
   "WG-WEB-012": "doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md",
   "WG-WEB-013": "doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md",
   "WG-WEB-014": "doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md"
- }
+ },
+ "retired_paths": [
+  "archive/v1/",
+  "doctrine/",
+  "org/rfcs/",
+  "org/exceptions.jsonl"
+ ],
+ "retired_paths_note": "Trees and files this repository deliberately no longer has. S003 exempts a reference whose leading segment is not a directory here, because prose about a venture repo is not a claim about this one; that exemption also hid every reference into a tree we deleted, which is exactly the staleness a migration produces. These prefixes are named so a reference into one is a finding again."
 }
