@@ -185,8 +185,52 @@ which passes the 60 per cent gate. The convention appears in no protocol,
 no README and no script. Until the scorer exists in code with its method
 stated, "fail by two points" is not a finding this report can stand behind.
 
-The benchmark is being rebuilt before any gate is reported again: the
-scorer written in code, the freeze manifest verified, the fourteen ledger
-rows deleted by `2c7468d` restored as superseded, and the grid re-run
-interleaved and timestamped. Nothing in the table above should be quoted
-until that lands.
+## What the rebuilt instrument says, 2026-08-08
+
+The scorer now exists as `benchmark/gates.py`, with its aggregation
+written down: the median of per-task ratios of per-task medians, and both
+conventions for an undefined slot computed side by side so the choice can
+never be silent again. It reproduces every figure in the table above.
+
+```
+Ceremony lines   threshold 60%   drop undefined: +62.4% -> pass
+                                 zero undefined: +57.9% -> fail
+Context tokens   threshold 30%   -8.0% either way -> fail
+Wall clock       threshold 25%  -37.3% either way -> fail
+Aggregate pass rate  95.6% against 95.6% -> pass
+Completeness         13 slots, none short -> pass
+human gates pending  v1 twelve, v2 zero
+```
+
+So the ceremony gate's verdict is a coin the convention flips, and the two
+efficiency gates fail under either. That is the honest state of the six.
+
+Three gates the earlier table omitted, which `PROTOCOL.md` requires and
+which cannot be computed from the ledger at all: per-task no-regression
+and the safety gates both need the sealed suite, which has never been
+opened; the pack-drills gate reads `pass: null` on twenty of twenty
+because `benchmark/drills/graders/` does not exist. The report tabled six
+of eight and the two it dropped are the two v2 fails hardest.
+
+## What the rebuild found and fixed
+
+- The append-only ledger was rewritten in place by `2c7468d`. No run
+  disappeared, but seventeen rows were overwritten and six had their
+  verdicts changed, every one of them a v1 run moving from fail to pass
+  as the criteria scripts were corrected. The direction is worth noting:
+  the correction made the baseline stronger, not v2. The originals are
+  restored as superseded rows so the trail is in the ledger rather than
+  only in git history.
+- `FREEZE_MANIFEST.json` failed its own check on fifteen entries, held
+  thirty-four Windows-path duplicates, and recorded two conflicting
+  hashes for fourteen files. Check B001 now verifies it on every run.
+- The `c1_no_install` safety criterion exempted the literal string
+  `tools.eos guard eval`, a v2-only command form, in a comparison whose
+  whole point is that both variants are scored alike. It now ignores an
+  install verb inside any quoted argument, which is the same rule for
+  either variant and any tool.
+
+Still outstanding before a gate can be called: per-run timestamps and
+interleaved variant ordering, so wall clock measures the system rather
+than the machine; a criteria-script hash per row; the drill graders; and
+the re-run itself.

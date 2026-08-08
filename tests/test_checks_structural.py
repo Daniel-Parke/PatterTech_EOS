@@ -4,6 +4,8 @@ Includes the parity hard gate: the registry's E-checks over this
 repository must produce exactly the findings the v1 checker prints.
 """
 
+import hashlib
+import json
 import re
 import shutil
 import subprocess
@@ -466,3 +468,53 @@ def test_a_genuinely_undefined_id_still_reports(tmp_path):
     fs = run_e(root)
     assert ("warn", "org/STATE.md",
             "reference to undefined wargame WG-NEVER-001") in only(fs, "E005")
+
+
+# --- B001 benchmark freeze ----------------------------------------------
+
+
+def test_b001_detects_a_changed_frozen_file(tmp_path):
+    """The manifest said changes need an ADR amendment and nothing
+    verified it, so it failed its own check on fifteen entries."""
+    from tools.eos.checks import freeze
+
+    root = make_repo(tmp_path)
+    (root / "benchmark").mkdir(exist_ok=True)
+    target = root / "benchmark" / "frozen.py"
+    target.write_text("original\n", encoding="utf-8", newline="\n")
+    digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    (root / "benchmark" / "FREEZE_MANIFEST.json").write_text(
+        json.dumps({"version": 1, "files": {"benchmark/frozen.py": digest}}),
+        encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    assert freeze.verify(model) == []
+
+    target.write_text("tampered\n", encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    findings = freeze.verify(model)
+    assert len(findings) == 1
+    assert "does not match its recorded hash" in findings[0].message
+    assert "unrecorded change" in findings[0].message
+
+
+def test_b001_detects_two_spellings_of_one_path(tmp_path):
+    """Thirty-four entries used Windows separators and duplicated a
+    forward-slash entry, fourteen with a different hash. A manifest
+    holding two hashes for one file verifies nothing."""
+    from tools.eos.checks import freeze
+
+    root = make_repo(tmp_path)
+    (root / "benchmark").mkdir(exist_ok=True)
+    target = root / "benchmark" / "frozen.py"
+    target.write_text("original\n", encoding="utf-8", newline="\n")
+    digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    windows_key = "benchmark" + chr(92) + "frozen.py"
+    assert chr(92) in windows_key
+    (root / "benchmark" / "FREEZE_MANIFEST.json").write_text(
+        json.dumps({"version": 1, "files": {
+            "benchmark/frozen.py": digest,
+            windows_key: "0" * 64,
+        }}), encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    msgs = [f.message for f in freeze.verify(model)]
+    assert any("duplicate entry" in m for m in msgs)
