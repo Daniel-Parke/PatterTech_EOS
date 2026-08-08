@@ -7,6 +7,7 @@ basis: standard
 evidence_grade: observational
 scope: estate
 applies_when: [ships_a_binary, has_native_ui, has_local_write_store, distributes_via_app_store]
+activation_paths: [**/ios/**, **/android/**, **/*.swift, **/*.kt, **/*.xcodeproj/**, **/AndroidManifest.xml, **/electron/**, **/*.plist]
 volatility: fast
 review: on-change-of:EN-301-549-v4-publication
 sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236]

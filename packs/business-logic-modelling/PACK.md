@@ -9,6 +9,7 @@ basis: standard
 evidence_grade: observational
 scope: estate
 applies_when: [encodes_domain_rule, models_money, models_time, has_lifecycle_state]
+activation_paths: [**/domain/**, **/models/**, **/rules/**, **/entities/**, **/*pricing*.py, **/*billing*.py, **/*eligibility*, **/state_machine*, **/*invariant*]
 volatility: slow
 review: 2027-09
 sources: [EV-0010, EV-0071, EV-0098, EV-0099, EV-0100, EV-0138, EV-0150, EV-0157, EV-0163, EV-0206, EV-0269, EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0275, EV-0276, EV-0277, EV-0278, EV-0279, EV-0280, EV-0281, EV-0282, EV-0283, EV-0284, EV-0285, EV-0286]

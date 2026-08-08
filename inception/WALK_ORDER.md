@@ -14,16 +14,20 @@ inherits its default silently and costs nothing.
 
 ## Build the walk
 
-1. Start from packs/INDEX.md, the derived index of built packs. Each
-   row carries what the pack covers, what activates it, and how long
-   its body is.
+1. Run `python -m tools.eos context --diff <range>` against the
+   venture's tree, or pass the surfaces the interview named. It reads
+   each pack's own `activation_paths` and returns the packs the surface
+   activates, with the paths that matched and the predicates still to
+   confirm. This is the walk's input, not `packs/INDEX.md`: the index
+   is for a human reading, and a walk built by eye reads all twenty.
 2. Collect the venture's trigger set: the surfaces, domains and risk
    answers the interview surfaced, plus the add-ons the scale ruling
-   attached.
-3. Keep a pack when a path trigger or task type in its activation cell
-   matches. Then test its applicability predicates, which are the real
-   gate: a pack that trips a path trigger and satisfies no predicate
-   loads nothing beyond its first paragraph and is not walked.
+   attached. Predicates the venture can settle go on the task record's
+   `applies_when`, so the next run resolves them without asking.
+3. Confirm each returned pack's predicates, which are the real gate: a
+   pack that trips a path trigger and satisfies no predicate loads
+   nothing beyond its first paragraph and is not walked. The tool
+   narrows; it does not decide.
 4. For every kept pack, walk the guides under its guides directory.
    Wargames inherited from v1 keep their WG- ids and walk like any
    other guide.

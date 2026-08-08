@@ -150,10 +150,24 @@ def cmd_guard(args):
 def cmd_context(args):
     from .contextgen import build_packet
 
-    packet = build_packet(REPO, base_ref=args.diff)
-    lines = packet if isinstance(packet, str) else json.dumps(packet, indent=1)
-    text = lines if isinstance(lines, str) else str(lines)
-    out = text.splitlines()[:300]
+    # --task was parsed and discarded. The record is where a task's
+    # declared predicates live, and predicates are the real activation
+    # gate, so ignoring it threw away the only input that can settle one.
+    predicates = []
+    if args.task:
+        rec = REPO / "org" / "tasks" / f"{args.task}.json"
+        if not rec.exists():
+            print(f"error: no task record {rec}", file=sys.stderr)
+            return 2
+        record = json.loads(rec.read_text(encoding="utf-8"))
+        predicates = list(record.get("applies_when") or [])
+    packet = build_packet(REPO, base_ref=args.diff,
+                          declared_predicates=predicates)
+    out = json.dumps(packet, indent=1).splitlines()
+    if len(out) > 300:
+        # Truncation is lossy, so say so rather than cutting silently.
+        out = out[:300] + [f"... truncated at 300 lines of "
+                           f"{len(json.dumps(packet, indent=1).splitlines())}"]
     print("\n".join(out))
     return 0
 

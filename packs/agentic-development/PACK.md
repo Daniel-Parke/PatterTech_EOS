@@ -7,6 +7,7 @@ basis: empirical-evidence
 evidence_grade: observational
 scope: estate
 applies_when: [builds_agent_workflow, orchestrates_multiple_agents, designs_agent_harness, defines_agent_tools]
+activation_paths: [**/agents/**, **/subagents/**, **/.claude/**, **/prompts/**, **/*prompt*.md, **/*agent*.py, **/*agent*.ts, **/mcp*.json, **/tools/**/*tool*.py, **/workflows/**, AGENTS.md, CLAUDE.md]
 volatility: fast
 review: on-change-of:agent-sdk-major-release
 type: guide

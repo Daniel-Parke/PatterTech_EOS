@@ -1,4 +1,4 @@
-"""Semantic checks S001-S014.
+"""Semantic checks S001-S015.
 
 Severity: the S-series lands as ERRORS. The repository is clean under
 the series, so the P4 flip has happened: a new semantic defect is a
@@ -904,4 +904,38 @@ def check_s014_fragment_citations(ctx: dict) -> list:
             out.append(_f(ctx, "S014", rec.path,
                           f"pack-local fragment id in the read surface: {hit}; "
                           f"cite the EV id the import assigned"))
+    return out
+
+
+# --- S015 pack activation triggers --------------------------------------
+
+
+@register("S015")
+def check_s015_activation_triggers(ctx: dict) -> list:
+    """Every built pack carries a machine-readable, non-keyword trigger.
+
+    packs/PACK_SHAPE.md requires it, because routing has to be
+    deterministic given the same inputs. Twenty packs stated their
+    triggers in prose only, so nothing could evaluate them, and
+    contextgen returned a hardcoded empty list: progressive disclosure,
+    the whole reason twenty dense packs should cost less than five thin
+    modules, was never wired up.
+    """
+    model: RepoModel = ctx["model"]
+    out = []
+    for rec in model.files:
+        parts = rec.path.split("/")
+        if len(parts) != 3 or parts[0] != "packs" or parts[2] != "PACK.md":
+            continue
+        if not rec.fm.present:
+            continue
+        fm = rec.fm.data
+        if not fm.get("activation_paths"):
+            out.append(_f(ctx, "S015", rec.path,
+                          "no activation_paths: the pack cannot be reached "
+                          "deterministically, so it will never activate"))
+        if not fm.get("applies_when"):
+            out.append(_f(ctx, "S015", rec.path,
+                          "no applies_when: predicates are the real gate "
+                          "under packs/PACK_SHAPE.md"))
     return out

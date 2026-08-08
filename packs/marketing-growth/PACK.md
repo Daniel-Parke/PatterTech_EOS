@@ -9,6 +9,7 @@ basis: law
 evidence_grade: observational
 scope: estate
 applies_when: [publishes_public_content, collects_contact_details, sends_marketing_message, reports_channel_effect, plans_growth_spend]
+activation_paths: [**/content/**, **/blog/**, **/robots.txt, **/sitemap*, **/*seo*, **/emails/**, **/campaigns/**, **/*landing*]
 volatility: fast
 review: on-change-of:PECR-reg-22-amendment
 sources: [EV-0022, EV-0041, EV-0055, EV-0059, EV-0060, EV-0095, EV-0225, EV-0241]

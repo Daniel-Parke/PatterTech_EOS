@@ -9,6 +9,7 @@ basis: standard
 evidence_grade: observational
 scope: estate
 applies_when: [writes_user_facing_text, has_forms, ships_second_locale, writes_venture_documentation, writes_eos_internal_prose, reuses_external_style_guidance]
+activation_paths: [**/*.md, **/locales/**, **/i18n/**, **/*.po, **/messages/**, **/*strings*.json, **/errors/**]
 volatility: slow
 review: on-change-of:CLDR-plural-categories
 sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, EV-0433, EV-0434, EV-0435, EV-0436, EV-0437, EV-0438, EV-0439, EV-0440, EV-0441, EV-0442, EV-0443, EV-0444, EV-0445, EV-0446, EV-0447, EV-0448, EV-0335]

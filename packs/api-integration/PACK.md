@@ -7,6 +7,7 @@ basis: standard
 evidence_grade: observational
 scope: estate
 applies_when: [exposes_service_boundary, consumes_external_api, receives_webhooks, publishes_events]
+activation_paths: [**/api/**, **/routes/**, **/handlers/**, **/webhooks/**, **/openapi*.y*ml, **/openapi*.json, **/asyncapi*.y*ml, **/*.proto, **/schemas/**, **/endpoints/**]
 volatility: slow
 review: 2027-12
 type: guide

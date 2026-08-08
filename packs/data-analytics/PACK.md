@@ -9,6 +9,7 @@ basis: decision
 evidence_grade: observational
 scope: estate
 applies_when: [publishes_analytics_table, defines_events, runs_experiment, reads_for_decision, handles_analytics_identifier]
+activation_paths: [**/analytics/**, **/dbt/**, **/models/marts/**, **/events/**, **/*event*.json, **/*experiment*, **/dashboards/**, **/*metric*.sql, **/*.sql]
 volatility: slow
 review: 2027-11
 sources: [EV-0041, EV-0056, EV-0057, EV-0059, EV-0138, EV-0139, EV-0225, EV-0240]
