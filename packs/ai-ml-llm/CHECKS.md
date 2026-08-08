@@ -27,8 +27,8 @@ human input.
 | C-01 | An eval entry point exists and runs headlessly | The recorded command exits zero on a clean tree and writes its report to the recorded path | B1 |
 | C-02 | The report carries a metric, an item count and an interval | Field presence check for the primary metric, `n`, and either `stderr` or a low and high bound; a bare metric fails | B1 |
 | C-03 | The report carries the template identity | Field presence for the template path and its content hash, and string equality of the hash against the file on disk | B2 |
-| C-04 | The report carries a dated model id | Field presence, and a pattern match for a dated identifier | B2, B4 |
-| C-05 | No moving model aliases in source | Pattern scan over the source for model identifiers that do not carry a date | B4 |
+| C-04 | The report carries a pinned model id | Field presence, and a match against the configured pinned-id pattern for each provider in use | B2, B4 |
+| C-05 | No moving model aliases in source | Pattern scan over the source for the configured moving-alias forms, for example a `latest` suffix or a bare family name | B4 |
 | C-06 | A retirement date is recorded beside every pin | Every pinned identifier has a retirement date within a few lines of it | B4 |
 | C-07 | The run is reproducible | Two runs over the same tree produce the same primary metric and the same item count | D8 |
 | C-08 | The held-out set is not read by the tuning path | Grep of prompt-selection and optimiser code for the held-out filename returns zero matches, and the report names the file | B3 |
@@ -87,7 +87,11 @@ rather than measurements.
 
 C-05, C-08 and C-11 are the three a venture has to configure before
 the pack has teeth, because each needs a project-specific pattern: the
-dated-identifier regex for the providers in use, the held-out
-filename, and the ambiguous-item subset. The rest are field-presence
+pinned-identifier pattern for the providers in use, the held-out
+filename, and the ambiguous-item subset. Take that first pattern from
+the provider's own published id list rather than writing a date match.
+A date match is wrong for at least one major vendor, whose current ids
+carry no date and are pinned all the same, so it would fail exactly
+the identifiers the vendor tells you to send. The rest are field-presence
 checks over a report the venture already has to produce, or a second
 run of a command that already exists.

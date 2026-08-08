@@ -121,7 +121,8 @@ question, not a preference we should dress as evidence.
 
 **Binding.** These have evidence behind them and failure is expensive.
 
-- Pin the dated model identifier, never a moving alias, and record the
+- Pin the model identifier to a version the provider will not move,
+  never a moving alias, and record the
   published retirement date next to the call site. FRAG-AI-ML-LLM-19
   gives a sixty-day notice floor and tentative dates a year out;
   FRAG-AI-ML-LLM-18 shows behaviour moving inside a name's lifetime.

@@ -99,9 +99,50 @@ def cmd_prompt(args):
     print(prompt)
 
 
+def cmd_order(args):
+    """Print an interleaved, seeded run order for a grid.
+
+    The ledger recorded a date and no clock, so a same-day batch could
+    not be told from an interleaved one. Every v1 run happened, then
+    every v2 run, then the corrected v2 arm, and the wall-clock gate
+    treated the difference as a property of the system. It may be; it
+    may equally be machine load. Neither the ledger nor the protocol can
+    say, which is why that gate cannot currently be trusted.
+
+    A seeded shuffle within each task, with variants adjacent, makes the
+    order reproducible and the comparison paired.
+    """
+    import random
+
+    tasks = sorted(t.strip() for t in args.tasks.split(",") if t.strip())
+    variants = [v.strip() for v in args.variants.split(",") if v.strip()]
+    rng = random.Random(args.seed)
+    plan = []
+    for trial in range(1, args.trials + 1):
+        for task in tasks:
+            arms = list(variants)
+            rng.shuffle(arms)
+            for variant in arms:
+                plan.append({"task": task, "variant": variant, "trial": trial,
+                             "run_id": f"R-{variant}-{task}-t{trial}"})
+    rng.shuffle(plan)
+    print(json.dumps({"seed": args.seed, "trials": args.trials,
+                      "runs": plan}, indent=1))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+
+    p_order = sub.add_parser(
+        "order", help="print a seeded interleaved run order for a grid")
+    p_order.add_argument("--tasks", required=True,
+                         help="comma-separated task ids")
+    p_order.add_argument("--variants", required=True,
+                         help="comma-separated variant labels")
+    p_order.add_argument("--trials", type=int, default=3)
+    p_order.add_argument("--seed", type=int, default=20260808)
+    p_order.set_defaults(func=cmd_order)
 
     p_mat = sub.add_parser("materialise", help="copy a fixture into a scratch dir and set it up")
     p_mat.add_argument("--fixture", required=True, help="fixture name under benchmark/fixtures/")

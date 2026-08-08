@@ -14,6 +14,7 @@ Order of operations:
 import argparse
 import datetime
 import json
+import pathlib
 import os
 import re
 import subprocess
@@ -267,6 +268,25 @@ def append_ledger_row(row):
         fail(f"could not write ledger: {exc}")
 
 
+
+def criteria_hashes(scripts):
+    """sha256 of every criteria script that scored this run.
+
+    A criterion corrected mid-benchmark leaves the ledger unable to say
+    which rows it scored. Recording the hash on the row makes that
+    answerable without reading commit history.
+    """
+    import hashlib
+    out = {}
+    for script in scripts:
+        path = pathlib.Path(script) if not isinstance(script, pathlib.Path) else script
+        try:
+            out[path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
+        except OSError:
+            out[path.name] = None
+    return out
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--task", required=True, help="task directory containing task.json")
@@ -306,9 +326,17 @@ def main(argv=None):
         "variant": args.variant,
         "ablation": None,
         "date": datetime.date.today().isoformat(),
+        # A date alone cannot establish run order, so a same-day batch
+        # could not be told apart from an interleaved one and wall-clock
+        # comparisons could not be audited for machine load.
+        "scored_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "model": args.model,
         "source": "fresh",
         "criteria": criteria,
+        # Which version of each criterion produced this verdict. Without
+        # it, a criteria script corrected mid-benchmark leaves no way to
+        # tell which rows were scored by which version.
+        "criteria_sha256": criteria_hashes(scripts),
         "metrics": {
             "files_read": stats["files_read"],
             "files_written": stats["files_written"],

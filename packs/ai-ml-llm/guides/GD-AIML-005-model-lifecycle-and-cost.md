@@ -36,7 +36,7 @@ like when the clock runs out.
 
 ### A. One pinned model
 
-A single dated model id for the task. Buys: one thing to evaluate, one
+A single pinned model id for the task. Buys: one thing to evaluate, one
 migration to plan, and behaviour you can reason about. Costs: you pay
 frontier prices for trivial requests, and one retirement date moves
 the whole feature.
@@ -68,9 +68,12 @@ retirement clocks, and prompts that do not transfer between families.
 
 ## Decision rule
 
-- Under every option: dated model ids only, never a moving alias, with
-  the published retirement date recorded next to the call site
-  (EV-0260).
+- Under every option: pinned model ids only, never a moving alias,
+  with the published retirement date recorded next to the call site
+  (EV-0260). Pinned means the id keeps resolving to the same
+  weights. Read the provider's scheme rather than looking for a date:
+  a dated snapshot and an undated version-numbered id can both be
+  pinned, and at least one major vendor's current ids carry no date.
 - Default to A until the cost line is a number somebody complains
   about.
 - Cost matters and you have no labels for a scorer: C.
@@ -118,7 +121,7 @@ artefact.
 ## Provenance record
 
 The model your product depends on carries a provenance row alongside
-its pin: provider, dated id, published retirement date, documented
+its pin: provider, pinned id, published retirement date, documented
 capability limits, and the model documentation the provider publishes
 under the transparency obligations that now apply to general-purpose
 model providers in the EU (EV-0268). That belongs in the
