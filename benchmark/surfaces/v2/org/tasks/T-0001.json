@@ -1,0 +1,16 @@
+{
+  "id": "T-0001",
+  "intent": "Run the first-build lock-in: replace every 'set at first build' deferral in docs/LOCKBOOK.md with a ruled value and set the five QC gate commands for the FastAPI and Postgres stack. Standard rather than express because the design-system and gate decisions sit in the durable band.",
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R0",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "proposed",
+  "owner_session": "S-0000",
+  "claims": ["docs/LOCKBOOK.md"],
+  "timestamps": {"opened": "2026-08-03T09:00", "updated": "2026-08-03T09:00"}
+}

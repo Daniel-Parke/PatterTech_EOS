@@ -1,0 +1,55 @@
+{
+ "version": 2,
+ "note": "The process surface each variant places on a fixture that carries none. Taken verbatim from the frozen paired seeds, which are compiled output of each version's own kernel templates, with the venture identity replaced by a {{VENTURE_NAME}} slot. Nothing here is authored for the benchmark: the ceremony difference between the arms is whatever each kernel already produces, so the measurement is not set by whoever built the harness.",
+ "scale": "M for v1 and ORG for v2, the scale at which the two versions actually differ. Version 1 of this file used the S-scale seeds, and a pilot run of T04 wrote nine ceremony lines under v1 where the 2026-08-03 ledger recorded a median of 206 for the same task. S carries one WORKLOG; M carries org/roles/PLAN, WORK and VERIFY, org/logs, org/STATE and org/QUEUE, which is the three-session ceremony v2 claims to collapse. Measuring the claim needs the surface that makes it.",
+ "donors": {
+  "v1": "seed-v1-M",
+  "v2": "seed-v2-ORG"
+ },
+ "process_files": {
+  "v1": [
+   "AGENTS.md",
+   "CLAUDE.md",
+   "docs/EOS_FEEDBACK.md",
+   "OPERATORS_GUIDE.md",
+   "org/CADENCE.md",
+   "org/CONSTITUTION.md",
+   "org/decisions/.gitkeep",
+   "org/logs/.gitkeep",
+   "org/OPERATING_MODEL.md",
+   "org/QUESTIONS.md",
+   "org/QUEUE.md",
+   "org/roles/PLAN.md",
+   "org/roles/VERIFY.md",
+   "org/roles/WORK.md",
+   "org/START.md",
+   "org/STATE.md",
+   "org/TEMPLATES.md"
+  ],
+  "v2": [
+   "AGENTS.md",
+   "CLAUDE.md",
+   "docs/EOS_FEEDBACK.md",
+   "OPERATORS_GUIDE.md",
+   "org/cadence.json",
+   "org/claims.json",
+   "org/CONSTITUTION.md",
+   "org/PLAYBOOKS.md",
+   "org/policy.json",
+   "org/QUESTIONS.md",
+   "org/roles/EXECUTOR.md",
+   "org/roles/ORACLE.md",
+   "org/roles/REVIEWER.md",
+   "org/START.md",
+   "org/tasks/T-0001.json",
+   "org/TEMPLATES.md",
+   "org/TESTING.md"
+  ]
+ },
+ "excluded": [
+  "docs/COMPILE_REPORT.md",
+  "docs/LOCKBOOK.md",
+  "docs/VENTURE_BRIEF.md"
+ ],
+ "excluded_reason": "Venture content rather than process. The harness writes an identical brief and lock-book into both arms from the fixture's own README."
+}

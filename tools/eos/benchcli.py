@@ -39,6 +39,11 @@ def runner(root, args):
     return _invoke(root, "runner.py", args)
 
 
+def harness(root, args):
+    """Invoke benchmark/harness.py with pass-through args."""
+    return _invoke(root, "harness.py", args)
+
+
 def score(root, args):
     """Invoke the frozen benchmark/score.py with pass-through args."""
     return _invoke(root, "score.py", args)
