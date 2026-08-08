@@ -268,17 +268,36 @@ def cmd_migrate(args):
 def cmd_benchmark(args):
     from . import benchcli
 
-    if args.op == "run":
-        run_args = ["materialise", "--fixture", args.variant or "",
-                    "--dest", args.dest or ""]
-        if args.task:
-            run_args += ["--task", args.task]
-        return benchcli.runner(REPO, [a for a in run_args if a != ""])
+    if args.op == "prepare":
+        # This used to pass --variant into runner.py's --fixture slot, so
+        # every invocation died with "fixture not found: .../fixtures/v2".
+        # No fixture is named v1 or v2, so the documented command had
+        # never once run. It now drives harness.py, which is the thing
+        # that actually knows what a variant is.
+        missing = [n for n in ("task", "variant", "dest", "run_id")
+                   if not getattr(args, n, None)]
+        if missing:
+            print("benchmark prepare needs --%s"
+                  % ", --".join(m.replace("_", "-") for m in missing),
+                  file=sys.stderr)
+            return 2
+        proc = benchcli.harness(REPO, [
+            "prepare", "--task", args.task, "--variant", args.variant,
+            "--run-id", args.run_id, "--dest", args.dest])
+        sys.stdout.write(proc.stdout)
+        sys.stderr.write(proc.stderr)
+        return proc.returncode
     if args.op == "score":
-        return benchcli.score(REPO, [
+        proc = benchcli.score(REPO, [
             "--task", args.task, "--scratch", args.scratch,
             "--transcript", args.transcript, "--variant", args.variant,
             "--run-id", args.run_id])
+        # This returned the CompletedProcess itself where an int exit
+        # code was expected, so the shell saw a truthy object and the
+        # scorer's output never reached the caller.
+        sys.stdout.write(proc.stdout)
+        sys.stderr.write(proc.stderr)
+        return proc.returncode
     return 2
 
 
@@ -383,7 +402,7 @@ def main(argv=None):
     m.set_defaults(fn=cmd_migrate)
 
     b = sub.add_parser("benchmark")
-    b.add_argument("op", choices=["run", "score"])
+    b.add_argument("op", choices=["prepare", "score"])
     b.add_argument("--task")
     b.add_argument("--dest")
     b.add_argument("--scratch")

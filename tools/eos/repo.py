@@ -25,7 +25,13 @@ FIXTURE_PREFIXES = ("benchmark/fixtures/", "benchmark/holdout/")
 # and the marketing scenario ships a client's pricing page and support
 # tickets, which are exactly the kind of file that must not carry our
 # metadata. They are still hashed and still version controlled.
-SKIP_PREFIXES = ("benchmark/drills/scenarios/",)
+#
+# benchmark/surfaces/ is read past for a different reason: those files
+# are the process surface a benchmark run copies onto a fixture, and
+# they deliberately carry an unfilled {{VENTURE_NAME}} slot that the
+# harness fills per run. Held to the repository's own law they would
+# fail E008 for being what they are meant to be.
+SKIP_PREFIXES = ("benchmark/drills/scenarios/", "benchmark/surfaces/")
 
 
 @dataclass

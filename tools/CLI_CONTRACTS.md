@@ -97,9 +97,15 @@ pointed at a sibling repo. Exit 1 when any step ends blocked.
 
 ## benchmark
 
-`benchmark run --task DIR --variant v1|v2`: executes one session
-against the task's fixture under its frozen budgets
-(`benchmark-task.schema.json`), recording the transcript.
+`benchmark prepare --task DIR --variant v1|v2 --run-id ID --dest DIR`:
+materialises the task's fixture, places that variant's process surface
+on it, writes `run.json` into the scratch tree and prints the task
+prompt as JSON. It prepares a session; it does not run one. Running the
+session and capturing its transcript is the operator's or the
+orchestrator's job, and `benchmark/README.md` says so. This entry
+previously claimed the command "executes one session ... recording the
+transcript"; it did neither, and in fact could not run at all, because
+`--variant` was passed into the fixture slot.
 `benchmark score --task DIR --scratch DIR --transcript FILE --variant
 V --run-id ID`: runs the task's criteria scripts and appends exactly
 one row to `benchmark/results/ledger.json`
