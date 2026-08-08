@@ -76,14 +76,30 @@ def main(argv=None):
     # are as history. gates.py already selects arms by label.
     ap.add_argument("--variant-suffix", default="",
                     help="appended to each row's variant, e.g. -2026-08-08")
+    # A transcript file exists for every agent the runner launched,
+    # including ones that never ran: a session killed by a rate limit
+    # still leaves a file with the opening turn in it. Scoring those
+    # would put rows in the ledger for sessions that did no work, which
+    # is the one thing worse than a missing row. Pass the ids that
+    # actually returned a result.
+    ap.add_argument("--completed",
+                    help="JSON file holding the list of run ids that "
+                         "genuinely finished; others are skipped")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
+
+    allowed = None
+    if args.completed:
+        allowed = set(json.loads(
+            Path(args.completed).read_text(encoding="utf-8")))
 
     plan = load_plan(args.grid)
     runs = plan["runs"]
     ids = [r["run_id"] for r in runs]
     found = map_transcripts(args.transcripts, ids)
 
+    if allowed is not None:
+        found = {k: v for k, v in found.items() if k in allowed}
     missing = [i for i in ids if i not in found]
     scored, failed = [], []
 
