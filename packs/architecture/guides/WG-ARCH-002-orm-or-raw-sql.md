@@ -24,10 +24,9 @@ rules on, and one option arrived that v1 lacked.
 
 How a service talks to its database decides where performance work
 happens, what a migration looks like, and whether a query can be read
-at all. The fork is taken once, early, and reversed at great cost,
-because the choice spreads to every call site. The v1 framing missed
-half of it: the dialect and the seam are separate decisions, and only
-one of the two has an argument behind it.
+at all. It is taken once, early, and reversed at great cost. The v1
+framing missed half of it: the dialect and the seam are separate
+decisions, and only one of the two has an argument behind it.
 
 ## It depends on
 
@@ -37,8 +36,8 @@ one of the two has an argument behind it.
 - How much of the surface is administrative CRUD over a modest schema.
 - Whether filters are composed at request time, or every query is known
   when the code is written.
-- Which language you are in, since builders and generators are spread
-  unevenly.
+- Which language you are in, since builder and generator support is
+  spread unevenly across stacks.
 
 ## Options
 
@@ -51,10 +50,9 @@ the identity map and lazy loading travel wherever those objects travel.
 migration generated from a diff of the models.
 
 **Costs.** The query is produced where nobody reads it, so the N+1
-arrives at load rather than at review, the escape to raw SQL opens
-mid-incident, and mapped objects leak past the seam. The migration
-argument is weaker than it looks: migration risk is statically
-checkable whoever wrote the file (EV-0202).
+arrives at load, not at review, and the escape to raw SQL opens
+mid-incident. Mapped objects leak past the seam. The migration buy is
+undercut, since risk is checkable whoever wrote the file (EV-0202).
 
 ### B. Raw SQL behind a repository layer
 
@@ -62,12 +60,11 @@ checkable whoever wrote the file (EV-0202).
 rows outward. Nothing above the repository knows SQL exists.
 
 **Buys.** Every query can be read, explained and batched, and the seam
-is the one EV-0150 argues for, bought for testability rather than for a
-swap nobody performs.
+is the one EV-0150 argues for, bought for testability not portability.
 
-**Costs.** Mapping written by hand, and nothing checks a statement
-against the schema until it runs. The repository grows a method per
-query and drifts towards a pass-through that hides nothing.
+**Costs.** Mapping written by hand, nothing checks a statement against
+the schema until it runs, and the repository can drift into a
+pass-through that hides nothing.
 
 ### C. Query builder as the only path
 
@@ -75,9 +72,8 @@ query and drifts towards a pass-through that hides nothing.
 generated schema types. jOOQ on the JVM, Kysely in TypeScript,
 SQLAlchemy Core in Python. No object graph, no lazy load.
 
-**Buys.** Composition where the filters are not known until the request
-arrives, and a renamed column that fails to compile rather than in
-production.
+**Buys.** Composition where filters are unknown until the request
+arrives, and a rename that fails to compile rather than in production.
 
 **Costs.** A statement assembled across six call sites has no single
 form you can read or paste into a query plan, and what you review is
@@ -87,33 +83,31 @@ builder code rather than the SQL that runs.
 
 **What it is.** The query lives in a `.sql` file and a generator
 compiles it against the real schema into typed functions. sqlc for Go,
-PgTyped for TypeScript, jOOQ's generator on the JVM. The output is
-committed and drift-gated as B4 asks of generated artefacts.
+PgTyped for TypeScript, jOOQ on the JVM. The output is drift-gated
+exactly as B4 asks of generated artefacts.
 
-**Buys.** The reviewed artefact is SQL, and the schema drift B cannot
-see until runtime fails the build instead.
+**Buys.** The reviewed artefact is SQL, and the drift B cannot see
+until runtime fails the build instead.
 
 **Costs.** A database has to be reachable at generate time, dynamic
 filters fall back to strings, and the generator has to support your
-language. For Python that support is thin, so here D loses on tooling
-rather than on merit.
+language. For Python that support is thin, so D loses here on tooling.
 
 ## Decision rule
 
 Any hot data, meaning time-series, bulk writes or large scans: **B**,
 because the query you tune has to be the query that runs. A surface of
-administrative CRUD over a modest schema with no plan-sensitive path:
-**A** is defensible, with raw SQL sanctioned for the hot paths from the
-first week and the boundary written down. Never mix A and B on the same
-tables without it. Filters composed at request time, an admin grid or a
-faceted search: **C**, since the honest alternative is string
-concatenation. A supported generator, with schema drift as the
-recurring pain: **D**.
+administrative CRUD with no plan-sensitive path: **A** is defensible,
+with raw SQL sanctioned for hot paths from the first week and the
+boundary written down. Never mix A and B on the same tables without it.
+Filters composed at request time, an admin grid or a faceted search:
+**C**, since the honest alternative is string concatenation. A
+supported generator, with schema drift as the recurring pain: **D**.
 
 The seam does not move with the dialect. Put data access behind a
 repository whichever option wins, and buy it for the reason EV-0150
 gives, that the application should be drivable by a test as easily as
-by a request. Do not buy it to swap the database. That second device is
+by a request. Do not buy it to swap the database; that second device is
 not plausible here, and a port bought for one is ceremony.
 
 ## Default
@@ -125,23 +119,22 @@ not plausible here, and a port bought for one is ceremony.
 - **WiseWattage (2026, argued)**: B. Its ADR-003 moved persistence to
   batched `executemany` against hypertables once row-by-row inserts
   proved a cliff, and the repository layer kept the change local. An
-  ORM could not have hidden that cost better, only longer.
+  ORM could not have hidden that cost better, only for longer.
 - **Venture A (2026-07, inherited)**: B by taking stack profile 02,
   which rules psycopg 3 behind repositories and no ORM by default
   (`registry/stacks/STACK-fastapi-postgres.md`). No separate argument.
 - **Guth (2026, argued)**: not applicable. The venture holds no
-  relational store anywhere, so the fork never fires and the row says
-  so rather than picking a dialect it will not use.
+  relational store anywhere, so the fork never fires and the row says so
+  rather than picking a dialect it will never use.
 
 ## Counter-evidence
 
-This fork has no evidence, and pretending otherwise would be worse than
-saying so. Nothing in the 2026 sweep compares data-access dialects, and
-none of the three sources here is about the choice. EV-0150 argues for
-a seam, not for what sits behind it, and it is a 2005 pattern statement
-with no empirical evaluation. EV-0202 only removes a point from A's
-ledger. The v1 claim that agents write better SQL than ORM incantations
-is untested, and EV-0010 is the reminder that intuitions about agent
-productivity have been measured wrong once already, with the sign
-inverted. The ruling rests on one venture's argument and a stack
-profile that generalised it. One decent comparison would move it.
+This fork has no evidence, and pretending otherwise would be worse.
+Nothing in the 2026 sweep compares data-access dialects, and none of
+the three sources here is about the choice. EV-0150 argues for a seam,
+not for what sits behind it, and it is a 2005 pattern statement with no
+empirical evaluation. EV-0202 only removes a point from A's ledger. The
+v1 claim that agents write better SQL than ORM incantations is
+untested, and EV-0010 is the reminder that such intuitions have been
+measured wrong once, with the sign inverted. The ruling rests on one
+venture's argument and a stack profile that generalised it.

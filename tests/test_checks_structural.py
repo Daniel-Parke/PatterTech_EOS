@@ -56,7 +56,7 @@ def test_v1_checker_is_a_forwarding_shim():
     tree. The pack restructure moved the knowledge layer, so v1's
     hardcoded doctrine and wargame-index paths no longer resolve and
     parity is not a meaningful assertion. The original is kept at
-    archive/v1/tools/eos_check.py; the live path forwards.
+    archive/v1-final:tools/eos_check.py; the live path forwards.
     """
     proc = subprocess.run(
         [sys.executable, str(REPO_ROOT / "tools" / "eos_check.py"), "--repo"],
@@ -428,3 +428,41 @@ def test_e010_yesterday_not_stale(tmp_path):
          "active_session: S-0001 started 2026-08-02")
     fs = run_e(root)
     assert only(fs, "E010") == []
+
+
+# --- retired ids --------------------------------------------------------
+
+
+def test_retired_ids_resolve_but_do_not_duplicate(tmp_path):
+    """ADR-0003 moved the archive of record to a pushed tag. An id whose
+    defining file went with it is still defined and still locatable, so
+    a provenance reference to it is not dangling. Retiring archive/v1
+    without this turned 33 real ids into 79 findings overnight."""
+    root = make_repo(tmp_path)
+    (root / "archive").mkdir(exist_ok=True)
+    (root / "archive" / "RETIRED_IDS.json").write_text(
+        '{"version": 1, "tag": "archive/v1-final",'
+        ' "ids": {"WG-GONE-001": "doctrine/gone/WG-GONE-001-x.md"}}\n',
+        encoding="utf-8", newline="\n")
+    write = root / "org" / "STATE.md"
+    write.write_text(
+        write.read_text(encoding="utf-8").replace(
+            "The fixture repo is at rest.",
+            "The fixture repo is at rest. See WG-GONE-001 for the v1 argument."),
+        encoding="utf-8", newline="\n")
+    fs = run_e(root)
+    assert [f for f in fs if f.check_id == "E005"] == []
+
+
+def test_a_genuinely_undefined_id_still_reports(tmp_path):
+    """The exemption is for ids that moved, not for ids that never were."""
+    root = make_repo(tmp_path)
+    write = root / "org" / "STATE.md"
+    write.write_text(
+        write.read_text(encoding="utf-8").replace(
+            "The fixture repo is at rest.",
+            "The fixture repo is at rest. See WG-NEVER-001."),
+        encoding="utf-8", newline="\n")
+    fs = run_e(root)
+    assert ("warn", "org/STATE.md",
+            "reference to undefined wargame WG-NEVER-001") in only(fs, "E005")

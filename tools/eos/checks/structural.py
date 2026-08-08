@@ -393,18 +393,37 @@ def check_e004_voice_tells(ctx: dict) -> list:
     return out
 
 
+def retired_ids(model: RepoModel) -> set:
+    """Ids whose defining file was retired to a pushed tag (ADR-0003).
+
+    The id still exists and is still locatable; it is simply not in the
+    tree. Without this, retiring archive/v1 turned 33 real ids into 79
+    dangling references overnight, and the only alternative was to
+    reword every provenance line in the repository.
+    """
+    raw = model.read("archive/RETIRED_IDS.json")
+    if not raw:
+        return set()
+    try:
+        return set(json.loads(raw).get("ids") or {})
+    except ValueError:
+        return set()
+
+
 @register("E005")
 def check_e005_wargame_ids(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
     out = []
+    # Live definitions only, so duplicate detection stays honest. An id
+    # that is both live and retired is not a duplicate of itself.
     wg_defined: set = set()
     for rec in model.files:
         if not rec.fm.present:
             continue
-        if rec.fm.data.get("type") != "wargame":
-            continue
         stem = PurePosixPath(rec.path).stem
         m = WG_DEF.match(stem)
+        if rec.fm.data.get("type") != "wargame" and not m:
+            continue
         if not m:
             out.append(_err("E005", rec.path, "wargame filename lacks a WG-<MOD>-NNN id"))
         else:
@@ -412,9 +431,12 @@ def check_e005_wargame_ids(ctx: dict) -> list:
             if wid in wg_defined:
                 out.append(_err("E005", rec.path, f"duplicate wargame id {wid}"))
             wg_defined.add(wid)
+    # A reference resolves against live definitions plus ids retired to
+    # the tag, which are still defined and still locatable.
+    resolvable = wg_defined | retired_ids(model)
     for rec in model.files:
         for ref in sorted(set(WG_REF.findall(strip_code(rec.text)))):
-            if ref not in wg_defined and not ref.endswith("-000"):
+            if ref not in resolvable and not ref.endswith("-000"):
                 out.append(_warn("E005", rec.path, f"reference to undefined wargame {ref}"))
     return out
 

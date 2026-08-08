@@ -1,0 +1,30 @@
+{
+ "version": 1,
+ "note": "Ids whose defining file was retired from the working tree to a pushed tag under ADR-0003. The id still exists and is still locatable; it is simply not in the tree. The checker treats these as defined so that provenance references do not read as dangling, and refuses to treat them as live guidance. An id with a live definition in the tree is not retired and is not listed; this manifest holds only ids the tree no longer defines.",
+ "tag": "archive/v1-final",
+ "retired": "2026-08-08",
+ "ids": {
+  "WG-DEL-001": "doctrine/delivery/wargames/WG-DEL-001-coverage-level.md",
+  "WG-DEL-002": "doctrine/delivery/wargames/WG-DEL-002-e2e-weighting.md",
+  "WG-DEL-003": "doctrine/delivery/wargames/WG-DEL-003-vrt-scope.md",
+  "WG-DEL-004": "doctrine/delivery/wargames/WG-DEL-004-flake-policy.md",
+  "WG-OPS-001": "doctrine/devops/wargames/WG-OPS-001-hosting.md",
+  "WG-OPS-002": "doctrine/devops/wargames/WG-OPS-002-containers.md",
+  "WG-OPS-004": "doctrine/devops/wargames/WG-OPS-004-cost-ceilings.md",
+  "WG-VOX-001": "doctrine/voice/wargames/WG-VOX-001-audience-register.md",
+  "WG-WEB-001": "doctrine/web-design/wargames/WG-WEB-001-surface-register.md",
+  "WG-WEB-002": "doctrine/web-design/wargames/WG-WEB-002-page-archetype.md",
+  "WG-WEB-003": "doctrine/web-design/wargames/WG-WEB-003-container-choice.md",
+  "WG-WEB-004": "doctrine/web-design/wargames/WG-WEB-004-motion-budget.md",
+  "WG-WEB-005": "doctrine/web-design/wargames/WG-WEB-005-ornament-budget.md",
+  "WG-WEB-006": "doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md",
+  "WG-WEB-007": "doctrine/web-design/wargames/WG-WEB-007-static-vs-server.md",
+  "WG-WEB-008": "doctrine/web-design/wargames/WG-WEB-008-media-pipeline.md",
+  "WG-WEB-009": "doctrine/web-design/wargames/WG-WEB-009-brand-family-accents.md",
+  "WG-WEB-010": "doctrine/web-design/wargames/WG-WEB-010-type-pairing.md",
+  "WG-WEB-011": "doctrine/web-design/wargames/WG-WEB-011-surface-reactivity-budget.md",
+  "WG-WEB-012": "doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md",
+  "WG-WEB-013": "doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md",
+  "WG-WEB-014": "doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md"
+ }
+}

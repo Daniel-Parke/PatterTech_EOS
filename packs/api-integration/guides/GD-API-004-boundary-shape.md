@@ -102,7 +102,7 @@ stop caring who listens. B and D require an argued case.
 
 - **WiseWattage and PatterTech_Business (2026, inherited)**: A, with
   the generated contract seam from
-  `archive/v1/doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md`.
+  `packs/architecture/guides/WG-ARCH-005-contract-seam.md`.
 - **No venture runs B, C or D in production.** The fit conditions above
   are read from the sources rather than from our own operating
   experience, which is the honest status of this guide.
