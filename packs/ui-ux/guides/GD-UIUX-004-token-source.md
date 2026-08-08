@@ -91,5 +91,5 @@ source shape.
 - **PatterTech Website (2026-07, inherited)**: one home for tokens with
   a mirroring contract across code, styleguide and documentation, and a
   test that fails the build on any re-typed raw value. Recorded in
-  `archive/v1/doctrine/web-design/implementation/TOKENS.md` and carried into
+  `archive/v1-final:doctrine/web-design/implementation/TOKENS.md` and carried into
   `packs/ui-ux/refs/TOKEN_PIPELINE.md`.

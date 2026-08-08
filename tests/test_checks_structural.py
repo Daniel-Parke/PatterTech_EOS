@@ -362,6 +362,18 @@ def test_e008_unfilled_slot(tmp_path):
                                  "unfilled {{SLOT}} outside a template")]
 
 
+def test_e008_slot_with_digits(tmp_path):
+    """The kernel ships {{SUCCESS_90}}. A pattern of [A-Z_]+ let it
+    through a green seed check unfilled; Guth's cold-start probe found
+    it, and the harvest of 2026-08-08 brought it back."""
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "The fixture repo is at rest. {{SUCCESS_90}}")
+    fs = run_e(root)
+    assert only(fs, "E008") == [("error", "org/STATE.md",
+                                 "unfilled {{SLOT}} outside a template")]
+
+
 def test_e008_template_files_exempt(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "type: org", "type: org\ntemplate: true")

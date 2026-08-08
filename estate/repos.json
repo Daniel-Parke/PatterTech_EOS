@@ -2,7 +2,7 @@
   "version": 2,
   "updated": "2026-08-03",
   "root": "C:\\Users\\Daniel\\Documents\\Coding\\Github",
-  "note": "Canonical estate manifest. Membership follows Daniel's rulings of 2026-08-02: every Patter* repository, plus WiseWattage, AutoWatt and Guth. governed is true only for the three seeded ventures; every other row is an inventory row that the quarterly estate review asks adopt or defer about. Every row below was read read-only on 2026-08-03; nothing was written into any sibling repository. estate/ESTATE_MAP.md is the human narrative of this file and does not restate membership. The v1 YAML manifest is archived at archive/v1/estate/repos.yaml.",
+  "note": "Canonical estate manifest. Membership follows Daniel's rulings of 2026-08-02: every Patter* repository, plus WiseWattage, AutoWatt and Guth. governed is true only for the three seeded ventures; every other row is an inventory row that the quarterly estate review asks adopt or defer about. Every row below was read read-only on 2026-08-03; nothing was written into any sibling repository. estate/ESTATE_MAP.md is the human narrative of this file and does not restate membership. The v1 YAML manifest is archived at archive/v1-final:estate/repos.yaml.",
   "excluded": [
     {
       "name": "WiseWattageReflex",

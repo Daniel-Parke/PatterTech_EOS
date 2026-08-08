@@ -160,8 +160,8 @@ same budget, drifting, and an agent picking whichever it read last.
 Basis: decision.
 
 **The conduit contradiction, resolved.** The v1 archive held one number
-twice: `archive/v1/doctrine/web-design/foundations/LIGHT.md` and
-`archive/v1/doctrine/web-design/foundations/MOTION.md` both stated a
+twice: `archive/v1-final:doctrine/web-design/foundations/LIGHT.md` and
+`archive/v1-final:doctrine/web-design/foundations/MOTION.md` both stated a
 conduit duty cycle of eighteen seconds or longer. The newer argued
 ruling in WG-WEB-005, recorded against the v4 recalibration, relaxed it
 after the verdict that v3 sat on the wrong side of the line between

@@ -65,17 +65,17 @@ load-bearing rule now lives. Nothing was dropped silently.
 | The ten-class type taxonomy | change | Eight orthogonal axes in kernel/METADATA_SPEC.md with minima that vary by kind. The v1 type field survives for EOS-internal files; the axes apply wherever a kind is declared. |
 | registry/ | survive | Still the home of versioned fact. Canonical machine files now, registry/evidence.json and registry/coverage.json, with the Markdown views derived. |
 | The voice law | split | Three scopes: binding for this repo's prose, default for venture documentation, preference for brand voice. |
-| GUIDE.md, START.md, VISION.md | retire | GUIDE.md archived with TOUR.md regenerated per release; START.md retired into the router and org/START.md; VISION.md merged into README.md. All three are preserved at archive/v1/. |
+| GUIDE.md, START.md, VISION.md | retire | GUIDE.md replaced by TOUR.md, which is rewritten by hand each release; START.md retired into the router and org/START.md; VISION.md merged into README.md. All three are preserved at the archive/v1-final tag. |
 
 ## Machinery
 
 | v1 | fate | v2 |
 | --- | --- | --- |
-| kernel/SCALE_MATRIX.md, scales S, M and L | change | Scales S and ORG, M and L merged. The seed check reads the matrix at the seed's own pinned commit, so a v1-pinned seed is still judged by the v1 matrix and does not fail for being old. The v1 matrix is archived at archive/v1/kernel/SCALE_MATRIX.md. |
+| kernel/SCALE_MATRIX.md, scales S, M and L | change | Scales S and ORG, M and L merged. The seed check reads the matrix at the seed's own pinned commit, so a v1-pinned seed is still judged by the v1 matrix and does not fail for being old. The v1 matrix is archived at archive/v1-final:kernel/SCALE_MATRIX.md. |
 | kernel/SEED_RUBRIC.md | survive | Extended. The A-items keep their v1 check ids and gain D001 to D009, which cover compiled ancestry, the negative matrix, deferral follow-ups, guide resolution, the policy schema, the guard adapter and the seeded claims file. The five human items are unchanged. |
 | Cadences in org/CADENCE.md | change | org/cadence.json, machine-readable, with a Markdown pointer beside it. Check S009 flags overdue rows. Cadences compile at ORG only; an S venture runs none. |
 | Playbooks, org/playbooks/CATALOGUE.md at L | change | kernel/templates/org/PLAYBOOKS.tpl.md compiles at ORG. The EOS's own procedures are org/PLAYBOOKS.md, PB-E01 to PB-E10. |
-| tools/eos_check.py | split | The tools/eos package, run as one command with four check series: E structural, S semantic, D seed, F freshness. tools/eos_check.py remains as a deprecation shim, and the v1 checker is kept at archive/v1/tools/eos_check.py because it was the parity anchor for the port. |
+| tools/eos_check.py | split | The tools/eos package, run as one command with four check series: E structural, S semantic, D seed, F freshness. tools/eos_check.py remains as a deprecation shim, and the v1 checker is kept at archive/v1-final:tools/eos_check.py because it was the parity anchor for the port. |
 | The metadata-only checker | change | The semantic series checks operational truth: enum validity, supersession pairs, path and id resolution, derived drift, pack organs, machine facts against git reality, canonical-fact duplication, cadence overdue and cross-registry consistency. |
 
 ## Seed files

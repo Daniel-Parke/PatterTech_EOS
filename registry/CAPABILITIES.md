@@ -243,7 +243,7 @@ row is not coverage, and this view says so first.
 - **Activation**: Any prose written for a venture or for this repo, at three scopes: binding for EOS-internal prose, default for venture documentation, preference for brand voice. Predicates: writes_user_facing_text, has_forms, ships_second_locale, writes_venture_documentation, writes_eos_internal_prose, reuses_external_style_guidance.
 - **Worked example**: `packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md`
 - **Evaluation**: packs/writing-content/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/writing-content/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/writing-content.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.
-- **Estate relevance**: Every repo writes prose, and the v1 voice module is now archived at archive/v1/doctrine/voice/.
+- **Estate relevance**: Every repo writes prose, and the v1 voice module is now archived at archive/v1-final:doctrine/voice/.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:CLDR-plural-categories
 - **Evidence**: 16 rows, EV-0433, EV-0434, EV-0435, EV-0436, EV-0437, EV-0438, EV-0439, EV-0440, EV-0441, EV-0442, EV-0443, EV-0444, EV-0445, EV-0446, EV-0447, EV-0448

@@ -34,6 +34,6 @@ policy file.
   inception drill runs on, referenced by benchmark task T10.
 
 The v1 files these replace are archived verbatim under
-archive/v1/inception/. The worked v2 examples are
+archive/v1-final:inception/. The worked v2 examples are
 examples/v2-worked-lean.md and examples/v2-worked-high-assurance.md;
 examples/autowatt-seed.md is the v1 compile it inherits from.

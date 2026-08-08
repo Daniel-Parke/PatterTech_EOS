@@ -354,12 +354,18 @@ def test_s009_cadence_table_overdue(tmp_path):
 
 
 def test_s009_machine_rows_overdue(tmp_path):
+    """The row key is id, as org/cadence.json actually writes it. The
+    check read 'name' and so reported every overdue cadence as '?',
+    which told the operator a cadence was late but never which one."""
     root = make_repo(tmp_path)
     write(root, "org/cadence.json",
-          json.dumps([{"name": "harvest", "next_due": "2026-07-15"}]))
+          json.dumps([{"id": "harvest", "next_due": "2026-07-15",
+                       "procedure": "org/PLAYBOOKS.md#pb-e02-harvest"}]))
     fs = run_s(root)
-    assert only(fs, "S009") == [("error", "org/cadence.json",
-                                 "cadence 'harvest' overdue: next_due 2026-07-15")]
+    assert only(fs, "S009") == [
+        ("error", "org/cadence.json",
+         "cadence 'harvest' overdue: next_due 2026-07-15, "
+         "procedure org/PLAYBOOKS.md#pb-e02-harvest")]
 
 
 def test_s009_malformed_machine_rows(tmp_path):

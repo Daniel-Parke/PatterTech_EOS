@@ -193,6 +193,14 @@ def _points_back(model: RepoModel, target, back_key: str, origin) -> bool:
     return False
 
 
+# A lineage reference into a git tag, for example
+# archive/v1-final:GUIDE.md. ADR-0003 moved the archive of record from a
+# directory to a pushed tag, and a tag is immutable: the superseded file
+# cannot be edited to point back, so bidirectionality is impossible by
+# construction rather than by omission. Such a reference is terminal.
+TAG_REF = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]*:[A-Za-z0-9][A-Za-z0-9._/-]*$")
+
+
 @register("S002")
 def check_s002_supersession(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
@@ -203,6 +211,8 @@ def check_s002_supersession(ctx: dict) -> list:
             continue
         for key, back_key in pairs:
             for value in _lineage_values(rec.fm.data, key):
+                if TAG_REF.match(value.strip()):
+                    continue
                 target = _resolve_ref(model, value)
                 if target is None:
                     out.append(_f(ctx, "S002", rec.path,
@@ -523,7 +533,9 @@ def check_s009_cadence_overdue(ctx: dict) -> list:
             due = _parse_due(str(row.get("next_due", "")))
             if due and due < today:
                 out.append(_f(ctx, "S009", "org/cadence.json",
-                              f"cadence '{row.get('name', '?')}' overdue: next_due {row.get('next_due')}"))
+                              f"cadence '{row.get('id', '?')}' overdue: "
+                              f"next_due {row.get('next_due')}, "
+                              f"procedure {row.get('procedure', 'unrecorded')}"))
     return out
 
 

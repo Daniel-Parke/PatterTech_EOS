@@ -18,9 +18,10 @@ sources: [EV-0201, EV-0203]
 Carried forward from the v1 devops module wargame of the same id and
 re-graded against new evidence. The v1 ruling (a scheduled restore test
 from the first production deploy) survives; what changes is that a tick
-in a cadence row is no longer accepted as evidence. The v1 file at
-`archive/v1/doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md` stays until
-the integrator retires it, and this version governs.
+in a cadence row is no longer accepted as evidence. This version
+governs. The v1 file it replaces is at
+`archive/v1-final:doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md`,
+kept for provenance and not for guidance.
 
 ## The question
 

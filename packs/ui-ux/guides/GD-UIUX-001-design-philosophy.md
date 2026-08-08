@@ -124,4 +124,4 @@ Rulings are marked argued (engaged the triggers afresh) or inherited
 - **PatterTech Website (2026-07, argued, inherited into this pack)**:
   long reads took a skim layer over a read-first structure, which is
   option D with the density fork of WG-WEB-006 answered read-first.
-  Recorded in `archive/v1/doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md`.
+  Recorded in `archive/v1-final:doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md`.

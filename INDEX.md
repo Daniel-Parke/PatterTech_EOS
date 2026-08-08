@@ -157,6 +157,11 @@ file. Frozen trees are not indexed.
 | packs/architecture/exemplars/billing-catalogue-boundary.md | example | arch tooling ci | The pack applied end to end to a two-module Python repo where billing may read the catalogue and the catalogue must never know about billing |  |
 | packs/architecture/guides/GD-ARCH-001-deployment-shape.md | guide | arch infra | One deployable, several deployables, or contract-shaped seams inside one process | 2027-03 |
 | packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md | guide | arch tooling ci | Where module boundaries live, whether convention, a machine contract, the directory tree, or a runtime call graph | 2026-12 |
+| packs/architecture/guides/WG-ARCH-002-orm-or-raw-sql.md | guide | arch data | How the service reaches its data, whether an ORM, raw SQL behind a repository, a query builder, or SQL files compiled to typed access, and where the seam sits | 2027-07 |
+| packs/architecture/guides/WG-ARCH-003-derived-state.md | guide | arch data state | Where a derived value is allowed to rest, whether computed on read, cached with a named owner, frozen as an immutable snapshot, or maintained by the write path | 2027-07 |
+| packs/architecture/guides/WG-ARCH-004-job-execution.md | guide | arch state infra | Where background work runs, whether in the request process, on a durable database claim queue, on an external broker, or on a scheduled pass over state | 2027-07 |
+| packs/architecture/guides/WG-ARCH-005-contract-seam.md | guide | arch ci tooling | How frontend and backend come to agree on types, whether hand-maintained, generated and gated, one language end to end, or parsed at the edge | 2027-07 |
+| packs/architecture/guides/WG-ARCH-006-change-proof.md | guide | arch testing ci | What proves a change changed nothing, whether a green suite, behaviour pinned first, a byte-stable output canary, or a differential run against the old version | 2027-07 |
 | packs/architecture/guides/WG-ARCH-007-vendor-seams.md | guide | arch security money | How deep a vendor is allowed into the codebase, whether SDK throughout, an owned adapter, the raw protocol, or a generated client | 2027-01 |
 | packs/architecture/guides/WG-ARCH-008-database-topology.md | guide | arch data infra | Where data rests, whether one shared database, private tables with distinct credentials, one store per deployable, or a records core with a separate readings store | 2027-06 |
 | packs/architecture/PACK.md | guide | arch data infra tooling ci | Architecture pack for boundaries declared and machine-checked, decisions recorded as ADRs, and one deployable with one database until measured evidence says otherwise | 2027-02 |
@@ -373,6 +378,7 @@ file. Frozen trees are not indexed.
 | registry/stacks/README.md | registry | eos infra hosting | Stack profiles, what each is for and when to reach for it | 2027-01 |
 | registry/stacks/STACK-fastapi-postgres.md | stack | infra hosting data testing | Profile 02, FastAPI on Postgres, shape, caps and hard-won constraints | 2027-01 |
 | registry/stacks/STACK-fullstack-app.md | stack | web infra hosting testing ci | Profile 03, Next.js front on FastAPI back, the contract seam and the gate set | 2027-01 |
+| registry/stacks/STACK-local-first-pwa.md | stack | web infra perf testing | Profile 04, local-first PWA with a WASM compute core, shape, constraints and the sharp edges Guth paid for | 2027-02 |
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
 | registry/VENDORS.md | registry | eos infra hosting | Trusted third parties, what we trust each for and the exit route | 2027-01 |
 | tools/CLI_CONTRACTS.md | kernel | eos | Subcommand contracts for python -m tools.eos, inputs, JSON outputs, exit codes |  |
