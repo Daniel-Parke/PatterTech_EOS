@@ -13,6 +13,7 @@ only engage when the matrix at the pin requires the policy and claims
 files, so v1 seeds never see them.
 """
 
+import subprocess
 import json
 import re
 import shutil
@@ -58,14 +59,22 @@ def test_seed_v1_m_fixture_only_finding_is_the_unscheduled_lockin():
 
 
 def test_matrix_parses():
-    """The live matrix is v2 (S and ORG); the v1 layout lives in the archive."""
+    """The live matrix is v2 (S and ORG); v1's is at the archive tag.
+
+    ADR-0003 moved the archive of record from a directory to a pushed
+    tag, so the v1 matrix is read with git show rather than from the
+    tree. A seed pinned before the swap still resolves v1's matrix, and
+    this asserts that shape stays parseable.
+    """
     required, addons, empty_dirs = parse_matrix(REPO_ROOT)
     assert set(required) == {"S", "ORG"}
     assert "docs/TASKS.md" in required["S"]
     assert "org/policy.json" in required["ORG"]
-    v1 = parse_matrix_text(
-        (REPO_ROOT / "archive" / "v1" / "kernel" / "SCALE_MATRIX.md")
-        .read_text(encoding="utf-8"))[0]
+    proc = subprocess.run(
+        ["git", "-C", str(REPO_ROOT), "show",
+         "archive/v1-final:kernel/SCALE_MATRIX.md"],
+        capture_output=True, text=True, encoding="utf-8", check=True)
+    v1 = parse_matrix_text(proc.stdout)[0]
     assert "docs/WORKLOG.md" in v1["S"]
     assert "org/QUEUE.md" in v1["M"]
     assert "org/work/NEXT.md" in v1["L"]
@@ -73,9 +82,7 @@ def test_matrix_parses():
     # v2 creates directories on first use, so the live matrix seeds none.
     assert empty_dirs.get("S", []) == []
     assert empty_dirs.get("ORG", []) == []
-    v1_dirs = parse_matrix_text(
-        (REPO_ROOT / "archive" / "v1" / "kernel" / "SCALE_MATRIX.md")
-        .read_text(encoding="utf-8"))[2]
+    v1_dirs = parse_matrix_text(proc.stdout)[2]
     assert v1_dirs["M"] == ["org/decisions/", "org/logs/"]
     assert set(v1_dirs["M"]).issubset(set(v1_dirs["L"]))
     assert "org/work/items/" in v1_dirs["L"]

@@ -295,7 +295,11 @@ def _id_definitions(model: RepoModel) -> dict:
     defs: dict = {"WG": set(), "ADR": set(), "PB": set(), "S": set()}
     for rec in model.files:
         stem = PurePosixPath(rec.path).stem
-        if rec.fm.present and rec.fm.data.get("type") == "wargame":
+        # The filename carries the id. Keying on type: wargame missed
+        # every v1 wargame migrated into a pack, because those carry
+        # type: guide, so their ids read as undefined the moment the
+        # archived originals left the tree.
+        if rec.fm.present:
             m = re.match(r"WG-[A-Z]+-\d{3}", stem)
             if m:
                 defs["WG"].add(m.group(0))
@@ -322,9 +326,19 @@ def check_s004_id_references(ctx: dict) -> list:
     beside it: ADR numbering is per repository, and the estate cites
     venture rulings by owner. An id that also appears unqualified
     somewhere is still checked.
+
+    A third case is an id whose defining file was retired to a pushed
+    tag under ADR-0003. It is still defined and still locatable, so
+    archive/RETIRED_IDS.json counts as a definition. Without that,
+    moving the v1 tree to a tag would have turned 33 real ids into 79
+    dangling references, and the only fix would have been rewording
+    every provenance line in the repository.
     """
+    from .structural import retired_ids
+
     model: RepoModel = ctx["model"]
     defs = _id_definitions(model)
+    defs["WG"] = set(defs.get("WG") or set()) | retired_ids(model)
     out = []
     for rec in model.files:
         if not _semantic_scope(rec):

@@ -104,7 +104,7 @@ in DECISIONS.md or an ADR, in a form a checker can parse.
 
 - **WiseWattage (2026, inherited)**: B in effect. The committed,
   drift-checked contract from
-  `archive/v1/doctrine/architecture/wargames/WG-ARCH-005-contract-seam.md` gives
+  `packs/architecture/guides/WG-ARCH-005-contract-seam.md` gives
   the baseline a gate needs; the tier itself was never written down,
   which is exactly the gap BR-3 closes.
 - **No venture has argued D.** Stripe's approach is read as an exemplar

@@ -120,10 +120,9 @@ pinned container is C for a user interface.
 - **WiseWattage (2026, argued)**: C for pixels, Lost Pixel at zero
   threshold inside a pinned container, and B by policy for refactors
   where the suite is thin, its PB-012.
-- **PatterStudio (2026-07, argued)**: C. A deterministic byte-stable
-  build with nothing generative in the build step. The harvest row in
-  `registry/LESSONS.md` records it becoming the estate principle that
-  plan and build decouple.
+- **PatterStudio (2026-07, argued)**: C. A byte-stable build with
+  nothing generative in the build step; `registry/LESSONS.md` records
+  it becoming the estate principle that plan and build decouple.
 
 ## Counter-evidence
 
