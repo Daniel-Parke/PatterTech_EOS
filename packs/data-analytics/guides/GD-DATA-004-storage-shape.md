@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: observational
 sources: [EV-0057]
 review: 2028-01
-review_by: 2028-01
 ---
 
 # GD-DATA-004: Where does the analytics data sit?
@@ -25,12 +24,12 @@ common case.
 
 - The working set, meaning how much data a typical query actually
   scans. Not the storage total. These are different quantities and only
-  the second is usually quoted (`FRAG-DATA-ANALYTICS-07`).
+  the second is usually quoted (`EV-0311`).
 - Is anything other than SQL going to read these tables, now or within
   the horizon you are planning for?
 - Is unstructured data or model training in scope at all?
 - How much operations time exists? Catalogue, compaction and snapshot
-  expiry are ongoing work (`FRAG-DATA-ANALYTICS-06`).
+  expiry are ongoing work (`EV-0310`).
 - How expensive would leaving be, and does that cost actually bind on
   anything you plan to do?
 
@@ -48,7 +47,7 @@ format, so leaving means an export.
 Query engine and table format are separated: the table metadata,
 snapshots, schema evolution and partition evolution live with the files
 in an open format, so more than one engine can read the same table
-without an export (`FRAG-DATA-ANALYTICS-06`). Buys: buying a query
+without an export (`EV-0310`). Buys: buying a query
 engine and owning your tables become separable decisions. Costs:
 catalogue operation, compaction and snapshot expiry become your job, and
 implementation parity across languages is a claim to verify per feature
@@ -58,7 +57,7 @@ rather than a given.
 
 One copy of the data in an open direct-access format with a metadata
 layer over it giving transactions and schema enforcement, replacing the
-two-tier lake-plus-warehouse shape (`FRAG-DATA-ANALYTICS-05`). Buys: the
+two-tier lake-plus-warehouse shape (`EV-0309`). Buys: the
 same facts stop existing twice with an ETL hop between them, which is
 where staleness and duplicated cost come from. Costs: it solves a
 problem you only have if you already have a lake, and the argument
@@ -119,8 +118,8 @@ pack in
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: A as the
   default with the working set as the trigger. Argued from
-  `FRAG-DATA-ANALYTICS-07` for the population and
-  `FRAG-DATA-ANALYTICS-06` for the cost of the seam.
+  `EV-0311` for the population and
+  `EV-0310` for the cost of the seam.
 - **Signup and checkout event model (2026-08, inherited)**: A,
   inherited. Two hundred thousand events, one consumer, SQL only. See
   `packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md`.

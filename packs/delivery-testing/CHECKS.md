@@ -10,7 +10,6 @@ sources: [EV-0007, EV-0015, EV-0016, EV-0186, EV-0187, EV-0190, EV-0195]
 review: 2027-08
 type: guide
 tags: [delivery, testing, ci]
-review_by: 2027-08
 ---
 
 # CHECKS: delivery, testing and quality

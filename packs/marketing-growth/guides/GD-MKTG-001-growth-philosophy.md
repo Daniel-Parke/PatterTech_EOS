@@ -9,7 +9,6 @@ sources: [EV-0055, EV-0095]
 review: on-change-of:Reforge-and-IPA-primary-text-access
 type: guide
 tags: [brand, content, seo, product]
-review_by: 2027-02
 ---
 
 # GD-MKTG-001: Which growth philosophy does this venture run?
@@ -45,12 +44,12 @@ and search discovery as one artefact, edited on encounter (EV-0095).
 Buys an asset that keeps working after the spend stops, and cheap
 credibility in a technical category. Costs a payback measured in a year
 or more, and it produces nothing at all where buyers do not read
-(FRAG-MKTG-01, FRAG-MKTG-04, FRAG-MKTG-14).
+(EV-0353, EV-0356, EV-0366).
 
 ### B. Reach-led brand building
 Buy penetration among people who have never bought, budget by time
 horizon rather than blended return, and treat loyalty as a consequence
-of size rather than a lever (FRAG-MKTG-16, FRAG-MKTG-17). Buys growth
+of size rather than a lever (EV-0368, EV-0369). Buys growth
 in the only place the repeat-purchase panels say it comes from. Costs
 money, patience, and visibility in short-term reporting. The evidence is
 directional: both records were read at second hand, and one rests on
@@ -59,7 +58,7 @@ self-selected award entries.
 ### C. Growth loops
 Name the step where output re-enters as input, through content,
 invitation or a public artefact, and put the engine inside product usage
-(FRAG-MKTG-13). Buys compounding without proportional spend, and a
+(EV-0365). Buys compounding without proportional spend, and a
 single owner for a mechanism a funnel would split across teams. Costs
 credibility: the source is a practitioner essay with no data, published
 by a consultancy positioning its own curriculum.
@@ -67,7 +66,7 @@ by a consultancy positioning its own curriculum.
 ### D. Lifecycle and owned channel
 Capture consent with provenance, run sequences against the gap between
 interest and readiness, and treat sending reputation as a production
-service level (FRAG-MKTG-07, FRAG-MKTG-08, FRAG-MKTG-09). Buys a channel
+service level (EV-0359, EV-0360, EV-0361). Buys a channel
 nobody can take away and a compliance surface that is auditable. Costs a
 real and jurisdictional compliance burden, and it needs an audience that
 already exists.

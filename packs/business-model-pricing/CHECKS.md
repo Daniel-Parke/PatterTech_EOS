@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: not-applicable
-sources: [FRAG-BUSINESS-MODEL-PRICING-10, FRAG-BUSINESS-MODEL-PRICING-11, FRAG-BUSINESS-MODEL-PRICING-13, FRAG-BUSINESS-MODEL-PRICING-14, FRAG-BUSINESS-MODEL-PRICING-15]
+sources: [EV-0296, EV-0297, EV-0299, EV-0300, EV-0301]
 review: 2028-05
-review_by: 2028-05
 ---
 
 # business-model-pricing pack checks
@@ -52,14 +51,14 @@ later; none is executable now.
 | Id | Verifies | Who decides | Requirement |
 | --- | --- | --- | --- |
 | J-01 | The condition justifying the practice is actually true of this venture | Reviewer | D1 |
-| J-02 | The unavoidable and optional split is honest, and each optional charge really is declinable | Reviewer, because the boundary is where enforcement disputes sit (FRAG-BUSINESS-MODEL-PRICING-13) | B1 |
+| J-02 | The unavoidable and optional split is honest, and each optional charge really is declinable | Reviewer, because the boundary is where enforcement disputes sit (EV-0299) | B1 |
 | J-03 | The value case is quantified for a named segment, where the practice is value-informed | Reviewer | D1 |
 | J-04 | The stated cause of a price change is the real cause | Reviewer, because a schema can refuse a demand label and cannot detect a demand motive | D2 |
-| J-05 | No pattern from the almost-always-harmful list appears in the pricing or checkout flow | Reviewer, walking the flow (FRAG-BUSINESS-MODEL-PRICING-14) | B6 |
+| J-05 | No pattern from the almost-always-harmful list appears in the pricing or checkout flow | Reviewer, walking the flow (EV-0300) | B6 |
 | J-06 | The metered unit is one the buyer can forecast and control | Reviewer | GD-BMP-002 |
-| J-07 | The bundle decomposes into distinct performance obligations with defensible stand-alone selling prices under the declared framework | Reviewer, or an accountant (FRAG-BUSINESS-MODEL-PRICING-11) | B4 |
+| J-07 | The bundle decomposes into distinct performance obligations with defensible stand-alone selling prices under the declared framework | Reviewer, or an accountant (EV-0297) | B4 |
 | J-08 | A survey-derived number was treated as a bracket rather than a decision | Reviewer | D6 |
-| J-09 | An agreed payment term longer than thirty days is fair to both parties | Reviewer (FRAG-BUSINESS-MODEL-PRICING-15) | B3 |
+| J-09 | An agreed payment term longer than thirty days is fair to both parties | Reviewer (EV-0301) | B3 |
 | J-10 | The cancellation route works, end to end, without contacting anyone | Person, doing it | B2 |
 | J-11 | The trial test plan reads out all three funnel stages | Reviewer | D3 |
 

@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: not-applicable
-sources: [FRAG-LEGAL-LICENSING-02, FRAG-LEGAL-LICENSING-08, FRAG-LEGAL-LICENSING-09, FRAG-LEGAL-LICENSING-10, FRAG-LEGAL-LICENSING-12, FRAG-LEGAL-LICENSING-13, FRAG-LEGAL-LICENSING-14]
+sources: [EV-0338, EV-0344, EV-0345, EV-0346, EV-0348, EV-0349, EV-0350]
 review: 2026-12
-review_by: 2026-12
 ---
 
 # legal-licensing pack checks
@@ -84,7 +83,7 @@ licensing result and no product. That is a failure with a clean report.
 
 A green run proves declarations are present, consistent and bucketed. It
 does not prove they are correct: a fully conformant repository can
-declare the wrong licence (FRAG-LEGAL-LICENSING-08), and detection
+declare the wrong licence (EV-0344), and detection
 reports what a file claims about itself
-(FRAG-LEGAL-LICENSING-10). Read the whole set as evidence that the
+(EV-0346). Read the whole set as evidence that the
 questions were asked, never as a compliance result.

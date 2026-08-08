@@ -11,7 +11,6 @@ volatility: slow
 review: 2027-12
 type: guide
 tags: [arch, security, money]
-review_by: 2027-12
 sources: [EV-0023, EV-0024, EV-0122, EV-0124, EV-0125, EV-0126, EV-0129, EV-0130, EV-0133, EV-0135, EV-0136, EV-0139]
 ---
 

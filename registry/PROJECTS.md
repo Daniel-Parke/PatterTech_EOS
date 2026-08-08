@@ -3,7 +3,7 @@ summary: The venture directory, what each is pinned to, whether that pin resolve
 type: registry
 tags: [eos]
 status: active
-review_by: 2026-11
+review: 2026-11
 ---
 
 # PROJECTS

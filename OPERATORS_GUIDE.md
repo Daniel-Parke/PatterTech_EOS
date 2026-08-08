@@ -2,7 +2,7 @@
 summary: Daniel's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong
 type: guide
 tags: [eos]
-review_by: 2027-03
+review: 2027-03
 ---
 
 # OPERATORS_GUIDE

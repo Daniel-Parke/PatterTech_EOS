@@ -106,7 +106,7 @@ failure that cannot be repaired afterwards. PECR regulation 22 requires
 prior consent for marketing mail to an individual subscriber, with a
 single narrow escape needing all three of details obtained in the
 course of a sale or negotiation, similar products only, and a free
-refusal route at collection and in every later message (FRAG-MKTG-09).
+refusal route at collection and in every later message (EV-0361).
 Provenance cannot be rebuilt from a table of addresses six months on,
 and UK statute now expects a recorded lawful basis rather than a
 privacy notice (EV-0225). Basis: law. See
@@ -118,10 +118,10 @@ without a conversation.** `sends_marketing_message`. Mail carries a
 `List-Unsubscribe-Post: List-Unsubscribe=One-Click`, both inside the
 DKIM signed-header list, with an opaque hard-to-forge token the server
 validates, no cookies, no HTTP authentication and no confirmation page
-(FRAG-MKTG-07). A visible in-body link stands beside it (FRAG-MKTG-08).
+(EV-0359). A visible in-body link stands beside it (EV-0360).
 Prevents a refusal route that exists on paper and fails in the hand,
 which is what PECR asks for at collection and in every message
-(FRAG-MKTG-09). The token closes the mirror failure, an unsubscribe
+(EV-0361). The token closes the mirror failure, an unsubscribe
 endpoint anyone can forge into a denial-of-subscription hole. Basis:
 standard, discharging a legal duty. See
 `packs/marketing-growth/refs/SEND_PREFLIGHT.md`.
@@ -133,7 +133,7 @@ any address in it. Suppression survives list re-import and a change of
 provider. Prevents the usual shape of a breach, which is not a missing
 link but a link whose effect never reached the sending system. RFC 8058
 fixes the signal and says nothing about how fast the effect must land
-(FRAG-MKTG-07), so this pack rules the timing: before the next send,
+(EV-0359), so this pack rules the timing: before the next send,
 not on a nightly job. Basis: law, because a refusal with no effect is
 the same as no refusal.
 
@@ -150,7 +150,7 @@ has to be argued rather than absorbed.
 
 **D2. A growth plan names its reinvestment step.** The place where an
 output re-enters as an input. A plan with none is a paid-acquisition
-budget and is described as one (FRAG-MKTG-13). Reason: the source is a
+budget and is described as one (EV-0365). Reason: the source is a
 practitioner essay with no data, and this rule survives the weak
 evidence because it is a naming discipline, not a claim about results.
 
@@ -159,7 +159,7 @@ labelled.** Any conversion or lift figure carries a holdout design or
 the literal token UNVERIFIED. Reason: across fifteen randomised
 experiments and roughly 500 million user-experiment observations,
 observational estimators on far richer data than a venture will ever
-hold failed to reproduce the randomised estimates (FRAG-MKTG-10). Scope
+hold failed to reproduce the randomised estimates (EV-0362). Scope
 note: one platform, one era, mostly large advertisers with small
 percentage effects. It does not show observational methods failing
 everywhere, and it says nothing about a venture that cannot afford a
@@ -170,30 +170,30 @@ holdout. See
 one.** Any percentage split across touchpoints is a declared reporting
 convention. Reason: the dominant analytics vendor deleted first-click,
 linear, time-decay and position-based models from its own product in
-November 2023 (FRAG-MKTG-12), and the platform paper defending
+November 2023 (EV-0364), and the platform paper defending
 attribution anchors its model to randomised trials rather than
-replacing them (FRAG-MKTG-11).
+replacing them (EV-0363).
 
 **D5. A funnel number ships with its definition as configuration.**
 Step ordering mode, exclusion steps and the conversion denominator sit
 in machine-readable form beside the number. Reason: the same product
 yields different rates under sequential, strict-order and any-order
 steps, and two teams quoting different conversion rates are usually
-quoting different parameter sets (FRAG-MKTG-15).
+quoting different parameter sets (EV-0367).
 
 **D6. Every published page has a named human owner and a stated
 purpose,** recorded in a manifest the page set is checked against.
 Reason: the index operator's spam policies name scaled content abuse
 and site reputation abuse, and the test is purpose rather than
-production method (FRAG-MKTG-02), so a machine-drafted page with a real
+production method (EV-0354), so a machine-drafted page with a real
 owner and a real reader is fine while a hundred with neither are not.
 The helpful-content guidance asks that substantial automation be
-evident to the visitor (FRAG-MKTG-04). See
+evident to the visitor (EV-0356). See
 `packs/marketing-growth/guides/GD-MKTG-004-content-provenance.md`.
 
 **D7. Structured data describes what the reader can see.** Every markup
 property carrying user-facing text has a matching string in the
-rendered page (FRAG-MKTG-03), against the versioned vocabulary at
+rendered page (EV-0355), against the versioned vocabulary at
 EV-0022. Reason: the penalty is bounded, loss of rich-result
 eligibility rather than a ranking hit, and the rule is testable.
 
@@ -201,7 +201,7 @@ eligibility rather than a ranking hit, and the rule is testable.
 file ships through the same pipeline as code, with a test asserting the
 production profile carries no blanket disallow and a staging fixture
 that fails the same test. Reason: a 5xx on that file means a conforming
-crawler must assume complete disallow (FRAG-MKTG-06), so a botched
+crawler must assume complete disallow (EV-0358), so a botched
 deploy is a self-inflicted deindexing incident. It is not a security
 control and never names a secret path.
 
@@ -209,7 +209,7 @@ control and never names a secret path.
 DKIM, forward and reverse DNS, TLS and RFC 5322 conformance for every
 sender; above five thousand messages a day, SPF and DKIM and DMARC with
 From alignment plus one-click unsubscribe; spam rate under 0.30 per
-cent (FRAG-MKTG-08). Reason: published numbers a machine can assert
+cent (EV-0360). Reason: published numbers a machine can assert
 before anything ships. Scope note: one mailbox provider's rules for its
 own inboxes. Others publish overlapping but different thresholds, and
 at least one computes the spam-rate denominator differently, so no
@@ -220,16 +220,16 @@ single number is universal. See
 brand.** Reason: the repeat-purchase tradition puts acquisition at
 roughly twice the weight of retention and finds loyalty largely a
 consequence of brand size rather than a lever that produces it
-(FRAG-MKTG-16). Scope note: consumer goods and mass-market services
+(EV-0368). Scope note: consumer goods and mass-market services
 panels, thin on business software and subscription products where
 negative churn is a real mechanism, and the record is an institute
 summary rather than the underlying papers.
 
 **D11. Each activity declares a time horizon.** Reason: brand-building
 and sales activation behave differently in time, and one blended return
-number will always select activation (FRAG-MKTG-17). The quoted 60:40
+number will always select activation (EV-0369). The quoted 60:40
 split is not adopted: it rests on self-selected award case studies, the
-observational class FRAG-MKTG-10 found unreliable. The horizon
+observational class EV-0362 found unreliable. The horizon
 declaration survives; the ratio does not.
 
 **D12. Field performance is a marketing constraint on public
@@ -244,7 +244,7 @@ Taste. Depart freely, no reason needed.
 - Channel mix, and whether any of it is paid.
 - Pull rather than push, as in the public handbook at EV-0095, where the
   audience has a reading habit. It transfers badly to a category whose
-  buyers do not read (FRAG-MKTG-14).
+  buyers do not read (EV-0366).
 - Publishing the marketing handbook itself, as at EV-0055 or EV-0095.
 - Taking a stance rather than hedging, which is what stops
   machine-drafted content reading like everyone else's.
@@ -271,46 +271,46 @@ Evaluation criteria are in `packs/marketing-growth/CHECKS.md`.
 ## Failure modes and anti-patterns
 
 - **Markup describing content no reader can see.** Rich-result
-  eligibility goes (FRAG-MKTG-03).
+  eligibility goes (EV-0355).
 - **Unsubscribe as a landing page with a confirm button.** The
   specification forbids the confirmation step on the one-click route,
   and a provider that never reaches the endpoint counts the complaint
-  instead (FRAG-MKTG-07).
+  instead (EV-0359).
 - **Lawful basis defaulted to legitimate interests for everything.** It
   has to be true per record, and PECR offers no such escape for
-  marketing mail to an individual (FRAG-MKTG-09).
+  marketing mail to an individual (EV-0361).
 - **A conversion percentage with no holdout and no label.** It reads as
-  measurement and is arithmetic (FRAG-MKTG-10).
+  measurement and is arithmetic (EV-0362).
 - **A loop diagram with no reinvestment step.** An arrow drawn back to
-  the start of a spending plan is not a loop (FRAG-MKTG-13).
+  the start of a spending plan is not a loop (EV-0365).
 - **Volume as strategy.** Named as scaled content abuse, and the test is
-  purpose, not production method (FRAG-MKTG-02).
+  purpose, not production method (EV-0354).
 - **One global consent rule.** UK PECR is opt-in with a narrow soft
-  opt-in, the US regime is opt-out, and EU states vary (FRAG-MKTG-09).
+  opt-in, the US regime is opt-out, and EU states vary (EV-0361).
 - **Crawler directives edited in a marketing console,** bypassing the
   release gate D8 exists to hold.
 - **A retention-first plan for a brand with few buyers.** The double
-  jeopardy evidence says that is close to backwards (FRAG-MKTG-16).
+  jeopardy evidence says that is close to backwards (EV-0368).
 - **Inventing an optimisation workstream for AI answers.** The vendor
   states no new file or markup is needed for its own AI surfaces
-  (FRAG-MKTG-05).
+  (EV-0357).
 - **Suppression held inside one sending provider.** It does not survive
   the migration, and the first send from the next one mails the people
   who refused.
 - **A keywords meta tag.** The index operator says it is unused
-  (FRAG-MKTG-01).
+  (EV-0353).
 
 ## Open questions and counter-evidence
 
 - **Acquisition against the installed base is unresolved.** The
   repeat-purchase tradition points budget at people who have never
-  bought (FRAG-MKTG-16); loop thinking puts the engine inside the
-  existing user base (FRAG-MKTG-13). Their evidence bases barely
+  bought (EV-0368); loop thinking puts the engine inside the
+  existing user base (EV-0365). Their evidence bases barely
   overlap, consumer panels on one side and software anecdote on the
   other. This pack makes the venture declare which world it is in and
   refuses to choose for it.
 - **Optimising for AI answers is genuinely open.** The vendor denial
-  (FRAG-MKTG-05) is self-interested and covers its own surfaces only. A
+  (EV-0357) is self-interested and covers its own surfaces only. A
   live counter-practice, a machine-readable file for assistants, is
   being adopted with no measurement behind it. Neither side has
   evidence, and the pack records nothing as settled.
@@ -319,7 +319,7 @@ Evaluation criteria are in `packs/marketing-growth/CHECKS.md`.
   is the largest gap in the pack, and D3's labelling rule is a
   work-around rather than a solution. The field is also a spectrum
   rather than a prohibition: later work in the same journal treats
-  non-experimental approaches more sympathetically than FRAG-MKTG-10
+  non-experimental approaches more sympathetically than EV-0362
   does, which is why D3 is a default and not a binding rule.
 - **Positioning has no evidence base here at all.** The well-known works
   are behind copyright and the research literature does not test them.
@@ -327,17 +327,17 @@ Evaluation criteria are in `packs/marketing-growth/CHECKS.md`.
 - **Three sources were read at second hand.** The institute page is
   all-rights-reserved and paraphrase only, the IPA text and its
   commentary were paywalled, and direct access to the loop essay was
-  refused at the cutoff (FRAG-MKTG-13, FRAG-MKTG-16, FRAG-MKTG-17). All
+  refused at the cutoff (EV-0365, EV-0368, EV-0369). All
   three are directional, none is a measured finding, and only the naming
   discipline in D2 is carried from the last.
 - **Attribution under widespread consent refusal is undocumented** by
-  the vendors that model around it (FRAG-MKTG-12).
+  the vendors that model around it (EV-0364).
 - **Whether machine-drafted content at volume is detectably worse,
   rather than merely against policy, is unmeasured.**
 - **Refresh triggers.** Re-argue this pack on: any revision of the
-  search guidance behind FRAG-MKTG-01 to FRAG-MKTG-05; a change to the
-  sender requirements at FRAG-MKTG-08; an amendment to PECR regulation
-  22; ICO guidance interpreting EV-0225; and the day the FRAG-MKTG-13,
-  FRAG-MKTG-16 and FRAG-MKTG-17 primary texts become readable. Tactics
+  search guidance behind EV-0353 to EV-0357; a change to the
+  sender requirements at EV-0360; an amendment to PECR regulation
+  22; ICO guidance interpreting EV-0225; and the day the EV-0365,
+  EV-0368 and EV-0369 primary texts become readable. Tactics
   here age faster than the rest of the estate, so every organ in this
   pack carries an event trigger rather than a distant date.

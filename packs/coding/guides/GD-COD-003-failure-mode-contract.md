@@ -9,7 +9,6 @@ basis: standard
 evidence_grade: observational
 sources: [EV-0011, EV-0023, EV-0025, EV-0061, EV-0171, EV-0174, EV-0175]
 review: on-change-of:EV-0175
-review_by: 2028-02
 ---
 
 # GD-COD-003: How do callers learn that a call failed?

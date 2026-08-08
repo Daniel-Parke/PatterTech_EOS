@@ -10,7 +10,6 @@ sources: [EV-0053, EV-0076, EV-0087, EV-0089, EV-0108, EV-0109, EV-0111, EV-0115
 review: on-change-of:anthropic-evals-publication
 type: guide
 tags: [eos, delivery, tooling]
-review_by: 2027-06
 ---
 
 # GD-AGENT-004: What checks the work?

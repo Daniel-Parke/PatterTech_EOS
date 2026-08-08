@@ -5,11 +5,10 @@ authority: default
 basis: decision
 evidence_grade: asserted
 scope: estate
-sources: [FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-15, FRAG-WRITING-CONTENT-16]
+sources: [EV-0435, EV-0440, EV-0447, EV-0448]
 review: 2028-09
 type: guide
 tags: [voice, brand, content]
-review_by: 2028-09
 ---
 
 # GD-WRIT-003: Which voice applies to this text?
@@ -47,7 +46,7 @@ because it applies nowhere else. Scope: eos-internal.
 Documentation and product prose inside a venture repo. Plain-language
 defaults apply: front-load the answer, lead with the verb, one
 instruction per step, the reader's own words
-(FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-15). A venture departs
+(EV-0435, EV-0447). A venture departs
 by recording a reason. Buys a sane starting point that no venture has
 to argue for. Costs an argument the day a venture wants a different
 register, which is the correct place for that argument. Scope: venture.
@@ -55,7 +54,7 @@ register, which is the correct place for that argument. Scope: venture.
 ### C. Brand voice, authority preference
 How a venture sounds to its market. Voice is fixed and describes who
 the product is; tone varies with the reader's emotional state
-(FRAG-WRITING-CONTENT-16). Capped at preference by
+(EV-0448). Capped at preference by
 `kernel/METADATA_SPEC.md`, and it activates only by explicit adoption.
 Buys a product that sounds like itself. Costs nothing enforceable, on
 purpose: a brand voice must never be able to block an engineer's merge.
@@ -65,7 +64,7 @@ Scope: brand:`<name>`.
 Not a fourth scope but an override that applies inside any of them. In
 instructions, errors and anything the reader must act on correctly:
 literal language, simple tense and voice, one instruction per step, no
-idiom and no metaphor (FRAG-WRITING-CONTENT-08). Contractions stay
+idiom and no metaphor (EV-0440). Contractions stay
 allowed. Buys the reader who is under pressure, unfamiliar with
 English, or using cognitive-accessibility support. Costs a brand its
 best lines in exactly the places it most wants them.
@@ -95,7 +94,7 @@ venture as a requirement.
 - **This repository (2026-08, inherited)**: A, from the voice law in
   `CLAUDE.md` and its byte-identical twin, enforced mechanically by
   check E004. The em-dash prohibition disagrees directly with the
-  Microsoft guide (FRAG-WRITING-CONTENT-15), and that is fine: A is a
+  Microsoft guide (EV-0447), and that is fine: A is a
   house ruling and does not claim to be right in general.
 - **Venture documentation (2026-08, argued)**: B. A venture may use
   em-dashes, and the EOS voice law has no authority over it. The

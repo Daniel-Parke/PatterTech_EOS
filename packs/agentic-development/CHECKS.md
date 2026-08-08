@@ -5,7 +5,7 @@ scope: estate
 sources: [EV-0051, EV-0079, EV-0087, EV-0107, EV-0111, EV-0118, EV-0121]
 type: guide
 tags: [eos, arch, delivery]
-review_by: 2027-10
+review: 2027-10
 ---
 
 # CHECKS: agentic development

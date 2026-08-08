@@ -9,7 +9,6 @@ sources: [EV-0206]
 review: 2028-05
 type: guide
 tags: [state, data, delivery]
-review_by: 2028-05
 ---
 
 # GD-NAT-002: What happens to a write made with no network?
@@ -22,11 +21,11 @@ to be made per write class before any library is chosen. PACK.md binds
 this as B1, B2 and B3; this guide is the argument behind it.
 
 The load-bearing contradiction: convergence proofs prove replicas agree
-and no update is lost (FRAG-NATIVE-10), and say nothing about whether
+and no update is lost (EV-0379), and say nothing about whether
 the agreed value satisfies a uniqueness constraint, a balance, an
 approval state or the user's intent. Meanwhile the shipped
 server-authoritative product states plainly that there is no single
-correct choice for handling a write failure (FRAG-NATIVE-14). Both are
+correct choice for handling a write failure (EV-0383). Both are
 right. Together they mean the library never answers the question that
 matters.
 
@@ -56,7 +55,7 @@ experience entirely.
 ### B. Server-authoritative sync
 A durable local store, fast local reads, and a blocking FIFO upload
 queue that holds the client at its last confirmed checkpoint until the
-backend acknowledges every pending mutation (FRAG-NATIVE-14). Buys
+backend acknowledges every pending mutation (EV-0383). Buys
 local speed with no local conflict resolution: the server decides.
 Costs head-of-line blocking, where one unacknowledged mutation stalls
 the whole client, and costs you writing and testing the write-failure
@@ -64,12 +63,12 @@ policy yourself, because the vendor says there is no single correct
 one.
 
 ### C. Convergent replication
-A CRDT store that merges without a round trip (FRAG-NATIVE-11,
-FRAG-NATIVE-12). Buys no blocking, no coordination and genuine
+A CRDT store that merges without a round trip (EV-0380,
+EV-0381). Buys no blocking, no coordination and genuine
 multi-device editing. Costs documents that only grow, so compaction and
 a storage budget are first-class from day one, and costs the acceptance
 of a converged value nobody chose. Convergence is not correctness
-(FRAG-NATIVE-10).
+(EV-0379).
 
 ### D. Split by write class
 Read-path sync plus conventional writes for most classes, with
@@ -77,7 +76,7 @@ Read-path sync plus conventional writes for most classes, with
 only where the class is genuinely commutative. Buys most of the offline
 benefit for a fraction of the risk, which is the shape a serious
 project narrowed itself to when it scoped down to reads and left writes
-to the application (FRAG-NATIVE-13). Costs a heterogeneous client with
+to the application (EV-0382). Costs a heterogeneous client with
 more than one path to reason about, and a reservation service on the
 server.
 
@@ -111,7 +110,7 @@ which none of the others is.
   on bookings, plus a compensation event for the loser. See
   `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`.
 - **Read-only as a deliberate scope (external, inherited)**: narrowing
-  to a read-path engine with partial replication (FRAG-NATIVE-13) is
+  to a read-path engine with partial replication (EV-0382) is
   the strongest available signal that the write path is the expensive
   half. The reason behind that scope change is not documented by the
   maintainers, so the inference is ours and is held loosely.

@@ -7,7 +7,6 @@ volatility: slow
 review: 2028-08
 type: pattern
 tags: [state, data, delivery]
-review_by: 2028-08
 ---
 
 # Write classes and conflict policies
@@ -42,7 +41,7 @@ validate it.
 
 `converge` and `last-writer-wins` are forbidden on an invariant-bearing
 class. Convergence is a claim about replicas agreeing, not about the
-agreed value satisfying a constraint (FRAG-NATIVE-10).
+agreed value satisfying a constraint (EV-0379).
 
 ## The reservation pattern
 
@@ -78,7 +77,7 @@ B3 in three properties.
 The blocked state is the fourth property, and it is the one teams
 forget. A server-authoritative queue holds the client at its last
 confirmed checkpoint until every pending mutation is acknowledged
-(FRAG-NATIVE-14), so one stuck mutation stalls the whole client. The
+(EV-0383), so one stuck mutation stalls the whole client. The
 requirement is that this state is named in the interface within a
 stated timeout, that reads keep working while it holds, and that there
 is a documented way out of it.
@@ -87,7 +86,7 @@ is a documented way out of it.
 
 Where `converge` is used, the store grows. The maintainers say
 text-suitable CRDTs only grow and answer with conditional tombstone
-collection (FRAG-NATIVE-12), and the conditions were not enumerated at
+collection (EV-0381), and the conditions were not enumerated at
 inspection, so no growth bound can be stated from that source. Budget
 device storage, measure document size on realistic data, and decide the
 compaction trigger before shipping, not after.

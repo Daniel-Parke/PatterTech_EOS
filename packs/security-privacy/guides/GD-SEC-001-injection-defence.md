@@ -2,7 +2,6 @@
 summary: In-band detection, a configuration rule, out-of-band enforcement, or OS containment?
 type: guide
 tags: [security, tooling]
-review_by: 2027-03
 kind: guide
 scope: estate
 authority: default

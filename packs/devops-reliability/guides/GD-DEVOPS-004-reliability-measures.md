@@ -8,7 +8,6 @@ authority: default
 basis: empirical-evidence
 evidence_grade: observational
 review: 2028-02
-review_by: 2028-02
 sources: [EV-0199, EV-0210, EV-0211, EV-0020]
 ---
 

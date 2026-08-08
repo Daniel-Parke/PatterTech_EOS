@@ -9,7 +9,6 @@ sources: [EV-0071, EV-0274, EV-0277, EV-0278, EV-0279, EV-0280]
 review: on-change-of:DMN-1.7-formal
 type: guide
 tags: [arch, product, tooling]
-review_by: 2027-10
 ---
 
 # GD-BLM-002: Where does this rule live?

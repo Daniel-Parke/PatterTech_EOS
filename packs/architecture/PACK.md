@@ -12,7 +12,6 @@ review: 2027-02
 sources: [EV-0010, EV-0023, EV-0024, EV-0025, EV-0057, EV-0097, EV-0098, EV-0099, EV-0100, EV-0101, EV-0102, EV-0146, EV-0147, EV-0148, EV-0149, EV-0150, EV-0151, EV-0152, EV-0153, EV-0154, EV-0155, EV-0156, EV-0157, EV-0158, EV-0159, EV-0160, EV-0161, EV-0162, EV-0163]
 type: guide
 tags: [arch, data, infra, tooling, ci]
-review_by: 2027-02
 ---
 
 # Architecture

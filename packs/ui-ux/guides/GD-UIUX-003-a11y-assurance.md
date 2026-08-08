@@ -9,7 +9,6 @@ sources: [EV-0027, EV-0028, EV-0029, EV-0104, EV-0235, EV-0236, EV-0237]
 review: on-change-of:WCAG-2.2
 type: guide
 tags: [a11y, testing, web]
-review_by: 2027-09
 ---
 
 # GD-UIUX-003: How much accessibility assurance does this surface buy?

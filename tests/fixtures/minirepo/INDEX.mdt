@@ -11,7 +11,7 @@ Derived file. Edit front-matter, then run
 `python -m tools.eos check --write-index`. One row per live
 file. Frozen trees are not indexed.
 
-| path | type | tags | summary | review_by |
+| path | type | tags | summary | review |
 | --- | --- | --- | --- | --- |
 | AGENTS.md | root | eos | Minirepo agent entry point, the router for the test fixture repo |  |
 | CLAUDE.md | root | eos | Minirepo agent entry point, the router for the test fixture repo |  |

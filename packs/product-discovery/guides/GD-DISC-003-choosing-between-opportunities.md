@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0059, EV-0153]
 review: 2028-07
-review_by: 2028-07
 ---
 
 # GD-DISC-003: How do you choose between candidate opportunities?
@@ -21,7 +20,7 @@ what settles the order. Start from the finding that makes this hard: the
 team's own estimate of impact is close to uninformative at the idea
 level, so any method that ranks by predicted value is calibrating
 against a signal that measurably is not there
-(`FRAG-PRODUCT-DISCOVERY-03`).
+(`EV-0405`).
 
 ## It depends on
 
@@ -39,14 +38,14 @@ satisfaction ratings combined by an opportunity algorithm. Buys: a
 number that stops the loudest voice winning, an audit trail, and, in the
 RICE case, an explicit confidence multiplier that forces the team to
 write down how much of the score is guesswork
-(`FRAG-PRODUCT-DISCOVERY-15`). Costs: the arithmetic multiplies three
+(`EV-0417`). Costs: the arithmetic multiplies three
 subjective estimates into a precise-looking number with invisible error
 bars, and the impact term it depends on most is the term the base rate
-says nobody can estimate (`FRAG-PRODUCT-DISCOVERY-03`). The
+says nobody can estimate (`EV-0405`). The
 outcome-driven variant adds an importance rating to a difference of two
 subjective ratings on the same scale with no stated justification, and
 needs 180 to 600 survey respondents
-(`FRAG-PRODUCT-DISCOVERY-16`). Neither has been evaluated against any
+(`EV-0418`). Neither has been evaluated against any
 alternative by anyone who does not sell it.
 
 ### B. Rank by contribution to one outcome, effort excluded
@@ -54,7 +53,7 @@ alternative by anyone who does not sell it.
 One business outcome at the root, opportunities beneath it admitted only
 when grounded in a story from an actual interview, and effort
 deliberately kept out of the comparison so cheapness cannot pose as
-value (`FRAG-PRODUCT-DISCOVERY-13`). Buys: a comparison that is about
+value (`EV-0415`). Buys: a comparison that is about
 the user rather than about the team's calendar, and a hard filter on
 invented opportunities. Costs: coaching practice with no controlled
 evaluation, it assumes weekly access to customers, and excluding effort
@@ -64,10 +63,10 @@ means the ordering it produces is not yet a plan.
 
 Stop ranking and raise throughput. If a test is cheap, running three is
 cheaper than arguing about which one to run
-(`FRAG-PRODUCT-DISCOVERY-03`). Buys: the only option that produces
+(`EV-0405`). Buys: the only option that produces
 evidence rather than opinion, and the one the base rate favours. Costs:
 it needs traffic and it needs the discipline of B7, because a cheap test
-read badly is worse than no test (`FRAG-PRODUCT-DISCOVERY-04`).
+read badly is worse than no test (`EV-0406`).
 
 ### D. Sequence by reversibility and foreclosure
 
@@ -103,11 +102,11 @@ multiplier alone: how much of this is guesswork, on the record.
 
 No prioritisation framework in the sources located has a controlled
 evaluation. RICE is one company's internal tool published as a blog post
-(`FRAG-PRODUCT-DISCOVERY-15`). Outcome-driven innovation's effectiveness
+(`EV-0417`). Outcome-driven innovation's effectiveness
 claims all come from the consultancy that owns the method, and its own
 owner has said exact ordering is not the point
-(`FRAG-PRODUCT-DISCOVERY-16`). Opportunity solution trees are coaching
-practice (`FRAG-PRODUCT-DISCOVERY-13`). None of this makes them wrong.
+(`EV-0418`). Opportunity solution trees are coaching
+practice (`EV-0415`). None of this makes them wrong.
 It means a team that adopts one has chosen a shared vocabulary, not
 acquired evidence, and should not present the output as a finding. The
 elicitation halves of these methods are the parts worth keeping, and
@@ -117,7 +116,7 @@ they are defaults D2 and D3 in `packs/product-discovery/PACK.md`.
 
 The base rate that undercuts scoring comes from very high-traffic
 consumer search and portal surfaces where a powered experiment finishes
-in days (`FRAG-PRODUCT-DISCOVERY-03`). It is a strong result about that
+in days (`EV-0405`). It is a strong result about that
 population and a prior everywhere else. It predates model-assisted
 ideation entirely, so whether agent-generated candidates share the base
 rate is unknown. EV-0059 supplies the asymmetric gate shape for option
@@ -130,7 +129,7 @@ applies.
 
 - **PatterTech EOS product-discovery pack (2026-08, argued)**: no
   prioritisation formula carried at estate level. Argued from
-  `FRAG-PRODUCT-DISCOVERY-03` against the impact term and from the
+  `EV-0405` against the impact term and from the
   absence of any controlled evaluation of a framework.
 - **Approvals inbox request (2026-08, argued)**: D, because the
   requested build would have set a permissions model that the two

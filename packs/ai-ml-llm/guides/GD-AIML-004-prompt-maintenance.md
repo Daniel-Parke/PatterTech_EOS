@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-sources: [FRAG-AI-ML-LLM-02, FRAG-AI-ML-LLM-08, FRAG-AI-ML-LLM-15, FRAG-AI-ML-LLM-20, FRAG-AI-ML-LLM-22, FRAG-AI-ML-LLM-25, EV-0086]
+sources: [EV-0243, EV-0249, EV-0256, EV-0261, EV-0263, EV-0266, EV-0086]
 review: 2026-12
-review_by: 2026-12
 ---
 
 # GD-AIML-004: How is the prompt maintained?
@@ -20,7 +19,7 @@ A prompt starts as a string somebody typed and ends as the most
 load-bearing untested artefact in the system. Changing the single
 character separating in-context examples moved MMLU by up to
 twenty-three points, enough to reorder a leaderboard, and the
-brittleness did not shrink with scale (FRAG-AI-ML-LLM-15). If a
+brittleness did not shrink with scale (EV-0256). If a
 character matters that much, the question of how the text is produced
 and kept is an engineering question rather than a writing one.
 
@@ -52,14 +51,14 @@ The prompt carries selected examples, chosen and maintained by hand.
 Buys: a cheap and effective lift on format adherence and edge cases.
 Costs: the demonstrations are now training data with no version
 discipline, formatting choices inside them are load-bearing
-(FRAG-AI-ML-LLM-15), and they consume the context budget the evidence
+(EV-0256), and they consume the context budget the evidence
 also wants.
 
 ### C. Compiled by an optimiser
 
 Declare the signature and the metric, let an optimiser search
 instructions and demonstrations, and version the program and the
-metric rather than the prompt text (FRAG-AI-ML-LLM-25). Buys: the
+metric rather than the prompt text (EV-0266). Buys: the
 formatting choices stop being guesses, and the artefact is
 reproducible from the program plus the metric. Costs: it needs a
 metric and a labelled set before it can do anything, the compiled
@@ -72,7 +71,7 @@ nobody wrote.
 Move the instruction into the weights. Buys: shorter prompts, lower
 per-query cost, and stable behaviour. Costs: a training pipeline, and
 a trade between target-domain fit and preserved general behaviour
-(FRAG-AI-ML-LLM-08). See
+(EV-0249). See
 `packs/ai-ml-llm/guides/GD-AIML-002-knowledge-source.md`.
 
 ## Decision rule
@@ -90,7 +89,7 @@ a trade between target-domain fit and preserved general behaviour
   and evaluate it against A on the same set.
 - Output must be structured: measure schema-constrained generation
   against reason-then-convert rather than assuming either
-  (FRAG-AI-ML-LLM-22).
+  (EV-0263).
 
 ## Default
 
@@ -106,8 +105,8 @@ should reopen this guide.
 Prompt layout is part of the artefact. Caching wants the invariant
 material first, since cached reads are charged at a tenth of base
 input and short prompts fail to cache with no error
-(FRAG-AI-ML-LLM-20). Position evidence wants the load-bearing evidence
-at the edges (FRAG-AI-ML-LLM-02). The resolution is per prompt, and
+(EV-0261). Position evidence wants the load-bearing evidence
+at the edges (EV-0243). The resolution is per prompt, and
 the mechanics are in `packs/ai-ml-llm/refs/CONTEXT_LAYOUT.md`.
 
 ## Evidence boundary

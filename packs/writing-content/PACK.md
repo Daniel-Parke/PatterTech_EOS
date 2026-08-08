@@ -11,8 +11,7 @@ scope: estate
 applies_when: [writes_user_facing_text, has_forms, ships_second_locale, writes_venture_documentation, writes_eos_internal_prose, reuses_external_style_guidance]
 volatility: slow
 review: on-change-of:CLDR-plural-categories
-sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, FRAG-WRITING-CONTENT-01, FRAG-WRITING-CONTENT-02, FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-04, FRAG-WRITING-CONTENT-05, FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-07, FRAG-WRITING-CONTENT-08, FRAG-WRITING-CONTENT-09, FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-11, FRAG-WRITING-CONTENT-12, FRAG-WRITING-CONTENT-13, FRAG-WRITING-CONTENT-14, FRAG-WRITING-CONTENT-15, FRAG-WRITING-CONTENT-16, FRAG-DOCS-DX-14]
-review_by: 2028-09
+sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, EV-0433, EV-0434, EV-0435, EV-0436, EV-0437, EV-0438, EV-0439, EV-0440, EV-0441, EV-0442, EV-0443, EV-0444, EV-0445, EV-0446, EV-0447, EV-0448, EV-0335]
 ---
 
 # writing-content
@@ -65,7 +64,7 @@ arrives or not.
 ## Outcomes and non-goals
 
 **Outcomes.** A reader can find the thing, understand it, and act on it
-(FRAG-WRITING-CONTENT-01). A translator can express in their language a
+(EV-0433). A translator can express in their language a
 distinction the English source never had. A rejected form tells the
 person what a good answer looks like and keeps what they typed. The
 same product sounds like itself in three different places without one
@@ -125,7 +124,7 @@ readable and not reusable.
 **B1. No user-facing sentence is assembled by string concatenation.**
 `writes_user_facing_text`. One message, one message id, with any
 variation selected inside the message
-(FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-12). Prevents the one
+(EV-0442, EV-0444). Prevents the one
 localisation defect a translator cannot repair downstream, because word
 order, agreement and clause structure are decided by the source code
 rather than by the language. Basis: standard.
@@ -133,13 +132,13 @@ rather than by the language. Basis: standard.
 **B2. Plural and gender selection resolves per locale through CLDR
 categories, never from the English pair.** `ships_second_locale`. The
 category `one` means "behaves like one in this language" and is not the
-number one (FRAG-WRITING-CONTENT-11). Prevents a locale with four
+number one (EV-0443). Prevents a locale with four
 plural forms being served two, and prevents a hardcoded switch on six
 tags that is already wrong for some locales. Basis: standard.
 
 **B3. A pseudo-locale build passes before any string reaches a
 translator.** `ships_second_locale`. No truncation, no missing glyphs,
-no unexternalised strings (FRAG-WRITING-CONTENT-14). Prevents paying
+no unexternalised strings (EV-0446). Prevents paying
 for the same mechanical defect in every locale at once, which is what
 happens when the first real translation is also the first test.
 Basis: decision, taken on vendor guidance rather than on a trial. The
@@ -151,13 +150,13 @@ required input or the next action.** `has_forms`. WCAG 2.2 success
 criteria 3.3.1 and 3.3.3 make this a conformance obligation where they
 apply (EV-0027). Replacing a diagnosis with the shape of a correct
 answer is the highest-yield rewrite in the set
-(FRAG-WRITING-CONTENT-15). Prevents `Invalid input`, which tells the
+(EV-0447). Prevents `Invalid input`, which tells the
 reader only that they have failed. Basis: standard.
 
 **B5. An error renders adjacent to its cause, does not fire before the
 person has finished, and never destroys what they typed.** `has_forms`.
 Placement and timing fail more often than wording
-(FRAG-WRITING-CONTENT-09, EV-0233), and structural components exist
+(EV-0441, EV-0233), and structural components exist
 that fix placement so no writer has to remember it (EV-0062, EV-0063).
 Prevents the well-written message rendered in a banner at the top of
 the page, and prevents the retype. Basis: decision, on practitioner
@@ -173,7 +172,7 @@ interface string. Basis: standard.
 **B7. One banned-and-preferred term list runs in CI over user-facing
 strings and documentation, and only one prose linter exists in the
 repository.** `writes_user_facing_text`. Vale is the recorded tool
-(FRAG-DOCS-DX-14). Prevents two spellings of one action reaching a
+(EV-0335). Prevents two spellings of one action reaching a
 translator as two concepts, and prevents the second linter that
 disagrees with the first. Basis: decision, and an admittedly cheap
 bet: no study was found showing that a maintained termbase improves
@@ -191,16 +190,16 @@ carries no authority over a venture's product copy or its brand.
 **B9. Licence obligations on external style guidance are recorded
 before the guidance informs a house guide.**
 `reuses_external_style_guidance`. Open Government Licence material
-requires attribution (FRAG-WRITING-CONTENT-03), and CC BY-NC material
+requires attribution (EV-0435), and CC BY-NC material
 cannot be adopted into a commercial product's guide at all
-(FRAG-WRITING-CONTENT-16). Prevents a licensing event dressed up as a
+(EV-0448). Prevents a licensing event dressed up as a
 copy-paste. Basis: law.
 
 **B10. No readability formula gates a merge, a release or a review.**
 `writes_user_facing_text`. A score may be reported on a diff and may
 never block one. Formulas measure sentence length and syllable counts,
 which sit downstream of difficulty rather than being difficulty
-(FRAG-WRITING-CONTENT-04). Prevents copy being chopped into fragments
+(EV-0436). Prevents copy being chopped into fragments
 to satisfy a number while the reader learns nothing new. Basis:
 decision. The study behind the doubt is narrow, and the ruling is the
 estate's, not the study's.
@@ -210,24 +209,24 @@ estate's, not the study's.
 Followed unless the task records a reason to depart.
 
 - **Front-load the answer, lead with the verb, one instruction per
-  step** (FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-08,
-  FRAG-WRITING-CONTENT-15). The three flagship guides agree here, which
+  step** (EV-0435, EV-0440,
+  EV-0447). The three flagship guides agree here, which
   is the strongest signal available in a domain with almost no trials.
 - **Literal language in anything the reader must act on.** No idiom, no
   metaphor, simple tense and voice in instructions and errors
-  (FRAG-WRITING-CONTENT-08). Contractions are fine everywhere.
+  (EV-0440). Contractions are fine everywhere.
 - **Write for the lowest literacy in the audience, not the median**
-  (FRAG-WRITING-CONTENT-03). Specialists cope with plain wording.
+  (EV-0435). Specialists cope with plain wording.
 - **Layout slack sized for two to three times expansion on strings
-  under ten characters** (FRAG-WRITING-CONTENT-13). Buttons, tabs and
+  under ten characters** (EV-0445). Buttons, tabs and
   labels are the shortest strings and therefore the highest risk. The
   figures cover English into European languages only.
 - **Sentence case for headings and interface labels.** An arbitrary
   call, made once so nobody argues it twice.
 - **A comprehension claim is tested with real readers before it is
-  made** (FRAG-WRITING-CONTENT-02). The transferable design is an A/B
+  made** (EV-0434). The transferable design is an A/B
   of two renderings of one decision with comprehension questions as the
-  outcome (FRAG-WRITING-CONTENT-06).
+  outcome (EV-0438).
 - **Venture documentation follows the plain-language defaults above**,
   not the EOS voice law. A venture may use em-dashes.
 
@@ -238,12 +237,12 @@ Taste. Depart freely, no reason needed.
 - Report a readability score at all. B10 settles that it cannot gate;
   whether it is worth printing is taste.
 - Tone varying with the reader's emotional state, celebration copy
-  reading differently from a failed payment (FRAG-WRITING-CONTENT-16).
+  reading differently from a failed payment (EV-0448).
   Asserted by its author, and worth trying.
 - Serial comma, spacing after a full stop, contraction density. Settled
   per scope by GD-WRIT-003 and not debated per pull request.
 - Writing about people treated as a first-class section of a style
-  guide rather than an appendix (FRAG-WRITING-CONTENT-16).
+  guide rather than an appendix (EV-0448).
 - A short house term list over a full termbase, until the term list is
   demonstrably not enough.
 
@@ -266,10 +265,10 @@ worked example in
   exists to correct. A rule about a shared brain applied to a market.
 - **The reading-age gate.** A formula score adopted as an acceptance
   criterion. It can be satisfied by chopping sentences without changing
-  what anyone understands (FRAG-WRITING-CONTENT-04).
+  what anyone understands (EV-0436).
 - **The plainness claim.** Asserting that a rewrite improved
   comprehension because it reads more easily. One trial found the gain,
-  one did not (FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-07).
+  one did not (EV-0438, EV-0439).
 - **Pluralising by appending an s**, and its cousin, sizing a button to
   its English label.
 - **The beautiful banner.** A precise, kind, well-worded error rendered
@@ -279,7 +278,7 @@ worked example in
   email address, before anyone could have finished typing.
 - **Controlled language applied to explanation.** Simplified Technical
   English on a marketing page produces text that is correct and
-  unreadable (FRAG-WRITING-CONTENT-05).
+  unreadable (EV-0437).
 - **Two prose linters.** The second one disagrees with the first, and
   the team learns to ignore both.
 - **The wholesale lift.** An outside A to Z copied into a house guide,
@@ -293,10 +292,10 @@ worked example in
 - **The load-bearing contradiction.** Two randomised trials from one
   programme, same intervention type, same content domain, disagree.
   Parents showed preference and understanding gains
-  (FRAG-WRITING-CONTENT-06). Youths aged fifteen to twenty-four showed
+  (EV-0438). Youths aged fifteen to twenty-four showed
   higher usability and satisfaction and no significant understanding
   gain, mean difference 5.2 per cent, 95 per cent confidence interval
-  minus 1.2 to 11.6 (FRAG-WRITING-CONTENT-07). Both populations were
+  minus 1.2 to 11.6 (EV-0439). Both populations were
   self-selected, online, English-speaking, reading pandemic health
   advice, and the null came from a group with high baseline literacy.
   Neither result transfers to an interface string read in two seconds.
@@ -305,15 +304,15 @@ worked example in
   comprehension definitional, so on its own definition the youth trial
   is a partial failure of the intervention.
 - **Literal against conversational is a real conflict.** W3C COGA says
-  literal language, no idiom (FRAG-WRITING-CONTENT-08). Microsoft says
-  write like you speak (FRAG-WRITING-CONTENT-15), and Mailchimp goes
-  further (FRAG-WRITING-CONTENT-16). This pack resolves it by surface
+  literal language, no idiom (EV-0440). Microsoft says
+  write like you speak (EV-0447), and Mailchimp goes
+  further (EV-0448). This pack resolves it by surface
   rather than by ranking the sources, and that resolution is a ruling,
   not a finding.
 - **Readability formulas are weak, and the study is narrow.** Begeny
   and Greene tested eight formulas against oral reading fluency in 360
   United States elementary-aged children reading aloud
-  (FRAG-WRITING-CONTENT-04). That population is not an adult scanning
+  (EV-0436). That population is not an adult scanning
   an interface, and oral fluency is not comprehension. The same study
   found some formulas fair at some grade bands, so formulas are
   unreliable rather than uninformative. B10 rests on the estate's
@@ -336,10 +335,10 @@ worked example in
   and Fluent reached the same conclusion by different routes, parts of
   the MessageFormat default function set were still Draft at the
   cutoff, and Fluent has not moved since 2019
-  (FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-12). GD-WRIT-002
+  (EV-0442, EV-0444). GD-WRIT-002
   carries the bet.
 - **Two flagship sources moved host in the last eighteen months**
-  (FRAG-WRITING-CONTENT-02, FRAG-WRITING-CONTENT-03). Cite the section,
+  (EV-0434, EV-0435). Cite the section,
   keep the link shallow.
 - **B1 is promoted above its research grade.** The research graded
   concatenation on two converging design documents and no trial. It

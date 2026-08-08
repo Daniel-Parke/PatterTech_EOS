@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: observational
 sources: [EV-0056, EV-0057]
 review: 2027-12
-review_by: 2027-12
 ---
 
 # GD-DATA-001: Where does the quality rule live?
@@ -38,7 +37,7 @@ advance.
 
 The producer declares the interface (columns, types, constraints,
 freshness, owner) and the build refuses to publish anything that breaks
-it (EV-0057, `FRAG-DATA-ANALYTICS-01`). Buys: consumers can write
+it (EV-0057, `EV-0305`). Buys: consumers can write
 against a promise, and a breaking change is impossible to make by
 accident. Costs: it checks shape, not meaning, so a column that changes
 from pence to pounds passes every gate. You also own the declaration and
@@ -49,7 +48,7 @@ have to maintain it.
 Compute metrics over the data each run (row counts, null rates,
 distributions) and alert on deviation from the historic series, with
 incremental computation so cost does not scale with history
-(`FRAG-DATA-ANALYTICS-02`). Buys: it catches drift nobody wrote a rule
+(`EV-0306`). Buys: it catches drift nobody wrote a rule
 for, which is most of what actually goes wrong. Costs: constraint
 suggestion learns from the data as it is, so it will happily propose a
 rule that encodes a current bug as the norm, and it needs history before
@@ -95,7 +94,7 @@ is technically correct and eight hours stale, and nobody is responsible
 for noticing. Putting schema, quality rules, service level and owner in
 one document is the structural point behind the data contract standard,
 and it matters more than which format the document is in
-(`FRAG-DATA-ANALYTICS-01`).
+(`EV-0305`).
 
 ## What none of these catch
 
@@ -111,7 +110,7 @@ otherwise.
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: C as the
   default shape, with B1 and B2 binding the ownership and the blocking
   behaviour rather than the tool. Argued from EV-0057 for the
-  interface-only scope and `FRAG-DATA-ANALYTICS-02` for the drift case.
+  interface-only scope and `EV-0306` for the drift case.
 - **Signup and checkout event model (2026-08, argued)**: A on the
   published fact model with a not-null rule on the order total, run in
   the build so a seeded null batch fails the pipeline. See

@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: not-applicable
-sources: [FRAG-AI-ML-LLM-09, FRAG-AI-ML-LLM-11, FRAG-AI-ML-LLM-13, FRAG-AI-ML-LLM-14, FRAG-AI-ML-LLM-15, FRAG-AI-ML-LLM-16, FRAG-AI-ML-LLM-19]
+sources: [EV-0250, EV-0252, EV-0254, EV-0255, EV-0256, EV-0257, EV-0260]
 review: 2026-11
-review_by: 2026-11
 ---
 
 # AI, ML and LLM pack checks
@@ -49,11 +48,11 @@ later, none is executable now.
 | Id | Verifies | Who decides | Requirement |
 | --- | --- | --- | --- |
 | J-01 | The acceptance set measures the thing the product cares about | Reviewer, because coverage of the failure you fear cannot be checked by field presence | B1 |
-| J-02 | The verdict matches the arithmetic | Reviewer, in particular that a difference inside the noise was recorded as unresolved rather than as a win (FRAG-AI-ML-LLM-14) | D2 |
-| J-03 | The rubric was derived from graded outputs rather than written first | Reviewer (FRAG-AI-ML-LLM-13) | D1 |
-| J-04 | The held-out set is genuinely unseen | Reviewer, because a file the provider has never seen cannot be proved by grep (FRAG-AI-ML-LLM-16) | B3 |
+| J-02 | The verdict matches the arithmetic | Reviewer, in particular that a difference inside the noise was recorded as unresolved rather than as a win (EV-0255) | D2 |
+| J-03 | The rubric was derived from graded outputs rather than written first | Reviewer (EV-0254) | D1 |
+| J-04 | The held-out set is genuinely unseen | Reviewer, because a file the provider has never seen cannot be proved by grep (EV-0257) | B3 |
 | J-05 | The judge is not a family-mate of the model under test, or the offset is reported | Reviewer | B5 |
-| J-06 | The abstention threshold is right for the product | Product owner, because the evidence says score abstention and not where to set it (FRAG-AI-ML-LLM-09) | B6 |
+| J-06 | The abstention threshold is right for the product | Product owner, because the evidence says score abstention and not where to set it (EV-0250) | B6 |
 | J-07 | Consequential output had a person in front of it | Human, at the floor set by `kernel/GUARD_SPEC.md` | B7 |
 | J-08 | Groundedness failures were read, not just counted | Reviewer, reading spans against the retrieved context | D5 |
 | J-09 | Scope of a borrowed number | Reviewer, that no benchmark figure was promoted beyond its population | Whole pack |
@@ -78,7 +77,7 @@ rather than measurements.
 - Which evaluation library is used.
 - Absolute accuracy against any published benchmark. Public numbers
   are an upper bound and never an acceptance condition
-  (FRAG-AI-ML-LLM-16).
+  (EV-0257).
 - Prompt wording, style or length, beyond the requirement that the
   template is versioned and hashed.
 - Cost per call as a gate. It is a number to watch, and the evidence

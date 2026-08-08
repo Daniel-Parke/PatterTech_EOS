@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0026, EV-0168, EV-0170, EV-0171, EV-0172, EV-0173, EV-0183]
 review: 2027-08
-review_by: 2027-08
 ---
 
 # GD-COD-005: One repository or several?

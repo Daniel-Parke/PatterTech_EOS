@@ -9,7 +9,6 @@ sources: [EV-0020, EV-0096, EV-0200]
 review: 2028-08
 type: guide
 tags: [ops, delivery]
-review_by: 2028-08
 ---
 
 # GD-SUPPORT-003: Who declares a customer-visible incident, and on what signal?
@@ -39,7 +38,7 @@ pretend the evidence settles it.
 ### A. Manual page to a named person
 Customer-facing declaration is a deliberate human act: a named person
 is paged, and that person decides whether the business responds
-(FRAG-SUPPORT-OPERATIONS-02). Buys a decision with a face on it and few
+(EV-0422). Buys a decision with a face on it and few
 false alarms. Costs latency, and it fails outright when the named
 person is unreachable.
 
@@ -47,7 +46,7 @@ person is unreachable.
 Declaration fires from a burn alert against a stated objective, or from
 one of the written triggers: a second person is needed, the failure is
 customer-visible, or an hour of focused work has not closed it
-(EV-0020, EV-0096, FRAG-SUPPORT-OPERATIONS-03). Buys speed and removes
+(EV-0020, EV-0096, EV-0423). Buys speed and removes
 the judgement that goes missing at three in the morning. Costs false
 alarms, and it needs an objective good enough to trust, which most
 young ventures do not have.
@@ -56,7 +55,7 @@ young ventures do not have.
 Score visibility (core service or ancillary), actual impact at the
 current traffic level rather than potential impact, and duration so far
 plus confidence of resolving within the hour. Write the formula down
-before the incident (FRAG-SUPPORT-OPERATIONS-02). Buys a repeatable
+before the incident (EV-0422). Buys a repeatable
 customer-facing decision that a solo operator can apply, and it is the
 part of the source that transfers to any size. Costs the discipline of
 writing a formula while nothing is broken.

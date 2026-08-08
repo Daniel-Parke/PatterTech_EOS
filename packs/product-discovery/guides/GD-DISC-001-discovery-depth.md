@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0010, EV-0153]
 review: 2028-06
-review_by: 2028-06
 ---
 
 # GD-DISC-001: How much discovery does this decision deserve?
@@ -38,7 +37,7 @@ A named, time-boxed investigation with no building inside it and defined
 exit artefacts: a problem statement that is not a restatement of
 somebody's solution, named hard and soft constraints, a map of what
 already exists, and a stated measure of success
-(`FRAG-PRODUCT-DISCOVERY-01`). Buys: a hard stop where a kill is
+(`EV-0403`). Buys: a hard stop where a kill is
 ordinary rather than embarrassing, and a written record before anybody
 is emotionally committed. Costs: four to eight weeks of calendar, a
 hand-off shape that a solo venture does not have, and a phase length
@@ -49,8 +48,8 @@ calibrated to public-sector funding.
 No phase. One outcome at the root, opportunities admitted only when
 grounded in a story from an actual interview, effort excluded from the
 value comparison, several candidate solutions carried per opportunity
-(`FRAG-PRODUCT-DISCOVERY-13`), with completion defined as retiring the
-four risks (`FRAG-PRODUCT-DISCOVERY-14`). Buys: continuous contact with
+(`EV-0415`), with completion defined as retiring the
+four risks (`EV-0416`). Buys: continuous contact with
 reality, and a definition of done for discovery that is four
 answerable questions rather than a document. Costs: it assumes weekly
 access to real customers, and with one operator holding all four risks
@@ -60,7 +59,7 @@ the uninteresting two get assumed away.
 
 Skip the process and change the unit of analysis. Get underneath the
 request to a measurable statement about a step in the user's job
-(`FRAG-PRODUCT-DISCOVERY-16`). Buys: something that survives a change of
+(`EV-0418`). Buys: something that survives a change of
 technology, and it is cheap. Costs: it settles what to aim at and
 nothing about whether anyone will use it or pay for it. The scoring
 arithmetic attached to this school is separately unsupported, see
@@ -73,10 +72,10 @@ method that measures rather than predicts, and the base rate says
 prediction is where teams are weakest, since roughly a third of ideas
 moved the metric positively, a third were flat and a third negative,
 with expert judgement failing to sort them
-(`FRAG-PRODUCT-DISCOVERY-03`). Costs: it needs traffic. Below the power
+(`EV-0405`). Costs: it needs traffic. Below the power
 floor the readout is theatre with statistics attached, and naive
 experimentation manufactures confident wrong answers
-(`FRAG-PRODUCT-DISCOVERY-04`).
+(`EV-0406`).
 
 ## Decision rule
 
@@ -107,7 +106,7 @@ standing cadence.
 
 The four-to-eight-week box, and the phase language around it, was
 written for a funded multidisciplinary team handing over to a separate
-build team (`FRAG-PRODUCT-DISCOVERY-01`). Under agentic development the
+build team (`EV-0403`). Under agentic development the
 build is often the cheapest step in the chain, which inverts the
 economics the box was priced against. No source located reprices
 discovery for that world. The nearest structural analogue is that
@@ -118,10 +117,10 @@ guide's, as a working rule.
 
 ## Evidence boundary
 
-`FRAG-PRODUCT-DISCOVERY-01` is a stable government standard, not a
+`EV-0403` is a stable government standard, not a
 study, and it predates agentic development. The base-rate result behind
 D is a large industrial corpus on very high-traffic consumer surfaces
-(`FRAG-PRODUCT-DISCOVERY-03`) and it says nothing about
+(`EV-0405`) and it says nothing about
 agent-generated ideas. B rests on coaching practice with no controlled
 evaluation. Do not report a build estimate from feel: self-reported
 speed inverted the sign in the one randomised trial available (EV-0010).
@@ -130,8 +129,8 @@ speed inverted the sign in the one randomised trial available (EV-0010).
 
 - **PatterTech EOS product-discovery pack (2026-08, argued)**: depth by
   reversibility adopted as default D1. Argued from
-  `FRAG-PRODUCT-DISCOVERY-01` for the exit artefacts and
-  `FRAG-PRODUCT-DISCOVERY-03` for why prediction is weak.
+  `EV-0403` for the exit artefacts and
+  `EV-0405` for why prediction is weak.
 - **Approvals inbox request (2026-08, argued)**: C then a hand-read
   signal, verdict TEST. Traffic was two orders of magnitude below the
   power floor, so D was refused. See

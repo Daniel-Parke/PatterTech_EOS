@@ -9,7 +9,6 @@ sources: [EV-0162, EV-0151, EV-0152, EV-0157, EV-0159]
 review: 2027-06
 type: guide
 tags: [arch, data, infra]
-review_by: 2027-06
 ---
 
 # WG-ARCH-008: one database, private tables, one per service, or records plus readings?

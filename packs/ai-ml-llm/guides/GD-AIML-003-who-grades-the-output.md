@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-sources: [FRAG-AI-ML-LLM-09, FRAG-AI-ML-LLM-10, FRAG-AI-ML-LLM-11, FRAG-AI-ML-LLM-12, FRAG-AI-ML-LLM-13, FRAG-AI-ML-LLM-24, EV-0087]
+sources: [EV-0250, EV-0251, EV-0252, EV-0253, EV-0254, EV-0265, EV-0087]
 review: 2026-12
-review_by: 2026-12
 ---
 
 # GD-AIML-003: Who grades the output?
@@ -46,7 +45,7 @@ whether a correct answer was well expressed.
 
 A person scores against a rubric. Buys: the reference everything else
 calibrates against, and the discovery of criteria you could not state
-before seeing bad output (FRAG-AI-ML-LLM-13). Costs: slow, small, and
+before seeing bad output (EV-0254). Costs: slow, small, and
 subject to its own drift, so the labelling protocol has to be written
 down and the same person cannot be both author and grader on anything
 consequential.
@@ -56,9 +55,9 @@ consequential.
 A model scores against criteria, after agreement with a human-labelled
 sample has been measured and reported. Buys: coverage of open-ended
 output at volume, and reference-free metrics that make continuous
-measurement affordable (FRAG-AI-ML-LLM-24). A strong judge reached
+measurement affordable (EV-0265). A strong judge reached
 roughly eighty per cent agreement with human preference, about the
-level two humans reach with each other (FRAG-AI-ML-LLM-10). Costs:
+level two humans reach with each other (EV-0251). Costs:
 position bias, verbosity bias, self-preference, and weak reasoning on
 tasks needing calculation, all of which have to be measured rather
 than assumed away.
@@ -80,7 +79,7 @@ design, and unusable as a release gate.
 - The score selects between candidates: the judge is never the same
   model as the one under test, and pairwise protocols run both
   orderings with order-inconsistent pairs reported as disagreement
-  (FRAG-AI-ML-LLM-11, FRAG-AI-ML-LLM-12).
+  (EV-0252, EV-0253).
 - A family-mate judge is unavoidable: report the self-preference
   offset measured on the human-labelled sample.
 - The property is a safety property: B, and no judge score substitutes
@@ -98,7 +97,7 @@ than picking one (EV-0087).
 Whatever the grader, the rubric gives explicit credit for a calibrated
 refusal and the report carries the abstention rate beside accuracy. A
 rubric that pays a guess the same as an admission of uncertainty
-selects for confident error (FRAG-AI-ML-LLM-09). Two numbers move
+selects for confident error (EV-0250). Two numbers move
 together: pushing abstention up buys fewer wrong answers and a system
 that refuses more work, so the pair is watched, never one alone. The
 evidence does not tell you where the threshold belongs, and the
@@ -109,7 +108,7 @@ product decides that.
 The eighty per cent agreement figure is general chat preference on
 retired models, not domain correctness, and it should never be
 borrowed for a domain judge without measuring your own agreement
-(FRAG-AI-ML-LLM-10). Position bias results are pairwise only, so they
+(EV-0251). Position bias results are pairwise only, so they
 do not directly govern single-answer rubric scoring, which carries its
 own biases. Self-preference was measured on summarisation with three
 superseded models, and follow-up work argues some of the effect
@@ -121,8 +120,8 @@ is not.
 
 - **PatterTech EOS ai-ml-llm pack (2026-08, argued)**: A where
   checkable, C only after validation, B as the calibration set, D as
-  an item source. Argued from FRAG-AI-ML-LLM-11 and
-  FRAG-AI-ML-LLM-12 for the selection restriction.
+  an item source. Argued from EV-0252 and
+  EV-0253 for the selection restriction.
 - **Ticket classifier (2026-08, argued)**: A. Labels exist, so a judge
   would add variance and cost for nothing.
 - **Retrieval groundedness (2026-08, argued)**: C with a standing

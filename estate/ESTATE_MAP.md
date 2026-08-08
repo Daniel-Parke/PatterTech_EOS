@@ -3,7 +3,7 @@ summary: The estate narrative, how the repos relate, which are governed and what
 type: registry
 tags: [eos]
 status: active
-review_by: 2026-11
+review: 2026-11
 ---
 
 # ESTATE MAP

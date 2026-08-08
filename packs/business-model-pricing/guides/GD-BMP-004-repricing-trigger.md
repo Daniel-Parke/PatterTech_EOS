@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: observational
-sources: [FRAG-BUSINESS-MODEL-PRICING-06, FRAG-BUSINESS-MODEL-PRICING-12, FRAG-BUSINESS-MODEL-PRICING-17, EV-0096, EV-0197]
+sources: [EV-0292, EV-0298, EV-0303, EV-0096, EV-0197]
 review: 2028-06
-review_by: 2028-06
 ---
 
 # GD-BMP-004: when and how does the price change?
@@ -26,7 +25,7 @@ a panic.
 - Does the venture have contracts with existing customers, and what did
   they promise?
 - Is there a threshold event coming, such as VAT registration
-  (FRAG-BUSINESS-MODEL-PRICING-17)?
+  (EV-0303)?
 - Can you state a cause the buyer can check?
 - How many customers would have to leave before the rise loses money?
 
@@ -51,7 +50,7 @@ between dates.
 A written movement in allocated unit cost, above a stated band, opens a
 change. Buys: the cause is already established when the change fires,
 which is the framing buyers accept
-(FRAG-BUSINESS-MODEL-PRICING-06). It is the same shape as a pre-agreed
+(EV-0292). It is the same shape as a pre-agreed
 error budget policy: the threshold and the response are both agreed
 before the pressure arrives (EV-0096). Costs: it needs a real cost
 allocation, and it only covers cost causes.
@@ -82,7 +81,7 @@ the threshold down before it fires.
 The cause is stated, and the cause is a cost movement or a change in
 delivered value. Buyers accept a rise that protects an existing margin
 against a cost increase and judge a rise that exploits a demand shift to
-be unfair (FRAG-BUSINESS-MODEL-PRICING-06). The operational form:
+be unfair (EV-0292). The operational form:
 
 1. Name the cause and its type, cost or value. A demand cause is not one
    of the two.
@@ -91,13 +90,13 @@ be unfair (FRAG-BUSINESS-MODEL-PRICING-06). The operational form:
    costs money; make it deliberately.
 4. For consumer subscriptions, the change rides on the statutory notice
    machinery rather than beside it: reminder notices and the cooling-off
-   duties apply (FRAG-BUSINESS-MODEL-PRICING-12).
+   duties apply (EV-0298).
 5. Record the change and its cause in the decision record so the next
    change can be argued against the last one.
 
 ## Evidence boundary
 
-FRAG-BUSINESS-MODEL-PRICING-06 is stated fairness judgement from 1986
+EV-0292 is stated fairness judgement from 1986
 telephone surveys, not observed churn. It puts no number on what a
 fairness violation costs, fairness norms vary by market, and firms
 routinely raise prices on demand shifts without visible collapse. So
@@ -110,7 +109,7 @@ observation beats the survey.
 - **PatterTech EOS business-model-pricing pack (2026-08, argued)**: C
   where a cost allocation exists, B otherwise, and a cause type of cost
   or value on every announcement. Argued from
-  FRAG-BUSINESS-MODEL-PRICING-06 with its 1986 provenance stated.
+  EV-0292 with its 1986 provenance stated.
 - **First UK consumer subscription, composed (2026-08, inherited)**:
   C, with a band of plus or minus ten per cent on allocated unit cost
   over a rolling quarter, and a cause type recorded on the change. See

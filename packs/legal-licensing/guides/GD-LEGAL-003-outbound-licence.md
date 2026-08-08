@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [FRAG-LEGAL-LICENSING-01, FRAG-LEGAL-LICENSING-03, FRAG-LEGAL-LICENSING-04, FRAG-LEGAL-LICENSING-07, FRAG-LEGAL-LICENSING-12]
+sources: [EV-0337, EV-0339, EV-0340, EV-0343, EV-0348]
 review: on-change-of:https://blueoakcouncil.org/list
-review_by: 2028-03
 ---
 
 # GD-LEGAL-003: What licence does this repository carry outbound?
@@ -38,24 +37,24 @@ the widest adoption, no compatibility argument ever, and the cheapest
 promise to keep. Costs: someone can take it proprietary, and nothing
 comes back. Within this family the drafting quality varies enough to be
 worth checking, since a licence can satisfy the openness criteria and
-still be rated poorly for drafting (FRAG-LEGAL-LICENSING-07).
+still be rated poorly for drafting (EV-0343).
 
 ### B. Permissive with an explicit patent grant
 
 The same freedoms plus a stated patent position and a notice file
 discipline. Buys: clarity where patents plausibly exist, which is why
 the ratings put explicit patent handling at the top
-(FRAG-LEGAL-LICENSING-07). Costs: more conditions to discharge, and its
+(EV-0343). Costs: more conditions to discharge, and its
 patent terms are incompatible with an older reciprocal licence, which
 constrains who can combine our code with what
-(FRAG-LEGAL-LICENSING-04).
+(EV-0340).
 
 ### C. Reciprocal
 
 Derived works carry the same terms. Buys: improvements return, and the
 code cannot be absorbed into a closed product. Costs: reciprocal
 licences are mutually incompatible unless one carries an explicit
-provision (FRAG-LEGAL-LICENSING-04), so we narrow who can use us. It is
+provision (EV-0340), so we narrow who can use us. It is
 also a promise about combination that our own dependency policy then
 has to keep.
 
@@ -64,10 +63,10 @@ has to keep.
 Published and readable with rights withheld. Buys: visibility without
 giving anything away. Costs: a licence that limits the field of use is
 not open source under the ten criteria however reasonable the limit
-sounds (FRAG-LEGAL-LICENSING-03), so say so plainly rather than
+sounds (EV-0339), so say so plainly rather than
 implying otherwise. Publishing with no licence at all is the worst
 version of this: it means exclusive copyright, the fork button grants
-nothing, and honest users have to ask (FRAG-LEGAL-LICENSING-12).
+nothing, and honest users have to ask (EV-0348).
 
 ## Decision rule
 
@@ -82,7 +81,7 @@ nothing, and honest users have to ask (FRAG-LEGAL-LICENSING-12).
   `packs/legal-licensing/PACK.md` binds this.
 
 Whichever is chosen, record it as an identifier from the list rather
-than as prose, so a machine can read it (FRAG-LEGAL-LICENSING-01).
+than as prose, so a machine can read it (EV-0337).
 
 ## Default
 
@@ -95,13 +94,13 @@ conditions.
 
 Three separate axes get collapsed here constantly and they are not one
 axis. Whether a licence restricts the wrong things is the openness
-question (FRAG-LEGAL-LICENSING-03). Whether it is well drafted is a
+question (EV-0339). Whether it is well drafted is a
 different question answered by a panel of lawyers exercising judgement
-(FRAG-LEGAL-LICENSING-07). Whether it fits our promise is ours alone.
+(EV-0343). Whether it fits our promise is ours alone.
 The identifier registry deliberately records openness and free-software
 status as two independent columns rather than merging them into one
 verdict, and it will happily name a licence that is neither open nor
-safe to depend on (FRAG-LEGAL-LICENSING-01). No source read ranks
+safe to depend on (EV-0337). No source read ranks
 outbound licences by outcome, and none of this is legal advice.
 
 ## Worked rulings

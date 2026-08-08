@@ -5,7 +5,7 @@ scope: estate
 sources: [EV-0051, EV-0079, EV-0109, EV-0111, EV-0121]
 type: guide
 tags: [eos, arch, tooling]
-review_by: 2027-10
+review: 2027-10
 ---
 
 # Topology decision record shape

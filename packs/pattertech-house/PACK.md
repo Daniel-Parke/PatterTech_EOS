@@ -12,7 +12,6 @@ review: on-change-of:WCAG-2.2
 sources: [EV-0027, EV-0030, EV-0065, EV-0232, EV-0234, EV-0236, EV-0239]
 type: guide
 tags: [web, brand, colour, motion, layout, typography]
-review_by: 2028-03
 ---
 
 # pattertech-house
@@ -89,8 +88,7 @@ taste.
 **Evidence pointer.** EV ids resolve in `registry/evidence.json`. The
 fourteen house sources are frozen with version, licence, access date and
 review trigger in `packs/pattertech-house/research/sources.fragment.json`
-and are cited by fragment id, because the integrator import that assigns
-final EV ids has not yet run for this pack.
+and were imported as `EV-0389` to `EV-0402`. This pack cites the EV ids.
 
 **H1. The container comes from the content, not from the layout.**
 `adopts_pattertech_house`. Parallel facts take a ledger, numbers take a
@@ -112,8 +110,8 @@ part supported by a standard.
 shadow transitions on small elements. The one sanctioned exception is
 the heading sweep, which is a one-shot and is named as such. Prevents a
 page that looks calm and repaints every frame
-(FRAG-PATTERTECH-HOUSE-07), and prevents layer promotion being sprinkled
-rather than budgeted (FRAG-PATTERTECH-HOUSE-08). Basis: standard, from
+(EV-0395), and prevents layer promotion being sprinkled
+rather than budgeted (EV-0396). Basis: standard, from
 engine guidance. Scope note: compositing rules are engine-specific and
 change, so the whitelist is conservative rather than exact, and a
 measurement on target hardware beats it.
@@ -121,7 +119,7 @@ measurement on target hardware beats it.
 **H4. Motion is judged by moving area and scroll coupling.**
 `adopts_pattertech_house`. No large-area or scroll-coupled movement and
 no parallax on a reading surface, whatever the reduced-motion setting
-says, because most readers never set it (FRAG-PATTERTECH-HOUSE-09).
+says, because most readers never set it (EV-0397).
 Prevents vestibular harm on a page that passes the query check. Basis:
 decision, on a practitioner synthesis rather than a trial, so the
 discrimination rule transfers and no numeric threshold does.
@@ -131,14 +129,14 @@ Paragraphs, lists, tables and notes arrive already visible, and
 body-tier text carries no text shadow. Prevents the
 fade-up-on-every-paragraph tell, and prevents a glow being spent where
 the dark-register penalty is already largest
-(FRAG-PATTERTECH-HOUSE-05). Basis: decision.
+(EV-0393). Basis: decision.
 
 **H6. The dark register buys itself back in the smallest type.**
 `has_dark_register`. Mono kickers, indices and captions get size, weight
 and measured contrast above the floor rather than at it, and are
 reviewed on a cheap display. Prevents the house leaning its annotation
 voice on the exact condition where positive polarity wins by the most
-(FRAG-PATTERTECH-HOUSE-05, FRAG-PATTERTECH-HOUSE-06). Basis:
+(EV-0393, EV-0394). Basis:
 empirical-evidence. Scope note: acuity and proofreading tasks for adults
 with normal or corrected vision under office lighting, not sustained
 reading, and some readers with impairments do better dark.
@@ -148,7 +146,7 @@ every node, no label or box overlaps a line, connectors join labels to
 their nodes, no glow sits on a line, and at most one endpoint accent
 marks the datum that matters. Prevents a figure that lies about where a
 value sits, which no recall gain buys back
-(FRAG-PATTERTECH-HOUSE-03). Basis: local-observation. See
+(EV-0391). Basis: local-observation. See
 `packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md`.
 
 **H8. Every number has exactly one home.**
@@ -175,7 +173,7 @@ Followed unless the lock-book records a different choice.
 
 - **Dark-first, single register, with a formal surface ladder.** A light
   register is a supported variant when one is wanted, never a promise
-  made in passing (FRAG-PATTERTECH-HOUSE-06). Reason: the identity is
+  made in passing (EV-0394). Reason: the identity is
   emitted light and the maintenance budget is one person.
 - **The full graded light system for a luminous brand, fields only
   otherwise.** Reason: the recorded rulings show both failure directions,
@@ -183,12 +181,12 @@ Followed unless the lock-book records a different choice.
   `packs/pattertech-house/guides/GD-HOUSE-001-light-posture.md`.
 - **A surface ladder of four to six steps, derived in a perceptually
   uniform space.** Hold chroma and hue, step lightness evenly
-  (FRAG-PATTERTECH-HOUSE-12). Reason: hexadecimal ladders go invisible at
+  (EV-0400). Reason: hexadecimal ladders go invisible at
   one end and jump at the other, the usual cause of a grey-on-grey ladder
   nobody can see.
 - **A reading measure at the low end of the usual advice.** Reason: near
   fifty-five characters gave the best comprehension against narrower and
-  much longer measures (FRAG-PATTERTECH-HOUSE-04). That is a choice about
+  much longer measures (EV-0392). That is a choice about
   which variable is optimised, not a fact about reading: later work
   reports faster reading and stronger preference at longer measures.
   Scope note: cathode-ray displays, 2001 typography, scrolled text.
@@ -200,16 +198,16 @@ Followed unless the lock-book records a different choice.
   one small file, and the page must stand complete on touch anyway.
 - **Spend the design budget on the first screen.** Appeal judgements form
   in about fifty milliseconds and are stable on re-exposure
-  (FRAG-PATTERTECH-HOUSE-14). Scope note: mid-2000s homepages, appeal
+  (EV-0402). Scope note: mid-2000s homepages, appeal
   ratings only, a student population, and no measure of whether the
   judgement is correct or survives use, so it never justifies ornament
   that costs comprehension.
 - **Platform hygiene.** Line-break quality is a hint rather than a
   dependency, and balance belongs on short display lines rather than
-  paragraphs (FRAG-PATTERTECH-HOUSE-11). Animated custom properties are
+  paragraphs (EV-0399). Animated custom properties are
   registered once in the token layer, because an unregistered angle or
   colour is untyped and the animation silently does nothing
-  (FRAG-PATTERTECH-HOUSE-10).
+  (EV-0398).
 
 ## Preferences
 
@@ -282,16 +280,16 @@ anatomy in `packs/pattertech-house/refs/KIT.md`, the light mechanics in
   because they are correct.
 - **Restraint against memorability is a genuine standoff.** Embellished
   charts cost nothing in interpretation accuracy and gain in long-term
-  recall (FRAG-PATTERTECH-HOUSE-03), so the house may never claim that
+  recall (EV-0391), so the house may never claim that
   restraint improves comprehension. Scope note: one study, small sample,
   one illustrator's hand-drawn style, static print-like charts, no
   interaction and no accessibility measurement. The split the pack takes
   is by job, argued in GD-HOUSE-004.
 - **Contrast maths is contested and the pack refuses to pick.** A
   perceptual model argues that a ratio quoted for light text on a dark
-  ground misdescribes what a reader sees (FRAG-PATTERTECH-HOUSE-01), and
+  ground misdescribes what a reader sees (EV-0389), and
   it was removed from the successor standard's draft in 2023 with no
-  replacement chosen (FRAG-PATTERTECH-HOUSE-02). WCAG 2.2 AA stays the
+  replacement chosen (EV-0390). WCAG 2.2 AA stays the
   only thing that can be asserted, it binds from `packs/ui-ux/PACK.md`,
   and a perceptual pass is an internal readability review that never
   appears in a conformance claim.

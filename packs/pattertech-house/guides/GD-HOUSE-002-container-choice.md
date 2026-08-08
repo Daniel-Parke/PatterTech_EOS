@@ -9,7 +9,6 @@ sources: [EV-0234, EV-0239]
 review: 2028-05
 type: guide
 tags: [web, layout, density, content]
-review_by: 2028-05
 ---
 
 # GD-HOUSE-002: Which container does this content take?

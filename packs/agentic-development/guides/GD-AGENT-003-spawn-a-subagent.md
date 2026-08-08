@@ -10,7 +10,6 @@ sources: [EV-0084, EV-0086, EV-0106, EV-0107, EV-0108, EV-0109, EV-0112, EV-0116
 review: on-change-of:agent-sdk-major-release
 type: guide
 tags: [eos, arch, tooling]
-review_by: 2027-06
 ---
 
 # GD-AGENT-003: Should this be a subagent at all?

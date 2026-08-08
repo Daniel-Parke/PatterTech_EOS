@@ -11,7 +11,6 @@ review: 2028-03
 type: wargame
 status: active
 tags: [delivery, testing, ci]
-review_by: 2028-03
 ---
 
 # WG-DEL-007: When are tests written?

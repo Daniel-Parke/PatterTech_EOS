@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0059]
 volatility: slow
 review: 2028-07
-review_by: 2028-07
 ---
 
 # Samples, power and the low-traffic case
@@ -22,7 +21,7 @@ each time.
 
 The resampling study drew random subsets from sixty participants tested
 on one interface and measured the spread rather than the mean
-(`FRAG-PRODUCT-DISCOVERY-05`).
+(`EV-0407`).
 
 | Participants | Worst-case share of known problems found |
 | --- | --- |
@@ -41,7 +40,7 @@ got.
 
 The competing convention argues that on a fixed budget three rounds of
 five beat one round of fifteen, because each round changes the design
-and so changes the problem set (`FRAG-PRODUCT-DISCOVERY-06`). That is a
+and so changes the problem set (`EV-0408`). That is a
 different objective function rather than a contradicted result. Its own
 caveats are the part most often dropped: a single participant can
 mislead, and distinct user groups need their own participants. It is
@@ -51,13 +50,13 @@ than problem validation.
 The rule this pack takes: plan the sample against the worst case, and
 spend any spare budget on another round rather than another participant
 in the same round. The recruitment frame matters more than either
-(`FRAG-PRODUCT-DISCOVERY-02`).
+(`EV-0404`).
 
 ## Experiments: the power floor
 
 An experiment is evidence only if the stopping rule, the metric and the
 segmentation were fixed before the data arrived
-(`FRAG-PRODUCT-DISCOVERY-04`). Below the traffic needed to detect the
+(`EV-0406`). Below the traffic needed to detect the
 effect you care about, that discipline does not save you, because the
 test cannot resolve the question at all.
 
@@ -83,7 +82,7 @@ alone is enough to stop.
 the result first crosses significance, treating a small-sample result as
 directional, and reading a surprisingly large effect as a discovery
 rather than as an instrumentation bug
-(`FRAG-PRODUCT-DISCOVERY-04`). A venture running one manual test a
+(`EV-0406`). A venture running one manual test a
 quarter has none of the automated protection that paper assumes, so
 these get more likely rather than less.
 
@@ -107,7 +106,7 @@ these get more likely rather than less.
 Across a large corpus of randomised online experiments, roughly a third
 of ideas moved the target metric positively, a third were flat and a
 third were negative, and expert judgement inside the team did not
-predict which (`FRAG-PRODUCT-DISCOVERY-03`). The population is very
+predict which (`EV-0405`). The population is very
 high-traffic consumer search and portal surfaces, so the base rate is a
 prior rather than a measurement of your product. The prior is still
 worth acting on: if the team cannot sort ideas, spending the effort on

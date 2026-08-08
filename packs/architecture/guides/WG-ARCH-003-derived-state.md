@@ -9,7 +9,6 @@ sources: [EV-0157, EV-0163, EV-0276]
 review: 2027-07
 type: guide
 tags: [arch, data, state]
-review_by: 2027-07
 ---
 
 # WG-ARCH-003: computed on read, owned cache, immutable snapshot, or maintained by the writer?
@@ -121,9 +120,13 @@ none of the three: it has no owner, no expiry and no check.
   results, in its ADR-002. Shared Postgres grid plus Redis cache-aside,
   invalidation owned by the grid keys, after per-process SQLite proved
   unshareable across replicas.
-- **Guth (2026-07, inherited)**: A from the estate default at seeding,
-  no separate argument recorded. Its Confidence Ladder measurement is
-  the derived value that would test it.
+- **Guth (2026-07, argued)**: C for stored feature tracks and A for
+  live analysis, in its lock-book. Kept-take features are immutable
+  snapshots stamped with an inputs digest, the analyser version and the
+  capturing device's calibration fingerprint; an analyser upgrade
+  writes new snapshots rather than restating old ones. Live per-frame
+  analysis is always computed and never stored. The clearest worked
+  case of the split this guide's default describes.
 
 ## Counter-evidence
 

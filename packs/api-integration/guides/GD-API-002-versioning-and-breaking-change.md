@@ -9,7 +9,6 @@ sources: [EV-0129, EV-0131, EV-0132, EV-0134, EV-0135, EV-0136, EV-0139, EV-0061
 review: on-change-of:EV-0129
 type: guide
 tags: [arch, ci, delivery]
-review_by: 2027-04
 ---
 
 # GD-API-002: how is the boundary allowed to change?

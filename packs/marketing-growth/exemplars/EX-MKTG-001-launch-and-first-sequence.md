@@ -30,12 +30,12 @@ and recorded in `GROWTH_DECISIONS.md`.
 Chosen: **A, compounding organic asset**, with **D, lifecycle and owned
 channel** beside it. The buyers search, because a physiotherapist
 looking for scheduling software types that in, and the category has a
-reading habit around practice management. Evidence cited: FRAG-MKTG-01
-and FRAG-MKTG-14.
+reading habit around practice management. Evidence cited: EV-0353
+and EV-0366.
 
 Rejected: **B, reach-led brand building**, for want of budget rather
 than want of evidence. That reason is written down, because the day
-there is budget the decision changes, and FRAG-MKTG-16 says reach is
+there is budget the decision changes, and EV-0368 says reach is
 where a small brand's growth comes from.
 
 Rejected: **C, growth loops**, because the reinvestment step could not
@@ -70,9 +70,9 @@ The sitemap lists each of the five exactly once, every URL returns 200,
 and no listed URL is disallowed.
 
 **What was not done.** No keywords meta tag, because the index operator
-says it is unused (FRAG-MKTG-01). No machine-readable file for AI
+says it is unused (EV-0353). No machine-readable file for AI
 assistants, because the operator states none is needed for its surfaces
-and nothing measures the counter-practice (FRAG-MKTG-05). Both
+and nothing measures the counter-practice (EV-0357). Both
 omissions are recorded, so the next person knows they were decisions.
 
 ## 4. Consent capture
@@ -117,13 +117,13 @@ itself instead of reporting a generic red. Details in
 Ruled with `packs/marketing-growth/guides/GD-MKTG-003-effect-measurement.md`.
 Chosen: **D, funnel diagnostics with the definition attached**. There is
 no volume for a holdout, and pretending otherwise would produce the
-exact number FRAG-MKTG-10 says cannot be trusted.
+exact number EV-0362 says cannot be trusted.
 
 The one funnel, visit to signup to first booking, stores its three
 parameters as configuration beside the number: ordering mode
 `sequential`, exclusion steps `[]`, denominator `first_step`. Without
 those three the rate means nothing, because the same product yields
-different rates under different parameter sets (FRAG-MKTG-15).
+different rates under different parameter sets (EV-0367).
 
 Every rate in `GROWTH_DECISIONS.md` carries the literal token
 UNVERIFIED. A script asserts no bare percentage escapes the document.

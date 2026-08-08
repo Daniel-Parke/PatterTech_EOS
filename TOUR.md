@@ -2,7 +2,7 @@
 summary: The teaching surface for EOS v2, what changed from v1 and why, the kernel, the packs and where to look
 type: guide
 tags: [eos]
-review_by: 2027-01
+review: 2027-01
 supersedes: archive/v1-final:GUIDE.md
 ---
 

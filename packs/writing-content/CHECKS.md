@@ -2,12 +2,11 @@
 summary: What a reviewer or a script can verify about writing and content work, split into executable today and judgement
 kind: fact
 scope: estate
-sources: [EV-0027, EV-0062, EV-0122, FRAG-WRITING-CONTENT-04, FRAG-WRITING-CONTENT-09, FRAG-WRITING-CONTENT-11, FRAG-WRITING-CONTENT-13, FRAG-WRITING-CONTENT-14]
+sources: [EV-0027, EV-0062, EV-0122, EV-0436, EV-0441, EV-0443, EV-0445, EV-0446]
 volatility: slow
 review: on-change-of:CLDR-plural-categories
 type: implementation
 tags: [content, forms, testing]
-review_by: 2027-08
 ---
 
 # CHECKS

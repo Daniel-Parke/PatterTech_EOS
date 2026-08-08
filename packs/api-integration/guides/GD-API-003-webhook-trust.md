@@ -9,7 +9,6 @@ sources: [EV-0123, EV-0125, EV-0126, EV-0034, EV-0039]
 review: on-change-of:EV-0125
 type: guide
 tags: [security, money, arch]
-review_by: 2028-01
 ---
 
 # GD-API-003: how is an inbound webhook trusted?

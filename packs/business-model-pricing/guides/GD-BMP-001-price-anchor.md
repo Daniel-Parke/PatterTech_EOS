@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: observational
-sources: [FRAG-BUSINESS-MODEL-PRICING-01, FRAG-BUSINESS-MODEL-PRICING-02, FRAG-BUSINESS-MODEL-PRICING-03, FRAG-BUSINESS-MODEL-PRICING-04, FRAG-BUSINESS-MODEL-PRICING-06, EV-0197]
+sources: [EV-0287, EV-0288, EV-0289, EV-0290, EV-0292, EV-0197]
 review: 2028-04
-review_by: 2028-04
 ---
 
 # GD-BMP-001: what is this price anchored to?
@@ -40,7 +39,7 @@ Take the allocated cost to serve one unit (EV-0197) and add a margin.
 Buys: a number you can defend to a customer and to yourself, available
 on day one, and a fairness story that survives a price rise, because a
 cost-justified increase reads as fair
-(FRAG-BUSINESS-MODEL-PRICING-06). Costs: it is blind to what the buyer
+(EV-0292). Costs: it is blind to what the buyer
 would have paid, and it caps you at whatever margin you had the nerve to
 write.
 
@@ -51,7 +50,7 @@ where buyers already know the going rate, and no research bill. Costs:
 you inherit a stranger's cost base and funding position, and you learn
 nothing about your own buyer. It is a legitimate practice under its
 conditions and a bad habit outside them
-(FRAG-BUSINESS-MODEL-PRICING-02).
+(EV-0288).
 
 ### C. Value-informed
 
@@ -60,7 +59,7 @@ only anchor that can price segments differently, and the one
 practitioners and academics agree works. Costs: it is an operational
 build, not a decision. The reported blockers were value assessment,
 value communication, segmentation, sales incentives and sponsorship, all
-capability problems (FRAG-BUSINESS-MODEL-PRICING-01). For a small
+capability problems (EV-0287). For a small
 venture the affordable form is narrow: one segment, one measured number,
 one price.
 
@@ -96,23 +95,23 @@ willingness-to-pay evidence worth the name.
 
 ## Evidence boundary
 
-FRAG-BUSINESS-MODEL-PRICING-01 is executive self-report from 2008,
+EV-0287 is executive self-report from 2008,
 mid-size and large firms, pre-SaaS, and its eighty per cent figure is a
 survey-era snapshot rather than a current fact.
-FRAG-BUSINESS-MODEL-PRICING-02 was read at abstract level only, so its
+EV-0288 was read at abstract level only, so its
 moderator coefficients are not available and must not be quoted. Neither
 identifies a causal effect. Willingness-to-pay evidence gathered by
 survey is an upper bound, because hypothetical answers overstate what
-people pay (FRAG-BUSINESS-MODEL-PRICING-03), and the price sensitivity
+people pay (EV-0289), and the price sensitivity
 meter is a screening bracket by its own vendor's account
-(FRAG-BUSINESS-MODEL-PRICING-04).
+(EV-0290).
 
 ## Worked rulings
 
 - **PatterTech EOS business-model-pricing pack (2026-08, argued)**: A or
   B as the opening default with a dated revisit, D once real transaction
   evidence exists. Argued from
-  FRAG-BUSINESS-MODEL-PRICING-01 and FRAG-BUSINESS-MODEL-PRICING-02,
+  EV-0287 and EV-0288,
   read for their conditions rather than their headlines.
 - **First UK consumer subscription, composed (2026-08, inherited)**:
   A, on the condition that the product had no comparable and no purchase

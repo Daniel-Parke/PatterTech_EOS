@@ -2,7 +2,6 @@
 summary: The deny list, the two scan placements, bypass records and what to do when a secret has already gone
 type: guide
 tags: [security, ci, tooling]
-review_by: 2027-10
 kind: fact
 scope: estate
 volatility: slow

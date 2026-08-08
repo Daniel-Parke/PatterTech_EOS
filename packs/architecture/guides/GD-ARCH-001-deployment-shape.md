@@ -9,7 +9,6 @@ sources: [EV-0151, EV-0152, EV-0153, EV-0159, EV-0160, EV-0150, EV-0010]
 review: 2027-03
 type: guide
 tags: [arch, infra]
-review_by: 2027-03
 ---
 
 # GD-ARCH-001: what shape is the deployment?

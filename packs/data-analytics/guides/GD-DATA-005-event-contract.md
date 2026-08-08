@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: observational
 sources: [EV-0138, EV-0139]
 review: 2028-02
-review_by: 2028-02
 ---
 
 # GD-DATA-005: How are events named and validated?
@@ -43,7 +42,7 @@ time until it has thousands of near-duplicates.
 Names are generated rather than enumerated: pick the objects in the
 product and the actions available on them, and every event name is an
 object-action pair. Anything that varies per occurrence goes in a
-property, never in the name (`FRAG-DATA-ANALYTICS-15`). Buys: the
+property, never in the name (`EV-0319`). Buys: the
 taxonomy stays finite and a new event's name is derivable rather than
 invented. Costs: the convention is enforced by review, which means it is
 enforced by whoever is paying attention. The source is vendor guidance
@@ -62,7 +61,7 @@ around when it is slow.
 Events are versioned, resolvable schemas held in a registry, validated
 at collection time, with invalid events quarantined rather than silently
 landed, and a versioning scheme that separates breaking changes from
-additive ones (`FRAG-DATA-ANALYTICS-14`). Buys: a malformed event cannot
+additive ones (`EV-0318`). Buys: a malformed event cannot
 land, and the compatibility question is answered at authoring time.
 Costs: registry, resolver and validation infrastructure is real
 operational weight and it fits a pipeline you control end to end. It
@@ -121,8 +120,8 @@ enumerated.
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: C as the
   default, B1 binding the owner and the one document. Argued from
-  `FRAG-DATA-ANALYTICS-15` for the generation rule and
-  `FRAG-DATA-ANALYTICS-14` for what escalation buys.
+  `EV-0319` for the generation rule and
+  `EV-0318` for what escalation buys.
 - **Signup and checkout events (2026-08, argued)**: C. Six events, all
   object then past-tense action, tracking plan owned by the single
   engineer, no registry. See

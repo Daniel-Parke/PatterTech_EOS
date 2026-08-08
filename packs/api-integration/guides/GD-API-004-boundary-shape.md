@@ -9,7 +9,6 @@ sources: [EV-0023, EV-0024, EV-0135, EV-0138, EV-0139, EV-0140, EV-0141, EV-0142
 review: on-change-of:EV-0023
 type: guide
 tags: [arch, state, realtime]
-review_by: 2027-06
 ---
 
 # GD-API-004: what shape does the boundary take?

@@ -9,7 +9,6 @@ sources: [EV-0136, EV-0137, EV-0143, EV-0125, EV-0133]
 review: 2028-02
 type: guide
 tags: [delivery, ci, testing]
-review_by: 2028-02
 ---
 
 # CHECKS: evaluating API and integration work

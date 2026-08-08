@@ -2,7 +2,7 @@
 summary: What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement
 type: guide
 tags: [security, testing, tooling]
-review_by: 2027-08
+review: 2027-08
 kind: record
 scope: estate
 ---

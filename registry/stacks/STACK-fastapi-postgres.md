@@ -3,7 +3,7 @@ summary: Profile 02, FastAPI on Postgres, shape, caps and hard-won constraints
 type: stack
 tags: [infra, hosting, data, testing]
 status: active
-review_by: 2027-01
+review: 2027-01
 ---
 
 # Stack profile 02: FastAPI on Postgres

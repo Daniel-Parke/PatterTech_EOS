@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0059]
 volatility: slow
 review: 2028-07
-review_by: 2028-07
 ---
 
 # The discovery record

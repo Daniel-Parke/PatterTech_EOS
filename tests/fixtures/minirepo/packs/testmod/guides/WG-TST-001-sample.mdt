@@ -3,7 +3,7 @@ summary: Should the fixture repo carry a wargame at all
 type: wargame
 tags: [eos, wargame]
 status: active
-review_by: 2030-01
+review: 2030-01
 ---
 
 # WG-TST-001 · Should the fixture repo carry a wargame at all

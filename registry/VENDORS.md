@@ -3,7 +3,7 @@ summary: Trusted third parties, what we trust each for and the exit route
 type: registry
 tags: [eos, infra, hosting]
 status: active
-review_by: 2027-01
+review: 2027-01
 ---
 
 # VENDORS

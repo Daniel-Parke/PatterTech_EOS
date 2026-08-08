@@ -4,10 +4,9 @@ type: foundation
 tags: [money, product]
 kind: fact
 scope: estate
-sources: [FRAG-BUSINESS-MODEL-PRICING-02, FRAG-BUSINESS-MODEL-PRICING-11, FRAG-BUSINESS-MODEL-PRICING-13, FRAG-BUSINESS-MODEL-PRICING-15]
+sources: [EV-0288, EV-0297, EV-0299, EV-0301]
 volatility: slow
 review: 2026-12
-review_by: 2026-12
 ---
 
 # The pricing decision record
@@ -69,11 +68,11 @@ Draft 2020-12. What it requires, in one table.
 - **practice and condition together.** The three practices pay off under
   different conditions, so a practice with no condition beside it is not
   a decision anyone can argue with later
-  (FRAG-BUSINESS-MODEL-PRICING-02).
+  (EV-0288).
 - **headline_price_includes and optional_charges.** The unavoidable set
   has to be in the advertised number, and the optional set has to state
   how it is avoided, because that boundary is where disputes sit
-  (FRAG-BUSINESS-MODEL-PRICING-13). A charge marked mandatory in the
+  (EV-0299). A charge marked mandatory in the
   optional list is a schema failure by construction.
 - **cause_types limited to cost and value.** A demand cause is refused
   at the schema level. See
@@ -83,7 +82,7 @@ Draft 2020-12. What it requires, in one table.
   `packs/business-model-pricing/refs/RETENTION_AND_LTV.md`.
 - **reporting_framework.** The recognition rules differ, and the bundle
   decomposition has to be defensible under whichever one applies
-  (FRAG-BUSINESS-MODEL-PRICING-11).
+  (EV-0297).
 - **payment_terms.days capped at sixty.** Longer is possible between
   businesses only where it is fair to both, which is a judgement a
-  schema should not wave through (FRAG-BUSINESS-MODEL-PRICING-15).
+  schema should not wave through (EV-0301).

@@ -7,9 +7,8 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-sources: [FRAG-AI-ML-LLM-01, FRAG-AI-ML-LLM-13, FRAG-AI-ML-LLM-14, FRAG-AI-ML-LLM-16, FRAG-AI-ML-LLM-17, FRAG-AI-ML-LLM-26, EV-0087]
+sources: [EV-0242, EV-0254, EV-0255, EV-0257, EV-0258, EV-0267, EV-0087]
 review: 2026-11
-review_by: 2026-11
 ---
 
 # GD-AIML-001: What evidence accepts this change?
@@ -43,7 +42,7 @@ hash and model id attached. Comparisons are paired over the same items
 and carry a stated minimum detectable effect. Buys: a repeatable
 verdict that can refuse a change, and the power gain that paired
 differences give by removing item-difficulty variance
-(FRAG-AI-ML-LLM-14). Costs: it can only measure what you thought to
+(EV-0255). Costs: it can only measure what you thought to
 collect, and the set ages as the product moves.
 
 ### B. Model judge over a rubric
@@ -61,7 +60,7 @@ A person grades a sample, and the labels become the reference
 everything else is calibrated against. Buys: the only ground truth in
 the building, and the discovery of criteria you could not state in
 advance, which is how rubrics actually get written
-(FRAG-AI-ML-LLM-13). Costs: slow, small, and expensive per item, so it
+(EV-0254). Costs: slow, small, and expensive per item, so it
 cannot be the routine gate.
 
 ### D. Production telemetry and online experiment
@@ -70,7 +69,7 @@ Measure the live system: failure reports, abstention rate, escalation
 rate, groundedness sampling, and an experiment where traffic allows
 one. Buys: the failure classes an offline set cannot contain, since
 RAG failure distribution depends on the live corpus and live queries
-(FRAG-AI-ML-LLM-01). Costs: it discovers a regression after users met
+(EV-0242). Costs: it discovers a regression after users met
 it, and most ventures have too little traffic for a powered
 experiment.
 
@@ -81,7 +80,7 @@ experiment.
 - Output is open-ended and no gold answer exists: B on top of A, with
   C as the calibration sample B is validated against.
 - No rubric exists yet: C first, on a few dozen outputs, then derive
-  the assertions from those grades (FRAG-AI-ML-LLM-13).
+  the assertions from those grades (EV-0254).
 - Live system with real traffic: D continuously, feeding new items
   back into A. Offline evidence gates change, production telemetry
   discovers the next failure class.
@@ -99,17 +98,17 @@ every time production surprises you.
 
 The acceptance set is private and the tuning path never reads it.
 Public benchmark scores are partly a memorisation artefact, with drops
-of up to eight points on a fresh matched set (FRAG-AI-ML-LLM-16), and
+of up to eight points on a fresh matched set (EV-0257), and
 a public scoreboard distorts under optimisation pressure
-(FRAG-AI-ML-LLM-17). The public practice set and private official set
+(EV-0258). The public practice set and private official set
 split of a published safety benchmark is the same design choice
-applied to harm (FRAG-AI-ML-LLM-26). Practically: two files, one the
+applied to harm (EV-0267). Practically: two files, one the
 selection path may read, one it may not, and a check that greps the
 selection code for the held-out filename.
 
 ## Evidence boundary
 
-FRAG-AI-ML-LLM-14 assumes roughly independent items and a scalar
+EV-0255 assumes roughly independent items and a scalar
 score, which fits pass-fail grading better than open-ended rubric
 scoring or agent trajectories where the unit of observation is
 ambiguous, and it does not model judge error, so intervals from that
@@ -122,8 +121,8 @@ the method, not the numbers.
 - **PatterTech EOS ai-ml-llm pack (2026-08, argued)**: A as the
   binding acceptance path, C as the label source, B permitted only
   after validation, D as a standing obligation rather than a gate.
-  Argued from FRAG-AI-ML-LLM-14 for the statistics and
-  FRAG-AI-ML-LLM-16 for the private set.
+  Argued from EV-0255 for the statistics and
+  EV-0257 for the private set.
 - **Support ticket classifier prompt swap (2026-08, argued)**: A, with
   the verdict on a three-point gap recorded as unresolved rather than
   as a win. Worked in full at

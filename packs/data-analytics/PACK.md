@@ -113,13 +113,13 @@ the unowned gap: a schema contract with no freshness rule and a
 freshness monitor with no owner produce the same outage, and the
 structural point behind the data-contract standard is that they belong
 in one document with a named team, not that the document uses a
-particular format (`FRAG-DATA-ANALYTICS-01`). Basis: decision.
+particular format (`EV-0305`). Basis: decision.
 
 **B2. A quality gate failure blocks publication.**
 `publishes_analytics_table`. A rule that raises a ticket while the table
 publishes is monitoring, not a gate. Quality rules run inside the
 pipeline as part of the build, not as a separate audit afterwards
-(`FRAG-DATA-ANALYTICS-02`, EV-0056). Prevents the documented-gate
+(`EV-0306`, EV-0056). Prevents the documented-gate
 failure: a contract written and never executed, which is documentation
 wearing a gate's clothes. Basis: decision, supported by measured
 practice at scale.
@@ -139,7 +139,7 @@ the failure that no later analysis can repair: choosing the metric and
 the stopping point after seeing the data. The dominant experimentation
 errors are interpretive rather than computational, and monitoring a
 fixed-horizon test continuously can push the false positive rate far
-above its nominal five per cent (`FRAG-DATA-ANALYTICS-09`). Scope note:
+above its nominal five per cent (`EV-0313`). Scope note:
 that finding comes from platforms running hundreds of concurrent
 experiments for millions of users. The mechanism transfers to one
 experiment; the base rates do not. Basis: empirical-evidence.
@@ -149,7 +149,7 @@ experiment result is read, and a failed check voids the result.**
 `runs_experiment`. A gap between the assignment ratio you asked for and
 the ratio you observed means something interfered, and whatever
 interfered almost certainly also moved the metric, so the result is not
-usable at any confidence level (`FRAG-DATA-ANALYTICS-12`). Prevents the
+usable at any confidence level (`EV-0316`). Prevents the
 worst outcome in this domain: computing the check, seeing it fail, and
 reporting the win anyway. Basis: empirical-evidence.
 
@@ -159,7 +159,7 @@ is. Prevents the unauditable table: without a stated grain nobody can
 say whether a count is double-counting, and every downstream number
 inherits the ambiguity. Grain-first is the first of the three ordered
 dimensional decisions and survives every argument about physical shape
-(`FRAG-DATA-ANALYTICS-04`). Basis: decision. The research graded this a
+(`EV-0308`). Basis: decision. The research graded this a
 default and the pack promotes it, which is challenged below.
 
 Guarded actions sit outside this pack. Deletion of production data,
@@ -174,40 +174,40 @@ Each applies unless the venture's lock-book records a reason to depart.
 a property.** Names are generated from the product's objects and the
 actions available on them rather than enumerated one at a time, and no
 identifier, number or variant goes in the name
-(`FRAG-DATA-ANALYTICS-15`). Reason: a generated taxonomy stays finite,
+(`EV-0319`). Reason: a generated taxonomy stays finite,
 an enumerated one grows to thousands of near-duplicates. The evidence is
 vendor assertion, and the casing is taste.
 
 **D2. Staging, intermediate and marts layering, one prefix per layer.**
 Staging is one to one with sources and only cleans and renames, joins
 and logic sit in intermediate models, marts hold business entities
-(`FRAG-DATA-ANALYTICS-03`). Reason: the prefix tells a reviewer what a
+(`EV-0307`). Reason: the prefix tells a reviewer what a
 model may do, so review is mechanical. Costs model count and build time.
 Override for a project small enough that the layers are ceremony.
 
 **D3. Fixed horizon, unless a sequential method is chosen deliberately
 and written into the stopping rule.** Reason: a correctly powered
 fixed-horizon test left alone is the most powerful option per unit of
-traffic (`FRAG-DATA-ANALYTICS-09`). Where people will look anyway, fix
+traffic (`EV-0313`). Where people will look anyway, fix
 the statistic rather than the operator: always-valid and group
 sequential methods make monitoring supported
-(`FRAG-DATA-ANALYTICS-08`) and ship in a maintained Apache-2.0 library,
-so this is not a reason to buy a platform (`FRAG-DATA-ANALYTICS-13`).
+(`EV-0312`) and ship in a maintained Apache-2.0 library,
+so this is not a reason to buy a platform (`EV-0317`).
 
 **D4. Below the traffic for a properly powered test, do not run one.**
 An underpowered test launders a coin flip as evidence and is worse than
 an argued decision with an instrumented rollout. Reason: with a low
 prior on any idea working, a bare significant result from a small sample
 is more likely false than a naive reading suggests
-(`FRAG-DATA-ANALYTICS-09`). No source says this plainly, because none
+(`EV-0313`). No source says this plainly, because none
 was written for a venture. Decide by argument, ship behind a flag, watch
 a guardrail (EV-0059).
 
 **D5. One managed warehouse until the working set argues otherwise.**
 Size the stack to the query working set rather than the storage total
-(`FRAG-DATA-ANALYTICS-07`). Reason: below a few terabytes the catalogue,
+(`EV-0311`). Reason: below a few terabytes the catalogue,
 compaction and snapshot maintenance an open format asks for usually
-exceeds the coupling it avoids (`FRAG-DATA-ANALYTICS-06`).
+exceeds the coupling it avoids (`EV-0310`).
 
 **D6. Contracts on public models only.** Freeze the interface of models
 other people read, leave private models uncontracted (EV-0057). Reason:
@@ -217,7 +217,7 @@ coordination.
 **D7. Use pre-experiment covariates where a stable unit was observed
 before the test.** Variance reduction from pre-period behaviour bought
 roughly half the variance at Bing, which is the same power at half the
-users (`FRAG-DATA-ANALYTICS-11`). Reason: sensitivity is cheaper than
+users (`EV-0315`). Reason: sensitivity is cheaper than
 traffic. It does nothing for new users, first-session funnels or
 anonymous traffic, so the default holds only where the precondition
 does.
@@ -226,7 +226,7 @@ does.
 join key is a surrogate or a salted hash rather than the natural
 identifier, so B3 has a cheap default answer. Reason: collecting less is
 the cheapest privacy control and the sources barely mention it.
-Differentially private aggregates (`FRAG-DATA-ANALYTICS-17`) are a later
+Differentially private aggregates (`EV-0321`) are a later
 step, never a substitute for collecting less.
 
 ## Preferences
@@ -236,14 +236,14 @@ asking.
 
 - The contract file format. A dedicated standard, a transformation
   tool's schema file and an expectation suite all satisfy B1, and the
-  format war is unsettled (`FRAG-DATA-ANALYTICS-01`).
+  format war is unsettled (`EV-0305`).
 - The casing convention for event names and columns
-  (`FRAG-DATA-ANALYTICS-15`). Only consistency matters.
+  (`EV-0319`). Only consistency matters.
 - The quality tool. Declared expectations (EV-0056) and computed metrics
-  with anomaly detection (`FRAG-DATA-ANALYTICS-02`) both work.
+  with anomaly detection (`EV-0306`) both work.
 - Whether marts are wide entities or star-shaped, and whether dimensions
   carry surrogate keys. The sources disagree and neither argues it
-  (`FRAG-DATA-ANALYTICS-03`, `FRAG-DATA-ANALYTICS-04`).
+  (`EV-0307`, `EV-0308`).
 - The dashboard method, as long as one is committed to and the panels
   answer a named question (EV-0240).
 
@@ -268,13 +268,13 @@ Level-three detail: `packs/data-analytics/refs/EXPERIMENT_STATS.md`,
   the repository, and a pipeline that publishes regardless. B2.
 - **Computing the check and reporting the win anyway.** Sample ratio
   mismatch detected, put in a footnote, decision taken. This is the
-  failure this pack exists to stop (`FRAG-DATA-ANALYTICS-12`).
+  failure this pack exists to stop (`EV-0316`).
 - **Peeking at a fixed-horizon test.** Stopping the moment the line
   crosses, which is how the false positive rate leaves five per cent
-  behind (`FRAG-DATA-ANALYTICS-09`).
+  behind (`EV-0313`).
 - **Learning the bug as a rule.** Constraint suggestion encodes whatever
   the data currently does, including the defect
-  (`FRAG-DATA-ANALYTICS-02`).
+  (`EV-0306`).
 - **Semantic drift under a passing contract.** A column that changes from
   pence to pounds passes every shape check (EV-0057). No source found
   offers a gate. Treat it as unsolved and put the unit in the name.
@@ -283,52 +283,52 @@ Level-three detail: `packs/data-analytics/refs/EXPERIMENT_STATS.md`,
 - **Two models computing the same business number by different routes.**
   Whichever shape you chose, this is what it was built to stop.
 - **The event catalogue explosion.** Identifiers, counters and variant
-  names inside event names (`FRAG-DATA-ANALYTICS-15`).
+  names inside event names (`EV-0319`).
 - **Causal language over observational data.** "The redesign lifted
   retention" from a before-and-after chart.
 - **A surprisingly large effect believed.** It is evidence of a bug
-  before it is evidence of a win (`FRAG-DATA-ANALYTICS-09`).
+  before it is evidence of a win (`EV-0313`).
 - **The metric wall.** Every available series on one dashboard, with no
   named question (EV-0240).
 - **Differential privacy as a badge.** The primitives assume a bounded
   contribution per user per partition and do not enforce it, so
   contribution limiting is the caller's job and getting it wrong voids
-  the guarantee silently (`FRAG-DATA-ANALYTICS-17`). Ask what the privacy
+  the guarantee silently (`EV-0321`). Ask what the privacy
   unit is and what the implementation does that the proof does not cover
-  (`FRAG-DATA-ANALYTICS-16`).
+  (`EV-0320`).
 
 ## Open questions and counter-evidence
 
 **The storage argument is a live contradiction and this pack takes a
 side.** The lakehouse position paper argues the two-tier shape is broken
 by duplication and staleness, with benchmark numbers answering the
-performance objection (`FRAG-DATA-ANALYTICS-05`). The counter-account
+performance objection (`EV-0309`). The counter-account
 reports most warehouse customers holding under a terabyte and around
 ninety per cent of queries scanning under 100 MB
-(`FRAG-DATA-ANALYTICS-07`). Both are vendor sources arguing for their
+(`EV-0311`). Both are vendor sources arguing for their
 own product and both are discounted. They are not really disagreeing:
 one describes an estate that already has a lake, the other describes
 everyone else. D5 assumes a venture is the second population.
 
 **Model shape is contested and neither side argues it.** Dimensional
 practice keeps facts narrow and joins to conformed dimensions
-(`FRAG-DATA-ANALYTICS-04`); the transformation-tool guide lands on wide
+(`EV-0308`); the transformation-tool guide lands on wide
 entities and does not mention star schemas at all
-(`FRAG-DATA-ANALYTICS-03`). The dimensional source has not been
+(`EV-0307`). The dimensional source has not been
 substantially maintained since its authors wound down, and its physical
 prescriptions assume hardware nobody runs. Grain-first and one route to
 each business number survive both.
 
 **Registry-enforced event schemas against convention plus review is
 unmeasured.** Both are asserted, no comparison exists in the sources
-found (`FRAG-DATA-ANALYTICS-14`, `FRAG-DATA-ANALYTICS-15`), and the
+found (`EV-0318`, `EV-0319`), and the
 choice rests on whether you own the collection path, which is a fit
 argument and not an evidence one.
 
 **Peeking is a genuine methodological standoff.** One peer-reviewed
 position treats it as an operator error to correct
-(`FRAG-DATA-ANALYTICS-09`), the other as a stopping-rule property to fix
-in the statistic (`FRAG-DATA-ANALYTICS-08`). D3 sides with the first and
+(`EV-0313`), the other as a stopping-rule property to fix
+in the statistic (`EV-0312`). D3 sides with the first and
 names the second as the deliberate alternative. Relatedly, the power
 cost of always-valid inference at venture sample sizes is measured
 nowhere found, which is exactly the number D3 and D4 would need.
@@ -336,7 +336,7 @@ nowhere found, which is exactly the number D3 and D4 would need.
 **The base rate is population-bound.** The figure of roughly eighty-five
 to ninety per cent of ideas failing to move the target metric comes from
 mature products at scale where the obvious wins are gone
-(`FRAG-DATA-ANALYTICS-09`). A young product may face a better prior. Use
+(`EV-0313`). A young product may face a better prior. Use
 it to argue for humility, never as a computed input.
 
 **A proportionate quality gate for a two-person venture is unaddressed

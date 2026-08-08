@@ -134,7 +134,7 @@ def build_index(model: RepoModel) -> str:
             "Derived file. Edit front-matter, then run",
             "`python -m tools.eos check --write-index`. One row per live",
             "file. Frozen trees are not indexed.", "",
-            "| path | type | tags | summary | review_by |",
+            "| path | type | tags | summary | review |",
             "| --- | --- | --- | --- | --- |"]
     for rec in model.files:
         if rec.path in DERIVED or not rec.fm.present or not indexable(rec):
@@ -142,7 +142,8 @@ def build_index(model: RepoModel) -> str:
         fm = rec.fm.data
         rows.append("| {} | {} | {} | {} | {} |".format(
             rec.path, _cell(fm.get("type")), _cell(fm.get("tags")),
-            _cell(fm.get("summary")), _cell(fm.get("review_by"))))
+            _cell(fm.get("summary")),
+            _cell(fm.get("review") or fm.get("review_by"))))
     return "\n".join(rows) + "\n"
 
 
@@ -358,8 +359,13 @@ def check_e002_front_matter(ctx: dict) -> list:
             out.append(_err("E002", rec.path, f"unknown type: {ftype}"))
         if ftype in NEEDS_STATUS and "status" not in fm:
             out.append(_err("E002", rec.path, "type requires status"))
-        if ftype in NEEDS_REVIEW and "review_by" not in fm:
-            out.append(_err("E002", rec.path, "type requires review_by"))
+        # Either spelling satisfies it. review is the v2 axis and the
+        # one live files carry; review_by is v1's, still required by the
+        # frozen seed fixtures, which must not be edited to suit a
+        # checker. Demanding both put two hand-written fields on 149
+        # files for one fact, 92 of them with the identical value.
+        if ftype in NEEDS_REVIEW and not (fm.get("review") or fm.get("review_by")):
+            out.append(_err("E002", rec.path, "type requires review"))
     return out
 
 
@@ -449,22 +455,31 @@ def check_e006_review_expiry(ctx: dict) -> list:
     for rec in model.files:
         if not rec.fm.present:
             continue
-        rb = rec.fm.data.get("review_by", "")
+        fm = rec.fm.data
+        # review is the v2 axis, review_by v1's. Whichever the file
+        # carries is the one checked; carrying both is no longer asked
+        # for. The v2 axis also accepts on-change-of:<source> and none,
+        # neither of which is a month, so neither is an expiry.
+        key = "review" if fm.get("review") else "review_by"
+        rb = fm.get(key, "")
         if not rb:
             continue
-        m = re.match(r"(\d{4})-(\d{2})", str(rb))
+        value = str(rb).strip()
+        if value == "none" or value.startswith("on-change-of:"):
+            continue
+        m = re.match(r"(\d{4})-(\d{2})", value)
         if m:
             y, mo = int(m.group(1)), int(m.group(2))
             try:
                 first, late = date(y, mo, 1), date(y, mo, 28)
             except ValueError:
-                out.append(_err("E006", rec.path, f"review_by not YYYY-MM: {rb}"))
+                out.append(_err("E006", rec.path, f"{key} not YYYY-MM: {rb}"))
                 continue
             if first <= today.replace(day=1) and (y, mo) != (today.year, today.month):
                 if late < today:
-                    out.append(_warn("E006", rec.path, f"past review_by {rb}, verify before relying"))
+                    out.append(_warn("E006", rec.path, f"past {key} {rb}, verify before relying"))
         else:
-            out.append(_err("E006", rec.path, f"review_by not YYYY-MM: {rb}"))
+            out.append(_err("E006", rec.path, f"{key} not YYYY-MM: {rb}"))
     return out
 
 

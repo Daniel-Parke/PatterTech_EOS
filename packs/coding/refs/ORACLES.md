@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0094, EV-0178, EV-0180]
 volatility: slow
 review: 2027-05
-review_by: 2027-05
 ---
 
 # Oracle reference

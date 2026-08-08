@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: observational
 sources: [EV-0057]
 review: 2027-12
-review_by: 2027-12
 ---
 
 # GD-DATA-002: What shape does the analytics model take?
@@ -46,7 +45,7 @@ internal design.
 
 Staging models one to one with sources doing only cleaning and renaming,
 intermediate models holding joins and logic, marts holding wide business
-entities (`FRAG-DATA-ANALYTICS-03`). Buys: a prefix tells a reviewer
+entities (`EV-0307`). Buys: a prefix tells a reviewer
 what a model is allowed to do, so review is mechanical, and one route to
 each business number. Costs: model count and build time, which is real
 on a small warehouse. It says nothing about the design inside the marts
@@ -58,7 +57,7 @@ Declare the grain of the fact table first, then the dimensions that
 apply at that grain, then the facts. Integrate through conformed
 dimensions so separate fact tables can be compared without a central
 model. Pick a numbered slowly-changing-dimension policy rather than
-arguing about history each time (`FRAG-DATA-ANALYTICS-04`). Buys: the
+arguing about history each time (`EV-0308`). Buys: the
 grain discipline, a menu instead of an argument about history, and a
 shape most analysts already know. Costs: the physical prescriptions
 (surrogate keys, narrow facts) were formalised when storage and joins
@@ -110,8 +109,8 @@ measurement behind it.
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: B as the
   default, grain declaration promoted to binding as B6. Argued from
-  `FRAG-DATA-ANALYTICS-03` for the layering and
-  `FRAG-DATA-ANALYTICS-04` for grain-first.
+  `EV-0307` for the layering and
+  `EV-0308` for grain-first.
 - **Signup and checkout event model (2026-08, argued)**: B, with one
   fact model at one row per checkout order and a wide user entity. Grain
   stated in the model documentation. See

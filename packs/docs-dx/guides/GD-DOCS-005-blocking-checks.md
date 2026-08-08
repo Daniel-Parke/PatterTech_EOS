@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: not-applicable
 sources: [EV-0326, EV-0331, EV-0332, EV-0334, EV-0335]
 review: 2028-04
-review_by: 2028-04
 ---
 
 # GD-DOCS-005: Which documentation checks may block?

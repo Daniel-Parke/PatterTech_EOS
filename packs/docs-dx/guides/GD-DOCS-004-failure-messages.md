@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0175, EV-0327, EV-0328]
 review: on-change-of:rustc-diagnostic-style-guide
-review_by: 2028-04
 ---
 
 # GD-DOCS-004: What does a failure message owe its reader?

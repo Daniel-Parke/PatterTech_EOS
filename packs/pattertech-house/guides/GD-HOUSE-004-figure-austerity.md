@@ -9,7 +9,6 @@ sources: [EV-0232, EV-0234]
 review: 2028-07
 type: guide
 tags: [web, media, imagery, content]
-review_by: 2028-07
 ---
 
 # GD-HOUSE-004: How austere is this figure?
@@ -19,7 +18,7 @@ review_by: 2028-07
 The house default is restraint, and the strongest evidence in the pack
 argues against it for one specific job. Embellished charts cost nothing
 in interpretation accuracy and are remembered better weeks later
-(FRAG-PATTERTECH-HOUSE-03). This guide decides how much a given figure
+(EV-0391). This guide decides how much a given figure
 may carry, and it is the one place the house is allowed to be loud.
 
 ## It depends on

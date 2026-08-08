@@ -9,7 +9,6 @@ basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0059]
 review: 2028-06
-review_by: 2028-06
 ---
 
 # GD-DISC-002: Where does the evidence about users come from?
@@ -46,23 +45,23 @@ state it.
 Interviews, contextual observation, moderated task sessions. Buys: the
 only instrument that finds a problem you did not already suspect, and
 the only source that grounds an opportunity in a story rather than an
-assumption (`FRAG-PRODUCT-DISCOVERY-13`). Costs: recruitment is slow,
+assumption (`EV-0415`). Costs: recruitment is slow,
 and the recruitment frame decides whether the whole discovery is wrong
-(`FRAG-PRODUCT-DISCOVERY-02`). Small samples are wildly variable rather
+(`EV-0404`). Small samples are wildly variable rather
 than merely thin: across random sets of five participants the share of
 known problems found ran from 99 per cent down to 55, ten raised the
 floor to about 80, twenty to about 95
-(`FRAG-PRODUCT-DISCOVERY-05`).
+(`EV-0407`).
 
 ### C. A controlled experiment
 
 Change behaviour for some users and read a metric. Buys: it measures
 instead of predicting, which matters because expert judgement does not
 sort ideas into the third that work and the two thirds that do not
-(`FRAG-PRODUCT-DISCOVERY-03`). Costs: it needs enough traffic to power
+(`EV-0405`). Costs: it needs enough traffic to power
 the metric, and without a platform enforcing guardrails the known
 failure modes get more likely, not less
-(`FRAG-PRODUCT-DISCOVERY-04`). Asymmetric gating is the usable default:
+(`EV-0406`). Asymmetric gating is the usable default:
 goal metrics drive the ship decision, guardrails block only on
 significant harm (EV-0059, vendor documentation of its own feature, so
 the thresholds are conventions).
@@ -75,7 +74,7 @@ to ask. Costs: on the segment-targeting task, which is the thing product
 teams actually want from it, models inflated between-segment gaps two to
 fourfold and would have pointed a team at the wrong segment in half the
 US cases, and no tested model beat the strongest non-LLM baseline at the
-individual level (`FRAG-PRODUCT-DISCOVERY-11`). Scope note: that
+individual level (`EV-0413`). Scope note: that
 benchmark is attitudinal survey prediction, not interview rehearsal.
 
 ## Decision rule
@@ -90,7 +89,7 @@ benchmark is attitudinal survey prediction, not interview rehearsal.
 - "What should we ask them": D is legitimate here. Drafting an
   interview guide, generating candidate questions, or synthesising a
   transcript you collected is the structuring job, which is where
-  model assistance measured best (`FRAG-PRODUCT-DISCOVERY-10`).
+  model assistance measured best (`EV-0412`).
 - Any use of D that reaches the record is labelled unverified at the
   point of use, per B6, and never carries a decision alone.
 
@@ -105,9 +104,9 @@ disagree, the one that observed behaviour wins over the one that asked.
 Two sources are usually presented as contradicting each other. The
 five-user convention argues that three rounds of five beat one round of
 fifteen on a fixed budget, because each round changes the design and so
-changes the problem set (`FRAG-PRODUCT-DISCOVERY-06`). The resampling
+changes the problem set (`EV-0408`). The resampling
 study measures what that average hides
-(`FRAG-PRODUCT-DISCOVERY-05`). They optimise different things: expected
+(`EV-0407`). They optimise different things: expected
 yield per pound against the variance of a single draw. This pack takes
 the worst case, because you only ever run one sample and cannot tell
 which one you drew. Two further cautions: the five-user article is
@@ -117,15 +116,15 @@ five customer interviews is citing it for something it does not cover.
 
 ## Evidence boundary
 
-`FRAG-PRODUCT-DISCOVERY-05` is one interface, one problem set, a 2003
+`EV-0407` is one interface, one problem set, a 2003
 web application, and its denominator is problems found by the full
 sixty, so problems nobody found are invisible to it. The exact
 percentages do not transfer to another interface class; the shape of the
-variance does. `FRAG-PRODUCT-DISCOVERY-10` is a preprint on a single
+variance does. `EV-0412` is a preprint on a single
 platform with participants rather than real stakeholders, scored against
 a documentation standard that rewards well-formed prose and cannot
 detect a well-written requirement for the wrong thing.
-`FRAG-PRODUCT-DISCOVERY-11` moves as models move; the direction is the
+`EV-0413` moves as models move; the direction is the
 durable part, not the margins.
 
 ## Worked rulings

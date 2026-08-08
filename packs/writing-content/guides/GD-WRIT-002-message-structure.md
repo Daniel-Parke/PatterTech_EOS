@@ -5,11 +5,10 @@ authority: default
 basis: standard
 evidence_grade: observational
 scope: estate
-sources: [FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-11, FRAG-WRITING-CONTENT-12, FRAG-WRITING-CONTENT-13, FRAG-WRITING-CONTENT-14]
+sources: [EV-0442, EV-0443, EV-0444, EV-0445, EV-0446]
 review: on-change-of:CLDR-plural-categories
 type: guide
 tags: [content, forms, tooling]
-review_by: 2028-09
 ---
 
 # GD-WRIT-002: How is a sentence built for a second locale?
@@ -39,7 +38,7 @@ migration rather than a rewrite.
 ### A. MessageFormat 2.0
 Selection on plurality, gender and grammatical case lives inside the
 message, and the normative text is published as part of LDML
-(FRAG-WRITING-CONTENT-10). Buys a standards-process format with the
+(EV-0442). Buys a standards-process format with the
 widest intended adoption, and asymmetric localisation, so a translator
 adds variants the English never had without a code change. Costs a
 young adoption curve: library support was still consolidating at the
@@ -49,7 +48,7 @@ version must be pinned.
 ### B. Project Fluent
 The same asymmetric-localisation conclusion reached years earlier with
 a different syntax, and three official implementations in JavaScript,
-Python and Rust (FRAG-WRITING-CONTENT-12). Buys a stable, shipped
+Python and Rust (EV-0444). Buys a stable, shipped
 syntax with real production history behind it. Costs a bet against the
 standards process: Syntax 1.0 has not moved since 2019 and its author
 describes the project as research.
@@ -92,13 +91,13 @@ in PACK.md rather than properties of a format.
 - No sentence assembled by concatenating lookups.
 - Plural categories looked up per locale, never derived from the
   English singular and plural pair. The category `one` is not the
-  number one (FRAG-WRITING-CONTENT-11).
+  number one (EV-0443).
 - A pseudo-locale build before any string reaches a translator, which
   catches truncation, unexternalised strings and hardcoded text at no
-  translation cost (FRAG-WRITING-CONTENT-14). It catches nothing about
+  translation cost (EV-0446). It catches nothing about
   meaning, so passing it says nothing about whether the copy is good.
 - Layout slack for two to three times expansion on short strings
-  (FRAG-WRITING-CONTENT-13). That figure covers English into European
+  (EV-0445). That figure covers English into European
   languages and says nothing about CJK or right-to-left scripts.
 
 ## Worked rulings

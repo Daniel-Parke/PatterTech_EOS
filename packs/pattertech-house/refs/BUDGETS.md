@@ -7,7 +7,6 @@ volatility: slow
 review: 2028-08
 type: implementation
 tags: [web, motion, colour, perf, layout]
-review_by: 2028-08
 ---
 
 # House budgets

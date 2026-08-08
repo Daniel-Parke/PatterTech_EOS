@@ -4,9 +4,9 @@ type: foundation
 tags: [ops, delivery, perf]
 kind: fact
 scope: estate
-sources: [FRAG-AI-ML-LLM-14, FRAG-AI-ML-LLM-18, FRAG-AI-ML-LLM-19, FRAG-AI-ML-LLM-27]
+sources: [EV-0255, EV-0259, EV-0260, EV-0268]
 volatility: fast
-review: on-change-of:FRAG-AI-ML-LLM-19
+review: on-change-of:EV-0260
 ---
 
 # Model migration reference
@@ -25,7 +25,7 @@ that carry a date, and a failing match on anything that does not.
 Beside each pin sits the published retirement date. That date is
 tentative when it is far out and firm once deprecation is announced,
 and it belongs next to the call site rather than in a spreadsheet
-somebody remembers in the last week (FRAG-AI-ML-LLM-19).
+somebody remembers in the last week (EV-0260).
 
 ## The lifecycle you are buying into
 
@@ -36,7 +36,7 @@ retirement dates roughly a year or more out, and provides a usage
 export so a customer can audit which keys still call a deprecated
 model. Requests to a retired model fail outright. API parameters are
 deprecated on the same footing, with temperature, top_p and top_k now
-returning a 400 on the newest model line (FRAG-AI-ML-LLM-19).
+returning a 400 on the newest model line (EV-0260).
 
 Sixty days is a floor rather than a comfortable window, one vendor's
 policy is not a standard, and partner-operated platforms run their own
@@ -52,7 +52,7 @@ schedules. A deployment across two clouds carries two clocks.
    model together makes the result uninterpretable.
 3. **Run both.** Old pin and candidate pin, over the same items, and
    report the paired difference with its interval
-   (FRAG-AI-ML-LLM-14). Templates may need adjusting for the new
+   (EV-0255). Templates may need adjusting for the new
    model, and if they do, that is a second experiment reported
    separately.
 4. **Read the abstention and groundedness rates**, not only accuracy.
@@ -64,14 +64,14 @@ schedules. A deployment across two clouds carries two clocks.
    retirement date passes.
 7. **Record the provenance row**: provider, dated id, retirement date,
    documented capability limits and the provider's published model
-   documentation (FRAG-AI-ML-LLM-27).
+   documentation (EV-0268).
 
 ## The drift check
 
 A pinned name is not a frozen behaviour. The same endpoint changed
 substantially across two snapshots, with one task falling from 84 per
 cent to 51 per cent, and instruction-following degrading noticeably
-(FRAG-AI-ML-LLM-18). Run the acceptance set on a schedule against the
+(EV-0259). Run the acceptance set on a schedule against the
 pinned model, not only when you change something, and treat an
 unexplained move as an incident rather than as noise.
 

@@ -9,7 +9,6 @@ sources: [EV-0269, EV-0270, EV-0272, EV-0273, EV-0277, EV-0285, EV-0286]
 review: 2027-09
 type: guide
 tags: [arch, data, product]
-review_by: 2027-09
 ---
 
 # GD-BLM-001: How much model does this domain earn?

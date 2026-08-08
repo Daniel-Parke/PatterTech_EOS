@@ -4,10 +4,9 @@ type: guide
 tags: [security, pii]
 kind: fact
 scope: estate
-sources: [FRAG-LEGAL-LICENSING-05, FRAG-LEGAL-LICENSING-13, FRAG-LEGAL-LICENSING-15, FRAG-LEGAL-LICENSING-16]
+sources: [EV-0341, EV-0349, EV-0351, EV-0352]
 volatility: slow
 review: 2028-03
-review_by: 2028-03
 ---
 
 # Reference: when to stop and instruct a lawyer
@@ -24,7 +23,7 @@ modified form.** Detectable from the inventory and the deployment
 shape. The reason it escalates rather than resolves: the licence text
 does not say what counts as modification, nor where the program
 boundary sits when the component runs behind an internal service
-(FRAG-LEGAL-LICENSING-05). Those are the two questions people actually
+(EV-0341). Those are the two questions people actually
 have, and no source read answers either.
 
 **Two. Any relicensing, licence change, or transfer of contributor
@@ -38,7 +37,7 @@ new sub-processor in another country, a transfer mechanism, a data
 subject complaint that escalates, or any letter from the Commissioner.
 The statute states what must be said in a notice and is silent on
 whether a transfer safeguard is adequate for a specific arrangement
-(FRAG-LEGAL-LICENSING-13).
+(EV-0349).
 
 **Four. Any letter alleging infringement.** Copyright, patent,
 trademark or licence breach, from anyone, however informal the tone.
@@ -75,11 +74,11 @@ handover is one page:
 **The EU market question.** Whether the venture places a product on
 that market in the course of a commercial activity is a position to
 record with reasoning, and to re-check before 2026-09-11 and before
-2027-12-11 (FRAG-LEGAL-LICENSING-15). It escalates only when the
+2027-12-11 (EV-0351). It escalates only when the
 answer turns out to be yes and obligations attach.
 
 **Authorship of agent-written code.** Unsettled, and staying unsettled
-for now (FRAG-LEGAL-LICENSING-16). The response is to record
+for now (EV-0352). The response is to record
 provenance, not to obtain an opinion. It escalates only if someone
 asserts a claim over our output or we want to assert one over it.
 

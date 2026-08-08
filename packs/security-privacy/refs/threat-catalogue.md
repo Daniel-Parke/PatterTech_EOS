@@ -2,7 +2,6 @@
 summary: STRIDE for the system, the agentic catalogue for the agent, and how both map onto the ten guarded classes
 type: guide
 tags: [security, arch]
-review_by: 2027-12
 kind: fact
 scope: estate
 volatility: fast

@@ -12,7 +12,6 @@ review: on-change-of:PECR-reg-22-amendment
 sources: [EV-0041, EV-0225]
 type: guide
 tags: [pii, forms, content]
-review_by: 2027-04
 ---
 
 # GD-MKTG-002: Where does a lawful marketing address come from?
@@ -30,7 +29,7 @@ collection.
 - **Whether the person is an individual subscriber**, which includes
   sole traders and most partnerships, or a corporate one. The
   distinction sits in regulator guidance rather than the regulation text
-  (FRAG-MKTG-09).
+  (EV-0361).
 - **Whether a sale or a negotiation actually happened** with that
   person, not with their employer and not nearly.
 - **What you intend to send**, because the soft opt-in reaches similar
@@ -53,7 +52,7 @@ capture wording stored, not just a boolean.
 Permitted only where all three conditions hold together: details
 obtained in the course of a sale or negotiation with that person,
 similar products and services only, and a simple free refusal route
-offered at collection and in every later message (FRAG-MKTG-09). Buys a
+offered at collection and in every later message (EV-0361). Buys a
 lawful route to existing customers without a second consent step. Costs
 a stored reference to the transaction it rests on, and it narrows what
 may be sent. A record claiming this with no transaction reference is

@@ -9,7 +9,6 @@ basis: decision
 evidence_grade: not-applicable
 sources: [EV-0044, EV-0102, EV-0170, EV-0326, EV-0330, EV-0331, EV-0332, EV-0333, EV-0335]
 review: 2027-08
-review_by: 2027-08
 ---
 
 # docs-dx pack checks

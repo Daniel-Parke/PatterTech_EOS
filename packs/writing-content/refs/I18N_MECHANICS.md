@@ -2,12 +2,11 @@
 summary: Plural categories, text expansion figures, the pseudo-locale gate and what each of them does not catch
 kind: fact
 scope: estate
-sources: [FRAG-WRITING-CONTENT-10, FRAG-WRITING-CONTENT-11, FRAG-WRITING-CONTENT-12, FRAG-WRITING-CONTENT-13, FRAG-WRITING-CONTENT-14]
+sources: [EV-0442, EV-0443, EV-0444, EV-0445, EV-0446]
 volatility: slow
 review: on-change-of:CLDR-plural-categories
 type: implementation
 tags: [content, forms, tooling]
-review_by: 2028-10
 ---
 
 # i18n mechanics
@@ -21,7 +20,7 @@ format decision itself is
 Six category tags exist: zero, one, two, few, many and other. Only
 `other` is mandatory. Which of the rest a locale uses is a property of
 that locale and of the CLDR release, not of the message
-(FRAG-WRITING-CONTENT-11).
+(EV-0443).
 
 The trap the specification names explicitly: `one` does not mean the
 number one. It means any number that behaves like one in that language,
@@ -38,13 +37,13 @@ Consequences:
   and will drift as CLDR releases land. Ask the library.
 - The rules cover grammatical number only. Gender, grammatical case and
   clause ordering are separate problems, which is part of why the
-  selection belongs inside the message (FRAG-WRITING-CONTENT-10,
-  FRAG-WRITING-CONTENT-12).
+  selection belongs inside the message (EV-0442,
+  EV-0444).
 
 ## Text expansion
 
 Expansion is inversely related to source length
-(FRAG-WRITING-CONTENT-13). English strings up to about ten characters
+(EV-0445). English strings up to about ten characters
 average two to three times longer once translated into European
 languages. Strings over about seventy characters average around thirty
 per cent longer.
@@ -66,7 +65,7 @@ A pseudo-locale renders every externalised string in a transformed form
 that is still readable but longer, accented and bracketed. Running the
 product under it converts a class of defect from a post-translation
 surprise into a pre-translation build failure, at no translation cost
-(FRAG-WRITING-CONTENT-14).
+(EV-0446).
 
 What it catches:
 

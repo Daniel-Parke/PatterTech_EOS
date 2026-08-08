@@ -5,11 +5,10 @@ authority: default
 basis: decision
 evidence_grade: anecdotal
 scope: estate
-sources: [FRAG-WRITING-CONTENT-03, FRAG-WRITING-CONTENT-04, FRAG-WRITING-CONTENT-05, FRAG-WRITING-CONTENT-06, FRAG-WRITING-CONTENT-14, FRAG-DOCS-DX-14]
+sources: [EV-0435, EV-0436, EV-0437, EV-0438, EV-0446, EV-0335]
 review: 2028-09
 type: guide
 tags: [content, ci, tooling]
-review_by: 2028-09
 ---
 
 # GD-WRIT-004: How is prose checked before it merges?
@@ -45,7 +44,7 @@ nothing at three in the morning.
 ### B. Banned-and-preferred term list in CI, blocking
 A short list of terms with one approved spelling each, run over
 user-facing strings and documentation, failing the build on a banned
-term (FRAG-DOCS-DX-14). Buys the one-word-one-meaning property for the
+term (EV-0335). Buys the one-word-one-meaning property for the
 terms that actually matter, at a cost measured in a few dozen lines of
 configuration. Costs list maintenance and the occasional false positive
 in a quotation. No study was found showing it improves comprehension or
@@ -53,7 +52,7 @@ reduces support load, so it is a cheap bet rather than a proven one.
 
 ### C. Full controlled language with a maintained termbase
 Approved words, restricted grammar, a real linter enforcing both
-(FRAG-WRITING-CONTENT-05). Buys machine-checkable correctness for
+(EV-0437). Buys machine-checkable correctness for
 safety-critical procedures. Costs a termbase owner, a review process
 for new vocabulary, and text that reads as deliberately unidiomatic.
 Justified where a misread step injures someone, and almost nowhere
@@ -63,15 +62,15 @@ else.
 A formula score computed per file with a threshold. Named here to be
 excluded. Formulas track measured difficulty only patchily and only at
 some bands, because they measure surface proxies that sit downstream of
-difficulty (FRAG-WRITING-CONTENT-04). The score improves when sentences
+difficulty (EV-0436). The score improves when sentences
 are chopped, whether or not anyone understands more. PACK.md B10
 forbids this. Reporting the number is a preference; gating on it is
 not available.
 
 ### E. Comprehension testing with real readers
 An A/B of two renderings of one decision, with comprehension questions
-as the outcome (FRAG-WRITING-CONTENT-06,
-FRAG-WRITING-CONTENT-02). Buys the only evidence that speaks to
+as the outcome (EV-0438,
+EV-0434). Buys the only evidence that speaks to
 understanding rather than to text features. Costs recruitment, time and
 a real sample, and it does not fit in a pull request. It gates nothing.
 Its job is to turn a claim about clarity into a fact.

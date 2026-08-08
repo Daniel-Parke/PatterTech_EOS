@@ -7,7 +7,6 @@ volatility: fast
 review: on-change-of:play-staged-rollout-mechanics
 type: implementation
 tags: [delivery, ops, ci]
-review_by: 2027-05
 ---
 
 # Release mechanics
@@ -59,11 +58,11 @@ different places.
 The technical line: the runtime can replace JavaScript, styling,
 assets, copy and translations without a store round trip, and cannot
 replace native code, native dependencies, permissions or SDK levels
-(FRAG-NATIVE-08). Runtime version pinning is what makes it safe, and it
+(EV-0377). Runtime version pinning is what makes it safe, and it
 fragments the fleet by binary.
 
 The review line, which is narrower: downloaded code may not introduce
-or change features (FRAG-NATIVE-03). Rule 4.7 permits whole classes of
+or change features (EV-0372). Rule 4.7 permits whole classes of
 non-embedded software under conditions, which contradicts a naive
 reading of the first rule, and the two are in visible tension. This
 pack takes the narrower reading.
@@ -79,7 +78,7 @@ Play raises the target API floor annually. At the cutoff: from 31
 August 2026 new submissions and updates must target API 36, and an
 existing app must target API 35 to stay visible to new users on current
 devices, with an extension to 1 November 2026 available on request
-(FRAG-NATIVE-07). Sideloaded and enterprise-private distribution is
+(EV-0376). Sideloaded and enterprise-private distribution is
 exempt, and the consequence is reduced visibility rather than removal,
 so an app with a stable installed base degrades slowly rather than
 failing outright. Deadlines shift each year and differ for Wear, TV,
@@ -92,7 +91,7 @@ deadline, not from when someone notices.
 
 Roughly one submission in four was rejected in the 2025 reporting year,
 across 9,100,620 submissions, and the largest bucket by a wide margin
-was Performance (FRAG-NATIVE-04). Plan one rejection cycle into every
+was Performance (EV-0373). Plan one rejection cycle into every
 release.
 
 Scope this honestly. It is a vendor census of its own moderation

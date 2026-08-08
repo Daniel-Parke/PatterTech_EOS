@@ -4,10 +4,9 @@ type: guide
 tags: [pii, security]
 kind: fact
 scope: estate
-sources: [FRAG-LEGAL-LICENSING-13, FRAG-LEGAL-LICENSING-14, EV-0225, EV-0041]
+sources: [EV-0349, EV-0350, EV-0225, EV-0041]
 volatility: event-driven
 review: on-change-of:https://www.legislation.gov.uk/eur/2016/679/article/13
-review_by: 2028-01
 ---
 
 # Reference: the UK notice checklist and the registration duty
@@ -30,7 +29,7 @@ without being re-argued.
 ## The notice checklist
 
 Due at the moment of collection, not when convenient
-(FRAG-LEGAL-LICENSING-13). Ten items, each of which is a marker a check
+(EV-0349). Ten items, each of which is a marker a check
 can look for:
 
 1. The controller's identity and contact details.
@@ -55,7 +54,7 @@ internal address, is short of the checklist.
 The statute states what must be said. It does not state how to say it,
 at what reading level, or in what format, and it is silent on the two
 harder questions of whether the chosen basis is correct and whether the
-processing is fair (FRAG-LEGAL-LICENSING-13). So the ten items and the
+processing is fair (EV-0349). So the ten items and the
 two routes are checkable by a machine, and the quality of the notice
 stays a judgement call. Both facts are in `packs/legal-licensing/CHECKS.md`.
 
@@ -64,7 +63,7 @@ stays a judgement call. Both facts are in `packs/legal-licensing/CHECKS.md`.
 There is a statutory duty on controllers to pay a charge to the
 Commissioner and to supply information, with special handling for
 partnerships and a schedule of exempt processing
-(FRAG-LEGAL-LICENSING-14). It exists independently of how good the
+(EV-0350). It exists independently of how good the
 notice is, which is what makes it easy to forget. The routing rule is
 binary: before any personal data is processed, run the registration
 self-assessment and record the outcome, either the payment or the named
@@ -82,7 +81,7 @@ automated access, so the reading of the 2025 Act rested on the statute
 plus secondary reporting (EV-0225). The revised Article 13 text on the
 statute site is machine-readable and shows the amendments in force from
 2026-02-05, which gives a primary route to the same answer without the
-regulator's site (FRAG-LEGAL-LICENSING-13). That does not restore the
+regulator's site (EV-0349). That does not restore the
 interpretive guidance, which is still missing, and the caution in the
 security-privacy reference still stands.
 

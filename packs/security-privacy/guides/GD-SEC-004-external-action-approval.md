@@ -2,7 +2,6 @@
 summary: Model judgement, a static allowlist, guard-classified verdicts with recorded approval, or manual only?
 type: guide
 tags: [security, tooling, ops]
-review_by: 2027-05
 kind: guide
 scope: estate
 authority: default

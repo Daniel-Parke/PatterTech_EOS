@@ -19,7 +19,7 @@ pipeline rather than in a console.
 
 The protocol is advisory. It is explicitly not a substitute for content
 security, so a disallowed path is a hint to well-behaved crawlers and an
-index of interesting places to everyone else (FRAG-MKTG-06). Never put
+index of interesting places to everyone else (EV-0358). Never put
 a secret path in it.
 
 The operational failure semantics are what make it release-gated:
@@ -48,7 +48,7 @@ are one script.
 
 The rule is short: markup describes what a reader can see, the crawler
 is not blocked from the page, and the vocabulary is the versioned one at
-EV-0022 (FRAG-MKTG-03). Every markup property carrying user-facing text
+EV-0022 (EV-0355). Every markup property carrying user-facing text
 has a matching string in the rendered page, and a script asserts zero
 orphan properties.
 
@@ -60,7 +60,7 @@ a matter of taste.
 ## The inert levers
 
 The operator of the index names these as unused or near worthless, so
-spending effort on them is ceremony (FRAG-MKTG-01):
+spending effort on them is ceremony (EV-0353):
 
 - The keywords meta tag. Unused.
 - Word-count targets. No such target exists.
@@ -78,7 +78,7 @@ doing far better than it settles what is.
 
 The same operator states there are no additional requirements and no
 special optimisation for its AI answer surfaces, and specifically that
-no new machine-readable file or markup is needed (FRAG-MKTG-05).
+no new machine-readable file or markup is needed (EV-0357).
 Eligibility is ordinary indexing plus snippet eligibility. That denial
 is self-interested and covers its own surfaces only, and a live
 counter-practice exists with no measurement behind it, so the pack

@@ -9,7 +9,6 @@ sources: [EV-0151, EV-0152, EV-0157, EV-0162, EV-0163]
 review: 2027-07
 type: guide
 tags: [arch, state, infra]
-review_by: 2027-07
 ---
 
 # WG-ARCH-004: background work in-process, on a durable queue, on a broker, or on a schedule?
@@ -121,9 +120,17 @@ whether or not they are needed yet.
   (its ADR-006), in-process the default path, after deploys orphaned
   forecast jobs. The unit-builder registry exists because a fresh
   worker could not pick up a closure.
-- **Venture A (2026-07, inherited)**: the v1 default taken at seed,
-  in-process with B's seam designed in. Its pin predates the pack
-  system, so it carries the v1 rule with no separate argument.
+- **Guth (2026-07, argued)**: A, the in-process executor, against this
+  guide's default. Rig jobs may vanish without harm, because the client
+  degrades gracefully and resubmits, and idempotency comes free since a
+  job is a pure function of an audio hash and its parameters. The
+  argument is the one A's decision branch names: durability buys
+  nothing when the work is cheap to redo and nobody is waiting on a
+  promise. Recorded here as the case where the default correctly loses.
+
+Venture A is not listed. Its lock-book carries no WG-ARCH row, because
+its pin predates the pack system; reading a ruling into it from the
+default it inherited would be inventing evidence.
 
 ## Counter-evidence
 

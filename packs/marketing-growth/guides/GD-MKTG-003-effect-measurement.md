@@ -9,7 +9,6 @@ sources: [EV-0059]
 review: on-change-of:GA4-attribution-model-set
 type: guide
 tags: [content, testing, tooling]
-review_by: 2027-06
 ---
 
 # GD-MKTG-003: How is a channel's effect measured?
@@ -35,7 +34,7 @@ route entitles you to say.
   estimate as a measurement anyway.
 - **Consent coverage**, because identity-based methods degrade silently
   where tracking is refused and no vendor documents the gap
-  (FRAG-MKTG-12).
+  (EV-0364).
 
 ## Options
 
@@ -46,12 +45,12 @@ pack lets you call an effect. Costs volume, patience and deliberately
 forgone reach. This is the ground truth the whole comparison rests on:
 across fifteen randomised experiments at platform scale, observational
 estimators on the same far richer data could not reproduce it
-(FRAG-MKTG-10).
+(EV-0362).
 
 ### B. Calibrated attribution
 Run an attribution model, but anchor its total to an experimental
 estimate and let the model only distribute credit within that anchor
-(FRAG-MKTG-11). Buys per-touchpoint reporting that does not invent its
+(EV-0363). Buys per-touchpoint reporting that does not invent its
 own total. Costs a continuous experiment programme underneath it, which
 is the part small ventures skip. The source is a platform preprint about
 its own product, so take the architecture of the argument and not the
@@ -61,13 +60,13 @@ numbers.
 Use the vendor's model, and label every output a reporting convention.
 Buys cheap directional reporting and step-level diagnostics. Costs any
 right to call the result an effect. The vendor deleted four of its own
-heuristic models in November 2023 (FRAG-MKTG-12), which is a concession
+heuristic models in November 2023 (EV-0364), which is a concession
 that the credit-splitting rules were arbitrary.
 
 ### D. Funnel diagnostics with the definition attached
 Do not estimate effect at all. Report step-level drop-off with the
 ordering mode, exclusion steps and denominator stored as configuration
-beside the number (FRAG-MKTG-15). Buys the cheapest useful diagnostic
+beside the number (EV-0367). Buys the cheapest useful diagnostic
 there is. Costs nothing except the discipline of not reading drop-off as
 cause, which is the mistake most funnel reporting actually makes.
 
@@ -94,7 +93,7 @@ work-around and is recorded as one.
   because a launch has no volume for a holdout. See
   `packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
 - **Estate default (2026-08, argued)**: the field is a spectrum rather
-  than a prohibition. Later work in the same journal as FRAG-MKTG-10
+  than a prohibition. Later work in the same journal as EV-0362
   treats non-experimental approaches more sympathetically, which is why
   D3 in PACK.md is a default and not a binding rule. If an affordable
   design for a low-volume venture is published, this guide is the first

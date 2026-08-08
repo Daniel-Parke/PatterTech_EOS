@@ -190,11 +190,11 @@ def test_e002_unknown_type(tmp_path):
 def test_e002_type_requires_status_and_review(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "status: active\n", "")
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "review_by: 2030-01\n", "")
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "review: 2030-01\n", "")
     fs = run_e(root)
     got = only(fs, "E002")
     assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires status") in got
-    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires review_by") in got
+    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires review") in got
 
 
 def test_e002_unterminated_block_reported(tmp_path):
@@ -297,23 +297,23 @@ def test_e005_zero_suffix_reference_allowed(tmp_path):
 
 def test_e006_past_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: 2020-01")
+    edit(root, "packs/testmod/README.md", "review: 2030-01", "review: 2020-01")
     fs = run_e(root)
     assert only(fs, "E006") == [("warn", "packs/testmod/README.md",
-                                 "past review_by 2020-01, verify before relying")]
+                                 "past review 2020-01, verify before relying")]
 
 
 def test_e006_malformed_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: soonish")
+    edit(root, "packs/testmod/README.md", "review: 2030-01", "review: soonish")
     fs = run_e(root)
     assert only(fs, "E006") == [("error", "packs/testmod/README.md",
-                                 "review_by not YYYY-MM: soonish")]
+                                 "review not YYYY-MM: soonish")]
 
 
 def test_e006_current_month_not_flagged(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/README.md", "review_by: 2030-01", "review_by: 2026-08")
+    edit(root, "packs/testmod/README.md", "review: 2030-01", "review: 2026-08")
     fs = run_e(root)
     assert only(fs, "E006") == []
 
@@ -342,7 +342,7 @@ def test_e007_budget_and_waiver(tmp_path):
     fs = run_e(root)
     assert only(fs, "E007") == [("error", "packs/testmod/PACK.md",
                                  f"{n} lines over the 150 budget, no length_waiver")]
-    edit(root, "packs/testmod/PACK.md", "review_by: 2030-01",
+    edit(root, "packs/testmod/PACK.md", "review: 2030-01",
          "review_by: 2030-01\nlength_waiver: agreed for the test")
     fs = run_e(root)
     n2 = n + 1

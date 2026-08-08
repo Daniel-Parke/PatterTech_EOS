@@ -11,7 +11,6 @@ review: 2028-02
 type: wargame
 status: active
 tags: [delivery, testing, arch]
-review_by: 2028-02
 ---
 
 # WG-DEL-005: Which double stands in for this port?

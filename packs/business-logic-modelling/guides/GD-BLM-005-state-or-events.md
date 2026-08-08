@@ -9,7 +9,6 @@ sources: [EV-0138, EV-0157, EV-0163, EV-0269, EV-0275, EV-0276]
 review: 2027-12
 type: guide
 tags: [arch, data, state]
-review_by: 2027-12
 ---
 
 # GD-BLM-005: State or events as the record?

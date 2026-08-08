@@ -7,7 +7,6 @@ scope: estate
 sources: [EV-0041, EV-0225]
 volatility: slow
 review: on-change-of:EV-0225
-review_by: 2027-06
 ---
 
 # Privacy in analytics reference
@@ -69,13 +68,13 @@ ledger.
 
 Differentially private counts, sums, means, variances and quantiles with
 budget accounting are available as Apache-2.0 libraries, so the barrier
-is design rather than implementation (`FRAG-DATA-ANALYTICS-17`). Before
+is design rather than implementation (`EV-0321`). Before
 believing any such claim, in your own system or a vendor's, ask:
 
 - **What is the privacy unit?** One row, one user, one user per day. The
   guarantee means completely different things for each.
 - **What are the parameters?** A claim without its parameters stated is
-  not a claim (`FRAG-DATA-ANALYTICS-16`).
+  not a claim (`EV-0320`).
 - **Who limits contribution?** The primitives assume each user
   contributes a bounded number of rows per partition and do not enforce
   it. Contribution limiting is the caller's job, and getting it wrong
@@ -83,7 +82,7 @@ believing any such claim, in your own system or a vendor's, ask:
 - **What does the implementation do that the proof does not cover?**
   Evaluation is layered rather than a single number, and the hazards
   that open between the mathematics and the running software are named
-  explicitly in the guidance (`FRAG-DATA-ANALYTICS-16`).
+  explicitly in the guidance (`EV-0320`).
 
 For a small venture the usual honest answer is that this machinery is
 not the right control, and collecting less is. Aggregate statistics are

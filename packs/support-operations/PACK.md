@@ -12,7 +12,6 @@ review: on-change-of:ISO-10002-revision
 sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233]
 type: playbook
 tags: [eos, ops, product, pii]
-review_by: 2028-07
 ---
 
 # support-operations
@@ -110,11 +109,11 @@ paraphrased only, so nothing here quotes them.
 is a state rather than an absence.** `has_customer_inbound`. Every
 inbound item carries four independent values before it is ranked:
 kind, priority, owning queue, and a triage state that is either
-accepted or needs-info (FRAG-SUPPORT-OPERATIONS-04). Classification
+accepted or needs-info (EV-0424). Classification
 comes before prioritisation, not after
-(FRAG-SUPPORT-OPERATIONS-06). Where one cause explains several reports,
+(EV-0426). Where one cause explains several reports,
 they carry one shared incident or defect id and get one answer
-(FRAG-SUPPORT-OPERATIONS-05). A needs-info item carries the date its
+(EV-0425). A needs-info item carries the date its
 next action is due. Basis: standard. Prevents three failures: work that
 is invisible because nobody can query for it, a priority argued from
 whoever wrote most recently, and five people receiving five different
@@ -125,7 +124,7 @@ changes what the organisation does.** `has_customer_visible_incident`.
 The ladder is ordered, each band has a written impact criterion, it
 states that the higher band is taken when the call is unclear, and at
 least one threshold switches the response mode rather than only the
-wording (FRAG-SUPPORT-OPERATIONS-01). The band is not litigated during
+wording (EV-0421). The band is not litigated during
 the incident; the argument goes in the postmortem. Basis: decision,
 taken on exemplar practice with no outcome data behind it. Prevents
 severity being assigned afterwards to justify the response that already
@@ -135,8 +134,8 @@ happened.
 separately from the person changing the system.**
 `has_customer_visible_incident`. Both fields are filled even when the
 two values are the same name, because the record has to show the
-decision was taken (FRAG-SUPPORT-OPERATIONS-03,
-FRAG-SUPPORT-OPERATIONS-02). Basis: decision. Prevents the fixer's
+decision was taken (EV-0423,
+EV-0422). Basis: decision. Prevents the fixer's
 attention being spent on updates, and prevents an incident closing with
 nobody accountable for having told anyone.
 
@@ -176,7 +175,7 @@ store, and prevents a convenience export becoming an unlawful transfer.
 never a cross-firm benchmark.** `reports_support_metric`. The score is
 reported with its population, its n and its date range, and it is never
 used to claim a position relative to another company or an industry
-figure (FRAG-SUPPORT-OPERATIONS-08). Basis: empirical-evidence.
+figure (EV-0428). Basis: empirical-evidence.
 Prevents an instrument being sold internally as evidence it has been
 tested for and failed to provide. Scope note: the replication that
 settles this covered 21 firms and more than 15,500 interviews from one
@@ -188,7 +187,7 @@ venture with sixty customers actually has.
 **What deliberately does not bind.** Acknowledging a complaint on
 receipt and closing it only once the complainant has been told the
 outcome is the core of the complaints standard
-(FRAG-SUPPORT-OPERATIONS-05). It sits below as the D3 default rather
+(EV-0425). It sits below as the D3 default rather
 than as a binding rule, because that standard is guidance written for
 organisations large enough to run a quality management system, and the
 research graded it accordingly. It is the default this pack expects the
@@ -201,27 +200,27 @@ Followed unless the task records a reason to depart.
 - **D1. Two queues, incident and request, with separate targets and no
   item in both.** Restoring an interrupted service and fulfilling a
   routine ask have different clocks, so one target describes neither
-  (FRAG-SUPPORT-OPERATIONS-06). The queue axis in B1 carries the split.
+  (EV-0426). The queue axis in B1 carries the split.
 - **D2. Three severity bands while one person responds, five once there
   is a rota.** A rung that changes nothing is theatre, and five levels
   in a venture with one responder is five ways to write the same
-  sentence (FRAG-SUPPORT-OPERATIONS-01).
+  sentence (EV-0421).
 - **D3. Acknowledge on receipt, close on answer, and never on silence,
   for anyone who pays.** The route to complain is visible and free to
   use, and the loop closes when the complainant has been told the
-  outcome (FRAG-SUPPORT-OPERATIONS-05).
+  outcome (EV-0425).
 - **D4. Auto-close and stale timers on public trackers only.**
   Unreproducible reports close on a timer where the reporter is a
   volunteer and closing costs nothing contractual
-  (FRAG-SUPPORT-OPERATIONS-04). Recorded counter-evidence: maintainers
+  (EV-0424). Recorded counter-evidence: maintainers
   of the project that runs that bot have filed complaints that it
   closes real bugs.
 - **D5. One priority band reserved for plausible but unevidenced.**
   Keeps opinion out of the roadmap without throwing it away
-  (FRAG-SUPPORT-OPERATIONS-04).
+  (EV-0424).
 - **D6. Declaration runs on written objective triggers.** A second
   person is needed, the failure is visible to customers, or an hour of
-  focused work has not closed it (FRAG-SUPPORT-OPERATIONS-03). Scope
+  focused work has not closed it (EV-0423). Scope
   note: that hour is calibrated to a very large service estate and is
   not evidence for any threshold here; it is a starting number to argue
   with.
@@ -231,13 +230,13 @@ Followed unless the task records a reason to depart.
   underneath, and what counts as a theme, all written down first.
   Prevalence is reported against a stated denominator, because a count
   of tickets mentioning a thing means nothing without the population it
-  came from (FRAG-SUPPORT-OPERATIONS-11). Themes are constructed by the
+  came from (EV-0431). Themes are constructed by the
   analyst, so "a theme emerged" is not an available sentence.
 - **D8. Single-responder utilisation held below seventy per cent.**
   Waiting time in a single-server queue rises as utilisation over one
   minus utilisation, so the wait is roughly two and a third service
   times at seventy per cent, five and two thirds at eighty-five, and
-  nineteen at ninety-five (FRAG-SUPPORT-OPERATIONS-10). The levers that
+  nineteen at ninety-five (EV-0430). The levers that
   work are reducing arrival variability and holding deliberate slack.
   Scope note: that is a heavy-traffic approximation for one server,
   first come first served, with no priority classes and nobody giving
@@ -252,10 +251,10 @@ Followed unless the task records a reason to depart.
   Measure resolution and onward contacts, not page views, because a
   self-service layer that does not answer converts into an assisted
   contact with the customer's effort already spent
-  (FRAG-SUPPORT-OPERATIONS-09).
+  (EV-0429).
 - **D11. Founder-delivered support is the opening posture and carries a
   written exit signal** recorded on the day it starts
-  (FRAG-SUPPORT-OPERATIONS-12).
+  (EV-0432).
 
 ## Preferences
 
@@ -327,12 +326,12 @@ in
 - **Deflection has no evidence base.** No primary source was found by
   the 2026-08-03 cutoff measuring whether self-service deflection
   improves any customer outcome. There is a mechanism for how it
-  backfires (FRAG-SUPPORT-OPERATIONS-09); the positive case is vendor
+  backfires (EV-0429); the positive case is vendor
   material. D10 is written to be falsifiable rather than to assert a
   benefit.
 - **Small-sample loyalty scores are unaddressed.** The original claim
   and the replication both argue at industry scale
-  (FRAG-SUPPORT-OPERATIONS-07, FRAG-SUPPORT-OPERATIONS-08). Neither
+  (EV-0427, EV-0428). Neither
   states the n at which a score is stable, which is the only question a
   venture with sixty customers has.
 - **Support volume as a churn leading indicator** is plausible, widely
@@ -340,27 +339,27 @@ in
   pack records no rule about it.
 - **When founder support should end is our inference.** The essay
   arguing for it gives no exit signal
-  (FRAG-SUPPORT-OPERATIONS-12); the queueing result gives a capacity
+  (EV-0432); the queueing result gives a capacity
   ceiling rather than a learning one
-  (FRAG-SUPPORT-OPERATIONS-10). "When you stop learning something new
+  (EV-0430). "When you stop learning something new
   from each contact" is reasoning, not evidence.
 - **Delight against effort is unresolved.** One study finds exceeding
   expectations did not separate loyal from disloyal customers while
-  high effort strongly did (FRAG-SUPPORT-OPERATIONS-09); the founder
+  high effort strongly did (EV-0429); the founder
   argument says take extraordinary unscalable measures for small
-  numbers (FRAG-SUPPORT-OPERATIONS-12). Only a scale hypothesis
+  numbers (EV-0432). Only a scale hypothesis
   reconciles them, and a hypothesis is not a resolution. Scope note on
   the first: roughly 97,000 customers of contact centres, self-reported
   loyalty intent rather than observed retention, run by a firm selling
   the resulting metric.
 - **Manual against automatic declaration has no outcome data on either
   side.** One exemplar wants a human page to a named person
-  (FRAG-SUPPORT-OPERATIONS-02); common practice auto-declares on a burn
+  (EV-0422); common practice auto-declares on a burn
   alert (EV-0020, EV-0096). GD-SUPPORT-003 forces the choice and
   records it rather than pretending the evidence settles it.
 - **The two standards conflict on closing.** Timed closure of
-  unreproducible reports (FRAG-SUPPORT-OPERATIONS-04) against a loop
-  that closes only on answer (FRAG-SUPPORT-OPERATIONS-05). Both are
+  unreproducible reports (EV-0424) against a loop
+  that closes only on answer (EV-0425). Both are
   defensible for different relationships, so GD-SUPPORT-002 forces the
   choice per channel instead of letting a tool default decide.
 - **B2 and B3 bind above their evidence grade.** Both come from

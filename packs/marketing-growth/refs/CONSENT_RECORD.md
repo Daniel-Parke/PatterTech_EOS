@@ -14,7 +14,7 @@ tags: [pii, forms, tooling]
 Reference for PACK.md B1 and B3, and for
 `packs/marketing-growth/guides/GD-MKTG-002-consent-route.md`. This is
 the field shape, not the law. The law is PECR regulation 22 as amended
-(FRAG-MKTG-09) with UK data protection duties beside it (EV-0225,
+(EV-0361) with UK data protection duties beside it (EV-0225,
 EV-0041), and it is cited rather than restated because the statutory
 text moves.
 
@@ -82,5 +82,5 @@ it outranks it. Rules:
 How long a consent stays fresh before it should be re-taken. The
 regulation does not put a number on it and the pack refuses to invent
 one. Jurisdiction beyond the UK: the US regime is opt-out and EU member
-states vary (FRAG-MKTG-09), so a venture sending outside the UK adds
+states vary (EV-0361), so a venture sending outside the UK adds
 routes rather than reinterpreting these.

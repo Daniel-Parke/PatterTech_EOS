@@ -12,7 +12,6 @@ review: 2028-02
 sources: [EV-0006, EV-0007, EV-0009, EV-0015, EV-0016, EV-0017, EV-0018, EV-0019, EV-0090, EV-0091, EV-0092, EV-0093, EV-0094, EV-0105, EV-0184, EV-0185, EV-0186, EV-0187, EV-0188, EV-0189, EV-0190, EV-0191, EV-0192, EV-0193, EV-0194, EV-0195, EV-0196]
 type: guide
 tags: [delivery, testing, ci]
-review_by: 2028-02
 ---
 
 # Delivery, testing and quality

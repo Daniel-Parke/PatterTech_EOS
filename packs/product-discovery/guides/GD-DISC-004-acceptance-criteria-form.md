@@ -9,7 +9,6 @@ basis: standard
 evidence_grade: observational
 sources: [EV-0074, EV-0075]
 review: 2028-07
-review_by: 2028-07
 ---
 
 # GD-DISC-004: In what form do the acceptance criteria go?
@@ -43,7 +42,7 @@ they understood the same thing.
 While optional preconditions, when an optional trigger, the named system
 shall produce one or more responses, with at most one trigger and
 exactly one named system per requirement
-(`FRAG-PRODUCT-DISCOVERY-07`). Buys: most of the ambiguity goes without
+(`EV-0409`). Buys: most of the ambiguity goes without
 leaving natural language, and the template acts as a filter, because a
 requirement that will not fit is usually a wish, a design decision, or
 two requirements stuck together. Costs: it constrains form only and can
@@ -68,7 +67,7 @@ phase boundaries (EV-0075). Buys: consistency between layers is
 machine-checkable, and the chain suits greenfield work where nothing
 exists to contradict it. Costs: the claim that this improves outcomes
 had an accepted protocol and no collected results at the cutoff
-(`FRAG-PRODUCT-DISCOVERY-12`), the reference implementation calls itself
+(`EV-0414`), the reference implementation calls itself
 experimental, and the ceremony is fixed regardless of the size of the
 change.
 
@@ -97,7 +96,7 @@ in a template.
 ## What EARS does and does not carry
 
 The clause order came out of analysing airworthiness regulations for a
-jet engine control system (`FRAG-PRODUCT-DISCOVERY-07`), where the
+jet engine control system (`EV-0409`), where the
 system boundary and the trigger set are both closed and knowable.
 Product discovery deals in triggers that are user intentions, so the
 notation transfers and its guarantees do not. What survives the transfer
@@ -114,7 +113,7 @@ registered report that tests it had its protocol peer-reviewed and
 accepted with no results collected at 2026-08-03, on
 competitive-programming problems with closed checkable specifications,
 which is the easiest possible case and the least like product discovery
-(`FRAG-PRODUCT-DISCOVERY-12`). This guide teaches B on its own merits
+(`EV-0414`). This guide teaches B on its own merits
 and borrows no authority from the spec-driven claim. If the results land
 and are positive, D moves up and this guide is re-argued.
 
@@ -122,7 +121,7 @@ and are positive, D moves up and this guide is re-argued.
 
 - **PatterTech EOS product-discovery pack (2026-08, argued)**: B adopted
   as default D9, D refused as an estate default pending
-  `FRAG-PRODUCT-DISCOVERY-12`.
+  `EV-0414`.
 - **Approvals inbox request (2026-08, argued)**: A, provisional, because
   the verdict was TEST and the acceptance condition was the stopping
   rule rather than a system behaviour. See

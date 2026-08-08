@@ -3,7 +3,7 @@ summary: Stack profiles, what each is for and when to reach for it
 type: registry
 tags: [eos, infra, hosting]
 status: active
-review_by: 2027-01
+review: 2027-01
 ---
 
 # Stack profiles
@@ -11,7 +11,7 @@ review_by: 2027-01
 A stack profile is dated fact: a proven combination of frontend,
 backend, testing and hosting with its constraints and gotchas. Profiles
 are chosen at Session 0 (the lock-book records which), cited by
-doctrine, and carry `review_by` dates because platforms move.
+doctrine, and carry `review` dates because platforms move.
 
 | Profile | For | Status |
 | --- | --- | --- |

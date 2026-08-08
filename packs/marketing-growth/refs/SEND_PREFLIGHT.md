@@ -30,7 +30,7 @@ Six checks, each with its own non-zero exit so a failure names itself.
 
 The bulk threshold at the cutoff is five thousand messages a day to one
 mailbox provider, and the same provider holds the spam rate under 0.30
-per cent measured through its own postmaster tooling (FRAG-MKTG-08).
+per cent measured through its own postmaster tooling (EV-0360).
 
 **Scope note, and it matters.** Those are one mailbox provider's rules
 for its own inboxes. Others publish overlapping but not identical
@@ -45,13 +45,13 @@ never treat one provider's number as universal.
 - `List-Unsubscribe` present, carrying an HTTPS URI.
 - `List-Unsubscribe-Post: List-Unsubscribe=One-Click` present.
 - Both header names inside the DKIM signed-header list, so neither can
-  be stripped or rewritten in transit (FRAG-MKTG-07).
+  be stripped or rewritten in transit (EV-0359).
 - A visible unsubscribe link in the body, beside the header route.
 
 ## One-click mechanics
 
 The specification is narrow, and each clause exists to close a hole
-(FRAG-MKTG-07).
+(EV-0359).
 
 - The URI encodes the recipient and the list identity, so the server
   needs nothing else to act.

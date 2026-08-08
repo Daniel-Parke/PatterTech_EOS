@@ -9,7 +9,6 @@ sources: [EV-0023, EV-0025, EV-0057, EV-0147, EV-0148, EV-0193, EV-0285]
 review: 2027-07
 type: guide
 tags: [arch, ci, tooling]
-review_by: 2027-07
 ---
 
 # WG-ARCH-005: how do frontend and backend agree on types?
@@ -119,11 +118,13 @@ and gated, or it lies. Where the boundary is public,
 - **PatterStudio (2026-06, argued)**: B, in its ADR-0006, after failed
   mutations masqueraded as success in a plain-JS client. Check A-13 of
   `packs/architecture/CHECKS.md` came from it.
-- **Venture A (2026-07, inherited)**: B, taken with stack profile 03 per
-  its ADR-0002, no separate argument recorded.
 - **No venture runs C or D.** C never arises, because every venture with
   a backend runs Python under TypeScript. PatterStage's one HTTP adapter
   onto a third-party agent runtime is where D gets argued first.
+
+Venture A is not listed. Its lock-book carries no WG-ARCH row,
+because its pin predates the pack system; reading a ruling into it
+from the stack profile it inherited would be inventing evidence.
 
 ## Counter-evidence
 

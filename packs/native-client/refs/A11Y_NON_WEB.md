@@ -7,7 +7,6 @@ volatility: slow
 review: on-change-of:EN-301-549-v4-publication
 type: ux
 tags: [a11y, testing, product]
-review_by: 2028-06
 ---
 
 # The non-web accessibility profile
@@ -23,14 +22,14 @@ paraphrase.
 ## What changes when the surface is an app
 
 **The unit of conformance is a screen or view, not a page**
-(FRAG-NATIVE-01). A claim is made per screen and aggregated, never
+(EV-0370). A claim is made per screen and aggregated, never
 asserted once for the app. Web terms map onto platform terms, and the
 criteria that carry most of the weight on a device are the
 mobile-shaped ones: orientation, pointer gestures, motion actuation,
 dragging movements and target size.
 
 **The reviewable artefact is the semantics declaration in code, not a
-screenshot** (FRAG-NATIVE-18). What a reviewer reads:
+screenshot** (EV-0387). What a reviewer reads:
 
 - Content descriptions on every interactive element, and null
   descriptions marking decoration explicitly.
@@ -41,7 +40,7 @@ screenshot** (FRAG-NATIVE-18). What a reviewer reads:
 - Custom actions carrying human labels, not identifiers.
 - State exposed as state, not painted as colour.
 
-**Clause 11 adds obligations WCAG never states** (FRAG-NATIVE-02).
+**Clause 11 adds obligations WCAG never states** (EV-0371).
 Chiefly two: interoperability with the platform's assistive technology,
 and support for the user's own preference settings. A native app that
 only passes a WCAG mapping is still short of the standard. The platform
@@ -52,9 +51,9 @@ deliberately once you stop using platform controls.
 ## Where the numbers come from
 
 The platform accessibility guidance publishes no numeric thresholds at
-all, no touch target minimum and no contrast ratio (FRAG-NATIVE-18).
+all, no touch target minimum and no contrast ratio (EV-0387).
 The measurable floor comes from WCAG 2.2 (EV-0027) through the mobile
-mapping (FRAG-NATIVE-01). Two cautions on that route:
+mapping (EV-0370). Two cautions on that route:
 
 - The mapping is a Group Draft Note, explicitly informative, not
   endorsed, replaceable at any time, and covering Level A and AA only.
@@ -67,7 +66,7 @@ mapping (FRAG-NATIVE-01). Two cautions on that route:
 An automated accessibility audit exists inside the platform test runner
 and can be scoped to an app, a screen or a single element with
 selectable audit types, covering missing labels, clipped text, contrast
-and dynamic type support (FRAG-NATIVE-19). That is what makes the gate
+and dynamic type support (EV-0388). That is what makes the gate
 a normal failing test rather than a manual ritual.
 
 Three limits, stated because the gate is only as good as its honesty:
@@ -93,7 +92,7 @@ and that equality is a check a script can run.
 
 Under GD-NAT-001 option C, the framework draws its own widgets, so
 platform conventions, accessibility services and system controls arrive
-only as far as the framework has reimplemented them (FRAG-NATIVE-16).
+only as far as the framework has reimplemented them (EV-0385).
 That does not make the option wrong. It makes the accessibility budget
 a line item you have chosen to pay in your own code rather than inherit
 from the toolkit, and the semantics declaration becomes the whole story
@@ -110,5 +109,5 @@ is V3.2.1 (2021-03) and it references an older WCAG level than the
 mobile mapping targets, so an app built to WCAG 2.2 is ahead of the
 binding standard rather than behind it. A v4.1.x revision aligning the
 clauses with WCAG 2.2 was reported in approval and was not published
-when checked (FRAG-NATIVE-02). Recheck on publication before restating
+when checked (EV-0371). Recheck on publication before restating
 any of this.
