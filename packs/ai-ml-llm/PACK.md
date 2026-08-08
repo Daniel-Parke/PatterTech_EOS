@@ -22,7 +22,7 @@ retriever or judge change is accepted or refused on evidence. It
 activates on any task that calls a model at runtime, changes a prompt
 or a model id, builds retrieval, or decides how model output is
 scored. Evaluation before deployment, a private held-out set, pinned
-dated model ids and human review of consequential output bind. Which
+model ids and human review of consequential output bind. Which
 philosophy you build under does not.
 
 ## Activation
@@ -120,17 +120,23 @@ public practice set and private official set of a published safety
 benchmark (EV-0267). Scope note: the eight-point figure is
 grade-school arithmetic on 2024 models.
 
-**B4. Model identifiers are dated and pinned, with the retirement date
-recorded beside the call site.** No moving alias, no "latest". The
-pinned id and its published retirement date live next to the code that
-calls it, and a migration eval runs on the candidate before the switch.
-Prevents both silent drift and a hard outage: the same endpoint name
-changed behaviour substantially inside months, one task falling from
-84 per cent to 51 per cent between two snapshots (EV-0259,
-whose arithmetic result is contested as partly a formatting artefact),
-while the provider lifecycle gives sixty days' notice as a floor and
-retired models fail outright (EV-0260). Scope note:
-EV-0260 is one vendor's policy, and platform resellers run
+**B4. Model identifiers are pinned to a version the provider has
+undertaken not to move, with the retirement date recorded beside the
+call site.** No "latest", no bare family name. Pinned is a property,
+not a shape: some providers express it as a dated snapshot, some as a
+version-numbered id carrying no date at all, and the test is whether
+the id keeps resolving to the same weights. Requiring a date fails
+that test today, because a major vendor's current ids are undated and
+its own guidance is to send them exactly as published rather than
+append a date. The pinned id and its published retirement date live
+next to the code that calls it, and a migration eval runs on the
+candidate before the switch. Prevents both silent drift and a hard
+outage: the same endpoint name changed behaviour substantially inside
+months, one task falling from 84 per cent to 51 per cent between two
+snapshots (EV-0259, whose arithmetic result is contested as partly a
+formatting artefact), while the provider lifecycle gives sixty days'
+notice as a floor and retired models fail outright (EV-0260). Scope
+note: EV-0260 is one vendor's policy, and platform resellers run
 their own clocks. See
 `packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md`.
 
@@ -283,7 +289,7 @@ asking.
 | Where does the knowledge come from? | `packs/ai-ml-llm/guides/GD-AIML-002-knowledge-source.md` | Retrieval, lexical first, with per-query escalation |
 | Who grades the output? | `packs/ai-ml-llm/guides/GD-AIML-003-who-grades-the-output.md` | Deterministic scorer where possible, model judge only once validated against human labels |
 | How is the prompt maintained? | `packs/ai-ml-llm/guides/GD-AIML-004-prompt-maintenance.md` | Hand-written and versioned, with the template hash in every result |
-| Which model, and what happens when it retires? | `packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md` | One pinned dated model per task, retirement date recorded, migration eval ready |
+| Which model, and what happens when it retires? | `packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md` | One pinned model per task, retirement date recorded, migration eval ready |
 
 Level three detail sits in `packs/ai-ml-llm/refs/EVAL_REPORT.md`,
 `packs/ai-ml-llm/refs/CONTEXT_LAYOUT.md` and

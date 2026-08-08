@@ -16,11 +16,23 @@ Level three detail behind binding requirement B4 and guide
 
 ## Pinning
 
-Every model identifier in the source is dated. A moving alias is
-banned, because it makes a behaviour change indistinguishable from a
-deployment and destroys the ability to attribute a regression to
-anything. The check is a pattern match over the source for identifiers
-that carry a date, and a failing match on anything that does not.
+Every model identifier in the source is pinned to a version the
+provider has undertaken not to move. A moving alias is banned, because
+it makes a behaviour change indistinguishable from a deployment and
+destroys the ability to attribute a regression to anything.
+
+Pinned does not mean dated. Providers express pinning differently:
+some publish a dated snapshot, some publish a version-numbered id with
+no date, and at least one major vendor's current ids carry no date and
+document that a date suffix must not be appended. Some publish both,
+an undated alias beside a dated full id, and only the second is
+pinned. Read the provider's own id list and find out which of its
+forms is stable, rather than assuming the shape tells you.
+
+The check is therefore a match against the provider's pinned-id
+pattern, configured per provider, and a failing match on anything
+outside it. A generic date regex is the wrong check and will reject
+correct identifiers.
 
 Beside each pin sits the published retirement date. That date is
 tentative when it is far out and firm once deprecation is announced,
@@ -62,7 +74,7 @@ schedules. A deployment across two clouds carries two clocks.
    Both belong to the model.
 6. **Switch behind a flag**, with the old pin still callable until the
    retirement date passes.
-7. **Record the provenance row**: provider, dated id, retirement date,
+7. **Record the provenance row**: provider, pinned id, retirement date,
    documented capability limits and the provider's published model
    documentation (EV-0268).
 

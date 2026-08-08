@@ -65,7 +65,7 @@ field beside accuracy in every report from here on.
 One command at a recorded path, running headlessly, exiting zero,
 writing JSON. Fields per `packs/ai-ml-llm/refs/EVAL_REPORT.md`:
 accuracy, n, standard error, abstain_rate, the template path and its
-content hash, the dated model id, the dataset id and split, the
+content hash, the pinned model id, the dataset id and split, the
 held-out set name, the seed and the decoding parameters.
 
 The template hash is binding requirement B2 and it is the field that
@@ -104,8 +104,10 @@ Guide `packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md`
 and `packs/ai-ml-llm/refs/MODEL_MIGRATION.md`.
 
 The existing call site used a moving alias, which is binding
-requirement B4 broken. It is replaced with the dated identifier and
-the published retirement date is recorded in a comment beside it. The
+requirement B4 broken. It is replaced with the pinned identifier this
+provider publishes, taken from the provider's own id list rather than
+guessed at from its shape, and the published retirement date is
+recorded in a comment beside it. The
 usage audit turns up a second caller in an operations script nobody
 had counted.
 

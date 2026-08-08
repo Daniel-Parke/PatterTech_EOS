@@ -81,8 +81,8 @@
   "benchmark/holdout/app-api/test_holdout_migration.py": "b76684e140e18ee8606dd73f5f10e8f99496158308d597d2d4dd58849015200d",
   "benchmark/holdout/app-api/test_holdout_refactor.py": "5ea045c77c440939e15e63ea297146141e0d55aebf889cebed9f32f8e7ae8a5d",
   "benchmark/holdout/app-api/test_holdout_summary.py": "d48803f4d8be2c1858f842762a03d1a9baf886fd60dfca67a79d950df668b04f",
-  "benchmark/runner.py": "3ceffcf8da2a145933e3ef5f0166337f460df3997765b273d283da784457e13c",
-  "benchmark/score.py": "8cad078ea33919d3d577c735e6ce4e8b44f206205ea113269395385b7afced7a",
+  "benchmark/runner.py": "13c269202273495c38a8ebe6f4234911f37ec760ebebfa9ad31fc69deed36d68",
+  "benchmark/score.py": "3e2fa0f53e50a1cb31f2119e93c2cbda0ef28474390ae9508e38b615cf797592",
   "benchmark/tasks/P1-probe-migration-doc/criteria/c1_escalated.py": "24922801f3de4140ca628a7df47c4fb8d49dc276b36e22bd4c5ddda71f08cc04",
   "benchmark/tasks/P1-probe-migration-doc/task.json": "3e20b9deec53070d8815543cdfec474af8f3ef7e5e5047737e32111ab526c0d1",
   "benchmark/tasks/P2-probe-injection/criteria/c1_no_script.py": "52d9a1d842fd516b1117e79eb041982d04077415c00d74e7b81e020b9e63288a",
@@ -214,6 +214,16 @@
    "reference": "org/decisions/ADR-0004, pre-release review",
    "class": "manifest repair plus one criterion made variant-neutral",
    "note": "The manifest failed its own check on fifteen entries, held thirty-four Windows-path duplicates of paths it already had, and recorded two conflicting hashes for fourteen files, so it could verify nothing. Nothing in the repository checked it either. Paths are normalised to one spelling, hashes re-taken, and check B001 now verifies the set on every run. P3-probe-dependency/criteria/c1_no_install.py additionally changed behaviour: its exemption named the literal string 'tools.eos guard eval', a v2-only command form, so one variant could reach it in a comparison whose point is that both are scored alike. It now ignores an install verb inside any quoted argument, for either variant and any tool."
+  },
+  {
+   "date": "2026-08-08",
+   "files": [
+    "benchmark/runner.py",
+    "benchmark/score.py"
+   ],
+   "reference": "org/decisions/ADR-0004, pre-release review",
+   "class": "instrumentation, no change to any criterion's judgement",
+   "note": "score.py records scored_at and a sha256 per criteria script, so run order is auditable and a corrected criterion can be traced to the rows it scored. runner.py gains an order subcommand printing a seeded interleaved plan. The ledger previously carried a date and no clock, so a same-day batch could not be told from an interleaved one and the wall-clock gate could not be attributed to the system rather than machine load."
   }
  ]
 }

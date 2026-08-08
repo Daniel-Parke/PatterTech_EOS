@@ -24,7 +24,7 @@ that reports a green drill on unevaluated prose.
 Layout the runner expects, all under `benchmark/drills/`:
 
     MANIFEST.json          the frozen index, one entry per pack
-    <pack>.md              the frozen spec, byte-identical to its source
+    <pack>.md              the frozen spec, and the only copy of it
     scenarios/<pack>/      the fixture tree the drill materialises
     graders/<pack>/cN.py   one grader per numbered criterion
     RESULTS.json           the append-only run ledger

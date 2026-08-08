@@ -34,7 +34,7 @@ cannot accept or refuse a change.
 | `stderr` or `ci_low` and `ci_high` | An eval is a sample from an unseen super-population (EV-0255) |
 | `abstain_rate` | Accuracy alone selects for confident error (EV-0250) |
 | `prompt_template_path` and `prompt_template_sha256` | A run under a different template is a different experiment (EV-0256) |
-| `model_id` | Dated identifier, never an alias |
+| `model_id` | Pinned identifier, never a moving alias |
 | `dataset_id` and `split` | Which items, and which side of the held-out line |
 | `held_out_set` | Named so a reader can see what was not tuned against |
 | `seed` and decoding parameters | Reproducibility |
