@@ -1,6 +1,6 @@
 {
   "id": "T-0012",
-  "intent": "Re-run the benchmark grid clean, then recompute the eight gates. The instrument is rebuilt: benchmark/gates.py computes the gates from the ledger with its aggregation stated, B001 verifies the freeze, score.py records scored_at and a per row criteria_sha256, and runner.py order prints a seeded interleaved plan so wall clock measures the system rather than machine load. What remains is the runs. The full grid, the three frozen policy ablations, which are v2-wip1, v2-mandatory-logs and v2-no-sampled-review at zero runs each against forty-eight planned sessions, and the timing ablation's gaps: T11-refactor never ran under any arm, k is two against the protocol's floor of three, and hidden regressions and oracle amendments were never measured. Roughly thirty-nine or more live agent sessions. The merge to main is halted on this per the ruling of 2026-08-08. This is a spend decision for Daniel rather than a task an agent should start unprompted. The old ledger becomes historical evidence rather than the basis of any claim.",
+  "intent": "Closed. All 103 sessions ran, 53 under v1 and 50 under v2, on a mechanism this repository now contains: harness.py prepares each run, places the variant's process surface from the frozen seeds, and emits the grid in a seeded counterbalanced order, which PROTOCOL.md always required and the 2026-08-03 batch did not do. Two account session limits interrupted the run; the remainder was re-prepared clean each time so no session worked in a tree a killed one had touched. Ceremony falls 77.3 per cent against a 60 per cent gate and no longer turns on the undefined-ratio convention; tokens fall 9.1 against 30 and wall clock 4.6 against 25, so both efficiency gates miss; the completeness gate passes for the first time. Fifty-three v1 runs produced fully passing work thirty-nine times and fifty v2 runs produced it fifty times. Two gates were themselves wrong and were fixed: the aggregate pass-rate gate was symmetric and failed a candidate for scoring better than its baseline, and human_gates_pending reads a file nothing in this repository writes, so every zero it has reported means not measured. The three policy ablations and the timing ablation's gaps are not done and are not claimed; the sealed suite remains unopened.",
   "claims": [
     "benchmark/"
   ],
@@ -12,7 +12,7 @@
   "tier_proposed": "R1",
   "tier_ruled": "R0",
   "reasons": [],
-  "status": "proposed",
+  "status": "done",
   "owner_session": "eos-v2-prerelease-review",
   "timestamps": {
     "opened": "2026-08-08T00:00:00Z",
