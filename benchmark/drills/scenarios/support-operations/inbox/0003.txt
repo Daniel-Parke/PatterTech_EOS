@@ -1,0 +1,19 @@
+Item: 0003
+Received: 2026-08-03T09:05:00Z
+Account: C-1006
+From: Ruth Ekwueme <ruth.ekwueme@cadwell-analytics.example>
+Subject: CSV export loses the last row when no filter is set
+
+We think there is a bug in the CSV export.
+
+1. Open any saved report with no filter applied.
+2. Export to CSV.
+3. Count the rows: the file has one fewer than the report shows on
+   screen, and it is always the last row that is missing.
+
+Apply any filter and the export is correct. We first noticed it on
+Friday. Happy to send you one of the files if that helps.
+
+-- 
+Ruth Ekwueme
+Cadwell Analytics

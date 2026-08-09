@@ -10,6 +10,17 @@ into clauses, and recognising the canonical strings the pack tells an
 agent to use. Doing that once here keeps the eleven graders arguing
 about their own criterion rather than about Markdown.
 
+It also decides polarity, which is the one thing these graders got
+wrong. A criterion asks whether the record *asserts* something. Finding
+the words it would be asserted with is not the same question: "the
+merged report is written by exactly one agent" and "the merged report
+is not written by exactly one agent" carry the same tokens and mean
+opposite things. `negated()` below answers, for a span of a clause,
+whether an odd number of negations reaches it, so every grader can ask
+for the claim rather than for the vocabulary. Where a criterion wants a
+denial rather than an assertion, and c8 wants both, the same function
+is read the other way round.
+
 Exit codes follow the grader contract: 0 pass, 1 fail, 2 the criterion
 cannot be settled in this environment. Only c10 can reach 2, and only
 when the evidence registry it has to check ids against is not reachable
@@ -225,6 +236,163 @@ def clauses(text):
     return out
 
 
+# ------------------------------------------------------------ polarity
+
+
+# The words a record denies something with. Grouped only for reading.
+_NEG_CUE = re.compile(
+    r"\b(?:"
+    r"not|n't|never|neither|nor|none|nothing|nobody|"
+    r"without|lacks?|lacking|lacked|absent|absence|missing|"
+    r"cannot|can't|won't|don't|doesn't|didn't|isn't|aren't|wasn't|weren't|"
+    r"shouldn't|wouldn't|mustn't|needn't|"
+    r"rather\s+than|instead\s+of|other\s+than|far\s+from|"
+    r"avoid(?:s|ed|ing)?|forbid(?:s|den|ding)?|forbade|forbids|"
+    r"rules?\s+out|ruled\s+out|"
+    r"refus(?:e|es|ed|ing)|reject(?:s|ed|ing)?|declin(?:e|es|ed)|"
+    r"omit(?:s|ted|ting)?|skip(?:s|ped|ping)?|drop(?:s|ped|ping)?|"
+    r"fails?\s+to|failed\s+to|"
+    r"(?:stops?|stopped|falls?|fell|stops)\s+short\s+of|"
+    r"unbounded|unlimited|uncapped|ungated|unchecked|unapproved|"
+    r"unvalidated|unreviewed|"
+    r"optional|unnecessary|waived?|waives|bypass(?:es|ed)?|disabled?|"
+    r"exclude(?:s|d)?|disallow(?:s|ed)?|prohibit(?:s|ed)?|"
+    r"deny|denies|denied"
+    r")\b"
+    # `no` is a cue, but `no more than 60 turns` is a bound, not a denial.
+    r"|\bno\b",
+    re.I)
+
+# A cue followed by one of these is a comparative bound, not a denial:
+# "no more than 60 turns", "must not exceed 200k tokens".
+_LIMIT_IDIOM = re.compile(
+    r"\s*(?:\w+\s+){0,2}"
+    r"(?:(?:more|less|fewer|greater|larger|longer|later|higher|bigger)"
+    r"\s+than\b|exceed|surpass|above\b|beyond\b|over\s+\d)",
+    re.I)
+
+# Where a negation stops reaching. A comma, a semicolon, a colon, a
+# contrast or a consequence starts a new assertion, and so does an `and`
+# that opens a fresh predicate. That last one matters: "is not a
+# sequential pipeline and it never reaches a human checkpoint" negates
+# two things once each, and counting both cues against the checkpoint
+# would read the sentence as a double negative and call it affirmed.
+_ENDER = re.compile(
+    r"[,;:]"
+    r"|\b(?:but|however|whereas|although|though|yet|instead|rather|"
+    r"so|therefore|hence|thus|because|since|which\s+is\s+why|"
+    # `until` and `unless` open the condition a negation was waiting
+    # for: in "the pull request is not opened until a human approves"
+    # the approval is asserted, not denied.
+    r"until|unless)\b"
+    r"|\b(?:and|or)\s+(?:it|they|we|the|a|an|this|that|there|no|not|"
+    r"nothing|each|every|its|their|his|her|one)\b",
+    re.I)
+
+_AUX = {
+    "is", "are", "was", "were", "be", "been", "being", "am",
+    "will", "would", "shall", "should", "can", "could", "may", "might",
+    "must", "do", "does", "did", "has", "have", "had",
+    "it", "they", "we", "that", "which", "there", "here", "then",
+    "the", "a", "an", "of", "for", "on", "in", "to", "by", "with",
+    "from", "as", "at", "its", "their", "this", "these", "those",
+    "all", "any", "every", "one",
+}
+_MAX_LEXICAL = 2
+
+
+def _cues(text):
+    """Negation cues in `text`, comparative bounds left out."""
+    for match in _NEG_CUE.finditer(text):
+        if _LIMIT_IDIOM.match(text, match.end()):
+            continue
+        yield match
+
+
+_CONJUNCTION = re.compile(r"\b(?:and|or|but)\b", re.I)
+_AUX_TAIL = re.compile(
+    r"\b(?:is|are|was|were|be|been|being|am|will|would|shall|should|can|"
+    r"could|may|might|must|do|does|did|has|have|had)\s*$", re.I)
+
+
+def _trailing_gap_binds(gap, cue):
+    """Does a cue after the span still negate it?
+
+    Two ways, and a conjunction blocks both, because "no oracle for it
+    and no evaluator-optimizer loop" is two claims and the second one is
+    not about the first one's subject:
+
+    - the gap is short and nearly all function words, which covers "the
+      validator carries nothing";
+    - or the cue hangs off an auxiliary, which covers "idempotence of
+      the resumed side effects is not something this job provides",
+      where the subject is long and the negation is still its own.
+    """
+    if _ENDER.search(gap + cue) or _CONJUNCTION.search(gap):
+        return False
+    if len(gap) <= 80 and _AUX_TAIL.search(gap):
+        return True
+    if len(gap) > 40:
+        return False
+    lexical = 0
+    for word in re.findall(r"[A-Za-z']+", gap):
+        if word.lower() in _AUX:
+            continue
+        lexical += 1
+    return lexical <= _MAX_LEXICAL
+
+
+def negation_count(text, span):
+    """How many negations reach `span`, which is a (start, end) in text."""
+    start, end = span
+    count = 0
+    for cue in _cues(text):
+        if cue.end() <= start:
+            if not _ENDER.search(text, cue.end(), start):
+                count += 1
+        elif cue.start() >= end:
+            if _trailing_gap_binds(text[end:cue.start()], cue.group(0)):
+                count += 1
+    return count
+
+
+def negated(text, span):
+    """True when the claim at `span` is denied rather than asserted.
+
+    Odd parity, so "no pull request is opened without approval" reads
+    as the gate it is and "does not lack an oracle" reads as the oracle
+    it claims.
+    """
+    return negation_count(text, span) % 2 == 1
+
+
+def affirmed(text, span):
+    return not negated(text, span)
+
+
+def spans_of(pattern, text):
+    """Every (start, end) where `pattern` matches, case-insensitively."""
+    if isinstance(pattern, str):
+        pattern = re.compile(pattern, re.I)
+    return [m.span() for m in pattern.finditer(text)]
+
+
+def asserts(text, pattern):
+    """The first span of `pattern` in `text` that is not negated."""
+    for span in spans_of(pattern, text):
+        if affirmed(text, span):
+            return span
+    return None
+
+
+def denies(text, pattern):
+    """The first span of `pattern` in `text` that is negated."""
+    for span in spans_of(pattern, text):
+        if negated(text, span):
+            return span
+    return None
+
+
 # ------------------------------------------------------- pack strings
 
 
@@ -260,6 +428,7 @@ PRESSURES = [
 
 
 def topologies_in(text):
+    """Every topology the text mentions, whatever it says about it."""
     found = []
     for name, pattern in TOPOLOGIES:
         if re.search(pattern, text, re.I):
@@ -267,9 +436,35 @@ def topologies_in(text):
     return found
 
 
+def topologies_asserted(text):
+    """Topologies the text picks, as against ones it rules out.
+
+    An occurrence counts when that occurrence is not negated, so
+    "fan-out/fan-in, not orchestrator-worker" names one choice and one
+    refusal rather than a shortlist of two.
+    """
+    return [name for name, pattern in TOPOLOGIES
+            if asserts(text, re.compile(pattern, re.I)) is not None]
+
+
+def topologies_denied(text):
+    mentioned = topologies_in(text)
+    asserted = set(topologies_asserted(text))
+    return [n for n in mentioned if n not in asserted]
+
+
 def pressures_in(text):
     return [name for name, pattern in PRESSURES
             if re.search(pattern, text, re.I)]
+
+
+def pressure_spans(text):
+    """(name, span) for every pressure named, in the order they appear."""
+    out = []
+    for name, pattern in PRESSURES:
+        for span in spans_of(re.compile(pattern, re.I), text):
+            out.append((name, span))
+    return sorted(out, key=lambda row: row[1][0])
 
 
 EXTRACTION = re.compile(r"extract", re.I)

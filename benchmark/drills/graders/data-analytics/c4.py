@@ -35,9 +35,8 @@ FORBIDDEN = re.compile(r"(?i)email|full_name|postcode")
 # A hash or a surrogate key. `user_id` on its own is not either: it is
 # the source identifier carried forward under the same name.
 SURROGATE = re.compile(
-    r"(?i)(^|_)(hash|hashed|sk|key|pseudonym|pseudonymous|anon|"
-    r"anonymised|anonymized|surrogate|sid)(_|$)|"
-    r"(?i)_(hash|key|sk|hk)$|(?i)^(user|customer|person|visitor)_(key|sk|hash)")
+    r"(^|_)(hash|hashed|sk|key|pseudonym|pseudonymous|anon|anonymised|"
+    r"anonymized|surrogate|sid)(_|$)", re.I)
 
 
 def main():

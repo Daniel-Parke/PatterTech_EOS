@@ -214,6 +214,26 @@ def _git(cwd, *args):
                           encoding="utf-8", errors="replace")
 
 
+_NOISE_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache",
+               "node_modules", ".venv"}
+
+
+def _ignore_build_artefacts(directory, names):
+    """copytree filter: never carry bytecode into a drill scratch tree.
+
+    A scenario directory accumulates __pycache__ from anyone who ran its
+    code locally. Git never sees it, so the committed scenario looks
+    clean, but copytree copies what is on disk and the baseline commit
+    below then contains it. A verifier found parser.cpython-314.pyc in
+    the git index of a freshly materialised coding scratch, dated before
+    the session that materialised it, which makes the baseline commit
+    machine-dependent and feeds stale bytecode to any criterion that
+    diffs against it. The benchmark harness had the same defect.
+    """
+    return {n for n in names
+            if n in _NOISE_DIRS or n.endswith((".pyc", ".pyo"))}
+
+
 def materialise(root, pack, dest):
     """Copy the drill's frozen scenario into a scratch directory.
 
@@ -229,7 +249,7 @@ def materialise(root, pack, dest):
     scratch = dest / pack
     if scratch.exists():
         shutil.rmtree(scratch)
-    shutil.copytree(src, scratch)
+    shutil.copytree(src, scratch, ignore=_ignore_build_artefacts)
     if shutil.which("git"):
         _git(scratch, "init", "-q")
         _git(scratch, "add", "-A")

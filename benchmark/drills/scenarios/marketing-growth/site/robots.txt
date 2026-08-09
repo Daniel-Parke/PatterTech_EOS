@@ -1,0 +1,5 @@
+# staging rule, put back before the trade show and never taken out
+User-agent: *
+Disallow: /
+
+Sitemap: https://kilnwatch.co.uk/sitemap.xml

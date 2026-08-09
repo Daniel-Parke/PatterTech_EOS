@@ -153,20 +153,19 @@ def commit_files(scratch, sha):
     return rows
 
 
-def fixture_tree(scratch, dest):
-    """Extract the fixture commit's tree into `dest`. Returns (path, why)."""
-    sha = root_commit(scratch)
+def tree_at(scratch, sha, dest, name="tree"):
+    """Unpack one commit's tree into `dest/name`. Returns (path, why)."""
     if sha is None:
-        return None, "the delivered tree has no git history to recover the fixture commit from"
+        return None, "there is no commit to unpack"
     dest = Path(dest)
     dest.mkdir(parents=True, exist_ok=True)
-    archive = dest / "fixture.tar"
+    archive = dest / ("%s.tar" % name)
     code, out = git(scratch, "archive", "--format=tar",
                     "-o", str(archive), sha)
     if code != 0:
         return None, "git archive of %s failed: %s" % (sha[:8],
                                                        " ".join(out.split())[:200])
-    tree = dest / "fixture"
+    tree = dest / name
     tree.mkdir(parents=True, exist_ok=True)
     try:
         with tarfile.open(archive) as tar:
@@ -175,7 +174,18 @@ def fixture_tree(scratch, dest):
             except TypeError:  # Python without extraction filters
                 tar.extractall(tree)
     except (tarfile.TarError, OSError) as exc:
-        return None, "could not unpack the fixture commit: %s" % exc
+        return None, "could not unpack commit %s: %s" % (sha[:8], exc)
+    return tree, "commit %s" % sha[:8]
+
+
+def fixture_tree(scratch, dest):
+    """Extract the fixture commit's tree into `dest`. Returns (path, why)."""
+    sha = root_commit(scratch)
+    if sha is None:
+        return None, "the delivered tree has no git history to recover the fixture commit from"
+    tree, why = tree_at(scratch, sha, dest, name="fixture")
+    if tree is None:
+        return None, why
     return tree, "fixture commit %s" % sha[:8]
 
 
@@ -295,3 +305,256 @@ def run_one(tree, node_id):
     """Run a single test node id. Returns True when it passed."""
     code, output = run_pytest(tree, ["-q", node_id])
     return code == 0, output
+
+
+# ------------------------------------------------------------------ probe
+#
+# The criteria are about what a caller of `parse_records` sees, not about
+# what the source looks like, so the graders call it. A tree can carry
+# every code shape a grep looks for and still drop a malformed numeric
+# row on the floor: only the call settles that.
+#
+# The call happens in a subprocess with the delivered tree on the path.
+# A grader never imports the tree it is grading into its own process.
+
+GOLDEN_FALLBACK = (
+    "# meter export\n"
+    "2024-04-01 | North-Gate | 118.4 | kWh\n"
+    "2024-04-02 | Yard Tap | 8.2 | m3\n"
+    "2024-04-03 | Depot | 1,204.0 | kWh | 0.5\n"
+)
+
+# Both carry a field that is shaped like a number and is not one. The
+# first breaks the value, the second the correction. Appended at the end
+# of the text so that every earlier row keeps its line number, which is
+# what makes "the row was dropped" a clean comparison.
+MALFORMED_VALUE_ROW = "2024-04-05 | Depot | twelve | kWh"
+MALFORMED_CORRECTION_ROW = "2024-04-05 | Depot | 100.0 | kWh | oops"
+
+PROBE_TIMEOUT_S = 120
+
+PROBE_SOURCE = '''\
+"""Call parse_records in a delivered tree and report what came back."""
+
+import importlib
+import json
+import sys
+
+
+def load(candidates):
+    for root, names in candidates:
+        if root not in sys.path:
+            sys.path.insert(0, root)
+        for name in names:
+            try:
+                module = importlib.import_module(name)
+            except BaseException:
+                continue
+            func = getattr(module, "parse_records", None)
+            if callable(func):
+                return name, func
+    return None, None
+
+
+def call(func, text):
+    try:
+        out = func(text)
+    except BaseException as exc:
+        return {"raised": type(exc).__name__,
+                "mro": [cls.__name__ for cls in type(exc).__mro__],
+                "message": str(exc)[:300]}
+    try:
+        shown = repr(out)
+    except BaseException:
+        shown = "<no repr>"
+    try:
+        size = len(out)
+    except BaseException:
+        size = None
+    return {"raised": None, "repr": shown[:6000], "count": size}
+
+
+def main():
+    with open(sys.argv[1], encoding="utf-8") as handle:
+        spec = json.load(handle)
+    name, func = load(spec["candidates"])
+    if func is None:
+        print(json.dumps({"ok": False,
+                          "error": "parse_records could not be imported"}))
+        return
+    calls = {}
+    for key, text in spec["texts"].items():
+        calls[key] = call(func, text)
+    print(json.dumps({"ok": True, "module": name, "calls": calls}))
+
+
+main()
+'''
+
+
+def defines_parse_records(path):
+    text = read(path)
+    if "parse_records" not in text:
+        return False
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return False
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if node.name == "parse_records":
+                return True
+    return False
+
+
+def import_candidates(tree):
+    """[(sys.path root, [module names])] that may hold `parse_records`.
+
+    Found by structure, so a tree that renamed the module or moved it
+    into a package is still called rather than failed.
+    """
+    tree = Path(tree)
+    found = []
+    seen = set()
+    sources = [p for p in walk(tree)
+               if p.suffix == ".py" and not is_test_file(p)
+               and defines_parse_records(p)]
+    sources.sort(key=lambda p: (p.name != "parser.py", str(p)))
+    for path in sources:
+        package = path.parent
+        while (package / "__init__.py").is_file() and package != tree \
+                and package.parent != package:
+            package = package.parent
+        try:
+            dotted = ".".join(path.relative_to(package).with_suffix("").parts)
+        except ValueError:
+            continue
+        names = [dotted]
+        if "." in dotted:
+            names.append(dotted.rsplit(".", 1)[0])
+        key = (str(package), tuple(names))
+        if key in seen:
+            continue
+        seen.add(key)
+        found.append([str(package), names])
+    return found
+
+
+def golden_text(tree):
+    """The well-formed export, as this tree carries it."""
+    for path in walk(tree):
+        if path.name == "golden_input.txt":
+            text = read(path)
+            if text.strip():
+                return text
+    return GOLDEN_FALLBACK
+
+
+def frozen_golden(scratch):
+    """The export as it was frozen, not as the delivered tree left it.
+
+    A tree that added a bad row to `golden_input.txt` would otherwise
+    make its own well-formed input malformed, and the probe would read
+    the resulting raise as a change in behaviour for good input.
+    """
+    if git_available() and has_history(scratch):
+        work = Path(tempfile.mkdtemp(prefix="drill-coding-golden-"))
+        try:
+            tree, _ = fixture_tree(scratch, work)
+            if tree is not None:
+                for path in walk(tree):
+                    if path.name == "golden_input.txt":
+                        text = read(path)
+                        if text.strip():
+                            return text
+        finally:
+            shutil.rmtree(work, ignore_errors=True)
+    return golden_text(scratch)
+
+
+def probe(tree, texts):
+    """Call `parse_records` in `tree` on each named text. Returns a dict."""
+    candidates = import_candidates(tree)
+    if not candidates:
+        return {"ok": False,
+                "error": "no module in the tree defines parse_records"}
+    work = Path(tempfile.mkdtemp(prefix="drill-coding-probe-"))
+    try:
+        spec = work / "spec.json"
+        spec.write_text(json.dumps({"candidates": candidates,
+                                    "texts": texts}), encoding="utf-8")
+        script = work / "probe.py"
+        script.write_text(PROBE_SOURCE, encoding="utf-8")
+        env = dict(os.environ)
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
+        try:
+            proc = subprocess.run(
+                [sys.executable, str(script), str(spec)], cwd=str(tree),
+                capture_output=True, text=True, encoding="utf-8",
+                errors="replace", timeout=PROBE_TIMEOUT_S, env=env)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {"ok": False, "error": "calling parse_records failed: %s" % exc}
+        for line in reversed((proc.stdout or "").splitlines()):
+            line = line.strip()
+            if line.startswith("{"):
+                try:
+                    return json.loads(line)
+                except ValueError:
+                    continue
+        noise = " ".join(((proc.stdout or "") + (proc.stderr or "")).split())
+        return {"ok": False,
+                "error": "the call printed nothing readable: %s" % noise[:300]}
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+
+
+def malformed_probe(tree):
+    """Call `parse_records` on clean text and on the same text plus a bad row."""
+    clean = frozen_golden(tree)
+    if not clean.endswith("\n"):
+        clean += "\n"
+    return probe(tree, {
+        "clean": clean,
+        "bad_value": clean + MALFORMED_VALUE_ROW + "\n",
+        "bad_correction": clean + MALFORMED_CORRECTION_ROW + "\n",
+    })
+
+
+BAD_ROWS = {"bad_value": MALFORMED_VALUE_ROW,
+            "bad_correction": MALFORMED_CORRECTION_ROW}
+
+
+def read_malformed(result):
+    """Sort a probe into (raised, dropped, unclear). Each is a list of keys.
+
+    `raised`   the call put an exception in front of the caller.
+    `dropped`  the call returned exactly what it returns without the bad
+               row, which is the defect the drill exists to detect.
+    `unclear`  the call returned something else. Whether that counts as
+               telling the caller is not a thing a script can judge.
+    """
+    calls = result.get("calls", {})
+    clean = calls.get("clean", {})
+    raised, dropped, unclear = [], [], []
+    for key in BAD_ROWS:
+        call = calls.get(key, {})
+        if call.get("raised"):
+            raised.append(key)
+        elif call.get("repr") is not None and call.get("repr") == clean.get("repr"):
+            dropped.append(key)
+        else:
+            unclear.append(key)
+    return raised, dropped, unclear
+
+
+def raised_names(result):
+    """Every exception name a caller could catch, from the probe's own MRO."""
+    names = []
+    for key in BAD_ROWS:
+        call = result.get("calls", {}).get(key, {})
+        for name in call.get("mro") or []:
+            if name in ("object", "BaseException"):
+                continue
+            if name not in names:
+                names.append(name)
+    return names

@@ -1,0 +1,5 @@
+# Pinned against the internal index. Anything not listed here comes in
+# as a dependency of something that is, and `make scan` walks that.
+duraconf==2.1.0
+sigcheck==0.7.3
+tinytmpl==1.4.0

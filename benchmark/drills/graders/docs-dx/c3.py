@@ -25,9 +25,9 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import (FAIL, PASS, UNSETTLED, ci_commands, docs_target,  # noqa: E402
-                     emit, expand_make, one_line, rel, run_command,
-                     scratch_dir)
+from _common import (FAIL, PASS, UNSETTLED, ci_commands, ci_files,  # noqa: E402
+                     docs_target, emit, expand_make, looks_like_missing_tool,
+                     one_line, rel, run_command, scratch_dir, uses_values)
 
 CID = "c3"
 
@@ -44,6 +44,18 @@ def main():
     scratch = scratch_dir()
     commands = ci_commands(scratch)
     if not commands:
+        hosted = uses_values(scratch)
+        if hosted:
+            emit(CID, UNSETTLED,
+                 "the automation runs only hosted actions (%s), which this "
+                 "machine cannot execute, so whether a broken documented "
+                 "command would turn one of them red was not settled here"
+                 % ", ".join(v for _, v in hosted[:3]))
+        if ci_files(scratch):
+            emit(CID, FAIL,
+                 "there are automation files but no step runs a command, so "
+                 "nothing could go red when a documented command stops "
+                 "working")
         emit(CID, FAIL,
              "no committed automation runs anything, so no step could go red "
              "when a documented command stops working")
@@ -66,6 +78,16 @@ def main():
 
         if not green:
             if red:
+                # A step that is red because this machine lacks what it
+                # needs says nothing about the delivered work, and
+                # calling that a failure invents a finding.
+                missing = [r for r in red if looks_like_missing_tool(r[3])]
+                if missing:
+                    emit(CID, UNSETTLED,
+                         "no step is green here, and %r from %s fails on "
+                         "something this machine does not have: %s"
+                         % (missing[0][1], missing[0][0],
+                            one_line(missing[0][3])))
                 emit(CID, FAIL,
                      "no step is green on the delivered tree (%r from %s "
                      "exits %d: %s), so a red run after an injected block "

@@ -24,7 +24,17 @@ def an_email():
     return "user-%s@example.com" % uuid4().hex[:12]
 
 
+# One of the standing rows scripts/seed.py puts in. The suite runs
+# against a seeded database, the same way CI does.
+STANDING_EMAIL = "ada.lovelace@example.com"
+
+
 class UserRecordTests(unittest.TestCase):
+
+    def test_a_standing_user_is_still_on_file(self):
+        user_id = users.find_by_email(STANDING_EMAIL)
+        self.assertIsNotNone(user_id, "run scripts/seed.py first")
+        self.assertEqual(users.email_for(user_id), STANDING_EMAIL)
 
     def test_a_new_user_is_readable_by_id(self):
         email = an_email()

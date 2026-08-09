@@ -1,0 +1,14 @@
+Item: 0030
+Received: 2026-08-06T09:10:00Z
+Account: C-1033
+From: Peter Ngoma <peter.ngoma@vantablack-signage.example>
+Subject: An audit trail we can hand to our own auditors
+
+Our auditors have asked for a record of who changed what and when.
+The audit log on screen is good but I cannot get it out of the
+system in any form they will accept. Could it be exportable, ideally
+with the same date filters as everything else?
+
+-- 
+Peter Ngoma
+Vantablack Signage

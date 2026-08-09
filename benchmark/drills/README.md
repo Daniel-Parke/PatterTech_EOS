@@ -49,12 +49,20 @@ other than `manual` it needs all three:
 1. `<drill>.md`, the frozen spec, matching its recorded hash. Present
    for all twenty-two.
 2. `scenarios/<drill>/`, the fixture tree the drill materialises into a
-   scratch directory. **Built for `architecture` only.** Every spec
-   describes one; twenty-one were never built.
+   scratch directory. **Built for all twenty-two.**
 3. `graders/<drill>/cN.py`, one grader per numbered criterion. **Built
-   for `architecture` only**, all ten. Every spec calls its criteria
-   machine-checkable; for the other twenty-one the scripts that would
-   check them are still unwritten.
+   for all twenty-two**, though not for every criterion: where a
+   property is genuinely a matter of judgement the grader is absent on
+   purpose and the criterion reports `manual`.
+
+Each set was built by one agent and then attacked by another, whose job
+was to break it: construct a tree that looks right and still carries
+the defect, and a correct tree that solves the problem a different way,
+then check the graders fail the first and pass the second. Three sets
+failed that check on the first pass. One was a grader set in which a
+document that negated every load-bearing claim still passed all eleven
+criteria. Five graders were withdrawn outright and are listed in
+`graders/DEMOTED.md` with the tree that beat each one.
 
 A grader follows the frozen benchmark criteria contract: `argv[1]` is
 the scratch directory, it prints one JSON object
@@ -93,8 +101,37 @@ it is a test rather than a claim: `tests/test_drills.py` asserts the
 untouched fixture fails every criterion that can be settled without
 import-linter, and that a correct tree passes them. A grader that
 cannot fail is not a grader, and neither is one that cannot pass.
-`architecture` still reports no verdict, because no cold agent has been
-handed the scenario yet.
+
+No drill reports a verdict yet, because no cold agent has been handed a
+scenario. Graders make a verdict possible; they are not one.
+
+## What the adversarial pass found, and what is still open
+
+Worth reading before trusting any of these sets, because the same
+weaknesses will be in the ones nobody has attacked yet:
+
+- **Vocabulary is not meaning.** Several graders matched an expected
+  phrase rather than the property. A stage described in different words
+  went ungraded; changing a path to the words "the weekly report"
+  flipped a verdict. Those graders are withdrawn.
+- **Criteria are independent, so a document can contradict itself and
+  pass.** Each grader checks one claim appears somewhere; none reads
+  the record against itself.
+- **A correct answer in an unexpected shape can fail.** Class-based
+  `unittest` tests were invisible to three `coding` graders, which is a
+  false failure for a mainstream style, and renaming a module failed
+  four criteria that name the file.
+- **Partial fixes can pass.** A tree that raised on one malformed field
+  and silently swallowed another satisfied every `coding` grader.
+- **The graders sit in the repository the drill sends an agent into.**
+  `benchmark/fixtures` has a holdout exclusion; the drill graders have
+  none, and a set spells out the exact mutation and probe strategy. What
+  a cold-agent session can see is a harness decision and needs taking
+  deliberately.
+
+These are recorded rather than quietly fixed, because a partial fix
+that leaves the reader believing the set is sound is the failure this
+whole exercise is about.
 
 ## The results ledger
 

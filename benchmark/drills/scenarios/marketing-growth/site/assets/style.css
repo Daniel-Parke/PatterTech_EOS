@@ -1,0 +1,18 @@
+:root { --ink: #241f1c; --paper: #faf6f0; --accent: #a4512b; }
+
+body {
+  margin: 0 auto;
+  max-width: 42rem;
+  padding: 1.5rem;
+  font: 1rem/1.6 Georgia, serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+header { display: flex; justify-content: space-between; align-items: baseline; }
+.brand { font-weight: bold; text-decoration: none; color: var(--ink); }
+nav a { margin-left: 1rem; }
+a { color: var(--accent); }
+h1 { line-height: 1.2; }
+.cta { display: inline-block; padding: 0.5rem 1rem; border: 1px solid var(--accent); }
+footer { margin-top: 3rem; font-size: 0.85rem; }

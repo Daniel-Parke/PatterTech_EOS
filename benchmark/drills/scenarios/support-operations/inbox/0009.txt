@@ -1,0 +1,12 @@
+Item: 0009
+Received: 2026-08-04T08:30:00Z
+Account: C-1013
+From: Sofia Marchetti <sofia.marchetti@coldstream-bakery.example>
+Subject: It is doing it again
+
+The thing we spoke to you about last month is happening again.
+Please can someone look at it today, it is holding us up.
+
+-- 
+Sofia Marchetti
+Coldstream Bakery

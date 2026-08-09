@@ -257,20 +257,33 @@ RENAME_RE = re.compile(
     r"\bALTER\s+TABLE\s+" + _NAME + r"\s+RENAME\s+TO\s+" + _NAME,
     re.I | re.S)
 
+# A backfill names both ends of the move in one statement, which is how
+# a file that creates the new table and drops the old column can be
+# caught even though the two statements name different tables.
+LINK_RES = (
+    re.compile(r"\bINSERT\s+(?:OR\s+\w+\s+)?INTO\s+" + _NAME
+               + r"(?:(?!;)[\s\S])*?\bFROM\s+" + _NAME, re.I),
+    re.compile(r"\bCREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?" + _NAME
+               + r"(?:(?!;)[\s\S])*?\bAS\s+SELECT(?:(?!;)[\s\S])*?\bFROM\s+"
+               + _NAME, re.I),
+)
+
 
 def strip_sql_comments(text):
     return _COMMENT_LINE.sub(" ", _COMMENT_BLOCK.sub(" ", text))
 
 
 def sql_subjects(text):
-    """(additive, destructive, renames) as sets of lowercased table names.
+    """(additive, destructive, links) for one migration file.
 
-    Renames are returned as pairs so a caller can treat the old and new
-    name as one subject: create-copy-drop-rename is expand and contract
-    in a single file however it is spelled.
+    `links` are pairs of table names the file itself ties together: a
+    rename, or a backfill that reads one table and writes another. Two
+    linked names are one subject, because create-copy-drop-rename and
+    create-new-table-then-drop-the-old-column are both expand and
+    contract in a single file, whatever the statements are called.
     """
     body = strip_sql_comments(text)
-    additive, destructive, renames = {}, {}, []
+    additive, destructive, links = {}, {}, []
     for pattern, label in ADDITIVE_RES:
         for match in pattern.finditer(body):
             additive.setdefault(match.group(1).lower(), label)
@@ -278,28 +291,37 @@ def sql_subjects(text):
         for match in pattern.finditer(body):
             destructive.setdefault(match.group(1).lower(), label)
     for match in RENAME_RE.finditer(body):
-        renames.append((match.group(1).lower(), match.group(2).lower()))
-    return additive, destructive, renames
+        links.append((match.group(1).lower(), match.group(2).lower()))
+    for pattern in LINK_RES:
+        for match in pattern.finditer(body):
+            links.append((match.group(1).lower(), match.group(2).lower()))
+    return additive, destructive, links
 
 
-def same_subject(additive, destructive, renames):
+def same_subject(additive, destructive, links):
     """Subjects touched additively and destructively in one file."""
-    alias = {}
+    parent = {}
 
-    def root(name):
-        seen = set()
-        while name in alias and name not in seen:
-            seen.add(name)
-            name = alias[name]
+    def find(name):
+        parent.setdefault(name, name)
+        while parent[name] != name:
+            parent[name] = parent[parent[name]]
+            name = parent[name]
         return name
 
-    for old, new in renames:
-        alias[old] = new
-    add_roots = {root(name): name for name in additive}
-    drop_roots = {root(name): name for name in destructive}
-    shared = set(add_roots) & set(drop_roots)
-    return sorted({add_roots[r] for r in shared} | {drop_roots[r]
-                                                    for r in shared})
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[ra] = rb
+
+    for a, b in links:
+        union(a, b)
+    shared = set()
+    for name in additive:
+        for other in destructive:
+            if find(name) == find(other):
+                shared |= {name, other}
+    return sorted(shared)
 
 
 def is_destructive(path):

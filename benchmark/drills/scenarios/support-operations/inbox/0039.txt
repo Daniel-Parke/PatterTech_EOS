@@ -1,0 +1,13 @@
+Item: 0039
+Received: 2026-08-07T11:30:00Z
+Account: C-1041
+From: Noor Haddad <noor.haddad@larkspur-textiles.example>
+Subject: Adding a read-only user
+
+How do I add someone who can look at reports but not change or
+delete anything? I can see the invite screen but the only choices
+are admin and editor.
+
+-- 
+Noor Haddad
+Larkspur Textiles

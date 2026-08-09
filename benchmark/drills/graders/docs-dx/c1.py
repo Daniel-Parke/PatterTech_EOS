@@ -20,8 +20,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _common import (CHECKERS, FAIL, FRAGMENT_TOKENS, PASS,  # noqa: E402
-                     ci_files, emit, link_check_commands, named_files,
-                     read, rel, scratch_dir)
+                     checker_actions, ci_files, emit, link_check_commands,
+                     named_files, read, rel, scratch_dir)
 
 CID = "c1"
 
@@ -87,7 +87,8 @@ def main():
     where = ", ".join(rel(scratch, p) for p in files[:4])
     ci_text = "\n".join(read(p) for p in files)
     commands = link_check_commands(scratch)
-    if not commands:
+    actions = checker_actions(scratch)
+    if not commands and not actions:
         named = [c for c in CHECKERS if c in ci_text.lower()]
         if named:
             emit(CID, FAIL,
@@ -98,8 +99,15 @@ def main():
              "runs a link-checking script from the tree"
              % (where, ", ".join(CHECKERS[:4])))
 
-    source, command, checker = commands[0]
-    if checker in CHECKERS:
+    if commands:
+        source, _, checker = commands[0]
+        third_party = checker in CHECKERS
+    else:
+        source, value, checker = actions[0]
+        third_party = True
+        ci_text = ci_text + "\n" + value
+
+    if third_party:
         pin = pinned_third_party(ci_text, checker)
         if pin is None:
             emit(CID, FAIL,
