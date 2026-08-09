@@ -161,6 +161,34 @@ Preferences, stated and not enforced:
 - Confidence per test over layer ratios (EV-0094), read against the
   flake cost in FRAG-13.
 
+## Four benchmarks, and what they are good for
+
+Read for this pack and cited by nothing until now. Each measures
+test-generation ability, which is the one capability the pack's
+oracle-first requirement depends on, so leaving them uncited left that
+requirement resting on argument alone.
+
+Generating a fail-to-pass reproduction test from an issue is the
+standard measure, and it remains hard for 2025-era agents (EV-0031).
+Tests written from an issue before the patch exists can both drive the
+work and validate the patch afterwards, when fail-to-pass is paired
+with an adequacy check (EV-0032). That pairing is why this pack asks
+for an oracle that fails on the baseline rather than one that merely
+exists: an oracle that passes before the change measures nothing.
+
+Where the tests are the prompt, success is governed by
+instruction-following and in-context learning rather than raw coding
+skill (EV-0002). That is a caution about attribution rather than a
+technique: a model that does well on a test-driven benchmark may be
+good at reading tests, not at the domain.
+
+For work built from scratch, the discriminating signal is executable
+functional acceptance driven by a navigation agent rather than static
+inspection (EV-0033). It supports the pack's preference for acceptance
+that runs over acceptance that is described, and it is the weakest of
+the four for this estate, because a from-scratch web app is not the
+shape most of our work takes.
+
 ## Licence care
 
 FRAG-04 is CC BY-NC-ND 4.0, so paraphrase only, no adapted excerpts. The

@@ -1001,3 +1001,59 @@ def check_s016_cited_by_is_derived(ctx: dict) -> list:
                       "no research_cutoff: the ledger cannot say how old "
                       "its own reading is"))
     return out
+
+
+@register("S017")
+def check_s017_evidence_matches_its_schema(ctx: dict) -> list:
+    """registry/evidence.json validates against kernel/schemas/evidence.schema.json.
+
+    The schema existed and nothing read it. Two violations had
+    accumulated by the time anyone ran it, and both were introduced
+    during this review: a derived `research_cutoff` at the top level
+    that the schema forbade, and a record whose publication_status was
+    outside the enum. A schema nobody validates against is a comment.
+
+    Also holds the licence floor of packs/PACK_SHAPE.md item 11. A
+    record may say what the source states, including that the source
+    states nothing, but "unknown" means nobody looked and is a gap
+    rather than a value.
+    """
+    import json
+
+    model: RepoModel = ctx["model"]
+    raw = model.read("registry/evidence.json")
+    schema_raw = model.read("kernel/schemas/evidence.schema.json")
+    if raw is None or schema_raw is None:
+        return []
+    try:
+        doc = json.loads(raw)
+        schema = json.loads(schema_raw)
+    except ValueError as exc:
+        return [_f(ctx, "S017", "registry/evidence.json",
+                   f"not valid JSON: {exc}")]
+
+    out = []
+    try:
+        import jsonschema
+    except ImportError:
+        out.append(_f(ctx, "S017", "registry/evidence.json",
+                      "jsonschema is not installed, so the ledger was not "
+                      "validated against its schema on this run"))
+    else:
+        errors = sorted(jsonschema.Draft202012Validator(schema).iter_errors(doc),
+                        key=lambda e: list(e.path))
+        for err in errors[:10]:
+            where = "/".join(str(p) for p in err.path) or "(root)"
+            out.append(_f(ctx, "S017", "registry/evidence.json",
+                          f"schema: {where}: {err.message}"))
+
+    unknown = [r.get("id") for r in doc.get("records", [])
+               if str(r.get("licence", "")).strip().lower() == "unknown"]
+    if unknown:
+        out.append(_f(ctx, "S017", "registry/evidence.json",
+                      "%d record(s) carry licence 'unknown' (%s%s): read the "
+                      "licence off the source, or record that the source "
+                      "states none. PACK_SHAPE item 11 wants a fact here."
+                      % (len(unknown), ", ".join(unknown[:5]),
+                         ", ..." if len(unknown) > 5 else "")))
+    return out
