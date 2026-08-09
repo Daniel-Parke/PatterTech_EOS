@@ -1,6 +1,6 @@
 {
   "id": "T-0009",
-  "intent": "Resolve the ninety evidence records carrying licence unknown, which violates item 11 of packs/PACK_SHAPE.md. They are mostly arXiv preprints, twenty-five of them, and vendor documentation, where the licence is per submission or per site and has to be read off the page. Either record the real licence at a fresh access date, or replace unknown with a stated reason class so the gap is governed rather than silent. Do not infer a licence from the domain. Counted by kind: thirty-six maintainer, twenty-nine controlled, thirteen standard, twelve exemplar.",
+  "intent": "Closed. All ninety records marked licence 'unknown' were read off their sources on 2026-08-08 and now carry a fact plus the wording that establishes it, in new licence_evidence and licence_checked fields. Fifty-two say 'not-stated', which is what the page declares and is a different thing from 'unknown', meaning nobody had looked. The rest resolved to real licences, and the variation is the point: arXiv submissions carry per-paper terms, so EV-0005 and EV-0033 are CC-BY-NC-SA-4.0 where most are CC-BY-4.0, and a blanket rule would have got both wrong. Copyright notices were not read as licence grants: METR's 'All rights reserved' and Playwright's Microsoft copyright line are recorded as what they are. Sixteen pre-existing records were normalised to the same spelling so the field is machine-usable, leaving qualified values such as 'CC BY 4.0 for page content, Apache-2.0 for code samples' intact because the nuance is real. One record, EV-0084, could not be read: its URL now returns 404, confirmed by two fetches and by curl. Its licence is recorded as not-stated on the evidence of four sibling pages, labelled as an inference, and the record is marked maintenance url-dead so the ledger says plainly that the citation cannot be re-checked at source. Check S017 now validates the ledger against kernel/schemas/evidence.schema.json, which nothing had ever read, and holds the licence floor at zero unknowns.",
   "claims": [
     "registry/evidence.json"
   ],
@@ -12,7 +12,7 @@
   "tier_proposed": "R1",
   "tier_ruled": "R0",
   "reasons": [],
-  "status": "proposed",
+  "status": "done",
   "owner_session": "eos-v2-prerelease-review",
   "timestamps": {
     "opened": "2026-08-08T00:00:00Z",

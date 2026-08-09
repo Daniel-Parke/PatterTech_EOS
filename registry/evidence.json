@@ -14,7 +14,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "submitted 2025-11-05, revised 2026-04-22",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Moving the agent loop to event-sourced conversations with composable runtime services substantially reduced system-attributable failures over the prior architecture at negligible overhead.",
@@ -23,7 +23,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\" (title \"Rights to this article\"). Paper: \"The OpenHands Software Agent SDK: A Composable and Extensible Foundation for Production Agents\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0002",
@@ -36,14 +38,18 @@
    "model": null,
    "benchmark": "WebApp1K",
    "version_or_commit": "arXiv v1, 13 May 2025",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "stable",
    "finding": "When tests are the prompt, TDD success is governed by instruction-following and in-context learning rather than raw coding skill, so the active test set must stay small and salient to avoid instruction loss.",
    "applicability_limits": "WebApp1K is synthetic and single-file scale; it does not measure repository-level work or regression risk, and results must not be promoted to universal doctrine.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2027-08"
+   "cited_by": [
+    "delivery-testing"
+   ],
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"Tests as Prompt: A Test-Driven-Development Benchmark for LLM Code Generation\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0003",
@@ -56,7 +62,7 @@
    "model": null,
    "benchmark": "SWE-bench Verified",
    "version_or_commit": "arXiv, submitted 18 Mar 2026 (rev 19 Mar 2026)",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Targeted test-impact analysis cut regressions on SWE-bench Verified from 6.08% to 1.82%, while generic TDD instructions without contextual data made regressions worse at 9.94%, so surfacing context beats prescribing procedure.",
@@ -66,7 +72,9 @@
     "coding",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"TDAD: Test-Driven Agentic Development - Reducing Code Regressions in AI Coding Agents via Graph-Based Impact Analysis\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0004",
@@ -79,7 +87,7 @@
    "model": null,
    "benchmark": "SWE-bench Verified",
    "version_or_commit": "EACL 2026 long paper (Mar 2026)",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "stable",
    "finding": "With human-written tests supplied, a narrowly engineered test-driven workflow reaches 94.3% on SWE-bench Verified with only 7 test-hacking cases in 800 runs, so resolving given tests is near-solved and accurate test generation is the remaining bottleneck.",
@@ -88,7 +96,9 @@
    "cited_by": [
     "coding"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page carries the CC BY 4.0 badge (i.creativecommons.org/l/by/4.0/88x31.png linking to licenses/by/4.0/) and the footer states \"Materials published in or after 2016 are licensed on a Creative Commons Attribution 4.0 International License.\" This paper is 2026 (TDFlow: Agentic Workflows for Test Driven Development). Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0005",
@@ -101,7 +111,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv, submitted 17 May 2026",
-   "licence": "unknown",
+   "licence": "CC-BY-NC-SA-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Converting requirements to structured acceptance tests before coding improved web-app generation quality by 34 to 48 percentage points, but only when the TDD enforcement protocol matched the model's building style; mismatches negated gains and inflated tokens up to 25x.",
@@ -110,7 +120,9 @@
    "cited_by": [
     "coding"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by-nc-sa/4.0/ with the by-nc-sa-4.0.png icon and the text \"view license\". Paper: \"From Runnable to Shippable: Multi-Agent Test-Driven Development for Generating Full-Stack Web Applications from Requirements\". Confirmed in raw HTML - this one differs from the other arXiv items.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0006",
@@ -123,7 +135,7 @@
    "model": "six strong models (per the study)",
    "benchmark": "SWE-bench Verified",
    "version_or_commit": "arXiv, Feb 2026 (rev Apr 2026)",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Test-writing frequency is similar in resolved and unresolved runs, agent tests are mostly observational prints rather than assertions, and prompt interventions on test volume do not significantly change outcomes, so mandating more agent-written tests reshapes cost, not quality.",
@@ -133,7 +145,9 @@
     "coding",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"Rethinking the Value of Agent-Generated Tests for LLM-Based Software Engineering Agents\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0007",
@@ -146,7 +160,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv, submitted 6 Jul 2026",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Generating tests after faulty code roughly halves fault detection versus generating them independently (14% vs 25%) because implementation and tests become mutually consistent and conceal defects; independence of the test from the implementation context is the load-bearing property, not test-first timing.",
@@ -156,7 +170,9 @@
     "coding",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"On the risk of coding before testing: An empirical study on LLM-based test generation workflow\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0008",
@@ -169,7 +185,7 @@
    "model": null,
    "benchmark": "SWE-bench",
    "version_or_commit": "arXiv:2407.01489; FSE 2025",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "stable",
    "finding": "A simple fixed localise-repair-validate pipeline matched or beat contemporary autonomous agents at far lower cost (32.0% at $0.70 in its era), showing structured decomposition was largely a workaround for weak models.",
@@ -178,7 +194,9 @@
    "cited_by": [
     "coding"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"Agentless: Demystifying LLM-based Software Engineering Agents\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0009",
@@ -191,7 +209,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv, 24 Jul 2026; accepted ISSTA 2026",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Coverage and mutation scores of LLM-generated suites are informative in regression-style settings where the code is assumed correct but unreliable when the code under test may already be buggy, so they cannot substitute for independent oracles.",
@@ -200,7 +218,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"Do Coverage and Mutation Scores of LLM-Generated Test Suites Correlate with Their Effectiveness? (Replicability Study)\". Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0010",
@@ -213,7 +233,7 @@
    "model": "Cursor with Claude 3.5/3.7 Sonnet",
    "benchmark": null,
    "version_or_commit": "published 2025-07-10",
-   "licence": "unknown",
+   "licence": "all-rights-reserved",
    "access_date": "2026-08-02",
    "maintenance": "stable",
    "finding": "In a randomised trial, experienced developers were 19% slower with early-2025 AI tools while believing they were 20% faster, so throughput claims need measurement because self-report inverts the sign.",
@@ -225,7 +245,9 @@
     "coding",
     "product-discovery"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page footer states verbatim: \"© 2026 METR. All rights reserved.\" Confirmed in raw HTML. Note this is a copyright reservation, not a licence grant - no licence is offered anywhere on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0011",
@@ -290,7 +312,9 @@
    "finding": "Instrument agent work with standard span types and shared gen_ai attributes plus token-usage metrics so throughput and quality are measurable with off-the-shelf tooling rather than hand-written session logs.",
    "applicability_limits": "The gen_ai conventions are development-status, not stable; attribute names may change, so anything built on them must tolerate renames.",
    "counter_evidence": null,
-   "cited_by": [],
+   "cited_by": [
+    "agentic-development"
+   ],
    "review": "2027-08"
   },
   {
@@ -304,14 +328,18 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (living spec, fetched 2026-08-02)",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "A formal three-level loading contract (metadata at startup, full body on activation, resources on demand) with hard size limits keeps skill cost near zero until needed.",
    "applicability_limits": "Young de facto standard driven mainly by Anthropic; cross-agent portability of fields like allowed-tools is explicitly variable.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2028-08"
+   "cited_by": [
+    "agentic-development"
+   ],
+   "review": "2028-08",
+   "licence_evidence": "No copyright or licence statement appears for the page's own content. The only licence strings on the page are inside example YAML snippets documenting the optional SKILL.md `license` frontmatter field (e.g. \"license: Apache-2.0\", \"license: Proprietary. LICENSE.txt has complete terms\") - these describe a field a skill author may set, not the licence of this specification page. Raw HTML grep for copyright/licence footer text returned nothing.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0015",
@@ -324,7 +352,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs current as of Playwright v1.62 era; page undated",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Classify outcomes as passed, flaky and failed as first-class states and report flakes explicitly instead of hiding them behind green builds, preferring isolation over retries as the fix.",
@@ -333,7 +361,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer states only \"Copyright © 2026 Microsoft\" (confirmed in raw HTML). No licence is stated anywhere on the page - a copyright line is not a licence grant.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0016",
@@ -346,7 +376,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "feature introduced v1.46; notes current to v1.62",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Affected-test selection is a built-in git-diff-driven feature since v1.46, running only changed test files and those importing changed files, making cheap dependency-graph selection table stakes.",
@@ -355,7 +385,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer states only \"Copyright © 2026 Microsoft\" (confirmed in raw HTML). No licence is stated anywhere on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0017",
@@ -368,7 +400,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "'latest' docs build; no version pinned",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Specify the domain of valid inputs and the invariants that must hold, letting the tool generate cases, shrink counterexamples and persist failures for deterministic replay; one property test replaces many example tests where an invariant exists.",
@@ -378,7 +410,9 @@
     "business-logic-modelling",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer states only \"© Copyright 2013-2026, the Hypothesis team\" (confirmed in raw HTML). No licence text (MPL, MIT, Creative Commons or otherwise) appears on this page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0018",
@@ -391,7 +425,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (undated docs page)",
-   "licence": "unknown",
+   "licence": "Apache-2.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Mutation score (detected over valid mutants) measures whether tests actually detect faults, which line coverage cannot, and the killed/survived/no-coverage breakdown shows exactly which behaviours are unguarded.",
@@ -400,7 +434,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page footer states verbatim: \"Stryker is released under the Apache 2.0 license. Site by the Stryker team. Logo by Selina van den Top.\" Confirmed in raw HTML. Note the wording licenses Stryker (the project), which is the only licence the page states.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0019",
@@ -413,7 +449,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "feature since StrykerJS 6.2",
-   "licence": "unknown",
+   "licence": "Apache-2.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Expensive quality audits become continuously affordable by diffing against a stored result file and re-running only mutants whose code or covering tests changed, while still emitting a full report.",
@@ -423,7 +459,9 @@
     "delivery-testing",
     "kernel"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Same site footer, verbatim: \"Stryker is released under the Apache 2.0 license. Site by the Stryker team. Logo by Selina van den Top.\" Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0020",
@@ -695,14 +733,18 @@
    "model": null,
    "benchmark": "SWT-Bench",
    "version_or_commit": "NeurIPS 2024 paper (arXiv:2406.12952); leaderboard active through 2025-26",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Fail-to-pass reproduction-test generation from issues is the standard measure of agent testing ability and remains hard, with best 2025-era systems near 50 to 60% versus roughly 90% for patching.",
    "applicability_limits": "Python-only issue-reproduction framing derived from SWE-bench, sharing its repo-selection bias; SWT-Bench results must not be promoted to universal doctrine.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2027-08"
+   "cited_by": [
+    "delivery-testing"
+   ],
+   "review": "2027-08",
+   "licence_evidence": "No licence or copyright is stated for the SWT-Bench benchmark or the page content. The only licence strings present cover third-party assets: \"All emojis designed by OpenMoji - the open-source emoji and icon project. License: CC BY-SA 4.0\" and a Font Awesome comment \"License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.\" Confirmed in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0032",
@@ -715,14 +757,18 @@
    "model": null,
    "benchmark": "TDD-Bench Verified",
    "version_or_commit": "main branch; companion Otter paper ICML 2025",
-   "licence": "unknown",
+   "licence": "Apache-2.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Tests generated from an issue before the patch exists can both enable TDD and validate agent patches, with fail-to-pass plus adequacy checks rather than coverage as the quality bar.",
    "applicability_limits": "Derived from SWE-bench Verified and measures test generation, not whether TDD improves the subsequent patching; benchmark results must not be promoted to universal doctrine.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2027-08"
+   "cited_by": [
+    "delivery-testing"
+   ],
+   "review": "2027-08",
+   "licence_evidence": "Repository header/About sidebar shows \"Apache-2.0 license\". Confirmed via the GitHub API for IBM/TDD-Bench-Verified, which returns license key \"apache-2.0\", name \"Apache License 2.0\", spdx_id \"Apache-2.0\".",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0033",
@@ -735,14 +781,18 @@
    "model": null,
    "benchmark": "WebGen-Bench",
    "version_or_commit": "arXiv May 2025; NeurIPS 2025 Datasets & Benchmarks",
-   "licence": "unknown",
+   "licence": "CC-BY-NC-SA-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "For from-scratch web apps the discriminating quality signal is executable functional acceptance tests driven by a web-navigation agent, with the best framework at release passing only 27.8%, exposing failures static review misses.",
    "applicability_limits": "Test cases were authored via GPT-4o plus manual filtering, appearance scoring is subjective and scores rise quickly with newer models; WebGen-Bench results must not be promoted to universal doctrine.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2027-08"
+   "cited_by": [
+    "delivery-testing"
+   ],
+   "review": "2027-08",
+   "licence_evidence": "Abstract page licence block: <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" title=\"Rights to this article\" class=\"has_license\"> ... <span>view license</span></a>, with icon by-nc-sa-4.0.png. Paper: \"WebGen-Bench: Evaluating LLMs on Generating Interactive and Functional Websites from Scratch\".",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0034",
@@ -755,7 +805,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "5.0.0 (released May 2025)",
-   "licence": "CC BY-SA 4.0",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Graded assurance levels are calibrated by risk-reduction per unit effort: v5 makes L1 roughly 20% of requirements as a realistic entry layer, L2 roughly 50% for most applications and L3 the final 30% for defence-in-depth.",
@@ -778,7 +828,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "v5.0.0",
-   "licence": "CC BY-SA 4.0",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Keep the barrier to entry deliberately low at the first tier and reserve expensive, hard-to-implement controls for the top tier, conceding that a perfect fit across contexts is impossible.",
@@ -868,7 +918,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (rolling; 2,238 commits at inspection)",
-   "licence": "CC BY-SA 4.0",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Keep doctrine as many small topic-scoped cross-indexed sheets with maintained index files mapping to the requirements standard, so breadth grows without any single document bloating and coverage gaps stay visible.",
@@ -940,14 +990,18 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "released August 2025; living spec",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "The harness-editor boundary is a versioned JSON-RPC protocol surface in the LSP style, adopted by JetBrains, Google and over 25 agents, moving process into typed contracts rather than documents.",
    "applicability_limits": "A vendor-initiated de facto standard, not a standards-body artefact; adoption breadth verified only via secondary reporting.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2028-08"
+   "cited_by": [
+    "agentic-development"
+   ],
+   "review": "2028-08",
+   "licence_evidence": "Page fetched (236 KB of HTML); a case-insensitive search for \"licence\", \"license\", \"copyright\", \"Apache\" and \"Creative Commons\" returns no match anywhere on the page, including the footer.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0043",
@@ -960,7 +1014,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "v1.42.0, 2026-06-12 (agent conventions pre-stable)",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Client spans and metrics stabilised in early 2026 but agent spans remain in Development status, moved to a dedicated repository at v1.42.0 without a 1.0, so attribute names can still change without a major version bump.",
@@ -970,7 +1024,9 @@
     "agentic-development",
     "devops-reliability"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Site footer: \"© 2019–present OpenTelemetry Authors | Docs CC BY 4.0\" (the \"CC BY 4.0\" text links to https://creativecommons.org/licenses/by/4.0), followed by \"All Rights Reserved\".",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0044",
@@ -983,7 +1039,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown; format is deliberately unversioned",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Agent guidance converges on one predictable plain-Markdown file with no required fields and proximity-based precedence, showing minimal schema beats elaborate mandatory structure for adoption.",
@@ -993,7 +1049,9 @@
     "docs-dx",
     "registry"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer states only: \"Copyright © AGENTS.md a Series of LF Projects, LLC. For web site terms of use, trademark policy and other project policies please see https://lfprojects.org\". No licence is named on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0045",
@@ -1056,7 +1114,9 @@
    "finding": "Durable execution is a property of the boundary, not the worker: superstep checkpoints plus a request/response pattern make human-in-the-loop and crash recovery orthogonal to agent logic.",
    "applicability_limits": "Heavy Azure orientation and a graph API with real ceremony, which is why a lighter functional API ships alongside; 528 open issues at inspection.",
    "counter_evidence": null,
-   "cited_by": [],
+   "cited_by": [
+    "agentic-development"
+   ],
    "review": "2027-08"
   },
   {
@@ -1098,7 +1158,9 @@
    "finding": "A mature harness ships as a control plane over interchangeable agents and backends, with automation triggered by events and schedules; process lives in runtime machinery, not documents re-read each session.",
    "applicability_limits": "The README is marketing-level and run-loop internals live in the SDK repo, so this repo alone under-specifies the mechanisms.",
    "counter_evidence": null,
-   "cited_by": [],
+   "cited_by": [
+    "agentic-development"
+   ],
    "review": "2027-08"
   },
   {
@@ -1178,7 +1240,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2026-02-05",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "A minimal loop with 16 parallel agents on a shared repo sustained a 100k-line project, with verifier quality the binding constraint: a near-perfect oracle plus parseable test output let agents self-direct without an orchestrator.",
@@ -1187,7 +1249,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer carries a copyright notice \"© 2026 Anthropic PBC\" plus links to terms of service and policies. No licence for the content is stated.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0054",
@@ -1206,7 +1270,9 @@
    "finding": "Capability is packaged as self-contained skill directories with progressive disclosure keeping cost near zero until needed: about 100 tokens of metadata always loaded, the body on activation, references on demand.",
    "applicability_limits": "The spec fixes format, not efficacy; no published evidence on how much skill packaging improves task success versus inlined instructions, and allowed-tools is experimental.",
    "counter_evidence": null,
-   "cited_by": [],
+   "cited_by": [
+    "agentic-development"
+   ],
    "review": "2027-08"
   },
   {
@@ -1220,7 +1286,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown",
-   "licence": "unknown",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "The handbook is the single source of truth and the working artefact itself: changes go handbook-first via merge request and gaps are fixed at the point of discovery, so freshness is a by-product of doing work.",
@@ -1231,7 +1297,9 @@
     "marketing-growth",
     "support-operations"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Body, under \"External use of the Handbook\": \"Our handbook falls under the Attribution-ShareAlike 4.0 International license.\" (linked to https://creativecommons.org/licenses/by-sa/4.0/). A Creative Commons by-sa/4.0 licence badge also appears at the foot of the page content.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0056",
@@ -1266,7 +1334,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs last updated 2026-07-30",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Freeze only the interface: enforced contracts guarantee column names, types and constraints of public models at build time while internals refactor freely, and private models carry no contract ceremony.",
@@ -1279,7 +1347,9 @@
     "data-analytics",
     "devops-reliability"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer states \"© 2026 dbt Labs, LLC. All Rights Reserved.\" with links to Terms of Service, Privacy Policy and Security. That is a copyright notice; no licence for the documentation content is stated.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0058",
@@ -1362,7 +1432,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "post dated 2017-08-05, Brandur Leach",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Rolling date-based versions with consumers pinned to their integration version and each breaking change encapsulated as a self-contained transformation module kept every version since 2011 working through roughly 100 incompatible upgrades.",
@@ -1373,7 +1443,9 @@
     "architecture",
     "coding"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Footer carries only the copyright notice \"© 2026 Stripe, LLC\". No licence terms appear on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0062",
@@ -1457,7 +1529,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "v4.x (781 commits on main at inspection)",
-   "licence": "Apache 2.0",
+   "licence": "Apache-2.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Single source of truth with generated derivations: tokens defined once, aliases referencing primitives, and transforms regenerating every platform output; derived files are never hand-edited.",
@@ -1620,14 +1692,18 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "announced 2025-10-28; public preview as of early 2026",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "The industry is converging on asynchronous agent fleets governed at the platform layer, with mission control assigning work to heterogeneous agents and delivering results as pull requests.",
    "applicability_limits": "A vendor platform announcement whose throughput and quality claims are unaudited, and it locks governance into GitHub's control plane.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2027-08"
+   "cited_by": [
+    "agentic-development"
+   ],
+   "review": "2027-08",
+   "licence_evidence": "Footer carries only \"© 2026 GitHub, Inc.\" with links to Terms of Service and Privacy Statement. No content licence is named.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0073",
@@ -1640,14 +1716,18 @@
    "model": null,
    "benchmark": "Terminal-Bench 2.0",
    "version_or_commit": "terminal-bench-2.0 dataset; v2.1 leaderboard live in 2026",
-   "licence": "unknown",
+   "licence": "Apache-2.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Harness-sensitive benchmarking infrastructure now exists: 89 human-verified terminal tasks in isolated containers under a harness built for reliability, the closest substrate for benchmarking a process or harness variant.",
    "applicability_limits": "Still benchmarks model plus harness on public tasks, which invite contamination; it does not measure doctrine or process variants on private venture work, and Terminal-Bench results must not be promoted to universal doctrine.",
    "counter_evidence": null,
-   "cited_by": [],
-   "review": "2027-08"
+   "cited_by": [
+    "agentic-development"
+   ],
+   "review": "2027-08",
+   "licence_evidence": "Dataset card header shows the licence tag: \"License:\" followed by \"apache-2.0\"; the page metadata likewise carries \"license\":\"apache-2.0\" and the tag \"license:apache-2.0\".",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0074",
@@ -1727,7 +1807,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "ADK 2.0 docs, current Aug 2026",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Reserve determinism for the parts of a process that must be repeatable (order, retries, termination) and let the model own everything inside each step; routing belongs to the step boundary, not the whole system.",
@@ -1736,7 +1816,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Rendered footer reads \"Copyright Google 2026 | License | Privacy | Manage cookies\", where \"License\" is only a link to //github.com/google/adk-docs/blob/main/LICENSE; no licence is named in the visible page. (The delivered HTML does contain a non-rendered template comment \"Copyright 2025 Google LLC / Licensed under the Apache License, Version 2.0\", but that is an HTML comment about the template file, not a stated content licence.)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0078",
@@ -1749,7 +1831,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "doc commit 0b6374a, updated 29 Apr 2026",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Ship two entry points to one runtime: a functional API for sequential and ad-hoc work and a graph builder only for fixed topologies, both with identical observability, human-in-the-loop and checkpoint behaviour.",
@@ -1758,7 +1840,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page content retrieved (Microsoft Agent Framework Workflows overview). No licence statement appears on the page; the footer carries only Microsoft's copyright and terms links. A search of the fetched HTML for \"licence\"/\"license\"/\"copyright\"/\"Creative Commons\" returned no match.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0079",
@@ -1771,7 +1855,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (current Aug 2026)",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Human review is modelled as pause-with-payload and resume-with-value at a named point backed by the checkpointer, so gates go where risk is rather than at fixed phase boundaries.",
@@ -1780,7 +1864,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page contains no licence or copyright statement in body or footer; only administrative links such as \"Edit this page\" on GitHub.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0080",
@@ -1793,7 +1879,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (doc undated)",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Context is managed automatically by a summarising condenser that fires past an event threshold while always preserving the first events, with a claimed cost reduction of up to 2x per turn at equivalent task performance.",
@@ -1802,7 +1888,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page retrieved; no licence declaration or copyright notice appears in the body or footer.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0081",
@@ -1815,7 +1903,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Risk is assessed per action by composable analyzers ensembled by taking the maximum, while a separate confirmation policy decides gating, decoupling analysis from enforcement.",
@@ -1825,7 +1913,9 @@
     "agentic-development",
     "security-privacy"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page retrieved; no licence declaration or copyright notice appears in the body or footer.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0082",
@@ -1838,7 +1928,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Unproductive loops are detected mechanically by semantic comparison of recent events (repeated action-observation, action-error, monologue and ping-pong patterns) and halt the run by default.",
@@ -1847,7 +1937,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page retrieved; no licence declaration or copyright notice appears in the body or footer.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0083",
@@ -1860,7 +1952,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown; .openhands/microagents/ is legacy, .agents/skills/ is current",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Standing knowledge is delivered by progressive disclosure: names and descriptions load up front, full content injects only on keyword trigger, and only repo-wide conventions are always-on.",
@@ -1869,7 +1961,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page retrieved (microagents overview); no copyright notice or licence declaration appears in the body or footer.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0084",
@@ -1881,17 +1975,19 @@
    "population": null,
    "model": null,
    "benchmark": null,
-   "version_or_commit": "unknown",
-   "licence": "unknown",
+   "version_or_commit": "unknown | 2026-08-08: this URL now returns 404. The finding stands on the reading taken at the original access date; the page backing it is gone and the citation cannot be re-checked at source.",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
-   "maintenance": "active",
+   "maintenance": "url-dead",
    "finding": "Parallelism is achieved by delegation rather than role ceremony: a main agent spawns sub-agents with isolated conversation contexts that return results for consolidation.",
    "applicability_limits": "Delegation isolates context but merge quality is the parent's problem, with no documented conflict resolution between parallel sub-agents.",
    "counter_evidence": null,
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Inferred, and labelled as such. The cited URL returns HTTP 404, confirmed by two independent fetches and by curl, which lands on a Mintlify error page. Four sibling pages on the same site (EV-0080, EV-0081, EV-0082, EV-0083) were retrieved and none declares a licence or a copyright notice, so the site states none. This value comes from the site rather than from the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0085",
@@ -1904,7 +2000,7 @@
    "model": "Claude Opus 4.5",
    "benchmark": null,
    "version_or_commit": "published 2025-11-26",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Split long work into a one-off initialiser agent and a repeated coding agent whose every session starts from git log and progress artifacts, because structured artifacts, not compaction alone, carry continuity across context windows.",
@@ -1914,7 +2010,9 @@
     "agentic-development",
     "ai-ml-llm"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Effective harnesses for long-running agents\"). No licence or content-reuse statement anywhere; the footer carries only the copyright line \"© 2026 Anthropic PBC\" plus terms/policy links.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0086",
@@ -1927,7 +2025,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2025-09-29",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Treat context as a finite resource with diminishing returns: pitch prompts at the right altitude, and for long horizons use compaction, structured notes, condensed sub-agent returns and just-in-time retrieval instead of pre-loading everything.",
@@ -1937,7 +2035,9 @@
     "agentic-development",
     "ai-ml-llm"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Effective context engineering for AI agents\"). Only footer text is \"© 2026 Anthropic PBC\"; no licence or reuse terms stated.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0087",
@@ -1950,7 +2050,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2026-01-09",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Start evals early with 20 to 50 tasks harvested from real failures, use pass@k and pass^k for non-determinism, mix code graders, model graders and human transcript review, and keep validating the graders themselves.",
@@ -1960,7 +2060,9 @@
     "agentic-development",
     "ai-ml-llm"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Demystifying evals for AI agents \\\\ Anthropic\"). Footer shows only \"© 2026 Anthropic PBC\"; no licence statement on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0088",
@@ -1973,7 +2075,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2024-12-19",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "stable",
    "finding": "Distinguish workflows (predefined code paths for well-defined tasks) from agents (model directs its own process for open-ended problems), and start with the simplest thing that works, adding composable patterns only when measured need justifies them.",
@@ -1982,7 +2084,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Building Effective AI Agents \\\\ Anthropic\"). Footer shows only \"© 2026 Anthropic PBC\"; no licence or content-reuse terms stated.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0089",
@@ -1995,7 +2099,7 @@
    "model": "Claude Opus 4.6",
    "benchmark": null,
    "version_or_commit": "published 2026-03-24",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Every harness component encodes an assumption about what the model cannot do, so strip scaffolding as models improve; keep evaluation separate from generation because agents praise their own work, and make evaluators verify actively.",
@@ -2005,7 +2109,9 @@
     "agentic-development",
     "coding"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded and is a real article, not a 404 (\"Harness design for long-running application development \\\\ Anthropic\"). Footer shows only \"© 2026 Anthropic PBC\" and terms links; no licence statement.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0090",
@@ -2018,7 +2124,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (undated docs page)",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Tests should assert user-visible behaviour, be fully isolated, mock third-party services at the network layer, and rely on auto-retrying web-first assertions with parallelism as the default.",
@@ -2027,7 +2133,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Best Practices | Playwright\"). Raw HTML checked: the string \"licens\" appears 0 times in the page; the only rights text is the footer \"Copyright © 2026 Microsoft\".",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0091",
@@ -2040,7 +2148,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "guide last updated 2025-01-13",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Replace integrated end-to-end environments with consumer-driven contracts verified independently on each side plus a machine-answerable deploy gate, adopted in stages so partial adoption still pays.",
@@ -2051,7 +2159,9 @@
     "architecture",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"CI/CD Setup Guide | Pact Docs\"). Raw HTML footer reads \"Copyright © 2026 Pact Foundation\"; no licence type (Creative Commons, MIT or other) is stated on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0092",
@@ -2064,7 +2174,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "page last updated 2020-11-04",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "stable",
    "finding": "The more tests resemble the way software is used, the more confidence they give: test through the interface users see, never through implementation internals, so refactors do not break tests that should pass.",
@@ -2073,7 +2183,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Guiding Principles | Testing Library\"). Raw HTML footer reads \"Copyright © 2018-2026 Kent C. Dodds and contributors\" — a copyright line only, with no licence named.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0093",
@@ -2086,7 +2198,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (undated page)",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Prefer real dependencies in throwaway per-run containers over mocks that behave slightly differently and shared environments that drift, making integration tests as runnable locally as unit tests.",
@@ -2096,7 +2208,9 @@
     "architecture",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (title \"Getting Started\"). Raw HTML checked: the strings \"copyright\" and \"licens\" each appear 0 times; the page carries no licence or copyright statement at all.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0094",
@@ -2109,7 +2223,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2019-07-13",
-   "licence": "unknown",
+   "licence": "all-rights-reserved",
    "access_date": "2026-08-02",
    "maintenance": "stale",
    "finding": "Optimise for confidence per test rather than layer ratios: integration tests give the best return, and coverage past roughly 70% has diminishing returns for applications.",
@@ -2119,7 +2233,9 @@
     "coding",
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Verified verbatim in the raw HTML footer of the article page: \"All rights reserved\" followed by \"© Kent C. Dodds 2026\". No licence grant (Creative Commons or otherwise) is offered; this rights-reservation wording is the only statement present.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0095",
@@ -2132,7 +2248,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Docs stay fresh through edit-on-encounter: a missing answer is immediately PRed into the place you looked, and substantive decisions live in PRs and issues so the record writes itself.",
@@ -2144,7 +2260,9 @@
     "marketing-growth",
     "support-operations"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded (\"Communication - Handbook - PostHog\"). Raw HTML checked: no copyright line and no content licence anywhere. The single \"MIT License\" hit is inside the bundled stylesheet's own banner comment (\"tailwindcss v3.4.17 | MIT License | https://tailwindcss.com\"), which licenses Tailwind CSS, not this page's content.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0096",
@@ -2363,7 +2481,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv Jan 2025 (deployment Oct-Dec 2024)",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "At production scale, mutation score rather than coverage percentage is the actionable quality signal: mutation-guided generation targeted undetected faults and engineers accepted 73% of generated tests.",
@@ -2372,7 +2490,9 @@
    "cited_by": [
     "delivery-testing"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "arXiv abstract page for arXiv:2501.12862 (\"Mutation-Guided LLM-based Test Generation at Meta\"). Raw HTML line 188 contains the licence block: <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\">, rendered with the by-4.0 licence icon (arxiv.org/icons/licenses/by-4.0.png) and the link text \"view license\". It is the only Creative Commons URL on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0106",
@@ -2385,7 +2505,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "blog post, June 2025",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Parallel multi-agent systems fail through fragmented context and conflicting decisions; context engineering with a single coherent thread of actions is more reliable than parallel actors.",
@@ -2394,7 +2514,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "The given cognition.ai URL returns 301 Moved Permanently to https://cognition.com/blog/dont-build-multi-agents, which loaded as a real article (\"Don't Build Multi-Agents | Cognition\"). The page states no licence and no copyright line for the article; the footer carries only legal links (Terms of Use, Privacy Policy).",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0107",
@@ -2407,7 +2529,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "blog post, 2026-04-22",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "Multi-agent setups that survive in production keep writes single-threaded while extra agents contribute intelligence rather than actions, with Code-Review-Loop, Smart Friend and map-reduce-and-manage the three surviving patterns.",
@@ -2416,7 +2538,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded as a real article, not a 404 (\"Multi-Agents: What's Actually Working\"). Footer carries only links to \"Website Terms of Use\", \"Privacy Policy\" and \"Acceptable Use Policy\"; no licence or copyright statement for the content.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0108",
@@ -2429,7 +2553,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs describe v2.1.178 through v2.1.207",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-02",
    "maintenance": "active",
    "finding": "The runtime now ships coordination primitives an EOS would otherwise document by hand (shared task lists with dependencies, mailboxes, lifecycle hooks, per-teammate plan approval), and its own guidance is conservative: 3 to 5 teammates with disjoint file ownership.",
@@ -2438,7 +2562,9 @@
    "cited_by": [
     "agentic-development"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page loaded as real documentation, not a 404 (\"Orchestrate teams of Claude Code sessions\", agent teams docs). A targeted search of the returned page content for \"license\", \"licence\", \"Creative Commons\", \"copyright\", \"©\" and \"all rights reserved\" found no such statement.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0109",
@@ -2474,7 +2600,7 @@
    "model": "GPT-4 Turbo and Claude models of the 2024 generation",
    "benchmark": "SWE-bench (12.5% pass@1), HumanEvalFix (87.7% pass@1)",
    "version_or_commit": "arXiv v3, 11 Nov 2024; NeurIPS 2024",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "The interface an agent acts through is a first-class design surface: purpose-built commands with concise, informative feedback and guardrails against malformed edits changed task success far more than prompt wording, so tool ergonomics are engineering work, not glue.",
@@ -2497,7 +2623,7 @@
    "model": "GPT-3.5 and GPT-4 class models of 2023-2024",
    "benchmark": "GSM8K, CommonSenseQA, HotpotQA",
    "version_or_commit": "arXiv v2, 14 Mar 2024; ICLR 2024",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Without external feedback, models asked to review and revise their own answers often degrade them, so an evaluator-optimizer loop only pays when the evaluator holds ground truth the generator lacks, such as tests, types, linters or a separate context.",
@@ -2520,7 +2646,7 @@
    "model": "Claude Opus 4 lead, Claude Sonnet 4 subagents",
    "benchmark": "internal research evaluation",
    "version_or_commit": "published 2025-06-13",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Orchestrator-worker fan-out pays only where subtasks are separable and read-only: the vendor reports a 90.2% uplift over a single agent on breadth-first research at roughly fifteen times the token cost, and states the pattern suits neither shared-context work nor most coding.",
@@ -2530,7 +2656,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Page loaded (\"How we built our multi-agent research system \\\\ Anthropic\"). Footer carries a copyright line and links to privacy/terms/usage policies, but no licence or content-reuse statement for the article.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0113",
@@ -2543,7 +2671,7 @@
    "model": null,
    "benchmark": "internal Slack and Asana tool evaluations",
    "version_or_commit": "published 2025-09-11",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Tools are a contract between a deterministic system and a non-deterministic caller: consolidate them around whole workflows rather than API endpoints, namespace them, return high-signal semantic content instead of identifiers, and treat token efficiency and description wording as tunable through evaluation.",
@@ -2553,7 +2681,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Page loaded (\"Writing effective tools for AI agents—using AI agents \\\\ Anthropic\"). Footer shows only \"© 2026 Anthropic PBC\" and terms links; no licence statement anywhere on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0114",
@@ -2566,7 +2696,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2025-11-04",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Tool surface is a context cost: presenting servers as a browsable code API so definitions and intermediate results load on demand cut one worked example from 150,000 to 2,000 tokens, making progressive disclosure the default for large tool estates.",
@@ -2576,7 +2706,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Page loaded (\"Code execution with MCP: Building more efficient AI agents \\\\ Anthropic\"). Footer shows only \"© 2026 Anthropic PBC\" and policy links; no licence or content-reuse statement.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0115",
@@ -2589,7 +2721,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "published 2025-09-29 (anthropic.com URL now 308-redirects to claude.com)",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The unit of agent design is the loop gather context, take action, verify work, and action capability should be chosen in the order explicit tools, bash, generated code, then MCP; verification should prefer defined rules and visual feedback over a model judge.",
@@ -2599,7 +2731,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Footer shows only \"© [year] Anthropic PBC\" (year injected by script). Raw HTML fetched at 200/563KB contains zero occurrences of the string \"licence\"/\"license\". No Creative Commons, open-source, terms-of-use or \"all rights reserved\" wording anywhere on the page.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0116",
@@ -2681,7 +2815,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "ADK docs current 2026-08-03; callbacks since Python v0.1.0",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Six symmetric interception points (before and after agent, model and tool) with three uniform outcomes (continue, override and short-circuit, modify in flight) give guardrails, caching and state edits one predictable shape instead of bespoke wrappers per concern.",
@@ -2691,7 +2825,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Footer reads \"Copyright Google 2026 | License | Privacy | Manage cookies\", where \"License\" is a bare hyperlink to //github.com/google/adk-docs/blob/main/LICENSE. The page names no licence itself. The only \"Licensed under the Apache License, Version 2.0\" strings in the HTML are boilerplate headers inside the Python code samples, which licence the sample code's upstream source file, not this page's content.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0120",
@@ -2704,7 +2840,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "ADK docs current 2026-08-03; plugins since Python v1.7.0",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Cross-cutting policy belongs at the runner, not the agent: plugins register once, cover the whole run including error hooks, and take precedence over per-agent callbacks, which is what makes a guardrail non-bypassable by any single agent's configuration.",
@@ -2714,7 +2850,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Identical footer to the rest of adk.dev: \"Copyright Google 2026 | License | Privacy | Manage cookies\", with \"License\" a bare link to //github.com/google/adk-docs/blob/main/LICENSE. No licence is named on the page. Apache 2.0 strings present in the HTML appear only as file headers inside code samples.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0121",
@@ -2727,7 +2865,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "doc git commit b4add1d, ms.date 2026-05-27, updated 2026-07-10",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Checkpoint at a defined barrier rather than at arbitrary points: at each superstep boundary the framework saves executor state, pending messages, pending requests and shared state, so a run can resume in place or rehydrate into a fresh process, and participants must implement explicit save and restore hooks.",
@@ -2737,7 +2875,9 @@
     "agentic-development",
     "registry"
    ],
-   "review": "on-change-of:packs/agentic-development"
+   "review": "on-change-of:packs/agentic-development",
+   "licence_evidence": "Raw HTML fetched at 200/70KB contains zero occurrences of the string \"licence\"/\"license\". Page metadata gives author, ms.date and the source repo (MicrosoftDocs/semantic-kernel-pr) but no content licence, and no Creative Commons or rights statement appears.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0122",
@@ -2844,7 +2984,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs as served 2026-08-03; X-Hub-Signature-256 scheme",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Verify against the raw request body before any parsing or re-encoding, and compare digests in constant time; a framework that hands you a parsed object has already destroyed the bytes the signature covers.",
@@ -2854,7 +2994,9 @@
     "api-integration",
     "registry"
    ],
-   "review": "on-change-of:https://docs.github.com/en/webhooks"
+   "review": "on-change-of:https://docs.github.com/en/webhooks",
+   "licence_evidence": "Footer reads \"© 2026 GitHub, Inc.\" followed by links to Terms and Privacy. Raw HTML fetched at 200/165KB contains zero occurrences of the string \"licence\"/\"license\". No CC licence is stated on the page despite the github/docs repo carrying one.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0127",
@@ -3005,7 +3147,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs as served 2026-08-03",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Idempotency needs four decided parameters, not one header: the stored result is the status code and body of the first attempt including 5xx; retention is at least 24 hours after which the same key starts a fresh request; replaying a key with different parameters is an error, not a silent overwrite; and a request conflicting with a concurrently executing one is not cached and is safe to retry.",
@@ -3015,7 +3157,9 @@
     "api-integration",
     "registry"
    ],
-   "review": "on-change-of:https://docs.stripe.com/api/idempotent_requests"
+   "review": "on-change-of:https://docs.stripe.com/api/idempotent_requests",
+   "licence_evidence": "Raw HTML fetched at 200/1.24MB contains zero occurrences of the string \"licence\"/\"license\". The rendered page is API reference prose only, with no rights, licence or terms statement.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0134",
@@ -3051,7 +3195,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs as served 2026-08-03",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Compatibility is not binary but a chosen strictness tier, and the tier should be declared: FILE (default, protects generated code layout), PACKAGE, WIRE_JSON (minimum where JSON transports are used), WIRE (binary only). Start strict and relax deliberately rather than discovering the tier by breaking someone.",
@@ -3061,7 +3205,9 @@
     "api-integration",
     "registry"
    ],
-   "review": "on-change-of:https://buf.build/docs/breaking/rules/"
+   "review": "on-change-of:https://buf.build/docs/breaking/rules/",
+   "licence_evidence": "Footer reads \"© 2026 Buf Technologies, Inc.\" with links to Terms of Use and Privacy Policy, but names no licence for the documentation. The only \"License\" strings in the HTML are Font Awesome attribution comments (\"Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License, Copyright 2025 Fonticons, Inc.\"), which licence the icon set, not the page content.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0136",
@@ -3147,7 +3293,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "platform current docs as served 2026-08-03",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "For event contracts the compatibility mode encodes an upgrade order and must be chosen before the first schema change: BACKWARD (default, consumers first), FORWARD (producers first), FULL (either order, add or remove optional fields only), NONE (lockstep). Transitive variants check every prior version, not just the last, which is the only mode safe for replayable logs.",
@@ -3158,7 +3304,9 @@
     "data-analytics",
     "registry"
    ],
-   "review": "on-change-of:https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html"
+   "review": "on-change-of:https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html",
+   "licence_evidence": "Footer reads \"Copyright © Confluent, Inc. 2014-\" plus trademark notice for Apache marks, and links to Terms & Conditions and Privacy Policy. No content licence is named. The \"License\" links present in the side navigation point to installation/license.html and connect/license.html, which concern Confluent product licence keys, not documentation reuse.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0140",
@@ -3541,7 +3689,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs for Bazel 8.6 line, page last updated 2026-07-14",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Hermeticity is defined as same source plus same configuration yielding the same output by isolating the build from the host, and it is bought with two concrete moves: treat tools as versioned source dependencies rather than host installations, and identify inputs by content hash. The payoff claimed is not purity but cacheability, safe parallelism, several toolchain versions coexisting, and reproducible debugging.",
@@ -4376,7 +4524,7 @@
   },
   {
    "id": "EV-0192",
-   "source": "Petrovi\u0107 and Ivankovi\u0107 et al, Practical Mutation Testing at Scale: a view from Google",
+   "source": "Petrović and Ivanković et al, Practical Mutation Testing at Scale: a view from Google",
    "url": "https://arxiv.org/abs/2102.11378",
    "kind": "exemplar",
    "publication_status": "preprint",
@@ -4690,7 +4838,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "v1.0",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "A platform is assessed on five aspects (investment, adoption, interfaces, operations, measurement) across four levels from provisional to optimising, and the model states plainly that the output that matters is the list of things to improve, not the level scored. Adoption is treated as a signal of platform quality: if people route around the golden path, the path is wrong, so voluntary uptake beats mandate.",
@@ -4856,7 +5004,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "2025 list (supersedes v1.1 of 11 April 2024)",
-   "licence": "CC BY-SA 4.0",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The ten risks are ordered by observed exploitation rather than theoretical severity, and prompt injection sits at LLM01 while its downstream consequences are catalogued separately as improper output handling, excessive agency and sensitive information disclosure, so a control set has to treat injection as an assumed condition and put the enforcement on the consequences.",
@@ -4880,7 +5028,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "2026 edition, published 9 December 2025",
-   "licence": "CC BY-SA 4.0",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Agentic risk is catalogued as ASI01 to ASI10, a separate axis from the LLM list, because the failure unit changes once the system holds goals, credentials, tools, memory and the autonomy to chain them across many steps; the list was assembled from incidents in deployed systems by more than a hundred reviewers rather than from projected threats.",
@@ -5022,7 +5170,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "post dated 16 June 2025",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Exfiltration needs three properties at once, access to private data, exposure to untrusted content and the ability to communicate outwards, so the cheapest reliable control is a configuration rule that no single agent context holds all three, rather than a filter; a guardrail advertised at 95 percent is a failing grade against an adversary who retries.",
@@ -5032,7 +5180,9 @@
     "registry",
     "security-privacy"
    ],
-   "review": "2027-08"
+   "review": "2027-08",
+   "licence_evidence": "Page fetched at 200/27KB with a browser user agent. The raw HTML contains zero occurrences of the string \"licence\"/\"license\" and no Creative Commons badge or link. The footer carries archive/tag links only, with no rights statement.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0220",
@@ -5045,7 +5195,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "docs current at access; features cited require Claude Code v2.1.216 and v2.1.219",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Containment is enforced by the operating system on the running process, so it holds regardless of what the model chose to run, and it only works as a pair: filesystem isolation without egress control lets a compromised run exfiltrate keys, egress control without filesystem isolation lets it rewrite the settings that define its own policy. Egress defaults to no allowed domains, credential files and secret environment variables are only protected if listed, and the vendor states plainly that the sandbox is not a complete isolation boundary.",
@@ -5055,7 +5205,9 @@
     "registry",
     "security-privacy"
    ],
-   "review": "on-change-of:https://code.claude.com/docs/en/sandboxing"
+   "review": "on-change-of:https://code.claude.com/docs/en/sandboxing",
+   "licence_evidence": "Raw HTML fetched at 200/715KB contains zero occurrences of the string \"licence\"/\"license\". The page is documentation prose on the sandboxed Bash tool with no rights, licence or terms statement.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0221",
@@ -5114,7 +5266,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown (no version or revision date stated on the page)",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Value the practice of finding and fixing design issues over compliance checkboxes, run it early and often on manageable portions of the system rather than as one grand model, and judge it by whether stakeholders get value; the named anti-patterns are the hero threat modeller, admiring the problem without fixing it, overfocus that loses the big picture and the search for a perfect representation.",
@@ -5569,7 +5721,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv:2401.05856v1, 11 January 2024; published version DOI 10.1145/3644815.3644945",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "RAG failures cluster at seven named seams and most of them sit outside the model: missing content, top-k cut-off dropping a document that was retrieved, consolidation losing a document that survived retrieval, extraction failing on a document that reached the prompt, wrong output format, wrong specificity, and incompleteness. The two structural claims matter more than the taxonomy: a RAG system can only be validated during operation because the failure distribution depends on the live corpus and live queries, and robustness is accumulated by responding to observed failures rather than designed in at the start.",
@@ -5579,7 +5731,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page carries the licence block <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\"> with the by-4.0.png badge and the link text \"view license\". Paper: \"Seven Failure Points When Engineering a Retrieval Augmented Generation System\". Verified in raw HTML, not only via the rendered summary.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0243",
@@ -5592,7 +5746,7 @@
    "model": "GPT-3.5-Turbo, GPT-3.5-Turbo-16k, Claude 1.3 and 1.3-100k, MPT-30B-Instruct, LongChat-13B",
    "benchmark": "NaturalQuestions-Open multi-document QA, synthetic key-value retrieval",
    "version_or_commit": "TACL 2024 version of record, DOI 10.1162/tacl_a_00638; arXiv:2307.03172",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Position inside the context is a first-class variable, not a formatting detail. Accuracy is highest when the needed evidence sits at the very start or very end of the context and degrades markedly when it sits in the middle, and this holds for models explicitly sold as long-context. The decision rule is that context ordering is part of the system design: put the load-bearing evidence at the edges, and treat a longer context window as a licence to include more, not as a guarantee that everything included will be used.",
@@ -5602,7 +5756,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "on-change-of:a replication on a current frontier model class"
+   "review": "on-change-of:a replication on a current frontier model class",
+   "licence_evidence": "Page carries <a rel=license href=http://creativecommons.org/licenses/by/4.0/> with the CC BY 4.0 badge image, and the footer states: \"Materials prior to 2016 here are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 International License... Materials published in or after 2016 are licensed on a Creative Commons Attribution 4.0 International License.\" This paper (\"Lost in the Middle: How Language Models Use Long Contexts\") is 2024, so the CC BY 4.0 branch applies.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0244",
@@ -5615,7 +5771,7 @@
    "model": "GPT-4.1 family, Claude 4 family, Gemini 2.5 family, Qwen3 family and others",
    "benchmark": "Extended NIAH, LongMemEval, repeated-words replication",
    "version_or_commit": "Technical report dated 14 July 2025; replication toolkit at github.com/chroma-core/context-rot",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Models do not use their context uniformly, and the failure is not a function of length alone. Reliability falls as input grows even on tasks that are trivially easy at short length, and the fall is modulated by how semantically close the needle is to the question, whether plausible distractors are present, and how the haystack is structured. Advertised window size is therefore a capacity limit, not a working limit: a 200k window can show serious loss well before 200k. The decision rule is to measure the usable context length for your own task and pin a budget below it, rather than filling the window because it is there.",
@@ -5625,7 +5781,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2026-12"
+   "review": "2026-12",
+   "licence_evidence": "The given URL 301-redirects to https://www.trychroma.com/research/context-rot. That page fetched at 200/281KB and contains zero occurrences of the string \"licence\"/\"license\". Footer shows only \"© 2026\" with Privacy and Terms links, naming no content licence.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0245",
@@ -5638,7 +5796,7 @@
    "model": "Gemini-1.5-Pro, GPT-4O, GPT-3.5-Turbo",
    "benchmark": "LongBench and similar public long-context suites",
    "version_or_commit": "arXiv:2407.16833v2, July 2024",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "When you can afford the tokens, feeding the long context directly beats retrieval on average quality, and retrieval's advantage is cost rather than accuracy. The two approaches agree on most queries, which is what makes the hybrid work: Self-Route first asks the model whether the retrieved context suffices, answers cheaply when it does, and escalates to full context when it does not, recovering close to long-context quality at close to retrieval cost. The decision rule is to treat retrieval versus long context as a per-query routing decision with a measured escalation rate, not as an architecture chosen once.",
@@ -5648,7 +5806,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2026-12"
+   "review": "2026-12",
+   "licence_evidence": "Abstract page carries the licence block <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\"> with the by-4.0.png badge and the link text \"view license\". Paper: \"Retrieval Augmented Generation or Long-Context LLMs? A Comprehensive Study and Hybrid Approach\". Verified in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0246",
@@ -5684,7 +5844,7 @@
    "model": "Multiple contemporary open and closed generators used to produce the annotated responses",
    "benchmark": "RAGTruth",
    "version_or_commit": "ACL 2024 long paper 585; arXiv:2401.00396",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Retrieval reduces hallucination but does not remove it: models still produce claims unsupported by, or contradicting, the very context they were given, and the rate varies sharply between generators on identical retrieved context. Because the annotation is word-level, groundedness is measurable as a span-level property rather than as a whole-response verdict, and a fine-tuned detector trained on such annotations can outperform prompting a large model to judge groundedness. The decision rule is to measure groundedness against the retrieved context as a separate metric from answer correctness, since a system can be right and ungrounded or grounded and wrong.",
@@ -5694,7 +5854,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Page carries <a rel=license href=http://creativecommons.org/licenses/by/4.0/> with the CC BY 4.0 badge image, and the footer states: \"Materials published in or after 2016 are licensed on a Creative Commons Attribution 4.0 International License.\" This paper (\"RAGTruth: A Hallucination Corpus for Developing Trustworthy Retrieval-Augmented Language Models\") is 2024, so the CC BY 4.0 branch applies.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0248",
@@ -5707,7 +5869,7 @@
    "model": "Llama2-7B, Mistral-7B, Orca2-7B",
    "benchmark": "MMLU task subsets, a purpose-built current-events dataset",
    "version_or_commit": "arXiv:2312.05934, December 2023; EMNLP 2024 main conference version",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "For getting facts into a system, retrieval beat unsupervised fine-tuning in almost every condition tested, including for facts the base model had never seen. Models struggle to acquire new factual content from continued unsupervised training, and exposure to many paraphrases of the same fact partially helps. The decision rule follows: fine-tuning is for form, style, format adherence and task shape, retrieval is for facts, and a plan that proposes fine-tuning to teach the model your data should be challenged before it is funded.",
@@ -5717,7 +5879,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page carries the licence block <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\"> with the by-4.0.png badge and the link text \"view license\". Paper: \"Fine-Tuning or Retrieval? Comparing Knowledge Injection in LLMs\". Verified in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0249",
@@ -5730,7 +5894,7 @@
    "model": "Llama-2-7B and Llama-2-13B",
    "benchmark": "HumanEval, GSM8K, plus out-of-domain retention tasks",
    "version_or_commit": "arXiv:2405.09673; TMLR 2024 accepted version; artefacts at github.com/danbider/lora-tradeoffs",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Parameter-efficient fine-tuning is a trade, not a free lunch. At standard ranks LoRA learns the target domain substantially less well than full fine-tuning, and in exchange it preserves base-model behaviour outside the target domain better than weight decay or dropout do, and keeps generations more diverse. The decision rule is to pick the method by which risk dominates: if the danger is losing general capability and behavioural stability, take LoRA and accept a weaker fit, and if the danger is failing to reach the required domain quality, do not expect LoRA to close the gap by tuning the rank alone.",
@@ -5740,7 +5904,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page carries the licence block <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\"> with the by-4.0.png badge and the link text \"view license\". Paper: \"LoRA Learns Less and Forgets Less\". Verified in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0250",
@@ -5753,7 +5919,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv:2509.04664, September 2025",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Hallucination is partly structural and partly an incentive problem. Statistical pressure during pretraining makes some error rate unavoidable for any model that generalises beyond its data, and post-training keeps the rate high because near-universal binary scoring rewards a guess over an admission of uncertainty. The actionable half is the incentive half: if your own evaluation scores an abstention the same as a wrong answer, you are training and selecting for confident error. The decision rule is that every scoring rubric a venture writes must give explicit credit for calibrated abstention and must record the abstention rate alongside accuracy.",
@@ -5763,7 +5929,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page carries the licence block <div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\"> with the by-4.0.png badge and the link text \"view license\". Paper: \"Why Language Models Hallucinate\". Verified in raw HTML.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0251",
@@ -5776,7 +5944,7 @@
    "model": "GPT-4 as judge; a range of contemporary chat models as subjects",
    "benchmark": "MT-Bench, Chatbot Arena",
    "version_or_commit": "arXiv:2306.05685, NeurIPS 2023 version",
-   "licence": "unknown",
+   "licence": "arXiv-perpetual-non-exclusive",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "A strong model judge reaches roughly eighty per cent or more agreement with human preference, which is about the level two humans reach with each other, so LLM-as-judge is a defensible substitute for human preference rating at scale. The same paper names the failure modes that make an unaudited judge worthless: position bias, verbosity bias, self-enhancement bias and weak reasoning on tasks requiring calculation. The decision rule is that a judge is a measuring instrument and must be calibrated like one, with randomised or swapped ordering, length controls, and a held-out human-labelled sample reported as agreement.",
@@ -5786,7 +5954,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "on-change-of:a replication of judge-human agreement on a current frontier judge"
+   "review": "on-change-of:a replication of judge-human agreement on a current frontier judge",
+   "licence_evidence": "Abstract page licence line links \"view license\" to http://arxiv.org/licenses/nonexclusive-distrib/1.0/ (title: Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0252",
@@ -5799,7 +5969,7 @@
    "model": "A range of contemporary judge models",
    "benchmark": "MTBench and DevBench derived pairwise comparisons",
    "version_or_commit": "arXiv:2406.07791, June 2024 with later revisions",
-   "licence": "unknown",
+   "licence": "CC-BY-NC-SA-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Position bias is not a small correction. Which answer a judge prefers depends measurably on which slot the answer occupies, the size of the effect varies by judge and by task rather than being a fixed offset, and it is largest exactly where the two answers are close in quality, which is where evaluations are used to make decisions. The decision rule is that any pairwise judge protocol must run both orderings and treat order-inconsistent pairs as ties or as a reported disagreement rate, and that a judge whose position-consistency is not measured cannot be used to accept or reject a change.",
@@ -5809,7 +5979,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page shows a Creative Commons licence icon with \"view license\" linking to http://creativecommons.org/licenses/by-nc-sa/4.0/ (title: Judging the Judges: A Systematic Study of Position Bias in LLM-as-a-Judge)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0253",
@@ -5822,7 +5994,7 @@
    "model": "GPT-4, GPT-3.5, Llama 2",
    "benchmark": "Summarisation preference tasks (XSUM, CNN/DailyMail derived)",
    "version_or_commit": "NeurIPS 2024 conference version",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Models can distinguish their own output from other models' and from human output at non-trivial accuracy, and that self-recognition capability causally drives the tendency to score their own output above others' when humans rate the outputs as equal. The decision rule is hard: never grade a model's output with the same model where the score selects between candidates, and where a family-mate judge is unavoidable, report the self-preference offset measured on a human-labelled sample rather than assuming it is zero.",
@@ -5832,7 +6004,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "NeurIPS virtual poster page \"LLM Evaluators Recognize and Favor Their Own Generations\" carries no licence or copyright statement; a full-text scan of the rendered page for \"licence/license/Creative Commons/copyright/rights reserved\" returned zero matches. Footer shows only Privacy Policy, Press, Proceedings and contact links.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0254",
@@ -5845,7 +6019,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv:2404.12272; UIST 2024 version, DOI 10.1145/3654777.3676450",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Evaluation criteria are discovered by grading outputs, not written in advance. The study names criteria drift: practitioners cannot fully specify what good looks like until they have seen concrete bad outputs, so the requirements and the evaluator co-evolve, and any workflow that treats the rubric as fixed up front will measure the wrong thing. The decision rule is that a venture grades a small sample by hand first, derives assertions from those grades, and keeps a permanent human-labelled sample against which every later change to the judge is re-validated.",
@@ -5855,7 +6029,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page shows \"view license\" linking to http://creativecommons.org/licenses/by/4.0/ (title: Who Validates the Validators? Aligning LLM-Assisted Evaluation of LLM Outputs with Human Preferences)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0255",
@@ -5868,7 +6044,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv:2411.00640, 1 November 2024",
-   "licence": "unknown",
+   "licence": "arXiv-perpetual-non-exclusive",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "An eval is an experiment and must be reported like one. Treat the questions as a sample from an unseen super-population, so a bare percentage without a standard error is not a result; cluster the standard error when questions share a passage or a source; compare models on paired differences on the same questions rather than on independent means, which removes question-difficulty variance and sharply raises power; resample multiple answers per question to cut scoring noise; and run a power analysis before building the set so you know what effect size the eval can even detect. The decision rule for a venture is that a regression gate must state the minimum detectable difference at its chosen sample size, or it is a coin flip dressed as a check.",
@@ -5878,7 +6054,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page licence link points to http://arxiv.org/licenses/nonexclusive-distrib/1.0/ under \"Rights to this article\" (title: Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0256",
@@ -5891,7 +6069,7 @@
    "model": "Llama, Qwen and Gemma families",
    "benchmark": "MMLU",
    "version_or_commit": "arXiv:2510.05152v1, October 2025",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Changing only the single character used to separate in-context examples moved MMLU scores by up to twenty-three percentage points, enough to put any chosen model at the top of a ranking, and the brittleness did not diminish with scale. Naming the chosen delimiter inside the prompt improved robustness. The decision rule is that a prompt is a versioned artefact whose formatting is load-bearing: pin and record the exact template with any eval result, and treat a model comparison run under different templates as no comparison at all.",
@@ -5901,7 +6079,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page shows the by-4.0 licence icon (arxiv.org/icons/licenses/by-4.0.png) with \"view license\" linking to http://creativecommons.org/licenses/by/4.0/ (title: A Single Character can Make or Break Your LLM Evals)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0257",
@@ -5914,7 +6094,7 @@
    "model": "Multiple frontier and open model families",
    "benchmark": "GSM1k versus GSM8k",
    "version_or_commit": "arXiv:2405.00332; NeurIPS 2024 Datasets and Benchmarks version",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Public benchmark scores are partly a memorisation artefact. Accuracy dropped by up to eight percentage points on a fresh set matched for style and difficulty, systematic overfitting appeared across whole model families, and the size of a model's gap correlated with how readily it could reproduce examples from the original set. Frontier models showed the least of it, and all models still generalised to genuinely novel problems. The decision rule is that a venture must hold out a private evaluation set the model providers have never seen and treat any public benchmark number as an upper bound.",
@@ -5924,7 +6104,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2027-02"
+   "review": "2027-02",
+   "licence_evidence": "Abstract page shows a Creative Commons Attribution 4.0 icon with \"view license\" linking to http://creativecommons.org/licenses/by/4.0/ (title: A Careful Examination of Large Language Model Performance on Grade School Arithmetic)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0258",
@@ -5937,7 +6119,7 @@
    "model": null,
    "benchmark": "Chatbot Arena",
    "version_or_commit": "arXiv:2504.20879v2, April 2025",
-   "licence": "unknown",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "A public leaderboard is a measurement system with its own incentives, and those incentives distort it. Undisclosed private testing lets a provider run many variants and publish only the best, sampling rates and data access are heavily skewed towards a few large providers, and modest amounts of extra arena-distribution data produced relative gains of up to 112 per cent on the arena itself, which is overfitting to the leaderboard rather than improvement. The decision rule is that leaderboard position never justifies a model choice on its own: choose on a private task-specific evaluation, and treat public rankings as a shortlist generator.",
@@ -5947,7 +6129,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2026-12"
+   "review": "2026-12",
+   "licence_evidence": "Abstract page shows the by-sa-4.0 licence icon with \"view license\" linking to http://creativecommons.org/licenses/by-sa/4.0/ titled \"Rights to this article\" (title: The Leaderboard Illusion)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0259",
@@ -5960,7 +6144,7 @@
    "model": "GPT-3.5 and GPT-4, March 2023 and June 2023 snapshots",
    "benchmark": "Author-constructed task battery",
    "version_or_commit": "HDSR 2024 version of record; arXiv:2307.09009",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "The same model name behind the same endpoint can change behaviour substantially in months, and the changes are not uniformly improvements: one prime-versus-composite task fell from 84 per cent to 51 per cent between two snapshots, and instruction-following degraded noticeably. The decision rule is that a model endpoint is an unstable dependency: pin dated model identifiers rather than moving aliases, run your regression suite against the pinned version and the candidate version before migrating, and keep continuous monitoring because behaviour can move without any change on your side.",
@@ -5970,7 +6154,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "on-change-of:a longitudinal drift study on current pinned endpoints"
+   "review": "on-change-of:a longitudinal drift study on current pinned endpoints",
+   "licence_evidence": "Page states verbatim: \"©2024 Lingjiao Chen, Matei Zaharia, and James Zou. This article is licensed under a Creative Commons Attribution (CC BY 4.0) International license, except where otherwise indicated with respect to particular material included in the article.\" The article sidebar carries a LICENSE field reading \"Creative Commons Attribution 4.0 International License (CC-BY 4.0)\". (title: How Is ChatGPT's Behavior Changing Over Time?)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0260",
@@ -6029,7 +6215,7 @@
    "model": "Twelve commercial APIs available in 2023, including GPT-4 and cheaper alternatives",
    "benchmark": "HEADLINES, OVERRULING, COQA",
    "version_or_commit": "arXiv:2305.05176, May 2023",
-   "licence": "unknown",
+   "licence": "arXiv-perpetual-non-exclusive",
    "access_date": "2026-08-03",
    "maintenance": "stale",
    "finding": "Model prices differ by around two orders of magnitude, so routing is a first-class cost lever. A cascade that tries a cheap model first, scores its own answer with a learned confidence function, and escalates only on low confidence matched the best single model's accuracy at up to 98 per cent lower cost in the reported settings. The generalisable rules are the three levers named: adapt the prompt (shorter context, fewer demonstrations), approximate the model (cache, distil), and cascade across models. The decision rule is to design the escalation policy and measure its escalation rate, because that rate is the actual cost dial.",
@@ -6039,7 +6225,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2026-12"
+   "review": "2026-12",
+   "licence_evidence": "Abstract page shows \"view license\" linking to http://arxiv.org/licenses/nonexclusive-distrib/1.0/ with title attribute \"Rights to this article\" (title: FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0263",
@@ -6052,7 +6240,7 @@
    "model": "Contemporary open and closed chat models",
    "benchmark": "GSM8K, Last Letter Concatenation, Shuffled Objects, plus classification sets",
    "version_or_commit": "arXiv:2408.02442, August 2024",
-   "licence": "unknown",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "Forcing structured output is not free. Reasoning accuracy fell under format restriction, and the tighter the constraint the larger the drop, with constrained decoding worse than a natural-language instruction to produce the format. The reported mitigation is to separate the two jobs: let the model reason in free text, then convert to the required schema in a second cheap call. The decision rule is that a structured-output requirement is a design decision with a measurable quality cost, so any pipeline that emits JSON directly from a reasoning step should carry an eval comparing it against reason-then-convert.",
@@ -6062,7 +6250,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "2026-12"
+   "review": "2026-12",
+   "licence_evidence": "Abstract page shows \"view license\" linking to http://creativecommons.org/licenses/by-sa/4.0/ (title: Let Me Speak Freely? A Study on the Impact of Format Restrictions on Performance of Large Language Models)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0264",
@@ -6144,7 +6334,7 @@
    "model": null,
    "benchmark": "AILuminate v1.0 and v1.1, twelve hazard categories, over 24,000 prompts per language split 12,000 public practice and 12,000 private official",
    "version_or_commit": "arXiv:2503.05731, March 2025; prompt and tooling repository at github.com/mlcommons/ailuminate covering v1.1",
-   "licence": "unknown",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Safety evaluation can be given the same shape as any other release gate: a published hazard taxonomy, an explicit assessment standard defining what counts as a violating response, a public practice set you may tune against, and a private official set you may not, with results reported as ordinal grades from Poor to Excellent rather than as a single number. The public-private split is the load-bearing design choice, because a safety benchmark you can train against stops measuring safety, which is the contamination problem of FRAG-AI-ML-LLM-16 applied to harm. The decision rule is that a venture keeps its own private safety prompt set, never uses it for tuning, and reports per-hazard grades rather than an aggregate.",
@@ -6154,7 +6344,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "on-change-of:an AILuminate v2 release"
+   "review": "on-change-of:an AILuminate v2 release",
+   "licence_evidence": "Abstract page shows the by-4.0 licence icon (arxiv.org/icons/licenses/by-4.0.png) with \"view license\" linking to http://creativecommons.org/licenses/by/4.0/ (title: AILuminate: Introducing v1.0 of the AI Risk and Reliability Benchmark from MLCommons)",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0268",
@@ -6167,7 +6359,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "Final Code of Practice published July 2025; GPAI obligations applicable from 2 August 2025; Commission enforcement powers from 2 August 2026",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The Code splits into three chapters: Transparency and Copyright bind all providers of general-purpose AI models under Article 53, and Safety and Security binds only providers of models with systemic risk under Article 55. Adherence is voluntary but is the designated route to demonstrating compliance, which makes it the de facto documentation standard. For a venture that builds on models rather than training them, the direct obligations are limited, but the transparency chapter defines the model documentation a provider must supply downstream, so it tells you what you are entitled to receive and therefore what you can record about your dependencies. The decision rule is that model provenance, training-data copyright posture and documented capability limits belong in the venture's dependency record, not in a compliance folder opened once a year.",
@@ -6177,7 +6369,9 @@
     "ai-ml-llm",
     "registry"
    ],
-   "review": "on-change-of:a Commission enforcement decision or a revision of the GPAI Code of Practice"
+   "review": "on-change-of:a Commission enforcement decision or a revision of the GPAI Code of Practice",
+   "licence_evidence": "\"The General-Purpose AI Code of Practice | Shaping Europe's digital future\" states no licence or reuse terms on the page. A scan of the rendered page for \"licence/license/Creative Commons/CC BY/reuse\" found no licence statement; all \"copyright\" matches are about the Code's Copyright chapter, not page terms. The footer offers only links named \"Copyright notice\", \"Legal notice\", \"Privacy statement\".",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0269",
@@ -7917,7 +8111,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "version 3.3, released 2024-11-14",
-   "licence": "CC BY-SA 4.0",
+   "licence": "CC-BY-SA-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Licensing becomes checkable when it is declared per file rather than inferred per repository: every covered file carries SPDX-FileCopyrightText and SPDX-License-Identifier in a comment header, files that cannot carry comments get a sibling .license file, every licence referenced has its full text in LICENSES/ named by SPDX identifier, and bulk cases are declared in REUSE.toml by glob with defined precedence. A lint tool then turns the whole question into a pass or fail in CI, which is what makes it enforceable by a cold agent.",
@@ -8285,7 +8479,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "requirements effective 2024-02-01, page as accessed 2026-08-03; no explicit revision id published",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Deliverability has a published numeric gate. Every sender needs SPF or DKIM, valid forward and reverse DNS, TLS, RFC 5322 conformance and a Postmaster Tools spam rate under 0.30 per cent. Bulk senders above five thousand messages a day additionally need SPF and DKIM and DMARC, From-header alignment with the SPF or DKIM domain, and RFC 8058 one-click unsubscribe with a visible in-body link. That converts a soft craft into a preflight checklist a machine can assert before a first send.",
@@ -8295,7 +8489,9 @@
     "marketing-growth",
     "registry"
    ],
-   "review": "on-change-of:Gmail email sender guidelines requirements"
+   "review": "on-change-of:Gmail email sender guidelines requirements",
+   "licence_evidence": "\"Email sender guidelines - Gmail Help\" states no content licence. Footer carries only \"©2026 Google\" and links to Privacy Policy, Terms of Service and Program Policies. No Creative Commons or other licence designation appears.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0361",
@@ -8354,7 +8550,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "arXiv:2508.08209v1, submitted 2025-08-11",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The stated trade-off is explicit: observational models scale and are precise but can be biased, randomised trials are unbiased but noisy, so credit allocation is anchored to experimental estimates and the model only distributes within that anchor. The transferable rule is that an attribution model is a way of spreading an experimentally measured total, never a way of producing one.",
@@ -8377,7 +8573,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "page as accessed 2026-08-03; documents the November 2023 model removal",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The dominant analytics vendor deleted first-click, linear, time-decay and position-based attribution from its own product in November 2023, leaving data-driven attribution and two last-click variants, and it excludes direct visits from credit unless the whole path is direct. That is a vendor conceding that heuristic credit-splitting rules were arbitrary. A pack should therefore treat any percentage split across touchpoints as a reporting convention to be declared, never as a measured quantity.",
@@ -8387,7 +8583,9 @@
     "marketing-growth",
     "registry"
    ],
-   "review": "on-change-of:GA4 attribution model set"
+   "review": "on-change-of:GA4 attribution model set",
+   "licence_evidence": "\"Get started with attribution - Analytics Help\" states no content licence. The footer links only to Google's general Privacy Policy and Terms of Service, which are not a licence declaration for the page content.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0365",
@@ -8400,7 +8598,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown; essay series first circulated July 2018, no revision id published",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "stable",
    "finding": "The argued case against funnels is organisational as much as mathematical: a funnel splits strategy and ownership by stage, so marketing optimises acquisition and product optimises retention against each other, and growth stays linear because output never re-enters input. A loop is a closed system whose output is reinvested as input. The usable rule is to require a named reinvestment step in any growth plan, and to treat a plan with no reinvestment step as a paid-acquisition budget rather than a growth strategy.",
@@ -8410,7 +8608,9 @@
     "marketing-growth",
     "registry"
    ],
-   "review": "on-change-of:direct access to the Reforge essay becoming possible"
+   "review": "on-change-of:direct access to the Reforge essay becoming possible",
+   "licence_evidence": "\"Growth Loops are the New Funnels | Reforge Blog\" states no licence. A full-text scan of the rendered page for \"licence/license/Creative Commons/copyright/rights reserved\" matched only the footer navigation link labels \"Terms of Service\", \"Copyright Policy\", \"Privacy Policy\", \"Cookies Policy\" - link names, not a stated licence.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0366",
@@ -8423,7 +8623,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown; living page, no revision id published",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "A developer-tools company publishes its marketing operating rules in the open and reduces them to three: be opinionated, pull rather than push, and no sneaky shit. Marketing is organised as six small cross-functional teams (graphics, website, marketing, editorial, video, docs) rather than a channel hierarchy. The transferable move is that a small marketing function is a set of publishing teams with a stated stance, and the stance is what makes agent-generated content non-generic.",
@@ -8433,7 +8633,9 @@
     "marketing-growth",
     "registry"
    ],
-   "review": "on-change-of:PostHog marketing handbook page content"
+   "review": "on-change-of:PostHog marketing handbook page content",
+   "licence_evidence": "\"Overview - Handbook - PostHog\" (URL resolves to posthog.com/handbook/marketing) states no licence. A full-text scan of the fully scrolled page for \"licence/license/Creative Commons/copyright/rights reserved/MIT\" returned zero matches. The page has a GitHub \"edit this page\" link but no licence terms on the page itself.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0367",
@@ -8446,7 +8648,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "unknown; living docs page, no revision id published",
-   "licence": "unknown",
+   "licence": "not-stated",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "A funnel is only defined once its parameters are declared: sequential versus strict-order versus any-order steps, exclusion steps that remove people from the whole funnel, and conversion measured either against the first step or against the previous step. Two teams quoting different conversion rates for the same product are usually quoting different parameter sets. So the pack should require the funnel definition to be stored as configuration next to the number, and any reported rate without it to be rejected.",
@@ -8456,7 +8658,9 @@
     "marketing-growth",
     "registry"
    ],
-   "review": "on-change-of:PostHog funnels documentation"
+   "review": "on-change-of:PostHog funnels documentation",
+   "licence_evidence": "\"Funnels - Docs - PostHog\" states no licence. A full-text scan of the fully scrolled page found no licence or copyright statement (the only regex hits were the substring \"mit\" inside the words \"limitative\" and \"limitation\" in user comments). A GitHub source link is present but no licence terms.",
+   "licence_checked": "2026-08-08"
   },
   {
    "id": "EV-0368",
@@ -9458,7 +9662,7 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "current framework page as retrieved 2026-08-03; underlying model launched 2004",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "Two diamonds, four stages of discover, define, develop and deliver, with the first diamond deciding what the right problem is and the second deciding what the right solution is. The single decision rule worth extracting is that divergence and convergence must be separated in time and named explicitly, because a team that converges while still diverging picks the first idea and calls it a decision. The framework is explicitly non-linear and expects loops back.",
@@ -9481,7 +9685,7 @@
    "model": "GPT-family model via the platform's Writer applet, exact version not stated in the abstract",
    "benchmark": null,
    "version_or_commit": "arXiv:2606.24060v1, submitted 2026-06-23",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The winning condition was neither humans alone nor the model alone. Human collaborative discussion followed by LLM synthesis of the transcript produced the highest-rated requirement artefacts and was perceived as clearer and easier to act on than unaided collaboration. The extractable rule is to keep humans generating the raw material and give the model the structuring job, rather than asking a model to originate requirements it has no access to the context for.",
@@ -9527,7 +9731,7 @@
    "model": null,
    "benchmark": "LiveCodeBench problems",
    "version_or_commit": "arXiv:2601.03878v1, submitted 2026-01-07",
-   "licence": "CC BY 4.0",
+   "licence": "CC-BY-4.0",
    "access_date": "2026-08-03",
    "maintenance": "active",
    "finding": "The state of the evidence is the finding. As of the cutoff, the question of whether human refinement of specifications and tests actually improves LLM-generated code has an accepted protocol and no results. Anyone asserting that spec-driven development measurably improves outcomes is asserting ahead of the evidence. The pre-registered structure, specification then tests then function, is itself worth noting as the shape the research community judged worth testing.",
@@ -10320,7 +10524,29 @@
     "writing-content"
    ],
    "review": "2027-08"
+  },
+  {
+   "id": "EV-0449",
+   "source": "LangGraph persistence and durable execution documentation (LangChain)",
+   "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "version_or_commit": "OSS Python docs as published on 2026-08-08",
+   "licence": "not stated",
+   "access_date": "2026-08-08",
+   "maintenance": "active",
+   "finding": "Durability is a property of the checkpointer rather than of the graph. State snapshots are thread-scoped and addressed by a thread_id, with a separate store for cross-thread memory. The default in-memory checkpointers hold snapshots in RAM and lose every one when the process restarts, so a graph is durable only if it was deployed against a persistent backend.",
+   "applicability_limits": "Vendor documentation for one framework. Fault tolerance is listed as a use case for checkpointers without a stated recovery mechanism, and the page says nothing about determinism requirements on node code, which is the constraint that decides whether a resumed run is sound. The 255-character thread_id limit under PostgresSaver is an implementation detail rather than a pattern.",
+   "counter_evidence": "EV-0047 puts durability at the boundary rather than in the worker, using superstep checkpoints and a request-response pattern so a human-in-the-loop pause resumes without the worker knowing it was suspended. The two disagree about where the mechanism belongs, and this pack takes neither as doctrine.",
+   "cited_by": [
+    "agentic-development"
+   ],
+   "review": "on-change-of:packs/agentic-development"
   }
  ],
- "research_cutoff": "2026-08-03"
+ "research_cutoff": "2026-08-08"
 }
