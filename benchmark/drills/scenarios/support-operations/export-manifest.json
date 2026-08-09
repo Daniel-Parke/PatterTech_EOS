@@ -1,0 +1,11 @@
+{
+  "source": "helpdesk",
+  "exported_at": "2026-08-07T17:00:00Z",
+  "covers": {
+    "from": "2026-08-03T00:00:00Z",
+    "to": "2026-08-07T17:00:00Z"
+  },
+  "items": 40,
+  "accounts": 60,
+  "note": "One file per conversation in inbox/, numbered in the order they arrived. The export overwrites inbox/ every time it runs."
+}

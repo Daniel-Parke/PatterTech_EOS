@@ -1,0 +1,13 @@
+Item: 0034
+Received: 2026-08-06T13:15:00Z
+Account: C-1037
+From: Josh Winterbourne <josh.winterbourne@beckhampton-cycles.example>
+Subject: Is there a sandbox for testing the API
+
+Before we point our new integration at the live account, is there a
+test or sandbox account we can hammer without putting rubbish into
+our real data?
+
+-- 
+Josh Winterbourne
+Beckhampton Cycles

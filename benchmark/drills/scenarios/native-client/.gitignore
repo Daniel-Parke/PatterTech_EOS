@@ -1,0 +1,7 @@
+node_modules/
+android/build/
+android/app/build/
+ios/build/
+ios/Pods/
+*.keystore
+.tern-data/

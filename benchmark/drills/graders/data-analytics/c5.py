@@ -47,6 +47,7 @@ PAIR_HINTS = (("event", "naming"), ("event", "dictionary"),
 NAME_KEYS = {"name", "event", "event_name", "eventname", "display_name"}
 # A name-shaped string: title case throughout, or snake_case.
 LOOKS_LIKE_NAME = re.compile(r"^[A-Za-z][A-Za-z0-9_]*([ _][A-Za-z0-9_]+){0,5}$")
+DECORATION = re.compile(r"[`*]")
 BACKTICK = re.compile(r"`([^`\n]{2,60})`")
 LIST_ITEM = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+(.+?)\s*$", re.M)
 
@@ -105,7 +106,7 @@ def structured_names(path, text):
     for row in body[1:]:
         cells = [c.strip() for c in row.strip().strip("|").split("|")]
         if cells and cells[0]:
-            out.append(re.sub(r"[`*_]", "", cells[0]).strip())
+            out.append(DECORATION.sub("", cells[0]).strip())
     return out
 
 
@@ -116,7 +117,7 @@ def loose_names(text):
     if not out:
         for match in LIST_ITEM.finditer(text):
             item = re.split(r"\s+[-—:]\s+|:\s", match.group(1), 1)[0]
-            out.append(re.sub(r"[`*_]", "", item).strip())
+            out.append(DECORATION.sub("", item).strip())
     return [n for n in out
             if LOOKS_LIKE_NAME.match(n) and (title_case(n) or "_" in n)]
 

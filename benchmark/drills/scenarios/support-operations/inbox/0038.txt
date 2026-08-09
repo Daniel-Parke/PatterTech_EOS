@@ -1,0 +1,14 @@
+Item: 0038
+Received: 2026-08-07T10:15:00Z
+Account: C-1040
+From: Wesley Ampofo <wesley.ampofo@grimsdyke-haulage.example>
+Subject: Letting us re-run a failed schedule ourselves
+
+When a schedule fails we have to email you to have it run again,
+which costs us half a day if it happens overnight. Could there be a
+re-run button on a failed run? We would happily have it limited to
+admins.
+
+-- 
+Wesley Ampofo
+Grimsdyke Haulage

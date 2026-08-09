@@ -1,0 +1,132 @@
+/* Design tokens and the page chrome. Nothing else belongs in here. */
+
+:root {
+  /* Surfaces, ink and rules */
+  --surface-0: #0b0d10;
+  --surface-1: #12151a;
+  --surface-2: #171b21;
+  --ink: #eef1f5;
+  --ink-muted: #aab3bf;
+  --ink-annotation: #9aa4b2;
+  --accent: #ff8a3d;
+  --rule: #262b33;
+  --rule-bright: #3a424e;
+
+  /* Type */
+  --font-display: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-text: system-ui, -apple-system, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono",
+    monospace;
+
+  --type-annotation: 0.75rem;
+  --type-body: 1rem;
+  --type-lead: 1.125rem;
+  --type-title: 2rem;
+  --type-display: 2.75rem;
+
+  --leading-tight: 1.15;
+  --leading-body: 1.6;
+  --tracking-mono: 0.08em;
+
+  /* Rhythm */
+  --step-1: 0.5rem;
+  --step-2: 1rem;
+  --step-3: 1.5rem;
+  --step-4: 2.5rem;
+  --step-5: 4rem;
+  --step-6: 6rem;
+
+  --measure: 34rem;
+  --page-max: 72rem;
+  --gutter: 1.25rem;
+  --rail: 4.5rem;
+  --hairline: 1px;
+
+  /* Motion. Durations are budgets, not suggestions. */
+  --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur-quick: 120ms;
+  --dur-reveal: 420ms;
+  --dur-charge: 2400ms;
+  --ignite-peak: 1.35;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  background: var(--surface-0);
+}
+
+body {
+  margin: 0;
+  background: var(--surface-0);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Chrome */
+
+.chrome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--step-2) var(--step-3);
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--step-3) var(--gutter);
+  border-bottom: var(--hairline) solid var(--rule);
+}
+
+.chrome-wordmark {
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--type-annotation);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.chrome-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--step-3);
+}
+
+.chrome-nav a {
+  color: var(--ink-annotation);
+  font-size: var(--type-annotation);
+  text-decoration: none;
+}
+
+.chrome-nav a:hover,
+.chrome-nav a:focus-visible {
+  color: var(--ink);
+}
+
+.chrome-cta {
+  padding: var(--step-1) var(--step-2);
+  border: var(--hairline) solid var(--rule-bright);
+  color: var(--ink);
+  font-size: var(--type-annotation);
+  text-decoration: none;
+}
+
+.chrome-cta:hover,
+.chrome-cta:focus-visible {
+  border-color: var(--ink-annotation);
+}
+
+#page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}

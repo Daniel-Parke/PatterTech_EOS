@@ -1,0 +1,14 @@
+Item: 0032
+Received: 2026-08-06T10:30:00Z
+Account: C-1060
+From: Simon Fenwick <simon.fenwick@fenwick-rowe.example>
+Subject: Restricting a report to one client's data
+
+We act for a number of clients and a report must only ever show one
+client's matters. Is there a way to lock a report to a client so
+that whoever opens it only sees that client, rather than relying on
+people setting the filter correctly?
+
+-- 
+Simon Fenwick
+Fenwick Rowe

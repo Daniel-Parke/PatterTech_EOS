@@ -25,6 +25,7 @@ file. Frozen trees are not indexed.
 | benchmark/drills/delivery-testing.md | example | eos | Cold-agent acceptance drill for the delivery, testing and quality pack, checking double choice, contract verification and flake handling |  |
 | benchmark/drills/devops-reliability.md | example | eos | Single-run cold-agent acceptance drill for the devops-reliability pack, with deterministic machine-checkable criteria. |  |
 | benchmark/drills/docs-dx.md | example | eos testing | Cold-agent acceptance drill for the docs-dx pack, make a stale documented flag fail the build |  |
+| benchmark/drills/graders/DEMOTED.md | example | eos testing | Graders removed because an adversarial recheck proved they returned the wrong answer, and the criteria they covered now report manual |  |
 | benchmark/drills/legal-licensing.md | example | eos testing | Proposed cold-agent acceptance drill for the legal, licensing and compliance routing pack |  |
 | benchmark/drills/marketing-growth-positioning.md | example | eos | Single-run cold-agent acceptance drill for positioning, testing whether the marketing pack produces a defended position or a feature list with adjectives |  |
 | benchmark/drills/marketing-growth.md | example | eos testing | Cold-agent acceptance drill for the marketing-growth pack, one launch surface plus one lifecycle sequence, machine-checked |  |

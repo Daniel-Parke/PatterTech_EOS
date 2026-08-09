@@ -1,0 +1,16 @@
+{
+  "domain": "kilnwatch.co.uk",
+  "sending_host": "mail.kilnwatch.co.uk",
+  "records": {
+    "spf": "v=spf1 include:_spf.kilnwatch.co.uk -all",
+    "dkim": {
+      "selector": "post2026",
+      "public_key": "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A",
+      "verifies": true
+    },
+    "dmarc": "v=DMARC1; p=quarantine; rua=mailto:dmarc@kilnwatch.co.uk",
+    "forward_dns": {"mail.kilnwatch.co.uk": "203.0.113.24"},
+    "reverse_dns": {"203.0.113.24": "mail.kilnwatch.co.uk"},
+    "tls": {"starttls": true, "min_version": "1.2"}
+  }
+}

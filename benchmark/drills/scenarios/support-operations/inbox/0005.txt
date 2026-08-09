@@ -1,0 +1,14 @@
+Item: 0005
+Received: 2026-08-03T10:02:00Z
+Account: C-1009
+From: Callum Sheridan <callum.sheridan@ardenmoor-housing.example>
+Subject: Which role can see the audit log
+
+I need one of our housing officers to be able to read the audit log
+without being able to change anything. Is that a role I can set, or
+does it only come with the admin role? We would rather not make
+her an admin just for this.
+
+-- 
+Callum Sheridan
+Ardenmoor Housing

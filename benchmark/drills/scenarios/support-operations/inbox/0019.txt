@@ -1,0 +1,13 @@
+Item: 0019
+Received: 2026-08-05T10:02:00Z
+Account: C-1022
+From: Lena Hjalmarsson <lena.hjalmarsson@ashcombe-foods.example>
+Subject: Are exports down
+
+Our 09:45 export has not landed and the queue count on the exports
+screen keeps going up rather than down. Nothing has failed as such,
+it just is not moving. Is something up at your end?
+
+-- 
+Lena Hjalmarsson
+Ashcombe Foods

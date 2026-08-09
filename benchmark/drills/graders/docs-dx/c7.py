@@ -20,9 +20,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _common import (FAIL, OFFLINE_TOKENS, ONLINE_TOKENS, PASS,  # noqa: E402
-                     UNSETTLED, ci_files, docs_target, emit, expand_make,
-                     link_check_commands, one_line, read, rel, run_command,
-                     scratch_dir)
+                     UNSETTLED, checker_actions, ci_files, docs_target, emit,
+                     expand_make, link_check_commands, looks_like_missing_tool,
+                     one_line, read, rel, run_command, scratch_dir)
 
 CID = "c7"
 
@@ -54,7 +54,8 @@ def static_verdict(scratch):
 def main():
     scratch = scratch_dir()
     commands = link_check_commands(scratch)
-    if not commands:
+    actions = checker_actions(scratch)
+    if not commands and not actions:
         emit(CID, FAIL,
              "no link-checking step in the tree. Nothing fails because "
              "nothing runs, which is not what this criterion is asking; "
@@ -76,6 +77,8 @@ def main():
                 unrunnable.append((piece, output))
             elif code == 0:
                 green.append(piece)
+            elif looks_like_missing_tool(output):
+                unrunnable.append((piece, one_line(output)))
             else:
                 emit(CID, FAIL,
                      "%r already exits %d on the delivered tree, so what an "
@@ -85,9 +88,13 @@ def main():
         if not green:
             verdict, why = static_verdict(scratch)
             if verdict is None:
-                emit(CID, UNSETTLED,
-                     "%s (%s)" % (why, unrunnable[0][1] if unrunnable
-                                  else "nothing to run"))
+                if unrunnable:
+                    detail = unrunnable[0][1]
+                elif actions:
+                    detail = "the check is a hosted action, %s" % actions[0][1]
+                else:
+                    detail = "nothing to run"
+                emit(CID, UNSETTLED, "%s (%s)" % (why, detail))
             emit(CID, verdict, why)
 
         target = docs_target(tree) or (tree / "README.md")

@@ -1,0 +1,12 @@
+Item: 0020
+Received: 2026-08-05T10:08:00Z
+Account: C-1023
+From: Colin Fettes <colin.fettes@yardley-print.example>
+Subject: Seeing the row count before exporting
+
+Is there a way to see how many rows a report will produce before I
+export it? I keep asking for things that turn out to be enormous.
+
+-- 
+Colin Fettes
+Yardley Print

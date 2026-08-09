@@ -1,0 +1,12 @@
+Item: 0022
+Received: 2026-08-05T10:20:00Z
+Account: C-1025
+From: Tobias Wendell <tobias.wendell@rookhurst-estates.example>
+Subject: Numbers look wrong
+
+The figures on our Monday report do not look right to me. Something
+has changed. Can you check it please.
+
+-- 
+Tobias Wendell
+Rookhurst Estates

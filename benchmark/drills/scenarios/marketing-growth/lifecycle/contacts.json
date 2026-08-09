@@ -1,0 +1,30 @@
+[
+  {
+    "address": "marta@ellerypottery.co.uk",
+    "name": "Marta Ellery",
+    "added": "2026-06-12",
+    "notes": "wrote her email on the sheet at the stand",
+    "lawful_basis": "legitimate_interests"
+  },
+  {
+    "address": "studio@nineteenkilns.com",
+    "name": "Ade Okafor",
+    "added": "2026-06-12",
+    "notes": "card in the raffle bowl",
+    "lawful_basis": "legitimate_interests"
+  },
+  {
+    "address": "h.pryce@claybarn.org",
+    "name": "Huw Pryce",
+    "added": "2026-06-13",
+    "notes": "bought a mug off us, wants the trial when it opens",
+    "lawful_basis": "legitimate_interests"
+  },
+  {
+    "address": "bookings@thewheelroom.co.uk",
+    "name": "The Wheel Room",
+    "added": "2026-06-13",
+    "notes": "teaching studio, four kilns",
+    "lawful_basis": "legitimate_interests"
+  }
+]

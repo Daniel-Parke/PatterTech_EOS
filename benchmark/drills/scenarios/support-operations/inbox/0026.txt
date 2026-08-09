@@ -1,0 +1,18 @@
+Item: 0026
+Received: 2026-08-05T11:05:00Z
+Account: C-1029
+From: Dmitri Sokolov <dmitri.sokolov@tallowgate-chemicals.example>
+Subject: Column order changes between runs on a saved filter
+
+Reproducible here:
+
+1. Create a report with columns in a set order and save it.
+2. Add a filter and save again.
+3. Run it twice. The second run comes back with two of the columns
+   swapped, always the same two.
+
+It breaks the macro that reads the file, which is why we noticed.
+
+-- 
+Dmitri Sokolov
+Tallowgate Chemicals

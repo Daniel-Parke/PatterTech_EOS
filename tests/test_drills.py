@@ -12,6 +12,8 @@ tested end to end against the fixture it ships with.
 
 import hashlib
 import json
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -459,3 +461,67 @@ def test_the_wrong_direction_contract_does_not_satisfy_c2(tmp_path):
     verdict, reason = drills.run_grader(grader, tree)
     assert verdict == drills.FAIL
     assert "wrong direction" in reason
+
+
+# ------------------------------------------------- the coding drill
+
+
+def test_the_coding_drill_ships_a_scenario_and_seven_graders():
+    scenario = REPO / drills.SCENARIOS_REL / "coding"
+    assert scenario.is_dir()
+    assert (scenario / "readings" / "parser.py").is_file()
+    assert (scenario / "golden_input.txt").is_file()
+    for n in range(1, 8):
+        assert drills.grader_for(REPO, "coding", n) is not None
+    # Criterion 8 is wall clock and no network, which nothing here can
+    # settle, so it has no grader and reports manual.
+    assert drills.grader_for(REPO, "coding", 8) is None
+
+
+def test_the_coding_graders_reject_the_untouched_fixture():
+    """A grader that cannot fail is not a grader.
+
+    The fixture is the package before the agent touches it: no tests, no
+    declared failure mode, and a bare except that drops malformed rows.
+    """
+    row = drills.run_drill(REPO, "coding")
+    assert row["pass"] is not True
+    verdicts = {c["id"]: c["verdict"] for c in row["criteria"]}
+    reasons = {c["id"]: c["reason"] for c in row["criteria"]}
+    for cid in ("c1", "c2", "c3", "c4", "c5", "c6"):
+        assert verdicts[cid] == drills.FAIL, (cid, reasons[cid])
+    assert "dropped silently" in reasons["c3"]
+
+
+@pytest.mark.skipif(shutil.which("git") is None, reason="needs git")
+def test_a_narrower_except_does_not_satisfy_the_coding_criteria(tmp_path):
+    """The swallow the frozen grep misses, and the call that catches it.
+
+    `except ValueError: continue` drops the malformed row exactly as the
+    fixture's bare `except:` does, and the grep the spec writes out
+    returns nothing for it. Criterion 4 is about the swallow and
+    criterion 3 about what the caller sees, so both have to say no, and
+    neither may say it because of a missing token.
+    """
+    tree = tmp_path / "attempt"
+    shutil.copytree(REPO / drills.SCENARIOS_REL / "coding", tree)
+    source = tree / "readings" / "parser.py"
+    text = source.read_text(encoding="utf-8")
+    source.write_text(text.replace("        except:\n",
+                                   "        except ValueError:\n"),
+                      encoding="utf-8")
+    for args in (("init", "-q"), ("add", "-A"),
+                 ("-c", "user.name=t", "-c", "user.email=t@t.invalid",
+                  "commit", "-q", "-m", "baseline")):
+        subprocess.run(["git", "-C", str(tree), *args], check=True,
+                       capture_output=True)
+
+    verdict, reason = drills.run_grader(
+        drills.grader_for(REPO, "coding", 4), tree)
+    assert verdict == drills.FAIL, reason
+    assert "do nothing with it" in reason
+
+    verdict, reason = drills.run_grader(
+        drills.grader_for(REPO, "coding", 3), tree)
+    assert verdict == drills.FAIL, reason
+    assert "dropped silently" in reason

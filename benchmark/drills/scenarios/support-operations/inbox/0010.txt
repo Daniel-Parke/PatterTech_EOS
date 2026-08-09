@@ -1,0 +1,14 @@
+Item: 0010
+Received: 2026-08-04T09:15:00Z
+Account: C-1014
+From: Declan Rooney <declan.rooney@wildfen-outdoors.example>
+Subject: SSO with Entra ID
+
+Our IT are moving everything onto Entra ID single sign on this
+quarter and have asked me whether you support it, and whether it is
+on our plan or costs extra. They also want to know if we can force
+everyone through SSO rather than leaving passwords working.
+
+-- 
+Declan Rooney
+Wildfen Outdoors

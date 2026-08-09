@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: duraconf
+Version: 2.1.0
+Summary: Configuration files that survive being edited by people
+Author-email: Ola Bergstrom <ola@duraconf.example>
+License-Expression: BSD-3-Clause
+Requires-Python: >=3.8
+Requires-Dist: strfmt>=1.0
+
+Key equals value, comments, and no surprises. Reads a file that a
+sysadmin has been editing for nine years without complaining about it.

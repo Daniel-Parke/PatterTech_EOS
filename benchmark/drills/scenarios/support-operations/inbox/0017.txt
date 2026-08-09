@@ -1,0 +1,16 @@
+Item: 0017
+Received: 2026-08-05T09:47:00Z
+Account: C-1001
+From: Priya Raghunathan <priya.raghunathan@northgate-labs.example>
+Subject: Scheduled exports have not run since 09:40
+
+None of our scheduled exports have run this morning. Three jobs
+were due between 09:40 and 09:45 and all three are sitting as
+queued. Nothing has arrived by email either.
+
+Our finance team cannot close yesterday without these files and
+they are asking me every ten minutes. Is this us or is it you?
+
+-- 
+Priya Raghunathan
+Northgate Labs

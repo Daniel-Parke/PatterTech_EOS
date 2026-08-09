@@ -1,0 +1,13 @@
+Item: 0018
+Received: 2026-08-05T09:55:00Z
+Account: C-1021
+From: Malik Sarwar <malik.sarwar@peregrine-insurance.example>
+Subject: Changing the owner of a saved report
+
+One of our analysts has left and all her saved reports are still in
+her name. Can the owner of a report be changed to someone else, or
+do we have to rebuild them?
+
+-- 
+Malik Sarwar
+Peregrine Insurance

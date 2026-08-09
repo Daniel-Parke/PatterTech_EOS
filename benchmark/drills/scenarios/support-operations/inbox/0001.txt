@@ -1,0 +1,15 @@
+Item: 0001
+Received: 2026-08-03T08:12:00Z
+Account: C-1003
+From: Ines Calderon <ines.calderon@bellweather-freight.example>
+Subject: Changing the timezone on a scheduled export
+
+Morning. Our nightly export is set to run at 06:00 and it lands at
+07:00 our time, which is an hour later than the warehouse team
+expect. Is the schedule in UTC, and if so where do I change it to
+Madrid time? I can see the time field but nothing next to it says
+which zone it is in.
+
+-- 
+Ines Calderon
+Bellweather Freight

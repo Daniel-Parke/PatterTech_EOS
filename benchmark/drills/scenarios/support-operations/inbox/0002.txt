@@ -1,0 +1,14 @@
+Item: 0002
+Received: 2026-08-03T08:41:00Z
+Account: C-1008
+From: Meredith Vane <meredith.vane@stonecrop-nurseries.example>
+Subject: Sending a report to two addresses
+
+Can a scheduled report go to more than one person? At the moment it
+only goes to me and I forward it on every Monday, which is fine
+until I am on holiday. If there is a way to add a second address I
+cannot find it.
+
+-- 
+Meredith Vane
+Stonecrop Nurseries

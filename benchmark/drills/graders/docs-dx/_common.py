@@ -60,10 +60,12 @@ CHECKERS = (
 )
 
 # Evidence that fragments, meaning the part after `#`, are checked.
+# Flag-shaped only. A step *named* "check links and anchors" is a name,
+# and a criterion that accepts a name accepts anyone who picks it.
 FRAGMENT_TOKENS = (
     "--include-fragments", "include_fragments", "include-fragments",
-    "--check-anchors", "check-anchors", "checkanchors", "check_anchors",
-    "--fragments", "--anchors", "--anchor", "anchor",
+    "--check-anchors", "check_anchors", "checkanchors",
+    "--fragments", "--anchors", "--anchor",
 )
 
 # Evidence that external, network-reaching links are deliberately left
@@ -265,6 +267,49 @@ def ci_commands(scratch):
                 continue
             out.append((where, command))
     return out
+
+
+def uses_values(scratch):
+    """`(source, value)` for every third-party step the automation uses.
+
+    A hosted action is a real invocation and a grader that only reads
+    `run:` lines would call a lychee-action workflow no CI at all. It
+    cannot be executed here, which is a different answer from absent.
+    """
+    out = []
+    for path in ci_files(scratch):
+        where = rel(scratch, path)
+        for m in re.finditer(r"^\s*(?:-\s+)?uses:\s*(\S+)", read(path), re.M):
+            out.append((where, m.group(1).strip().strip("'\"")))
+    return out
+
+
+def checker_actions(scratch):
+    """`(source, value, checker)` for hosted steps that check links."""
+    out = []
+    for where, value in uses_values(scratch):
+        lowered = value.lower()
+        name = next((c for c in CHECKERS if c in lowered), None)
+        if name is None and re.search(r"link[-_]?check|check[-_]?link",
+                                      lowered):
+            name = value.split("@")[0]
+        if name:
+            out.append((where, value, name))
+    return out
+
+
+MISSING_TOOL_MARKERS = (
+    "command not found", "no such file or directory",
+    "is not recognized as an internal or external command",
+    "no module named", "modulenotfounderror", "importerror",
+    "not found: ", "unknown command", "cannot find the path",
+)
+
+
+def looks_like_missing_tool(output):
+    """Is this failure the machine's gap rather than the tree's fault?"""
+    lowered = str(output).lower()
+    return any(marker in lowered for marker in MISSING_TOOL_MARKERS)
 
 
 def expand_make(scratch, command):

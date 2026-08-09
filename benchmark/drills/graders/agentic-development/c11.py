@@ -65,7 +65,7 @@ def americanisms(text):
     for match in IZE.finditer(text):
         word = match.group(1)
         if word.lower() not in IZE_ALLOWED:
-            found.append("%s (British: %sise...)" % (word, word[:-3]))
+            found.append("%s (British spelling uses -ise)" % word)
     for pattern, british in WORDS:
         match = re.search(pattern, text, re.I)
         if match:

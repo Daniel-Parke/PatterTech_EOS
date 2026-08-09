@@ -1,0 +1,17 @@
+Item: 0035
+Received: 2026-08-06T15:40:00Z
+Account: C-1035
+From: Anya Kowalczyk <anya.kowalczyk@silverthorn-security.example>
+Subject: Still paying for seats we cancelled in May
+
+We reduced from twelve seats to ten in May. Both invoices since
+then have been for twelve and the seat count in the admin screen
+still says twelve.
+
+I raised this on the 2nd of June and was told it would be sorted on
+the next invoice. It was not. Please can someone actually fix it
+and credit the two months.
+
+-- 
+Anya Kowalczyk
+Silverthorn Security

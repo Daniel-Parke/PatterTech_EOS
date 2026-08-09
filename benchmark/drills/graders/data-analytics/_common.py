@@ -125,9 +125,21 @@ def answer_files(scratch):
 
 
 def sentences(text):
-    """Rough sentence split, good enough to scope a negation to a clause."""
-    flat = re.sub(r"[ \t]+", " ", text)
-    return [s.strip() for s in _SENTENCE_SPLIT.split(flat) if s and s.strip()]
+    """Rough sentence split, good enough to scope a negation to a clause.
+
+    Each piece is flattened afterwards. Prose wraps, and "the result is
+    not\\nusable" is the same claim as "the result is not usable"; a
+    criterion that turned on where the line break landed would be
+    measuring the author's editor rather than the argument.
+    """
+    out = []
+    for piece in _SENTENCE_SPLIT.split(re.sub(r"[ \t]+", " ", text)):
+        if not piece:
+            continue
+        flat = re.sub(r"\s+", " ", piece).strip()
+        if flat:
+            out.append(flat)
+    return out
 
 
 def flatten(text):
@@ -563,10 +575,16 @@ def walk_docs(doc):
 
 
 def subtree_text(doc):
+    """A node flattened back to something the rule tokens can be read in.
+
+    The quotes come out because a rule written `required: true` in YAML
+    would otherwise be looked for in `"required": true` and missed.
+    """
     try:
-        return json.dumps(doc, default=str).lower()
+        dumped = json.dumps(doc, default=str)
     except (TypeError, ValueError):
-        return str(doc).lower()
+        dumped = str(doc)
+    return dumped.replace('"', "").replace("'", "").lower()
 
 
 def names_in(node):

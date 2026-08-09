@@ -1,0 +1,14 @@
+Item: 0014
+Received: 2026-08-04T13:05:00Z
+Account: C-1018
+From: Beatrice Okonjo <beatrice.okonjo@greywater-civils.example>
+Subject: Exporting more than fifty thousand rows
+
+Our site register is about 140,000 rows and the export stops at
+50,000 with a message about the limit. Is there a way to get the
+whole thing, even if it is slower or comes as several files? We
+need it once a quarter for the auditors, not every day.
+
+-- 
+Beatrice Okonjo
+Greywater Civils

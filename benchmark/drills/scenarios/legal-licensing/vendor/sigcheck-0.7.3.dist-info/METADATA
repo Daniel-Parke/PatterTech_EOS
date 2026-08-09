@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: sigcheck
+Version: 0.7.3
+Summary: Request signing and verification
+Author-email: Priya Nandakumar <priya@sigcheck.example>
+License-Expression: Apache-2.0
+Requires-Python: >=3.9
+
+HMAC signing with constant time comparison. Nothing clever, which is
+the point of it.

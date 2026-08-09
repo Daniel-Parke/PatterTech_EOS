@@ -1,0 +1,13 @@
+Item: 0021
+Received: 2026-08-05T10:15:00Z
+Account: C-1024
+From: Sinead Callaghan <sinead.callaghan@brightmoor-clinics.example>
+Subject: Export stuck in queued since about quarter to ten
+
+The daily clinic list has been sitting at queued since about 09:45.
+I have tried running it by hand as well and that one is queued too.
+The reception team need the list printed by eleven.
+
+-- 
+Sinead Callaghan
+Brightmoor Clinics

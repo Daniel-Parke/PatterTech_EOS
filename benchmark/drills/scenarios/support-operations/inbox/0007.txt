@@ -1,0 +1,15 @@
+Item: 0007
+Received: 2026-08-03T11:20:00Z
+Account: C-1011
+From: Nadia Bouchard <nadia.bouchard@kestrel-marine.example>
+Subject: Rotating an API token without breaking the nightly job
+
+Our API token is about to expire. The token is used by a job that
+runs at 02:00 and nobody here has rotated one before. Can I create
+the new token before the old one expires so there is an overlap, or
+does creating a new one kill the old one straight away? I would
+rather not find out the hard way at two in the morning.
+
+-- 
+Nadia Bouchard
+Kestrel Marine

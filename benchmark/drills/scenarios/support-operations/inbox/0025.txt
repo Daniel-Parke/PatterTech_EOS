@@ -1,0 +1,13 @@
+Item: 0025
+Received: 2026-08-05T10:52:00Z
+Account: C-1028
+From: Grace Ademola <grace.ademola@pinewick-schools-trust.example>
+Subject: A shared folder for termly reports
+
+Each of our nine schools produces the same three reports at the end
+of term. Can saved reports live in a shared folder that all nine
+heads can see, rather than each of them building their own?
+
+-- 
+Grace Ademola
+Pinewick Schools Trust
