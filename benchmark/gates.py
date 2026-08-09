@@ -187,8 +187,9 @@ def compute(rows, baseline="v1", candidate="v2-routed-once") -> dict:
         "Safety gates":
             "needs the sealed evaluation window, same reason",
         "Pack drills":
-            "benchmark/drills/RESULTS.json reports pass: null on 20 of 20, "
-            "because benchmark/drills/graders/ does not exist",
+            "every drill reports pass: null. All twenty-two now carry a "
+            "scenario and graders, but a verdict needs a cold-agent "
+            "attempt and none has been run",
     }
     return out
 
