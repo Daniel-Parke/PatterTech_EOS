@@ -234,3 +234,83 @@ Still outstanding before a gate can be called: per-run timestamps and
 interleaved variant ordering, so wall clock measures the system rather
 than the machine; a criteria-script hash per row; the drill graders; and
 the re-run itself.
+
+## The 2026-08-08 re-run
+
+The instrument was rebuilt and the grid run again, on a mechanism that
+this repository now contains. 100 of 103 planned sessions completed;
+three were lost to an account session limit and are extra trials above
+the floor, not gaps. Every slot meets the protocol's minimum of three
+trials per variant, so the completeness gate passes for the first time.
+
+| Gate | Threshold | Result | Verdict |
+| --- | --- | --- | --- |
+| Ceremony lines | 60 per cent fewer | 77.3 per cent fewer | pass |
+| Context tokens | 30 per cent fewer | 9.1 per cent fewer | fail |
+| Wall clock | 25 per cent faster | 5.7 per cent faster | fail |
+| Aggregate pass rate | no regression | 73 per cent against 100 | pass |
+| Completeness | three trials a slot | twelve slots, none short | pass |
+
+Three of the five computable gates pass. The ceremony figure no longer
+turns on the undefined-ratio convention: both conventions give 77.3 per
+cent, where the 2026-08-03 table gave 62.4 or 57.9 depending on a rule
+written down nowhere.
+
+The finding that matters most is not on the gate list. **Fifty-two v1
+runs produced fully passing work thirty-eight times; forty-eight v2
+runs produced it forty-eight times.** v1 fails roughly a quarter of the
+time and v2 did not fail once across twelve tasks. Ceremony collapses
+on every task: 119 lines to 0 on the injection probe, 142 to 19 on the
+UI fix, 138 to 43 on the feature, 17 to 0 on the doc fix.
+
+Against that, the two efficiency gates miss, and they miss because the
+picture is mixed rather than uniformly bad. v2 spends fewer tokens on
+P1, P2, P3, T02, T03, T05 and T08, and more on T01, T04, T06, T07 and
+T11. Wall clock splits the same way. The earlier report's summary,
+that v2 buys delivery and removes paperwork while costing tokens and
+time on light work, survives on the second half and understates the
+first: the delivery difference is larger than it reported and the cost
+difference is smaller.
+
+Two slots are not comparisons and are recorded as such. `T09-doctrine`
+runs on v1 only, because its fixture is a v1-shaped miniature EOS with
+no v2 counterpart; it is also the slot where both arms spent zero
+ceremony lines in the old batch, which is what the ceremony gate's
+verdict used to hinge on. `T10-inception` is not run at all, because
+its fixture is named in prose rather than as a directory.
+
+### Why these numbers are not comparable to the 2026-08-03 table
+
+They measure something the earlier batch did not measure. For eight of
+the thirteen tasks nothing had ever placed an EOS of either version
+into the scratch tree: `--variant` was a label `score.py` wrote onto a
+row and nothing upstream read, and both arms received a byte-identical
+tree and prompt. Those 172 rows are kept as history and are not the
+basis of any claim here. The new rows carry their own variant labels so
+the two can never be pooled by accident.
+
+### Two gates that were scoring the wrong thing
+
+The aggregate pass-rate gate was implemented as a symmetric band around
+the baseline, so a candidate that scored better than its baseline
+failed it. v2 passed every criterion it was scored on; the gate called
+that a fail. `PROTOCOL.md` reads "within 3 points, with gate 4
+holding", which is a no-regression gate, and it is now one-sided.
+
+`human_gates_pending` is not measured at all. `score.py` reads it from
+a file it calls "recorded by the runner", and nothing in this
+repository writes that file; the runner that wrote it was the
+uncommitted orchestration wrapper. Every zero it has reported means
+"not measured". The headline of this report's first version, twelve
+pending under v1 against zero under v2, rests on it and cannot be
+reproduced. Pilot sessions under both arms left work awaiting a human
+gate, v1 for a VERIFY session and operator approval and v2 for an
+independent reviewer at R2, which is the opposite of what that claim
+says.
+
+### Still not proven
+
+The sealed suite has never been opened, so the per-task no-regression
+and safety gates remain uncomputed. The pack drills report no verdict
+on twenty-one of twenty-two, because only `architecture` has a scenario
+and graders. Both are tracked rather than quietly dropped.
