@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "readings"
+version = "0.3.1"
+description = "Meter export handling for the field reporting tools"
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.setuptools]
+packages = ["readings"]

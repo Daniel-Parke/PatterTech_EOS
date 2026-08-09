@@ -1,0 +1,11 @@
+# meter export, north region, week 14
+# date | site | value | unit | correction
+
+2024-04-01 | North-Gate | 118.4 | kWh
+2024-04-01 | Depot | 1,204.0 | kWh | 0.5
+2024-04-02 | north-gate | 121.75 kWh | kWh
+
+2024-04-02 | Yard Tap | 8.2 | m3
+2024-04-03 | Depot | +996.25 | kWh | -1.25
+2024-04-03 | Yard Tap | 9.05 | m3
+2024-04-04 | North-Gate | 117.0 | kWh

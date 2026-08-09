@@ -1,0 +1,16 @@
+{
+  "flags": {
+    "signup_invite_codes": {
+      "enabled": false,
+      "owner": "platform@example.com",
+      "expires": "2026-11-30",
+      "description": "Require an invite code on the signup form."
+    },
+    "slow_query_log": {
+      "enabled": true,
+      "owner": "platform@example.com",
+      "expires": "2026-09-30",
+      "description": "Log any statement that takes longer than 200ms."
+    }
+  }
+}
