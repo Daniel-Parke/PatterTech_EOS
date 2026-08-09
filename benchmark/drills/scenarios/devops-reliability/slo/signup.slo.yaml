@@ -1,0 +1,31 @@
+apiVersion: openslo/v1
+kind: SLO
+metadata:
+  name: signup-availability
+  displayName: Signup availability
+spec:
+  service: users-service
+  description: Signups that complete without a server error.
+  indicator:
+    metadata:
+      name: signup-success-ratio
+    spec:
+      ratioMetric:
+        counter: true
+        good:
+          metricSource:
+            type: Prometheus
+            spec:
+              query: sum(rate(signup_requests_total{status="2xx"}[5m]))
+        total:
+          metricSource:
+            type: Prometheus
+            spec:
+              query: sum(rate(signup_requests_total[5m]))
+  timeWindow:
+    - duration: 28d
+      isRolling: true
+  budgetingMethod: Occurrences
+  objectives:
+    - displayName: 99.9 percent of signups succeed
+      target: 0.999

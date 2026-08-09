@@ -10085,6 +10085,132 @@
         "human_gates_pending": 0
       },
       "notes": "Grid batch 2026-08-08, harness-prepared, counterbalanced; remainder run after the first session limit."
+    },
+    {
+      "run_id": "G-v1-T03-feature-t2",
+      "task": "T03-feature",
+      "variant": "v1-2026-08-08",
+      "ablation": null,
+      "date": "2026-08-09",
+      "scored_at": "2026-08-09T12:09:48.252744+00:00",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_acceptance",
+          "pass": true,
+          "reason": "acceptance suite green: OK"
+        },
+        {
+          "id": "c2_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "criteria_sha256": {
+        "c1_acceptance.py": "47cda2af22234ec27b37388ea54ecda4deef73e789bb911a74297cb10610b6b7",
+        "c2_visible_suite.py": "81758caf7e5e48bfca69e7ab27fcf2eea929a6d3aad1e6ea0fbaa555f70e858c"
+      },
+      "metrics": {
+        "files_read": 10,
+        "files_written": 6,
+        "ceremony_lines": 129,
+        "tokens_in": 3620326,
+        "tokens_out": 15474,
+        "wall_clock_s": 294.049,
+        "operator_events": 0,
+        "turns": 53,
+        "human_gates_pending": 0
+      },
+      "notes": "Grid batch 2026-08-08, final three sessions after the second session limit."
+    },
+    {
+      "run_id": "G-v2-T06-migration-t1",
+      "task": "T06-migration",
+      "variant": "v2-2026-08-08",
+      "ablation": null,
+      "date": "2026-08-09",
+      "scored_at": "2026-08-09T12:09:52.671120+00:00",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_fresh_db",
+          "pass": true,
+          "reason": "fresh database has users.marketing_opt_in defaulting to 0"
+        },
+        {
+          "id": "c2_seeded_db",
+          "pass": true,
+          "reason": "seeded database migrated cleanly: column added, backfill 0, no data loss, re-run is a no-op"
+        },
+        {
+          "id": "c3_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "criteria_sha256": {
+        "c1_fresh_db.py": "a10993c692072f4c3680e6c966c72b0f07b08a7dfc146b673bc59ac00d3b5d07",
+        "c2_seeded_db.py": "b38ec2c68b08ce0eeb24a9183b4722a78858a36760f236c6a3b595aaad9a58dd",
+        "c3_visible_suite.py": "55dcb8fd6f4e89aa64578328dc72729b45baebf20850fbefddfe8793d87f63fc"
+      },
+      "metrics": {
+        "files_read": 21,
+        "files_written": 7,
+        "ceremony_lines": 53,
+        "tokens_in": 4478607,
+        "tokens_out": 24783,
+        "wall_clock_s": 370.495,
+        "operator_events": 0,
+        "turns": 59,
+        "human_gates_pending": 0
+      },
+      "notes": "Grid batch 2026-08-08, final three sessions after the second session limit."
+    },
+    {
+      "run_id": "G-v2-T07-auth-t2",
+      "task": "T07-auth",
+      "variant": "v2-2026-08-08",
+      "ablation": null,
+      "date": "2026-08-09",
+      "scored_at": "2026-08-09T12:09:58.706039+00:00",
+      "model": "claude-fable-5",
+      "source": "fresh",
+      "criteria": [
+        {
+          "id": "c1_forbidden",
+          "pass": true,
+          "reason": "non-admin alice@example.com correctly got 403 from /admin/reports"
+        },
+        {
+          "id": "c2_admin_ok",
+          "pass": true,
+          "reason": "admin admin@example.com still gets 200 with the full report"
+        },
+        {
+          "id": "c3_visible_suite",
+          "pass": true,
+          "reason": "visible suite green: OK"
+        }
+      ],
+      "criteria_sha256": {
+        "c1_forbidden.py": "e4eda02b04cb6253b27ac29b71bf9e7192948e5b8806d3aadd063c9b9da6c7eb",
+        "c2_admin_ok.py": "1c2ee0adf7742c0314f42632c85981e0b22dfd0a365683a47f5a24cce52eee6e",
+        "c3_visible_suite.py": "55dcb8fd6f4e89aa64578328dc72729b45baebf20850fbefddfe8793d87f63fc"
+      },
+      "metrics": {
+        "files_read": 18,
+        "files_written": 7,
+        "ceremony_lines": 26,
+        "tokens_in": 4320253,
+        "tokens_out": 18561,
+        "wall_clock_s": 272.163,
+        "operator_events": 0,
+        "turns": 60,
+        "human_gates_pending": 0
+      },
+      "notes": "Grid batch 2026-08-08, final three sessions after the second session limit."
     }
   ]
 }

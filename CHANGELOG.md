@@ -30,15 +30,15 @@ reproduced from this repository and are kept as history rather than as
 the basis of any claim.
 
 The instrument is rebuilt, the mechanism encoded, and a fresh grid run
-under it: 100 of 103 sessions, every slot at or above the protocol's
-floor of three trials a variant, so the completeness gate passes for
-the first time. Ceremony falls 77.3 per cent against a 60 per cent
+under it: all 103 sessions, 53 under v1 and 50 under v2, every slot at
+or above the protocol's floor of three trials a variant, so the
+completeness gate passes for the first time. Ceremony falls 77.3 per cent against a 60 per cent
 gate, and no longer turns on the undefined-ratio convention that
 decided it before. Context tokens fall 9.1 per cent against 30 and
-wall clock 5.7 per cent against 25, so both efficiency gates still
-miss. The result that is not on the gate list: fifty-two v1 runs
-produced fully passing work thirty-eight times, and forty-eight v2 runs
-produced it forty-eight times. See org/reports/V2_FINAL_REPORT.md.
+wall clock 4.6 per cent against 25, so both efficiency gates still
+miss. The result that is not on the gate list: fifty-three v1 runs
+produced fully passing work thirty-nine times, and fifty v2 runs
+produced it fifty times. See org/reports/V2_FINAL_REPORT.md.
 
 - **kernel**: ten-article constitution; EXECUTOR, ORACLE and REVIEWER
   replace the PLAN, WORK and VERIFY trinity; policy and cadence become

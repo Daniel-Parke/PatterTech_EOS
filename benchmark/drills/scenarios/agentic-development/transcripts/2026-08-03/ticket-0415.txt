@@ -1,0 +1,22 @@
+ticket-0415
+closed 2026-08-03 19:55
+channel: chat
+
+customer: removed someone from the workspace last week and their face
+is still on half our cards
+
+agent: Does it clear if you do a hard refresh?
+
+customer: yes but it comes back for other people. our office manager
+still sees them
+
+agent: Thanks, that is the avatar cache holding the old member. It
+clears itself within a fortnight and I have flushed it for your
+workspace now, so it should be gone for everyone by the morning.
+
+customer: not urgent, just looked odd in a client demo
+
+agent: Understood. Noted on the ticket that it is showing up in demos,
+because that is the part worth fixing.
+
+customer: perfect thanks

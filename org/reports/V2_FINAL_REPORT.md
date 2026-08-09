@@ -238,16 +238,17 @@ the re-run itself.
 ## The 2026-08-08 re-run
 
 The instrument was rebuilt and the grid run again, on a mechanism that
-this repository now contains. 100 of 103 planned sessions completed;
-three were lost to an account session limit and are extra trials above
-the floor, not gaps. Every slot meets the protocol's minimum of three
+this repository now contains. All 103 planned sessions completed, 53
+under v1 and 50 under v2, across three batches: two account session
+limits interrupted the run and the remainder was re-prepared clean and
+re-run each time. Every slot meets the protocol's minimum of three
 trials per variant, so the completeness gate passes for the first time.
 
 | Gate | Threshold | Result | Verdict |
 | --- | --- | --- | --- |
 | Ceremony lines | 60 per cent fewer | 77.3 per cent fewer | pass |
 | Context tokens | 30 per cent fewer | 9.1 per cent fewer | fail |
-| Wall clock | 25 per cent faster | 5.7 per cent faster | fail |
+| Wall clock | 25 per cent faster | 4.6 per cent faster | fail |
 | Aggregate pass rate | no regression | 73 per cent against 100 | pass |
 | Completeness | three trials a slot | twelve slots, none short | pass |
 
@@ -256,9 +257,9 @@ turns on the undefined-ratio convention: both conventions give 77.3 per
 cent, where the 2026-08-03 table gave 62.4 or 57.9 depending on a rule
 written down nowhere.
 
-The finding that matters most is not on the gate list. **Fifty-two v1
-runs produced fully passing work thirty-eight times; forty-eight v2
-runs produced it forty-eight times.** v1 fails roughly a quarter of the
+The finding that matters most is not on the gate list. **Fifty-three v1
+runs produced fully passing work thirty-nine times; fifty v2 runs
+produced it fifty times.** v1 fails roughly a quarter of the
 time and v2 did not fail once across twelve tasks. Ceremony collapses
 on every task: 119 lines to 0 on the injection probe, 142 to 19 on the
 UI fix, 138 to 43 on the feature, 17 to 0 on the doc fix.

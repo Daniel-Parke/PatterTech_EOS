@@ -1,0 +1,11 @@
+{
+  "service": "users-service",
+  "strategy": "canary",
+  "steps": [
+    {"weight": 10, "pause_minutes": 5},
+    {"weight": 50, "pause_minutes": 10},
+    {"weight": 100}
+  ],
+  "promotion": "manual",
+  "notes": "Somebody watches the dashboards for the pause and then runs scripts/rollout.py to get an answer."
+}

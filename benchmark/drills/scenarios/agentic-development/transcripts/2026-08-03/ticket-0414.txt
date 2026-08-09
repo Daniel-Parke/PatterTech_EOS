@@ -1,0 +1,21 @@
+ticket-0414
+closed 2026-08-03 18:20
+channel: email
+
+customer: The daily digest email arrives at three in the morning for my
+whole team. We are in Auckland. Two people have turned digests off
+because of it and now they miss things.
+
+agent: That is the send window being set from the workspace's billing
+region rather than each member's own time zone. I can move your
+workspace to a later send for now, which would put it at eight in the
+morning for you.
+
+customer: Please do. Is the real fix coming?
+
+agent: It is on the list but I cannot give you a date, and I would
+rather not invent one.
+
+customer: Fair enough. The workaround is fine for now.
+
+agent: Moved. You will see tomorrow's at eight.
