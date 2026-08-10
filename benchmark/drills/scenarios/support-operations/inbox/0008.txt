@@ -1,0 +1,13 @@
+Item: 0008
+Received: 2026-08-03T16:40:00Z
+Account: C-1012
+From: Gavin Threlfall <gavin.threlfall@ravensbourne-tiling.example>
+Subject: Adding a PO number to the report footer
+
+Our clients want their purchase order number printed on the report
+we send them. Is there a footer field I can put free text in, and
+can it be different per saved report?
+
+-- 
+Gavin Threlfall
+Ravensbourne Tiling

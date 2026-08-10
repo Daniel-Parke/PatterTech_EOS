@@ -1,0 +1,13 @@
+{
+  "name": "pattertech-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The PatterTech marketing site: static files and a Playwright check.",
+  "scripts": {
+    "test": "playwright test",
+    "serve": "python -m http.server 4173"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
+  }
+}

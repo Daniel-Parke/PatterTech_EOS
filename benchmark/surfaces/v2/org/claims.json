@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "assigned": "2026-08-03",
+  "lanes": [],
+  "note": "Seeded empty at Session 0: no lane has been dispatched, so no path is claimed. The integrator writes lanes here and commits this file before any parallel dispatch; a session not named in the committed unexpired set may not create task records or modify product files."
+}

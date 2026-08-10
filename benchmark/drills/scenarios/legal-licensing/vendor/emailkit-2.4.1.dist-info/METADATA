@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: emailkit
+Version: 2.4.1
+Summary: Address validation that agrees with the mail servers
+Author-email: Tom Ashworth <tom@emailkit.example>
+License-Expression: MIT
+Requires-Python: >=3.9
+Requires-Dist: netcheck>=0.9,<1.0
+Description-Content-Type: text/markdown
+
+# emailkit
+
+Validation that matches what the receiving servers actually accept
+rather than what the grammar in the RFC allows. Domain checking is
+delegated to netcheck.

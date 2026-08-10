@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "complaint",
+  "description": "One structured complaint pulled out of one support transcript.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ticket_id", "night", "area", "severity", "summary", "quotes", "resolved"],
+  "properties": {
+    "ticket_id": {
+      "type": "string",
+      "pattern": "^ticket-[0-9]{4}$"
+    },
+    "night": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "area": {
+      "type": "string",
+      "enum": ["sync", "export", "notifications", "accounts", "billing"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 240
+    },
+    "quotes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "resolved": {
+      "type": "boolean"
+    }
+  }
+}

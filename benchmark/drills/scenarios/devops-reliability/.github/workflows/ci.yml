@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      APP_DB: var/ci.db
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply migrations
+        run: python scripts/migrate.py
+      - name: Seed
+        run: python scripts/seed.py
+      - name: Unit tests
+        run: python -m unittest discover -s tests -t .

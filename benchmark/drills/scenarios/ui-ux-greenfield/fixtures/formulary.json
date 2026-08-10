@@ -1,0 +1,42 @@
+{
+  "note": "Sample of the trust formulary export. Real shape, invented numbers, not for clinical use.",
+  "exported": "2026-07-02",
+  "drugs": [
+    {
+      "code": "AMX-500",
+      "name": "Amoxicillin",
+      "strengths_mg": [125, 250, 500],
+      "route": "oral",
+      "per_kg_mg": 15,
+      "max_single_mg": 1000,
+      "notes": "Reduce in renal impairment."
+    },
+    {
+      "code": "GEN-080",
+      "name": "Gentamicin",
+      "strengths_mg": [40, 80],
+      "route": "intravenous",
+      "per_kg_mg": 5,
+      "max_single_mg": 400,
+      "notes": "Level required before the third dose."
+    },
+    {
+      "code": "PAR-500",
+      "name": "Paracetamol",
+      "strengths_mg": [250, 500],
+      "route": "oral",
+      "per_kg_mg": 15,
+      "max_single_mg": 1000,
+      "notes": "Cap at four doses in twenty-four hours."
+    },
+    {
+      "code": "VAN-500",
+      "name": "Vancomycin",
+      "strengths_mg": [500, 1000],
+      "route": "intravenous",
+      "per_kg_mg": 20,
+      "max_single_mg": 2000,
+      "notes": "Infuse over at least sixty minutes."
+    }
+  ]
+}

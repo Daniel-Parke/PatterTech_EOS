@@ -1,0 +1,9 @@
+[project]
+name = "postbox"
+version = "0.4.2"
+description = "The marketing site and the service behind it"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

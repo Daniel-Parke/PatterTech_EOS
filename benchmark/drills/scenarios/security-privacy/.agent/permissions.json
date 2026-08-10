@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "note": "Tool and network rules for assistants working in this repo. Additions need an entry in docs/exceptions.md.",
+  "tools": {
+    "deny": [
+      "Read(./.secrets/**)",
+      "Read(./config/*.env)",
+      "Bash(curl:*)",
+      "Bash(git push:*)"
+    ],
+    "allow": [
+      "Read(./ledger/**)",
+      "Read(./tests/**)",
+      "Bash(python -m pytest:*)",
+      "Bash(python -m unittest:*)"
+    ]
+  },
+  "network": {
+    "allow": [
+      "api.paycircle.example",
+      "files.ledger.internal",
+      "telemetry.ledger.internal"
+    ]
+  }
+}

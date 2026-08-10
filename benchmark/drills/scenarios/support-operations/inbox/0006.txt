@@ -1,0 +1,14 @@
+Item: 0006
+Received: 2026-08-03T10:44:00Z
+Account: C-1010
+From: Freya Lindqvist <freya.lindqvist@lindenwood-legal.example>
+Subject: How long do you keep a deleted report
+
+One of our team deleted a saved report yesterday afternoon and we
+would like it back. More generally, how long do deleted reports
+hang around before they are gone for good? We need to be able to
+tell our own compliance people something definite.
+
+-- 
+Freya Lindqvist
+Lindenwood Legal

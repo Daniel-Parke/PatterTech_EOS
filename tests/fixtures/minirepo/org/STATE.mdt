@@ -1,0 +1,11 @@
+---
+summary: Minirepo state file, the single line of session state
+type: org
+tags: [eos]
+---
+
+# STATE
+
+active_session: none
+
+Nothing is in flight. The fixture repo is at rest.

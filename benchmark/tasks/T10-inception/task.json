@@ -1,0 +1,27 @@
+{
+  "id": "T10-inception",
+  "title": "Session 0 drill: compile the Ashdown Joinery seed pack",
+  "journey": "inception",
+  "fixture": "kernel@archive/v1-final + inception/briefs/BRIEF-S-brochure.md",
+  "prompt": "Run Session 0 for a new venture using the kernel in this repository. Follow inception/INCEPTION.md end to end and compile the seed pack into a new directory named seed/ at the repo root. The operator is not in the room: the scripted answers below are the operator's own words, given in advance. Where the process needs an answer that is not scripted, record the question in the pack's org/QUESTIONS.md instead of inventing one. When the pack is compiled, run python tools/eos_check.py --seed seed and leave it passing on the first attempt.\n\nScripted operator answers:\n1. What is it: 'A small website for my joinery workshop. I restore and build timber sash windows and doors, mostly for period houses. I want somewhere to send people that shows the work.'\n2. Who is it for, who pays: 'Homeowners with old houses, a few builders. Nobody pays through the site; they ring or email.'\n3. Why now: 'I retire the printed flyer this autumn; no deadline beyond that, no contracts.'\n4. Lifespan: 'Years. I will be doing this until I stop working.'\n5. Surfaces: 'Just the website.'\n6. Server state or auth: 'No. Nothing to log into.'\n7. Money through the venture: 'Not through the site. Quotes happen by email and the work is invoiced on paper.'\n8. Personal or regulated data: 'No forms. Put the email address and phone number on the page and let them use those.'\n9. Deploys, monitoring, backups: 'Whatever the simplest thing is; if the site is up and the photos load, I am happy.'\n10. Second human: 'Just me.'\n11. Success in ninety days: 'Three decent enquiries a month that mention the site.'\n12. Out of scope: 'No shop, no booking, no blog, no newsletter. And do not make it look like a tech company.'\n\nScripted challenge responses:\n13. Restatement correction, to give once: 'Nearly. It is not bespoke furniture in general; it is sash windows and doors, restoration first, new builds second. Say that.' Accept the second restatement if it carries the correction.\n14. Cheapest deaths: accept two of the agent's three and replace the third with: 'The photos are bad. If the gallery does not look like craft, nothing else matters.'\n15. Strictly smaller version, verdict: 'Rejected. A single page cannot carry the gallery, and joiners are hired from photographs. Keep the gallery as its own page.'\n\nFacts the compile may rely on: venture name Ashdown Joinery; pages home, work (the gallery), about, contact; the static stack profile; the sole trader operates and approves; contact facts workshop@ashdownjoinery.example and 01444 000000; the domain is not yet owned and is an open question.",
+  "budgets": {
+    "tokens": 150000,
+    "wall_clock_min": 40
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": null,
+  "criteria": [
+    {
+      "id": "c1_seed_check",
+      "desc": "eos_check --seed passes on the compiled pack at the first attempt",
+      "script": "criteria/c1_seed_check.py"
+    },
+    {
+      "id": "c2_question_count",
+      "desc": "Operator questions recorded do not exceed the scripted answers",
+      "script": "criteria/c2_question_count.py"
+    }
+  ],
+  "notes": "Materialisation is special: the scratch is the EOS repo at git tag archive/v1-final (kernel/, inception/, tools/), not a directory under benchmark/fixtures/, so runner.py materialise does not apply; use git worktree add <dest> archive/v1-final and commit that state as the baseline. The brief mirrors inception/briefs/BRIEF-S-brochure.md. The scripted material gives 15 answers, so c2 allows at most 15 recorded questions."
+}

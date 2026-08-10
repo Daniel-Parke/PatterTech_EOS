@@ -1,0 +1,26 @@
+{
+  "kicker": "What we do",
+  "title": "Services",
+  "services": [
+    {
+      "title": "Systems architecture",
+      "description": "Boundaries, data topology and the failure modes each one buys.",
+      "lead_time_days": 10
+    },
+    {
+      "title": "Delivery review",
+      "description": "A read of the pipeline, the tests and what merges without an argument.",
+      "lead_time_days": 5
+    },
+    {
+      "title": "Interface build",
+      "description": "Pages and flows built from a token set, shipped to a measured budget.",
+      "lead_time_days": 20
+    },
+    {
+      "title": "Operating handover",
+      "description": "Runbooks, alerts and the on-call rota a small team can actually hold.",
+      "lead_time_days": 15
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "T04-bug-fix",
+  "title": "Fix the penny-short refunds in app/billing.py",
+  "journey": "bug",
+  "fixture": "app-api",
+  "prompt": "Finance flagged refunds coming out a penny short. refund_pence in app/billing.py truncates instead of rounding: refund_pence(1001, 0.10) returns 900, but the correct refund is 901. The rule is: the refund is the amount minus the processing fee, rounded to the nearest penny with ties going to the even penny (banker's rounding). Treat the fee rate as an exact decimal rate, so binary float noise must not tip a tie: refund_pence(25, 0.10) is exactly 22.5 pence before rounding and must give 22, and refund_pence(35, 0.10) is exactly 31.5 and must give 32. Fix the bug, keep the visible tests green, and add a regression test under tests/ that fails on the old behaviour.",
+  "budgets": {
+    "tokens": 150000,
+    "wall_clock_min": 30
+  },
+  "critical": true,
+  "k_planned": 5,
+  "expected_route": {
+    "tier": "R1"
+  },
+  "criteria": [
+    {
+      "id": "c1_visible_suite",
+      "desc": "The fixture's visible test suite stays green",
+      "script": "criteria/c1_visible_suite.py"
+    },
+    {
+      "id": "c2_repro_test",
+      "desc": "A new or changed test touching refunds exists and fails against the baseline tree",
+      "script": "criteria/c2_repro_test.py"
+    },
+    {
+      "id": "c3_half_even",
+      "desc": "refund_pence rounds half to even on exact decimal arithmetic",
+      "script": "criteria/c3_half_even.py"
+    }
+  ],
+  "notes": "Critical slot. Baseline behaviour verified at authoring time on the shipped fixture: refund_pence(1001, 0.10) == 900, (25, 0.10) == 22, (35, 0.10) == 31. The half-even targets 22 and 32 require exact decimal handling; naive round(amount * (1 - fee_rate)) gives 31 for the 35 case and fails c3. c2 replays the agent's new tests against a git worktree of the baseline root commit."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "T-0011",
+  "intent": "Scenarios and graders now exist for all twenty-two drills: 199 graders over 200 criteria, with the remainder left ungraded on purpose where a property is a matter of judgement. Each set was built by one agent and attacked by another whose job was to break it. Three failed the first attack, including a set where a document negating every load-bearing claim passed all eleven criteria, and one where a tree still silently dropping malformed rows passed all six. Five graders did not survive the second attack and are withdrawn to graders/DEMOTED.md rather than patched, so their criteria report manual. The attack also found a defect in drills.materialise, which committed untracked __pycache__ into every scratch baseline, the same bug the benchmark harness had. What remains open is written in benchmark/drills/README.md: vocabulary matching is not meaning, criteria are independent so a self-contradictory record passes, a correct answer in an unexpected shape can fail, and the graders sit in the repository the drill sends an agent into with no holdout exclusion, which is a harness decision. No drill reports a verdict, because graders make a verdict possible and are not one: that needs twenty-two cold-agent sessions, which is the remaining work and a spend decision.",
+  "claims": [
+    "benchmark/drills/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "in-review",
+  "owner_session": "eos-v2-prerelease-review",
+  "timestamps": {
+    "opened": "2026-08-08T00:00:00Z",
+    "updated": "2026-08-08T00:00:00Z"
+  }
+}

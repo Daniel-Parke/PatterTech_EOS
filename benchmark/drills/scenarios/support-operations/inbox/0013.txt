@@ -1,0 +1,13 @@
+Item: 0013
+Received: 2026-08-04T11:40:00Z
+Account: C-1017
+From: Ivan Petrenko <ivan.petrenko@saltmarsh-brewing.example>
+Subject: Two people editing the same report
+
+If two of us have the same saved report open and we both save, what
+happens? We had a report change under someone yesterday and we are
+not sure whether that was one of us or something else.
+
+-- 
+Ivan Petrenko
+Saltmarsh Brewing

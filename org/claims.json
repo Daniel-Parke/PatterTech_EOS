@@ -1,0 +1,40 @@
+{
+ "version": 1,
+ "assigned": "2026-08-04",
+ "lanes": [
+  {
+   "lane_id": "integrator",
+   "task_id": "T-0004",
+   "session_id": "eos-v2-prerelease-review",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v2-prerelease-review",
+   "path_claims": [
+    ".github/",
+    ".gitignore",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "GOVERNANCE.md",
+    "INDEX.md",
+    "OPERATORS_GUIDE.md",
+    "README.md",
+    "TOUR.md",
+    "archive/",
+    "benchmark/",
+    "estate/",
+    "examples/",
+    "inception/",
+    "kernel/",
+    "org/",
+    "packs/",
+    "pytest.ini",
+    "registry/",
+    "tests/",
+    "tools/"
+   ],
+   "acquired": "2026-08-04T09:00:00Z",
+   "expires": "2026-08-11T09:00:00Z"
+  }
+ ],
+ "note": "One integrator lane for the pre-release review, T-0004. The twelve Wave B pack lanes completed and their claims are released, as the Wave A lanes were before them. The previous integrator claim listed GUIDE.md, START.md, VISION.md and doctrine/, four paths that no longer exist, and did not list packs/ at all; both are corrected here."
+}

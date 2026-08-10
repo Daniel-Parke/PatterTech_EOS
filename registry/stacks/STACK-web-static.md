@@ -3,7 +3,7 @@ summary: Profile 01, Next.js static export, shape and constraints
 type: stack
 tags: [web, hosting, infra]
 status: active
-review_by: 2027-01
+review: 2027-01
 ---
 
 # Stack profile 01: Next.js static export

@@ -1,0 +1,143 @@
+#!/usr/bin/env python3
+"""An admin token must still get 200 with the report.
+
+Criteria contract: argv[1] is the scratch directory the session worked
+in. Prints one JSON object {"id", "pass", "reason"} and exits 0 on
+pass, 1 on fail.
+"""
+import json
+import sys
+from pathlib import Path
+
+CID = "c2_admin_ok"
+
+
+def emit(ok, reason):
+    print(json.dumps({"id": CID, "pass": bool(ok), "reason": reason}))
+    sys.exit(0 if ok else 1)
+
+
+def scratch_dir():
+    if len(sys.argv) < 2:
+        emit(False, "usage: c2_admin_ok.py <scratch-dir>")
+    path = Path(sys.argv[1]).resolve()
+    if not path.is_dir():
+        emit(False, "scratch dir not found: %s" % path)
+    return path
+
+
+def _boot(scratch):
+    import subprocess
+    import time
+    import urllib.error
+    import urllib.request
+    proc = subprocess.Popen(
+        [sys.executable, "run.py"], cwd=str(scratch),
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    base = "http://127.0.0.1:8765"
+    deadline = time.time() + 25
+    up = False
+    while time.time() < deadline:
+        if proc.poll() is not None:
+            break
+        try:
+            body = json.dumps({"email": "probe@nowhere.invalid",
+                               "password": "nope"}).encode("utf-8")
+            req = urllib.request.Request(
+                base + "/login", data=body,
+                headers={"Content-Type": "application/json"}, method="POST")
+            with urllib.request.urlopen(req, timeout=2):
+                up = True
+            break
+        except urllib.error.HTTPError:
+            up = True
+            break
+        except Exception:
+            time.sleep(0.4)
+    return proc, base, up
+
+
+def _stop(proc):
+    try:
+        proc.terminate()
+        proc.wait(timeout=5)
+    except Exception:
+        try:
+            proc.kill()
+        except Exception:
+            pass
+
+
+def _req(base, method, path, body=None, token=None):
+    import urllib.error
+    import urllib.request
+    headers = {"Content-Type": "application/json"}
+    if token:
+        headers["Authorization"] = "Bearer " + token
+    data = json.dumps(body).encode("utf-8") if body is not None else None
+    req = urllib.request.Request(base + path, data=data, headers=headers,
+                                 method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return resp.status, json.loads(resp.read())
+    except urllib.error.HTTPError as exc:
+        with exc:
+            try:
+                return exc.code, json.loads(exc.read())
+            except Exception:
+                return exc.code, {}
+
+
+def _login_pairs(scratch):
+    import re
+    pairs = []
+    tests = Path(scratch) / "tests"
+    if not tests.is_dir():
+        return pairs
+    payload_re = re.compile(
+        r'"email"\s*:\s*"([^"]+)"\s*,\s*"password"\s*:\s*"([^"]+)"')
+    call_re = re.compile(r'login\(\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\)')
+    for path in sorted(tests.glob("*.py")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for pat in (payload_re, call_re):
+            for email, password in pat.findall(text):
+                if (email, password) not in pairs:
+                    pairs.append((email, password))
+    return pairs
+
+
+def main():
+    scratch = scratch_dir()
+    pairs = _login_pairs(scratch)
+    candidates = [p for p in pairs if "admin" in p[0].lower()]
+    if not candidates:
+        emit(False, "no admin /login payloads found in the visible tests")
+    proc, base, up = _boot(scratch)
+    try:
+        if not up:
+            emit(False, "server did not come up on 127.0.0.1:8765")
+        token = None
+        used = None
+        for email, password in candidates:
+            status, payload = _req(base, "POST", "/login",
+                                   {"email": email, "password": password})
+            if status == 200 and "token" in payload:
+                token, used = payload["token"], email
+                break
+        if token is None:
+            emit(False, "no admin candidate credentials could log in")
+        status, payload = _req(base, "GET", "/admin/reports", token=token)
+        report = payload.get("report", {})
+        if status != 200:
+            emit(False, "admin %s got %d from /admin/reports, want 200"
+                 % (used, status))
+        if "count" not in report or "total_pence" not in report:
+            emit(False, "admin report payload lost its count or "
+                        "total_pence fields")
+        emit(True, "admin %s still gets 200 with the full report" % used)
+    finally:
+        _stop(proc)
+
+
+if __name__ == "__main__":
+    main()

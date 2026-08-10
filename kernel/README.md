@@ -1,56 +1,74 @@
 ---
-summary: The compile contract, scale system and concurrency doctrine for the kernel
+summary: The kernel in v2, the law files and the compile contract
 type: kernel
 tags: [eos]
 ---
 
 # Kernel
 
-The organisational machinery that Session 0 compiles into each venture.
-Nothing in here is read by a venture at runtime; ventures get compiled
-copies, stamped with the EOS version they came from.
+The organisational machinery Session 0 compiles into each venture.
+Ventures get compiled copies stamped with the EOS version they came
+from; nothing here is read by a venture at runtime.
 
-Status: Phase B complete. The full template set is in (extracted from
-the AutoWatt seed pack at commit d2e3250, venture-facing templates
-authored at B4), `SCALE_MATRIX.md` names the law per scale,
-`SEED_RUBRIC.md` is the gate, and `eos_check.py --seed` enforces the
-auto half of it.
+## What lives here
+
+- Law the templates instantiate: `kernel/POLICY_SPEC.md` (the risk
+  model and factor table), `kernel/GUARD_SPEC.md` (the action-time
+  guard), `kernel/METADATA_SPEC.md` (the metadata axes).
+- Schemas under kernel/schemas/ for every machine file: policy, task
+  records, claims, guard actions, capability profiles, coverage,
+  evidence, benchmark, migration.
+- Templates under kernel/templates/: the router, operators guide,
+  brief, lock-book, compile report and feedback file at every scale;
+  the constitution, the three charters (EXECUTOR, ORACLE, REVIEWER),
+  the policy and cadence instances, the testing law, the artefact
+  shapes, the playbooks and the boot file for the ORG seed; the task
+  list for S.
+- `kernel/SEED_RUBRIC.md`, the pass gate a compiled seed must clear.
+
+## Scale in v2
+
+Two seeds: S at nine files and ORG at nineteen; v1's M and L merge
+into ORG. `kernel/SCALE_MATRIX.md` holds the v2 law and the seed check
+parses it there. The swap happened once the v1 baseline scoring that
+depended on the old matrix completed; the v1 matrix, with its S, M and
+L columns, is at `archive/v1-final:kernel/SCALE_MATRIX.md`. A seed
+resolves whichever matrix its pinned commit carries, so a venture
+pinned before the swap still checks against v1's.
 
 ## The compile contract
 
 - Templates are hand-written. The compiler (an agent following
-  `inception/COMPILE.md`) is a slot-filler and pruner, never an author.
-- Slots look like `{{PRODUCT_DOCTRINE}}` and are filled from the venture
-  brief and lock-book. A compiled file with an unfilled slot fails the
-  seed check (E008).
-- Scale markers look like `<!-- scale: M L -->` and fence sections that
-  only exist at those scales. A fence closes with `<!-- scale: end -->`,
-  and markers wrap whole sentences, bullets or sections, never fragments
-  of a sentence. The compiler keeps a fenced body only when the
-  venture's scale is listed and always removes the marker lines; a
+  `inception/COMPILE.md`) fills slots and prunes fences; it never
+  authors.
+- Slots look like `{{PRODUCT_DOCTRINE}}` and are filled from the
+  brief and lock-book; a compiled file with an unfilled slot fails
+  the seed check.
+- Scale fences are `<!-- scale: S -->` and `<!-- scale: ORG -->`,
+  closed by `<!-- scale: end -->`. The compiler keeps a fenced body
+  only for the ruled scale and always removes the marker lines; a
   leftover marker of either kind fails the seed check.
-- Every compiled file's template ancestry is listed in the venture's
-  compile report. A seed file that cannot be traced to a template plus
-  rulings is a compile failure.
-- `kernel/SCALE_MATRIX.md` (Phase B) names the exact file list per scale
-  S, M and L, plus trigger-attached add-ons. `kernel/SEED_RUBRIC.md`
-  (Phase B) is the pass gate, items split auto versus human.
+- JSON seed files follow the same contract: the policy and cadence
+  files compile from their templates, the claims file is seeded
+  empty per its schema, and every one gets an ancestry row in the
+  compile report.
+- Every compiled file traces to a template, a schema or an authored
+  row in the compile report; anything untraceable is a compile
+  failure.
 
 ## Concurrency doctrine
 
-Isolation comes from git worktrees, path-glob claims on work orders and
-WIP limits. Never from lock files in a shared tree: they are racy, they
-go stale after crashed sessions, and the estate's own job queue already
-learned to pair every advisory lock with a stale-claim reaper. The one
-soft claim in the system is the `active_session` line in a STATE file,
-checked at session start and swept for staleness.
+One mechanism: claims assigned by the integrator and committed
+before worker dispatch. No live mutable coordination file, no
+check-then-acquire, no lock files in a shared tree. Liveness comes
+from harness task state or a recorded PID; a timestamp alone never
+authorises taking a claim. Unscheduled concurrent sessions are
+refused and their work is quarantined for the integrator to adopt or
+discard.
 
-## The harness mapping
+## Status
 
-Published long-running-agent harnesses converge on organs this kernel
-already has. So nobody bolts a parallel system on top: a granular
-pass/fail feature list is the work order's acceptance boxes; the
-progress file is STATE.md with its Resume Packet; one feature per
-session is one work order per session; verify-the-environment-first is
-the WORK charter's opening step; leave-it-production-ready is the
-close-out ritual and the releasable-main article.
+The v2 kernel content is staged on the integration branch. It is not
+released law until the benchmark gates pass and Daniel approves
+release; ADR-0002 records what was approved for implementation. The
+v1 template set this replaces is preserved in git history.

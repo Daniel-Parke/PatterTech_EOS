@@ -1,0 +1,18 @@
+{
+  "nav.brand": "Hartfield",
+  "nav.signIn": "Sign in",
+  "nav.basket": "Basket",
+  "signup.title": "Create your account",
+  "signup.intro": "Keep your basket and check out faster next time.",
+  "signup.emailLabel": "Email address",
+  "signup.passwordLabel": "Password",
+  "signup.submit": "Save",
+  "signup.invalid": "Invalid input",
+  "signup.haveAccount": "Already have an account?",
+  "signup.logIn": "Log in",
+  "signup.terms": "By creating an account you accept our terms.",
+  "basket.youHave": "You have",
+  "basket.item": "item",
+  "basket.items": "items",
+  "basket.waiting": "waiting in your basket"
+}

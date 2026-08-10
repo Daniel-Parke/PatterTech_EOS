@@ -1,0 +1,32 @@
+{
+  "id": "T11-refactor",
+  "title": "Refactor price_pence: tariff data as data",
+  "journey": "refactor",
+  "fixture": "app-api",
+  "prompt": "price_pence in app/billing.py is three near-identical tariff branches copied out by hand. Refactor the module so the tariff table is data rather than repeated code. The observable behaviour is pinned: every combination of kwh, tariff, customer type and promo must price exactly as it does today, unknown tariffs must still raise ValueError, refund_pence stays as it is, and every function in the module must be 30 lines or fewer. Keep the visible tests green.",
+  "budgets": {
+    "tokens": 150000,
+    "wall_clock_min": 30
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": null,
+  "criteria": [
+    {
+      "id": "c1_visible_suite",
+      "desc": "The fixture's visible test suite stays green",
+      "script": "criteria/c1_visible_suite.py"
+    },
+    {
+      "id": "c2_behaviour_matrix",
+      "desc": "price_pence matches the frozen 288-entry behaviour matrix",
+      "script": "criteria/c2_behaviour_matrix.py"
+    },
+    {
+      "id": "c3_function_length",
+      "desc": "Every function in app/billing.py is 30 lines or fewer",
+      "script": "criteria/c3_function_length.py"
+    }
+  ],
+  "notes": "k=3 in the main grid; this task also serves the timing ablation per PROTOCOL.md (3 timings x k=3). The behaviour matrix in c2_behaviour_matrix was frozen at authoring time from the pristine fixture's price_pence over 12 kwh values x 3 tariffs x 2 customer types x 4 promos, 288 entries."
+}

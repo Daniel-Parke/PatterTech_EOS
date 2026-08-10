@@ -10,6 +10,8 @@ eos_version: {{EOS_VERSION}}
 eos_commit: {{EOS_COMMIT}}
 scale: {{SCALE}}
 stack: {{STACK_PROFILE}}
+policy_profile: {{POLICY_PROFILE}}
+packs_adopted: []
 addons: []
 compiled: {{COMPILED_DATE}}
 rulings:
@@ -21,10 +23,12 @@ rulings:
 The venture's contract with the EOS. This file wins on specifics; EOS
 doctrine wins on principles. The YAML header above is machine-read: the
 seed check validates it, the harvest counts its rulings, upgrades diff
-against its pins. Rulings rows are one line each,
-`WG-ID · ruling · argued|inherited · note`; argued means the triggers
-were engaged afresh, inherited means the default was taken without new
-argument. Only argued rulings are promotion evidence.
+against its pins. `policy_profile` names the compiled policy instance;
+`packs_adopted` lists the knowledge packs this venture activates, and
+house style activates only by adoption here. Rulings rows are one line
+each, `WG-ID · ruling · argued|inherited · note`; argued means the
+triggers were engaged afresh, inherited means the default was taken
+without new argument. Only argued rulings are promotion evidence.
 
 ## Identity
 

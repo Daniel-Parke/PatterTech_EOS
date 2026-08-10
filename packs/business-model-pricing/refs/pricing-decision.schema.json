@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pattertech.eos/schemas/pricing-decision-1.json",
+  "title": "pricing decision record",
+  "description": "The machine-readable half of a pricing decision under packs/business-model-pricing/PACK.md. Canonical; the prose behind each field is in packs/business-model-pricing/refs/DECISION_RECORD.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "offer",
+    "practice",
+    "condition",
+    "revisit_date",
+    "currency",
+    "headline_price",
+    "headline_price_includes",
+    "optional_charges",
+    "tiers",
+    "unit_of_charge",
+    "unit_cost_allocated",
+    "reporting_framework",
+    "payment_terms",
+    "metrics",
+    "lifetime_value",
+    "repricing_trigger",
+    "evidence"
+  ],
+  "properties": {
+    "offer": {"type": "string", "minLength": 1},
+    "decision_date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "practice": {
+      "enum": ["value-informed", "competition-informed", "cost-informed"]
+    },
+    "condition": {"type": "string", "minLength": 1},
+    "revisit_date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$"},
+    "currency": {"type": "string", "minLength": 3, "maxLength": 3},
+    "headline_price": {"type": "number", "exclusiveMinimum": 0},
+    "headline_price_includes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "optional_charges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "mandatory", "avoidable_how"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "mandatory": {"const": false},
+          "avoidable_how": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "price"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "price": {"type": "number", "minimum": 0}
+        }
+      }
+    },
+    "unit_of_charge": {
+      "enum": ["flat-period", "per-seat", "metered", "outcome-share"]
+    },
+    "unit_cost_allocated": {"type": "number", "minimum": 0},
+    "reporting_framework": {"enum": ["IFRS", "FRS102", "FRS105", "ASC606"]},
+    "payment_terms": {
+      "type": "object",
+      "required": ["days", "basis"],
+      "properties": {
+        "days": {"type": "integer", "minimum": 1, "maximum": 60},
+        "basis": {
+          "enum": ["statutory-default", "agreed", "public-contract-implied"]
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "lifetime_value": {
+      "type": "object",
+      "required": ["value", "method"],
+      "properties": {
+        "value": {"type": "number", "minimum": 0},
+        "method": {
+          "enum": ["cohort-curve", "fitted-heterogeneity", "not-computed"]
+        }
+      }
+    },
+    "trial": {
+      "type": "object",
+      "required": ["days", "test_plan"],
+      "properties": {
+        "days": {"type": "integer", "minimum": 0},
+        "test_plan": {"type": "string", "minLength": 1}
+      }
+    },
+    "repricing_trigger": {
+      "type": "object",
+      "required": ["type", "threshold", "cause_types"],
+      "properties": {
+        "type": {
+          "enum": ["none", "scheduled", "cost-indexed", "contract-indexed"]
+        },
+        "threshold": {"type": "string", "minLength": 1},
+        "cause_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"enum": ["cost", "value"]}
+        }
+      }
+    },
+    "price_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date", "from", "to", "cause", "cause_type"],
+        "properties": {
+          "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "from": {"type": "number", "minimum": 0},
+          "to": {"type": "number", "minimum": 0},
+          "cause": {"type": "string", "minLength": 1},
+          "cause_type": {"enum": ["cost", "value"]}
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 3,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

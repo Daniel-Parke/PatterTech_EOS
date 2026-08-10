@@ -1,0 +1,13 @@
+Item: 0028
+Received: 2026-08-05T11:20:00Z
+Account: C-1031
+From: Hamish Urquhart <hamish.urquhart@fallowfield-farms.example>
+Subject: Still nothing from the export queue
+
+An hour and a half now and the export queue has not moved. We have
+also had nothing from you to say you know about it, which is the
+part I mind. Even a line on your status page would do.
+
+-- 
+Hamish Urquhart
+Fallowfield Farms

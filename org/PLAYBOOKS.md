@@ -1,83 +1,158 @@
 ---
-summary: The EOS-side playbooks, PB-E01 to PB-E09, one procedure each
-type: playbook
+summary: The EOS-side playbooks, PB-E01 to PB-E10, one v2 procedure each
+type: org
 tags: [eos]
 ---
 
 # PLAYBOOKS
 
-The EOS's own procedures. Venture-side playbooks (PB-001 to PB-051)
-live in the kernel and compile into seeds; these run the EOS itself.
-If you find yourself writing the same instructions twice, split a new
-playbook and queue the edit.
+The EOS's own procedures under the v2 kernel. Venture-side procedure
+templates live in `kernel/templates/org/PLAYBOOKS.tpl.md` and compile
+into seeds; these run the EOS itself. Every session starts from the
+router's ruling against `org/policy.json`, records work in an
+org/tasks/ record where the mode requires one, and leaves derived
+views to the integrator.
+
+The PB-E series below is governance work: harvest, review, release,
+upgrade. Ordinary development on this repository runs the mode
+procedures in the next section. Those were missing entirely until
+2026-08-08: `AGENTS.md` routes a session here for the playbook its task
+names, and this file held ten governance procedures and no express,
+standard or spike lane, so the commonest work in the repo had no
+written process at all.
+
+## The mode procedures
+
+One per execution mode, matching
+`kernel/templates/org/PLAYBOOKS.tpl.md` so a venture and the EOS run the
+same shapes. The mode comes from the router's ruling, never from choice.
+
+### express (R0)
+
+1. Confirm the ruling is R0 and the free band covers every decision in
+   sight. A durable decision converts the run to standard, now.
+2. Do the work in one run. Targeted checks only: the affected tests,
+   plus `python -m tools.eos check --repo` when front-matter moved.
+3. Commit with a message that is the whole record. No task record, no
+   log, no derived-view regeneration. If the integrator must regenerate
+   an index, say so in the message and hand it over.
+
+### standard (R1)
+
+1. Take or open the task record under `org/tasks/`. Declare the facts
+   and let the router rule; the ruling is stored on the record and read
+   from there, never recomputed per session.
+2. Implement with tests and documentation in the same change.
+3. Run the affected tests, widening on low confidence.
+4. Close: re-route against the actual diff, which resolves upward only,
+   then merge on green. The task joins the sampled-review pool unless
+   the routing reasons demand independent review.
+
+### exploration (spike)
+
+1. Enter with the question, the timebox and the budget on the record.
+   Branch `spike/T-####`; the checker refuses to merge that prefix.
+2. Explore freely. Checks may wait, and nothing merges.
+3. Exit on answer or timebox: discard, or harden into a standard run.
+
+### high-assurance (R2 and R3)
+
+1. Invariants and a rollback plan on the record before implementation.
+2. The acceptance oracle is authored first, hashed and frozen. At R2 it
+   may be written in the same session provided no implementation exists
+   in context yet; at R3 it is a separate author
+   (`packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md`).
+3. Independent review, and a person for anything irreversible. The
+   guard rules every consequential action at the moment it runs.
+4. Amendments to a frozen oracle are append-only, authored by someone
+   other than the implementer, and their rate is reviewed at retro.
+
+### parallel
+
+A wrapper, not a mode. The integrator assigns and commits claims before
+any lane is dispatched; each lane carries its own mode and its own
+claim, and lanes never acquire or mutate one. A session not named in
+`org/claims.json` is refused by `task new` and `task update`. Only the
+integrator regenerates shared indexes. Every lane branch is merged and
+deleted before its phase closes.
 
 ## PB-E01 · Inception (Session 0)
 
-Run a new venture's Session 0 end to end. Full specification is
-`inception/INCEPTION.md` (Phase E); until it lands, inceptions follow
-ADR-0001 section 7 by hand. Phases: interview with challenge steps,
-scale ruling, wargame walk into the lock-book, seed compile, gate
-(eos_check --seed green, then Daniel signs the human rubric items).
-Close: one row in `registry/PROJECTS.md`.
+Run a new venture's Session 0 end to end per `inception/INCEPTION.md`.
+The v2 rewrite lands in phase P5; until then the v1 walk applies,
+compiling v2 seeds. Gate: seed checks green, then Daniel signs the
+human rubric items. Close: one row in `registry/PROJECTS.md`.
 
 ## PB-E02 · Harvest
 
-Monthly pull. For every venture in PROJECTS.md: read its
-`docs/EOS_FEEDBACK.md` and lock-book rulings since last_harvest. Fold
-rulings into the wargames they answer, marked argued or inherited. Land
-lessons in `registry/LESSONS.md` with a disposition each. Queue
-promotion candidates for PB-E04. Update last_harvest. Nothing found:
+Monthly pull. For every governed venture in PROJECTS: read its
+feedback file and lock-book rulings since last_run. Fold argued
+rulings into the packs and guides that own the decision, as graded
+evidence with one ledger row per source. Queue promotion candidates
+for PB-E04. Update last_run in org/cadence.json. Nothing found:
 record checked, clean.
 
-## PB-E03 · Module and kernel authoring
+## PB-E03 · Pack and kernel authoring
 
-The extraction protocol. Read the named sources first. Draft the
-wargames before the doctrine: the argument earns the rule. Write
-doctrine only where the argument survived, foundations and patterns
-only where the domain earns them. Respect MODULE_SHAPE, budgets and
-front-matter. Kernel templates additionally carry `template: true`,
-`extracted_from`, slots and scale markers per kernel/README.md. Finish
-with eos_check --repo green and the indexes regenerated.
+The graded evidence path replaces wargame-first. Start with a fresh
+research batch, one evidence row per source with licence and access
+date. Argue guides before any doctrine line cites them; write binding
+rules only where basis and evidence grade earn them. Respect the pack
+definition of done and the per-kind metadata minima. Finish with
+checks green and the derived views regenerated.
 
-## PB-E04 · Promotion and demotion
+## PB-E04 · Promotion review
 
-Monthly. Count argued rulings per wargame across the estate's lock-book
-headers. Apply the GOVERNANCE numbers: two concordant argued rulings
-make a default; three across two scales, a surviving cold-context
-re-argument and Daniel's sign-off make doctrine; contrary rulings mark
-contested and two demote. Record every change in the CHANGELOG.
+Monthly sampling under the graded change path: sample five governance
+items (experimental edits, exceptions, contested rules); expire
+experiments past their 90-day window. Promotion: default to binding
+candidate on two argued rulings from two ventures, or one plus a
+source with basis standard or evidence grade controlled; binding
+requires an ADR and Daniel. Contrary rulings against binding rules
+trigger review, never automatic demotion; law and standard based
+rules change only through an ADR citing the changed source.
 
 ## PB-E05 · Release
 
-eos_check --repo green. CHANGELOG entry written. Archive files past
-their supersession grace cycle. Tag semver, push with tags. Note the
-release in STATE.
+Full check run green, semantic series included. CHANGELOG entry
+written; required drills and benchmark gates satisfied; files past
+their supersession grace archived. Tag semver, push with tags. The
+policy's guard.validated may say true only while a current adapter
+validation report from the bypass suite is committed (it lands in
+P4); without one every guarded class stays manual-only.
 
 ## PB-E06 · Venture upgrade
 
 For one venture: diff the CHANGELOG between its pin and the target.
-Classify each entry against the venture's lock-book (touches a ruling
-it made, a template it compiled from, or nothing). Apply what matters
-in the venture repo, re-run eos_check --seed there, update the pin and
-the PROJECTS row.
+Classify each entry against the venture's lock-book and records.
+Apply what matters in the venture repo, re-run the seed checks there,
+update the pin and the PROJECTS row.
 
 ## PB-E07 · Inception drill
 
-Quarterly eval. Take a canned brief (keep them in inception/ once it
-lands), run Session 0 cold in a scratch repo, grade the output against
-SEED_RUBRIC without charity. Findings become queue items. The drill
-report is a session log.
+Quarterly eval. Take a canned brief from inception/briefs/, run
+Session 0 cold in a scratch repo, grade the output against
+SEED_RUBRIC without charity. Findings become task records.
 
 ## PB-E08 · Rescale
 
-When a venture's triggers change (money arrives, PII appears, a second
-human joins): re-run WG-EOS-001, compile the delta between the old and
-new scale manifests, migrate state files, note the rescale in the
-venture lock-book and PROJECTS.md.
+When a venture's triggers change (money arrives, PII appears, a
+second human joins): re-rule the scale, compile the delta between the
+old and new seed manifests, migrate state files, note the rescale in
+the venture lock-book and PROJECTS.
 
 ## PB-E09 · Hygiene
 
-Monthly sweep. Run eos_check --repo and fix findings. Review everything
-past review_by: re-verify and bump, or supersede. Regenerate indexes.
-Sweep a stale active_session. Question every length_waiver still
-earning its keep. Prune LESSONS rows that graduated into doctrine.
+Monthly sweep: run python -m tools.eos check --repo with the semantic
+and freshness series and fix findings. Re-verify or supersede
+everything past review. Regenerate derived views. Close or discard
+dead task records; recover expired claims only with liveness
+evidence. Sample the exception ledger and flag expired standing
+exceptions.
+
+## PB-E10 · Experiment sweep
+
+Monthly, beside the promotion review: read each lifecycle
+experimental item against its recorded hypothesis; keep with
+evidence, promote through the graded path, or revert. Set at most one
+new deliberate experiment.

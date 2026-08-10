@@ -1,0 +1,68 @@
+/* Lifted from the brochure site in 2023 and edited since. */
+
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #58585c;
+  background: #ffffff;
+}
+
+.bar {
+  background: #0a4b78;
+  color: #cfd8de;
+  padding: 8px 12px;
+}
+
+.bar .name {
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+main {
+  padding: 12px;
+  max-width: 640px;
+}
+
+h1 {
+  font-size: 22px;
+  color: #0a4b78;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 4px;
+  margin: 6px 0 10px 0;
+  border: 1px solid #b9c0c6;
+  font-size: 14px;
+}
+
+label {
+  font-size: 13px;
+  color: #7a7a7e;
+}
+
+button {
+  background: #0a4b78;
+  color: #ffffff;
+  border: 0;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.error {
+  color: #d24a4a;
+  font-size: 12px;
+}
+
+*:focus {
+  outline: none;
+}
+
+footer {
+  margin-top: 24px;
+  padding: 12px;
+  color: #9a9a9e;
+  font-size: 12px;
+}

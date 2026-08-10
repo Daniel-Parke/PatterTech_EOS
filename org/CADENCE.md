@@ -1,21 +1,13 @@
 ---
-summary: The EOS heartbeat, what recurs, how often, and when each last ran
+summary: Pointer, the EOS heartbeat is machine state in org/cadence.json
 type: org
 tags: [eos]
 ---
 
 # CADENCE
 
-The EOS's recurring sessions. Cadences start once v1.0.0 ships; until
-then every session is a build session against the queue. A due cadence
-outranks new low-priority work. A cadence that finds nothing still
-records checked, clean.
-
-| Cadence | Playbook | Frequency | last_run | next_due |
-| --- | --- | --- | --- | --- |
-| Harvest | PB-E02 | Monthly | never | after v1.0.0 |
-| Hygiene | PB-E09 | Monthly | never | after v1.0.0 |
-| Promotion review | PB-E04 | Monthly | never | after v1.0.0 |
-| Inception drill | PB-E07 | Quarterly | never | after v1.0.0 |
-| Projects review | PB-E06 check | Quarterly | never | after v1.0.0 |
-| Release | PB-E05 | On demand | never | v1.0.0 at queue end |
+The cadence rows live in `org/cadence.json`: id, frequency, last_run,
+next_due and a procedure pointer into `org/PLAYBOOKS.md`. Rows fire
+under v2 rules once v2 releases; next_due dates count from the v1.0.0
+tag date, 2026-07-07. The v1 table is archived at
+`archive/v1-final:org/CADENCE.md`.

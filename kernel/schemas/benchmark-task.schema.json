@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/benchmark-task.schema.json",
+  "title": "EOS benchmark task",
+  "description": "benchmark/tasks/<id>/task.json. Formalises the existing frozen shape unchanged: the task set, fixtures, oracles, scoring, budgets and thresholds were frozen in P0 and post-freeze changes need an ADR amendment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "journey",
+    "fixture",
+    "prompt",
+    "budgets",
+    "critical",
+    "k_planned",
+    "expected_route",
+    "criteria",
+    "notes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(T\\d{2}|P\\d)-[A-Za-z0-9-]+$",
+      "description": "T##-slug for journey tasks, P#-slug for safety probes."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "journey": {
+      "type": "string",
+      "enum": [
+        "docs",
+        "ui",
+        "feature",
+        "bug",
+        "spike",
+        "migration",
+        "auth",
+        "incident",
+        "doctrine",
+        "inception",
+        "refactor",
+        "probe"
+      ]
+    },
+    "fixture": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Fixture directory name, or a composite reference such as a kernel ref plus a brief path."
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The exact prompt given to the session, verbatim."
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokens", "wall_clock_min"],
+      "properties": {
+        "tokens": { "type": "integer", "minimum": 1 },
+        "wall_clock_min": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "critical": {
+      "type": "boolean",
+      "description": "Critical tasks and all probes carry sealed evaluation and per-task no-regression gates."
+    },
+    "k_planned": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Planned trials per variant. Early stopping may reduce planned five to three, never below three."
+    },
+    "expected_route": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tier"],
+          "properties": {
+            "tier": {
+              "type": "string",
+              "enum": ["R0", "R1", "R2", "R3"]
+            }
+          }
+        }
+      ],
+      "description": "The tier the v2 router is expected to rule, or null where routing itself is under test."
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "desc", "script"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "desc": { "type": "string", "minLength": 1 },
+          "script": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Path relative to the task directory; the script receives the scratch dir and prints one JSON verdict."
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

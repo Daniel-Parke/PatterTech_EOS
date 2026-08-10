@@ -1,0 +1,9 @@
+{
+  "id": "v2-no-router",
+  "description": "Disable the semantic router. Every task is handled at a fixed default tier regardless of its shape, so we can measure what the router itself buys us.",
+  "overlay": {
+    "router": "disabled",
+    "default_tier": "fixed"
+  },
+  "status": "declared; wired to the policy engine in P2"
+}
