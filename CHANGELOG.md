@@ -90,6 +90,24 @@ produced it fifty times. See org/reports/V2_FINAL_REPORT.md.
   surface map, plus an Express path for reversible S ventures.
 - **org**: the EOS runs on its own v2 machinery: policy, task records,
   committed claims, generated views. v1 org files archived verbatim.
+- **tools**: the repository hashes its own files, and it was hashing
+  the checkout rather than the content. Merging v2 and checking out
+  `main` turned a clean tree into 108 B001 errors on a repository
+  where nothing had been edited: `core.autocrlf=true`, the default a
+  Windows install sets, rewrites text files to CRLF on the way in, and
+  the freeze verifier hashed the raw bytes. A fresh clone would have
+  shown a new reader the same thing on their first command. Every one
+  of the 130 frozen files was confirmed byte-identical to its recorded
+  form once the checkout transform is undone, and none was modified.
+  Three fixes, because one alone leaves a hole: `.gitattributes` pins
+  the working tree to LF so a clone is the same on every platform, the
+  freeze and drill hashers normalise line endings so the check
+  survives a tree that predates it, and the manifest's 21 entries that
+  had been recorded from a CRLF tree on 2026-08-08 are re-recorded on
+  content. `write_indexes` compared derived files with `read_text`,
+  which applies universal newlines, so a CRLF derived file read back
+  equal to the LF text it generates and was never rewritten; it now
+  compares and writes bytes.
 
 ## Superseded, towards v1.1.0 (never released)
 

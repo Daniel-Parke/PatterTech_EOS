@@ -40,7 +40,6 @@ as manual rather than as a failure of the work.
 from __future__ import annotations
 
 import datetime as _dt
-import hashlib
 import json
 import os
 import re
@@ -49,6 +48,8 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+from .repo import content_sha256
 
 MANIFEST_REL = "benchmark/drills/MANIFEST.json"
 SCENARIOS_REL = "benchmark/drills/scenarios"
@@ -73,7 +74,10 @@ class DrillError(Exception):
 
 
 def sha256_file(path) -> str:
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    # Line-ending normalised, same reason as the freeze manifest: these
+    # hashes were recorded on LF content and a Windows checkout hands
+    # back CRLF. See repo.content_sha256.
+    return content_sha256(path)
 
 
 def load_manifest(root) -> dict:

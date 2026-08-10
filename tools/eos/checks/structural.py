@@ -330,8 +330,17 @@ def write_indexes(ctx: dict) -> list:
         for rel, text in _wanted_indexes(model).items():
             path = model.root / rel
             path.parent.mkdir(parents=True, exist_ok=True)
-            if not path.is_file() or path.read_text(encoding="utf-8") != text:
-                path.write_text(text, encoding="utf-8", newline="\n")
+            # Compared as bytes, written as bytes. read_text applies
+            # universal newlines, so a derived file that git checked
+            # out with CRLF read back equal to the LF text we meant to
+            # write and was left alone: the generator reported the file
+            # correct while its bytes were not the bytes it generates.
+            # Harmless for the checks, which normalise, but it makes
+            # the derived set platform-dependent and it is exactly the
+            # drift E001 exists to catch.
+            want_bytes = text.encode("utf-8")
+            if not path.is_file() or path.read_bytes() != want_bytes:
+                path.write_bytes(want_bytes)
                 wrote = True
         model = RepoModel.load(model.root, today=model.today)
         if not wrote:

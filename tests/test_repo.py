@@ -3,7 +3,7 @@
 from datetime import date
 
 from conftest import make_repo
-from tools.eos.repo import RepoModel
+from tools.eos.repo import RepoModel, content_sha256
 
 TODAY = date(2026, 8, 3)
 
@@ -81,3 +81,56 @@ def test_today_injected(tmp_path):
     root = make_repo(tmp_path)
     model = RepoModel.load(root, today=TODAY)
     assert model.today == TODAY
+
+
+# --- content_sha256: a checkout must not read as a modification --------
+
+
+def test_content_sha256_ignores_the_checkout_line_ending(tmp_path):
+    """CRLF and LF spellings of one text file hash the same.
+
+    core.autocrlf=true, the Windows default, rewrites LF to CRLF on
+    checkout. Hashing raw bytes made every frozen text file report as
+    an unrecorded change on a tree where nothing had been edited.
+    """
+    lf = tmp_path / "lf.py"
+    crlf = tmp_path / "crlf.py"
+    lf.write_bytes(b"def f():\n    return 1\n")
+    crlf.write_bytes(b"def f():\r\n    return 1\r\n")
+    assert content_sha256(lf) == content_sha256(crlf)
+
+
+def test_content_sha256_still_sees_a_real_edit(tmp_path):
+    """Normalising newlines must not blind the hash to content."""
+    a, b = tmp_path / "a.py", tmp_path / "b.py"
+    a.write_bytes(b"return 1\n")
+    b.write_bytes(b"return 2\n")
+    assert content_sha256(a) != content_sha256(b)
+
+
+def test_content_sha256_leaves_binary_alone(tmp_path):
+    """A NUL means binary: CRLF in it is data, not a line ending."""
+    p, q = tmp_path / "p.bin", tmp_path / "q.bin"
+    p.write_bytes(b"\x00\r\nx")
+    q.write_bytes(b"\x00\nx")
+    assert content_sha256(p) != content_sha256(q)
+
+
+def test_freeze_manifest_records_content_hashes():
+    """Every recorded hash is the LF form, so the set is one convention.
+
+    Twenty-one entries were once recorded from a CRLF working tree,
+    which is invisible until someone checks out on the other platform.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    doc = json.loads((root / "benchmark" / "FREEZE_MANIFEST.json")
+                     .read_text(encoding="utf-8"))
+    wrong = []
+    for key, want in doc["files"].items():
+        path = root / key.replace("\\", "/")
+        if path.is_file() and content_sha256(path) != want:
+            wrong.append(key)
+    assert wrong == []
