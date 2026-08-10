@@ -17,3 +17,11 @@ The records under org/tasks/ are canonical.
 | T-0002 | standard | R1 | proposed | unassigned |
 | T-0003 | standard | R1 | blocked | unassigned |
 | T-0004 | high-assurance | R1 | active | eos-v2-prerelease-review |
+| T-0005 | standard | R0 | proposed | unassigned |
+| T-0006 | standard | R0 | proposed | unassigned |
+| T-0007 | standard | R0 | proposed | unassigned |
+| T-0008 | standard | R0 | done | eos-v2-prerelease-review |
+| T-0009 | standard | R0 | done | eos-v2-prerelease-review |
+| T-0010 | standard | R0 | done | eos-v2-prerelease-review |
+| T-0011 | standard | R0 | in-review | eos-v2-prerelease-review |
+| T-0012 | standard | R0 | done | eos-v2-prerelease-review |
