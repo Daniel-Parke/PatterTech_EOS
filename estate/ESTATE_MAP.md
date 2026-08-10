@@ -26,15 +26,19 @@ The domain model everywhere is organisation, then venture, then project.
 
 ## Governed and not
 
-Three repos are governed by the EOS: Venture A, Guth and
-PatterTech_Website. Governed means the EOS seeded it or has adopted it,
-it carries a pin, and it feeds rulings back through the harvest.
+Three repos carry `governed: true` in the manifest: Venture A, Guth and
+PatterTech_Website. Governed means the EOS seeded or adopted the repo
+and holds its pin. It does not mean the EOS rules it. Under ADR-0006 the
+EOS hands off at venture birth, so rulings come back when a venture
+chooses to send them and not because the EOS asked.
 
 Every other repo in the manifest is an inventory row, `governed: false`
 and `status: candidate`. That is not a judgement about the repo. It is
-an honest statement that the EOS neither seeded it nor currently
-governs it, and it exists so the quarterly estate review has to answer
-adopt or defer for each one rather than quietly leaving them out.
+an honest statement that the EOS neither seeded nor adopted it, and it
+exists so the estate review has to answer adopt or defer for each one
+rather than quietly leaving them out. Under ADR-0008 that review is
+triggered by an event, a repository added or a seed compiled, rather
+than by a quarterly clock.
 
 Two rows carry a different status for a reason. PatterTech_EOS is
 `self`: it is the manifest's own home, not a venture. PatterTech_WebKit

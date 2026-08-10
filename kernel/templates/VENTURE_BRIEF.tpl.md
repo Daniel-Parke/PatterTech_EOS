@@ -34,6 +34,16 @@ Session 0: {{TRIGGERS}}. The rescale conditions to watch: money
 arriving, personal data appearing, a second human joining, ops burden
 growing.
 
+## Material workstreams
+
+The parts of this venture somebody has to sit down and build, one line
+each, in the operator's words. Not a plan and not an estimate. Three to
+eight lines is the usual shape. Genesis cuts its research packets and
+work packages from this list, so a venture that cannot name its
+workstreams is not ready for a blueprint.
+
+{{WORKSTREAMS}}
+
 ## Constraints
 
 - Time: {{TIME_CONSTRAINTS}}

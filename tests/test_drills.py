@@ -1,13 +1,13 @@
 """Drill runner tests: real verdicts, honest manuals, no false greens.
 
-Most shipped drills still have no scenario and no graders, so the tests
-that prove the runner actually evaluates anything build their own
-synthetic drill root: a manifest, a spec, a scenario tree and graders.
-That way pass, fail and manual are all exercised for real rather than
-asserted about a stub.
-
-The architecture drill is the exception and has both, so it is also
-tested end to end against the fixture it ships with.
+All twenty-two shipped drills now carry a scenario and graders. The
+tests that prove the runner actually evaluates anything still build
+their own synthetic drill root, a manifest, a spec, a scenario tree and
+graders, because a shipped drill cannot exercise the failure paths: it
+cannot be made to lose its graders or fail its own hash without
+editing frozen material. So pass, fail and manual are exercised against
+the synthetic root, and the architecture drill is run end to end
+against the fixture it ships with.
 """
 
 import json

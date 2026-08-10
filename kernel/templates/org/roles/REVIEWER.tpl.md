@@ -44,7 +44,8 @@ are audited at retro.
 ## Exceptions
 
 A one-off tier exception may lower a ruling only with concrete cited
-evidence, authorised by you when you do not own the task; it lands in
-the append-only exception ledger. Standing exceptions need the
+evidence, authorised by you when you do not own the task; it is
+recorded on the task record it applies to, beside the ruling it lowers,
+with evidence, authoriser and date. Standing exceptions need the
 operator plus an ADR, and they expire. No exception crosses the
 guard's non-waivable floors.

@@ -1,0 +1,108 @@
+{
+ "pack": "pattertech-house",
+ "checked": "2026-08-10",
+ "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0027",
+  "EV-0030",
+  "EV-0065",
+  "EV-0232",
+  "EV-0234",
+  "EV-0236",
+  "EV-0239",
+  "EV-0389",
+  "EV-0390",
+  "EV-0391",
+  "EV-0392",
+  "EV-0393",
+  "EV-0394",
+  "EV-0395",
+  "EV-0396",
+  "EV-0397",
+  "EV-0398",
+  "EV-0399",
+  "EV-0400",
+  "EV-0401",
+  "EV-0402"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0389",
+   "licence_recorded": "unknown (no reuse licence stated on the documentation page; the algorithm itself is distributed under separate Myndex terms)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the open question about contested contrast maths"
+  },
+  {
+   "ev": "EV-0390",
+   "licence_recorded": "unknown (personal site, no reuse licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the same open question, the removal from the successor draft"
+  },
+  {
+   "ev": "EV-0391",
+   "licence_recorded": "unknown (ACM copyright; this is a third-party hosted copy, no reuse licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "H7 and the restraint-against-memorability standoff"
+  },
+  {
+   "ev": "EV-0392",
+   "licence_recorded": "unknown (Elsevier copyright; abstract page only, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the reading-measure default"
+  },
+  {
+   "ev": "EV-0393",
+   "licence_recorded": "unknown (Taylor and Francis copyright; abstract record only, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "H5 and H6, the dark-register penalty"
+  },
+  {
+   "ev": "EV-0397",
+   "licence_recorded": "unknown (A List Apart retains article copyright; paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "H4, moving area and scroll coupling"
+  },
+  {
+   "ev": "EV-0402",
+   "licence_recorded": "unknown (Taylor and Francis copyright; abstract page only, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the first-screen default"
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/pattertech-house/PACK.md",
+   "line": 142,
+   "concern": "H6 rests on EV-0393 and EV-0394. EV-0394 is Nielsen Norman Group, all rights reserved, paraphrase only, and EV-0393 was read as an abstract record rather than as the paper.",
+   "resolution": "Not a concern. What is carried is a direction and a scope note, not a passage. GD-HOUSE-003 line 61 cites the same source the same way."
+  },
+  {
+   "file": "packs/pattertech-house/refs/LIGHT_MECHANICS.md",
+   "line": 97,
+   "concern": "The custom-property registration mechanics come from EV-0398, one of four W3C rows here that the ledger records as paraphrase-only with no verbatim copying of specification text.",
+   "resolution": "Not a concern. The mechanics are described in our own words and no clause is quoted."
+  },
+  {
+   "file": "packs/pattertech-house/exemplars/EX-HOUSE-001-services-section.md",
+   "line": 49,
+   "concern": "The exemplar carries a block of HTML and CSS, which is where carried expression would most easily hide.",
+   "resolution": "Not a concern. The markup and styles are ours, written for this pack against its own budgets, and no fragment was taken from a studied source."
+  }
+ ],
+ "notes": "Seven of twenty-one cited rows carry an unknown licence, none of them with a licence_checked date, and four of the seven are behind publisher paywalls where only an abstract was read, which the pack's own scope notes already state. Seven further rows are known and restrictive rather than unknown: EV-0232 and EV-0234 are proprietary with no reuse licence, EV-0394 is all rights reserved and paraphrase only, and EV-0398 to EV-0401 are W3C document-licence rows recorded paraphrase-only. Licence exposure in this pack is low for a structural reason: the numbers it turns on are its own calibration rather than anybody else's measurement, and it says so in its open questions. The quotation scan found no carried passage."
+}

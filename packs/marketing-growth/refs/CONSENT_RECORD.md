@@ -2,7 +2,7 @@
 summary: The stored shape of a lawful marketing basis, the closed enum, the soft opt-in tests and the suppression store
 kind: fact
 scope: estate
-sources: [EV-0041, EV-0225]
+sources: [EV-0041, EV-0225, EV-0361]
 volatility: fast
 review: on-change-of:PECR-reg-22-amendment
 type: implementation

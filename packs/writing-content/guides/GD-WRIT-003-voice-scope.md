@@ -100,8 +100,11 @@ venture as a requirement.
   em-dashes, and the EOS voice law has no authority over it. The
   version one behaviour of applying A to venture prose is the failure
   this guide exists to end.
-- **PatterTech house voice (2026-08, argued)**: C, held in the
-  pattertech-house pack rather than here, adopted per venture and never
-  by default. That pack is research-only at the time of writing, so no
-  brand voice is adoptable yet, and the honest statement is that
-  nothing is missing from a venture that has not adopted one.
+- **PatterTech house voice (2026-08, re-argued)**: C, and it does not
+  exist. The earlier ruling put it in the pattertech-house pack. That
+  pack is built, it covers the house visual language, and its own
+  non-goals say it is not a copy guide, so it never held a brand voice
+  and does not hold one now. Scope C is therefore defined here and
+  filled nowhere. A venture that wants a brand voice writes one and
+  adopts it by name, and nothing is missing from a venture that has
+  not.

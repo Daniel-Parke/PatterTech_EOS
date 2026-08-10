@@ -93,7 +93,21 @@ The alternative is date-based versioning with per-consumer pinning
 compatibility judgements. Either is acceptable. Neither works if the
 taxonomy is undeclared.
 
-## Why this is binding rather than taste
+## Which half of this binds
+
+Since 2026-08-10 the split is by consumer. On a published interface, one
+with a consumer the venture does not control, declaring and versioning
+the distinguishable failures is binding requirement B4: the caller
+cannot see the change coming and cannot undo the recovery code it
+already shipped. Inside the venture it is default D9, because the same
+declaration on a module with one caller buys rigidity and no
+coordination, which the pack lists as an anti-pattern. The reason for
+the split is the reach of the mistake, not a change in the evidence.
+
+Handling the error at all is a different matter and binds everywhere,
+which is B3 and the paragraph below.
+
+## Why the error path binds rather than being taste
 
 Error handling is where catastrophe lives. In a study of 198 randomly
 sampled production failures, 92 per cent of the catastrophic ones came

@@ -1,0 +1,25 @@
+{
+  "id": "T-0021",
+  "intent": "Rewrite the teaching surfaces by hand for v2.1: TOUR, README, the operator's guide and the new launchers, in plain English.",
+  "claims": [
+    "README.md",
+    "TOUR.md",
+    "OPERATORS_GUIDE.md",
+    "AGENTS.md",
+    "CLAUDE.md"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "active",
+  "owner_session": "eos-v21-L8",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-10T18:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

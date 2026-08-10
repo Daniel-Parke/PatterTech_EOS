@@ -15,11 +15,11 @@
    "note": "No sampled review has run, so there is no pass rate. This field previously read 1.0 against n of 0, which made regression_rule.thresholds.sampled_review_pass_rate_min unable to ever fire. A null rate means the threshold is not evaluable, not that it passed."
   },
   "escaped_defects": 0,
-  "period": "2026-08 benchmark: 45 v1 baseline runs, 45 v2 runs after the routing and oracle corrections, 18 timing-ablation runs. Testing defaults are set from the ablation: all three timings passed 6 of 6, so timing did not separate quality on these task types, but implement-then-harden cost 65 per cent more tokens and 50 per cent more wall clock than acceptance-first or alongside. Defaults therefore stay acceptance-first for gate-bearing work and alongside for ordinary features; harden-last is reserved for spikes, where deferring the oracle is the point."
+  "period": "2026-08. 45 v1 baseline runs, 45 v2 runs after the routing and oracle corrections, and 18 timing-ablation runs on 2026-08-03."
  },
  "authorised_by": "Daniel Parke",
  "authorised_date": "2026-08-02",
- "authorisation_note": "Authorised on 2026-08-02, one day before the benchmark it cites as evidence. The evidence block was back-filled on 2026-08-03 and the timing-ablation defaults were set from it then. The authorisation is not re-dated, because re-dating it would hide that ordering; it is recorded instead. The defaults it sets are due for reauthorisation against the rebuilt benchmark.",
+ "authorisation_note": "Authorised on 2026-08-02, one day before the benchmark it cites as evidence. The evidence block was back-filled on 2026-08-03. The authorisation is not re-dated, because re-dating it would hide that ordering; it is recorded instead. The level it sets is due for reauthorisation against the rebuilt benchmark. This record decides three things: level, expires and regression_rule. It used to restate the test-timing defaults the ablation set, which is a fact that already lives in kernel/templates/org/TESTING.tpl.md and in packs/delivery-testing/PACK.md; that copy was cut on 2026-08-10 under T-0018 so the defaults have one writer. Nothing loads this file; it is read by a person following test_timing per-profile from org/policy.json, and both the TESTING template and the delivery-testing pack point here.",
  "expires": "2027-02-02",
  "regression_rule": {
   "thresholds": {

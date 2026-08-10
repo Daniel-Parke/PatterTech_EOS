@@ -1,0 +1,26 @@
+{
+  "id": "T-0024",
+  "intent": "Six packs: stale prose, front-matter sources, the authority audit excluding the security-privacy floors, the provenance fragment, the voice-scope pointer resolved, and the cross-link to the swarm pack.",
+  "claims": [
+    "packs/product-discovery/",
+    "packs/security-privacy/",
+    "packs/support-operations/",
+    "packs/ui-ux/",
+    "packs/writing-content/",
+    "packs/agentic-development/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "active",
+  "owner_session": "eos-v21-L11",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-10T18:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

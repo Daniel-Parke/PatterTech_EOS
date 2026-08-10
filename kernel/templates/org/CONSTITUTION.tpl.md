@@ -54,8 +54,7 @@ shared repository. Ten articles hold it together:
    are never edited or removed; superseding is explicit. Ordinary work
    needs no ledger beyond git.
 7. **Main is always releasable.** Merge only through the gates the
-   ruled tier demands; spikes live on spike branches the checker
-   refuses to merge.
+   ruled tier demands; spikes live on spike branches that never merge.
 8. **The human is the apex approver.** Money movement, production data
    deletion, publishing to a new external destination, accepting legal
    terms, protected-set changes and anything ruled irreversible wait

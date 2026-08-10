@@ -1,0 +1,123 @@
+PatterTech EOS
+Copyright 2026 Daniel Parke
+
+Licensed under the Apache License, Version 2.0. The terms are in
+LICENSE at the root of this repository.
+
+
+ABOUT THIS FILE
+
+Apache-2.0 clause 4(d) asks that a NOTICE file, where one exists, be
+carried into derivative works. So this file holds attributions and
+nothing else. It is not a changelog, it is not a licence, and it is not
+a description of the project.
+
+
+WHAT IS IN THE REPOSITORY
+
+Documentation and process, plus the Python package under tools/. No
+third-party source code is vendored and no third-party asset is
+bundled.
+
+The repository cites 504 external sources by evidence id. Each id
+resolves to a row in registry/evidence.json carrying that source's
+title, url, version, access date and the licence recorded for it.
+Findings are restated in this repository's own words, and attribution
+is carried at the point of use by evidence id. That is why most of the
+504 are not named again below: nothing of their wording is here.
+
+
+ATTRIBUTION WHERE A LICENCE ASKS FOR IT
+
+The provenance sweep of 2026-08-10 read the whole read surface of
+twenty packs and recorded, per pack, what is carried from a source and
+under what licence. A source is named below where its licence
+conditions reuse on attribution and the sweep found its terms, its list
+or its wording carried.
+
+DORA capability: loosely coupled teams and architecture (EV-0151)
+    Copyright Google LLC, CC BY 4.0.
+    packs/architecture/PACK.md D2 states the source's three split
+    signals close to its own wording.
+
+DORA, the five key metrics guide (EV-0199)
+    Copyright Google LLC, CC BY 4.0.
+    packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md
+    carries the five metric names as terminology.
+
+FinOps Framework (EV-0197)
+    FinOps Foundation, CC BY 4.0. The recorded licence names
+    attribution to the FinOps Foundation as required.
+    packs/devops-reliability and packs/business-model-pricing take
+    their unit cost allocation framing from it.
+
+Competition and Markets Authority, Evidence review of online choice
+architecture and consumer and competition harm (EV-0300)
+    Crown copyright, Open Government Licence v3.0.
+    packs/business-model-pricing/PACK.md D10 states the regulator's
+    seven-item almost-always-harmful list in the source's own terms.
+
+UK GDPR Article 13 (EV-0349)
+    Crown copyright, Open Government Licence v3.0, with material reused
+    from EUR-Lex under Commission Decision 2011/833/EU.
+    packs/legal-licensing/refs/UK_DATA_ROUTING.md follows the structure
+    of the statutory text.
+
+Diataxis documentation framework (EV-0322)
+    CC BY-SA 4.0.
+    packs/docs-dx/refs/DOC_FORMS.md carries the four form names. Only
+    the names are carried. Share-alike would bite if a passage ever
+    were, which is why the sweep names that file as the first one to
+    re-read.
+
+Google developer documentation style guide (EV-0334)
+    Copyright Google LLC, CC BY 4.0 for the content.
+    packs/docs-dx/PACK.md carries the enforceable subset of its
+    mechanical rules.
+
+Keep a Changelog (EV-0333)
+    MIT.
+    packs/docs-dx/PACK.md D3 carries its six changelog category names.
+    Named rather than argued down: MIT's notice condition attaches to a
+    substantial portion, six ordinary category words are almost
+    certainly not one, and a line of attribution costs less than being
+    wrong about where that threshold sits.
+
+
+WORDING CARRIED FROM SOURCES THAT STATE NO LICENCE
+
+Two vocabularies are reproduced exactly, because they are identifiers a
+reader has to type character for character rather than expression:
+FILE, PACKAGE, WIRE_JSON and WIRE from the Buf breaking-change rule
+categories (EV-0135), and BACKWARD, FORWARD, FULL and NONE from
+Confluent Schema Registry compatibility (EV-0139). Both pages were read
+on 2026-08-08 and both were found to state no reuse licence, so no
+licence asks for attribution here. They are named because their wording
+is carried and a reader of this file should be told so.
+
+
+SOURCES WHOSE LICENCE NOBODY HAS CONFIRMED
+
+registry/LICENCE_RESIDUALS.md lists them in full, by evidence id, split
+between the sources that state no licence and the sources whose licence
+was never recorded. Read that file before reusing anything that rests
+on one of them. Its counts were compiled from a ledger of 449 records
+and the ledger now holds 504, so its tables are behind the ledger by
+the rows the last import added.
+
+
+WHAT THE SWEEP DID AND DID NOT DO
+
+It re-fetched nothing, so it confirmed no licence. It read the pack
+prose and the licence values already recorded in registry/evidence.json
+and sorted them into what somebody observed and what somebody asserted.
+Ninety of the 504 licence lines carry an observation date. The rest are
+the recording agent's word for it.
+
+It covered all twenty-one packs. The agentic-swarm sweep ran last, over
+62 cited ids: it found no carried expression, and it recorded that 46 of
+its rows arrived in the 2026-08-10 import and carry a licence nobody has
+yet observed at source.
+
+A scan that finds no carried passage proves what was read, not what
+exists. No claim of completeness is made for it.

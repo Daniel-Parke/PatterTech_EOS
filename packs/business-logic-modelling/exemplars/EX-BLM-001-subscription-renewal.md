@@ -122,7 +122,7 @@ suite and fails on a gap.
 
 ## Step 7: the outbox
 
-Requirement B4 and guide GD-BLM-005. The renewal event was previously
+Default D10 and guide GD-BLM-005. The renewal event was previously
 published after commit, in a separate call, which is why one customer
 saw a renewal email for a charge that had been rolled back.
 

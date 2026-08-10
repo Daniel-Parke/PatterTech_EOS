@@ -1,5 +1,5 @@
 {
- "note": "Coverage fragment for the AI, ML and LLM pack, written by the waveB-ai-ml-llm lane. The integrator alone imports this into registry/coverage.json, replacing the registry-only row for this capability. evidence_sources carries the frozen fragment ids from packs/ai-ml-llm/research/sources.fragment.json; the integrator rewrites them to the final EV ids assigned when that fragment is imported into registry/evidence.json.",
+ "note": "Coverage fragment for the AI, ML and LLM pack, written by the waveB-ai-ml-llm lane. It has been imported: registry/coverage.json carries the AI-ML-and-LLM-development row with status built, and evidence_sources there lists EV-0242 to EV-0268, the ids the ledger assigned when packs/ai-ml-llm/research/sources.fragment.json was imported. This file is kept as the frozen record of what the lane proposed. The fragment ids below are that lane's local namespace and are not citable outside this file.",
  "row": {
   "capability": "AI-ML-and-LLM-development",
   "status": "built",

@@ -9,7 +9,7 @@ scope: estate
 applies_when: [collects_contact_details, sends_marketing_message]
 volatility: fast
 review: on-change-of:PECR-reg-22-amendment
-sources: [EV-0041, EV-0225]
+sources: [EV-0041, EV-0225, EV-0361]
 type: guide
 tags: [pii, forms, content]
 ---

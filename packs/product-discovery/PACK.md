@@ -12,7 +12,7 @@ applies_when: [proposes_capability, prioritises_work, cites_user_claim, runs_exp
 activation_paths: [**/roadmap*, **/backlog*, **/specs/**, **/*brief*.md, **/*prd*.md, **/discovery/**, **/*acceptance*]
 volatility: slow
 review: 2028-06
-sources: [EV-0010, EV-0059, EV-0074, EV-0075, EV-0153]
+sources: [EV-0010, EV-0059, EV-0074, EV-0075, EV-0153, EV-0403, EV-0404, EV-0405, EV-0406, EV-0407, EV-0408, EV-0409, EV-0410, EV-0411, EV-0412, EV-0413, EV-0414, EV-0415, EV-0416, EV-0417, EV-0418, EV-0419, EV-0420]
 ---
 
 # Product discovery pack
@@ -82,59 +82,25 @@ not carry a prioritisation formula, and the guides explain why.
 
 ## Binding requirements
 
-Eight requirements bind. Each names its predicate, its evidence and the
-failure it prevents. Where the basis is a decision rather than a
-standard or a measurement, that is said plainly: it binds because the
-estate ruled it, not because evidence compels it.
+Two requirements bind. Each names its predicate, its evidence and the
+failure it prevents.
+
+The 2026-08 authority audit under ADR-0008 put one test to all eight
+requirements this pack used to bind: a rule binds only where it prevents
+a concrete failure that is serious or hard to reverse **and** its basis
+is law, a standard, empirical evidence or a protected-set floor. Six
+failed it and are now defaults. They keep their B numbers, because
+`packs/product-discovery/CHECKS.md`, the guides, the refs and the
+exemplar all cite them, and they sit under Defaults below. A default is
+departed from in writing, never in silence.
 
 Every `EV-` id points at a row in `registry/evidence.json` carrying that
 source's version, licence, access date, maintenance state and review
-trigger. Every `FRAG-PRODUCT-DISCOVERY-` id points at a frozen row in
-`packs/product-discovery/research/sources.fragment.json` that is not yet
-imported into the ledger; the integrator assigns its final EV id at
-import and rewrites the citations here. Nothing is cited that does not
-resolve to one of those two files.
-
-**B1. A discovery record exists and names the decision it unblocks.**
-`proposes_capability`. The record carries the fixed sections set out in
-`packs/product-discovery/refs/DISCOVERY_RECORD.md`. Prevents the
-proposal that cannot be wrong: the goals-signals-metrics ladder holds
-that a proposal with no stated signal is untestable and that a metric
-picked before its goal is a vanity metric by construction
-(`EV-0410`). Basis: decision, on that ladder.
-
-**B2. The problem is stated without naming the proposed solution.**
-`proposes_capability`. The problem section describes what a person
-cannot do today and what it costs them, and it does not contain the
-name of the requested feature. Prevents a solution wearing a problem's
-clothes, which the discovery exit criteria exist to catch
-(`EV-0403`). Basis: standard.
-
-**B3. Every signal names a threshold and a source that exists.**
-`proposes_capability`. Each signal line carries the observation, the
-number or state that would count as the signal firing, and the artefact
-it will be read from. A source is a file, a table, a ticket export or a
-named instrument that already exists. Prevents the readout that gets
-invented after the fact (`EV-0410`). Basis: decision.
-
-**B4. All four risks are retired explicitly, viability in writing.**
-`proposes_capability`. Value, usability, feasibility and viability each
-get a written answer, and none may be left blank
-(`EV-0416`). Prevents the solo failure the source
-itself predicts: with one operator holding all four, the two that are
-interesting get tested and the other two get assumed, and viability is
-the one that goes. Basis: decision. The research graded this a default;
-this pack promotes it, because "discovery is finished" is unauditable
-otherwise. See Open questions.
-
-**B5. Every number carries its own provenance.** `cites_user_claim`. A
-figure used to justify work names where it came from, and a figure whose
-base cannot be reached is struck rather than softened. Prevents the
-folklore statistic: the famous claim that 64 per cent of features are
-rarely or never used traces to a 2002 keynote about four internal
-applications and was repeated for two decades unchecked
-(`EV-0419`). Basis: decision, and the reason this
-repo keeps an evidence ledger at all.
+trigger. The eighteen sources researched for this pack were imported as
+EV-0403 to EV-0420, and every citation here uses the ledger id. The
+frozen batch the import was made from stays at
+`packs/product-discovery/research/sources.fragment.json`. Nothing is
+cited that does not resolve in the ledger.
 
 **B6. Claims about people that a model produced are labelled
 unverified.** `cites_user_claim`. A persona, segment or quotation
@@ -157,13 +123,6 @@ reading small-sample results as directional
 goal metrics drive the ship decision and guardrails block only on
 significant harm (EV-0059). Basis: empirical-evidence.
 
-**B8. The record ends in BUILD, TEST or KILL.**
-`proposes_capability`. One of the three words, alone, with the reason
-under it. Prevents the verdict that is really a deferral. Stopping at
-the end of discovery counts as a successful discovery, which is what
-makes kill part of the definition rather than an embarrassment
-(`EV-0403`). Basis: standard.
-
 Activation gives advice, never permission. Nothing here lowers a tier
 floor in `kernel/POLICY_SPEC.md` or converts a manual-only action class
 into an autonomous one under `kernel/GUARD_SPEC.md`. A BUILD verdict is
@@ -172,6 +131,67 @@ not an approval to ship.
 ## Defaults
 
 Each applies unless the record states a reason to depart.
+
+### Demoted from binding, 2026-08
+
+Six rules that used to bind. Each still names the failure it prevents,
+and each says which leg of the ADR-0008 test it failed. Numbers are
+unchanged so the checks and guides that cite them still resolve.
+
+**B1. A discovery record exists and names the decision it unblocks.**
+`proposes_capability`. The record carries the fixed sections set out in
+`packs/product-discovery/refs/DISCOVERY_RECORD.md`. Prevents the
+proposal that cannot be wrong: the goals-signals-metrics ladder holds
+that a proposal with no stated signal is untestable and that a metric
+picked before its goal is a vanity metric by construction
+(`EV-0410`). Basis: decision, on that ladder. Failed the basis leg: one
+consultancy ladder, never evaluated.
+
+**B2. The problem is stated without naming the proposed solution.**
+`proposes_capability`. The problem section describes what a person
+cannot do today and what it costs them, and it does not contain the
+name of the requested feature. Prevents a solution wearing a problem's
+clothes, which the discovery exit criteria exist to catch
+(`EV-0403`). Basis: standard. Failed the seriousness leg: a badly framed
+problem is rewritten, and the verdict below is where the cost lands.
+
+**B3. Every signal names a threshold and a source that exists.**
+`proposes_capability`. Each signal line carries the observation, the
+number or state that would count as the signal firing, and the artefact
+it will be read from. A source is a file, a table, a ticket export or a
+named instrument that already exists. Prevents the readout that gets
+invented after the fact (`EV-0410`). Basis: decision. Failed the basis
+leg, same ladder as B1.
+
+**B4. All four risks are retired explicitly, viability in writing.**
+`proposes_capability`. Value, usability, feasibility and viability each
+get a written answer, and none may be left blank
+(`EV-0416`). Prevents the solo failure the source
+itself predicts: with one operator holding all four, the two that are
+interesting get tested and the other two get assumed, and viability is
+the one that goes. Basis: decision. Failed the basis leg, and the audit
+returned it to the grade the research gave it in the first place.
+
+**B5. Every number carries its own provenance.** `cites_user_claim`. A
+figure used to justify work names where it came from, and a figure whose
+base cannot be reached is struck rather than softened. Prevents the
+folklore statistic: the famous claim that 64 per cent of features are
+rarely or never used traces to a 2002 keynote about four internal
+applications and was repeated for two decades unchecked
+(`EV-0419`). Basis: decision, and the reason this repo keeps an evidence
+ledger at all. Failed the basis leg. Departing from it inside this
+repository is still a governance matter, because the ladder in
+`GOVERNANCE.md` is not this pack's to loosen.
+
+**B8. The record ends in BUILD, TEST or KILL.**
+`proposes_capability`. One of the three words, alone, with the reason
+under it. Prevents the verdict that is really a deferral. Stopping at
+the end of discovery counts as a successful discovery, which is what
+makes kill part of the definition rather than an embarrassment
+(`EV-0403`). Basis: standard. Failed the seriousness leg: a deferral is
+the cheapest thing in this pack to reverse.
+
+### Standing defaults
 
 **D1. Depth is set by reversibility, not by the size of the request.**
 An irreversible commitment earns a phase; a reversible change on a live
@@ -316,8 +336,8 @@ in `packs/product-discovery/CHECKS.md`.
 of what circulates as discovery method is consultancy practice published
 as blog posts and never independently evaluated. Two sources here are
 controlled work that contradicts widely taught rules. That is why most
-of this pack sits in Defaults and Preferences, and why only two of the
-eight binding requirements rest on measurement.
+of this pack sits in Defaults and Preferences, and why the 2026-08 audit
+left binding only the two requirements that rest on measurement.
 
 **No prioritisation framework has controlled evidence.** RICE
 (`EV-0417`) is one company's internal tool published
@@ -355,11 +375,13 @@ methodology for what counts as a feature or as used, a sample confined
 to firms that bought product analytics, and seven years stale. Cite it
 with the vendor label attached every time, or not at all.
 
-**B4 is promoted above its research grade.** The four risks were graded
-a default by the research and bind here. The reason is auditability
-rather than evidence: with no written viability answer there is no way
-to tell a finished discovery from an abandoned one. It is basis
-decision and open to challenge.
+**B4 no longer binds, and the argument for it is still good.** The four
+risks were graded a default by the research, promoted here on
+auditability rather than evidence, and returned to a default by the
+2026-08 audit. The argument that made the promotion stands: with no
+written viability answer there is no way to tell a finished discovery
+from an abandoned one. It is now a default with that reason attached,
+which means a record that skips viability says why.
 
 **Nobody has repriced discovery against a near-zero build cost.** The
 whole literature was written when building was the expensive step. No

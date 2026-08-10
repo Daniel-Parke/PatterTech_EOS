@@ -68,8 +68,11 @@ gets quoted out of context:
 
 None of these results may be promoted to universal doctrine. Where a
 rule in this pack binds, it binds because of a documented protocol
-requirement, a standard, or an estate decision, never because a
-benchmark on a different population came out well.
+requirement, a standard or a measured result, never because a
+benchmark on a different population came out well and never because
+the estate simply chose it. Under ADR-0008 an estate decision on its
+own makes a default, not a binding rule, which is why D11 and D12 sit
+in the defaults section.
 
 ## Licence constraints on reuse
 
@@ -85,8 +88,14 @@ not permitted from these rows:
   Paraphrase only.
 - **EV-0098** is CC BY-SA 4.0, so a derived canvas carries the
   share-alike obligation.
+- **EV-0102, EV-0152 and EV-0154** carry no confirmed licence either.
+  The ledger records why in each case: the Structurizr docs page was
+  not checked, and the other two are publisher-copyright papers read
+  through author-hosted copies. Paraphrase only until someone checks.
 - The remainder are permissive or CC BY and may be quoted with
   attribution, though this pack still prefers extraction to quotation.
+  The full residual list, with the ledger's own wording for each, is at
+  `packs/architecture/research/provenance.fragment.json`.
 
 ## Review triggers
 

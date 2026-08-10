@@ -1,0 +1,111 @@
+{
+ "pack": "ai-ml-llm",
+ "checked": "2026-08-10",
+ "checked_by": "T-0019, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and compared each cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence claim below is the ledger's own recorded value, read back. Quotation was checked three ways: every quotation-marked span in the read surface was listed and read; every enumeration or coined term that could only have come from a source was traced to the row that supplies it; and the rows whose ledger licence forbids reuse of wording were read against the prose that cites them. What this method cannot do is detect an unmarked sentence copied from a source nobody has the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0041",
+  "EV-0085",
+  "EV-0086",
+  "EV-0087",
+  "EV-0212",
+  "EV-0213",
+  "EV-0214",
+  "EV-0215",
+  "EV-0225",
+  "EV-0242",
+  "EV-0243",
+  "EV-0244",
+  "EV-0245",
+  "EV-0246",
+  "EV-0247",
+  "EV-0248",
+  "EV-0249",
+  "EV-0250",
+  "EV-0251",
+  "EV-0252",
+  "EV-0253",
+  "EV-0254",
+  "EV-0255",
+  "EV-0256",
+  "EV-0257",
+  "EV-0258",
+  "EV-0259",
+  "EV-0260",
+  "EV-0261",
+  "EV-0262",
+  "EV-0263",
+  "EV-0264",
+  "EV-0265",
+  "EV-0266",
+  "EV-0267",
+  "EV-0268"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0041",
+   "licence_recorded": "Open Government Licence (typical for ICO); unknown exact",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0085",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0086",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0087",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0214",
+   "licence_recorded": "arXiv default (author licence not confirmed at access); unknown",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0215",
+   "licence_recorded": "arXiv default (author licence not confirmed at access); unknown",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0244",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0253",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0268",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  }
+ ],
+ "quotation_concerns": [],
+ "notes": "Cleanest provenance of the six. Twenty-seven of the thirty-six cited rows carry a definite licence, mostly arXiv CC-BY and permissive repository licences. Six rows record that the source states no licence, each with the evidence and the date somebody checked. Three are unconfirmed and are the residual: EV-0041 (an ICO page assumed to be Open Government Licence without the exact terms being read) and EV-0214 and EV-0215 (arXiv postings where the author licence was not read at access). No quotation concern was found: every quotation-marked span in this pack is our own example text, and the two vendor documentation rows the ledger marks paraphrase only (EV-0260, EV-0261) are cited for figures rather than for wording. A row marked states-none carries licence_evidence and a licence_checked date in the ledger, so somebody looked and recorded that the source states no licence. A row marked unconfirmed carries a hedged licence string and no licence_evidence, so nobody has looked. Both belong on the residual list ADR-0006 decision 7 asks for, and the difference between them is the difference between a recorded fact and a guess."
+}

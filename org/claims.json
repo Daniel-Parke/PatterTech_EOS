@@ -1,40 +1,231 @@
 {
  "version": 1,
- "assigned": "2026-08-04",
+ "assigned": "2026-08-10",
  "lanes": [
   {
    "lane_id": "integrator",
-   "task_id": "T-0004",
-   "session_id": "eos-v2-prerelease-review",
+   "task_id": "T-0013",
+   "session_id": "eos-v21-integrator",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "eos-v2-prerelease-review",
+   "harness_task_id": "eos-v21-integrator",
    "path_claims": [
+    ".gitattributes",
     ".github/",
     ".gitignore",
-    "AGENTS.md",
     "CHANGELOG.md",
-    "CLAUDE.md",
     "GOVERNANCE.md",
     "INDEX.md",
-    "OPERATORS_GUIDE.md",
+    "LICENSE",
+    "NOTICE",
+    "kernel/GUARD_SPEC.md",
+    "kernel/METADATA_SPEC.md",
+    "kernel/POLICY_SPEC.md",
+    "kernel/README.md",
+    "kernel/SCALE_MATRIX.md",
+    "kernel/SEED_RUBRIC.md",
+    "kernel/adapters/",
+    "kernel/templates/org/CONSTITUTION.tpl.md",
+    "kernel/templates/org/roles/",
+    "org/",
+    "packs/GUIDE_INDEX.md",
+    "packs/INDEX.md",
+    "packs/PACK_SHAPE.md",
+    "registry/CAPABILITIES.md",
+    "pytest.ini"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L1-genesis-core",
+   "task_id": "T-0014",
+   "session_id": "eos-v21-L1",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L1",
+   "path_claims": [
+    "inception/GENESIS.md",
+    "inception/INCEPTION.md",
+    "inception/INTERVIEW.md",
+    "inception/WALK_ORDER.md",
+    "inception/EXPRESS_INCEPTION.md",
+    "inception/README.md",
+    "inception/wargames/",
+    "inception/briefs/"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L2-blueprint-templates",
+   "task_id": "T-0015",
+   "session_id": "eos-v21-L2",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L2",
+   "path_claims": [
+    "inception/COMPILE.md",
+    "kernel/templates/PRODUCT_MAP.tpl.md",
+    "kernel/templates/WORK_PACKAGE.tpl.md",
+    "kernel/templates/RESEARCH_PACKET.tpl.md",
+    "kernel/templates/ACCEPTANCE_SPINE.tpl.md",
+    "kernel/templates/LENS.tpl.md"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L3-playbooks",
+   "task_id": "T-0016",
+   "session_id": "eos-v21-L3",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L3",
+   "path_claims": [
+    "org/PLAYBOOKS.md",
+    "kernel/templates/org/PLAYBOOKS.tpl.md"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L4-lessons-ledger",
+   "task_id": "T-0017",
+   "session_id": "eos-v21-L4",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L4",
+   "path_claims": [
+    "registry/lessons.json",
+    "registry/LESSONS.md",
+    "kernel/schemas/lesson.schema.json"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L5-verification-staging",
+   "task_id": "T-0018",
+   "session_id": "eos-v21-L5",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L5",
+   "path_claims": [
+    "packs/delivery-testing/",
+    "packs/coding/",
+    "kernel/templates/org/TESTING.tpl.md",
+    "org/capability-profile.json"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L6-packs-a",
+   "task_id": "T-0019",
+   "session_id": "eos-v21-L6",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L6",
+   "path_claims": [
+    "packs/ai-ml-llm/",
+    "packs/api-integration/",
+    "packs/architecture/",
+    "packs/business-logic-modelling/",
+    "packs/business-model-pricing/",
+    "packs/data-analytics/"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L7-tools-checks",
+   "task_id": "T-0020",
+   "session_id": "eos-v21-L7",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L7",
+   "path_claims": [
+    "tools/",
+    "tests/",
+    "kernel/schemas/"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L8-teaching-surfaces",
+   "task_id": "T-0021",
+   "session_id": "eos-v21-L8",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L8",
+   "path_claims": [
     "README.md",
     "TOUR.md",
-    "archive/",
-    "benchmark/",
-    "estate/",
-    "examples/",
-    "inception/",
-    "kernel/",
-    "org/",
-    "packs/",
-    "pytest.ini",
-    "registry/",
-    "tests/",
-    "tools/"
+    "OPERATORS_GUIDE.md",
+    "AGENTS.md",
+    "CLAUDE.md"
    ],
-   "acquired": "2026-08-04T09:00:00Z",
-   "expires": "2026-08-11T09:00:00Z"
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L9-agentic-swarm",
+   "task_id": "T-0022",
+   "session_id": "eos-v21-L9",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L9",
+   "path_claims": [
+    "packs/agentic-swarm/",
+    "kernel/templates/org/GRAPH_BUILD.tpl.md"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L10-packs-b",
+   "task_id": "T-0023",
+   "session_id": "eos-v21-L10",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L10",
+   "path_claims": [
+    "packs/devops-reliability/",
+    "packs/docs-dx/",
+    "packs/legal-licensing/",
+    "packs/marketing-growth/",
+    "packs/native-client/",
+    "packs/pattertech-house/"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L11-packs-c",
+   "task_id": "T-0024",
+   "session_id": "eos-v21-L11",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L11",
+   "path_claims": [
+    "packs/product-discovery/",
+    "packs/security-privacy/",
+    "packs/support-operations/",
+    "packs/ui-ux/",
+    "packs/writing-content/",
+    "packs/agentic-development/"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
+  },
+  {
+   "lane_id": "L12-registry-estate",
+   "task_id": "T-0025",
+   "session_id": "eos-v21-L12",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "eos-v21-L12",
+   "path_claims": [
+    "registry/PROJECTS.md",
+    "registry/VENDORS.md",
+    "registry/coverage.json",
+    "registry/evidence.json",
+    "registry/stacks/",
+    "estate/",
+    "examples/"
+   ],
+   "acquired": "2026-08-10T18:00:00Z",
+   "expires": "2026-08-24T18:00:00Z"
   }
  ],
- "note": "One integrator lane for the pre-release review, T-0004. The twelve Wave B pack lanes completed and their claims are released, as the Wave A lanes were before them. The previous integrator claim listed GUIDE.md, START.md, VISION.md and doctrine/, four paths that no longer exist, and did not list packs/ at all; both are corrected here."
+ "note": "The v2.1 build under ADR-0006, ADR-0007 and ADR-0008: Genesis, exemplar learning, the agentic-swarm pack and the de-restriction pass. Twelve worker lanes plus the integrator, cut on directory cohesion so no two lanes share a path. Hub artefacts stay with the integrator: GOVERNANCE.md, the protected kernel specs and role charters, org/, every derived index, and the licence files. The previous integrator lane for T-0004 completed and its claim is released."
 }

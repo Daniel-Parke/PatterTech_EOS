@@ -197,3 +197,51 @@ def test_declaration_only_route_is_what_a_record_stores():
 
     clean = router.route({"capabilities": [], "side_effects": []}, {}, None)
     assert clean == {"tier": "R0", "reasons": [], "discrepancies": []}
+
+
+# --- every declarable side effect reaches a factor ----------------------
+
+
+def test_every_declarable_side_effect_reaches_a_factor():
+    """A side effect the record invites an owner to declare, that no
+    factor consumes, is a question asked and then ignored. Two were:
+    writes-production-data and rollback-cost both routed a clean R0."""
+    wired = {s for f in router.FACTOR_TABLE for s in f["sources"]}
+    assert router.DECLARABLE - wired == set()
+
+
+def test_writes_production_data_routes_r3_through_data_deletion():
+    ruling = router.route(
+        {"side_effects": ["writes-production-data"]}, {}, None)
+    assert ruling["tier"] == "R3"
+    assert [r["factor"] for r in ruling["reasons"]] == ["data-deletion"]
+    assert ruling["reasons"][0]["source"] == "declared"
+
+
+def test_rollback_cost_routes_r3_through_irreversible_action():
+    ruling = router.route({"side_effects": ["rollback-cost"]}, {}, None)
+    assert ruling["tier"] == "R3"
+    assert [r["factor"] for r in ruling["reasons"]] == ["irreversible-action"]
+
+
+def test_the_policy_and_the_table_agree_on_the_two_wired_sources():
+    """org/policy.json listed writes-production-data as a source of the
+    data-deletion factor and the code's table did not, so the two
+    disagreed and the code won silently.
+
+    Scoped to the two this lane wired. The whole table is not asserted
+    equal because one row genuinely differs: the policy names
+    migrates-schema under destructive-migration, where the spec says
+    "migrates-schema with data loss" and the router routes a plain
+    schema migration to schema-change at R2. Making that assertion pass
+    would mean editing a protected file to match a test.
+    """
+    import json
+
+    policy = json.loads((REPO / "org" / "policy.json").read_text(encoding="utf-8"))
+    factors = {f["id"]: f for f in policy["risk"]["factors"]}
+    table = {f["id"]: set(f["sources"]) for f in router.FACTOR_TABLE}
+    assert "writes-production-data" in factors["data-deletion"]["sources"]
+    assert "writes-production-data" in table["data-deletion"]
+    assert "derived:no-rollback" in factors["irreversible-action"]["sources"]
+    assert "no-rollback" in table["irreversible-action"]

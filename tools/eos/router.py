@@ -41,18 +41,30 @@ DECLARABLE = {
 
 # The 13-row factor table, mirroring kernel/POLICY_SPEC.md (the law).
 # sources are declared side-effect names, derived detector ids, or path
-# classes (paths:protected, paths:sensitive).
+# classes (paths:protected, paths:sensitive). Every name in DECLARABLE
+# appears as a source of some row: a side effect an owner can declare
+# that reaches no factor is a question the record asks and then ignores.
+# tests/test_router.py holds that as an assertion.
 FACTOR_TABLE = [
     {"id": "protected-set-contact", "tier_floor": "R3", "denies_express": False,
      "sources": ["paths:protected"]},
+    # rollback-cost is declarable and reached no factor until v2.1, so
+    # declaring it changed nothing and the record read as a clean R0.
+    # It belongs here: a change whose rollback cost the owner has to
+    # declare is a change that is hard to undo, which is what this
+    # factor is. ADR-0006 authorises the wiring.
     {"id": "irreversible-action", "tier_floor": "R3", "denies_express": False,
-     "sources": ["irreversible-action", "no-rollback"]},
+     "sources": ["irreversible-action", "rollback-cost", "no-rollback"]},
     {"id": "destructive-migration", "tier_floor": "R3", "denies_express": False,
      "sources": ["ddl-drop", "destructive-dml"]},
     {"id": "key-material", "tier_floor": "R3", "denies_express": False,
      "sources": ["secret-pattern"]},
+    # writes-production-data was the other declarable side effect that
+    # reached no factor. org/policy.json already listed it as a source
+    # of this factor and the table here did not, so the policy and the
+    # code disagreed and the code won silently.
     {"id": "data-deletion", "tier_floor": "R3", "denies_express": False,
-     "sources": ["data-deletion"]},
+     "sources": ["writes-production-data", "data-deletion"]},
     {"id": "auth-surface", "tier_floor": "R2", "denies_express": False,
      "sources": ["touches-auth", "paths:auth"]},
     {"id": "money", "tier_floor": "R2", "denies_express": False,

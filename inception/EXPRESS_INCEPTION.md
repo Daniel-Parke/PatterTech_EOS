@@ -68,6 +68,11 @@ Everything else takes its default and says so.
   whole tree reversible except the policy file itself, which is
   protected. Guard validated stays false, so every guarded class is
   manual-only.
+- The material workstreams the full interview asks for at question 18
+  are the surfaces from question 3, one line each, read back and
+  confirmed. Express does not ask a separate question for them, because
+  a venture that answered no to the gate has as many workstreams as it
+  has surfaces.
 
 ## Compile and gate
 
@@ -78,6 +83,11 @@ row in docs/TASKS.md, or check D004 fails the seed.
 Run `python -m tools.eos check --seed <venture path>`. Every auto item
 must be green, as on the full path; nothing about the fast path relaxes
 the machine.
+
+Genesis is skipped by default on this path, and the skip line goes in
+the sign-off block like any other. An operator who wants a blueprint
+takes the lite form of inception/GENESIS.md; the templates are in the
+seed either way.
 
 Two human items are signed rather than five: H1, the cold-start test,
 and H4, voice on the surfaces a stranger reads first. H2 is already

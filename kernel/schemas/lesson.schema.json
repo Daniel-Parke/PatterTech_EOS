@@ -1,0 +1,384 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/lesson.schema.json",
+  "title": "EOS lessons ledger",
+  "description": "registry/lessons.json, the canonical record of what the estate learned and what was decided about each thing it learned. One row per decision, never grouped. registry/LESSONS.md is the derived view. origin is the discriminator over the two intakes: the Study workflow cites the sources it read and the lens it read them through; the harvest names the venture it came from. Row id uniqueness, link resolution and conflict clearance are enforced by the checker, not expressible here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "note",
+    "rows"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "generated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "The date the ledger was last written. Rows are typed in by hand, so this is a fact about the file, not about any row."
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preamble": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Paragraphs the derived view emits verbatim under its heading, one array entry per paragraph, hard-wrapped by the author because the generator does not reflow. The ledger's own history is part of the record and it has to live in the canonical file, or the view would be the only home for it and would stop being derived."
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/row"
+      }
+    }
+  },
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "origin",
+        "title",
+        "lesson",
+        "evidence_class",
+        "disposition",
+        "outcome",
+        "scope",
+        "applicability_conditions",
+        "decided"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/lessonId"
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "study",
+            "harvest"
+          ],
+          "description": "How the lesson arrived. study is the Study workflow reading a source through a lens; harvest is the monthly pull from a venture's feedback file and rulings. The two carry different provenance and the required fields differ accordingly."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 90,
+          "description": "Short scannable label, the heading in the derived view. The full statement stays in lesson: a ledger nobody can scan is a ledger nobody reads."
+        },
+        "lesson": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The lesson itself, one paragraph. What was learned, not what was done about it."
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^EV-\\d{4}$"
+          },
+          "description": "Evidence-ledger rows the lesson rests on. Required for study rows: a study that cannot name what it read is an opinion."
+        },
+        "lens": {
+          "type": "string",
+          "pattern": "^LENS-\\d{4}$",
+          "description": "The lens contract the study ran under, which records what was studied and what was deliberately not. Study rows only."
+        },
+        "venture": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The venture the lesson was harvested from, by the canonical name in registry/PROJECTS.md. One migrated row reads 'External research': it came from the estate survey at EOS creation, before this field existed, and the value is kept as recorded rather than invented into a venture."
+        },
+        "source_note": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Whatever the source cell carried beyond the name: the session, the probe, the ruling id, or a note on how the row was written."
+        },
+        "evidence_class": {
+          "type": "string",
+          "enum": [
+            "controlled",
+            "observational",
+            "anecdotal",
+            "asserted",
+            "not-applicable"
+          ],
+          "description": "How good the support is, on the evidence_grade axis of kernel/METADATA_SPEC.md. A second vocabulary for one idea would go stale in one of the two places."
+        },
+        "disposition": {
+          "type": "string",
+          "enum": [
+            "reference-only",
+            "dated-registry-fact",
+            "venture-ruling",
+            "worked-exemplar",
+            "implementation-reference",
+            "experimental-guidance",
+            "decision-guide",
+            "estate-default",
+            "binding-candidate",
+            "rejected",
+            "deferred"
+          ],
+          "description": "What was decided, and therefore which file now owns the decision. binding is absent on purpose: the workflow may propose a binding candidate, and only an accepted ADR with Daniel's approval binds, under the ladder in GOVERNANCE.md."
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One line on what was actually done and where the decision now lives, which is the prose behind informs. A row that records a decision but not what changed leaves the reader guessing whether anything happened at all."
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^(estate|venture|eos-internal|brand:.+)$",
+          "description": "The scope axis of kernel/METADATA_SPEC.md. A lesson with no stated scope gets applied everywhere by whoever reads it next."
+        },
+        "applicability_conditions": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The conditions under which the lesson holds, including the ones that made it work where it was learned. Two approaches that both work under different conditions are conditioned defaults, not a contradiction."
+        },
+        "informs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          },
+          "description": "The guidance, artefacts and other lesson rows this one bears on. This is the link that makes a lesson findable when the guidance it touches is next exercised, which is the only evaluation the ledger claims."
+        },
+        "conflicts_with": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          },
+          "description": "Live rules, guides or lessons this one contradicts. Named at intake rather than found after adoption."
+        },
+        "conflict_resolutions": {
+          "type": "object",
+          "minProperties": 1,
+          "description": "How each named conflict was settled, keyed by the ref it settles. Required once conflicts_with names anything: a recorded conflict with no recorded resolution leaves two live rules disagreeing and nothing to read to find out which one applies. Check S018 fails the row without it.",
+          "propertyNames": {
+            "$ref": "#/$defs/ref"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "resolution",
+              "note"
+            ],
+            "properties": {
+              "resolution": {
+                "type": "string",
+                "enum": [
+                  "stricter-applies",
+                  "scoped-differently",
+                  "superseded",
+                  "operator-ruling"
+                ],
+                "description": "The first three come from the precedence rules in GOVERNANCE.md. The fourth is Daniel ruling in the room, which is authority rather than derivation."
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "description": "One line naming the condition, the ruling or the successor that settles it. Required for every resolution, not only an operator ruling: a resolution nobody can read cannot be reviewed."
+              }
+            }
+          }
+        },
+        "supersedes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/lessonId"
+          },
+          "description": "Lesson rows this one replaces. Supersession is bidirectional: the row named here carries superseded_by pointing back."
+        },
+        "superseded_by": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/lessonId"
+          }
+        },
+        "decided": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$",
+          "description": "When the disposition was decided. A month is legal because the prose ledger recorded months, and inventing a day would be precision the record does not have."
+        },
+        "reasoning": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One line on why this disposition and not another. In the Study workflow it is Daniel's own line from the interview; a row carrying anyone else's line says so in source_note. Rows migrated from the prose ledger mostly have none, because that ledger had no such column."
+        },
+        "review": {
+          "type": "string",
+          "pattern": "^(\\d{4}-\\d{2}|on-change-of:.+)$",
+          "description": "When the content is dated: a YYYY-MM date or an on-change-of trigger, matching the review axis elsewhere. Human-fired, like every other review in this repository."
+        },
+        "expires": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Hard expiry for experimental guidance, at most ninety days out. Past it the row is expired, not quietly permanent."
+        },
+        "revisit_trigger": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!\\d{4}-\\d{2}(-\\d{2})?$).+",
+          "description": "For a deferred row: the named condition that reopens it. A bare date is rejected on purpose, because a date alone tells the next reader nothing about what they are waiting for."
+        },
+        "pruned_on": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "The date this row's rule text left the ledger because another file now states it. Presence marks the row as provenance only, and the derived view lists it separately. Keeping the rule text here as well would give one rule two homes, and one of the two would go stale."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "origin"
+            ],
+            "properties": {
+              "origin": {
+                "const": "study"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sources",
+              "lens"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "origin"
+            ],
+            "properties": {
+              "origin": {
+                "const": "harvest"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "venture"
+            ],
+            "not": {
+              "required": [
+                "lens"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "disposition"
+            ],
+            "properties": {
+              "disposition": {
+                "const": "rejected"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reasoning"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "disposition"
+            ],
+            "properties": {
+              "disposition": {
+                "const": "deferred"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "revisit_trigger"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "disposition"
+            ],
+            "properties": {
+              "disposition": {
+                "const": "experimental-guidance"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "expires"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "disposition"
+            ],
+            "properties": {
+              "disposition": {
+                "const": "dated-registry-fact"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "review"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "conflicts_with"
+            ],
+            "properties": {
+              "conflicts_with": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "conflict_resolutions"
+            ]
+          }
+        }
+      ]
+    },
+    "lessonId": {
+      "type": "string",
+      "pattern": "^LES-\\d{4}$"
+    },
+    "ref": {
+      "type": "string",
+      "pattern": "^(LES-\\d{4}|EV-\\d{4}|ADR-\\d{4}|T-\\d{4}|PB-E\\d{2}|WG-[A-Z]+-\\d{3}|GD-[A-Z]+-\\d{3}|[A-Za-z0-9_][A-Za-z0-9_./-]*\\.(md|json|py|yaml))$",
+      "description": "An EOS id or a repository-relative path. Both forms resolve: ids against the id schemes in GOVERNANCE.md, paths against the tree. Free prose is not a link, and a link nothing can follow is decoration."
+    }
+  }
+}

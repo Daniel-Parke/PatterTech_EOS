@@ -1,0 +1,341 @@
+{
+  "pack": "security-privacy",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "T-0024",
+  "swept": "2026-08-10",
+  "method": "Every EV id cited anywhere in packs/security-privacy/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 4,
+    "note": "No quoted span of six words or more anywhere in the read surface. The threat catalogue and the guides name categories and restate them; no OWASP list text, no ASVS requirement text and no ICO guidance text is reproduced."
+  },
+  "counts": {
+    "sources_cited": 30,
+    "rows_carrying_licence_evidence": 3,
+    "by_licence_state": {
+      "verified": 0,
+      "stated-unverified": 18,
+      "no-reuse-licence": 0,
+      "unknown": 9,
+      "not-stated": 3
+    },
+    "residual_unknown_or_not_stated": 12
+  },
+  "sources": [
+    {
+      "id": "EV-0011",
+      "source": "Model Context Protocol specification",
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0034",
+      "source": "OWASP ASVS v5.0.0",
+      "url": "https://github.com/OWASP/ASVS",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0035",
+      "source": "ASVS 5.0 level philosophy chapter",
+      "url": "https://asvs.dev/v5.0.0/What-is-the-ASVS/",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0036",
+      "source": "OWASP SAMM v2",
+      "url": "https://owaspsamm.org/model/",
+      "licence": "CC BY-SA (OWASP standard licensing)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0037",
+      "source": "NIST SP 800-218 SSDF v1.1",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "licence": "US Government work (public domain)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0038",
+      "source": "SLSA v1.2",
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "licence": "Community Specification License / CC (OpenSSF project); unknown exact",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0039",
+      "source": "OWASP Cheat Sheet Series",
+      "url": "https://github.com/OWASP/CheatSheetSeries",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0040",
+      "source": "NIST AI RMF 1.0 and Generative AI Profile",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "licence": "US Government work (public domain)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0041",
+      "source": "UK ICO guidance on AI and data protection",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/",
+      "licence": "Open Government Licence (typical for ICO); unknown exact",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0068",
+      "source": "Sigstore",
+      "url": "https://docs.sigstore.dev/about/overview/",
+      "licence": "Apache-2.0 (project components)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0069",
+      "source": "OpenSSF Scorecard",
+      "url": "https://github.com/ossf/scorecard",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0070",
+      "source": "Semgrep (Community Edition)",
+      "url": "https://github.com/semgrep/semgrep",
+      "licence": "LGPL-2.1 (engine); registry rules vary, Pro rules proprietary",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0071",
+      "source": "Open Policy Agent",
+      "url": "https://www.openpolicyagent.org/docs/latest/",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0076",
+      "source": "OpenAI Agents SDK guardrails docs",
+      "url": "https://openai.github.io/openai-agents-python/guardrails/",
+      "licence": "MIT (SDK)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0081",
+      "source": "OpenHands security and confirmation docs",
+      "url": "https://docs.openhands.dev/sdk/guides/security",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0212",
+      "source": "OWASP Top 10 for LLM Applications",
+      "url": "https://genai.owasp.org/llm-top-10/",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0213",
+      "source": "OWASP Top 10 for Agentic Applications 2026",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0214",
+      "source": "Adaptive Evaluation of Out-of-Band Defenses Against Prompt Injection in LLM Agents",
+      "url": "https://arxiv.org/abs/2606.26479",
+      "licence": "arXiv default (author licence not confirmed at access); unknown",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0215",
+      "source": "Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents",
+      "url": "https://arxiv.org/abs/2503.00061",
+      "licence": "arXiv default (author licence not confirmed at access); unknown",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0216",
+      "source": "CaMeL: Defeating Prompt Injections by Design",
+      "url": "https://arxiv.org/abs/2503.18813",
+      "licence": "CC BY 4.0 (paper)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0217",
+      "source": "AgentDojo",
+      "url": "https://arxiv.org/abs/2406.13352",
+      "licence": "arXiv default (author licence not confirmed at access); unknown",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0218",
+      "source": "Model Context Protocol security best practices",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices",
+      "licence": "MIT (Model Context Protocol specification repository); unknown for the rendered site",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0219",
+      "source": "The lethal trifecta for AI agents (Simon Willison)",
+      "url": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0220",
+      "source": "Claude Code sandboxed Bash tool documentation",
+      "url": "https://code.claude.com/docs/en/sandboxing",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0221",
+      "source": "Gitleaks",
+      "url": "https://github.com/gitleaks/gitleaks",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0222",
+      "source": "GitHub secret scanning push protection",
+      "url": "https://docs.github.com/en/code-security/secret-scanning/introduction/about-push-protection",
+      "licence": "CC BY 4.0 (GitHub Docs content licence); unknown for product behaviour",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0223",
+      "source": "Threat Modeling Manifesto",
+      "url": "https://www.threatmodelingmanifesto.org/",
+      "licence": "CC-BY-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0224",
+      "source": "Microsoft Threat Modeling Tool threat categories (STRIDE)",
+      "url": "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats",
+      "licence": "CC BY 4.0 (Microsoft Learn documentation); unknown for the tool",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0225",
+      "source": "Data (Use and Access) Act 2025",
+      "url": "https://www.legislation.gov.uk/ukpga/2025/18/contents",
+      "licence": "Open Government Licence v3.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0226",
+      "source": "NCSC Small Business Guide to Cyber Security",
+      "url": "https://www.ncsc.gov.uk/collection/small-business-guide",
+      "licence": "Open Government Licence (typical for NCSC); unknown exact",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    }
+  ],
+  "residual": [
+    {
+      "id": "EV-0038",
+      "source": "SLSA v1.2",
+      "licence": "Community Specification License / CC (OpenSSF project); unknown exact",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0041",
+      "source": "UK ICO guidance on AI and data protection",
+      "licence": "Open Government Licence (typical for ICO); unknown exact",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0081",
+      "source": "OpenHands security and confirmation docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0214",
+      "source": "Adaptive Evaluation of Out-of-Band Defenses Against Prompt Injection in LLM Agents",
+      "licence": "arXiv default (author licence not confirmed at access); unknown",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0215",
+      "source": "Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents",
+      "licence": "arXiv default (author licence not confirmed at access); unknown",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0217",
+      "source": "AgentDojo",
+      "licence": "arXiv default (author licence not confirmed at access); unknown",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0218",
+      "source": "Model Context Protocol security best practices",
+      "licence": "MIT (Model Context Protocol specification repository); unknown for the rendered site",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0219",
+      "source": "The lethal trifecta for AI agents (Simon Willison)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0220",
+      "source": "Claude Code sandboxed Bash tool documentation",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0222",
+      "source": "GitHub secret scanning push protection",
+      "licence": "CC BY 4.0 (GitHub Docs content licence); unknown for product behaviour",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0224",
+      "source": "Microsoft Threat Modeling Tool threat categories (STRIDE)",
+      "licence": "CC BY 4.0 (Microsoft Learn documentation); unknown for the tool",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0226",
+      "source": "NCSC Small Business Guide to Cyber Security",
+      "licence": "Open Government Licence (typical for NCSC); unknown exact",
+      "state": "unknown"
+    }
+  ]
+}

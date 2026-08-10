@@ -327,12 +327,30 @@ def test_d004_missing_queue_file(tmp_path):
             "docs/WORKLOG.md is missing") in only(fs, "D004")
 
 
-def test_d005_missing_genesis_directory(tmp_path):
+def test_d005_missing_first_use_directory(tmp_path):
     seed = make_seed(tmp_path, "M")
     shutil.rmtree(seed / "org" / "logs")
     fs = run_seed(seed, ctx())
     assert only(fs, "D005") == [("error", "org/logs/",
                                  "directory required empty at scale M, missing")]
+
+
+def test_d005_serves_v1_pinned_seeds_and_no_others(tmp_path):
+    """The v2 matrix ships nothing empty, so D005 passes a v2 seed
+    vacuously. It is kept because a seed pinned to a v1 commit resolves
+    the v1 matrix, which does declare directories, and seeds in the
+    estate are pinned that way."""
+    _required, _addons, empty = parse_matrix(REPO_ROOT)
+    assert empty == {"S": [], "ORG": []}
+    eos = _v2_eos(tmp_path)
+    assert only(run_seed(_v2_seed(tmp_path, scale="ORG"), _v2_ctx(eos)),
+                "D005") == []
+    # A v1-pinned seed still has directories to be missing.
+    v1 = parse_matrix_text(subprocess.run(
+        ["git", "-C", str(REPO_ROOT), "show",
+         "archive/v1-final:kernel/SCALE_MATRIX.md"],
+        capture_output=True, text=True, encoding="utf-8", check=True).stdout)[2]
+    assert v1["M"] == ["org/decisions/", "org/logs/"]
 
 
 def test_d006_unresolvable_wargame_id(tmp_path):
@@ -490,10 +508,10 @@ def _valid_policy():
     return doc
 
 
-def _v2_eos(tmp_path):
+def _v2_eos(tmp_path, matrix=V2_TEST_MATRIX):
     eos = tmp_path / "v2eos"
     (eos / "kernel" / "schemas").mkdir(parents=True)
-    (eos / "kernel" / "SCALE_MATRIX.md").write_text(V2_TEST_MATRIX, encoding="utf-8")
+    (eos / "kernel" / "SCALE_MATRIX.md").write_text(matrix, encoding="utf-8")
     for name in ("policy.schema.json", "claims.schema.json"):
         shutil.copy(REPO_ROOT / "kernel" / "schemas" / name,
                     eos / "kernel" / "schemas" / name)
@@ -611,6 +629,18 @@ def test_d008_validated_false_is_the_manual_only_declaration(tmp_path):
     assert only(run_seed(seed, _v2_ctx(eos)), "D008") == []
 
 
+def test_d008_absent_validated_reads_the_same_as_false(tmp_path):
+    """The seed check, the policy schema and tools/eos/guard.py all
+    read an absent validated key as fail-closed. The guard used to read
+    it as "not withdrawn", which was the one permissive reading of the
+    three, and tests/test_guard.py pins the other half of this."""
+    eos = _v2_eos(tmp_path)
+    policy = _valid_policy()
+    del policy["guard"]["validated"]
+    seed = _v2_seed(tmp_path, policy=policy)
+    assert only(run_seed(seed, _v2_ctx(eos)), "D008") == []
+
+
 def test_d008_missing_guard_section(tmp_path):
     eos = _v2_eos(tmp_path)
     policy = _valid_policy()
@@ -681,3 +711,143 @@ def test_d007_gate_v1_matrix_never_fires_policy_checks(tmp_path):
     assert only(fs, "D007") == []
     assert only(fs, "D008") == []
     assert only(fs, "D009") == []
+
+
+# --- D010, D011 the Genesis blueprint set -------------------------------
+
+
+GENESIS_DESTINATIONS = {
+    "kernel/templates/PRODUCT_MAP.tpl.md": "docs/genesis/PRODUCT_MAP.md",
+    "kernel/templates/WORK_PACKAGE.tpl.md": "docs/genesis/WORK_PACKAGE.md",
+    "kernel/templates/RESEARCH_PACKET.tpl.md": "docs/genesis/RESEARCH_PACKET.md",
+    "kernel/templates/ACCEPTANCE_SPINE.tpl.md": "docs/genesis/ACCEPTANCE_SPINE.md",
+    "kernel/templates/LENS.tpl.md": "docs/lenses/LENS.md",
+}
+GENESIS_MATRIX = V2_TEST_MATRIX.replace(
+    "\n\n## Trigger add-ons",
+    "\n" + "".join("| %s | %s | | x |\n" % (dest, src)
+                   for src, dest in GENESIS_DESTINATIONS.items())
+    + "\n## Trigger add-ons")
+
+SPINE_BODY = """
+## The manifest
+
+| journey | condition id | check id | state | package |
+| --- | --- | --- | --- | --- |
+| J1 | A1.1 |  | expected-fail | WP-01 |
+"""
+
+
+def _genesis_file(seed, rel, source, body="Body.\n"):
+    target = seed / rel
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(
+        "---\nsummary: A compiled Genesis file\ntype: template\ntags: [eos]\n"
+        "compiled_from: %s\n---\n%s" % (source, body),
+        encoding="utf-8")
+
+
+def _genesis_seed(tmp_path, missing=(), spine_body=SPINE_BODY):
+    seed = _v2_seed(tmp_path, scale="ORG")
+    for source, dest in GENESIS_DESTINATIONS.items():
+        if source in missing:
+            continue
+        body = spine_body if source.endswith("ACCEPTANCE_SPINE.tpl.md") \
+            else "Body.\n"
+        _genesis_file(seed, dest, source, body)
+    return seed
+
+
+def test_d010_reports_every_missing_genesis_template(tmp_path):
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX)
+    seed = _genesis_seed(tmp_path, missing=GENESIS_DESTINATIONS)
+    paths = [p for _s, p, _m in only(run_seed(seed, _v2_ctx(eos)), "D010")]
+    assert paths == list(GENESIS_DESTINATIONS)
+
+
+def test_d010_is_quiet_when_the_set_is_compiled_in(tmp_path):
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX)
+    seed = _genesis_seed(tmp_path)
+    fs = run_seed(seed, _v2_ctx(eos))
+    assert only(fs, "D010") == []
+    assert only(fs, "D011") == []
+
+
+def test_d010_matches_on_the_source_not_the_destination(tmp_path):
+    """The matrix decides where a compiled file lands. D010 reads
+    compiled_from so it does not have to agree with the matrix twice."""
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX)
+    seed = _genesis_seed(tmp_path, missing=["kernel/templates/LENS.tpl.md"])
+    _genesis_file(seed, "docs/lenses/LENS-0001.md",
+                  "kernel/templates/LENS.tpl.md")
+    assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
+
+
+def test_d010_stays_quiet_at_s_scale(tmp_path):
+    """Full Genesis is the ORG default; S takes the lite form."""
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX)
+    seed = _v2_seed(tmp_path, scale="S")
+    assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
+
+
+def test_d010_stays_quiet_when_the_matrix_predates_genesis(tmp_path):
+    """A seed pinned to a commit from before the templates existed could
+    not have carried them, so it is not asked to."""
+    eos = _v2_eos(tmp_path)
+    seed = _v2_seed(tmp_path, scale="ORG")
+    assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
+
+
+def test_d010_leaves_the_frozen_org_fixture_alone():
+    seed = REPO_ROOT / "benchmark" / "fixtures" / "seed-v2-ORG"
+    fs = run_seed(seed, ctx())
+    assert only(fs, "D010") == []
+    assert only(fs, "D011") == []
+
+
+def test_d011_wants_the_expected_fail_marking(tmp_path):
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX)
+    seed = _genesis_seed(tmp_path, spine_body="""
+## The manifest
+
+| journey | condition id | check id | state | package |
+| --- | --- | --- | --- | --- |
+| J1 | A1.1 |  | green | WP-01 |
+""")
+    got = only(run_seed(seed, _v2_ctx(eos)), "D011")
+    assert len(got) == 1
+    assert got[0][1] == "docs/genesis/ACCEPTANCE_SPINE.md"
+    assert "never says expected-fail" in got[0][2]
+    assert "nothing here runs the suite" in got[0][2]
+
+
+def test_d011_wants_a_manifest_with_a_state_column(tmp_path):
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX)
+    seed = _genesis_seed(
+        tmp_path,
+        spine_body="Every check starts expected-fail. No table here.\n")
+    got = only(run_seed(seed, _v2_ctx(eos)), "D011")
+    assert len(got) == 1
+    assert "no manifest table with a state column" in got[0][2]
+
+
+# --- cannot-run findings are named at source ----------------------------
+
+
+def test_cannot_run_names_the_two_findings_the_cli_maps_to_exit_two(tmp_path):
+    """The CLI used to look for the words "cannot run" in the message.
+    Neither message says them, so the exit-2 branch never ran once."""
+    from tools.eos.checks.seed import cannot_run
+
+    missing_seed = run_seed(tmp_path / "nowhere", ctx())
+    assert [f.check_id for f in cannot_run(missing_seed)] == ["D001"]
+
+    (tmp_path / "empty-eos").mkdir()
+    seed = make_seed(tmp_path, "S")
+    no_matrix = run_seed(seed, {"root": tmp_path / "empty-eos",
+                                "today": TODAY, "offline": True})
+    assert [f.check_id for f in cannot_run(no_matrix)] == ["D003"]
+
+    # A seed that merely fails its rubric is not a run that could not
+    # happen, and must not be reported as one.
+    assert cannot_run(run_seed(make_seed(tmp_path, "M"), ctx())) == []

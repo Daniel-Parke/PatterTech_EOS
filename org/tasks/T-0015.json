@@ -1,0 +1,22 @@
+{
+  "id": "T-0015",
+  "intent": "Author the five blueprint templates the Genesis phase compiles into a seed: product map, work package, research packet, acceptance spine and lens contract, with slot discipline and scale fences, and wire them into COMPILE.",
+  "claims": [
+    "inception/COMPILE.md",
+    "kernel/templates/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "active",
+  "owner_session": "eos-v21-L2",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-10T18:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

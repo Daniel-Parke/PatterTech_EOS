@@ -1,0 +1,22 @@
+{
+  "id": "T-0016",
+  "intent": "Author PB-E11 (study an exemplar) and PB-E12 (venture check-in), re-point PB-E02 at the lessons ledger, and add the wide-build procedure to the venture playbook template.",
+  "claims": [
+    "org/PLAYBOOKS.md",
+    "kernel/templates/org/PLAYBOOKS.tpl.md"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "active",
+  "owner_session": "eos-v21-L3",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-10T18:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

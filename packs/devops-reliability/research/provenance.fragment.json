@@ -1,0 +1,71 @@
+{
+ "pack": "devops-reliability",
+ "checked": "2026-08-10",
+ "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0020",
+  "EV-0026",
+  "EV-0043",
+  "EV-0058",
+  "EV-0059",
+  "EV-0071",
+  "EV-0096",
+  "EV-0197",
+  "EV-0198",
+  "EV-0199",
+  "EV-0200",
+  "EV-0201",
+  "EV-0202",
+  "EV-0203",
+  "EV-0204",
+  "EV-0205",
+  "EV-0206",
+  "EV-0207",
+  "EV-0208",
+  "EV-0209",
+  "EV-0210",
+  "EV-0211"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0059",
+   "licence_recorded": "unknown (GrowthBook core is MIT; EDF is a Pro/Enterprise feature)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "asymmetric experiment gating, a preference"
+  },
+  {
+   "ev": "EV-0202",
+   "licence_recorded": "Apache-2.0 for Atlas community edition; docs terms unknown; some analyzers are Pro-only",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "requirement 3, the migration linter and its four risk classes"
+  },
+  {
+   "ev": "EV-0203",
+   "licence_recorded": "unknown (no notice on site; source repo on GitHub)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "requirement 5, the steady-state hypothesis before a drill"
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/devops-reliability/PACK.md",
+   "line": 202,
+   "concern": "The error budget default takes its two-state shape from EV-0096, which is CC BY-NC-ND. Non-commercial and no-derivatives are the two most restrictive terms in this lane's source set.",
+   "resolution": "Not a concern. The policy structure is stated in our own words and the pack says on line 205 that it paraphrases and never quotes. No passage was carried. refs/SLO_AND_ERROR_BUDGET.md line 55 and GD-DEVOPS-003 line 62 repeat the label at the point of use."
+  },
+  {
+   "file": "packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md",
+   "line": 76,
+   "concern": "The five SPACE dimension names are carried as terminology from EV-0210, which is ACM copyright, paraphrase only, and the DORA metric names from EV-0199 sit ten lines above.",
+   "resolution": "Not a concern. Dimension names are identifiers a reader has to recognise, not expression, and both are attributed by evidence id. No sentence of either source appears."
+  }
+ ],
+ "notes": "Three of twenty-two cited rows carry an unknown or partly unknown licence and all three are cited for a finding rather than for wording. Six further rows are known and restrictive rather than unknown: EV-0096 is CC BY-NC-ND, and EV-0201, EV-0206, EV-0207, EV-0210 and EV-0211 are each recorded paraphrase-only. The pack paraphrases every one. None of the three unknown rows carries a licence_checked date, so all three are unconfirmed rather than checked-and-none: EV-0202 and EV-0203 both have public repositories, which makes the check cheap and puts it first when this pack is next opened. The quotation scan found no carried passage. The only quoted strings in the read surface are our own JSON and SQL examples in refs/RESTORE_DRILL_EVIDENCE.md."
+}

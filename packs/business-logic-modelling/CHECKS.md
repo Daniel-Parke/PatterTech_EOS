@@ -31,11 +31,11 @@ evidence.
 | C8 | No naive datetime in the domain tree | B2 | scan for datetime construction without a zone, and for storage of an offset where a zone was meant |
 | C9 | Elapsed durations survive a clock change | B2 | property test across a daylight-saving boundary in a real zone, both directions |
 | C10 | Calendar arithmetic happens in the zone | B2 | one month later at a clock change lands on the same local time, not the same offset |
-| C11 | Illegal values cannot be constructed | B3 | construct each declared invalid case, expect a raise from the constructor |
-| C12 | No validate-only path | B3 | the type exposes no `validate` or `is_valid` that a caller may skip in place of construction |
+| C11 | Illegal values cannot be constructed | D9 | construct each declared invalid case, expect a raise from the constructor |
+| C12 | No validate-only path | D9 | the type exposes no `validate` or `is_valid` that a caller may skip in place of construction |
 | C13 | Transition matrix is exhaustive and refusing | D3 | drive every ordered pair of statuses; only declared pairs succeed, every other raises, none returns quietly |
-| C14 | Outbox and state share a transaction | B4 | roll the transaction back, assert no message is relayed |
-| C15 | Consumers are idempotent | B4 | deliver the same message twice, assert one effect |
+| C14 | Outbox and state share a transaction | D10 | roll the transaction back, assert no message is relayed |
+| C15 | Consumers are idempotent | D10 | deliver the same message twice, assert one effect |
 | C16 | Decision tables are complete | D6 | evaluate every input combination, fail on a gap or an undeclared overlap (EV-0277) |
 | C17 | No rule engine or state machine dependency without a recorded decision | D6, D1 | scan the dependency manifest against the change record |
 | C18 | Every EV id cited in this pack exists | pack hygiene | lookup against `registry/evidence.json` |
@@ -54,7 +54,7 @@ the legal path proves nothing about what the lifecycle refuses.
 | J3 | The model grew against a named trigger | D1 | the change record names what forced the step, not a preference |
 | J4 | The odd minor unit rule is a business decision | GD-BLM-003 | somebody who sells the product answered it, and the answer is in the change record |
 | J5 | Each duration is declared elapsed or wall-clock | D5 | the declaration sits next to the rule, not in a library default |
-| J6 | The event pattern is named | B5 | one of notification, state transfer, sourcing, CQRS, named in the change record |
+| J6 | The event pattern is named | D11 | one of notification, state transfer, sourcing, CQRS, named in the change record |
 | J7 | The rule lives on the right clock | D6 | who edits it and how often, stated, and the home follows |
 | J8 | An event log holding personal data has an erasure story | GD-BLM-005 | the story exists and `packs/security-privacy/PACK.md` has seen it |
 | J9 | Departures from a default carry a reason | defaults | the reason is in the task record, not in a commit message alone |

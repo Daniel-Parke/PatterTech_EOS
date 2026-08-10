@@ -10,7 +10,7 @@ review: 2027-10
 
 # Topology decision record shape
 
-Required by binding requirement B5 whenever a design uses anything
+Asked for by B5, a default since the 2026-08 audit, whenever a design uses anything
 above direct single-agent. One file, under 120 lines, front-matter with
 `summary`, `type` and `tags` including `eos`. Six level-two sections,
 in this order.

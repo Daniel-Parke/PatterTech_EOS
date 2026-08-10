@@ -11,8 +11,9 @@ review: on-change-of:EV-0255
 
 # Eval report reference
 
-Level three detail behind binding requirements B1, B2, B3 and B6 and
-guide `packs/ai-ml-llm/guides/GD-AIML-001-acceptance-evidence.md`.
+Level three detail behind binding requirements B2 and B3, defaults D9
+and D10, and guide
+`packs/ai-ml-llm/guides/GD-AIML-001-acceptance-evidence.md`.
 
 ## The entry point
 

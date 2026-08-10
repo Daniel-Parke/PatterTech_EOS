@@ -1,0 +1,223 @@
+{
+  "pack": "writing-content",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "T-0024",
+  "swept": "2026-08-10",
+  "method": "Every EV id cited anywhere in packs/writing-content/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 6,
+    "note": "One quoted span of six words or more in the read surface, a six-word gloss of the CLDR plural category `one` in PACK.md B2, attributed to EV-0443 and well inside fair quotation. No style guide's word list, A to Z or rule text is carried, which is the specific risk B9 exists to name."
+  },
+  "counts": {
+    "sources_cited": 22,
+    "rows_carrying_licence_evidence": 0,
+    "by_licence_state": {
+      "verified": 0,
+      "stated-unverified": 18,
+      "no-reuse-licence": 1,
+      "unknown": 3,
+      "not-stated": 0
+    },
+    "residual_unknown_or_not_stated": 3
+  },
+  "sources": [
+    {
+      "id": "EV-0027",
+      "source": "WCAG 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "licence": "W3C Document Licence",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0062",
+      "source": "GOV.UK Design System",
+      "url": "https://github.com/alphagov/govuk-design-system",
+      "licence": "MIT (code); docs under Open Government Licence 3.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0063",
+      "source": "govuk-frontend",
+      "url": "https://github.com/alphagov/govuk-frontend",
+      "licence": "MIT (code); docs Crown copyright / OGL 3.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0122",
+      "source": "RFC 9457 Problem Details for HTTP APIs",
+      "url": "https://www.rfc-editor.org/rfc/rfc9457.html",
+      "licence": "IETF Trust Legal Provisions (BSD-style, RFC text)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0233",
+      "source": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design",
+      "url": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+      "licence": "Copyright Jakob Nielsen; reuse of the heuristics permitted with credit and a link to the page",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0335",
+      "source": "Vale prose linter",
+      "url": "https://github.com/errata-ai/vale",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0433",
+      "source": "ISO 24495-1:2023, Plain language, Part 1: Governing principles and guidelines",
+      "url": "https://www.iso.org/standard/78907.html",
+      "licence": "ISO copyright, sold under ISO terms, not open; no reuse of text permitted",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0434",
+      "source": "Federal Plain Language Guidelines, now hosted as the Digital.gov plain language guide series",
+      "url": "https://digital.gov/guides/plain-language",
+      "licence": "United States federal government work, public domain within the United States; no explicit statement was found on the page itself",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0435",
+      "source": "GOV.UK, Writing to GOV.UK standards (Government Digital Service publishing guidance)",
+      "url": "https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/writing-guidelines/",
+      "licence": "Open Government Licence v3.0, stated in the site footer as applying except where otherwise stated; attribution to the Government Digital Service required",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0436",
+      "source": "Begeny and Greene, Can readability formulas be used to successfully gauge difficulty of reading materials?",
+      "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/pits.21740",
+      "licence": "Wiley copyright, paywalled; abstract and secondary reporting only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0437",
+      "source": "ASD-STE100 Simplified Technical English, Issue 9",
+      "url": "https://www.asd-ste100.org/about_STE.html",
+      "licence": "unknown; the specification PDF is downloadable free from asd-ste100.org after registration, redistribution terms were not verified",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0438",
+      "source": "Multimethods randomised trial of plain language versions of COVID-19 health recommendations for parents",
+      "url": "https://www.jclinepi.com/article/S0895-4356(23)00165-8/fulltext",
+      "licence": "Elsevier copyright, paywalled; publisher landing page returned 403, abstract and indexing records only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0439",
+      "source": "Plain Language vs Standard Format for Youth Understanding of COVID-19 Recommendations, randomised clinical trial",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10407760/",
+      "licence": "unknown; PMC open-access article, per-article licence not verified on the page",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0440",
+      "source": "W3C, Making Content Usable for People with Cognitive and Learning Disabilities (COGA)",
+      "url": "https://www.w3.org/TR/coga-usable/",
+      "licence": "W3C Document Licence (2015 copyright-software-and-document licence); paraphrase only, do not copy pattern text",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0441",
+      "source": "Nielsen Norman Group, Error Message Guidelines",
+      "url": "https://www.nngroup.com/articles/error-message-guidelines/",
+      "licence": "Nielsen Norman Group copyright, all rights reserved; paraphrase only",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0442",
+      "source": "Unicode MessageFormat 2.0, message-format-wg and LDML Part 9",
+      "url": "https://github.com/unicode-org/message-format-wg",
+      "licence": "Unicode Licence, per the repository LICENSE and the Unicode Terms of Use",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0443",
+      "source": "Unicode CLDR plural rules",
+      "url": "https://cldr.unicode.org/index/cldr-spec/plural-rules",
+      "licence": "Unicode Terms of Use (unicode.org/copyright.html)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0444",
+      "source": "Project Fluent",
+      "url": "https://projectfluent.org/",
+      "licence": "Apache Licence 2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0445",
+      "source": "W3C Internationalization, Text size in translation",
+      "url": "https://www.w3.org/International/articles/article-text-size",
+      "licence": "W3C Document Licence per the site footer; paraphrase only, the expansion table is reproduced as figures, not as text",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0446",
+      "source": "MicrosoftDocs/globalization, How to perform internationalization testing",
+      "url": "https://github.com/MicrosoftDocs/globalization/blob/main/globalization/testing/how-to-perform-internationalization-testing.md",
+      "licence": "unknown; public MicrosoftDocs repository, licence file not verified for this path",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0447",
+      "source": "Microsoft Writing Style Guide, Top 10 tips for style and voice",
+      "url": "https://learn.microsoft.com/en-us/style-guide/top-10-tips-style-voice",
+      "licence": "Microsoft copyright, terms of use apply; the source repository is MicrosoftDocs/microsoft-style-guide-pr, per-file licence not verified",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0448",
+      "source": "Mailchimp Content Style Guide",
+      "url": "https://styleguide.mailchimp.com/",
+      "licence": "Creative Commons Attribution-NonCommercial 4.0 International; attribution to Mailchimp required, commercial reuse not permitted",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    }
+  ],
+  "residual": [
+    {
+      "id": "EV-0437",
+      "source": "ASD-STE100 Simplified Technical English, Issue 9",
+      "licence": "unknown; the specification PDF is downloadable free from asd-ste100.org after registration, redistribution terms were not verified",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0439",
+      "source": "Plain Language vs Standard Format for Youth Understanding of COVID-19 Recommendations, randomised clinical trial",
+      "licence": "unknown; PMC open-access article, per-article licence not verified on the page",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0446",
+      "source": "MicrosoftDocs/globalization, How to perform internationalization testing",
+      "licence": "unknown; public MicrosoftDocs repository, licence file not verified for this path",
+      "state": "unknown"
+    }
+  ]
+}

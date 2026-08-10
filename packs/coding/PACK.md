@@ -12,7 +12,7 @@ applies_when: [edits_source, reviews_change, decides_merge]
 activation_paths: [**/*.py, **/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.go, **/*.rs, **/*.java, **/*.rb, **/*.c, **/*.cpp, **/*.h, **/pyproject.toml, **/package.json, **/Cargo.toml]
 volatility: slow
 review: 2027-02
-sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183]
+sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0105, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183, EV-0191, EV-0192]
 ---
 
 # Coding pack
@@ -56,11 +56,12 @@ source.
 ## Outcomes and non-goals
 
 **Outcomes.** A change that lands has an executable statement of what
-it was meant to do, written before it was accepted. Behaviour that
-existed before the change still holds unless the change declared
-otherwise. Failures reach the caller in a form the caller can act on.
-A machine gate has read the diff. A human has looked where a human
-being wrong would cost something real.
+it was meant to do, written somewhere other than the code it judges,
+and observed failing at least once. Behaviour that existed before the
+change still holds unless the change declared otherwise. Failures reach
+the caller in a form the caller can act on. A machine gate has read the
+diff. A human has looked where a human being wrong would cost something
+real.
 
 **Non-goals.** This pack does not own test strategy depth, coverage
 targets or flake policy, which sit in the delivery-testing pack. It
@@ -75,18 +76,41 @@ project's style guide and its formatter, never by reviewer taste
 ## Binding requirements
 
 Five requirements bind. A run that breaks one fails, whatever else it
-achieved.
+achieved. Each was re-tested on 2026-08-10 against ADR-0008: a rule
+binds only where it prevents a serious or hard-to-reverse failure and
+its basis is law, a standard or measured evidence. What did not pass is
+in the defaults below with its reason.
 
-**B1. An oracle exists before the implementation is accepted.** Every
-change carries an executable statement of intent appropriate to its
-type, and that statement is authored and committed before the
-implementation is accepted. A FIX starts from a failing reproduction.
-Prevents the mutual-consistency failure: tests generated after faulty
-code agree with the fault and roughly halve fault detection (EV-0007),
-while surfacing the right test context cut regressions from 6.08 to
-1.82 per cent (EV-0003). Scope note: those numbers are agent runs on
-SWE-bench Verified, not a claim about human developers or about all
-code. See `packs/coding/guides/GD-COD-001-oracle-strategy.md`.
+**B1. The oracle is independent of the code it judges, and it has been
+seen to fail.** Two clauses, and neither of them is about ordering.
+
+*Independent.* The artefact that decides whether a change is correct is
+not authored by the agent holding that implementation in its context.
+That authoring context may hold the specification, the interface, the
+reproduction and prior art. It may not hold the candidate code.
+
+*Seen to fail.* Before an oracle counts at the gate, it has been
+observed red: against the parent commit, against the change reverted, or
+against a seeded fault. Diff-scoped mutation is the general mechanism
+where a single revert will not do.
+
+Prevents two failures. Mutual consistency, where a check written from
+the code agrees with the fault it should catch: tests generated after
+faulty code detected roughly half the faults of independently generated
+tests, 14 per cent against 25 per cent (EV-0007), and surfacing the
+right test context cut regressions from 6.08 to 1.82 per cent (EV-0003).
+And the vacuous check, a green suite nobody has ever seen go red: agent
+test-writing frequency is about the same in runs that resolve and runs
+that do not, because what gets written is mostly observational prints
+(EV-0006). Mutants couple to real faults often enough to serve as the
+proof, 73 per cent of real faults coupled to at least one (EV-0191), and
+diff-scoped, mutation-guided generation is what makes the proof
+affordable (EV-0192, EV-0105).
+
+Scope note: EV-0007, EV-0006 and EV-0003 are agent runs on curated
+benchmarks and EV-0191 is five Java projects. The direction transfers,
+the magnitudes are theirs. Ordering is free: see D7. See
+`packs/coding/guides/GD-COD-001-oracle-strategy.md`.
 
 **B2. Behaviour is pinned before structure moves.** No refactor of code
 whose specification is missing or untrusted begins until a
@@ -108,14 +132,19 @@ distributed data systems in 2014, so the direction of attention
 transfers and the exact proportion does not. See
 `packs/coding/refs/ERROR_PATH.md`.
 
-**B4. Distinguishable failures are declared and versioned.** The set of
-failures a caller may tell apart is named in the interface
-documentation, and it changes only with a version bump on that
-interface. Wrapping an error makes that error part of the contract
-(EV-0175); version numbers mean nothing until the public surface is
-declared precisely (EV-0171). Prevents callers writing recovery against
-a failure mode that quietly disappears in a patch release. See
-`packs/coding/guides/GD-COD-003-failure-mode-contract.md`.
+**B4. On a published interface, distinguishable failures are declared
+and versioned.** Published means an interface with a consumer the
+venture does not control: another venture, another release train, a
+paying customer. The set of failures such a caller may tell apart is
+named in the interface documentation, and it changes only with a version
+bump. Wrapping an error makes that error part of the contract (EV-0175);
+version numbers mean nothing until the public surface is declared
+precisely (EV-0171). Prevents callers writing recovery against a failure
+mode that quietly disappears in a patch release, which they cannot see
+coming and cannot undo once shipped. Inside the venture this is D9 and
+not a rule, because the pack's own anti-pattern list already says
+contract ceremony on a module with one caller buys rigidity and no
+coordination. See `packs/coding/guides/GD-COD-003-failure-mode-contract.md`.
 
 **B5. A diff-aware machine gate runs before every merge.** Security and
 policy rules run against the diff, not the whole repository, and
@@ -134,6 +163,26 @@ Guarded actions are outside review entirely. Deployment, deletion,
 force-push, secret access, money movement and the rest are ruled by
 `kernel/GUARD_SPEC.md` and its non-waivable floors. No review verdict,
 machine or human, changes a guard verdict.
+
+## What the ordering demotion costs
+
+Until 2026-08-10 B1 required the oracle to be committed before the
+implementation was accepted. ADR-0006 dropped that. Test-first was doing
+three jobs at once and only one of them was the order, so the other two
+are bought back by name rather than quietly lost.
+
+**The free proof that a check can fail.** Red then green demonstrated,
+at no cost, that the new test was capable of going red. B1's second
+clause buys that back. A seeded fault or a diff-scoped mutation run is
+more expensive than watching one test go red, and it is stronger,
+because it tests the whole oracle set rather than the one test just
+added (EV-0191, EV-0192, EV-0105).
+
+**The enforced cadence of small, even steps.** That, and not the
+sequencing, is what carried the measured benefit in the human literature
+(EV-0178). A red-green cycle enforced it automatically; a queue of work
+packages does not. D8 replaces it with a stated cap, which somebody has
+to police.
 
 ## Defaults
 
@@ -193,6 +242,32 @@ localise-repair-validate loop over autonomous sophistication until the
 simple pipeline is shown to fail; a fixed pipeline matched contemporary
 agents at far lower cost (EV-0008). Reason: cost and reproducibility.
 
+**D7. Write the oracle before the implementation wherever the condition
+can be stated.** For a FIX that means the failing reproduction, which is
+available before any code exists. Reason: it is the cheapest way to
+satisfy B1's independence clause, because at that moment there is no
+implementation to read. It is a default and not a rule because ordering
+is not what the evidence measures. Prompting for more tests across the
+500 tasks of SWE-bench Verified changed test-writing behaviour on most
+tasks and left the number resolved statistically unchanged (EV-0006),
+and in the human literature the active ingredient was granularity and
+uniformity rather than sequencing (EV-0178). Override by recording where
+the oracle did come from, which is what B1 actually wants.
+
+**D8. Cap the size of a work package, and keep packages of a similar
+size.** The venture picks the cap and records it. Reason: small, even
+increments are the ingredient the sequencing literature actually
+measured (EV-0178), and dropping the test-first cycle drops the thing
+that enforced them. Nothing in a queue or a dependency graph supplies
+this automatically.
+
+**D9. Declare distinguishable failures on internal interfaces too,
+where more than one caller exists.** Reason: the coordination benefit
+is real once there are two callers and absent when there is one, so this
+is judgement rather than law. B4 is the binding version and applies to
+published interfaces only. Override for a module with a single caller,
+where the declaration is rigidity for its own sake.
+
 ## Preferences
 
 These are taste. Record them, do not gate on them, and override them
@@ -218,7 +293,7 @@ without asking.
 
 | Fork | Guide | Default |
 | --- | --- | --- |
-| Where does the oracle for this change come from? | `packs/coding/guides/GD-COD-001-oracle-strategy.md` | Test-first wherever an acceptance condition can be stated |
+| Where does the oracle for this change come from? | `packs/coding/guides/GD-COD-001-oracle-strategy.md` | From the specification, in a context that never held the implementation |
 | Who reviews this change, and how hard? | `packs/coding/guides/GD-COD-002-review-gate.md` | Machine gate always, human scoped by risk tier |
 | How do callers learn that a call failed? | `packs/coding/guides/GD-COD-003-failure-mode-contract.md` | Declared, versioned failure modes with the cause preserved |
 | How do you change code nobody can specify? | `packs/coding/guides/GD-COD-004-pin-then-change.md` | Pin with a characterisation test, then change |
@@ -226,9 +301,13 @@ without asking.
 
 ## Failure modes and anti-patterns
 
-- **Tests written after the code, by the same author, in the same
-  session.** They encode the bug. This is the single strongest coding
-  finding for agents (EV-0007).
+- **An oracle read back off the code it judges.** Same author, same
+  session, implementation already in context. It encodes the bug. This
+  is the single strongest coding finding for agents (EV-0007), and it is
+  the failure B1 exists for.
+- **A green check nobody has seen go red.** If it has never failed, it
+  is an instrument nobody has calibrated. Reverting the change is the
+  cheap test; mutation on the diff is the general one (EV-0192).
 - **Observational prints presented as tests.** Agent test-writing
   frequency is similar in runs that resolve and runs that do not, and
   the output is mostly prints rather than assertions, so "the agent
@@ -253,15 +332,30 @@ without asking.
 
 ## Open questions and counter-evidence
 
-**Sequencing evidence does not transfer between humans and agents.**
-For humans, the active ingredient in test-driven development was
-granularity and uniformity of work increments, not whether the test came
-first (EV-0178, 82 observations, 39 professionals, short greenfield
-tasks). For agents, sequencing is decisive because the test is the only
-reliable oracle (EV-0003, EV-0004, EV-0007). Never cite the human
-literature as evidence about agent practice, or the reverse. B1 rests on
-the agent evidence and on regression protection, not on the human TDD
-folklore.
+**Ordering is not the ingredient, in either population.** For humans,
+the active ingredient in test-driven development was granularity and
+uniformity of work increments, not whether the test came first (EV-0178,
+82 observations, 39 professionals, short greenfield tasks). For agents,
+prompting for more tests across the 500 tasks of SWE-bench Verified
+moved test-writing behaviour a great deal and the number of tasks
+resolved not at all (EV-0006). What the agent evidence isolates is
+independence: tests generated after faulty code detect roughly half the
+faults of independently generated ones (EV-0007). So B1 binds
+independence and demonstrated failure, and D7 keeps ordering as a
+default, because writing the oracle first is the cheapest route to
+independence rather than a virtue in itself.
+
+Until 2026-08-10 this pack read the same evidence as making sequencing
+decisive for agents, and said so here. That was a misreading and
+ADR-0006 corrects it. The strongest measurement of the contamination
+itself is EV-0480: prompted with the buggy implementation, eleven
+frontier models produced 104.15 bug-revealing tests on average, against
+304.08 prompted with the correct implementation, and 186.77 when the
+code was replaced by a specification. Read in both directions, seeing
+the wrong code costs about two thirds of the suite's bug-finding power
+against seeing the right code, and about 44 per cent against seeing the
+specification. That row's licence was recorded from a research packet
+rather than read at the source, so it carries no observation date.
 
 **Is machine-assisted coding degrading codebases.** One vendor study of
 623 million changes reports refactoring down about 70 per cent,

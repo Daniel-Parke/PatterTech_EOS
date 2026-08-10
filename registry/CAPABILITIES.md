@@ -12,7 +12,7 @@ derived: true
 Derived from `registry/coverage.json` by
 `python -m tools.eos check --write-index`. Do not hand-edit.
 
-**Built: 20. Registry-only: 1.** A registry-only
+**Built: 21. Registry-only: 1.** A registry-only
 row is not coverage, and this view says so first.
 
 ## Not built
@@ -64,7 +64,7 @@ row is not coverage, and this view says so first.
 ### UI-UX-accessibility-and-design-systems
 
 - **Pack**: `packs/ui-ux/`
-- **Activation**: Paths: surface, app, ui, component, page, route, style, design-system, token and story files, token sources and generated outputs. Task types: designing a surface or flow, building a component, restyling, accessibility work, interface review, design-system adoption, dashboard layout, front-end performance. Predicate: has_user_interface. Predicates: has_user_interface.
+- **Activation**: Paths: surface, app, ui, component, page, route, style, design-system, token and story files, token sources and generated outputs. Task types: designing a surface or flow, building a component, restyling, accessibility work, interface review, design-system adoption, dashboard layout, front-end performance. Predicates: has_user_interface.
 - **Worked example**: `packs/ui-ux/exemplars/two-surfaces-one-spine.md`
 - **Evaluation**: packs/ui-ux/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/ui-ux/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/ui-ux.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.
 - **Estate relevance**: PatterTech_Website, Venture A's three surfaces, WiseWattage's dashboards and PatterStage's control plane are four different design philosophies in one estate, which is why the pack compares rather than prescribes.
@@ -82,6 +82,17 @@ row is not coverage, and this view says so first.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:agent-sdk-major-release
 - **Evidence**: 13 rows, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0116, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121
+
+### agentic-swarm-and-graph-engineering
+
+- **Pack**: `packs/agentic-swarm/`
+- **Activation**: Paths: the claim file, partition artefacts, lane briefs and packets, worktree layout, orchestration scripts and workflow files, and the graph-build method a venture seed compiles from its kernel template. Task types: deciding whether to fan out at all, cutting a partition from a product map, writing or reviewing a lane packet, sizing lanes, choosing between a script and model-driven delegation, setting the run budget, merging lanes, reviewing what a lane produced, diagnosing a run that cost more than it returned. Predicates: fans_work_across_lanes, cuts_a_build_partition, integrates_parallel_lanes, writes_a_lane_packet.
+- **Worked example**: `packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md`
+- **Evaluation**: packs/agentic-swarm/CHECKS.md, the reviewable criteria for this domain, split into rows a script can decide today and rows that need a reviewer. No acceptance drill exists: packs/agentic-swarm/research/DRILL_PROPOSAL.md states the shape one would take and says plainly that it is proposed and not frozen, the benchmark instrument is frozen and ADR-0007 retires it, so no cold agent has been graded on this pack.
+- **Estate relevance**: The EOS builds itself this way and nothing else does yet. The v2 build ran two parallel lanes and the v2.1 build fanned wider over a dependency graph; those runs are the only evidence the pack has of its own architecture. No venture has used it. ADR-0006 decision 4 sends its executable half into ORG seeds through a kernel template, so a venture meets it at Genesis rather than through the EOS.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:agent-harness-major-release
+- **Evidence**: 17 rows, EV-0006, EV-0010, EV-0043, EV-0053, EV-0105, EV-0107, EV-0108, EV-0109, EV-0111, EV-0112, EV-0167, EV-0169, EV-0178, EV-0219, EV-0244, EV-0251, EV-0261
 
 ### architecture-and-system-design
 
@@ -133,7 +144,7 @@ row is not coverage, and this view says so first.
 - **Activation**: Support inboxes, ticketing, feedback triage, status pages and the loop back into the backlog. Predicates: has_customer_inbound, has_paying_customers, has_customer_visible_incident, runs_public_tracker, reports_support_metric, single_responder.
 - **Worked example**: `packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md`
 - **Evaluation**: packs/support-operations/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/support-operations/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/support-operations.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.
-- **Estate relevance**: WiseWattage has real users and handles support ad hoc. Venture A will need this at Genesis close.
+- **Estate relevance**: WiseWattage has real users and handles support ad hoc. Venture A was still in its v1 Genesis design phase at the last look, 2026-07-07, and will need support operations once it carries real users. The EOS does not track venture progress after birth, so read that as a note rather than a date.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:ISO-10002-revision
 - **Evidence**: 12 rows, EV-0421, EV-0422, EV-0423, EV-0424, EV-0425, EV-0426, EV-0427, EV-0428, EV-0429, EV-0430, EV-0431, EV-0432

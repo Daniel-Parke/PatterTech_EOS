@@ -25,3 +25,16 @@ The records under org/tasks/ are canonical.
 | T-0010 | standard | R0 | done | eos-v2-prerelease-review |
 | T-0011 | standard | R0 | in-review | eos-v2-prerelease-review |
 | T-0012 | standard | R0 | done | eos-v2-prerelease-review |
+| T-0013 | standard | R0 | active | eos-v21-integrator |
+| T-0014 | standard | R0 | active | eos-v21-L1 |
+| T-0015 | standard | R0 | active | eos-v21-L2 |
+| T-0016 | standard | R0 | active | eos-v21-L3 |
+| T-0017 | standard | R0 | active | eos-v21-L4 |
+| T-0018 | standard | R0 | active | eos-v21-L5 |
+| T-0019 | standard | R0 | active | eos-v21-L6 |
+| T-0020 | standard | R0 | active | eos-v21-L7 |
+| T-0021 | standard | R0 | active | eos-v21-L8 |
+| T-0022 | standard | R0 | active | eos-v21-L9 |
+| T-0023 | standard | R0 | active | eos-v21-L10 |
+| T-0024 | standard | R0 | active | eos-v21-L11 |
+| T-0025 | standard | R0 | active | eos-v21-L12 |

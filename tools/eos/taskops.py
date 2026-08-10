@@ -92,6 +92,7 @@ DERIVED_FILES = (
     "packs/index.md",
     "packs/guide_index.md",
     "registry/capabilities.md",
+    "registry/lessons.md",
     "org/tasks.md",
     "org/state.md",
 )
@@ -520,20 +521,48 @@ def _state_view(records, claims_doc, cadence, branch, head):
     return "\n".join(lines) + "\n"
 
 
-def render_views(root):
-    """Regenerate org/TASKS.md and org/STATE.md; return a findings list.
+MACHINE_FACTS_HEADING = "## Machine facts"
+MACHINE_FACTS_ABSENT = "Git facts unavailable in this working copy."
+_FACTS_BLOCK = re.compile(r"```facts\n.*?```", re.S)
+_FACTS_TOKEN = "<machine facts>"
 
-    Integrator-only, like every derived file in DERIVED_FILES. Inputs:
-    the task records under org/tasks/, org/claims.json, org/cadence.json
-    and read-only git facts (current branch, head commit). TASKS.md
-    carries one table row per record (id, mode, tier, status, owner).
-    STATE.md carries the assigned claim set, the operator flags (task
-    records with a status in OPERATOR_FLAG_STATUSES), the cadence
-    next-due rows and a machine-facts block the S007 check can verify.
-    Regeneration is byte-stable for unchanged inputs: records sort by
-    id, claim and cadence rows keep their committed order, and nothing
-    is stamped with the time of rendering. A malformed input file is
-    reported as an error finding and skipped, never guessed at.
+
+def strip_machine_facts(text):
+    """The state view with the machine-facts values blanked out.
+
+    The block records the branch and the commit the view was generated
+    from, and that commit is behind HEAD the moment the view is
+    committed. Check S007 tests those facts by ancestry for exactly that
+    reason, so drift detection blanks them and leaves them to S007.
+
+    Only the values go. Everything around them, including anything a
+    hand adds after the block, is still compared: cutting the file at
+    the heading would have made the end of it a place edits could hide.
+    """
+    head, sep, tail = text.partition(MACHINE_FACTS_HEADING)
+    if not sep:
+        return text
+    blanked, count = _FACTS_BLOCK.subn(_FACTS_TOKEN, tail, count=1)
+    if not count:
+        blanked = tail.replace(MACHINE_FACTS_ABSENT, _FACTS_TOKEN, 1)
+    return head + sep + blanked
+
+
+def build_views(root, *, git_facts=True):
+    """The derived views as text: {relative path: content}.
+
+    One implementation, shared by render_views (which writes them) and
+    check E011 (which compares them). A checker with its own copy of a
+    generator's rule is how the two come to disagree, which is the
+    defect the evidence ledger's cited_by field already suffered once.
+
+    git_facts False skips the two git subprocess calls. The facts only
+    reach the state view's machine-facts block, which the drift compare
+    cuts off anyway, so a caller that is comparing rather than writing
+    pays nothing for them.
+
+    Returns (views, findings): findings report a malformed input file,
+    which is reported and skipped, never guessed at.
     """
     root = Path(root)
     findings = []
@@ -564,15 +593,42 @@ def render_views(root):
             cadence = None
 
     branch = head = None
-    try:
-        from tools.eos import gitfacts
-    except ImportError:
-        gitfacts = None
-    if gitfacts is not None:
-        branch = gitfacts.current_branch(root)
-        head = gitfacts.rev_parse(root, "HEAD")
+    if git_facts:
+        try:
+            from tools.eos import gitfacts
+        except ImportError:
+            gitfacts = None
+        if gitfacts is not None:
+            branch = gitfacts.current_branch(root)
+            head = gitfacts.rev_parse(root, "HEAD")
 
-    _atomic_write(root / "org" / "TASKS.md", _tasks_view(records))
-    _atomic_write(root / "org" / "STATE.md",
-                  _state_view(records, claims_doc, cadence, branch, head))
+    views = {
+        "org/TASKS.md": _tasks_view(records),
+        "org/STATE.md": _state_view(records, claims_doc, cadence, branch, head),
+    }
+    return views, findings
+
+
+def render_views(root):
+    """Regenerate org/TASKS.md and org/STATE.md; return a findings list.
+
+    Integrator-only, like every derived file in DERIVED_FILES. Inputs:
+    the task records under org/tasks/, org/claims.json, org/cadence.json
+    and read-only git facts (current branch, head commit). TASKS.md
+    carries one table row per record (id, mode, tier, status, owner).
+    STATE.md carries the assigned claim set, the operator flags (task
+    records with a status in OPERATOR_FLAG_STATUSES), the cadence
+    next-due rows and a machine-facts block the S007 check can verify.
+    Regeneration is byte-stable for unchanged inputs: records sort by
+    id, claim and cadence rows keep their committed order, and nothing
+    is stamped with the time of rendering. A malformed input file is
+    reported as an error finding and skipped, never guessed at.
+
+    The text itself comes from build_views, which check E011 also reads,
+    so the writer and the drift check cannot disagree.
+    """
+    root = Path(root)
+    views, findings = build_views(root)
+    for rel, text in views.items():
+        _atomic_write(root / rel, text)
     return findings

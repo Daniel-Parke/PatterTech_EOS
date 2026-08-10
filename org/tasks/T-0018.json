@@ -1,0 +1,24 @@
+{
+  "id": "T-0018",
+  "intent": "Stage verification by risk and stability signals rather than a completeness threshold, demote coding B1 from binding to default while keeping oracle independence binding, and restate the timing guide as verifier-first.",
+  "claims": [
+    "packs/delivery-testing/",
+    "packs/coding/",
+    "kernel/templates/org/TESTING.tpl.md",
+    "org/capability-profile.json"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "active",
+  "owner_session": "eos-v21-L5",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-10T18:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

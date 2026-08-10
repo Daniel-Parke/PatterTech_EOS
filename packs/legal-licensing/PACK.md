@@ -8,7 +8,7 @@ lifecycle: active
 basis: standard
 evidence_grade: observational
 scope: estate
-applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data]
+applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data, studies_external_source]
 activation_paths: [**/LICENCE*, **/LICENSE*, **/NOTICE*, **/requirements*.txt, **/package-lock.json, **/uv.lock, **/Cargo.lock, **/pyproject.toml, **/*privacy*, **/*terms*]
 volatility: slow
 review: 2027-04
@@ -17,13 +17,13 @@ sources: [EV-0041, EV-0069, EV-0225, EV-0337, EV-0338, EV-0339, EV-0340, EV-0341
 
 # legal-licensing
 
-This pack routes the legal and licensing questions a venture meets in
-normal work: what a dependency's licence lets us ship, what our own
-repositories declare, where inbound code came from, and what a UK
-privacy notice must say before data is collected. It activates on
-dependency, packaging, licence and personal-data changes. It is routing
-and checking, not legal advice, and it names the four situations where
-the answer is to stop and instruct a lawyer.
+This pack routes a venture's legal and licensing questions: what a
+dependency's licence lets us ship, what our repositories declare, where
+inbound code came from, what may lawfully be carried away from a source
+we studied, and what a UK privacy notice must say before data is
+collected. It activates on dependency, packaging, licence, study and
+personal-data changes. It is routing and checking, not legal advice, and
+it names four situations that stop and go to a lawyer.
 
 ## Not legal advice, and where the evidence lives
 
@@ -32,14 +32,14 @@ any specific situation. The pack makes the facts of a licensing or
 data-protection position visible and checkable, and routes the questions
 it cannot answer to a qualified human. B7 is that boundary, and it binds.
 
-Every FRAG-LEGAL-LICENSING id points at a row in
-`packs/legal-licensing/research/sources.fragment.json` carrying that
-source's version, licence, access date, maintenance state and review
-trigger. Those rows are frozen and awaiting integrator import into
-`registry/evidence.json`, which assigns their final EV ids. Cited EV ids
-already sit in the ledger. This pack cites ids, never restates the
-versioned facts, and never copies source prose, since several of these
-sources are readable and not reusable.
+The evidence import is done. The sixteen rows frozen in
+`packs/legal-licensing/research/sources.fragment.json`, each carrying a
+version, licence, access date, maintenance state and review trigger, are
+in `registry/evidence.json` as EV-0337 to EV-0352, and every citation
+below uses the ledger id. The fragment file stays in the research
+directory as the batch the import was made from. This pack cites ids,
+never restates the versioned facts, and never copies source prose, since
+several of these sources are readable and not reusable.
 
 ## Activation
 
@@ -51,9 +51,11 @@ cookie and terms pages; any records of processing.
 
 **Task types.** Adding, upgrading or vendoring a dependency. Choosing or
 changing an outbound licence. Publishing a repository or a package.
-Accepting a contribution from outside the venture. Shipping anything
-that collects personal data. Placing a product on the EU market.
-Answering a letter that alleges infringement, or any regulator contact.
+Accepting a contribution from outside the venture. Studying an external
+product, repository, game or postmortem before building. Shipping
+anything that collects personal data. Placing a product on the EU
+market. Answering a letter that alleges infringement, or any regulator
+contact.
 
 **Keywords, fallback only.** Licence, license, copyright, GPL, AGPL,
 copyleft, SPDX, attribution, NOTICE, patent grant, CLA, DCO, sign-off,
@@ -71,19 +73,26 @@ Keywords are the weakest signal and never override the predicates.
 | accepts_contribution | code arrives from someone outside the venture |
 | processes_personal_data | the system collects, stores or transmits data about identifiable people |
 | places_on_eu_market | the product is made available in the EU in the course of a commercial activity |
+| studies_external_source | work reads a product, repository, game or document we do not own, to learn from it |
 
 A documentation-only change, or a change that touches no manifest, no
-licence file and no personal data, loads nothing beyond the first
-paragraph.
+licence file, no personal data and no external source, loads nothing
+beyond the first paragraph.
+
+`studies_external_source` has no path trigger, because the artefacts a
+study produces are named by the Study workflow rather than by this pack.
+It is a task-type predicate and the task declares it.
 
 ## Outcomes and non-goals
 
 **Outcomes.** Every component in a shipped artefact has a licence
 identity someone recorded, not one a tool guessed. The obligations that
 identity carries are either discharged or written down as a decision
-with a date. Inbound code has a stated origin. Before data about a
-person is collected, that person can read what happens to it. The four
-expensive questions reach a lawyer while they are still cheap.
+with a date. Inbound code has a stated origin. A study of somebody
+else's product records how the source was acquired and what was carried
+away, before the carrying happens. Before data about a person is
+collected, that person can read what happens to it. The four expensive
+questions reach a lawyer while they are still cheap.
 
 **Non-goals.** This pack does not give legal advice and does not
 interpret a licence for a specific fact pattern. It does not own
@@ -92,13 +101,30 @@ minimisation, which sit in the security-privacy pack. It does not own
 contracts, company law, employment, tax, trademarks or disputes. It
 does not rate licences itself, and it does not maintain the identifier
 list; both are imported (EV-0337,
-EV-0343).
+EV-0343). It does not own the Study workflow: how a source is chosen,
+read and turned into a lesson belongs to that playbook, and this pack
+owns only what may lawfully be carried out of it.
 
-## Binding requirements
+## Requirements
 
-Seven bind. Each names its predicate, its basis, its evidence and the
-failure it prevents. Where the basis is decision rather than law or
-standard, that is stated: it binds because the estate ruled it.
+Seven numbered requirements. Four bind and three are defaults, after the
+authority audit under ADR-0008: a rule stays binding only where it
+prevents a serious or hard-to-reverse failure and rests on law, a
+standard, evidence or a safety floor. A default is not a suggestion.
+Departing from one leaves a written reason in the venture's lock-book,
+and the monthly pass samples those reasons. The numbers do not move,
+because `packs/legal-licensing/CHECKS.md`, the guides and the worked
+example all cite them.
+
+| Id | Authority | Basis | Why it landed there |
+| --- | --- | --- | --- |
+| B1 | default | standard | a missing licence file is fixed by a later commit |
+| B2 | binding | standard | code shipped with no right to ship it cannot be un-shipped |
+| B3 | default | standard | an unresolved choice can be resolved later |
+| B4 | binding | standard | the remedy is relicensing or removing a load-bearing component |
+| B5 | binding | law | data collected without a lawful notice stays collected |
+| B6 | default | decision | the estate ruled it; no source measures the alternatives |
+| B7 | binding | safety floor | consequential external actions and data protection |
 
 Three artefacts are named, because a rule pointing at an unnamed
 document is not checkable. The **inventory** is the machine-produced
@@ -110,10 +136,12 @@ where the person giving the data can read it.
 **B1. Every repository declares its own licence.** `publishes_code`. A
 licence file at the root and a declared SPDX expression in the project
 manifest, using an identifier from the list or an explicit `LicenseRef`
-(EV-0337). Prevents publishing something nobody has
-permission to use, because silence means exclusive copyright and the
-hosting platform's terms grant no right to use or redistribute
-(EV-0348). Basis: standard.
+(EV-0337). Reason: silence means exclusive copyright, and the hosting
+platform's terms grant no right to use or redistribute (EV-0348), so a
+repository published without one is unusable by the people it was
+published for. Depart only where nothing is published. Authority:
+default, because the repair is a later commit adding the file. Basis:
+standard.
 
 **B2. No dependency enters without a recorded licence expression, and
 absence is a blocking finding.** `adds_dependency`, `vendors_code`. Each
@@ -122,14 +150,17 @@ component in the inventory carries an SPDX expression. A value of
 named in `LICENCE_DECISION.md` (EV-0338). The entry
 names the path, states that no licence was found, and states that this
 means exclusive copyright rather than an unknown to fill in later
-(EV-0348). Basis: standard.
+(EV-0348). Authority: binding. Basis: standard.
 
 **B3. An OR expression is resolved to one identifier before merge.**
 `adds_dependency`. `MIT OR GPL-2.0-only` is a choice the project has to
 make and record; the raw expression never survives into the inventory
-verdict column (EV-0338). Prevents carrying an unmade
-choice into a shipped artefact, where the obligations that apply are
-undetermined. Basis: standard.
+verdict column (EV-0338). Reason: an unmade choice carried into a
+shipped artefact leaves the obligations that apply undetermined, and
+nobody can tell later which branch was relied on. Depart only where the
+expression is still being negotiated, and say so in the entry.
+Authority: default, because the choice can still be made after the
+merge. Basis: standard.
 
 **B4. Copyleft entering anything we ship or host takes a written
 decision before merge, not at release.** `hosts_service`,
@@ -155,7 +186,7 @@ distributed (EV-0341). Prevents
 the standard miss: a policy written around source and binary
 distribution is silent on a hosted service, which is the shape most
 ventures ship (EV-0342, scoped to one foundation's
-promise about its own releases). Basis: standard.
+promise about its own releases). Authority: binding. Basis: standard.
 
 **B5. Before any personal data is processed, the notice and the
 registration are both done.** `processes_personal_data`. The privacy
@@ -166,17 +197,21 @@ the controller and to the Commissioner
 self-assessment is run and its outcome recorded, either the charge paid
 or the schedule exemption named (EV-0350). Prevents two
 independent failures: collecting data with no lawful notice, and
-missing a charge duty that exists whatever the notice says. Basis: law.
+missing a charge duty that exists whatever the notice says. Authority:
+binding. Basis: law.
 
 **B6. Inbound work carries a provenance assertion.**
 `accepts_contribution`. One sign-off line per commit, in the form the
 certification defines, a real name and a reachable address, checked by
-a hook (EV-0345). Agent-written commits are included,
-because
+a hook (EV-0345). Agent-written commits are included, because
 authorship of machine output is unsettled and provenance is the part we
-can record (EV-0352). Prevents code of unknown origin
-becoming load-bearing before anyone asks where it came from. Basis:
-decision, and see the open question about contributor agreements below.
+can record (EV-0352). Reason: code of unknown origin becomes
+load-bearing before anyone asks where it came from, and the history is
+the only place the answer keeps. Depart where every contributor is
+covered by an engagement that already grants the rights, and record
+that in the lock-book. Authority: default, because the estate ruled
+this and no source compares the alternatives on outcomes; see the open
+question about contributor agreements below. Basis: decision.
 
 **B7. Consequential questions stop here and go to a lawyer.** All
 predicates. Four triggers, all cheap to detect: copyleft code entering
@@ -186,12 +221,20 @@ leaving the UK, or any regulator contact including a data subject
 complaint that escalates; and any letter alleging infringement. On a
 trigger the agent records the facts, stops, and routes to a human
 lawyer. Prevents a confident wrong answer in the one place where being
-wrong is expensive and no source read settles it. Basis: decision. See
+wrong is expensive and no source read settles it. Authority: binding,
+and the audit under ADR-0008 kept it there as a safety floor rather
+than on its basis field: three of the four triggers are consequential
+external actions or data protection, and `kernel/GUARD_SPEC.md` already
+rules accepting legal terms manual-only. Basis: decision. See
 `packs/legal-licensing/refs/ESCALATION.md`.
 
 ## Defaults
 
 Each applies unless the venture's lock-book records a reason to depart.
+B1, B3 and B6 above are defaults too. They keep their B numbers because
+the checks, the guides and the worked example cite them by number, and
+renaming an id to record a change of authority breaks every reference
+to buy nothing.
 
 **D1. A three-bucket allowlist keyed on identifiers, with the reason
 written next to each bucket.** Freely usable, usable under stated
@@ -248,6 +291,28 @@ fix. A run that has not converged inside that budget escalates rather
 than iterating. Reason: this is a decision rather than evidence, and it
 prevents exhaustive flailing that reads as diligence.
 
+**D9. Nothing is studied until how it was acquired, the terms attached
+to it and the governing law are written down.** `studies_external_source`.
+One row per source, before it is read: what the artefact is and at
+which version, how we got it, the licence or terms of service that came
+with it, and which country's law those terms are read under. Reason:
+how the source was acquired is what decides whether the study was
+lawful, and a public repository being forkable grants no right to use
+what is in it (EV-0348). Record the identifier where the source carries
+one (EV-0337). See
+`packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md`.
+
+**D10. The session that reads the source and the lanes that build are
+different, and the build lanes get the lesson, never the source.**
+`studies_external_source`. Reason: similarity plus access is what an
+infringement argument is made of, so the cheapest defence is that the
+people who wrote the replacement never saw the original. A machine
+reimplementation is not presumed clean either, because the model may
+have been trained on the source and authorship of machine output is
+unsettled (EV-0352). Where real code is carried rather than a lesson,
+it is declared per file at the moment it lands (EV-0344) and it stops
+being a study and becomes a vendored dependency under D5 and B2.
+
 ## Preferences
 
 Taste. Depart freely, no reason needed.
@@ -274,6 +339,7 @@ Taste. Depart freely, no reason needed.
 | How does this venture decide licence questions at all | Standing verdict, per-file declaration, certified process, or scan and review | `packs/legal-licensing/guides/GD-LEGAL-002-compliance-posture.md` |
 | What licence does this repository carry outbound | The promise we make downstream | `packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md` |
 | How do inbound rights arrive | Sign-off, agreement, employment, or nothing | `packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md` |
+| What may a study carry away from a source we do not own | Black box, filtered reading, licensed carriage, or nothing | `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md` |
 
 Reference material sits in `packs/legal-licensing/refs/`, and a worked
 run in `packs/legal-licensing/exemplars/`.
@@ -307,6 +373,13 @@ run in `packs/legal-licensing/exemplars/`.
   (EV-0350).
 - **Self-certifying against a checklist you wrote yourself** and calling
   it assurance (EV-0347).
+- **The skin change.** Keeping a studied product's proportions, layout
+  and feel and repainting the surface, then calling the result
+  independent. The mechanic is free to take; that particular expression
+  of it is not.
+- **One session that read the source and then wrote the replacement.**
+  It is the cheapest defence to give away and the hardest to get back,
+  and D10 exists for it.
 - **Answering an escalation trigger.** An agent that reasons its way to
   a confident answer about a modification boundary has broken B7.
 - **Buying a clean result by refusing the work.** A run that declines to
@@ -344,6 +417,15 @@ copyrightability and training data as staged, separate inquiries and has
 not finished (EV-0352). No equivalent UK determination
 was located at this cutoff, so this is unresolved rather than unread.
 Record provenance; do not assume authorship.
+
+**The extraction guide rests on case law, not on measurement.** D9, D10
+and `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md`
+turn on decided cases and on one advocacy organisation's clean-room
+practice, now ledgered as EV-0496 to EV-0504 with court, year and
+holding. Two of the nine are tertiary summaries rather than the
+opinions, most are United States authority, and none has been tested
+against a United Kingdom judgment. That is weaker than the rest of the
+pack and the guide says so.
 
 **Scanner accuracy is unmeasured.** No figure was found for any
 detector, and scanning a repository that declares per file is a

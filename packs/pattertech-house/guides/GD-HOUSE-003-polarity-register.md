@@ -5,7 +5,7 @@ authority: preference
 basis: empirical-evidence
 evidence_grade: controlled
 scope: brand:pattertech
-sources: [EV-0027]
+sources: [EV-0027, EV-0393, EV-0394]
 review: 2028-06
 type: guide
 tags: [web, colour, a11y, brand]

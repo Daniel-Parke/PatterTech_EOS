@@ -5,7 +5,7 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [EV-0027, EV-0104, EV-0235, EV-0236]
+sources: [EV-0027, EV-0104, EV-0235, EV-0236, EV-0370, EV-0371, EV-0387, EV-0388]
 review: on-change-of:EN-301-549-v4-publication
 type: guide
 tags: [a11y, testing, product]

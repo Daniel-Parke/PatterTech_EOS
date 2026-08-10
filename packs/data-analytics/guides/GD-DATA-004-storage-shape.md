@@ -7,7 +7,7 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
-sources: [EV-0057]
+sources: [EV-0057, EV-0309, EV-0310, EV-0311]
 review: 2028-01
 ---
 
@@ -22,14 +22,14 @@ common case.
 
 ## It depends on
 
-- The working set, meaning how much data a typical query actually
-  scans. Not the storage total. These are different quantities and only
-  the second is usually quoted (`EV-0311`).
+- The working set, meaning how much data a typical query actually scans.
+  Not the storage total. These are different quantities and only the
+  second is usually quoted (EV-0311).
 - Is anything other than SQL going to read these tables, now or within
   the horizon you are planning for?
 - Is unstructured data or model training in scope at all?
 - How much operations time exists? Catalogue, compaction and snapshot
-  expiry are ongoing work (`EV-0310`).
+  expiry are ongoing work (EV-0310).
 - How expensive would leaving be, and does that cost actually bind on
   anything you plan to do?
 
@@ -47,21 +47,21 @@ format, so leaving means an export.
 Query engine and table format are separated: the table metadata,
 snapshots, schema evolution and partition evolution live with the files
 in an open format, so more than one engine can read the same table
-without an export (`EV-0310`). Buys: buying a query
-engine and owning your tables become separable decisions. Costs:
-catalogue operation, compaction and snapshot expiry become your job, and
-implementation parity across languages is a claim to verify per feature
-rather than a given.
+without an export (EV-0310). Buys: buying a query engine and owning your
+tables become separable decisions. Costs: catalogue operation,
+compaction and snapshot expiry become your job, and implementation
+parity across languages is a claim to verify per feature rather than a
+given.
 
 ### C. Lakehouse
 
 One copy of the data in an open direct-access format with a metadata
 layer over it giving transactions and schema enforcement, replacing the
-two-tier lake-plus-warehouse shape (`EV-0309`). Buys: the
-same facts stop existing twice with an ETL hop between them, which is
-where staleness and duplicated cost come from. Costs: it solves a
-problem you only have if you already have a lake, and the argument
-presumes machine learning and unstructured data are in scope.
+two-tier lake-plus-warehouse shape (EV-0309). Buys: the same facts stop
+existing twice with an ETL hop between them, which is where staleness
+and duplicated cost come from. Costs: it solves a problem you only have
+if you already have a lake, and the argument presumes machine learning
+and unstructured data are in scope.
 
 ### D. Files and a single-node engine
 
@@ -72,9 +72,9 @@ are yours to invent.
 
 ## Decision rule
 
-- Measure or estimate the working set of a typical query before
-  anything else. If it is in megabytes, A or D, and the rest of this
-  guide is not your problem yet.
+- Measure or estimate the working set of a typical query before anything
+  else. If it is in megabytes, A or D, and the rest of this guide is not
+  your problem yet.
 - One team, SQL only, no unstructured data: A.
 - More than one engine already reads the same tables, or you can name a
   concrete migration you expect to make: B.
@@ -117,9 +117,8 @@ pack in
 ## Worked rulings
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: A as the
-  default with the working set as the trigger. Argued from
-  `EV-0311` for the population and
-  `EV-0310` for the cost of the seam.
+  default with the working set as the trigger. Argued from EV-0311 for
+  the population and EV-0310 for the cost of the seam.
 - **Signup and checkout event model (2026-08, inherited)**: A,
   inherited. Two hundred thousand events, one consumer, SQL only. See
   `packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md`.

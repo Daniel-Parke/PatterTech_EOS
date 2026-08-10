@@ -5,7 +5,7 @@ authority: preference
 basis: local-observation
 evidence_grade: anecdotal
 scope: brand:pattertech
-sources: [EV-0232, EV-0234]
+sources: [EV-0232, EV-0234, EV-0395, EV-0396]
 review: 2028-04
 type: guide
 tags: [web, motion, colour, brand]

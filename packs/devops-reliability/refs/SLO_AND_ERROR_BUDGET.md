@@ -5,7 +5,7 @@ tags: [ops, delivery]
 kind: recipe
 scope: estate
 review: 2028-02
-sources: [EV-0020, EV-0096, EV-0199, EV-0211]
+sources: [EV-0020, EV-0096, EV-0199, EV-0210, EV-0211]
 ---
 
 # SLO objects and the error budget policy

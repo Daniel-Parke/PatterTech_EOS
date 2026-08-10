@@ -1,0 +1,135 @@
+{
+ "pack": "business-model-pricing",
+ "checked": "2026-08-10",
+ "checked_by": "T-0019, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and compared each cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence claim below is the ledger's own recorded value, read back. Quotation was checked three ways: every quotation-marked span in the read surface was listed and read; every enumeration or coined term that could only have come from a source was traced to the row that supplies it; and the rows whose ledger licence forbids reuse of wording were read against the prose that cites them. What this method cannot do is detect an unmarked sentence copied from a source nobody has the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0055",
+  "EV-0059",
+  "EV-0095",
+  "EV-0096",
+  "EV-0197",
+  "EV-0199",
+  "EV-0210",
+  "EV-0287",
+  "EV-0288",
+  "EV-0289",
+  "EV-0290",
+  "EV-0291",
+  "EV-0292",
+  "EV-0293",
+  "EV-0294",
+  "EV-0295",
+  "EV-0296",
+  "EV-0297",
+  "EV-0298",
+  "EV-0299",
+  "EV-0300",
+  "EV-0301",
+  "EV-0302",
+  "EV-0303",
+  "EV-0304"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0059",
+   "licence_recorded": "unknown (GrowthBook core is MIT; EDF is a Pro/Enterprise feature)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0095",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0096",
+   "licence_recorded": "CC BY-NC-ND 4.0 (published free online; verify before reuse)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0287",
+   "licence_recorded": "unknown (Emerald publisher copyright; abstract and secondary summaries consulted, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0288",
+   "licence_recorded": "unknown (Wiley publisher copyright; full text paywalled at HTTP 402, abstract and indexing records consulted)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0289",
+   "licence_recorded": "unknown (SAGE and American Marketing Association copyright; abstract consulted, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0290",
+   "licence_recorded": "unknown (vendor site, no licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0291",
+   "licence_recorded": "unknown (Springer publisher copyright; abstract and author-hosted copy at Kellogg consulted)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0292",
+   "licence_recorded": "unknown (American Economic Association copyright; author-hosted copies at Chicago Booth and MIT consulted, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0293",
+   "licence_recorded": "unknown (SAGE and American Marketing Association copyright; abstract consulted, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0294",
+   "licence_recorded": "unknown (INFORMS copyright on the published version; author-hosted working copy consulted)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0296",
+   "licence_recorded": "unknown (publisher copyright; author-hosted copies at Wharton and brucehardie.com consulted, paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0297",
+   "licence_recorded": "unknown (IFRS Foundation copyright, trade marks asserted, no open licence stated on the page; paraphrase only)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/business-model-pricing/PACK.md",
+   "line": 234,
+   "concern": "D10 reproduces the regulator's seven-item almost-always-harmful list in the source's own terms (EV-0300).",
+   "resolution": "Cleared by licence. EV-0300 is Open Government Licence v3.0, which permits copying and adapting with attribution, and the row is cited. Left as is."
+  }
+ ],
+ "notes": "The worst licence position of the six, and it is structural rather than careless. Twelve of twenty-five cited rows are unconfirmed. Nine are academic or standard-setter publications behind publisher copyright that the research pass read as abstracts or through author-hosted copies: EV-0287, EV-0288, EV-0289, EV-0291, EV-0292, EV-0293, EV-0294, EV-0296 and EV-0297. EV-0290 is a vendor page with no licence stated, EV-0059 is a tooling row whose core is MIT while the feature cited is not, and EV-0096 is recorded as CC BY-NC-ND 4.0 with a verify-before-reuse note, which means no wording from it may be carried; none is. Confirming the paper licences means buying or requesting them, which is a spend decision rather than a lane's work. Three of the four binding requirements rest on UK government sources under Open Government Licence v3.0, all confirmed (EV-0298, EV-0299, EV-0303, EV-0304). The fourth, B4, rests on EV-0297, an IFRS Foundation page whose licence is unconfirmed and which the ledger already marks paraphrase only, so that is the one row here worth confirming before anything is quoted from it. A row marked states-none carries licence_evidence and a licence_checked date in the ledger, so somebody looked and recorded that the source states no licence. A row marked unconfirmed carries a hedged licence string and no licence_evidence, so nobody has looked. Both belong on the residual list ADR-0006 decision 7 asks for, and the difference between them is the difference between a recorded fact and a guess."
+}

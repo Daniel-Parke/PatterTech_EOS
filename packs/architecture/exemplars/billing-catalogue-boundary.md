@@ -138,7 +138,7 @@ jobs:
 ## Step 6: record the decision
 
 A door is being closed: the direction of the dependency, and the tool
-that holds it. That is B2 territory. The record lands in
+that holds it. That is D11 territory. The record lands in
 `docs/decisions/` using the MADR headings from
 `packs/architecture/refs/architecture-description.md`, and it must
 carry three things the drill checks and one it does not:

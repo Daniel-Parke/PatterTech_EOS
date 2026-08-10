@@ -70,11 +70,14 @@ later; none is executable now.
 
 ## How to read a failing check
 
-C-01 through C-10 are non-negotiable wherever their predicate is true.
-A failing C-05 is usually a half-finished rename, and the fix is in the
-same change, not a follow-up. A failing C-08 or C-16 means the gate is
-not trustworthy, which is more serious than any single broken link,
-because it means every other green run was uninformative.
+C-09 and C-10 sit behind B4, the one requirement the ADR-0008 audit
+left binding, and they are non-negotiable wherever their predicate is
+true. C-01 to C-08 and C-11 to C-14 now sit behind defaults: the tests
+are unchanged, and what changed is that a venture may decline one and
+write down why. A failing C-05 is usually a half-finished rename,
+and the fix is in the same change, not a follow-up. A failing C-08 or
+C-16 means the gate is not trustworthy, which is worse than any single
+broken link, because every other green run was uninformative.
 
 A J-row that nobody performed is a J-row that failed. J-01, J-05 and
 J-06 are the three most commonly skipped, and they are the three that

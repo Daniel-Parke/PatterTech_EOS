@@ -12,7 +12,7 @@ applies_when: [publishes_public_content, collects_contact_details, sends_marketi
 activation_paths: [**/content/**, **/blog/**, **/robots.txt, **/sitemap*, **/*seo*, **/emails/**, **/campaigns/**, **/*landing*]
 volatility: fast
 review: on-change-of:PECR-reg-22-amendment
-sources: [EV-0022, EV-0041, EV-0055, EV-0059, EV-0060, EV-0095, EV-0225, EV-0241]
+sources: [EV-0022, EV-0041, EV-0055, EV-0059, EV-0060, EV-0095, EV-0225, EV-0241, EV-0353, EV-0354, EV-0355, EV-0356, EV-0357, EV-0358, EV-0359, EV-0360, EV-0361, EV-0362, EV-0363, EV-0364, EV-0365, EV-0366, EV-0367, EV-0368, EV-0369]
 ---
 
 # marketing-growth
@@ -89,14 +89,17 @@ legal duty is discharged. Everything else here is a default or a
 preference, which is the honest shape for a domain where most published
 practice is convention rather than finding.
 
-**Evidence note.** Ids of the form FRAG-MKTG-NN are rows in this pack's
-evidence fragment at
+The authority audit under ADR-0008 moved none of them. Each prevents a
+failure nobody can repair afterwards, and each rests on law or on the
+standard that discharges a legal duty, which is both limbs of the test.
+A mailing sent to somebody who never agreed to it has been sent.
+
+**Evidence note.** The import is done. The seventeen rows frozen in
 `packs/marketing-growth/research/sources.fragment.json`, each carrying
 its version, licence, access date, maintenance state and review
-trigger. The integrator imports that fragment into
-`registry/evidence.json` and assigns final EV ids; until it runs, the
-fragment ids are the citable form, and every EV id used here already
-exists in the ledger.
+trigger, are in `registry/evidence.json` as EV-0353 to EV-0369, and
+every citation here uses the ledger id. The fragment file stays in the
+research directory as the batch the import was made from.
 
 **B1. The lawful basis is stored with the address, not asserted about
 the list.** `collects_contact_details`. Every contact record carries a
