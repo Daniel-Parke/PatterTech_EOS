@@ -37,7 +37,7 @@ v1 and why, and points at the canonical files as it goes.
 | `estate/` | Which repo owns what, and which repos the EOS governs |
 | `benchmark/` | The frozen v1-against-v2 protocol, fixtures, drills and results |
 | `tools/` | The one executable, `python -m tools.eos` |
-| `archive/` | v1 material kept in place and marked archived, never deleted |
+| `archive/` | A pointer to the `archive/v1-final` tag, where the whole v1 tree lives |
 | `INDEX.md` | Derived index of every file, grep the tag column |
 
 ## How a venture consumes the EOS

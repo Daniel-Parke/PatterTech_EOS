@@ -61,8 +61,8 @@ written, so every ledger has a task record.
 ## Spike note (Exploration entry)
 
 On the task record at entry: the question, the timebox, the budget,
-and the exit rule, discard or harden. The branch is spike/T-####; the
-checker refuses to merge it. Harden by opening a fresh task through
+and the exit rule, discard or harden. The branch is spike/T-####, and
+it never merges. Harden by opening a fresh task through
 the router; the spike's code arrives as material, never as merged
 history.
 

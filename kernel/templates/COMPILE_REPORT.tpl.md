@@ -8,7 +8,7 @@ template: true
 # Compile report · {{VENTURE_NAME}}
 
 Proof that this seed was compiled, not authored. Written by the
-Session 0 compiler; validated by `eos_check.py --seed`; signed by the
+Session 0 compiler; validated by `python -m tools.eos check --seed`; signed by the
 operator against the human rubric items. A seed file that cannot be
 traced to a row below is a compile failure.
 
@@ -50,7 +50,7 @@ None expected. Anything here blocks the gate until ruled.
 
 ## Check results
 
-Paste the `eos_check.py --seed` summary line and date. All auto items
+Paste the `python -m tools.eos check --seed` summary line and date. All auto items
 green before the human items are judged.
 
 ## Sign-off (human rubric items)

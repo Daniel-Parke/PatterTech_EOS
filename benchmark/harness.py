@@ -11,7 +11,7 @@ Subcommands:
       Seeded interleaved run plan, one row per session, as JSON.
   prepare --task DIR --variant V --run-id R --dest D
       Materialise the fixture, place the variant's process surface,
-      write run.json into the scratch tree, print the task prompt.
+      write <dest>.run.json beside the scratch tree, print the prompt.
   map --transcripts DIR --dest D
       Match each agent transcript under DIR to the run whose run.json
       names it, by the run id the session prompt carries.

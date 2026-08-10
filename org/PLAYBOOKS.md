@@ -51,7 +51,8 @@ same shapes. The mode comes from the router's ruling, never from choice.
 ### exploration (spike)
 
 1. Enter with the question, the timebox and the budget on the record.
-   Branch `spike/T-####`; the checker refuses to merge that prefix.
+   Branch `spike/T-####`. Nothing on that branch merges; the exit is
+   discard or harden.
 2. Explore freely. Checks may wait, and nothing merges.
 3. Exit on answer or timebox: discard, or harden into a standard run.
 
@@ -78,9 +79,8 @@ deleted before its phase closes.
 
 ## PB-E01 · Inception (Session 0)
 
-Run a new venture's Session 0 end to end per `inception/INCEPTION.md`.
-The v2 rewrite lands in phase P5; until then the v1 walk applies,
-compiling v2 seeds. Gate: seed checks green, then Daniel signs the
+Run a new venture's Session 0 end to end per `inception/INCEPTION.md`,
+which is the v2 walk, phases A to E. Gate: seed checks green, then Daniel signs the
 human rubric items. Close: one row in `registry/PROJECTS.md`.
 
 ## PB-E02 · Harvest
@@ -118,8 +118,10 @@ Full check run green, semantic series included. CHANGELOG entry
 written; required drills and benchmark gates satisfied; files past
 their supersession grace archived. Tag semver, push with tags. The
 policy's guard.validated may say true only while a current adapter
-validation report from the bypass suite is committed (it lands in
-P4); without one every guarded class stays manual-only.
+validation report from the bypass suite is committed; without one
+every guarded class stays manual-only. The Claude Code mapping carries
+one, dated 2026-08-03, so check it is still current rather than
+assuming it.
 
 ## PB-E06 · Venture upgrade
 
@@ -147,8 +149,8 @@ Monthly sweep: run python -m tools.eos check --repo with the semantic
 and freshness series and fix findings. Re-verify or supersede
 everything past review. Regenerate derived views. Close or discard
 dead task records; recover expired claims only with liveness
-evidence. Sample the exception ledger and flag expired standing
-exceptions.
+evidence. Sample the standing tier exceptions recorded in
+org/decisions/ and flag any past its expiry date.
 
 ## PB-E10 · Experiment sweep
 
