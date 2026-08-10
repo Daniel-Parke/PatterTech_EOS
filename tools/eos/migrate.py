@@ -211,7 +211,8 @@ def apply(seed_root, plan_doc, *, dry_run=True, today=None):
                     if lines[i].strip() == "---":
                         lines.insert(i, "policy_pin: kernel/POLICY_SPEC.md@v2")
                         break
-                lockbook.write_text("\n".join(lines) + "\n", encoding="utf-8")
+                lockbook.write_text("\n".join(lines) + "\n",
+                                    encoding="utf-8", newline="\n")
         if not dry_run:
             mark("pin-policy", "done")
 
@@ -221,7 +222,8 @@ def apply(seed_root, plan_doc, *, dry_run=True, today=None):
         for role_file in sorted(roles_dir.glob("*.md")):
             changes.append("org/roles/%s: swap for the tier policy note" % role_file.name)
             if not dry_run:
-                role_file.write_text(_ROLE_NOTE % role_file.stem, encoding="utf-8")
+                role_file.write_text(_ROLE_NOTE % role_file.stem,
+                                     encoding="utf-8", newline="\n")
         if not dry_run:
             mark("roles-to-tier-note", "done")
 

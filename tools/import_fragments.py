@@ -156,7 +156,8 @@ def main():
     dates = sorted(d for d in (r.get("access_date") for r in records) if d)
     ledger["research_cutoff"] = dates[-1] if dates else None
     tmp = LEDGER.with_suffix(".tmp")
-    tmp.write_text(json.dumps(ledger, indent=1) + "\n", encoding="utf-8")
+    tmp.write_text(json.dumps(ledger, indent=1) + "\n", encoding="utf-8",
+                   newline="\n")
     tmp.replace(LEDGER)
     print(f"ledger now holds {len(records)} records")
     return 0
