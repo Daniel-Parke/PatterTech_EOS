@@ -493,6 +493,7 @@ def append_results(root, results, date=None):
             "frozen_before_authoring": row["frozen_before_authoring"],
         })
     tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(json.dumps(doc, indent=1) + "\n", encoding="utf-8")
+    tmp.write_text(json.dumps(doc, indent=1) + "\n", encoding="utf-8",
+                   newline="\n")
     os.replace(tmp, path)
     return len(doc["runs"]) - before
