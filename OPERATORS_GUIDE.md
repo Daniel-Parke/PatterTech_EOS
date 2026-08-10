@@ -1,5 +1,5 @@
 ---
-summary: Daniel's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong
+summary: The operator's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong
 type: guide
 tags: [eos]
 review: 2027-03
@@ -7,8 +7,13 @@ review: 2027-03
 
 # OPERATORS_GUIDE
 
-How Daniel runs the EOS. Agents read it to know what the human does;
-Daniel reads it to know what to launch and when.
+How the operator runs the EOS. If you have adopted this repository,
+you are the operator, and the integrator duties named in
+`org/PLAYBOOKS.md` and `tools/CLI_CONTRACTS.md` are yours too: you
+alone commit claims, run the generators and adopt or discard
+quarantined work. Daniel holds both roles here. Agents read this file
+to know what the human does; the operator reads it to know what to
+launch and when.
 
 The EOS seeds ventures and learns from them. You launch sessions against
 it; each one is routed into a mode, does the work that mode allows, and
@@ -44,6 +49,27 @@ Beyond that, only you can accept an ADR, approve a protected-set change,
 sign the human items of a seed rubric, promote a rule to binding,
 authorise a capability-profile promotion, approve a release, create
 remotes and accounts, and spend money.
+
+The sealed suite, `benchmark/SEALED.json`, runs once. The private key
+is yours alone and is released only to the final evaluator session at
+the release checkpoint. Two of the eight gates depend on it and stay
+uncomputed until then. Spent early it is spent for good, so nothing
+else opens it.
+
+## Picking up work
+
+Every session that writes needs a claim. `org/claims.json` is written
+by hand and committed before the session starts, naming the lane, the
+session id, the paths and an expiry. There is no `claims assign`,
+`renew` or `recover` command; those were described once and never
+built, and `tools/CLI_CONTRACTS.md` records which commands exist.
+
+`task new` and `task update` refuse a session the file does not name,
+printing `{"refused": true, reason, claim_set_ref}` and exiting 1.
+An expired claim refuses the same way, so if the standing claim has lapsed the first
+act of a new operator is to write themselves one and commit it. That
+commit is itself a product-file change, so make it before the session
+that needs it, not during.
 
 ## The guard, fail-closed, in practice
 

@@ -32,7 +32,7 @@ file. Frozen trees are not indexed.
 | benchmark/drills/native-client.md | example | eos testing | Cold-agent acceptance drill for the native-client pack, an offline-capable client with a declared conflict policy and a forward-only release path |  |
 | benchmark/drills/pattertech-house.md | example | eos testing | Single-run cold-agent acceptance drill for the PatterTech house style, with deterministic machine-checkable criteria |  |
 | benchmark/drills/product-discovery.md | example | eos testing | Cold-agent acceptance drill for the product-discovery pack, frame a solution request back into a testable opportunity |  |
-| benchmark/drills/README.md | example | eos testing | What a pack acceptance drill is, how the runner grades one, and what is still missing before most of them can return a verdict |  |
+| benchmark/drills/README.md | example | eos testing | What a pack acceptance drill is, how the runner grades one, and what is still missing before any of them can return a verdict |  |
 | benchmark/drills/security-privacy.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
 | benchmark/drills/support-operations.md | example | eos testing | Single-run cold-agent acceptance drill for the support-operations pack, with deterministic machine-checkable criteria |  |
 | benchmark/drills/ui-ux-greenfield.md | example | eos | Single-run cold-agent acceptance drill for a greenfield non-PatterTech interface, testing that the pluralism contract survives contact with a brief the house style does not fit |  |
@@ -80,7 +80,7 @@ file. Frozen trees are not indexed.
 | kernel/templates/org/TESTING.tpl.md | template | eos | Adaptive testing law template, timing by change class, the test map, quality signals |  |
 | kernel/templates/TASKS.tpl.md | template | eos | S-scale task list template, the single hand-kept work surface at the smallest scale |  |
 | kernel/templates/VENTURE_BRIEF.tpl.md | template | eos | Venture brief template, the business truth the interview produces, challenge steps recorded |  |
-| OPERATORS_GUIDE.md | guide | eos | Daniel's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong | 2027-03 |
+| OPERATORS_GUIDE.md | guide | eos | The operator's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong | 2027-03 |
 | org/CADENCE.md | org | eos | Pointer, the EOS heartbeat is machine state in org/cadence.json |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
 | org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
@@ -376,7 +376,7 @@ file. Frozen trees are not indexed.
 | packs/writing-content/refs/I18N_MECHANICS.md | implementation | content forms tooling | Plural categories, text expansion figures, the pseudo-locale gate and what each of them does not catch | on-change-of:CLDR-plural-categories |
 | packs/writing-content/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
 | packs/writing-content/research/NOTES.md | example | eos testing | Research synthesis for the writing-content pack, four philosophies of clear text, what is machine-checkable, and what should bind |  |
-| README.md | root | eos | What the PatterTech EOS is, how the repo is laid out, how a venture consumes it, and the principles that hold |  |
+| README.md | root | eos | What the PatterTech EOS is, where it stands against its own gates, how the repo is laid out, how a venture consumes it, and the principles that hold |  |
 | registry/CAPABILITIES.md | registry | eos | Derived view of the domain coverage matrix, every field in full | 2027-02 |
 | registry/LESSONS.md | registry | eos | The harvest ledger, live lessons and their dispositions, plus what has been pruned into the packs | 2026-11 |
 | registry/PROJECTS.md | registry | eos | The venture directory, what each is pinned to, whether that pin resolves, and when it was last checked | 2026-11 |
