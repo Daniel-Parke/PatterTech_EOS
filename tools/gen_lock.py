@@ -55,7 +55,8 @@ def lock(requirements, out_name):
             rows.append(f"{name}=={version} \\\n    --hash={digest}")
         out = TOOLS / out_name
         out.write_text(HEADER.format(name=f"tools/{out_name}", pip=_pip_version())
-                       + "\n".join(rows) + "\n", encoding="utf-8")
+                       + "\n".join(rows) + "\n", encoding="utf-8",
+                       newline="\n")
         print(f"{out_name}: {len(rows)} pinned artefacts")
 
 
