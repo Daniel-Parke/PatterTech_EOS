@@ -1,0 +1,15 @@
+---
+summary: Testmod doctrine, one plain principle for the test fixture
+type: doctrine
+tags: [eos]
+applies_when: [does_a_fixture_thing]
+activation_paths: [**/testmod/**, **/*.fixture]
+review: 2030-01
+---
+
+# Testmod doctrine
+
+Keep fixture files small and plain. A test that needs a bigger repo
+builds one in tmp_path rather than growing this one.
+
+The single ruling surface is WG-TST-001.

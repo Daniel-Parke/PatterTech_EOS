@@ -1,0 +1,11 @@
+---
+summary: Testmod module map, what the module holds and where to start
+type: doctrine
+tags: [eos]
+review: 2030-01
+---
+
+# testmod
+
+The fixture doctrine module. One doctrine file, one wargame. Start
+with `packs/testmod/PACK.md`.

@@ -1,0 +1,3 @@
+{"area": "sync", "night": "2026-08-02", "quotes": ["nothing has come through since Friday"], "resolved": true, "severity": "high", "summary": "Calendar sync stopped silently and the app still showed the connection as live", "ticket_id": "ticket-0398"}
+{"area": "export", "night": "2026-08-02", "quotes": ["csv comes out with the whole board"], "resolved": true, "severity": "medium", "summary": "Exporting a filtered board ignores the filter and exports every card", "ticket_id": "ticket-0401"}
+{"area": "notifications", "night": "2026-08-02", "quotes": ["it arrives at three in the morning"], "resolved": false, "severity": "high", "summary": "Digest emails are sent on the workspace region rather than each member's time zone", "ticket_id": "ticket-0404"}

@@ -1,0 +1,120 @@
+{"id": "T-001", "text": "Somewhere to leave a comment on each row would be useful.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-002", "text": "We were billed for ten seats and only six of us use it.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-003", "text": "Half of the icons disappeared once we turned on dark mode.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-004", "text": "Could you add a way to duplicate a project?", "label": "feature", "second_annotator": "feature"}
+{"id": "T-005", "text": "The verification email went to spam and then expired.", "label": "account", "second_annotator": "account"}
+{"id": "T-006", "text": "I cannot see the projects my colleagues can see.", "label": "account", "second_annotator": "account"}
+{"id": "T-007", "text": "The export drops the last column, could you add it back?", "label": "feature", "second_annotator": "bug"}
+{"id": "T-008", "text": "Can you add three more seats to our workspace?", "label": "account", "second_annotator": "account"}
+{"id": "T-009", "text": "Can someone explain the extra line on our last statement?", "label": "billing", "second_annotator": "billing"}
+{"id": "T-010", "text": "After the last release the keyboard shortcuts stopped working.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-011", "text": "The name on the profile is spelled wrong.", "label": "account", "second_annotator": "account"}
+{"id": "T-012", "text": "Adding two more seats put us on a new plan we did not ask for.", "label": "billing", "second_annotator": "account"}
+{"id": "T-013", "text": "The filter only takes one value, which makes it useless for us.", "label": "bug", "second_annotator": "feature"}
+{"id": "T-014", "text": "Being able to undo the last action is the one thing missing.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-015", "text": "We need to update the company details that appear on our paperwork.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-016", "text": "The upgrade went through but we were charged the old price, the checkout looked broken.", "label": "bug", "second_annotator": "billing"}
+{"id": "T-017", "text": "Please close my account and delete my data.", "label": "account", "second_annotator": "account"}
+{"id": "T-018", "text": "Remove the leaver from the team and free up the seat.", "label": "account", "second_annotator": "account"}
+{"id": "T-019", "text": "The invite link says it has already been used.", "label": "account", "second_annotator": "account"}
+{"id": "T-020", "text": "Is there a discount for paying twelve months up front?", "label": "billing", "second_annotator": "billing"}
+{"id": "T-021", "text": "I am locked out after too many login attempts.", "label": "account", "second_annotator": "account"}
+{"id": "T-022", "text": "The file downloads with a zero byte size.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-023", "text": "Templates would stop us copying the same setup every week.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-024", "text": "The invoice for last month never arrived in our inbox.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-025", "text": "Search returns a blank page for any query with an apostrophe.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-026", "text": "Permissions for the reporting group look wrong.", "label": "account", "second_annotator": "account"}
+{"id": "T-027", "text": "Can I get a VAT receipt for the payment made on the 3rd?", "label": "billing", "second_annotator": "billing"}
+{"id": "T-028", "text": "Payment failed three times but the card works everywhere else.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-029", "text": "A keyboard shortcut for the new button would save time.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-030", "text": "The back button takes you to the start rather than the previous step.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-031", "text": "We would use this daily if it talked to our helpdesk.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-032", "text": "Times are shown in the wrong zone for anyone outside the UK.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-033", "text": "Please make Priya an admin so she can invite people.", "label": "account", "second_annotator": "account"}
+{"id": "T-034", "text": "The totals at the bottom do not match the rows above them.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-035", "text": "I need to change the email address on my profile.", "label": "account", "second_annotator": "account"}
+{"id": "T-036", "text": "Two of our teams want separate spaces under one roof.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-037", "text": "We cancelled in April and a payment still went out in May.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-038", "text": "The mobile view does not load past the spinner.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-039", "text": "The card was declined with a 500 error and then the money left the account anyway.", "label": "billing", "second_annotator": "bug"}
+{"id": "T-040", "text": "Dark mode hides half the icons, so we cannot use it.", "label": "bug", "second_annotator": "feature"}
+{"id": "T-041", "text": "Long names overflow the box and cover the menu.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-042", "text": "Merge my two profiles, I signed up twice by mistake.", "label": "account", "second_annotator": "account"}
+{"id": "T-043", "text": "The team list still shows people who left last year.", "label": "account", "second_annotator": "account"}
+{"id": "T-044", "text": "The email digest went out three times to the same people.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-045", "text": "I get a timeout whenever the file is over 5 MB.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-046", "text": "Refund request: we were double charged for two of the seats.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-047", "text": "The pro rata calculation for the upgrade looks wrong to me.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-048", "text": "Please add a way to invite people in bulk from a CSV.", "label": "feature", "second_annotator": "account"}
+{"id": "T-049", "text": "The dashboard is broken since this morning, nothing loads.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-050", "text": "Invoices are going to a colleague who left and I cannot change the email address.", "label": "billing", "second_annotator": "account"}
+{"id": "T-051", "text": "My card was billed 49.00 but the receipt shows 39.00.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-052", "text": "Why is there a charge of 12.00 on top of the plan fee?", "label": "billing", "second_annotator": "billing"}
+{"id": "T-053", "text": "Two people were signed up on separate plans by mistake.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-054", "text": "We wish there was an option to schedule the weekly digest.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-055", "text": "Our plan was supposed to include the add-on at no extra cost.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-056", "text": "I was charged twice because the payment page threw an error and I clicked again.", "label": "billing", "second_annotator": "bug"}
+{"id": "T-057", "text": "Guests can see everything, we need read only access for them.", "label": "account", "second_annotator": "feature"}
+{"id": "T-058", "text": "Nothing happens when I press submit on the second step.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-059", "text": "Feature request: bulk edit for tags.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-060", "text": "Can the columns be reordered and remembered?", "label": "feature", "second_annotator": "feature"}
+{"id": "T-061", "text": "It would be nice to export straight to Google Sheets.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-062", "text": "Please switch us from monthly to annual billing.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-063", "text": "There is no way to undo, so one misclick loses the whole board.", "label": "feature", "second_annotator": "bug"}
+{"id": "T-064", "text": "Our SSO stopped letting anyone sign in this morning.", "label": "account", "second_annotator": "account"}
+{"id": "T-065", "text": "Uploading a CSV fails with an exception after about ten seconds.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-066", "text": "More than one filter at a time, if that is possible.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-067", "text": "Clicking save twice creates two copies of the record.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-068", "text": "The app crashes when I open the reports tab.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-069", "text": "I can sign in on the web but not on the desktop app.", "label": "account", "second_annotator": "account"}
+{"id": "T-070", "text": "Can we restrict access to one office network?", "label": "account", "second_annotator": "account"}
+{"id": "T-071", "text": "Sorting by name puts the numbers in the wrong order.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-072", "text": "The count in the header is always one behind.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-073", "text": "Any plans to support German?", "label": "feature", "second_annotator": "feature"}
+{"id": "T-074", "text": "The subscription renewed at the old price, not the one we were quoted.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-075", "text": "Can guests be given read only access?", "label": "account", "second_annotator": "account"}
+{"id": "T-076", "text": "Custom fields on the form would remove a spreadsheet for us.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-077", "text": "Text pasted from Word loses all of the line breaks.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-078", "text": "The date filter fails to apply and shows all the rows.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-079", "text": "The export button throws a 500 error every time.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-080", "text": "I was charged twice for the same invoice in March. Please refund the duplicate.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-081", "text": "Somebody else appears to be signed in as me.", "label": "account", "second_annotator": "account"}
+{"id": "T-082", "text": "Who is the owner of this workspace? Nobody here knows.", "label": "account", "second_annotator": "account"}
+{"id": "T-083", "text": "Our domain changed, does everyone need to sign up again?", "label": "account", "second_annotator": "account"}
+{"id": "T-084", "text": "Password reset emails never arrive.", "label": "account", "second_annotator": "account"}
+{"id": "T-085", "text": "Printing the board as a PDF comes up every month.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-086", "text": "Please cancel the renewal and confirm nothing further will be taken.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-087", "text": "Two factor is asking for a code from a phone I no longer have.", "label": "account", "second_annotator": "account"}
+{"id": "T-088", "text": "The receipt lists a different company name to ours.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-089", "text": "Support for webhooks would save us a lot of manual work.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-090", "text": "A read only link we could send to a customer would be ideal.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-091", "text": "My login stopped working the day the subscription lapsed.", "label": "account", "second_annotator": "billing"}
+{"id": "T-092", "text": "We paid by bank transfer last week and it still shows as unpaid.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-093", "text": "The invoice total does not match the rows on the statement, one of them is wrong.", "label": "billing", "second_annotator": "bug"}
+{"id": "T-094", "text": "We need a way to tag things by client.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-095", "text": "Could new starters be added automatically from our directory?", "label": "feature", "second_annotator": "account"}
+{"id": "T-096", "text": "Sorting is wrong, or perhaps it was never meant to sort by owner.", "label": "bug", "second_annotator": "feature"}
+{"id": "T-097", "text": "An integration with the calendar would close the loop for us.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-098", "text": "Is a mobile app on the roadmap?", "label": "feature", "second_annotator": "feature"}
+{"id": "T-099", "text": "Please add a dark mode.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-100", "text": "I would like my details exported before I leave.", "label": "account", "second_annotator": "account"}
+{"id": "T-101", "text": "The direct debit did not go through this month.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-102", "text": "Sorting the archive by date, oldest first, would help.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-103", "text": "An option to hide completed items, please.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-104", "text": "We would like to move the renewal date to the start of the quarter.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-105", "text": "We were billed for a seat belonging to someone who left and I cannot remove them.", "label": "account", "second_annotator": "billing"}
+{"id": "T-106", "text": "Stack trace attached, it happens on every save.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-107", "text": "The ability to sort by owner would help a lot.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-108", "text": "The currency on our documents switched from GBP to USD.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-109", "text": "An error appears in the console every time the page opens.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-110", "text": "Our finance team needs a copy of every invoice for the year.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-111", "text": "A weekly summary by email would be enough for our managers.", "label": "feature", "second_annotator": "feature"}
+{"id": "T-112", "text": "The amount taken this month is higher than what we agreed.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-113", "text": "Transfer ownership to me, the previous owner has left.", "label": "account", "second_annotator": "account"}
+{"id": "T-114", "text": "The chart draws itself twice and the second one is empty.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-115", "text": "The finance inbox has not had anything from you since January.", "label": "billing", "second_annotator": "billing"}
+{"id": "T-116", "text": "New starters are not appearing in the directory.", "label": "account", "second_annotator": "account"}
+{"id": "T-117", "text": "Notifications stopped working after the update on Tuesday.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-118", "text": "The timer freezes at 00:00 and never resets.", "label": "bug", "second_annotator": "bug"}
+{"id": "T-119", "text": "The receipt downloads as a zero byte file every time.", "label": "bug", "second_annotator": "billing"}
+{"id": "T-120", "text": "Permissions are all or nothing, we want access per project.", "label": "account", "second_annotator": "feature"}

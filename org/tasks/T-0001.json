@@ -1,0 +1,66 @@
+{
+  "id": "T-0001",
+  "intent": "Execute the approved EOS v2 overhaul per ADR-0002: the adaptive kernel, the two-wave pack expansion, this repo's org dogfooded onto records and derived views, all benchmarked against frozen v1 before any release. Final acceptance is Daniel's release checkpoint over the sealed suite SEALED-BENCH-2026-08 (benchmark/SEALED.json).",
+  "declared": {
+    "capabilities": ["network"],
+    "side_effects": ["sends-external"]
+  },
+  "mode": "high-assurance",
+  "tier_proposed": "R3",
+  "tier_ruled": "R3",
+  "reasons": [
+    {
+      "factor": "protected-set-contact",
+      "tier_floor": "R3",
+      "source": "declared",
+      "evidence": "the build edits GOVERNANCE.md, the constitution and role charters, and the policy risk and approvals blocks, authorised by accepted ADR-0002"
+    },
+    {
+      "factor": "boundary-contact",
+      "tier_floor": "R1",
+      "source": "declared",
+      "evidence": "declared side effect sends-external: branch and tag pushes to origin during the build"
+    }
+  ],
+  "status": "active",
+  "owner_session": "eos-v2-build",
+  "claims": [
+    ".github/",
+    ".gitignore",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "GOVERNANCE.md",
+    "GUIDE.md",
+    "INDEX.md",
+    "OPERATORS_GUIDE.md",
+    "README.md",
+    "START.md",
+    "VISION.md",
+    "archive/",
+    "benchmark/",
+    "doctrine/",
+    "estate/",
+    "examples/",
+    "inception/",
+    "kernel/",
+    "org/",
+    "pytest.ini",
+    "registry/",
+    "tests/",
+    "tools/"
+  ],
+  "timestamps": {
+    "opened": "2026-08-02T09:00:00Z",
+    "updated": "2026-08-03T12:00:00Z"
+  },
+  "hypothesis_ledger": [],
+  "oracle_provenance": {
+    "files": ["benchmark/SEALED.json"],
+    "hashes": {
+      "benchmark/SEALED.json": "4718e4071d7d97978e6c45898fc04764c44a5c8b3f81c7865e26e73b1e46bfb0"
+    },
+    "author_session": "sealed-evaluator-author-2026-08",
+    "independence_method": "human-sampled"
+  }
+}

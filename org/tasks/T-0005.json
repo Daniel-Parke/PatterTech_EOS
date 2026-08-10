@@ -1,0 +1,22 @@
+{
+  "id": "T-0005",
+  "intent": "Record the Session 0 write-to-main exemption in inception/INCEPTION.md. Inception necessarily writes to main because the org that mandates branches is being compiled during the writes, and without a stated exemption the first review session reads Session 0's history as a violation. Harvested from Guth's EOS_FEEDBACK on 2026-08-08 under PB-E02.",
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "proposed",
+  "owner_session": "unassigned",
+  "claims": [
+    "inception/"
+  ],
+  "timestamps": {
+    "opened": "2026-08-08T12:00:00Z",
+    "updated": "2026-08-08T12:00:00Z"
+  },
+  "hypothesis_ledger": []
+}

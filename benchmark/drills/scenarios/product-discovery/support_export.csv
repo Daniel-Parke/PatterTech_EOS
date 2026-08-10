@@ -1,0 +1,121 @@
+ticket_id,opened_at,channel,plan,tag,subject,body,status
+TCK-1001,2026-04-02,email,single,billing,Move from monthly to yearly,"Is there a discount for paying for the year, and can we switch part way through?",closed
+TCK-1002,2026-04-02,in-app,single,counting-help,Do I have to finish a count in one go,We get interrupted constantly. Can a count be left half done and picked up later in the day?,closed
+TCK-1003,2026-04-03,in-app,single,imports,Where do I find the import template,The help page mentions a template file but the link goes to a page that is not there.,open
+TCK-1004,2026-04-05,phone,trial,other,Newsletter unsubscribe,"Please take this address off the mailing list, we get enough email.",waiting
+TCK-1005,2026-04-06,phone,multi,billing,Cancel before the renewal,We are closing for the winter. How do I stop the subscription and keep the data?,waiting
+TCK-1006,2026-04-06,email,single,mobile,Notifications keep coming at night,Reminders arrive at closing time and wake people up. Can they be turned off?,closed
+TCK-1007,2026-04-06,phone,multi,reports,Value of stock on hand,Is there a single figure anywhere for what we are holding?,open
+TCK-1008,2026-04-07,phone,multi,mobile,Rotating the phone loses the page,Turning the phone sideways takes me back to the top of the list.,closed
+TCK-1009,2026-04-07,phone,multi,login,Remove someone who has left,A former member of staff still has access. How do I take it away?,closed
+TCK-1010,2026-04-08,in-app,trial,counting-help,Print a blank count sheet,The kitchen wants a paper sheet to carry round. Can the app print the item list with empty boxes?,closed
+TCK-1011,2026-04-08,email,trial,login,Two factor for the owner login,Is there any second step available on the account that holds the card details?,waiting
+TCK-1012,2026-04-08,email,trial,login,Can I set what each person can see,Would like the counting staff not to see supplier prices.,closed
+TCK-1013,2026-04-08,phone,single,integrations,Payment provider integration,"Not urgent, but does anything connect to how we take payments?",closed
+TCK-1014,2026-04-09,phone,single,billing,Refund for the month we did not use,We were shut for refurbishment and nobody logged in. Any chance of credit?,open
+TCK-1015,2026-04-10,in-app,single,imports,Duplicate items after import,Ran the import twice by accident and now everything is in the list twice. How do I clear the second set?,open
+TCK-1016,2026-04-10,phone,multi,mobile,Battery drains while counting,An hour of counting takes most of the battery on the shop phone.,waiting
+TCK-1017,2026-04-10,email,single,other,"Duplicate ticket, ignore","Sent this twice by mistake, please close one of them.",open
+TCK-1018,2026-04-11,email,trial,imports,Deleted items came back after import,Items we removed last month reappeared after the supplier file went in. Is that expected?,closed
+TCK-1019,2026-04-14,phone,trial,billing,Direct debit rather than card,Card payments keep failing at our end. Can we pay by direct debit?,closed
+TCK-1020,2026-04-15,in-app,trial,login,Magic link expires too quickly,By the time the email arrives on the shop tablet the link has run out.,waiting
+TCK-1021,2026-04-16,phone,multi,stock-accuracy,Sunday count overwritten by Monday,"We do a full count Sunday night and spot checks Monday. The spot checks seem to have replaced the full count rather than sitting next to it, and now the Sunday numbers are gone.",waiting
+TCK-1022,2026-04-16,phone,trial,reports,Report by supplier,For the ordering conversation it would help to group by who we buy from.,closed
+TCK-1023,2026-04-16,email,multi,integrations,Is there an API,Our developer asked whether there is an interface she could pull figures from.,closed
+TCK-1024,2026-04-16,in-app,multi,reports,Export includes archived items,"The spreadsheet has rows for things we archived, which confuses the bookkeeper.",closed
+TCK-1025,2026-04-16,phone,single,reports,Send a report by email on a schedule,Could the month end figures be emailed automatically?,closed
+TCK-1026,2026-04-16,email,multi,other,Suggestion for the help pages,The help page on areas assumes you already know what an area is.,closed
+TCK-1027,2026-04-18,in-app,multi,mobile,Add to home screen instructions,How do we get the icon on the tablet home screen so nobody has to find the address?,waiting
+TCK-1028,2026-04-18,in-app,trial,reports,Print a count for the file,Our environmental health folder wants a printed copy kept.,closed
+TCK-1029,2026-04-19,email,single,stock-accuracy,Is there a change log for a count,Before I raise it with the team I want to see what actually changed and in what order. I cannot find anything like that in the app.,open
+TCK-1030,2026-04-20,phone,trial,reports,Export a count to a spreadsheet,The bookkeeper wants the closing figures in a spreadsheet at the end of the month.,closed
+TCK-1031,2026-04-22,email,single,stock-accuracy,Numbers moved between saving and closing,"I entered the cellar, saved, went to serve someone, came back and two of the lines were not what I put in. I cannot prove it, which is sort of the problem.",closed
+TCK-1032,2026-04-23,in-app,multi,login,Do you support single sign on,Our group uses a single sign on provider. Is that something you handle?,closed
+TCK-1033,2026-04-25,phone,trial,imports,Import from our till export,Our till exports a product list. Would that work as an import file or does it need reworking first?,open
+TCK-1034,2026-04-25,phone,multi,billing,Receipt email going to the wrong address,Receipts are still going to an old address that nobody reads.,closed
+TCK-1035,2026-04-26,email,trial,imports,Accents and pound signs come through wrong,Item names with accents look scrambled after import. The file opens fine in a spreadsheet.,closed
+TCK-1036,2026-04-26,email,trial,counting-help,Counting with two people,"Can two of us be in the same count at the same time, on different phones?",open
+TCK-1037,2026-04-27,phone,multi,login,Signed out every day,"The tablet in the kitchen asks for the password every morning, which nobody remembers.",open
+TCK-1038,2026-04-27,email,single,stock-accuracy,Which count is the real one,There are two counts against the same week now and they disagree. The app is happy to show me both and will not tell me which one the order should be based on.,closed
+TCK-1039,2026-04-27,phone,multi,scanning,Can we scan barcodes instead of typing,Typing item names on the shop floor is slow. Any chance of scanning barcodes? Our till system does it and it is much quicker.,closed
+TCK-1040,2026-04-28,email,single,billing,Statement description is unrecognisable,The line on the bank statement does not say your name so it gets queried every month.,closed
+TCK-1041,2026-04-28,in-app,single,counting-help,Order of items within an area,Can I drag items into shelf order? Walking back and forth is what takes the time.,open
+TCK-1042,2026-04-29,email,trial,billing,Who is the account owner,The person who set this up has left. How do we move the billing contact to me?,waiting
+TCK-1043,2026-04-29,in-app,single,counting-help,What happens to a count when I close it,"Does closing lock it, and can it be reopened if we spot something afterwards?",waiting
+TCK-1044,2026-04-29,email,multi,mobile,No signal in the cellar,There is no reception down there. Can anything be entered offline and sent up later?,closed
+TCK-1045,2026-04-29,phone,trial,stock-accuracy,Two of us counted the same shelf and got different numbers,"My colleague and I both went round the back fridge. Her total and my total are not the same and neither of us can see what the other one entered, so we have no idea which to keep.",waiting
+TCK-1046,2026-04-30,in-app,trial,login,Locked out after too many tries,It says the account is locked. How long does that last?,closed
+TCK-1047,2026-04-30,phone,multi,login,Change the email on my account,Moving to a new work address and want to keep the same account.,waiting
+TCK-1048,2026-05-01,phone,trial,counting-help,Set a par level per item,Where do I put the level we want to hold so the order suggestion makes sense?,closed
+TCK-1049,2026-05-02,in-app,trial,scanning,Do you support barcode scanning,"We are looking at your app for our two shops. Does it do barcode scanning, and if not is that something you are planning?",closed
+TCK-1050,2026-05-03,in-app,trial,imports,Import overwrote our categories,The import put everything into one category and lost the ones we had set up by hand.,closed
+TCK-1051,2026-05-04,phone,single,stock-accuracy,Count totals do not match the paper sheet,"We still write the numbers on a clipboard as we go, then type them in. The totals in the app came out lower than the sheet and we could not find which line drifted, so we did the whole thing again.",closed
+TCK-1052,2026-05-04,phone,trial,stock-accuracy,We have gone back to the clipboard,"Not asking for anything, just telling you. The team stopped believing the figure on screen so we keep the paper sheet as the real one and type it in afterwards when we remember.",closed
+TCK-1053,2026-05-05,email,trial,counting-help,Copy last week's count as a starting point,Most lines do not move much. Could a new count start from the last one rather than empty?,closed
+TCK-1054,2026-05-06,email,trial,imports,Import failed with no message,"The upload spins and then goes back to the list with nothing changed. No error, no email.",closed
+TCK-1055,2026-05-06,phone,trial,stock-accuracy,Someone reopened a count I had closed,The Sunday count was closed and signed off. On Monday it was open again with different values in it. There was no message and no note saying why.,waiting
+TCK-1056,2026-05-08,phone,multi,other,Question about your terms,Where does the data live and what happens to it if we stop paying?,closed
+TCK-1057,2026-05-08,phone,multi,counting-help,Counting in kilos and units,Some of our items come as sacks and we use them by weight. Can one item have both?,closed
+TCK-1058,2026-05-08,phone,trial,reports,Date range on the export,The export seems to be the whole history. Can I choose a period?,waiting
+TCK-1059,2026-05-09,in-app,single,login,Password reset email never arrives,"Asked for a reset three times and nothing has come through, including the junk folder.",waiting
+TCK-1060,2026-05-09,in-app,multi,reports,Wastage report,We record what gets thrown out. Can that be pulled out separately?,waiting
+TCK-1061,2026-05-09,email,trial,billing,Add a second site to the plan,We are opening another shop. Does that need a separate account or can it sit under this one?,closed
+TCK-1062,2026-05-11,phone,single,login,Invite email went to spam,My colleague never saw the invite. Can it be sent again?,closed
+TCK-1063,2026-05-11,phone,multi,mobile,App closes itself part way through,It has shut down on me twice during a count and I lost what I had typed.,waiting
+TCK-1064,2026-05-12,email,trial,counting-help,How do I start a count,New here. Where do I begin a stock count and does everyone in the team need their own login to help?,closed
+TCK-1065,2026-05-13,email,trial,counting-help,Can I count areas in a different order,The app lists the areas alphabetically and we walk the building in a different order. Can that list be reordered?,closed
+TCK-1066,2026-05-13,in-app,multi,reports,Rounding in the totals,The total on screen and the total in the export are a penny apart.,closed
+TCK-1067,2026-05-13,email,trial,scanning,Barcode scanner on the phone,Would like to use the phone camera as a barcode scanner while counting rather than searching for each item by name.,waiting
+TCK-1068,2026-05-14,email,trial,imports,Import our item list from a spreadsheet,We have everything in a spreadsheet already. Is there a way to bring it in rather than typing it?,open
+TCK-1069,2026-05-14,phone,trial,billing,Charged twice this month,There are two charges on the statement a day apart for the same amount.,closed
+TCK-1070,2026-05-14,in-app,single,counting-help,Undo a line I typed wrong,"Fat fingered a number. Is there an undo, or do I just type over it?",closed
+TCK-1071,2026-05-15,phone,multi,mobile,Cannot use it on a tablet in landscape,The layout is squashed into a column with a lot of empty space either side.,closed
+TCK-1072,2026-05-17,in-app,trial,integrations,Does this talk to our accounting software,We keep the books in an accounting package. Is there any link between the two or is it manual?,closed
+TCK-1073,2026-05-17,email,single,counting-help,Units keep switching to each,I set a case size and the next time I look it is back to each. Am I doing something wrong?,closed
+TCK-1074,2026-05-18,email,trial,login,Two people on one login,At the moment the whole kitchen shares one login. Is that a problem?,waiting
+TCK-1075,2026-05-19,email,single,billing,Purchase order number on the invoice,Our accounts department will not pay an invoice without a purchase order number on it.,closed
+TCK-1076,2026-05-19,email,multi,stock-accuracy,Stock figure changed after I closed the count,I finished the dry store on Tuesday and closed it. Wednesday morning the flour line was a different number. Nobody here changed it as far as I know and there is nothing in the app that tells me who did.,closed
+TCK-1077,2026-05-19,phone,trial,billing,Invoice addressed to the company,The invoice has my name on it and it needs the limited company name and address.,waiting
+TCK-1078,2026-05-19,email,multi,other,Do you have a dark theme,"Counting in the cellar late on, a dark theme would be kinder on the eyes.",open
+TCK-1079,2026-05-22,phone,single,imports,"Can I import counts, not just items",We have historic counts in a spreadsheet. Can those be brought in so we keep the history?,closed
+TCK-1080,2026-05-23,in-app,multi,reports,Usage between two counts,Can the app tell me what we got through between one count and the next?,closed
+TCK-1081,2026-05-24,in-app,trial,stock-accuracy,Zero showing for items we definitely have,Three lines came through as nothing in stock and they are sitting in front of me. Somebody must have counted them into the wrong area but there is no trail to follow.,waiting
+TCK-1082,2026-05-25,email,single,mobile,Back button leaves the count,Pressing back on the phone drops out of the count entirely rather than going up a level.,open
+TCK-1083,2026-05-26,in-app,trial,imports,Supplier price file layout,Our supplier sends a price file every month. What columns does your importer expect?,closed
+TCK-1084,2026-05-26,in-app,trial,other,"Feature idea, shopping list",It would be handy if the app suggested an order from what is low.,waiting
+TCK-1085,2026-05-27,in-app,trial,other,Wrong address on the website,Your contact page has an old postcode on it.,waiting
+TCK-1086,2026-05-27,email,multi,mobile,Is there an app in the store,Do you have a proper app or is the website all there is?,open
+TCK-1087,2026-05-28,in-app,single,mobile,Photos will not attach from the phone,Trying to add a photo of a damaged case and it never finishes uploading.,open
+TCK-1088,2026-05-29,phone,trial,other,Are you hiring,"Not a support question, sorry. Passing on a CV in case.",open
+TCK-1089,2026-05-29,in-app,trial,login,Login page rejects a correct password,I am certain the password is right. Copying and pasting it does not work either.,open
+TCK-1090,2026-05-31,email,trial,integrations,Zapier or similar,We use an automation tool for other bits. Do you appear in it?,closed
+TCK-1091,2026-05-31,in-app,single,stock-accuracy,No way to see who edited a count,Something in last week's count is wrong and I cannot work out where it came from. Is there a history anywhere of who touched a line and when? At the moment I am guessing.,closed
+TCK-1092,2026-05-31,in-app,single,login,Add a colleague to the account,I want the head chef to be able to count but not see the money side.,waiting
+TCK-1093,2026-06-01,in-app,trial,other,Can we have the logo removed,We print sheets for the wall and would rather they were plain.,closed
+TCK-1094,2026-06-01,phone,trial,mobile,Keyboard covers the number box,On the phone the keyboard sits over the field I am typing into.,waiting
+TCK-1095,2026-06-03,phone,trial,counting-help,Counting a delivery in,Is a delivery meant to be counted as part of the stock count or entered separately?,closed
+TCK-1096,2026-06-04,email,single,integrations,Send figures to our supplier ordering portal,Our main supplier has a portal for orders. Anything that avoids typing it twice would help.,closed
+TCK-1097,2026-06-06,in-app,single,imports,Update prices without touching names,Is there a way to import only the price column and leave the rest alone?,waiting
+TCK-1098,2026-06-10,phone,single,billing,Price went up without warning,The amount taken this month is higher than last. Did something change on the plan?,closed
+TCK-1099,2026-06-11,email,multi,counting-help,Training a new starter,Is there anything short I can give a new kitchen porter so they can help with the count?,closed
+TCK-1100,2026-06-12,phone,single,counting-help,Item search does not find things,Searching for tin tomatoes finds nothing but the item is called chopped tomatoes. Is there a way to add other names?,closed
+TCK-1101,2026-06-13,in-app,trial,reports,Compare this month with last,Would like to see the two months side by side rather than opening each one.,closed
+TCK-1102,2026-06-13,phone,multi,counting-help,Skipping items we do not hold any more,Half the list is things we stopped buying. Can they be hidden without deleting the history?,waiting
+TCK-1103,2026-06-14,email,single,mobile,App is very slow on an old phone,The tablet we keep in the kitchen is a few years old and the item list takes an age to scroll.,open
+TCK-1104,2026-06-14,email,multi,login,Shared tablet keeps the last person signed in,Whoever counted last is still signed in when the next person picks the tablet up.,closed
+TCK-1105,2026-06-15,phone,trial,stock-accuracy,We recount every week because nobody trusts the figure,Honestly the number in the app has been wrong enough times that the kitchen just counts again before ordering. That is the part I would like to stop doing.,waiting
+TCK-1106,2026-06-18,email,trial,stock-accuracy,Cannot tell whether a line was counted or left blank,A zero and a line nobody got to look identical in the list. When the total came out short we had no way of telling which was which without walking the shelves again.,closed
+TCK-1107,2026-06-19,phone,trial,billing,Downgrade to the smaller plan,We are one site again. Can we drop down and what do we lose?,closed
+TCK-1108,2026-06-19,email,trial,counting-help,Adding a new storage area,We have taken on an outside container for dry goods. How do I add it as an area?,closed
+TCK-1109,2026-06-20,email,multi,reports,Report of items never counted,Some lines have not been touched in months and I suspect they are dead stock.,closed
+TCK-1110,2026-06-21,in-app,trial,mobile,Text is too small to read,In the walk in fridge with cold hands the numbers are hard to read and hard to hit.,open
+TCK-1111,2026-06-22,phone,single,stock-accuracy,Manager and I disagree on the same fridge,"He counted it in the morning and I counted it at close. The app kept one of the two and I do not know which, or on what basis.",closed
+TCK-1112,2026-06-22,email,trial,login,Account says it does not exist,Trying to sign in with the address the invoice goes to and it says no account found.,closed
+TCK-1113,2026-06-24,in-app,single,other,Thanks,"Nothing needed. The team got through the count faster this week than last and someone said so out loud, which is rare.",closed
+TCK-1114,2026-06-25,phone,single,imports,Row limit on import,We have a long list. Is there a limit to how many rows the importer will take?,closed
+TCK-1115,2026-06-25,in-app,trial,billing,VAT receipt for last month,Our bookkeeper needs a proper VAT receipt rather than the card statement line.,closed
+TCK-1116,2026-06-26,phone,trial,billing,Change the card on the account,The card on file has expired. Where do I update it?,open
+TCK-1117,2026-06-26,phone,multi,integrations,Connect to our till system,Our till knows what has been sold. Could that reduce what we have to count?,closed
+TCK-1118,2026-06-28,in-app,multi,integrations,Export to our group reporting sheet,Head office keeps a shared sheet. Can figures land there without a person in the middle?,waiting
+TCK-1119,2026-06-29,email,single,integrations,Calendar reminder for count night,Could a count night appear in the team calendar automatically?,open
+TCK-1120,2026-06-30,email,multi,integrations,Webhook when a count closes,Would like something to fire when a count is closed so we can pick it up on our side.,open

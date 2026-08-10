@@ -1,0 +1,16 @@
+Item: 0004
+Received: 2026-08-03T09:30:00Z
+Account: C-1007
+From: Owen Brackley <owen.brackley@fernhill-dental-group.example>
+Subject: Splitting a scheduled export by site
+
+We run eight practices off one account and each practice manager
+wants only their own numbers. Today I export the lot and cut it up
+in a spreadsheet on a Monday morning, which takes about an hour.
+Could a schedule produce one file per site, or send a different
+file to each address? That would save the hour and stop me sending
+the wrong practice the wrong file, which I have done twice.
+
+-- 
+Owen Brackley
+Fernhill Dental Group

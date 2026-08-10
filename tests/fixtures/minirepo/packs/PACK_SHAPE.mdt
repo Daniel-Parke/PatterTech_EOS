@@ -1,0 +1,16 @@
+---
+summary: Minirepo pack contract, the shape a fixture pack has to hold
+type: governance
+tags: [eos]
+---
+
+# PACK_SHAPE
+
+The fixture's copy of the pack contract. It exists so the generated
+pack index has something real to cite, and so a test can assert the
+contract is reachable. The live contract is the one that argues; this
+one only has to resolve.
+
+Every built pack carries `PACK.md`, `guides/` and `CHECKS.md`. A domain
+that cannot meet the definition of done stays a registry row and is
+never described as implemented.

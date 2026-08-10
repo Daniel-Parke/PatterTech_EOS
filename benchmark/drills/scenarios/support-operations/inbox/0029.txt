@@ -1,0 +1,13 @@
+Item: 0029
+Received: 2026-08-06T08:35:00Z
+Account: C-1032
+From: Carla Restrepo <carla.restrepo@nettlebed-hotels.example>
+Subject: Do exports include archived records
+
+When we archive a booking does it drop out of the export, or is it
+still in there with a flag? Our year end numbers depend on knowing
+which.
+
+-- 
+Carla Restrepo
+Nettlebed Hotels

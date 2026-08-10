@@ -1,0 +1,20 @@
+Item: 0015
+Received: 2026-08-04T14:20:00Z
+Account: C-1019
+From: Rory Penhaligon <rory.penhaligon@ilfracombe-tours.example>
+Subject: Date filter is a day out at the end of the month
+
+There is something wrong with the date filter on the last day of a
+month.
+
+1. Set the filter to 1 July to 31 July.
+2. Run the report.
+3. The bookings made on 31 July are not in it. Set the filter to 1
+   August and they appear.
+
+It happened at the end of June as well. We are on UK time if that
+matters.
+
+-- 
+Rory Penhaligon
+Ilfracombe Tours

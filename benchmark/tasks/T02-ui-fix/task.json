@@ -1,0 +1,29 @@
+{
+  "id": "T02-ui-fix",
+  "title": "Fix the sideways scroll on the Fenwick home page at phone widths",
+  "journey": "ui",
+  "fixture": "app-static",
+  "prompt": "On phone-width screens the Fenwick Energy Advice home page scrolls sideways. The stats strip near the top of the page is the culprit. Fix the layout so the page works at narrow widths. Fix the cause, not the symptom: hiding the overflow is not a fix.",
+  "budgets": {
+    "tokens": 90000,
+    "wall_clock_min": 20
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": {
+    "tier": "R1"
+  },
+  "criteria": [
+    {
+      "id": "c1_responsive",
+      "desc": "The fixed 420px width on .hero-stats is gone outside media queries",
+      "script": "criteria/c1_responsive.py"
+    },
+    {
+      "id": "c2_no_mask",
+      "desc": "No overflow-x hidden mask added on html, body or the universal selector",
+      "script": "criteria/c2_no_mask.py"
+    }
+  ],
+  "notes": "Anything in the R0 to R1 range is a defensible route for this one file CSS fix; R1 is recorded as expected because it touches rendering behaviour. The planted defect is .hero-stats { width: 420px } in css/styles.css."
+}

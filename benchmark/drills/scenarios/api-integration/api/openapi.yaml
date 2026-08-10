@@ -1,0 +1,238 @@
+openapi: 3.1.0
+info:
+  title: Orders API
+  version: 1.4.0
+  description: Order capture and fulfilment for the storefront.
+  contact:
+    name: Orders team
+    email: orders@example.com
+servers:
+  - url: https://api.example.com
+    description: Production
+  - url: https://staging.api.example.com
+    description: Staging
+tags:
+  - name: orders
+    description: Order capture and listing.
+  - name: webhooks
+    description: Events posted to us by the payment provider.
+paths:
+  /orders:
+    post:
+      summary: Create an order
+      operationId: createOrder
+      tags: [orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '201':
+          description: The order was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: The request body was not understood.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: An order with that reference already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List orders
+      operationId: listOrders
+      tags: [orders]
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of orders to return.
+          required: false
+          schema:
+            type: integer
+            default: 25
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          description: Number of orders to skip before returning results.
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - name: status
+          in: query
+          description: Return only orders in this status.
+          required: false
+          schema:
+            type: string
+            enum: [pending, paid, shipped, cancelled]
+      responses:
+        '200':
+          description: A page of orders, newest first.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPage'
+        '400':
+          description: A query parameter was not understood.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{order_id}:
+    get:
+      summary: Fetch one order
+      operationId: getOrder
+      tags: [orders]
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: No order with that id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/payments:
+    post:
+      summary: Receive a payment event
+      operationId: receivePaymentEvent
+      tags: [webhooks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentEvent'
+      responses:
+        '204':
+          description: The event was accepted.
+        '400':
+          description: The event was not understood.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: The event was not from the payment provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Order:
+      type: object
+      description: An order as the storefront and the warehouse tool see it.
+      required: [id, ref, customer_id, status, total_pence, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        ref:
+          type: string
+          description: Human readable order reference, printed on the packing slip.
+          examples: ['ORD-24019']
+        customer_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, paid, shipped, cancelled]
+        total_pence:
+          type: integer
+          description: Order total in pence.
+        created_at:
+          type: string
+          format: date-time
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLine'
+    OrderLine:
+      type: object
+      required: [sku, quantity, unit_price_pence]
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+        unit_price_pence:
+          type: integer
+    OrderCreate:
+      type: object
+      required: [customer_id, items]
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+        ref:
+          type: string
+          description: Optional client supplied reference. One is generated if it is absent.
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/OrderLine'
+    OrderPage:
+      type: object
+      required: [orders, total]
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        total:
+          type: integer
+          description: Total number of orders matching the filter.
+        limit:
+          type: integer
+        offset:
+          type: integer
+    PaymentEvent:
+      type: object
+      required: [id, type, order_id]
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [charge.settled, charge.failed, charge.refunded]
+        order_id:
+          type: string
+          format: uuid
+        amount_pence:
+          type: integer
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        field:
+          type: string
+          description: The offending field, when the error is about one.

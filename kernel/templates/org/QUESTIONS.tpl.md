@@ -15,7 +15,9 @@ question say so in `org/STATE.md` and move to other work.
 
 Entry format: `Q-### (domain): the question, the context link, and the
 owner.` One decision per entry; a question hiding two decisions is
-split.
+split. Where a guard verdict raised the question, the entry names the
+verdict (require-approval or manual-only) so the operator knows what
+execution waits on the answer.
 
 ## Open
 

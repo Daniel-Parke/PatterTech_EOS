@@ -1,0 +1,13 @@
+{
+  "name": "almsford-dose-check",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dosage entry and calculation for hospital pharmacists, for Almsford Clinical.",
+  "scripts": {
+    "serve": "python -m http.server 4173",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
+  }
+}

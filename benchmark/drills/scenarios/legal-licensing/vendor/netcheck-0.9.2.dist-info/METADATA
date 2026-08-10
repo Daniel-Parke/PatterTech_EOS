@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: netcheck
+Version: 0.9.2
+Summary: Domain and host reachability checks
+Author-email: Marek Dolinski <marek@netcheck.example>
+License-Expression: AGPL-3.0-only
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+
+# netcheck
+
+Shape checks, known-dead suffixes and, where a resolver is configured,
+live lookups. Used by emailkit and by the queue tooling.

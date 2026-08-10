@@ -1,0 +1,21 @@
+ticket-0413
+closed 2026-08-03 17:02
+channel: chat
+
+customer: exporting a filtered board gives me everything, not the filter
+
+agent: Which view are you on when you hit export?
+
+customer: the one filtered to my own cards, due this week. csv comes
+out with all 340 cards on the board
+
+agent: Understood, that is a bug on our side. Until it is fixed you can
+save the filter as a view first and export from the saved view, which
+does respect it.
+
+customer: ok that works. bit of a faff but fine
+
+agent: It is, and I am sorry. I will link this conversation to the
+open report so you get told when it lands.
+
+customer: cheers

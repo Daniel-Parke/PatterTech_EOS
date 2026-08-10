@@ -10,7 +10,88 @@ Newest first. One entry per release tag; the Unreleased section
 accumulates until the next tag. Sections: kernel, doctrine, inception,
 registry, org, tools.
 
-## Unreleased (towards v1.1.0)
+## Unreleased (towards v2.0.0, not released)
+
+The v2 overhaul, built under ADR-0002 and corrected under ADR-0003.
+Held at the release checkpoint.
+
+The first gate run reported three of six numeric gates missed. The
+2026-08-04 pre-release review found that no code computed any gate
+figure, that one gate's verdict turned on an unwritten convention for
+an undefined ratio, and that the freeze manifest failed its own hash
+check. The 2026-08-08 review found something larger: nothing in the
+repository ever made a run v1 or v2. `--variant` was a label
+`score.py` wrote onto a ledger row and nothing upstream read, and eight
+of the thirteen tasks use a fixture carrying no process files at all,
+so both arms received a byte-identical tree and prompt. The sessions
+behind those rows were driven by an orchestration wrapper that was
+never committed. The 172 rows dated 2026-08-03 therefore cannot be
+reproduced from this repository and are kept as history rather than as
+the basis of any claim.
+
+The instrument is rebuilt, the mechanism encoded, and a fresh grid run
+under it: all 103 sessions, 53 under v1 and 50 under v2, every slot at
+or above the protocol's floor of three trials a variant, so the
+completeness gate passes for the first time. Ceremony falls 77.3 per cent against a 60 per cent
+gate, and no longer turns on the undefined-ratio convention that
+decided it before. Context tokens fall 9.1 per cent against 30 and
+wall clock 4.6 per cent against 25, so both efficiency gates still
+miss. The result that is not on the gate list: fifty-three v1 runs
+produced fully passing work thirty-nine times, and fifty v2 runs
+produced it fifty times. See org/reports/V2_FINAL_REPORT.md.
+
+- **kernel**: ten-article constitution; EXECUTOR, ORACLE and REVIEWER
+  replace the PLAN, WORK and VERIFY trinity; policy and cadence become
+  JSON; the scale matrix moves to S and ORG, with a seed resolving
+  whichever matrix its pinned commit carries. Ten v1 templates retired
+  with every load-bearing rule's destination recorded.
+- **packs**: doctrine becomes twenty progressive-disclosure packs across
+  the estate's domains, each meeting an eleven-point definition of done.
+  The house visual language becomes an opt-in preference pack, so a
+  venture can choose another design philosophy without deviation
+  machinery. WG-DEL-005 is written at last, with 006 and 007 beside it.
+- **governance**: graded evidence path (experiment, ADR) replaces
+  wargame-first; precedence scopes venture rulings locally and protects
+  law and standard based rules from vote counts; the protected set
+  shrinks to seven items with security-privacy as canonical home for
+  four of them.
+- **tools**: one 445-line script becomes a tested package behind
+  python -m tools.eos, with structural, semantic, seed and freshness
+  checks, the deterministic router, the fail-closed guard, context
+  packets, task and claim operations, migration and benchmark commands.
+  388 tests on Python 3.11 and 3.14. The v1 checker is a forwarding shim.
+- **benchmark**: a frozen suite of eleven tasks and three probes, an
+  evidence ledger of 448 individually recorded sources, and a sealed
+  final suite awaiting the operator's key. `gates.py` computes the
+  gates from the ledger with its aggregation written down, including
+  both conventions for an undefined ratio; check B001 verifies the
+  freeze on every run; `score.py` records a scored-at clock and a
+  sha256 per criteria script; `harness.py` prepares a run, places the
+  variant's process surface, and emits the whole grid in a seeded
+  counterbalanced order, which the protocol required and the first
+  batch did not do. The process surfaces are the frozen paired seeds
+  taken verbatim, so the ceremony difference between arms is whatever
+  each version's kernel already produces rather than a choice made by
+  whoever built the harness. Two gates were themselves wrong: the
+  aggregate pass-rate gate was symmetric and failed a candidate for
+  scoring better than its baseline, and `human_gates_pending` reads a
+  file nothing in this repository writes, so every zero it has ever
+  reported means "not measured".
+- **governance**: ADR-0003 rules that retained material which misleads an
+  agent is a defect, that the archive of record is a pushed tag rather
+  than a directory, and that a file marked derived must have a live
+  generator. packs/INDEX.md had listed eight of twenty packs, so twelve
+  packs were unreachable through the sanctioned activation path;
+  packs/GUIDE_INDEX.md had omitted 79 of 86 guides. Both now generate,
+  scoped to live material. registry/coverage.json's twelve stale Wave B
+  rows are repaired and S013 validates the matrix against its schema and
+  against the packs on disk.
+- **inception**: Session 0 becomes a pack activation walk with a risk
+  surface map, plus an Express path for reversible S ventures.
+- **org**: the EOS runs on its own v2 machinery: policy, task records,
+  committed claims, generated views. v1 org files archived verbatim.
+
+## Superseded, towards v1.1.0 (never released)
 
 - **roots**: GUIDE.md added, the all-in-one field guide. A teaching
   layer over the whole system (framework, the Venture A genesis, the

@@ -1,0 +1,9 @@
+{
+  "id": "v2-mandatory-logs",
+  "description": "Reimpose universal session logs and a Resume Packet at every session close, so we can measure what dropping mandatory ceremony buys us.",
+  "overlay": {
+    "session_logs": "mandatory",
+    "resume_packet_on_close": "always"
+  },
+  "status": "declared; wired to the policy engine in P2"
+}

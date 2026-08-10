@@ -1,0 +1,26 @@
+ticket-0412
+closed 2026-08-03 16:41
+channel: email
+
+customer: Our Google Calendar sync has stopped. Nothing new has come
+through since Friday afternoon and there is no error anywhere in the
+app. I only noticed because a client turned up for a meeting that was
+not on my board.
+
+agent: Sorry about that. Can you tell me whether the calendar still
+shows as connected under Settings, Integrations?
+
+customer: It says connected, green tick and everything. That is the
+part I do not understand.
+
+agent: Thanks. That is a known one at the moment. The token expires and
+we keep showing the connection as live. If you disconnect and reconnect
+it will backfill the last thirty days.
+
+customer: Done, and the missing events are back. It would be good if
+the app told us though. This is the second time.
+
+agent: Agreed, and I have added your account to the list on the ticket
+the team has open for it.
+
+customer: Thanks.

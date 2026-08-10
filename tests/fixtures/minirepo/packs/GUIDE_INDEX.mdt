@@ -1,0 +1,15 @@
+---
+summary: Derived index of every decision guide, one fork each
+type: index
+tags: [eos, wargame]
+derived: true
+---
+
+# GUIDE_INDEX
+
+Derived file. Edit guide front-matter, then run
+`python -m tools.eos check --write-index`.
+
+| id | question | pack | authority | review |
+| --- | --- | --- | --- | --- |
+| WG-TST-001 | Should the fixture repo carry a wargame at all | testmod |  | 2030-01 |

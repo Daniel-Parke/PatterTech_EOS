@@ -1,0 +1,13 @@
+Item: 0024
+Received: 2026-08-05T10:41:00Z
+Account: C-1027
+From: Erik Halvardsen <erik.halvardsen@halvard-shipping.example>
+Subject: No exports at all this morning
+
+We would normally have had four exports by ten o'clock and we have
+had none. The screen says queued for all of them. Nothing has
+changed our end since yesterday.
+
+-- 
+Erik Halvardsen
+Halvard Shipping

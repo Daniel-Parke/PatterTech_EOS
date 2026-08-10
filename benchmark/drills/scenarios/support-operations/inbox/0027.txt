@@ -1,0 +1,13 @@
+Item: 0027
+Received: 2026-08-05T11:12:00Z
+Account: C-1030
+From: Alice Pemberton <alice.pemberton@wren-pemberton.example>
+Subject: What happens to schedules when a user is deactivated
+
+If we deactivate a user, do the schedules they created keep running
+or do they stop? We are about to offboard two people and would
+rather know before than after.
+
+-- 
+Alice Pemberton
+Wren and Pemberton

@@ -1,0 +1,20 @@
+---
+summary: Minirepo governance, the tag vocabulary the checker parses live
+type: governance
+tags: [eos]
+---
+
+# GOVERNANCE
+
+The law of the fixture repo. The checker parses the tag vocabulary
+below, so this file is the single source for legal tags.
+
+## Tag vocabulary
+
+- `eos` for everything
+- `wargame` for wargames
+- `web` for web material
+
+## Protected set
+
+Nothing in the fixture is protected.

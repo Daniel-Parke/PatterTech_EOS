@@ -1,0 +1,16 @@
+Item: 0036
+Received: 2026-08-07T08:20:00Z
+Account: C-1038
+From: Ben Kirtland <ben.kirtland@umberslade-timber.example>
+Subject: Saved filter resets after logging out
+
+1. Set a filter on a saved report and save it.
+2. Log out and back in again.
+3. The report opens with the default filter, not the saved one.
+
+Stays put if you only refresh the page. Two of us have tried it on
+different machines and it does the same.
+
+-- 
+Ben Kirtland
+Umberslade Timber

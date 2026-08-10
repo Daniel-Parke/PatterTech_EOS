@@ -1,0 +1,244 @@
+{
+  "version": 2,
+  "updated": "2026-08-03",
+  "root": "C:\\Users\\Daniel\\Documents\\Coding\\Github",
+  "note": "Canonical estate manifest. Membership follows Daniel's rulings of 2026-08-02: every Patter* repository, plus WiseWattage, Venture A and Guth. governed is true only for the three seeded ventures; every other row is an inventory row that the quarterly estate review asks adopt or defer about. Every row below was read read-only on 2026-08-03; nothing was written into any sibling repository. estate/ESTATE_MAP.md is the human narrative of this file and does not restate membership. The v1 YAML manifest is archived at archive/v1-final:estate/repos.yaml.",
+  "excluded": [
+    {
+      "name": "WiseWattageReflex",
+      "reason": "Old and slated for deletion. Daniel's ruling, 2026-08-02."
+    },
+    {
+      "name": "Egles_Dashboard",
+      "reason": "Not a PatterTech venture. Daniel's ruling, 2026-08-02."
+    },
+    {
+      "name": "Project_Innisfail",
+      "reason": "Not a PatterTech venture. Daniel's ruling, 2026-08-02. The directory on disk carries an accented name."
+    },
+    {
+      "name": "hermes-agent",
+      "reason": "A third-party dependency of PatterStage, not ours. Daniel's ruling, 2026-08-02."
+    },
+    {
+      "name": "joulen-sales-tool",
+      "reason": "Not a PatterTech venture. Daniel's ruling, 2026-08-02."
+    },
+    {
+      "name": "worktree directories",
+      "reason": "A linked worktree is a view of a repository already listed, not a repository. Venture A-wt-WO0069 is the current example."
+    }
+  ],
+  "repos": {
+    "PatterTech_EOS": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterTech_EOS",
+      "role": "The engineering operating system: the shared knowledge and process brain that seeds and governs the ventures. No build.",
+      "status": "self",
+      "governed": false,
+      "owns": [
+        "The knowledge packs and the pack contract",
+        "The kernel: policy, guard and metadata law, schemas and seed templates",
+        "The registries and the evidence ledger",
+        "This estate manifest and the governance layer"
+      ],
+      "does_not_own": [
+        "Any runnable product or venture code",
+        "Runtime services, which are PatterStack inside PatterStudio",
+        "Design-system code, which lives in PatterTech_Website"
+      ],
+      "commands": {
+        "check": "python -m tools.eos check --repo"
+      },
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md, enforced by check E003",
+      "notes": "Not a governed venture and not a candidate: it is the manifest's own home, which is why status is self rather than candidate. Branch feat/eos-v2-agentic-development, the v2 integration branch."
+    },
+    "Venture A": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\Venture A",
+      "role": "A UK lifecycle-integrity platform for renewable-energy assets: the authoritative record of an installation, projected to owners, O&M stewards, admins and the public.",
+      "status": "governed",
+      "governed": true,
+      "stack": "FastAPI on Python 3.12 over Postgres 16 with S3 or MinIO evidence storage, two Next.js surfaces, local-first via Docker",
+      "owns": [
+        "The record core and the single authorisation choke point",
+        "Its own product app, marketing site and public QR surfaces",
+        "Its own governance tree under org/"
+      ],
+      "does_not_own": [
+        "The kernel it was seeded from",
+        "Any EOS doctrine"
+      ],
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
+      "eos_pin": "pre-1.0.0 @ 0a2a044",
+      "notes": "Seeded venture, L scale, Genesis in progress. No git remote is configured locally, so nothing here is pushed anywhere; branch main, last commit 2026-07-17. Its seed pack is the extraction source for kernel/templates/, and its route to v2 is recompile rather than upgrade."
+    },
+    "Guth": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\Project_Guth",
+      "remote": "github.com/Daniel-Parke/Project_Guth",
+      "role": "A browser-first, local-only practice instrument for a blocked singer: graded evaluative exposure, measured without flattery. A personal venture, never for commercial release.",
+      "status": "governed",
+      "governed": true,
+      "owns": [
+        "Its Studio and Stage modes and the Confidence Ladder measurement",
+        "Its own governance tree under org/ and its lock-book"
+      ],
+      "does_not_own": [
+        "The kernel it was seeded from"
+      ],
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
+      "eos_pin": "recorded as v1.0.0 @ 3807eb1, which is not the v1.0.0 tag; see registry/PROJECTS.md",
+      "notes": "Seeded venture, M scale, S0 gate passed 2026-07-15 and Genesis complete. Branch main, last commit 2026-07-16. The directory is Project_Guth; the canonical venture name is Guth."
+    },
+    "PatterTech_Website": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterTech_Website",
+      "remote": "github.com/Daniel-Parke/PatterTech_Website",
+      "role": "The public marketing and publishing site: the company, its principles, and the venture directory. A static Next.js export on Vercel.",
+      "status": "governed",
+      "governed": true,
+      "stack": "Next.js App Router with static export, React 19, TypeScript, Tailwind v4, no backend",
+      "owns": [
+        "Public publishing and rendering of the marketing site and research documents",
+        "The V2 document model, the field kit, the dev-only visual editor and the visual media capability, until WebKit extracts them"
+      ],
+      "does_not_own": [
+        "Print and investor documents, which are PatterStudio's",
+        "Design doctrine, which is the EOS's",
+        "Accounts, gated content, mailing list and analytics, which are PatterTech_App's"
+      ],
+      "commands": {
+        "lint": "npm run lint",
+        "test": "npm test",
+        "build": "npm run build"
+      },
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md, enforced by its own lint script",
+      "eos_pin": "pre-EOS, no pin",
+      "notes": "Governed but never compiled from the EOS: it predates it, and its v0.1 lock-in lives in its own design-system document. Live and public. Branch feat/foundations-pass, last commit 2026-07-27. It aligns to a compiled S seed when the current foundations work settles."
+    },
+    "WiseWattage": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\WiseWattage",
+      "remote": "github.com/Daniel-Parke/WiseWattage",
+      "role": "Energy modelling and optimisation for sites with solar, storage and grid: an installable Python library plus a live SaaS around it.",
+      "status": "candidate",
+      "governed": false,
+      "stack": "Python with a Polars-first pipeline, a FastAPI and Next.js application layer, Postgres, hosted on Railway and Vercel",
+      "owns": [
+        "Its energy optimisers and the site analysis tool",
+        "Its own auth, billing and hosting"
+      ],
+      "does_not_own": [
+        "The factory that produces it"
+      ],
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
+      "notes": "The estate's exemplar tenant and the source of most vendor rows in registry/VENDORS.md. Live with real users. Branch dev, last commit 2026-07-20. Adopt or defer at the quarterly estate review; it is the strongest adoption candidate because it already carries the practices."
+    },
+    "PatterStudio": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterStudio",
+      "remote": "github.com/Daniel-Parke/PatterTech_Business",
+      "role": "The deterministic document factory for investor and marketing material, and the home of PatterStack, the shared service fabric.",
+      "status": "candidate",
+      "governed": false,
+      "stack": "Python with uv, a LangGraph orchestrator, an MCP toolbox, Postgres with pgvector, plus one Next.js application",
+      "owns": [
+        "Print and investor document generation through the deterministic build",
+        "PatterStack, the runtime fabric",
+        "The canonical patter-doc asset-pack document model"
+      ],
+      "does_not_own": [
+        "Web article rendering, which is PatterTech_Website's web profile of patter-doc",
+        "The public marketing story"
+      ],
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
+      "interacts_with": [
+        "PatterTech_Website borrows the Cherenkov brand tokens as a hand port and renders the capture media PatterStudio references"
+      ],
+      "notes": "The directory name and the remote name differ: PatterStudio on disk, PatterTech_Business on GitHub. Live. Branch content/philosophy-02-era-fix, last commit 2026-07-25."
+    },
+    "PatterStage": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterStage",
+      "remote": "github.com/Daniel-Parke/PatterStage",
+      "role": "An open-source web control plane and orchestrator for agent runs: dispatch missions, schedule recurring work, browse sessions and memory, manage models and profiles.",
+      "status": "candidate",
+      "governed": false,
+      "stack": "Web application over SQLite, talking to the agent runtime through one HTTP adapter",
+      "owns": [
+        "The agent control plane, its exactly-once scheduler and its graph semantics"
+      ],
+      "does_not_own": [
+        "The agent runtime it drives, which is a third-party dependency",
+        "The shared run engine it intends to consume from PatterStack"
+      ],
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
+      "notes": "Public and open source with a few users. Formerly named hermes-control-hub. Branch dev, last commit 2026-07-27."
+    },
+    "PatterOS": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterOS",
+      "remote": "github.com/Daniel-Parke/PatterOS",
+      "role": "The local-first base: hardware build guides, provisioner and installer scripts for a budget local-AI workstation, plus the sovereignty charter and the reserved marks.",
+      "status": "candidate",
+      "governed": false,
+      "owns": [
+        "The bare-metal build guide, the provisioner and the local-first base layer",
+        "The Operation Level Playing Field manifesto and the reserved Patter marks and Cherenkov brand"
+      ],
+      "agent_files": "none",
+      "notes": "Public under Apache-2.0. Dormant: branch dev, last commit 2026-06-18. It is the reason the hardware domain stays registry-only in registry/coverage.json, since a dormant pre-EOS repo cannot demand doctrine."
+    },
+    "PatterHome": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterHome",
+      "role": "A self-hosted, local-first family operating system: one household, one always-on machine, one SQLite database. People and network, cookbook, budget planner.",
+      "status": "candidate",
+      "governed": false,
+      "stack": "Python backend with Alembic migrations over SQLite, plus a web frontend, packaged with Docker",
+      "owns": [
+        "The household platform: accounts, capability permissions, quick capture, permission-aware search and the backup subsystem where restore is the acceptance test"
+      ],
+      "agent_files": "none",
+      "notes": "Planning stage by its own README, though the tree already holds source, migrations and tests. No git remote is configured locally. Branch main, last commit 2026-08-03, which makes it the most active unowned repo in the estate and the strongest argument for the quarterly adopt-or-defer review."
+    },
+    "PatterPower": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterPower",
+      "role": "The planning and architecture blueprint for PatterPowerOS, the control layer for co-located clean-energy parks. A decision-grade plan, not the platform.",
+      "status": "candidate",
+      "governed": false,
+      "owns": [
+        "The technical, operational, commercial and regulatory blueprint for the energy-park venture",
+        "Its business plan, financial model and investor material"
+      ],
+      "does_not_own": [
+        "Any running platform; nothing here is deployed"
+      ],
+      "agent_files": "none",
+      "notes": "Documents and schema sketches rather than a product. No git remote is configured locally. Branch platform-blueprint, last commit 2026-07-04. It carries commercial and regulatory material that no EOS pack covers, which is why business-model-pricing-and-operations and legal-licensing-and-compliance-routing are Wave B rows."
+    },
+    "PatterTech_App": {
+      "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterTech_App",
+      "remote": "github.com/Daniel-Parke/PatterTech_App",
+      "role": "The out-of-band business platform and the estate data spine: the canonical subscriber record and the append-only consent ledger the static sites cannot hold.",
+      "status": "candidate",
+      "governed": false,
+      "stack": "FastAPI and Postgres run locally through Docker Compose",
+      "owns": [
+        "The data spine: organisation, venture and project, the subscriber record and the consent ledger",
+        "Later: accounts, the self-hosted mailing list, lead capture, gated content and analytics"
+      ],
+      "does_not_own": [
+        "The public marketing site, which stays a pure static client",
+        "Sending reputation, mailbox security and hosted auth, which are all rented"
+      ],
+      "commands": {
+        "up": "python dev.py up",
+        "down": "python dev.py down"
+      },
+      "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
+      "notes": "Dormant by its own README: a local-only scaffold, deployed nowhere, awaiting a reactivation runbook. Branch feat/data-spine, last commit 2026-07-08. Its README states there is no git remote, but one is configured; that line is stale and belongs to its own repo to fix, not ours."
+    },
+    "PatterTech_WebKit": {
+      "role": "The shared web design system, field kit, document model and dev-only editor, to be extracted from PatterTech_Website and distributed as a copy-in registry.",
+      "status": "planned",
+      "governed": false,
+      "owns": [
+        "The design-system code, the field kit, the editor and the visual media capability, reusable across future sites"
+      ],
+      "notes": "Planned, not created. No directory exists on disk and no commit has been made. It carries no path for that reason. Recorded here because the extraction it names is a live intention inside PatterTech_Website, and dropping the row would hide that."
+    }
+  }
+}

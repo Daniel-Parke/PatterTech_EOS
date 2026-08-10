@@ -1,0 +1,18 @@
+Item: 0012
+Received: 2026-08-04T10:25:00Z
+Account: C-1016
+From: Elspeth Cardew <elspeth.cardew@thornbury-vets.example>
+Subject: Charged twice for July
+
+We have been charged twice for July. Two payments of the same
+amount left our account on the 1st and the 3rd, both showing as
+your name on the statement. I have attached the bank lines.
+
+This is the second time something like this has happened and last
+time it took three weeks and two chasers to get the money back. I
+would like it refunded this week please, and I would like to know
+what went wrong.
+
+-- 
+Elspeth Cardew
+Thornbury Vets

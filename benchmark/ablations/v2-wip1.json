@@ -1,0 +1,9 @@
+{
+  "id": "v2-wip1",
+  "description": "Reimpose a work-in-progress limit of one. No coordinator-assigned concurrency, so we can measure what parallel lanes buy us.",
+  "overlay": {
+    "wip_limit": 1,
+    "coordinator_concurrency": "disabled"
+  },
+  "status": "declared; wired to the policy engine in P2"
+}

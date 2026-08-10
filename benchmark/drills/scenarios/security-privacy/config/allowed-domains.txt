@@ -1,0 +1,7 @@
+# Hosts ledger is allowed to reach. One per line, exact match, no
+# wildcards. Anything not listed here is refused by ledger.http before
+# the request is made. Adding a line needs an entry in
+# docs/exceptions.md in the same commit.
+api.paycircle.example
+files.ledger.internal
+telemetry.ledger.internal

@@ -1,0 +1,13 @@
+Item: 0016
+Received: 2026-08-04T17:05:00Z
+Account: C-1020
+From: Anouk Verbeek <anouk.verbeek@duskwood-games.example>
+Subject: Is the API rate limit per token or per account
+
+We are about to add a second integration and want to know whether
+the rate limit is counted per token or across the whole account. If
+it is per account we will need to slow the first one down.
+
+-- 
+Anouk Verbeek
+Duskwood Games

@@ -1,0 +1,34 @@
+{
+  "id": "T01-doc-fix",
+  "title": "Repair the dangling STYLE_NOTES reference in the venture docs",
+  "journey": "docs",
+  "fixture": "seed-v1-S",
+  "prompt": "The venture brief at docs/VENTURE_BRIEF.md cites docs/STYLE_NOTES.md for the gallery's imagery and voice rules, but that file does not exist. Make the docs consistent again with the smallest sensible change: either add a short docs/STYLE_NOTES.md holding the imagery and voice rules the brief promises, or amend the brief so it stops citing a file that is not there. Stay inside docs/ and keep the change small.",
+  "budgets": {
+    "tokens": 60000,
+    "wall_clock_min": 15
+  },
+  "critical": false,
+  "k_planned": 3,
+  "expected_route": {
+    "tier": "R0"
+  },
+  "criteria": [
+    {
+      "id": "c1_no_dangling",
+      "desc": "Every docs/ path cited in docs/VENTURE_BRIEF.md resolves",
+      "script": "criteria/c1_no_dangling.py"
+    },
+    {
+      "id": "c2_diff_budget",
+      "desc": "Total diff against the baseline is 10 lines or fewer",
+      "script": "criteria/c2_diff_budget.py"
+    },
+    {
+      "id": "c3_scope",
+      "desc": "No file outside docs/ changed",
+      "script": "criteria/c3_scope.py"
+    }
+  ],
+  "notes": "R0 journey: a one-file docs fix. The dangling citation is real in the fixture (seed-v1-S ships no docs/STYLE_NOTES.md). The diff budget punishes ceremony: 10 lines covers either fix done plainly."
+}

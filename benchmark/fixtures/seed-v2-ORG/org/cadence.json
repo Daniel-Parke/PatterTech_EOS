@@ -1,0 +1,30 @@
+[
+  {
+    "id": "upkeep",
+    "frequency": "fortnightly",
+    "last_run": null,
+    "next_due": "2026-08-17",
+    "procedure": "org/PLAYBOOKS.md#upkeep"
+  },
+  {
+    "id": "retro",
+    "frequency": "monthly",
+    "last_run": null,
+    "next_due": "2026-09-03",
+    "procedure": "org/PLAYBOOKS.md#retro"
+  },
+  {
+    "id": "stakeholder-update",
+    "frequency": "on-demand",
+    "last_run": null,
+    "next_due": null,
+    "procedure": "org/PLAYBOOKS.md#stakeholder-update"
+  },
+  {
+    "id": "guard-validation-review",
+    "frequency": "quarterly",
+    "last_run": null,
+    "next_due": "2026-11-03",
+    "procedure": "org/PLAYBOOKS.md#guard-validation-review"
+  }
+]

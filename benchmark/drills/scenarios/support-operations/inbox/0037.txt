@@ -1,0 +1,13 @@
+Item: 0037
+Received: 2026-08-07T09:05:00Z
+Account: C-1039
+From: Fiona MacAllister <fiona.macallister@torridon-energy.example>
+Subject: Anything other than CSV
+
+Our data team have asked whether the export can come as anything
+other than CSV, they mentioned Parquet. Not urgent, they just want
+to know what is possible before they build round it.
+
+-- 
+Fiona MacAllister
+Torridon Energy

@@ -1,0 +1,14 @@
+Item: 0011
+Received: 2026-08-04T09:50:00Z
+Account: C-1015
+From: Yusuf Demirci <yusuf.demirci@marlowe-optics.example>
+Subject: A weekly digest instead of five daily emails
+
+We get one email per day per report and by Friday nobody opens
+them. Could there be a weekly digest, one email on a Monday with
+the week in it? I would take that over the daily emails for all
+four of our reports.
+
+-- 
+Yusuf Demirci
+Marlowe Optics

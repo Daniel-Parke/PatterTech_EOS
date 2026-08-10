@@ -1,9 +1,17 @@
 ---
 summary: One repo, several, or a corner of an existing one?
+kind: guide
+scope: eos-internal
+authority: default
+lifecycle: active
+basis: empirical-evidence
+evidence_grade: observational
+volatility: slow
+sources: [EV-0168, EV-0172, EV-0173, EV-0183]
+review: 2027-07
 type: wargame
 tags: [eos, wargame, infra]
 status: active
-review_by: 2027-07
 ---
 
 # WG-EOS-002: One repo, several, or a corner of an existing one?

@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/policy.schema.json",
+  "title": "EOS venture policy",
+  "description": "Per-venture routing and control policy. Path pattern lists are signal sources that activate named factors; no rule maps a path alone to a tier. Content under the pointers named in protected_pointers is part of the protected set: changing it requires an accepted ADR and Daniel. See kernel/POLICY_SPEC.md for the law this file instantiates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "venture",
+    "capability_profile",
+    "risk",
+    "express",
+    "modes",
+    "parallelism",
+    "decision_budget",
+    "approvals",
+    "guard",
+    "protected_pointers"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Policy version. Routing is deterministic given the same facts and this version."
+    },
+    "venture": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical venture name."
+    },
+    "capability_profile": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Repo-relative path or id of the capability-profile record (capability-profile.schema.json) this policy binds to. Profile level tunes Express thresholds, the free band and review sampling, never tier floors."
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["factors", "path_patterns"],
+      "description": "The factor table binding. Protected content: changes require an accepted ADR.",
+      "properties": {
+        "factors": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/factor" }
+        },
+        "path_patterns": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reversible", "sensitive", "protected"],
+          "description": "Signal sources only. A pattern match activates the factors whose sources cite its class (paths:reversible, paths:sensitive, paths:protected); a pattern never carries a tier itself.",
+          "properties": {
+            "reversible": { "$ref": "#/$defs/patternList" },
+            "sensitive": { "$ref": "#/$defs/patternList" },
+            "protected": { "$ref": "#/$defs/patternList" }
+          }
+        }
+      }
+    },
+    "express": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_diff_lines", "max_files"],
+      "description": "Express (R0) admission thresholds. Exceeding a size threshold denies R0; it never raises a floor by itself.",
+      "properties": {
+        "max_diff_lines": { "type": "integer", "minimum": 1 },
+        "max_files": { "type": "integer", "minimum": 1 },
+        "denied_by_factors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Factor ids whose activation denies Express regardless of size."
+        }
+      }
+    },
+    "modes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["express", "standard", "exploration", "high-assurance", "parallel"],
+      "properties": {
+        "express": { "$ref": "#/$defs/modeDials" },
+        "standard": { "$ref": "#/$defs/modeDials" },
+        "exploration": { "$ref": "#/$defs/modeDials" },
+        "high-assurance": { "$ref": "#/$defs/modeDials" },
+        "parallel": { "$ref": "#/$defs/modeDials" }
+      }
+    },
+    "parallelism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_lanes"],
+      "properties": {
+        "max_lanes": { "type": "integer", "minimum": 1 },
+        "claim_expiry_hours": { "type": "integer", "minimum": 1, "default": 24 },
+        "renewal_window_hours": { "type": "integer", "minimum": 1, "default": 2 }
+      }
+    },
+    "decision_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["free", "durable", "escalation"],
+      "description": "Decision bands: free (decide, record in the commit message), durable (decide, short ADR before merge), escalation (never alone).",
+      "properties": {
+        "free": { "type": "array", "items": { "type": "string" } },
+        "durable": { "type": "array", "items": { "type": "string" } },
+        "escalation": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["always_human"],
+      "description": "Protected content: changes require an accepted ADR.",
+      "properties": {
+        "always_human": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Factor or guarded-action-class ids that always require a human decision. The guard's non-waivable floors apply on top and cannot be removed here."
+        }
+      }
+    },
+    "guard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter", "mapping_ref"],
+      "properties": {
+        "adapter": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host enforcement adapter id, for example claude-code."
+        },
+        "mapping_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Repo-relative path to the adapter mapping (permission rules and hooks per guarded class)."
+        },
+        "validated": {
+          "type": "boolean",
+          "description": "True only when the named adapter passed the bypass suite and the validation report is committed. Absent or false fails closed: every guarded class is manual-only."
+        }
+      }
+    },
+    "protected_pointers": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "pattern": "^(/([^/~]|~[01])*)*$",
+        "description": "RFC 6901 JSON pointer into this document."
+      },
+      "allOf": [
+        { "contains": { "const": "/risk" } },
+        { "contains": { "const": "/approvals" } }
+      ],
+      "description": "JSON pointers whose content is protected. Must include /risk and /approvals; the checker refuses edits under these pointers without an acknowledged accepted ADR."
+    }
+  },
+  "$defs": {
+    "tier": {
+      "type": "string",
+      "enum": ["R0", "R1", "R2", "R3"]
+    },
+    "patternList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Repo-relative forward-slash glob patterns."
+    },
+    "factor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "summary", "tier_floor", "sources"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "tier_floor": { "$ref": "#/$defs/tier" },
+        "denies_express": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, an active instance of this factor denies R0 regardless of tier_floor (boundary contact, size thresholds)."
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "Signal source ids that can activate this factor: declared side-effect names, derived detector ids, or path classes (paths:reversible, paths:sensitive, paths:protected)."
+        }
+      }
+    },
+    "modeDials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["context_pack", "artefacts", "test_timing", "verification", "budgets", "stop_conditions"],
+      "properties": {
+        "context_pack": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_lines"],
+          "properties": {
+            "max_lines": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "artefacts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "commit-message",
+              "task-record",
+              "hypothesis-ledger",
+              "oracle-provenance",
+              "rollback-plan",
+              "review-verdict",
+              "adr"
+            ]
+          },
+          "description": "Artefacts the mode requires. Express lists commit-message only."
+        },
+        "test_timing": {
+          "type": "string",
+          "enum": ["acceptance-first", "alongside", "hardening-gate", "per-profile"],
+          "description": "per-profile defers to the capability profile default set by the test-timing ablation."
+        },
+        "verification": {
+          "type": "string",
+          "enum": ["targeted-checks", "sampled-review", "independent-review", "rolling-integration"]
+        },
+        "budgets": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "boot_lines": { "type": "integer", "minimum": 0 },
+            "tokens": { "type": "integer", "minimum": 0 },
+            "wall_clock_min": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "stop_conditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+Item: 0023
+Received: 2026-08-05T10:30:00Z
+Account: C-1026
+From: Junko Watanabe <junko.watanabe@cinderfell-ceramics.example>
+Subject: Sending an export to a webhook rather than an email
+
+We would rather your export posted to an endpoint of ours than sent
+an email that someone then has to save into a folder. Is a webhook
+destination something you would consider? We already have the
+endpoint built for another supplier so we know it works our end.
+
+-- 
+Junko Watanabe
+Cinderfell Ceramics

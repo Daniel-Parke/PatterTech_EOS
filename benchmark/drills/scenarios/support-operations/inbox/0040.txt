@@ -1,0 +1,13 @@
+Item: 0040
+Received: 2026-08-07T14:50:00Z
+Account: C-1042
+From: Alistair Penfold <alistair.penfold@penfold-aerospace.example>
+Subject: Does deleting a schedule delete the reports it made
+
+We want to tidy up about thirty old schedules. If we delete a
+schedule, do the files and the report history it produced go with
+it, or do those stay?
+
+-- 
+Alistair Penfold
+Penfold Aerospace

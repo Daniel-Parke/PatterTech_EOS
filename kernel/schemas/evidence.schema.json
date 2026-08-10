@@ -1,0 +1,188 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://schemas.pattertech.eos/evidence.schema.json",
+ "title": "EOS evidence ledger",
+ "description": "registry/evidence.json, the canonical machine ledger: one record per source, never grouped. The Markdown view is derived. This schema formalises the existing eighteen-key record shape unchanged. Record id uniqueness is enforced by the checker, not expressible here.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "version",
+  "generated",
+  "note",
+  "records"
+ ],
+ "properties": {
+  "version": {
+   "type": "integer",
+   "minimum": 1
+  },
+  "generated": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+  },
+  "note": {
+   "type": "string"
+  },
+  "records": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "$ref": "#/$defs/record"
+   }
+  },
+  "research_cutoff": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "description": "Latest access_date across the records, written by tools/import_fragments.py. Derived, not typed in."
+  }
+ },
+ "$defs": {
+  "record": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "id",
+    "source",
+    "url",
+    "kind",
+    "publication_status",
+    "study_design",
+    "population",
+    "model",
+    "benchmark",
+    "version_or_commit",
+    "licence",
+    "access_date",
+    "maintenance",
+    "finding",
+    "applicability_limits",
+    "counter_evidence",
+    "cited_by",
+    "review"
+   ],
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^EV-\\d{4}$"
+    },
+    "source": {
+     "type": "string",
+     "minLength": 1
+    },
+    "url": {
+     "type": "string",
+     "minLength": 1
+    },
+    "kind": {
+     "type": "string",
+     "enum": [
+      "controlled",
+      "standard",
+      "maintainer",
+      "exemplar"
+     ]
+    },
+    "publication_status": {
+     "type": "string",
+     "enum": [
+      "peer-reviewed",
+      "preprint",
+      "standard",
+      "repository",
+      "vendor-doc",
+      "blog"
+     ]
+    },
+    "study_design": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "population": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "model": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "benchmark": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "version_or_commit": {
+     "type": "string",
+     "minLength": 1,
+     "description": "Exact tag, commit, version or dated revision inspected; the string unknown when none is discoverable."
+    },
+    "licence": {
+     "type": "string",
+     "minLength": 1,
+     "description": "Load-bearing for reuse decisions: applied per source, never as a blanket class rule."
+    },
+    "access_date": {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "maintenance": {
+     "type": "string",
+     "enum": [
+      "active",
+      "stable",
+      "stale",
+      "url-dead"
+     ],
+     "description": ". url-dead means the cited URL no longer resolves: the finding stands on the reading taken at access_date, but the citation cannot be re-checked at source, which is a different failure from content going stale."
+    },
+    "finding": {
+     "type": "string",
+     "minLength": 1,
+     "description": "The principle extracted, not a summary of the abstract."
+    },
+    "applicability_limits": {
+     "type": "string",
+     "minLength": 1
+    },
+    "counter_evidence": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "cited_by": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "review": {
+     "type": "string",
+     "pattern": "^(\\d{4}-\\d{2}|on-change-of:.+)$"
+    },
+    "licence_evidence": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "What on the source establishes the licence, quoted. A licence with nothing behind it is a guess; ninety records once read 'unknown' because nobody had looked."
+    },
+    "licence_checked": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "Date the licence was read off the source."
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+  "channel": "production",
+  "runtimeVersion": "0.4.0",
+  "bundle": "bundles/tern-0.4.0.hbc",
+  "assets": [
+    "icons/plus.png",
+    "icons/wave.png",
+    "icons/divider.png"
+  ],
+  "permissions": [
+    "android.permission.INTERNET",
+    "android.permission.ACCESS_NETWORK_STATE"
+  ],
+  "nativeModules": [
+    "react-native-safe-area-context",
+    "react-native-screens"
+  ]
+}

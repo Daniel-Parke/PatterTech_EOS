@@ -1,0 +1,17 @@
+Item: 0033
+Received: 2026-08-06T11:50:00Z
+Account: C-1036
+From: Mariam Toure <mariam.toure@clarion-bell-audio.example>
+Subject: Logo comes out the wrong size on A4
+
+1. Put our logo in the report header, any PNG at 600px wide.
+2. Export the report to PDF at A4.
+3. The logo is about twice the size it is on screen and pushes the
+   first table onto page two.
+
+At Letter size it is fine. We send these to customers so it is a
+bit embarrassing.
+
+-- 
+Mariam Toure
+Clarion Bell Audio

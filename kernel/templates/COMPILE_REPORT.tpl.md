@@ -23,10 +23,13 @@ traced to a row below is a compile failure.
 
 One row per compiled file. Source is the kernel template path, `byte
 copy of AGENTS.md` for CLAUDE.md, or `authored` for trigger add-ons
-written at Session 0 from doctrine (name the doctrine). Reseeds add two
-row kinds: `normalised` (pre-EOS venture files that gained front-matter
-only, content untouched) and `preserved` (venture content the compile
-did not touch).
+written at Session 0 from doctrine (name the doctrine). JSON seed
+files carry ancestry rows like any other: the policy and cadence
+files trace to their kernel templates with slots filled and no
+fences, and the claims file's source is `seeded empty` per its
+schema. Reseeds add two row kinds: `normalised` (pre-EOS venture
+files that gained front-matter only, content untouched) and
+`preserved` (venture content the compile did not touch).
 
 | file | source | slots filled | fences pruned |
 | --- | --- | --- | --- |

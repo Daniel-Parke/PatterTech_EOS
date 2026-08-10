@@ -1,0 +1,22 @@
+{
+  "id": "T-0008",
+  "intent": "Closed with its premise corrected. The plan recorded that LangGraph and OpenHands had no pack-local research record, two of the seven agentic systems the v2 scope named. Checked against the tree, both are covered and cited by packs/agentic-development at the same depth as the other five: EV-0001 for the OpenHands SDK paper, EV-0048 for LangGraph and EV-0079 for its interrupt semantics, appearing in PACK.md binding requirements, CHECKS.md, the exemplar and the topology guide. What they lacked was a pack-local FRAG record, which is provenance about which sweep found a source rather than a gap in coverage, and manufacturing records to make that symmetry would have added weight without adding evidence. One genuinely new source was read and added instead: the LangGraph durable-execution documentation at EV-0449, which establishes that durability is a property of the checkpointer and that the default in-memory savers lose every snapshot on restart. It is recorded against EV-0047, which puts the same mechanism at the boundary rather than in the worker; the pack now carries the disagreement rather than resolving it.",
+  "claims": [
+    "packs/agentic-development/",
+    "registry/evidence.json"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "tier_ruled": "R0",
+  "reasons": [],
+  "status": "done",
+  "owner_session": "eos-v2-prerelease-review",
+  "timestamps": {
+    "opened": "2026-08-08T00:00:00Z",
+    "updated": "2026-08-08T00:00:00Z"
+  }
+}
