@@ -86,6 +86,7 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
 | org/decisions/ADR-0003-lightness-and-honest-generation.md | decision | eos | Retained material that misleads an agent is a defect, the archive of record is a tag, and every derived file has a live generator |  |
 | org/decisions/ADR-0004-fewer-promises-all-of-them-kept.md | decision | eos | Two rungs not three, exceptions are ADRs, pack budgets measured where loading actually happens, and the two controls that were described but never ran |  |
+| org/decisions/ADR-0005-four-corrections-in-the-protected-set.md | decision | eos | Four false statements in protected files, the corrections proposed for them, and why they were not simply edited |  |
 | org/deviations.md | org | eos | Append-only implementation-deviation log for the EOS v2 build, per ADR-0002 |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |

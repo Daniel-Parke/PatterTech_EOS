@@ -49,7 +49,7 @@ predicates below.
 - `decides_merge`: the task moves code onto a shared branch.
 
 Do not load this pack for documentation-only changes, for greenfield
-spikes on a throwaway branch that the checker refuses to merge, or for
+spikes on a throwaway branch that never merges, or for
 prompt and configuration edits that touch no compiled or interpreted
 source.
 

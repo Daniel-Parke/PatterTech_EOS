@@ -12,16 +12,20 @@ one session.
 
 ## Running one session for a task
 
-1. Materialise the fixture into a scratch directory outside the repo:
+1. Prepare the run into a scratch directory outside the repo:
 
    ```
-   python benchmark/runner.py materialise --fixture app-static \
-       --dest /path/to/scratch --task benchmark/tasks/T03
+   python benchmark/harness.py prepare --task benchmark/tasks/T03-feature \
+       --variant v2 --run-id G-v2-T03-feature-t1 --dest /path/to/scratch
    ```
 
-   This copies the fixture (holdout material excluded), initialises a
-   git repo with an initial commit, applies the task's `break.patch`
-   if there is one, and prints the task prompt.
+   This copies the task's fixture (holdout material and build noise
+   excluded), places the variant's process surface, initialises a git
+   repo with an initial commit, applies the task's `break.patch` if
+   there is one, writes `<run_id>.run.json` beside the tree and prints
+   the task prompt. `runner.py materialise` still copies a fixture on
+   its own, but it places no surface, so a run prepared that way is
+   neither a v1 nor a v2 run.
 
 2. Start a fresh agent session in the scratch directory, per the
    settings in `PROTOCOL.md`, and give it the printed prompt verbatim.
@@ -37,7 +41,7 @@ one session.
 run labels:
 
 ```
-python benchmark/score.py --task benchmark/tasks/T03 \
+python benchmark/score.py --task benchmark/tasks/T03-feature \
     --scratch /path/to/scratch --transcript /path/to/transcript.jsonl \
     --variant v2 --run-id T03-v2-r1
 ```
@@ -48,8 +52,10 @@ It works in this order:
    Write and Edit uses as files_written, sums token usage, takes wall
    clock from the first and last timestamps, counts AskUserQuestion
    entries as operator_events, and counts assistant turns. Written
-   paths matching ceremony patterns (org/logs, STATE, session-log,
-   resume-packet) have their written lines summed as ceremony_lines.
+   paths matching ceremony patterns have their written lines summed as
+   ceremony_lines. The patterns cover both arms: org/logs, STATE,
+   session-log, resume-packet, WORKLOG, EOS_FEEDBACK, QUESTIONS and
+   org/QUEUE under v1, org/tasks, state.yaml and TASKS.md under v2.
 2. Writes `run_meta.json` into the scratch directory (contract below),
    before any criteria script runs.
 3. Runs every criteria script for the task against the scratch

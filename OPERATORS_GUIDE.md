@@ -51,10 +51,15 @@ The action-time guard returns allow, require-approval, manual-only or
 deny. Autonomous execution of a guarded class needs a validated host
 enforcement adapter. **Without one, every guarded class is
 manual-only**: the agent stops and tells you, and you do the action
-yourself outside the agent. That is the current state, and it is not
-something to work around. Naming a permission system does not satisfy
-the requirement, and a seed claiming autonomous guarded actions without
-an enforceable adapter fails its check.
+yourself outside the agent.
+
+Today `kernel/adapters/claude-code.json` is validated, so external-write,
+destructive-git and dependency-install rule require-approval and resolve
+on a recorded approval from you. The other seven classes have no passing
+bypass case, so they stay manual-only. None of it is something to work
+around. Naming a permission system does not satisfy the requirement, and
+a seed claiming autonomous guarded actions without an enforceable
+adapter fails its check.
 
 ## Cadences
 

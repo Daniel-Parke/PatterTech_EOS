@@ -89,9 +89,8 @@ the research covered none of them.
 Each names its predicate, its evidence and the failure it prevents.
 Where basis says decision, it binds because the estate ruled it, not
 because evidence compels it. `EV-` ids resolve in
-`registry/evidence.json`; `FRAG-NATIVE-` ids resolve for now in
-`packs/native-client/research/sources.fragment.json`, pending the
-ledger import recorded at the end of this file. Several sources are
+`registry/evidence.json`, including the nineteen native-client sources
+imported as EV-0370 to EV-0388. Several sources are
 readable and not reusable, so no source prose is copied here.
 
 **B1. A conflict policy per write class, named before a sync library is
@@ -297,12 +296,10 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
 - **Two Apple primary sources resisted plain fetch** (EV-0230 and
   EV-0388), rest partly on secondary write-ups, and want
   re-verifying before anything is quoted.
-- **The evidence import is incomplete.** The nineteen `FRAG-NATIVE-`
-  rows are frozen in this pack's research directory and are not yet in
-  `registry/evidence.json` with final `EV-` ids. The citations are
-  stable text and the ids will change on import. Until then no
-  `FRAG-NATIVE-` id resolves in the ledger, and CHECKS row C4 fails for
-  those ids by design.
+- **The evidence import is done.** The nineteen fragment rows are in
+  `registry/evidence.json` as EV-0370 to EV-0388, and every citation in
+  this pack uses the ledger id. The fragment file stays in the research
+  directory as the frozen batch the import was made from.
 - **Refresh triggers.** Publication of EN 301 549 v4; a change to
   either store's staged release mechanics; the next annual Play target
   API deadline; a published coverage figure for a native audit; any

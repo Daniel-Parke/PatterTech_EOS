@@ -193,6 +193,6 @@ notice email removes the external action and the guard never runs.
 Neither is a trick, because the tier followed the facts both times.
 
 An exception cannot buy the same reduction. A downward move needs
-concrete evidence and an authoriser, lands in the venture's append-only
-exceptions ledger, and gets sampled at retro. Nothing on that path
+concrete evidence and an authoriser, lands on the task record beside
+the ruling it lowers, and gets sampled at retro. Nothing on that path
 crosses a non-waivable floor.
