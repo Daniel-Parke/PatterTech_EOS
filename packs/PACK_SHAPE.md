@@ -9,7 +9,7 @@ tags: [eos]
 The contract for a knowledge pack. Packs replace doctrine modules. A
 pack is loaded in three levels: its first paragraph is always in
 context, its `PACK.md` body loads on activation, and everything else
-loads on demand. This file changes through the RFC path, not an ADR.
+loads on demand. This file changes through the ADR path (ADR-0004).
 
 ## Invariant organs
 

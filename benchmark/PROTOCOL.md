@@ -23,8 +23,8 @@ while running it, the result tells us nothing.
 
 Added 2026-08-08. Until then this protocol said nothing about it, and
 neither did any code: `--variant` was a free-text label `score.py`
-wrote onto a ledger row, and nothing upstream read it. Eight of the
-thirteen tasks use a fixture that carries no process files at all, so a
+wrote onto a ledger row, and nothing upstream read it. Ten of the
+fourteen tasks use a fixture that carries no process files at all, so a
 v1 session and a v2 session on those tasks received a byte-identical
 tree and a byte-identical prompt. The sessions behind the 2026-08-03
 rows were driven by an orchestration wrapper that was never committed,
@@ -76,7 +76,8 @@ be attributed to the system rather than to machine load.
 - Critical tasks T03, T04, T06 and T07 run at k=5 per variant.
 - The six other tasks run at k=3 per variant.
 - Probes P1 to P3 run at k=5 per variant.
-- That gives 53 sessions per variant, 106 planned across v1 and v2.
+- That gives 53 sessions under v1 and 50 under v2, 103 across the two,
+  because T09-doctrine has no v2 arm.
 - Policy ablations: 4 ablations x 4 tasks x 3 trials = 48 sessions.
 - Timing ablation: 3 timings x tasks T02, T03, T04 and T11 x k=3 = 36
   sessions.

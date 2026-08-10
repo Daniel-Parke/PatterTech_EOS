@@ -37,9 +37,9 @@ wargame behind it. A repo can be checker-green and still hold false
 statements about itself, and this one did.
 
 The benchmark measured the same thing from the other end. On the
-R2-and-above tasks, the median v1 run spent **between 177 and 301
-ceremony lines**, and it ended behind an operator gate that never
-arrives on its own: `human_gates_pending`
+heavier slots, the feature, bug fix, migration and auth, the median v1
+run spent **between 177 and 301 ceremony lines**, and it ended behind
+an operator gate that never arrives on its own: `human_gates_pending`
 finished at one or more on every migration and auth run, and on three
 of the four bug-fix runs. Ceremony was not buying safety there. It was
 buying a queue of things waiting for Daniel.
@@ -58,8 +58,8 @@ Ceremony now attaches to the task, not to the calendar.
 - **Standard** (R1, the default): one owner plans, implements and
   tests, with a task record under `org/tasks/`. Independent review when
   the router asks for it, otherwise a sampled review pool.
-- **Exploration**: a sandboxed spike on a `spike/` branch the checker
-  refuses to merge. Timeboxed. It exits discarded or hardened.
+- **Exploration**: a sandboxed spike on a `spike/` branch that never
+  merges. Timeboxed. It exits discarded or hardened.
 - **High-assurance** (R2 and R3): explicit invariants, a rollback plan,
   an acceptance oracle written independently before implementation and
   frozen, independent review, and a person for anything irreversible.

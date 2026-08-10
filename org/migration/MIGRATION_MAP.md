@@ -45,8 +45,8 @@ load-bearing rule now lives. Nothing was dropped silently.
 | G2, independent review | change | REVIEWER at R2 and above; a sampled pool at R1, default twenty per cent, tuned by measured escaped defects. |
 | G3, human approval | split | The policy's approvals block for tier-level approval, and the action-time guard's require-approval and manual-only verdicts for individual actions. kernel/GUARD_SPEC.md holds the non-waivable floors. |
 | G4, post-release verification | change | Release control and rollout practice in the devops-reliability pack. |
-| G5, periodic audit | change | The monthly governance review sampling five items, plus retro sampling of the exception ledger. |
-| Tier raised by VERIFY, never lowered | survive | Gate-time recomputation against the actual diff resolves upward only. The only way down is an audited exception in org/exceptions.jsonl, one-off by a REVIEWER or standing by the operator plus an RFC with an expiry. |
+| G5, periodic audit | change | The monthly governance review sampling five items: live experiments, standing exceptions in org/decisions/ and contested rules. |
+| Tier raised by VERIFY, never lowered | survive | Gate-time recomputation against the actual diff resolves upward only. The only way down is an audited exception: one-off by a REVIEWER on the record, or standing by an accepted ADR in org/decisions/ carrying an expiry date (ADR-0004). |
 | Blanket test-first | retire | The adaptive testing law in the delivery-testing pack: timing by change class, with bug repros always first and invariants, money, security and public contracts taking acceptance before implementation. The timing ablation sets the profile defaults. |
 | Three strikes | change | The circuit breaker: stop when three materially distinct hypotheses have each been tested and falsified and the latest attempt reduced no uncertainty. Retries count as one hypothesis. |
 | Priorities P0 to P3 | optional | The order of the open list. Nothing in the kernel carries a separate priority scheme. |
@@ -57,7 +57,7 @@ load-bearing rule now lives. Nothing was dropped silently.
 | v1 | fate | v2 |
 | --- | --- | --- |
 | Doctrine modules | change | Packs under packs/, loaded in three levels: first paragraph always, PACK.md body on activation, organs on demand. |
-| MODULE_SHAPE.md | change | packs/PACK_SHAPE.md. The pruning test, the line budgets and one-fork-per-guide survive intact; the definition of done is new and strict. It also left the protected set and now changes by RFC. |
+| MODULE_SHAPE.md | change | packs/PACK_SHAPE.md. The pruning test, the line budgets and one-fork-per-guide survive intact; the definition of done is new and strict. It also left the protected set and now changes by ADR (ADR-0004). |
 | The wargame corpus | survive | WG- ids are never renumbered or reused. Each v1 wargame lives under the pack that owns its decision, keeping its id, its argument and its worked rulings. |
 | The wargame format | change | The guide format. New guides are `GD-<PACK>-NNN`, numbered per pack. Format left the protected set. |
 | doctrine/WARGAME_INDEX.md | change | packs/GUIDE_INDEX.md, derived from guide front-matter. |
@@ -75,7 +75,7 @@ load-bearing rule now lives. Nothing was dropped silently.
 | kernel/SEED_RUBRIC.md | survive | Extended. The A-items keep their v1 check ids and gain D001 to D009, which cover compiled ancestry, the negative matrix, deferral follow-ups, guide resolution, the policy schema, the guard adapter and the seeded claims file. The five human items are unchanged. |
 | Cadences in org/CADENCE.md | change | org/cadence.json, machine-readable, with a Markdown pointer beside it. Check S009 flags overdue rows. Cadences compile at ORG only; an S venture runs none. |
 | Playbooks, org/playbooks/CATALOGUE.md at L | change | kernel/templates/org/PLAYBOOKS.tpl.md compiles at ORG. The EOS's own procedures are org/PLAYBOOKS.md, PB-E01 to PB-E10. |
-| tools/eos_check.py | split | The tools/eos package, run as one command with four check series: E structural, S semantic, D seed, F freshness. tools/eos_check.py remains as a deprecation shim, and the v1 checker is kept at archive/v1-final:tools/eos_check.py because it was the parity anchor for the port. |
+| tools/eos_check.py | split | The tools/eos package, run as one command with five check series: E structural, S semantic, F freshness, B benchmark freeze, and D seed under --seed. tools/eos_check.py remains as a deprecation shim, and the v1 checker is kept at archive/v1-final:tools/eos_check.py because it was the parity anchor for the port. |
 | The metadata-only checker | change | The semantic series checks operational truth: enum validity, supersession pairs, path and id resolution, derived drift, pack organs, machine facts against git reality, canonical-fact duplication, cadence overdue and cross-registry consistency. |
 
 ## Seed files

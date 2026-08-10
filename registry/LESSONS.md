@@ -10,7 +10,7 @@ review: 2026-11
 
 The harvest ledger. Every entry carries a disposition that points at the
 file which now owns the decision: an evidence id, a guide or wargame id,
-an RFC, or a plain decline with a reason. A silent harvest month still
+an ADR, or a plain decline with a reason. A silent harvest month still
 records "checked, clean".
 
 **A lesson leaves this ledger once its content is stated as a rule
@@ -32,8 +32,8 @@ The PB-E04 promotion review ran the same day and promoted nothing. The
 sample: zero live `lifecycle: experimental` items, so nothing expired
 past the ninety-day window; zero `lifecycle: contested` rules; the
 twenty-four binding rules in `packs/` unchanged; and no exception ledger
-to sample, because `org/exceptions.jsonl` was specified and never
-implemented, which is itself queued. Of the harvest's three promotion
+to sample, because ADR-0004 withdrew `org/exceptions.jsonl` and moved a
+one-off exception onto the task record it applies to. Of the harvest's three promotion
 candidates, each carries one argued ruling from one venture, which under
 the ladder in `GOVERNANCE.md` is short of binding-candidate. Guth's five
 draft wargames stay candidates for the same reason: a fork that happened

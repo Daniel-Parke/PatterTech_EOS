@@ -3,8 +3,8 @@
  "frozen": "2026-08-03",
  "note": "SHA-256 of every frozen benchmark file. Changes after freeze require an ADR-0002 amendment. results/ is excluded (mutable ledger). Paths use forward slashes. Check B001 verifies this manifest.",
  "files": {
-  "benchmark/PROTOCOL.md": "8b62926eb4a7a9f2ecaae9fc315cb63a3038610b1492bc0026e230522853cf32",
-  "benchmark/README.md": "9275132ea1f421801a58361ae0964e1b1765dae93588ebcde96bad0619e77387",
+  "benchmark/PROTOCOL.md": "e588b9a63c3c871be895f79c9f71997abe841937db4a94ab84b8fbffa123cc51",
+  "benchmark/README.md": "69b95ffc9e0a92032ac239351de207c3bd2c2a07bb15c3206cca7a07bd569aaa",
   "benchmark/ablations/v2-mandatory-logs.json": "0d0b7124041784fb27e8bd13119b9950edbe9884ca4e011a07420b5f8f379957",
   "benchmark/ablations/v2-no-router.json": "317e5f6872a1bc42f4298fc95a75ea7c5d998b4e66e4836d8aaeb0b235866f3d",
   "benchmark/ablations/v2-no-sampled-review.json": "f5f8a99238c7c19b361e0e932d3dcea890045f9aeb2f30c918586a1ecd03cd67",
@@ -262,6 +262,16 @@
    "reference": "org/decisions/ADR-0004, post-merge handoff review",
    "class": "recording correction, no frozen file changed",
    "note": "Twenty-one entries were re-hashed on 2026-08-08 from a working tree that git had checked out with CRLF, so the manifest recorded the checkout's bytes rather than the file's content and disagreed with the other hundred and seven. Checking out main after the v2 merge made every frozen text file report as modified: a hundred and eight B001 errors against a tree in which nothing had been edited. Each of these files was confirmed byte-identical to its recorded form once the checkout transform is undone; none was modified. Hashes are now taken on LF content uniformly, .gitattributes pins the working tree to LF so a clone is the same on every platform, and the hashers normalise line endings so the check survives a tree that predates either."
+  },
+  {
+   "date": "2026-08-10",
+   "files": [
+    "benchmark/PROTOCOL.md",
+    "benchmark/README.md"
+   ],
+   "reference": "org/decisions/ADR-0002, post-merge documentation pass",
+   "class": "factual correction to prose, no threshold, gate or scoring rule changed",
+   "note": "Six statements in the frozen benchmark prose were false and were corrected. PROTOCOL.md said eight of thirteen tasks use a fixture carrying no process files; there are fourteen task directories and ten of them do. It also planned 53 sessions a variant for 106 in total, where the grid is 53 under v1 and 50 under v2 for 103, because T09-doctrine has no v2 arm, which the same document already said forty lines earlier. README.md gave benchmark/tasks/T03 twice as a copyable path and it has never existed, the directory is T03-feature; it named app-static as that task's fixture where task.json says app-api; it documented preparation as runner.py materialise, which places no process surface and so prepares neither a v1 nor a v2 run, rather than harness.py prepare; and it listed four ceremony patterns, all of them v1-shaped, where score.py counts eleven across both arms, which is what makes the ceremony comparison fair. No gate, threshold, session count or scoring rule is changed. The counts in the ledger and in gates.py are untouched."
   }
  ]
 }

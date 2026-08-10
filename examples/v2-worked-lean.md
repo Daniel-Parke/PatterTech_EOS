@@ -30,7 +30,7 @@ new one is on the invoice. Nothing else.
 
 ## Boot
 
-The agent opens benchmark/fixtures/seed-v2-S/AGENTS.md, thirty-one
+The agent opens benchmark/fixtures/seed-v2-S/AGENTS.md, thirty-two
 lines including its front-matter and the whole of the always-loaded
 surface. It says what to read, in order: the lock-book, then route,
 then record.

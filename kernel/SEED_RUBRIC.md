@@ -17,7 +17,7 @@ any auto item does not reach the human.
 | id | check | what passes |
 | --- | --- | --- |
 | A1 | E002 | every markdown file opens with parseable front-matter |
-| A2 | E002 | the lock-book header carries eos_version, eos_commit, scale (S or ORG), stack, policy_profile and packs_adopted |
+| A2 | E002 | the lock-book header carries eos_version, eos_commit, scale (S or ORG) and stack |
 | A3 | E002 | every ruling row in the lock-book is marked argued or inherited |
 | A4 | E008 | zero unfilled `{{SLOT}}` markers and zero leftover scale fences anywhere |
 | A5 | E003 | CLAUDE.md is a byte-identical copy of AGENTS.md |
@@ -28,7 +28,7 @@ any auto item does not reach the human.
 | A10 | D004 | every set-at-first-build deferral has an open task scheduling the lock-in |
 | A11 | D006 | every WG id the lock-book cites resolves in the pinned EOS |
 | A12 | D007 | the policy file parses and validates against kernel/schemas/policy.schema.json, with /risk and /approvals among its protected pointers |
-| A13 | D008 | the guard block names an adapter and mapping_ref, and either a current validation report backs guard.validated true, or validated is false and guarded actions are declared manual-only |
+| A13 | D008 | the guard block names an adapter and mapping_ref, and either validated is true with the named mapping shipped in the seed, or validated is false and guarded actions are declared manual-only |
 | A14 | D009 | org/claims.json parses and validates against kernel/schemas/claims.schema.json; the seeded state is an empty lanes list (ORG only) |
 
 ## Human items (signed, not delegated)

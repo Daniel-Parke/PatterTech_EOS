@@ -26,7 +26,7 @@
    "worked_example": [
     "packs/agentic-development/exemplars/EX-AGENT-001-logging-migration.md"
    ],
-   "evaluation_method": "packs/agentic-development/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/agentic-development/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/agentic-development.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/agentic-development/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/agentic-development/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/agentic-development.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "Every EOS session runs under this pack, and PatterStage dispatches agent runs while PatterStudio runs a LangGraph orchestrator. The most load-bearing pack in the estate.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:agent-sdk-major-release"
@@ -66,7 +66,7 @@
     "packs/api-integration/exemplars/invoices-api-change.md",
     "packs/api-integration/exemplars/stripe-versioning.md"
    ],
-   "evaluation_method": "packs/api-integration/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/api-integration/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/api-integration.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/api-integration/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/api-integration/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/api-integration.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "AutoWatt serves three surfaces over one API and takes vendor webhooks; WiseWattage integrates Clerk and Stripe; PatterTech_App exposes a subscribe endpoint.",
    "owner": "EOS integrator",
    "review_trigger": "2027-12"
@@ -99,7 +99,7 @@
    "worked_example": [
     "packs/architecture/exemplars/billing-catalogue-boundary.md"
    ],
-   "evaluation_method": "packs/architecture/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/architecture/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/architecture.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/architecture/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/architecture/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/architecture.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "AutoWatt runs one record core with three surfaces, WiseWattage a Polars pipeline behind an API, PatterStudio a monorepo with import-linter rings. All three are live architecture decisions.",
    "owner": "EOS integrator",
    "review_trigger": "2027-02"
@@ -134,7 +134,7 @@
    "worked_example": [
     "packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md"
    ],
-   "evaluation_method": "packs/coding/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/coding/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/coding.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/coding/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/coding/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/coding.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "Every venture that ships code. This is the pack most tasks in the estate will load.",
    "owner": "EOS integrator",
    "review_trigger": "2027-02"
@@ -162,7 +162,7 @@
    "worked_example": [
     "packs/delivery-testing/exemplars/EX-DEL-001-drifted-fake-and-a-lying-suite.md"
    ],
-   "evaluation_method": "packs/delivery-testing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/delivery-testing/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/delivery-testing.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/delivery-testing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/delivery-testing/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/delivery-testing.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "AutoWatt and WiseWattage both carry suites with drifted doubles; the test-timing ablation sets this pack's defaults from measured evidence.",
    "owner": "EOS integrator",
    "review_trigger": "2028-02"
@@ -192,7 +192,7 @@
    "worked_example": [
     "packs/devops-reliability/exemplars/EX-DEVOPS-001-email-to-contacts.md"
    ],
-   "evaluation_method": "packs/devops-reliability/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/devops-reliability/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/devops-reliability.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/devops-reliability/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/devops-reliability/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/devops-reliability.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "WiseWattage runs on Railway with Postgres and cron, AutoWatt targets AWS eu-west-2, PatterTech_App runs Docker Compose locally. Production safety is protected-set material and lives here.",
    "owner": "EOS integrator",
    "review_trigger": "2027-04"
@@ -222,7 +222,7 @@
    "worked_example": [
     "packs/security-privacy/exemplars/poisoned-integration-guide.md"
    ],
-   "evaluation_method": "packs/security-privacy/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/security-privacy/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/security-privacy.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/security-privacy/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/security-privacy/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/security-privacy.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "The canonical home for four protected-set subjects: prompt-injection resistance, secret protection, data protection and approval for consequential external actions. It binds every venture and every EOS session.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:EV-0213"
@@ -252,7 +252,7 @@
    "worked_example": [
     "packs/ui-ux/exemplars/two-surfaces-one-spine.md"
    ],
-   "evaluation_method": "packs/ui-ux/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/ui-ux/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/ui-ux.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/ui-ux/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/ui-ux/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/ui-ux.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "PatterTech_Website, AutoWatt's three surfaces, WiseWattage's dashboards and PatterStage's control plane are four different design philosophies in one estate, which is why the pack compares rather than prescribes.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:WCAG-2.2"
@@ -285,7 +285,7 @@
    "worked_example": [
     "packs/product-discovery/exemplars/EX-DISC-001-approvals-inbox-request.md"
    ],
-   "evaluation_method": "packs/product-discovery/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/product-discovery/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/product-discovery.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/product-discovery/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/product-discovery/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/product-discovery.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "Both AutoWatt and Guth wrote product bibles with no EOS guidance behind them, and the Website's content strategy has no owner.",
    "owner": "EOS integrator",
    "review_trigger": "2028-06"
@@ -318,7 +318,7 @@
    "worked_example": [
     "packs/business-logic-modelling/exemplars/EX-BLM-001-subscription-renewal.md"
    ],
-   "evaluation_method": "packs/business-logic-modelling/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/business-logic-modelling/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/business-logic-modelling.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/business-logic-modelling/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/business-logic-modelling/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/business-logic-modelling.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "AutoWatt's grant and record model and WiseWattage's tariff and battery logic are the estate's two hardest domain models, both written without shared method.",
    "owner": "EOS integrator",
    "review_trigger": "2027-09"
@@ -350,7 +350,7 @@
    "worked_example": [
     "packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md"
    ],
-   "evaluation_method": "packs/data-analytics/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/data-analytics/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/data-analytics.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/data-analytics/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/data-analytics/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/data-analytics.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "PatterTech_App plans Umami analytics and a consent ledger; no venture currently runs an experiment, so the need is near rather than urgent.",
    "owner": "EOS integrator",
    "review_trigger": "2027-11"
@@ -392,7 +392,7 @@
    "worked_example": [
     "packs/ai-ml-llm/exemplars/EX-AIML-001-classifier-prompt-swap.md"
    ],
-   "evaluation_method": "packs/ai-ml-llm/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/ai-ml-llm/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/ai-ml-llm.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/ai-ml-llm/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/ai-ml-llm/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/ai-ml-llm.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "PatterStudio runs a LangGraph orchestrator and PatterStage dispatches agent runs. Neither has EOS coverage, and both are live.",
    "owner": "EOS integrator",
    "review_trigger": "2027-02"
@@ -424,7 +424,7 @@
    "worked_example": [
     "packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md"
    ],
-   "evaluation_method": "packs/marketing-growth/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/marketing-growth/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/marketing-growth.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/marketing-growth/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/marketing-growth/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/marketing-growth.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "PatterTech_Website is live and public, and PatterTech_App plans a self-hosted mailing list with a consent ledger. Nothing governs either.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:PECR-reg-22-amendment"
@@ -457,7 +457,7 @@
    "worked_example": [
     "packs/business-model-pricing/exemplars/EX-BMP-001-first-consumer-subscription.md"
    ],
-   "evaluation_method": "packs/business-model-pricing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/business-model-pricing/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/business-model-pricing.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/business-model-pricing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/business-model-pricing/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/business-model-pricing.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "WiseWattage has billing behind a feature flag and PatterPower is a commercial plan with a financial model. Neither has EOS coverage.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:DMCC-Part-4-Chapter-2-commencement"
@@ -488,7 +488,7 @@
    "worked_example": [
     "packs/docs-dx/exemplars/EX-DOCS-001-stale-quickstart.md"
    ],
-   "evaluation_method": "packs/docs-dx/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/docs-dx/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/docs-dx.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/docs-dx/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/docs-dx/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/docs-dx.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "Every repo in the estate carries hand-rolled documentation of uneven quality, and the audit found stale documentation is the estate's most common defect class.",
    "owner": "EOS integrator",
    "review_trigger": "2028-04"
@@ -522,7 +522,7 @@
    "worked_example": [
     "packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md"
    ],
-   "evaluation_method": "packs/native-client/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/native-client/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/native-client.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/native-client/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/native-client/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/native-client.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "No venture ships a native client today. PatterHome runs a web frontend against a local box, which is the closest the estate comes.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:EN-301-549-v4-publication"
@@ -549,7 +549,7 @@
    "worked_example": [
     "packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md"
    ],
-   "evaluation_method": "packs/support-operations/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/support-operations/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/support-operations.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/support-operations/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/support-operations/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/support-operations.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "WiseWattage has real users and handles support ad hoc. AutoWatt will need this at Genesis close.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:ISO-10002-revision"
@@ -580,7 +580,7 @@
    "worked_example": [
     "packs/legal-licensing/exemplars/EX-LEGAL-001-waitlist-with-a-poisoned-tree.md"
    ],
-   "evaluation_method": "packs/legal-licensing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/legal-licensing/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/legal-licensing.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/legal-licensing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/legal-licensing/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/legal-licensing.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "The evidence ledger already carries a per-source licence column that is load-bearing for what may be copied, and PatterOS ships Apache-2.0 with reserved marks. The routing rules are unwritten.",
    "owner": "EOS integrator",
    "review_trigger": "2027-04"
@@ -611,7 +611,7 @@
    "worked_example": [
     "packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md"
    ],
-   "evaluation_method": "packs/writing-content/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/writing-content/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/writing-content.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/writing-content/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/writing-content/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/writing-content.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "Every repo writes prose, and the v1 voice module is now archived at archive/v1-final:doctrine/voice/.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:CLDR-plural-categories"
@@ -640,7 +640,7 @@
    "worked_example": [
     "packs/pattertech-house/exemplars/EX-HOUSE-001-services-section.md"
    ],
-   "evaluation_method": "packs/pattertech-house/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/pattertech-house/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/pattertech-house.md but has no grader, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
+   "evaluation_method": "packs/pattertech-house/CHECKS.md, the reviewable criteria for this domain. The acceptance drill packs/pattertech-house/research/DRILL_PROPOSAL.md is frozen at benchmark/drills/pattertech-house.md and now carries a scenario and graders, but no cold-agent attempt has been run, so it has returned no verdict; see benchmark/drills/RESULTS.json.",
    "estate_relevance": "PatterTech_Website and PatterStudio share the Cherenkov brand through a hand port, and the house visual language has no single home.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:WCAG-2.2"

@@ -68,7 +68,7 @@ discard.
 
 ## Status
 
-The v2 kernel content is staged on the integration branch. It is not
-released law until the benchmark gates pass and Daniel approves
-release; ADR-0002 records what was approved for implementation. The
-v1 template set this replaces is preserved in git history.
+The v2 kernel content is on main. It is not released law until the
+benchmark gates pass and Daniel approves release; ADR-0002 records
+what was approved for implementation. The v1 template set this
+replaces is preserved in git history.

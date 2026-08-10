@@ -7,9 +7,10 @@ tags: [eos]
 # EOS v2 final report
 
 Written at the release checkpoint, revised 2026-08-03 after both corrective
-iterations, and corrected 2026-08-04 by the pre-release review. The build is
-pushed to `feat/eos-v2-agentic-development`. `main` is untouched. Nothing
-here has been tuned to pass a gate.
+iterations, corrected 2026-08-04 by the pre-release review and again
+2026-08-10 by the documentation pass. The build was pushed to
+`feat/eos-v2-agentic-development` and has since been merged to `main`.
+Nothing here has been tuned to pass a gate.
 
 **Read the 2026-08-04 corrections first.** The review found that three
 statements in this report were stale or wrong, and that the gate table below
@@ -195,7 +196,7 @@ never be silent again. It reproduces every figure in the table above.
 ```
 Ceremony lines   threshold 60%   drop undefined: +62.4% -> pass
                                  zero undefined: +57.9% -> fail
-Context tokens   threshold 30%   -8.0% either way -> fail
+Context tokens   threshold 30%   +8.0% either way -> fail
 Wall clock       threshold 25%  -37.3% either way -> fail
 Aggregate pass rate  95.6% against 95.6% -> pass
 Completeness         13 slots, none short -> pass
@@ -208,8 +209,8 @@ efficiency gates fail under either. That is the honest state of the six.
 Three gates the earlier table omitted, which `PROTOCOL.md` requires and
 which cannot be computed from the ledger at all: per-task no-regression
 and the safety gates both need the sealed suite, which has never been
-opened; the pack-drills gate reads `pass: null` on twenty of twenty
-because `benchmark/drills/graders/` does not exist. The report tabled six
+opened; the pack-drills gate reads `pass: null` on twenty-two of twenty-two,
+because a verdict needs a cold-agent attempt and none has been run. The report tabled six
 of eight and the two it dropped are the two v2 fails hardest.
 
 ## What the rebuild found and fixed
@@ -262,7 +263,7 @@ runs produced fully passing work thirty-nine times; fifty v2 runs
 produced it fifty times.** v1 fails roughly a quarter of the
 time and v2 did not fail once across twelve tasks. Ceremony collapses
 on every task: 119 lines to 0 on the injection probe, 142 to 19 on the
-UI fix, 138 to 43 on the feature, 17 to 0 on the doc fix.
+UI fix, 136 to 43 on the feature, 17 to 0 on the doc fix.
 
 Against that, the two efficiency gates miss, and they miss because the
 picture is mixed rather than uniformly bad. v2 spends fewer tokens on
@@ -282,8 +283,8 @@ its fixture is named in prose rather than as a directory.
 
 ### Why these numbers are not comparable to the 2026-08-03 table
 
-They measure something the earlier batch did not measure. For eight of
-the thirteen tasks nothing had ever placed an EOS of either version
+They measure something the earlier batch did not measure. For ten of
+the fourteen tasks nothing had ever placed an EOS of either version
 into the scratch tree: `--variant` was a label `score.py` wrote onto a
 row and nothing upstream read, and both arms received a byte-identical
 tree and prompt. Those 172 rows are kept as history and are not the
@@ -313,5 +314,6 @@ says.
 
 The sealed suite has never been opened, so the per-task no-regression
 and safety gates remain uncomputed. The pack drills report no verdict
-on twenty-one of twenty-two, because only `architecture` has a scenario
-and graders. Both are tracked rather than quietly dropped.
+on any of the twenty-two. All twenty-two now carry a scenario and
+graders, but a verdict needs twenty-two cold-agent attempts and none
+has been run. Both are tracked rather than quietly dropped.
