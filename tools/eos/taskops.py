@@ -100,8 +100,13 @@ DERIVED_FILES = (
 def _atomic_write(path, text):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    # newline="\n" or text mode translates on Windows and the derived
+    # view lands with CRLF, so regenerating dirtied the tree with a
+    # change of line endings alone. The docstring above promises
+    # byte-stable regeneration for unchanged inputs; without this it
+    # was byte-stable per platform, which is not the same claim.
     with tempfile.NamedTemporaryFile(
-            "w", encoding="utf-8", dir=str(path.parent),
+            "w", encoding="utf-8", newline="\n", dir=str(path.parent),
             prefix=path.name + ".", suffix=".tmp", delete=False) as tmp:
         tmp.write(text)
         tmp_name = tmp.name
