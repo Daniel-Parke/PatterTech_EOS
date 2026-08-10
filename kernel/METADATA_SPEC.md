@@ -94,7 +94,8 @@ The axes are orthogonal, and not every combination is legal:
 
 ## Worked examples
 
-A recipe carries four fields and nothing else:
+A recipe carries these four axes, beside the summary, type and tags
+E002 asks of every markdown file:
 
 ```yaml
 ---
@@ -105,8 +106,8 @@ sources: [EV-0019]
 ---
 ```
 
-Authority advisory and volatility slow derive; writing them by hand is
-a finding.
+Authority advisory and volatility slow derive, so a recipe leaves them
+out. No check catches a hand-written copy yet.
 
 A binding rule carries the full set, because binding is the most
 expensive claim the system makes:
@@ -127,15 +128,19 @@ sources: [EV-0027]
 ---
 ```
 
-Writing evidence_grade not-applicable there would be a finding: that
-grade is legal only where basis is decision or kind is record, and the
-checker names the exact incompatible pair.
+Writing evidence_grade not-applicable there breaks the rule above:
+that grade is legal only where basis is decision or kind is record. No
+check catches the pair yet, so it is a reader's job.
 
 ## Enforcement
 
-The checker enforces the enums, the per-kind minima, the derivation
-rule and the compatibility table above. Metadata beyond the minima on
-a kind that derives it is a finding, because manually authored
-metadata is ceremony and ceremony carries a budget. The front-matter
+The checker enforces the enums (S001), supersession bidirectionality
+(S002) and the review axis, including that review: none is legal only
+for records and archived items (F001). The per-kind minima, the
+derivation rule and the rest of the compatibility table are law here
+and not yet checked, so a hand-written derived default costs nothing
+today. Metadata beyond the minima on a kind that derives it is still a
+defect, because manually authored metadata is ceremony and ceremony
+carries a budget. The front-matter
 parser is hardened: unterminated blocks, bad key charsets and
 malformed lists are findings, never silent skips.

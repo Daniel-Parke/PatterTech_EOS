@@ -74,4 +74,4 @@ compile report as authored.
 | --- | --- | --- | --- |
 | compliance | org/COMPLIANCE.md | authored per the registry pattern the adopted compliance pack names | personal or regulated data present; at S, rescale to ORG first |
 | ops-runbook | ops/runbooks/deploy.md | authored per the stack profile | anything deployed with server state |
-| restore-test | org/cadence.json gains the restore-test row | kernel/templates/org/cadence.tpl.json | production data exists |
+| restore-test | org/cadence.json gains the restore-test row | authored per the backup and restore doctrine the trigger names | production data exists |

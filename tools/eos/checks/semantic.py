@@ -1,12 +1,12 @@
-"""Semantic checks S001-S015.
+"""Semantic checks S001-S017.
 
 Severity: the S-series lands as ERRORS. The repository is clean under
 the series, so the P4 flip has happened: a new semantic defect is a
 build failure, not an item on a list nobody reads. ctx["strict_semantic"]
 still forces strict, and ctx["relax_semantic"] = True drops the series
 back to warnings for a caller that wants the work list rather than the
-gate. There is no CLI flag for the relaxed form yet; wiring one is a
-one-line change in tools/eos/cli.py.
+gate. The CLI exposes the relaxed form as `--relax-semantic`, and
+`--strict-semantic` pins the strict form against a future relaxation.
 
 Exemptions, applied uniformly unless a check says otherwise:
 

@@ -20,9 +20,9 @@ merges M and L into ORG at the next recompile.
 
 | Venture | Path | Scale | EOS pin | Pin resolves | Packs adopted | Status | Last verified | Last harvest |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Venture A | `C:\Users\Daniel\Documents\Coding\Github\Venture A` | L | pre-1.0.0 @ 0a2a044 | Yes. 0a2a044 is an EOS commit of 2026-07-07 and an ancestor of both pushed tags, v1.0.0 and archive/v1-final | None. The pin predates the pack system, so the venture carries v1 doctrine only | Rubric signed 2026-07-07, Genesis in progress. Seed merged to Venture A main at bc34018 | 2026-07-07 | Never. PB-E02 has not run; the 2026-07-07 reseed feedback fold predates the cadence |
-| Guth | `C:\Users\Daniel\Documents\Coding\Github\Project_Guth` | M | recorded as "v1.0.0 @ 3807eb1" | Partly, and the label is wrong. 3807eb1 resolves and is reachable from the pushed tag archive/v1-final, but **it is not the v1.0.0 tag**: v1.0.0 is 85b31f4 of 2026-07-07, and 3807eb1 is a 2026-07-08 branch commit made after it. The pin normalises to archive/v1-final at the next upgrade | None. Same reason as Venture A | Rubric signed and the S0 gate passed 2026-07-15. Genesis complete, S1 next | 2026-07-15 | Never |
-| PatterTech_Website | `C:\Users\Daniel\Documents\Coding\Github\PatterTech_Website` | S | pre-EOS, no pin | Not applicable. The venture predates the EOS and was never compiled from it | None | Live. The v4 pass shipped; current work sits on branch feat/foundations-pass. It aligns to a compiled S seed when that work settles, no earlier | 2026-08-03 | Never |
+| Venture A | `C:\Users\Daniel\Documents\Coding\Github\Venture A` | L | pre-1.0.0 @ 0a2a044 | Yes. 0a2a044 is an EOS commit of 2026-07-07 and an ancestor of both pushed tags, v1.0.0 and archive/v1-final | None. The pin predates the pack system, so the venture carries v1 doctrine only | Rubric signed 2026-07-07, Genesis in progress. Seed merged to Venture A main at bc34018 | 2026-07-07 | 2026-08-08. Nothing new: both entries had already been folded during the v1 build |
+| Guth | `C:\Users\Daniel\Documents\Coding\Github\Project_Guth` | M | recorded as "v1.0.0 @ 3807eb1" | Partly, and the label is wrong. 3807eb1 resolves and is reachable from the pushed tag archive/v1-final, but **it is not the v1.0.0 tag**: v1.0.0 is 85b31f4 of 2026-07-07, and 3807eb1 is a 2026-07-08 branch commit made after it. The pin normalises to archive/v1-final at the next upgrade | None. Same reason as Venture A | Rubric signed and the S0 gate passed 2026-07-15. Genesis complete, S1 next | 2026-07-15 | 2026-08-08. Fifteen entries and a matured stack profile, the substance of the harvest |
+| PatterTech_Website | `C:\Users\Daniel\Documents\Coding\Github\PatterTech_Website` | S | pre-EOS, no pin | Not applicable. The venture predates the EOS and was never compiled from it | None | Live. The v4 pass shipped; current work sits on branch feat/foundations-pass. It aligns to a compiled S seed when that work settles, no earlier | 2026-08-03 | 2026-08-08. No feedback file: the venture predates the template, which is itself a finding |
 
 Notes:
 
@@ -38,6 +38,9 @@ Notes:
   the estate is an inventory row in `estate/repos.json` with
   `governed: false`, and the quarterly estate review asks adopt or defer
   for each.
-- No venture has been harvested under PB-E02. The lesson rows already in
+- The first PB-E02 harvest ran on 2026-08-08 against all three ventures.
+  Guth's feedback file was the substance of it, Venture A's two entries
+  had already been folded during the v1 build, and PatterTech_Website
+  ships no feedback file at all. The other rows already in
   `registry/LESSONS.md` came from the pre-cadence estate survey and the
   Venture A reseed feedback, and they say so.

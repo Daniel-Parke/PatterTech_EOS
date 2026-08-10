@@ -39,7 +39,8 @@ following a live pack's own decision map lands on a file stamped
 `status: archived` and reads it as current law. A third of `INDEX.md`
 was archived material and benchmark fixtures, and two fixture wargames
 had reached the live guide index and were being served as EOS guidance.
-The indexes are fixed. The references are not, yet.
+The indexes were fixed first and the references followed. Nothing live
+points at the path now.
 
 The rule that put this material here was written to protect history.
 History is better protected by a tag, which cannot drift and cannot be
@@ -53,8 +54,8 @@ write the guide in the pack, never to delete the target and leave a
 dangling link. That is recorded in `GOVERNANCE.md` under "Staleness and
 supersession" and it is binding.
 
-`archive/v1/` is therefore still in the tree while those references are
-migrated. It is no longer indexed, so nothing routes an agent into it.
-The largest outstanding piece is `packs/architecture/PACK.md`, whose
-decision map delegates five forks to `WG-ARCH-002` through `006`; those
-guides have to be written into the pack before the tree can go.
+`archive/v1/` is gone from the tree. The last outstanding piece was
+`packs/architecture/PACK.md`, whose decision map delegated five forks
+to `WG-ARCH-002` through `006`; those guides are written into the pack
+now, so nothing live points into the directory and the tag carries the
+history.

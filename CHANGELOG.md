@@ -21,8 +21,8 @@ figure, that one gate's verdict turned on an unwritten convention for
 an undefined ratio, and that the freeze manifest failed its own hash
 check. The 2026-08-08 review found something larger: nothing in the
 repository ever made a run v1 or v2. `--variant` was a label
-`score.py` wrote onto a ledger row and nothing upstream read, and eight
-of the thirteen tasks use a fixture carrying no process files at all,
+`score.py` wrote onto a ledger row and nothing upstream read, and ten
+of the fourteen tasks use a fixture carrying no process files at all,
 so both arms received a byte-identical tree and prompt. The sessions
 behind those rows were driven by an orchestration wrapper that was
 never committed. The 172 rows dated 2026-08-03 therefore cannot be
@@ -53,15 +53,15 @@ produced it fifty times. See org/reports/V2_FINAL_REPORT.md.
 - **governance**: graded evidence path (experiment, ADR) replaces
   wargame-first; precedence scopes venture rulings locally and protects
   law and standard based rules from vote counts; the protected set
-  shrinks to seven items with security-privacy as canonical home for
+  narrows to ten items with security-privacy as canonical home for
   four of them.
 - **tools**: one 445-line script becomes a tested package behind
   python -m tools.eos, with structural, semantic, seed and freshness
   checks, the deterministic router, the fail-closed guard, context
   packets, task and claim operations, migration and benchmark commands.
-  388 tests on Python 3.11 and 3.14. The v1 checker is a forwarding shim.
+  395 tests on Python 3.11 and 3.14. The v1 checker is a forwarding shim.
 - **benchmark**: a frozen suite of eleven tasks and three probes, an
-  evidence ledger of 448 individually recorded sources, and a sealed
+  evidence ledger of 449 individually recorded sources, and a sealed
   final suite awaiting the operator's key. `gates.py` computes the
   gates from the ledger with its aggregation written down, including
   both conventions for an undefined ratio; check B001 verifies the

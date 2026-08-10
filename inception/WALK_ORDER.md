@@ -14,8 +14,11 @@ inherits its default silently and costs nothing.
 
 ## Build the walk
 
-1. Run `python -m tools.eos context --diff <range>` against the
-   venture's tree, or pass the surfaces the interview named. It reads
+1. Run `python -m tools.eos context --diff <range>` in the EOS repo, or
+   match the surfaces the interview named against the same front-matter
+   by hand. The command diffs this repository and has no venture-tree
+   mode this build, so at Session 0, before the venture has a history,
+   the hand match is the route. It reads
    each pack's own `activation_paths` and returns the packs the surface
    activates, with the paths that matched and the predicates still to
    confirm. This is the walk's input, not `packs/INDEX.md`: the index

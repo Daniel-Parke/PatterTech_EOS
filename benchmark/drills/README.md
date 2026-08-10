@@ -82,10 +82,14 @@ a tell that the run is a test.
 
 ## Why the drills currently report no verdict
 
-With no scenario and no graders, every criterion is prose a human must
-judge. The runner reports it as `manual`, does not count it as a pass,
-and gives the drill a `pass` of `null` with the reason stated. It exits
-1, because a drill that did not run is not a drill that passed.
+Every drill now materialises its scenario and runs its graders, so a
+criterion comes back `pass` or `fail`. A criterion with no grader, or
+one whose grader exits 2 because the tool it drives is absent, reports
+`manual`, and a manual criterion is never counted as a pass. Against
+the untouched fixture all twenty-two come back `fail`, and the command
+exits 1. That is a discrimination check, not evidence about a pack.
+The rows already in `RESULTS.json` were written before any scenario or
+grader existed and carry a `pass` of `null` with the reason stated.
 
 There is also a fourth thing a drill needs that no command supplies:
 the cold-agent session that does the work. `drills run` materialises the
@@ -104,6 +108,31 @@ cannot fail is not a grader, and neither is one that cannot pass.
 
 No drill reports a verdict yet, because no cold agent has been handed a
 scenario. Graders make a verdict possible; they are not one.
+
+## Three specs name paths that have never existed
+
+Found by the 2026-08-10 documentation pass. They are recorded here
+rather than corrected, because the manifest above says a drill spec
+never changes without an ADR amendment, and two of the three are Wave A
+oracles whose worth is that they have not been written to since they
+were frozen. Read the spec, then read this.
+
+- `delivery-testing.md` says its checks run by
+  `tools/drill_delivery_testing.py`. No such file has ever existed on
+  any branch. Its ten graders are at
+  `benchmark/drills/graders/delivery-testing/`.
+- `legal-licensing.md` puts its fixture at
+  `packs/legal-licensing/drill/fixture/`, and
+  `security-privacy.md` puts its at
+  `packs/security-privacy/drill/fixture/`. Neither path has ever
+  existed. Both scenarios are at
+  `benchmark/drills/scenarios/<pack>/`.
+
+Nothing follows those paths at run time: `drills.py` resolves a
+scenario from `scenarios/<pack>/` and graders from `graders/<pack>/`,
+so the drills run correctly and only a reader is misled. Correcting
+the specs needs an accepted ADR amendment and a re-hash of the drill
+manifest.
 
 ## What the adversarial pass found, and what is still open
 

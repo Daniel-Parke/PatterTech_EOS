@@ -70,7 +70,10 @@ Naming a host permission system is not an adapter. An adapter exists
 only when its mapping is shipped with the policy
 (`guard.mapping_ref`), its behaviour is proven by the bypass suite, and
 the validation report is committed. Seed validation fails any venture
-claiming autonomous guarded actions without one.
+that claims autonomous guarded actions without shipping the mapping it
+names. It does not read that mapping's validation record; the
+bypass-suite proof binds at action time, in the guard, which rules
+manual-only on a mapping that is caseless or failing.
 
 The guard reads the mapping rather than believing the policy. A policy
 that claims validation while naming a mapping that is absent,
