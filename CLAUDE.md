@@ -10,7 +10,7 @@ The PatterTech Engineering Operating System: documentation and process,
 no build, the shared brain that seeds and governs our ventures.
 CLAUDE.md is a byte-identical copy of this file.
 
-Pick your entry mode:
+Pick your entry point:
 
 1. **On a venture**: read that venture's lock-book first. Come here only
    for the packs and profiles it cites. `packs/INDEX.md` is the map.
@@ -20,10 +20,10 @@ Pick your entry mode:
 3. **Starting a venture (Session 0)**: run `inception/INCEPTION.md` end
    to end in the new venture's repo.
 
-Your mode is routed, not chosen. `python -m tools.eos route` rules the
-tier from declared facts and derived signals against `org/policy.json`,
-and the tier sets the mode and the ceremony it earns. Load only the
-packs `packs/INDEX.md` activates for the work in front of you.
+Your tier is ruled once, when the task record is written, and read back
+from it: `route` run bare sees no facts and returns R0. Only the merge
+gate re-rules it, upward only. The tier decides the ceremony. Load
+only the packs `packs/INDEX.md` activates for the work in front of you.
 
 Never:
 

@@ -145,6 +145,8 @@ list before starting; the work decides what loads.
 | Question | File |
 | --- | --- |
 | What am I allowed to do here? | `AGENTS.md`, then `GOVERNANCE.md` |
+| How do I start a venture? | `inception/INCEPTION.md` |
+| What does one task look like end to end? | `examples/v2-worked-lean.md`, `examples/v2-worked-high-assurance.md` |
 | Which knowledge applies to this task? | `packs/INDEX.md` |
 | What does the EOS know, and what does it not? | `registry/CAPABILITIES.md` |
 | How is risk decided? | `kernel/POLICY_SPEC.md`, `kernel/GUARD_SPEC.md` |

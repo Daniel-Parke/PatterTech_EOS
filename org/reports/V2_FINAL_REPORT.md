@@ -12,7 +12,10 @@ iterations, corrected 2026-08-04 by the pre-release review and again
 `feat/eos-v2-agentic-development` and has since been merged to `main`.
 Nothing here has been tuned to pass a gate.
 
-**Read the 2026-08-04 corrections first.** The review found that three
+**Read the 2026-08-08 sections first.** They carry the current
+numbers, and everything above them records what was claimed earlier.
+
+**Read the 2026-08-04 corrections next.** The review found that three
 statements in this report were stale or wrong, and that the gate table below
 cannot be trusted as it stands. Both are recorded in place, under
 "Corrections" at the end. The gate figures are left exactly as first

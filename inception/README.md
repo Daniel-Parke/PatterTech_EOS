@@ -6,7 +6,7 @@ tags: [eos]
 
 # Inception
 
-The Session 0 system: how a venture goes from an idea in Daniel's head
+The Session 0 system: how a venture goes from an idea in the operator's head
 to a compiled seed pack a cold agent can build from. Rewritten for the
 v2 kernel, where packs replace doctrine modules, the seed scales are S
 and ORG, and the interview's risk answers compile into the venture's
