@@ -79,3 +79,49 @@ What must stay true as the EOS grows.
   only with an ADR.
 - **Lean.** Capture the decision structure, not restatements of common
   knowledge. If removing a line would not cause a mistake, cut it.
+
+## Where this stands
+
+v2 is merged and unreleased. Read this before trusting a number.
+
+Run `python -m tools.eos check` and `python -m pytest -q` first. Both
+should be clean. If they are not, that is the finding, not the code
+you were about to read.
+
+What the benchmark measured, over 103 sessions on the encoded harness,
+53 under v1 and 50 under v2:
+
+| Gate | Threshold | Result | |
+| --- | --- | --- | --- |
+| Ceremony lines | 60% fewer | 77.3% fewer | pass |
+| Aggregate pass rate | no regression | 73.6% to 100% | pass |
+| Completeness | 3 trials a slot | 12 slots, none short | pass |
+| Context tokens | 30% fewer | 9.1% fewer | **fail** |
+| Wall clock | 25% faster | 4.6% faster | **fail** |
+
+Three of five computable gates pass. The two efficiency gates miss
+because the picture is mixed rather than uniformly bad: v2 is cheaper
+on seven tasks and dearer on five. `benchmark/gates.py` computes all of
+it from the ledger and states its aggregation, so a second party can
+reproduce or dispute the table. Rows dated 2026-08-03 measured a
+variant that never reached the tree and are kept as history, not as
+evidence.
+
+What is not proven, and is not pretended otherwise:
+
+- **The sealed suite has never been opened.** It needs Daniel's key and
+  runs once. Two of the eight gates depend on it, so they are uncomputed
+  rather than passed.
+- **No drill reports a verdict.** All twenty-two have a scenario and
+  graders, and graders make a verdict possible without being one. That
+  needs twenty-two cold-agent sessions.
+- **The graders live in the tree a drill drops an agent into**, with no
+  holdout exclusion of the kind `benchmark/fixtures` has. A harness
+  decision, deliberately left open rather than settled quietly.
+- **Three policy ablations never ran** (`v2-wip1`, `v2-mandatory-logs`,
+  `v2-no-sampled-review`). They are the designed instrument for
+  isolating residual ceremony overhead.
+
+`org/STATE.md` carries the live claims and operator flags, `org/TASKS.md`
+the task table. Both are derived: fix the record under `org/tasks/` and
+regenerate, never hand-edit the view.
