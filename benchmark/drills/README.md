@@ -1,5 +1,5 @@
 ---
-summary: What a pack acceptance drill is, how the runner grades one, and what is still missing before most of them can return a verdict
+summary: What a pack acceptance drill is, how the runner grades one, and what is still missing before any of them can return a verdict
 type: example
 tags: [eos, testing]
 ---
@@ -10,6 +10,11 @@ A drill is one cold-agent scenario with deterministic criteria. The
 spec is frozen with its sha256 in `MANIFEST.json` and never changes
 without an ADR amendment. A failed drill routes to fixing the pack and
 re-running; it never routes to editing the spec.
+
+**No drill reports a verdict yet, because no cold agent has been
+handed a scenario.** All twenty-two have a scenario and graders, and
+graders make a verdict possible without being one. Read the rest of
+this file with that in mind.
 
 Run them with `python -m tools.eos drills`. The contract is the drills
 section of `tools/CLI_CONTRACTS.md`.
@@ -105,9 +110,6 @@ it is a test rather than a claim: `tests/test_drills.py` asserts the
 untouched fixture fails every criterion that can be settled without
 import-linter, and that a correct tree passes them. A grader that
 cannot fail is not a grader, and neither is one that cannot pass.
-
-No drill reports a verdict yet, because no cold agent has been handed a
-scenario. Graders make a verdict possible; they are not one.
 
 ## Three specs name paths that have never existed
 
