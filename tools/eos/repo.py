@@ -10,6 +10,7 @@ run the structural E-series.
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -32,6 +33,35 @@ FIXTURE_PREFIXES = ("benchmark/fixtures/", "benchmark/holdout/")
 # harness fills per run. Held to the repository's own law they would
 # fail E008 for being what they are meant to be.
 SKIP_PREFIXES = ("benchmark/drills/scenarios/", "benchmark/surfaces/")
+
+
+def content_sha256(path) -> str:
+    """Hash what a file says, not the newline convention it arrived in.
+
+    The freeze manifest and the drill manifest both record hashes of LF
+    content, because that is what git stores and what the tools that
+    wrote them emitted. Git's `core.autocrlf=true`, the default on a
+    Windows install, rewrites those files to CRLF on checkout. Hashing
+    the raw bytes then reports every frozen text file as modified on a
+    machine that has changed nothing.
+
+    That is not a hypothetical. Checking out `main` after the v2 merge
+    turned a clean tree into 108 B001 errors, all of them false, and a
+    fresh clone on Windows would have shown a new reader the same thing
+    on their first command. A freeze check that fails on an intact
+    repository is worse than no freeze check, because it teaches people
+    to ignore it.
+
+    So: undo the checkout transform before hashing. Only CRLF becomes
+    LF, which is exactly what autocrlf did on the way out; a lone CR is
+    left alone because it is content rather than a line ending git ever
+    writes. Binary files are hashed byte for byte, detected the way git
+    detects them, by a NUL in the buffer.
+    """
+    data = Path(path).read_bytes()
+    if b"\x00" not in data:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 @dataclass

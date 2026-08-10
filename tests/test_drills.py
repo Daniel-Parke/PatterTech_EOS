@@ -10,7 +10,6 @@ The architecture drill is the exception and has both, so it is also
 tested end to end against the fixture it ships with.
 """
 
-import hashlib
 import json
 import shutil
 import subprocess
@@ -75,7 +74,11 @@ def drill_root(tmp_path):
     """A minimal repo root holding one synthetic drill."""
     root = tmp_path / "repo"
     spec = _write(root / "benchmark" / "drills" / "synthetic.md", SPEC)
-    digest = hashlib.sha256(spec.read_bytes()).hexdigest()
+    # Through the same function the manifest is recorded with. Hashing
+    # raw bytes here made the fixture depend on the platform: _write
+    # goes through text mode, so Windows puts CRLF on disk and the
+    # digest stopped matching the moment the drill hasher normalised.
+    digest = drills.sha256_file(spec)
     _write(root / drills.MANIFEST_REL, json.dumps({
         "version": 2,
         "drills": {

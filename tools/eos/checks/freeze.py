@@ -12,22 +12,13 @@ A freeze nobody checks is not a freeze. This makes it a check.
 
 from __future__ import annotations
 
-import hashlib
 import json
 
 from ..findings import Finding
-from ..repo import RepoModel
+from ..repo import RepoModel, content_sha256
 from . import register
 
 MANIFEST = "benchmark/FREEZE_MANIFEST.json"
-
-
-def _sha256(path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for chunk in iter(lambda: fh.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
 
 
 def verify(model: RepoModel) -> list:
@@ -67,7 +58,7 @@ def verify(model: RepoModel) -> list:
             out.append(Finding("B001", "error", MANIFEST,
                                f"frozen file is missing: {rel}"))
             continue
-        got = _sha256(path)
+        got = content_sha256(path)
         if got == want:
             continue
         note = (" It is listed in an amendment, so re-hash the manifest."
