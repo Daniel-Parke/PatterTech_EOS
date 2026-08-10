@@ -1,0 +1,34 @@
+# Line endings are pinned so a checkout is the same on every machine.
+#
+# This repository hashes its own files. benchmark/FREEZE_MANIFEST.json
+# and benchmark/drills/MANIFEST.json record the sha256 of frozen
+# material, and B001 fails the build when one moves. Those hashes were
+# taken on LF content.
+#
+# Git's core.autocrlf=true, which a Windows install sets by default,
+# rewrites text files to CRLF on the way into the working tree. Without
+# this file, checking out the repository on Windows changes the bytes
+# of 108 frozen files and every one of them reports as an unrecorded
+# change to frozen material. Nothing was edited; the checkout did it.
+#
+# eol=lf pins the working tree to LF everywhere, so the freeze check
+# reads the same bytes the manifest recorded. The hashers normalise
+# line endings as well, so a tree that predates this file still
+# verifies, but the two belong together: this makes the tree right and
+# the hasher makes the check robust if it is ever wrong again.
+
+* text=auto eol=lf
+
+# Windows-only scripts must keep CRLF or cmd.exe mis-parses them.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Hashed byte for byte, never transformed.
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary
+*.zip binary
+*.db binary
+*.sqlite binary
