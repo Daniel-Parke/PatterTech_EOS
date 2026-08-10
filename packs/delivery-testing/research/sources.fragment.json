@@ -1,6 +1,6 @@
 {
   "pack": "delivery-testing",
-  "cutoff": "2026-08-03",
+  "cutoff": "2026-08-10",
   "records": [
     {
       "id": "FRAG-DELIVERY-TESTING-01",
@@ -261,6 +261,27 @@
       "counter_evidence": "Testcontainers (EV-0093) and Kent C. Dodds (EV-0094) both push work towards larger, more integrated tests for confidence, which by this evidence buys that confidence at a higher flake rate.",
       "cited_by": [],
       "review": "on-change-of:successor Google post"
+    },
+    {
+      "id": "FRAG-DELIVERY-TESTING-14",
+      "source": "Zhao, Zhou and Cohen, Evaluating and Mitigating the Misguidance Effect of Buggy Code in LLM-Generated Unit Tests",
+      "url": "https://arxiv.org/html/2607.22883",
+      "kind": "controlled",
+      "publication_status": "preprint",
+      "study_design": "Prompt-context ablation: the same models generate unit tests from the buggy implementation, from the fixed implementation, and from a docstring specification, scored by whether the generated tests fail on the bug and pass on the fix",
+      "population": "Defects4J 3.0: 318 focal methods across 233 defects in 17 Java projects, 11 frontier models including base and reasoning variants",
+      "model": "11 frontier models, base and reasoning variants",
+      "benchmark": "Defects4J 3.0",
+      "version_or_commit": "arXiv 2607.22883, dated 2026-06-25",
+      "licence": "CC BY 4.0",
+      "access_date": "2026-08-10",
+      "maintenance": "active",
+      "finding": "Prompting with the buggy implementation produced 104.15 effective (bug-revealing) tests on average, 2.98 per cent of tests generated. Prompting with the fixed implementation produced 304.08 (8.51 per cent), so seeing the wrong code costs about two thirds of the suite's bug-finding power. Misguided tests, which pass on the buggy code and fail on the fix, rose from 16.46 to 137.69 in the same comparison. Replacing the code with a docstring specification raised effective tests to 186.77 and cut misguided tests to 113.00. Model-internal sequence scores show the models prefer the misguided test when shown buggy code, so this is not a prompting artefact.",
+      "applicability_limits": "Java only, Defects4J, unit level, single-round plus a three-round refinement study. Effective test is defined against a known ground-truth fix, which is a stronger oracle than production has. The docstring condition is a proxy for a specification and a real specification is usually longer and vaguer than a docstring.",
+      "counter_evidence": "None directly. It cuts against nothing in the packs; it sharpens EV-0007 by showing contamination suppresses bug-revealing tests rather than only blessing the bug.",
+      "cited_by": [],
+      "review": "on-change-of:peer-reviewed publication of arXiv 2607.22883, or a replication outside Java",
+      "provenance_note": "Not fetched by this lane. Transcribed on 2026-08-10 from the v2.1 swarm research packet, file swarm_verification-without-tdd.md, which recorded the numbers and recorded the licence line as stated on the arXiv page. The licence is therefore second-hand and should be confirmed at import. ADR-0006 decision 7 forbids re-fetching sources wholesale and this lane fetched nothing."
     }
   ]
 }

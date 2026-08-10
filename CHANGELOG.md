@@ -7,10 +7,160 @@ tags: [eos]
 # CHANGELOG
 
 Newest first. One entry per release tag; the Unreleased section
-accumulates until the next tag. Sections: kernel, doctrine, inception,
-registry, org, tools.
+accumulates until the next tag. Sections: kernel, packs, governance,
+inception, registry, org, tools, benchmark.
 
-## Unreleased (towards v2.0.0, not released)
+## Unreleased
+
+ADR-0007 holds v2 unreleased and folds v2.1 into the same line, so
+everything in this section ships as one release. Both entries stay,
+newest first. Nothing in v2.1 supersedes the v2 record of how the
+benchmark instrument was rebuilt, and that record is the reason the
+gate table below reads the way it does.
+
+### v2.1 · Genesis, the swarm pack and the de-restriction pass
+
+Built under ADR-0006 (Genesis, the study workflow, the lessons ledger,
+the swarm pack, staged verification, hands-off ventures, Apache-2.0 and
+the provenance sweep), ADR-0007 (one release) and ADR-0008 (less law,
+better kept). No benchmark run was made during this work, so nothing
+below is measured against v2. What is claimed is what the tree now
+does, not what it achieves.
+
+- **kernel**: Genesis gets five blueprint templates in the seed:
+  PRODUCT_MAP, ACCEPTANCE_SPINE, WORK_PACKAGE, RESEARCH_PACKET and
+  LENS, with scale-matrix rows at S and ORG so a compiled seed carries
+  the blank forms whether or not the operator runs the phase.
+  `kernel/templates/org/GRAPH_BUILD.tpl.md` carries the swarm method
+  into an ORG seed, ORG only, because it names `org/claims.json` as its
+  mutex. The venture brief gains a material-workstreams section, which
+  is what Genesis cuts its packages from. The metadata spec gains a
+  ninth axis, `conflicts_with`, which names what an artefact contradicts
+  and obliges a settling, and it tightens the authority test to match
+  ADR-0008: `basis: decision` on its own no longer earns binding, and
+  the two protected-set floors are exempt by where they sit rather than
+  by what their basis field says. The policy spec's irreversible-action
+  factor now names a declared rollback cost beside a declared
+  irreversible action, and the seed rubric gains A15 and A16 for the two
+  new seed checks. What did not land: ADR-0008 decision 7 shrinks the
+  per-kind metadata minima, and the spec's minima table is unchanged, so
+  that decision is written and not carried out.
+- **inception**: Genesis returns as a defined phase in
+  `inception/GENESIS.md`, and the word is glossed there because in v1 it
+  named the AutoWatt origin story and a reader meeting both senses
+  cannot tell which is meant. The launch decision sits at the gate:
+  either Genesis runs, or the sign-off block carries one line saying why
+  not. The templates ship in the seed either way, so a venture that
+  declines can run the phase later without a recompile. The interview
+  gains an eighteenth question, the material workstreams.
+- **packs**: `packs/agentic-swarm` is the twenty-first pack: ten binding
+  requirements, four guides, a risk register and a counter-evidence
+  section running to a hundred lines, because the strongest result in
+  its own corpus points away from swarms. On a normalised substrate,
+  five of six multi-agent systems scored below a single-agent baseline
+  while costing more, and the pack carries that in the body rather than
+  a footnote. Verification is staged by risk and stability instead of by
+  a completeness percentage, and the pack states plainly that the
+  staging default is argued and never measured: no controlled comparison
+  of building the comprehensive harness early against building it on
+  stability signals was found. The coding pack splits B1. Oracle
+  independence still binds. The ordering clause that made test-first
+  doctrine is now a default, with a section saying what the demotion
+  costs.
+- **governance**: the ADR-0008 de-restriction pass. A rule stays binding
+  only where it prevents a serious or hard-to-reverse failure and rests
+  on law, a standard, empirical evidence or a protected-set floor.
+  Every loosened rule names what catches the failure instead: claims
+  scale with concurrency, and git history catches the solo case while
+  the unchanged claim refusal still catches parallel lanes; task records
+  are required for gate-bearing work, meaning R2 and above and anything
+  touching the protected set, and the commit message is the record for
+  the rest; four monthly cadences become one pass with four sections,
+  and a skipped section is still a finding. Both loosenings are in the
+  checker: E007 warns on a budgeted type over 150 lines whether or not a
+  `length_waiver` is present, so the waiver names the reason rather than
+  changing the severity; E009 warns on a tag outside the list, which is
+  now the known set rather than the permitted set. The
+  forty-line cap on `AGENTS.md` and `CLAUDE.md` stays an error on
+  purpose, because that file sits in every agent's context and its cost
+  is paid on every task. Untouched, and said so the loosening cannot be
+  read as general: the safety floors, the derived-file rule, append-only
+  decisions, bidirectional supersession and the promotion ladder. The
+  repository is declared Apache-2.0, with `LICENSE` and `NOTICE` at the
+  root and a provenance sweep of twenty packs behind it.
+- **governance**: the authority audit ran over 109 binding requirements
+  in seventeen packs and moved 48 of them to defaults, keeping their B
+  numbers because the checks, guides and exemplars cite them. Binding
+  now, against what each pack carried before: agentic-development 4 of
+  7, ai-ml-llm 5 of 7, api-integration 4 of 6, architecture 3 of 5,
+  business-logic-modelling 2 of 5, business-model-pricing 4 of 6,
+  data-analytics 3 of 6, docs-dx 1 of 6, legal-licensing 4 of 7,
+  native-client 3 of 7, product-discovery 2 of 8, support-operations 2
+  of 7, ui-ux 5 of 8, writing-content 5 of 10. Coding, delivery-testing
+  and marketing-growth were audited and lost no whole requirement.
+  `packs/pattertech-house` had none to test: no line in it was ever
+  binding. `packs/security-privacy` B1 to B6 are excluded by name as
+  protected-set floors. `packs/devops-reliability` was not audited, and
+  the pack carries no note saying so: nobody ruled which of its seven
+  count as the production-safety rules the exclusion protects, and four
+  of them are process rules that would move on basis alone.
+- **registry**: `registry/lessons.json` becomes the canonical lessons
+  ledger, twenty-five rows, and `registry/LESSONS.md` becomes a derived
+  view with a live generator. Rejections are retained rather than
+  deleted, and the view has a section for each state: fifteen live, one
+  rejected, two deferred, seven pruned. A ledger that keeps only what it
+  accepted cannot show what it turned down, which is how the same
+  candidate gets argued twice. The evidence ledger grows from 449
+  records to 504. `registry/LICENCE_RESIDUALS.md` is new: the cited
+  sources whose licence is unknown or not stated, with what the
+  provenance sweep confirmed and what it did not.
+- **org**: two playbooks. PB-E11 studies an exemplar, starting from a
+  lens contract agreed before anything is read, with lawfulness settled
+  first and candidate lessons landing in the ledger. PB-E12 is the
+  venture check-in, venture-initiated only: the EOS never schedules one
+  and never offers one unasked, it returns findings and candidate
+  lessons, and it changes nothing in the venture. The four monthly
+  cadences collapse into one monthly pass with four sections, harvest
+  first because the promotion review reads what the harvest queued.
+  ADR-0006, ADR-0007 and ADR-0008 accepted.
+- **tools**: five checks added. S018 makes a lesson that names a
+  contradiction record how it was settled, so a ledger of decisions does
+  not become a ledger of arguments nobody had. S019 validates the
+  lessons ledger against its schema, requires unique ids and resolves
+  every evidence id it cites. D010 fails an ORG seed that carries no
+  file compiled from a Genesis blueprint, and stays quiet against a seed
+  pinned before the templates existed. D011 reads whether a compiled
+  acceptance spine still carries the marking an outstanding condition
+  fails by, since a suite that cannot say a condition is outstanding
+  reads as an acceptance walk already passed. E011 compares
+  `org/TASKS.md` and `org/STATE.md` against the generator that owns
+  them, which is the hole `packs/INDEX.md` sat in. Two checks removed:
+  E010, which warned about a stale `active_session` in `org/STATE.md`,
+  and S008, the opt-in canonical-fact check that had no subscribers and
+  had never fired. `tools/import_fragments.py` gains a study
+  subcommand for the intake PB-E11 writes. 455 tests, up from 395.
+- **benchmark**: ADR-0007 settles the release gate, because the gate set
+  ADR-0002 approved can no longer be computed. The context-token and
+  wall-clock gates are struck with reasons, not met: on the reproducible
+  2026-08-08 batch they came in at 9.1 per cent against a 30 per cent
+  threshold and 4.6 per cent against 25, the system they were written to
+  judge has since changed shape, and no run was made against v2.1. So no
+  measurement of the evolved system exists, and a struck gate is not a
+  met gate. Moving the thresholds to match the figures already achieved
+  would be tuning the target to the result, which is the dishonesty the
+  pre-release review removed. `SEALED-BENCH-2026-08` is retired
+  unopened: it runs once, it needs Daniel's key, and it was authored for
+  a frozen-v1 against final-v2 comparison this decision supersedes. It
+  stays in the tree with its hashes, so the record of what was and was
+  not measured survives. The pack-drill gate is not a release blocker
+  and its 22 drills still hold 22 null verdicts. What the line offers as
+  evidence is delivery quality on that batch, 50 of 50 v2 runs fully
+  passing against 39 of 53 under v1. Efficiency is offered as unmeasured
+  and safety and per-task regression as unmeasured, both of which
+  depended on the sealed suite. That is a real reduction in assurance
+  against the plan ADR-0002 approved, accepted knowingly.
+
+### v2 · the overhaul
 
 The v2 overhaul, built under ADR-0002 and corrected under ADR-0003.
 Held at the release checkpoint.

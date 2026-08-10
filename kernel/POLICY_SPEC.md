@@ -50,7 +50,7 @@ factors; it may not remove or weaken these.
 | Factor | Effect | Typical sources |
 | --- | --- | --- |
 | protected-set contact | floor R3 | paths:protected match in the diff |
-| irreversible action | floor R3 | declared irreversible-action; derived no-rollback detection |
+| irreversible action | floor R3 | declared irreversible-action or rollback-cost; derived no-rollback detection |
 | destructive migration | floor R3 | DDL drops, destructive DML, migrates-schema with data loss |
 | key material | floor R3 | secret patterns in the diff or environment |
 | data deletion | floor R3 | deletion beyond the working tree, declared or derived |
@@ -81,9 +81,9 @@ active.
 - **R3** is High-assurance plus a human: operator approval for anything
   irreversible or externally consequential, always.
 
-Exploration is orthogonal: a sandboxed spike on `spike/T-####` that the
-checker refuses to merge; hardening its result re-enters through the
-router like any other task.
+Exploration is orthogonal: a sandboxed spike on `spike/T-####` that
+never merges, held by the exploration playbook rather than by a check;
+hardening its result re-enters through the router like any other task.
 
 ## Agent proposes, checker decides
 
@@ -139,8 +139,9 @@ sanctioned way back down. That way is the audited exception:
   not own the task.
 - A **standing exception** covers a recurring pattern. It is an accepted
   ADR in `org/decisions/`, authorised by the operator, carrying an
-  expiry date (ADR-0004). An expired standing exception is a checker
-  finding.
+  expiry date (ADR-0004). An expired standing exception is caught by the
+  monthly governance review, which samples recorded exceptions. No check
+  reads expiry dates.
 - One-off exceptions are recorded on the task record they apply to,
   beside the ruling they lower, with evidence, authoriser and date.
   There is no separate ledger: `org/exceptions.jsonl` was specified,

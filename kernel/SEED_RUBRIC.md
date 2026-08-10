@@ -30,6 +30,8 @@ any auto item does not reach the human.
 | A12 | D007 | the policy file parses and validates against kernel/schemas/policy.schema.json, with /risk and /approvals among its protected pointers |
 | A13 | D008 | the guard block names an adapter and mapping_ref, and either validated is true with the named mapping shipped in the seed, or validated is false and guarded actions are declared manual-only |
 | A14 | D009 | org/claims.json parses and validates against kernel/schemas/claims.schema.json; the seeded state is an empty lanes list (ORG only) |
+| A15 | D010 | one compiled file per Genesis template, matched on compiled_from and not on a destination path (ORG only; quiet against a seed pinned before the templates existed) |
+| A16 | D011 | the compiled acceptance spine still says expected-fail and still carries a manifest table with a state column. Form only: nothing here runs a suite, so this cannot say a spine fails |
 
 ## Human items (signed, not delegated)
 

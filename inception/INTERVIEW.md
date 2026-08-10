@@ -1,5 +1,5 @@
 ---
-summary: The v2 intake protocol, seventeen questions, the risk-surface set and the three challenge steps
+summary: The v2 intake protocol, eighteen questions, the risk-surface set and the three challenge steps
 type: kernel
 tags: [eos]
 ---
@@ -11,7 +11,8 @@ structures and challenges. Nothing here is invented: an unanswered
 question is a recorded question, never a guess, and it lands in
 docs/TASKS.md at S or org/QUESTIONS.md at ORG. One sitting where
 possible. The output fills docs/VENTURE_BRIEF.md, the trigger list for
-the pack walk, and the risk-surface map phase B turns into policy.
+the pack walk, the risk-surface map phase B turns into policy, and the
+list of material workstreams Genesis later cuts its work from.
 
 ## The venture set
 
@@ -44,9 +45,9 @@ the policy.
 
 ## The risk-surface set
 
-Four more questions, asked once the venture set has landed. Their
-answers become the path patterns in the venture's policy file at phase
-D, so they need paths and not adjectives.
+Five more questions, asked once the venture set has landed. The first
+four become the path patterns in the venture's policy file at phase D,
+so they need paths and not adjectives. The fifth names the work.
 
 14. Where in the tree will each risky thing live: the money code, the
     auth code, the personal data, the deploy configuration? Directory
@@ -57,10 +58,19 @@ D, so they need paths and not adjectives.
 17. What can this venture reach outside itself (payment providers,
     email, hosting, an app store), and may an agent act there
     unattended?
+18. What are the material workstreams: the parts of this venture that
+    somebody has to sit down and build? A list, one line each, in the
+    operator's own words. Not a plan and not an estimate.
 
 Question 17 sets the guard posture. Until a validated adapter mapping
 exists, the honest answer compiles as manual-only for every guarded
 class, per kernel/GUARD_SPEC.md.
+
+Question 18's list lands in the brief as its own short section, and it
+is what inception/GENESIS.md cuts its research packets and work packages
+from. Three to eight lines is the usual shape. A venture that cannot
+name its workstreams is not ready for a blueprint, and saying so at the
+interview is cheaper than finding out at Genesis.
 
 ## The challenge steps (mandatory, in order)
 
@@ -85,7 +95,8 @@ until it lands.
 ## Closing the interview
 
 Read the trigger list back as plain yes-or-no facts, then the
-risk-surface map back as paths. Collect the concrete facts the compile
+risk-surface map back as paths, then the workstreams back as a list and
+take a yes on each. Collect the concrete facts the compile
 prints: the venture name as it appears in public, contact details for
 any contact surface, the domain if one is owned, brand assets if any
 exist. Confirm the operator's availability for phase B now and phase E

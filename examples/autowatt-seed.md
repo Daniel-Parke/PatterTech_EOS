@@ -52,7 +52,10 @@ compile and were harvested the same day (D2): the constitution
 template's hardcoded amendment-history line became a slot, and the
 WG-WEB-001 ruling report was appended to the wargame. A reseed that
 changes the kernel before Genesis even runs is the compounding loop the
-EOS exists for.
+EOS exists for. Genesis there is v1's PB-001, the playbook AutoWatt's
+own organisation was about to run; it is history, at the
+archive/v1-final tag. `inception/GENESIS.md` defines what the word
+means now.
 
 ## What a reader should copy
 

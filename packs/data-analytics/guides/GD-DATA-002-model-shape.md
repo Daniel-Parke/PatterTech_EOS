@@ -7,7 +7,7 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
-sources: [EV-0057]
+sources: [EV-0057, EV-0307, EV-0308]
 review: 2027-12
 ---
 
@@ -45,11 +45,10 @@ internal design.
 
 Staging models one to one with sources doing only cleaning and renaming,
 intermediate models holding joins and logic, marts holding wide business
-entities (`EV-0307`). Buys: a prefix tells a reviewer
-what a model is allowed to do, so review is mechanical, and one route to
-each business number. Costs: model count and build time, which is real
-on a small warehouse. It says nothing about the design inside the marts
-layer.
+entities (EV-0307). Buys: a prefix tells a reviewer what a model is
+allowed to do, so review is mechanical, and one route to each business
+number. Costs: model count and build time, which is real on a small
+warehouse. It says nothing about the design inside the marts layer.
 
 ### C. Dimensional star
 
@@ -57,12 +56,11 @@ Declare the grain of the fact table first, then the dimensions that
 apply at that grain, then the facts. Integrate through conformed
 dimensions so separate fact tables can be compared without a central
 model. Pick a numbered slowly-changing-dimension policy rather than
-arguing about history each time (`EV-0308`). Buys: the
-grain discipline, a menu instead of an argument about history, and a
-shape most analysts already know. Costs: the physical prescriptions
-(surrogate keys, narrow facts) were formalised when storage and joins
-were expensive, and that cost argument is much weaker on columnar
-storage.
+arguing about history each time (EV-0308). Buys: the grain discipline, a
+menu instead of an argument about history, and a shape most analysts
+already know. Costs: the physical prescriptions (surrogate keys, narrow
+facts) were formalised when storage and joins were expensive, and that
+cost argument is much weaker on columnar storage.
 
 ### D. Layers plus a declared metrics layer
 
@@ -81,7 +79,7 @@ dashboard. Costs: another tool in the path and a tighter coupling to it.
 - The same business number already exists in two places: D, or fix it in
   B by deleting one route.
 - In every case, declare the grain in words before you declare columns
-  (B6). One sentence: one row per what.
+  (D11). One sentence: one row per what.
 
 ## Default
 
@@ -108,9 +106,8 @@ measurement behind it.
 ## Worked rulings
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: B as the
-  default, grain declaration promoted to binding as B6. Argued from
-  `EV-0307` for the layering and
-  `EV-0308` for grain-first.
+  default, grain declaration carried across as D11. Argued from EV-0307
+  for the layering and EV-0308 for grain-first.
 - **Signup and checkout event model (2026-08, argued)**: B, with one
   fact model at one row per checkout order and a wide user entity. Grain
   stated in the model documentation. See

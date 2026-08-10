@@ -12,7 +12,7 @@ volatility: slow
 review: 2027-12
 type: guide
 tags: [arch, security, money]
-sources: [EV-0023, EV-0024, EV-0122, EV-0124, EV-0125, EV-0126, EV-0129, EV-0130, EV-0133, EV-0135, EV-0136, EV-0139]
+sources: [EV-0023, EV-0024, EV-0061, EV-0091, EV-0122, EV-0124, EV-0125, EV-0126, EV-0127, EV-0128, EV-0129, EV-0130, EV-0131, EV-0132, EV-0133, EV-0135, EV-0136, EV-0137, EV-0138, EV-0139, EV-0140, EV-0141, EV-0142, EV-0143, EV-0144, EV-0145]
 ---
 
 # API and integration
@@ -21,9 +21,9 @@ This pack governs work at a service boundary: the HTTP and RPC APIs we
 publish or consume, webhook receivers, event contracts, and the way any
 of them change. It activates when a change touches an API contract, a
 webhook handler, an event payload or a client of someone else's API. It
-binds a contract in the repo, a breaking-change gate, a declared
-compatibility tier, webhook verification and idempotency on
-money-touching paths.
+binds a breaking-change gate, webhook verification before parsing,
+idempotency on money-touching paths, and dated deprecation before
+removal.
 
 ## Activation
 
@@ -53,7 +53,7 @@ Applicability predicates:
 - `receives_webhooks`: an endpoint accepts a push from a third party.
   BR-4 and BR-5 apply in full.
 - `publishes_events`: the venture writes to a topic or queue others
-  read. BR-1, BR-2 and BR-3 apply in their event form.
+  read. BR-2 applies in its event form, as do defaults D9 and D10.
 
 Policy routing (`kernel/POLICY_SPEC.md`): contact with a public API
 surface activates the public-contract factor, floor R2. Billing and
@@ -79,30 +79,26 @@ casing and description rules belong in an executable ruleset, not here.
 
 ## Binding requirements
 
-Six, each with a named failure and cited evidence. Every one rests on a
-standard or on an evidence-ledger row; none rests on taste.
+Four, each with a named failure and cited evidence. Every one names a
+failure that lands outside this repository: a consumer's production
+breaks, or money moves twice, and neither is something we can take back.
 
-**BR-1. The contract is machine-readable and lives in the repo.** Every
-boundary we publish carries a committed OpenAPI 3.x document (EV-0023),
-AsyncAPI document (EV-0024) or protobuf definition, versioned with the
-code. Prevents: a contract that exists only in prose, which cannot be
-diffed, generated from or tested against. Under-specified contracts also
-cap every downstream automation (EV-0144).
+The authority audit under ADR-0008 moved two of the original six to
+defaults, because each named a missing artefact rather than a failure:
+the machine-readable contract is now D9 and the declared compatibility
+promise is now D10. The four that stayed keep their numbers, so the
+citations in the guides, refs and exemplars still resolve, which is why
+the list below starts at BR-2.
 
-**BR-2. A breaking-change check runs in CI against a committed
-baseline, and fails the build.** For HTTP that is `oasdiff breaking`
-against the frozen previous revision (EV-0136); for protobuf it is the
-buf breaking check (EV-0135); for a registry-backed event topic it is
-the registry's own compatibility check (EV-0139). Prevents: shipping a
-break silently and learning about it from a consumer.
-
-**BR-3. The compatibility promise is declared before the first
-change.** A parseable line in DECISIONS.md or an ADR records the
-versioning approach and the tier or mode, for example
-`compatibility: BACKWARD`. Tiers come from the toolchain in use: FILE,
-PACKAGE, WIRE_JSON or WIRE for protobuf (EV-0135); BACKWARD, FORWARD,
-FULL, NONE and their transitive variants for events (EV-0139).
-Prevents: discovering your own promise by breaking someone.
+**BR-2. A breaking-change check runs in CI against a committed baseline,
+and fails the build.** For HTTP that is `oasdiff breaking` against the
+frozen previous revision (EV-0136); for protobuf it is the buf breaking
+check (EV-0135); for a registry-backed event topic it is the registry's
+own compatibility check (EV-0139). Prevents: shipping a break silently
+and learning about it from a consumer. A published boundary carrying no
+machine-readable contract cannot satisfy this, which is what D9 costs
+when you depart from it, and why departing from D9 is done in writing
+rather than in silence.
 
 **BR-4. Webhook receivers verify before they parse.** The signature is
 computed over the exact bytes received, compared in constant time
@@ -111,13 +107,19 @@ and rejected outside a numeric timestamp tolerance. A framework that
 hands the handler a parsed object has already destroyed the bytes the
 signature covers (EV-0126, EV-0125). Prevents: forged deliveries and
 replayed deliveries, both of which are free to an attacker otherwise.
+The ADR-0008 audit left this one alone even though EV-0126 is vendor
+documentation: verifying the authenticity of an inbound message is a
+security floor, and a floor stays binding whatever its basis field says.
 
 **BR-5. Money-touching mutating endpoints define all four idempotency
 parameters, not just a header.** What is stored (status code and body of
 the first attempt), for how long, what happens when the same key arrives
 with different parameters, and what happens under concurrency (EV-0133).
 Prevents: the double charge, and the retry loop that receives a cached
-500 forever.
+500 forever. EV-0133 is vendor documentation, so this one binds on the
+failure rather than on the evidence grade: charging a customer twice is
+money already moved, and money already moved is the definition of hard
+to reverse.
 
 **BR-6. Deprecation and removal are two dated events, and removal is
 never the earlier one.** Announce deprecation in band with a date, carry
@@ -133,32 +135,54 @@ silent removal that only the consumer discovers.
 Overridable, but the override is recorded next to the code with its
 reason.
 
-- **Errors use `application/problem+json`** (EV-0122). One negotiated
-  container with a stable type URI a consumer can branch on. Override
-  where a platform mandates a different envelope (EV-0132).
-- **Cursor pagination with opaque tokens, no offset** (EV-0130). Tokens
-  bind to the filter and ordering of the issuing call and carry no
-  authorisation. Override for a table UI that needs page numbers, see
+- **D1. Errors use `application/problem+json`** (EV-0122). One
+  negotiated container with a stable type URI a consumer can branch on.
+  Override where a platform mandates a different envelope (EV-0132).
+- **D2. Cursor pagination with opaque tokens, no offset** (EV-0130).
+  Tokens bind to the filter and ordering of the issuing call and carry
+  no authorisation. Override for a table UI that needs page numbers, see
   `packs/api-integration/guides/GD-API-005-collection-traversal.md`.
-- **`Idempotency-Key` as the header name**, cited as de facto. The IETF
-  draft has never reached RFC (EV-0127) and Azure mandates a different
-  family (EV-0132), so this is a house choice, not a standard.
-- **CloudEvents envelope for events** (EV-0138), which standardises
-  routing and deduplication metadata only; payload evolution stays yours.
-- **`BACKWARD_TRANSITIVE` for any log a consumer can rewind**
+- **D3. `Idempotency-Key` as the header name**, cited as de facto. The
+  IETF draft has never reached RFC (EV-0127) and Azure mandates a
+  different family (EV-0132), so this is a house choice, not a standard.
+- **D4. CloudEvents envelope for events** (EV-0138), which standardises
+  routing and deduplication metadata only; payload evolution stays
+  yours.
+- **D5. `BACKWARD_TRANSITIVE` for any log a consumer can rewind**
   (EV-0139). Non-transitive modes check only the last version and give
   false comfort on replay.
-- **Schema-derived property tests against the contract** (EV-0143, 1.4
-  to 4.5 times more unique defects than the next-best fuzzer across
+- **D6. Schema-derived property tests against the contract** (EV-0143,
+  1.4 to 4.5 times more unique defects than the next-best fuzzer across
   sixteen services; preprint, authors evaluating their own tool), plus
   consumer-driven contract tests where two teams share a boundary
   (EV-0091).
-- **Rate limit policy advertised separately from the live budget**,
+- **D7. Rate limit policy advertised separately from the live budget**,
   pinned to draft-11 (EV-0128).
-- **Webhook signatures over the triple `id.timestamp.payload` with a
+- **D8. Webhook signatures over the triple `id.timestamp.payload` with a
   versioned prefix**, for anything we emit (EV-0125). Timestamp
   tolerance five minutes: that number is an estate choice, since no
   source fixes one.
+- **D9. The contract is machine-readable and lives in the repo.** A
+  boundary we publish carries a committed OpenAPI 3.x document
+  (EV-0023), AsyncAPI document (EV-0024) or protobuf definition,
+  versioned with the code. Reason: prose cannot be diffed, generated
+  from or tested against, and under-specified contracts cap every
+  downstream automation (EV-0144). This is a default rather than binding
+  because what it names is a missing artefact, not a failure; the
+  failure is a break reaching a consumer, and BR-2 is what stops that.
+  Departing costs you BR-2, so the recorded reason has to say how the
+  break gets caught instead.
+- **D10. The compatibility promise is declared before the first
+  change.** A parseable line in DECISIONS.md or an ADR records the
+  versioning approach and the tier or mode, for example a
+  `compatibility` line naming BACKWARD. Tiers come from the toolchain in
+  use: FILE, PACKAGE, WIRE_JSON or WIRE for protobuf (EV-0135);
+  BACKWARD, FORWARD, FULL, NONE and their transitive variants for events
+  (EV-0139). Reason:
+  otherwise you discover your own promise by breaking someone. This is a
+  default rather than binding because the gate in BR-2 still runs
+  without it, at whatever strictness the tool defaults to, so the cost
+  of departing is that you have accepted that default sight unseen.
 
 ## Preferences
 
@@ -220,12 +244,12 @@ Reference material the body defers to sits in
 
 ## Open questions and counter-evidence
 
-- **Version placement has no consensus.** Zalando forbids URL
-  versioning and mandates media-type versioning (EV-0131); Azure
-  mandates an `api-version` query parameter (EV-0132); Stripe pins an
-  account to a date (EV-0061). Three mature estates, three incompatible
-  answers, each defensible. This pack routes the choice through fit
-  conditions and refuses to call any of them doctrine.
+- **Version placement has no consensus.** Zalando forbids URL versioning
+  and mandates media-type versioning (EV-0131); Azure mandates an
+  `api-version` query parameter (EV-0132); Stripe pins an account to a
+  date (EV-0061). Three mature estates, three incompatible answers, each
+  defensible. This pack routes the choice through fit conditions and
+  refuses to call any of them doctrine.
 - **The error envelope is contested.** RFC 9457 is the standards answer
   (EV-0122) and Azure ships an incompatible one at scale (EV-0132).
 - **The idempotency header name is contested and unratified.** The IETF
@@ -253,6 +277,18 @@ Reference material the body defers to sits in
   special-cases per provider. Expect an adapter, not a standard.
 - **Our timestamp tolerance is invented.** Standard Webhooks fixes no
   number (EV-0125); five minutes is an estate choice open to argument.
-- **A pack shape file did not exist when this pack was written.**
-  The shape follows the definition of done in the build brief, and this
-  pack should be re-read against PACK_SHAPE.md once it lands.
+
+## Evidence pointer
+
+The twenty-four primary rows behind this pack were frozen at
+`packs/api-integration/research/sources.fragment.json` and have since
+been imported into `registry/evidence.json` as EV-0122 to EV-0145. Every
+`EV-` id cited above resolves to a row there carrying version or commit,
+licence, access date, applicability limits and a review trigger. Four
+rows come from earlier estate research rather than from this pack's
+sweep: OpenAPI (EV-0023), AsyncAPI (EV-0024), Stripe's dated versioning
+(EV-0061) and consumer-driven contract testing (EV-0091). The licence
+and quotation sweep over all of them is at
+`packs/api-integration/research/provenance.fragment.json`. It records
+four cited rows whose licence nobody has confirmed and seven whose
+source states none.

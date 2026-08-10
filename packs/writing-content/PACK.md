@@ -20,10 +20,10 @@ sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, EV-0433, EV-0434, EV-0435
 This pack covers text people read: interface strings, error messages,
 product documentation and the prose in this repository. It activates on
 any task that writes or reviews user-facing copy, documentation, or a
-translatable string. Message structure, error behaviour and terminology
-bind. Voice splits three ways: law inside the EOS, a default for
-venture documentation, a preference for brand. Readability scores never
-gate anything.
+translatable string. Message structure, error identification and
+licence obligations bind. Voice splits three ways: law inside the EOS,
+a default for venture documentation, a preference for brand that
+nothing yet fills. Readability scores never gate anything.
 
 ## Activation
 
@@ -72,9 +72,13 @@ same product sounds like itself in three different places without one
 voice rule being applied where it does not belong. A claim that copy is
 clearer than what it replaced is either measured or not made.
 
-**Non-goals.** This pack does not carry the PatterTech brand voice,
-which is taste and lives in the pattertech-house pack as a preference a
-venture adopts. It does not own link integrity, snippet execution or
+**Non-goals.** This pack defines the brand voice scope and carries no
+brand voice of its own. Nor does anything else: no adoptable PatterTech
+brand voice exists in this tree. `packs/pattertech-house/` is the house
+visual language and its own non-goals say it is not a copy guide, so it
+does not fill the scope either. A venture that wants a brand voice
+writes one and adopts it by name; until it does, nothing is missing
+from it. This pack does not own link integrity, snippet execution or
 generated reference, which sit in the docs-dx pack. It does not own
 form layout, focus behaviour or component structure, which sit in
 ui-ux. It does not own API error contracts, which sit in
@@ -105,22 +109,39 @@ wider scope wins on structure: a brand may choose its own register, and
 may not choose to build a sentence by concatenation. GD-WRIT-003
 carries the fork.
 
+The third row is a shape with nothing in it. No brand voice has been
+written or adopted anywhere in this estate, here or in
+`packs/pattertech-house/`, which covers the house look and says plainly
+that it is not a copy guide. Saying so is the point: a venture is not
+in breach of anything by having no brand voice, and no venture inherits
+one by default.
+
 ## Binding requirements
 
-Ten requirements bind. Each names its predicate, its evidence and the
-failure it prevents, and each states its basis, because binding is the
-most expensive claim this pack makes. Most of what follows this section
-is default or preference, which is the correct shape for a domain where
+Five bind. Each names its predicate, its evidence and the failure it
+prevents, and each states its basis, because binding is the most
+expensive claim this pack makes. Most of what follows this section is
+default or preference, which is the correct shape for a domain where
 almost every published style guide is asserted rather than tested.
 
-Every EV id points at a row in `registry/evidence.json`. Every
-FRAG-WRITING-CONTENT id points at a row in
-`packs/writing-content/research/sources.fragment.json`, frozen at the
-2026-08-03 cutoff and awaiting import into the ledger under final EV
-ids. Each row carries its own version, licence, access date,
-maintenance state and review trigger. This pack cites ids, restates
-none of them, and copies no source prose: several of these sources are
-readable and not reusable.
+The 2026-08 authority audit under ADR-0008 put one test to all ten
+requirements this pack used to bind: a rule binds only where it prevents
+a concrete failure that is serious or hard to reverse **and** its basis
+is law, a standard, empirical evidence or a protected-set floor. B3, B5,
+B6, B7 and B10 failed it and are now defaults. They keep their B
+numbers, because `packs/writing-content/CHECKS.md`, the guides, the refs
+and the exemplar cite them, and they sit under Defaults below. A default
+is departed from in writing, never in silence.
+
+Every EV id points at a row in `registry/evidence.json`. The sixteen
+sources researched for this pack were imported as EV-0433 to EV-0448,
+and every citation here uses the ledger id. Each row carries its own
+version, licence, access date, maintenance state and review trigger. The
+frozen batch the import was made from stays at
+`packs/writing-content/research/sources.fragment.json`. This pack cites
+ids, restates none of them, and copies no source prose: several of these
+sources are readable and not reusable, and which ones is recorded in
+`packs/writing-content/research/provenance.fragment.json`.
 
 **B1. No user-facing sentence is assembled by string concatenation.**
 `writes_user_facing_text`. One message, one message id, with any
@@ -128,23 +149,19 @@ variation selected inside the message
 (EV-0442, EV-0444). Prevents the one
 localisation defect a translator cannot repair downstream, because word
 order, agreement and clause structure are decided by the source code
-rather than by the language. Basis: standard.
+rather than by the language. Basis: standard. Binds on the
+hard-to-reverse leg: the defect is structural, it is nearly free to
+avoid beforehand, and after the fact it costs a rewrite of every call
+site.
 
 **B2. Plural and gender selection resolves per locale through CLDR
 categories, never from the English pair.** `ships_second_locale`. The
 category `one` means "behaves like one in this language" and is not the
 number one (EV-0443). Prevents a locale with four
 plural forms being served two, and prevents a hardcoded switch on six
-tags that is already wrong for some locales. Basis: standard.
-
-**B3. A pseudo-locale build passes before any string reaches a
-translator.** `ships_second_locale`. No truncation, no missing glyphs,
-no unexternalised strings (EV-0446). Prevents paying
-for the same mechanical defect in every locale at once, which is what
-happens when the first real translation is also the first test.
-Basis: decision, taken on vendor guidance rather than on a trial. The
-source is a maintainer document last touched in 2024 with an
-unverified licence, and no study of its effect was found.
+tags that is already wrong for some locales. Basis: standard. Binds for
+the same reason as B1: the English pair is baked into the source, and
+unpicking it is the rewrite.
 
 **B4. Every blocking error identifies what failed and states the
 required input or the next action.** `has_forms`. WCAG 2.2 success
@@ -152,32 +169,10 @@ criteria 3.3.1 and 3.3.3 make this a conformance obligation where they
 apply (EV-0027). Replacing a diagnosis with the shape of a correct
 answer is the highest-yield rewrite in the set
 (EV-0447). Prevents `Invalid input`, which tells the
-reader only that they have failed. Basis: standard.
-
-**B5. An error renders adjacent to its cause, does not fire before the
-person has finished, and never destroys what they typed.** `has_forms`.
-Placement and timing fail more often than wording
-(EV-0441, EV-0233), and structural components exist
-that fix placement so no writer has to remember it (EV-0062, EV-0063).
-Prevents the well-written message rendered in a banner at the top of
-the page, and prevents the retype. Basis: decision, on practitioner
-consensus rather than a measured effect.
-
-**B6. Human error text and machine error bodies are separate
-artefacts.** `writes_user_facing_text`. A problem-details response
-(EV-0122) is for a client, not for a person, and neither is derived
-from the other by string formatting. Prevents a machine `detail` field
-being rendered to a user, and prevents a client parsing a translated
-interface string. Basis: standard.
-
-**B7. One banned-and-preferred term list runs in CI over user-facing
-strings and documentation, and only one prose linter exists in the
-repository.** `writes_user_facing_text`. Vale is the recorded tool
-(EV-0335). Prevents two spellings of one action reaching a
-translator as two concepts, and prevents the second linter that
-disagrees with the first. Basis: decision, and an admittedly cheap
-bet: no study was found showing that a maintained termbase improves
-comprehension or reduces support load.
+reader only that they have failed. Basis: standard. Binds because a
+person who cannot tell what a good answer looks like cannot finish the
+form at all, which is serious wherever the duty in 3.3.1 reaches and
+wherever it does not.
 
 **B8. Prose in this repository follows the voice law.**
 `writes_eos_internal_prose`. Plain, spoken, British spelling, no
@@ -186,7 +181,11 @@ antithesis. Scope eos-internal only. Check E004 enforces the
 mechanical part today. Prevents drift in the one repository every agent
 reads. Basis: decision, ADR-0002. This rule has no evidence behind it
 and does not need any: it is a house ruling about a house, and it
-carries no authority over a venture's product copy or its brand.
+carries no authority over a venture's product copy or its brand. It
+stayed binding through the audit for one reason, which ADR-0008
+decision 7 gives: E004 already fails a commit on the mechanical part,
+so writing it down as a default would put this pack out of step with
+the rule the repository actually enforces.
 
 **B9. Licence obligations on external style guidance are recorded
 before the guidance informs a house guide.**
@@ -194,7 +193,60 @@ before the guidance informs a house guide.**
 requires attribution (EV-0435), and CC BY-NC material
 cannot be adopted into a commercial product's guide at all
 (EV-0448). Prevents a licensing event dressed up as a
-copy-paste. Basis: law.
+copy-paste. Basis: law. Binds because published infringement is not
+withdrawn by deleting the file afterwards.
+
+## Defaults
+
+Followed unless the task records a reason to depart.
+
+### Demoted from binding, 2026-08
+
+Five rules that used to bind. Each still names the failure it prevents,
+and each says which leg of the ADR-0008 test it failed. Numbers are
+unchanged so the checks, guides, refs and exemplar that cite them still
+resolve.
+
+**B3. A pseudo-locale build passes before any string reaches a
+translator.** `ships_second_locale`. No truncation, no missing glyphs,
+no unexternalised strings (EV-0446). Prevents paying
+for the same mechanical defect in every locale at once, which is what
+happens when the first real translation is also the first test.
+Basis: decision, taken on vendor guidance rather than on a trial. The
+source is a maintainer document last touched in 2024 with an
+unverified licence, and no study of its effect was found. Failed the
+basis leg, on that admission.
+
+**B5. An error renders adjacent to its cause, does not fire before the
+person has finished, and never destroys what they typed.** `has_forms`.
+Placement and timing fail more often than wording
+(EV-0441, EV-0233), and structural components exist
+that fix placement so no writer has to remember it (EV-0062, EV-0063).
+Prevents the well-written message rendered in a banner at the top of
+the page, and prevents the retype. Basis: decision, on practitioner
+consensus rather than a measured effect. Failed the basis leg. The part
+of it that a statutory duty reaches is already carried by
+`packs/ui-ux/` B3 and B4 through form labels and the keyboard contract.
+
+**B6. Human error text and machine error bodies are separate
+artefacts.** `writes_user_facing_text`. A problem-details response
+(EV-0122) is for a client, not for a person, and neither is derived
+from the other by string formatting. Prevents a machine `detail` field
+being rendered to a user, and prevents a client parsing a translated
+interface string. Basis: standard. Failed the seriousness leg here: a
+badly rendered detail field is fixed in one place. Where an outside
+client has started parsing the string, the lock-in is an accidental
+public contract and `packs/api-integration/` owns it.
+
+**B7. One banned-and-preferred term list runs in CI over user-facing
+strings and documentation, and only one prose linter exists in the
+repository.** `writes_user_facing_text`. Vale is the recorded tool
+(EV-0335). Prevents two spellings of one action reaching a
+translator as two concepts, and prevents the second linter that
+disagrees with the first. Basis: decision, and an admittedly cheap
+bet: no study was found showing that a maintained termbase improves
+comprehension or reduces support load. Failed the basis leg, on that
+admission.
 
 **B10. No readability formula gates a merge, a release or a review.**
 `writes_user_facing_text`. A score may be reported on a diff and may
@@ -203,11 +255,11 @@ which sit downstream of difficulty rather than being difficulty
 (EV-0436). Prevents copy being chopped into fragments
 to satisfy a number while the reader learns nothing new. Basis:
 decision. The study behind the doubt is narrow, and the ruling is the
-estate's, not the study's.
+estate's, not the study's. Failed the basis leg. A venture that wants
+to gate on a formula now records why, which is a fair place for that
+argument to happen.
 
-## Defaults
-
-Followed unless the task records a reason to depart.
+### Standing defaults
 
 - **Front-load the answer, lead with the verb, one instruction per
   step** (EV-0435, EV-0440,
@@ -316,16 +368,17 @@ worked example in
   (EV-0436). That population is not an adult scanning
   an interface, and oral fluency is not comprehension. The same study
   found some formulas fair at some grade bands, so formulas are
-  unreliable rather than uninformative. B10 rests on the estate's
-  ruling, not on this study, and nothing here bans a formula from a
-  report.
+  unreliable rather than uninformative. B10 rested on the estate's
+  ruling rather than on this study, which is why the audit made it a
+  default. Nothing here bans a formula from a report.
 - **No source measures whether a house style guide changes any user
   outcome.** Every style guide cited here is asserted, both large
   vendors included. Assume a style guide buys consistency and reviewer
   speed, and claim nothing else for it.
 - **Terminology management is the weakest area in this pack.** Tooling
   and standards practice exist. Evidence that a termbase improves
-  comprehension or reduces support load does not. B7 is a cheap bet.
+  comprehension or reduces support load does not. B7 was a cheap bet
+  and is now a default, which is the honest authority for a bet.
 - **Empty states and onboarding copy have no evidence base at all**,
   only practitioner opinion. This pack carries no rule about them.
 - **COGA is drifting and non-normative.** Not republished since 2021
@@ -346,3 +399,10 @@ worked example in
   binds anyway, because the defect is unrepairable after the fact and
   nearly free to avoid before it. Basis decision would be equally
   defensible, and the requirement is open to challenge on that ground.
+  The 2026-08 audit left it binding on the hard-to-reverse leg rather
+  than on the strength of the sources.
+- **No brand voice exists to test any of this against.** The third
+  voice scope is defined and empty, here and everywhere else in the
+  tree. Nothing in this pack has ever been exercised against a real
+  brand, so the conflict rule between scopes is reasoning rather than
+  experience.

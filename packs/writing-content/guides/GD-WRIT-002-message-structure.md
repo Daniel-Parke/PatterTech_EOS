@@ -83,10 +83,11 @@ A, pinned, from the first commit that creates a string file. It is
 cheapest to adopt when there are ten strings and most expensive when
 there are ten thousand.
 
-## Non-negotiables under every option
+## What holds under every option
 
-These hold whichever option is chosen, because they are B1, B2 and B3
-in PACK.md rather than properties of a format.
+These follow the format rather than any one format's properties. B1 and
+B2 in PACK.md bind; B3, the pseudo-locale build, is a default since the
+2026-08 audit, so a project that skips it writes down why.
 
 - No sentence assembled by concatenating lookups.
 - Plural categories looked up per locale, never derived from the

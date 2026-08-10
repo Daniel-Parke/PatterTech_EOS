@@ -5,7 +5,7 @@ authority: advisory
 basis: standard
 evidence_grade: observational
 scope: estate
-sources: [EV-0129, EV-0131, EV-0132, EV-0134, EV-0135, EV-0136, EV-0139, EV-0061]
+sources: [EV-0129, EV-0131, EV-0132, EV-0134, EV-0135, EV-0136, EV-0139, EV-0061, EV-0140]
 review: on-change-of:EV-0129
 type: guide
 tags: [arch, ci, delivery]
@@ -87,7 +87,7 @@ account it pays off only at high consumer count.
   A is honest, provided a sunset policy exists for deprecated fields.
 
 B is not exclusive with the others: it is the floor. Whatever the
-selector, the tier is declared before the first change (BR-3) and the
+selector, the tier is declared before the first change (D10) and the
 gate runs in CI (BR-2). Renames and new required request fields are
 breaking in every option (EV-0129): ship the new name alongside the old,
 mark the old deprecated with a sunset date, and put a new required field
@@ -105,7 +105,7 @@ in DECISIONS.md or an ADR, in a form a checker can parse.
   drift-checked contract from
   `packs/architecture/guides/WG-ARCH-005-contract-seam.md` gives
   the baseline a gate needs; the tier itself was never written down,
-  which is exactly the gap BR-3 closes.
+  which is exactly the gap D10 closes.
 - **No venture has argued D.** Stripe's approach is read as an exemplar
   in `packs/api-integration/exemplars/stripe-versioning.md`, not adopted.
 - **No venture has argued C.** The three mature estates disagree

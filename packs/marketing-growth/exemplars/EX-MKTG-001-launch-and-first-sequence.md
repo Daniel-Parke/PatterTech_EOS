@@ -4,6 +4,7 @@ kind: exemplar
 scope: estate
 type: example
 tags: [content, seo, pii, forms]
+sources: [EV-0353, EV-0357, EV-0362, EV-0366, EV-0367, EV-0368]
 ---
 
 # Worked example: a launch surface and a first sequence

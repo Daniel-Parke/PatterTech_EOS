@@ -41,6 +41,18 @@ Filling is transcription and condensation of the operator's words and
 the rulings, never composition. After filling, the file must contain no
 slot syntax anywhere, including inside code spans.
 
+One slot needs its source naming, because it comes from the interview's
+risk-surface set rather than its venture set.
+
+- Fill `{{WORKSTREAMS}}` in docs/VENTURE_BRIEF.md from interview
+  question 18, the operator's own list of material workstreams, one
+  line each, three to eight lines being the usual shape. It is
+  transcription like every other fill. If question 18 went unanswered
+  the compiler stops and asks, as it does for any empty slot:
+  inception/GENESIS.md cuts its research packets and work packages from
+  that list, so a brief without it blocks Genesis later rather than
+  now.
+
 ## Policy fill
 
 The policy file compiles like any other file and is then validated
@@ -83,6 +95,54 @@ or a record under org/tasks/ at ORG, naming the first-build lock-in.
 Check D004 enforces it, and the first two v2 seeds failed exactly this
 before the rule was written down.
 
+## Genesis forms
+
+Five templates land in a seed as blank forms. The venture fills them
+later, in its own repo, during the Genesis phase.
+
+Which scales carry which file is the matrix's call, as for every other
+seed file. All five belong at both: none of them costs anything to ship
+blank, and a venture rescaling from S to ORG should not discover that it
+never had a work package form.
+
+| compiled file | template |
+| --- | --- |
+| docs/PRODUCT_MAP.md | kernel/templates/PRODUCT_MAP.tpl.md |
+| docs/ACCEPTANCE_SPINE.md | kernel/templates/ACCEPTANCE_SPINE.tpl.md |
+| docs/genesis/WORK_PACKAGE.md | kernel/templates/WORK_PACKAGE.tpl.md |
+| docs/genesis/RESEARCH_PACKET.md | kernel/templates/RESEARCH_PACKET.tpl.md |
+| docs/genesis/LENS.md | kernel/templates/LENS.tpl.md |
+
+The map and the spine are one per venture and are filled in place. The
+other three are copied per instance, to docs/packages/WP-NN.md,
+docs/research/RP-NN.md and docs/lenses/LENS-NNNN.md, by the venture and
+never by the compiler.
+
+They compile like any other file, with three things worth saying out
+loud.
+
+- Pruning carries the whole scale grading. At S the map loses its
+  container view and its hub-file paragraph and takes the lock-book
+  variant of its cross-cutting decisions table; the work package loses
+  the integrator-reserved hub files and the wide-run justification; the
+  research packet loses the conflict pass; the spine loses the mutation
+  check and keeps its independence record, which is a floor at both
+  scales. The lens contract carries no fences at all, because none of
+  its parts gets cheaper at S.
+- Filling touches identity only. The map and the spine carry
+  `{{VENTURE_NAME}}` and nothing else; the other three carry no slot at
+  all. So the ordinary fill leaves nothing behind. A section prompt is
+  prose, not a slot, and it stays.
+- A blank form is a correct result. It is not a deferral, it carries no
+  `set at first build` marker and it needs no queue item, so D004 has
+  nothing to say about it. Running Genesis is the operator's launch
+  decision; a venture that never runs it carries the blank forms and has
+  told no lies.
+
+Each form takes an ancestry row like any other compiled file. A form
+shipped blank is not a deviation and does not go in the deviations
+table.
+
 ## Assemble
 
 Byte-copy the compiled AGENTS.md to CLAUDE.md, last, after every other
@@ -120,6 +180,9 @@ Session 0.
 ## Never
 
 - Never author content outside the recorded add-ons and distillations.
+- Never fill a Genesis form's body at compile. Session 0 knows the
+  venture, not the product; an invented product map reads as settled,
+  and every package cut from it inherits the invention.
 - Never renumber, reword or reorder protected template text, which is
   the constitution's Parts II and III, the three role charters and the
   policy's risk and approvals blocks. Pruning their fences is the only

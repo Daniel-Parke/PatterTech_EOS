@@ -100,8 +100,9 @@ from the source:
 **The failure to avoid.** Adoption counts measure that the file exists,
 not that it is accurate, and there is no conformance test (EV-0044). A
 file that confidently names a command removed two releases ago is worse
-than no file, because it is trusted. This is why B6 binds the file's
-commands to the execution gate rather than binding only its presence.
+than no file, because it is trusted. This is why B6 puts the file's
+commands through the execution gate rather than asking only that the
+file exists.
 
 ## Where the forms meet the truth question
 

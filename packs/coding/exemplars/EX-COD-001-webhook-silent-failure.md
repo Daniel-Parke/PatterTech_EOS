@@ -73,8 +73,10 @@ Two failure modes are named. A test asserts that an event with a bad
 signature raises the signature failure to the caller and that the
 response is a rejection rather than a success, and a second test asserts
 that a malformed payload raises the payload failure. Both fail at the
-current commit. That is requirement B1 satisfied, and the failing run is
-recorded in the task before anything else is touched.
+current commit. That is requirement B1 satisfied on both clauses: the
+expected values came from the provider's documented behaviour rather
+than from the handler, and both tests have been seen red. The failing
+run is recorded in the task before anything else is touched.
 
 ## Step 5: commit three, the fix
 
@@ -88,7 +90,9 @@ outcomes listed in `packs/coding/refs/ERROR_PATH.md`.
 
 The two failure names go into the module docstring and into the
 README, spelled identically in the module, the tests and the README.
-That is requirement B4 satisfied.
+That is requirement B4 satisfied, and B4 applies here rather than
+default D9 because the caller is the payment provider, which the venture
+does not control.
 
 The handler previously repeated the same eight-line ledger-row builder
 in two branches. Both branches now call one helper, so the duplicate

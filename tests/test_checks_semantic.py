@@ -323,19 +323,19 @@ def test_s007_no_git_degrades_silently(tmp_path):
     assert only(run_s(root), "S007") == []
 
 
-# --- S008 ---------------------------------------------------------------
+# --- S008, withdrawn ----------------------------------------------------
 
 
-def test_s008_canonical_fact_restated(tmp_path):
+def test_s008_is_withdrawn_and_nothing_declared_it(tmp_path):
+    """S008 held one writer per fact, for facts that opted in through a
+    canonical_facts key. Nothing ever opted in, so it never fired once.
+    Withdrawn with the rest of the dead weight; the id is not reused."""
+    from tools.eos.checks import REGISTRY
+
+    assert "S008" not in REGISTRY
     root = make_repo(tmp_path)
-    edit(root, "org/STATE.md", "type: org",
-         "type: org\ncanonical_facts: [the cadence runs monthly]")
-    edit(root, "GOVERNANCE.md", "Nothing in the fixture is protected.",
-         "Nothing in the fixture is protected, and the cadence runs monthly.")
-    fs = run_s(root)
-    assert only(fs, "S008") == [("error", "GOVERNANCE.md",
-                                 "restates canonical fact owned by org/STATE.md: "
-                                 "the cadence runs monthly")]
+    model = RepoModel.load(root, today=TODAY)
+    assert not [r for r in model.files if "canonical_facts" in r.fm.data]
 
 
 # --- S009 ---------------------------------------------------------------
@@ -646,3 +646,191 @@ def test_s003_venture_paths_stay_exempt(tmp_path):
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
          "The venture writes `docs/COMPILE_REPORT.md` in its own repo.")
     assert only(run_s(root), "S003") == []
+
+
+# --- S018 lesson conflicts ----------------------------------------------
+
+
+def lessons(root, rows, **top):
+    doc = {"version": 1, "note": "a test ledger", "rows": rows}
+    doc.update(top)
+    write(root, "registry/lessons.json", json.dumps(doc, indent=1) + "\n")
+
+
+def test_s018_says_nothing_without_a_ledger(tmp_path):
+    """registry/lessons.json is new in v2.1. A repository without one
+    has no lessons, which is not a finding."""
+    assert only(run_s(make_repo(tmp_path)), "S018") == []
+
+
+def test_s018_fires_on_an_unresolved_conflict(tmp_path):
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x",
+                    "conflicts_with": ["packs/coding/PACK.md#B1"]}])
+    msgs = [m for _, _, m in only(run_s(root), "S018")]
+    assert msgs == ["LES-0001: conflicts_with packs/coding/PACK.md#B1 is "
+                    "unresolved; record the resolution (stricter-applies, "
+                    "scoped-differently, superseded, operator-ruling)"]
+
+
+def test_s018_accepts_a_resolution_recorded_beside_the_link(tmp_path):
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x",
+                    "conflicts_with": ["LES-0000"],
+                    "conflict_resolutions": {"LES-0000": "stricter-applies"}}])
+    assert only(run_s(root), "S018") == []
+
+
+def test_s018_accepts_a_resolution_written_inline(tmp_path):
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x", "conflicts_with": [
+        {"ref": "LES-0000", "resolution": "scoped-differently",
+         "note": "one is estate scope, one is venture"}]}])
+    assert only(run_s(root), "S018") == []
+
+
+def test_s018_rejects_a_resolution_outside_the_vocabulary(tmp_path):
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x",
+                    "conflicts_with": ["LES-0000"],
+                    "conflict_resolutions": {"LES-0000": "we talked about it"}}])
+    msgs = [m for _, _, m in only(run_s(root), "S018")]
+    assert msgs == ["LES-0001: unknown conflict resolution for LES-0000: "
+                    "we talked about it; expected one of stricter-applies, "
+                    "scoped-differently, superseded, operator-ruling"]
+
+
+def test_s018_wants_an_operator_ruling_to_say_what_was_ruled(tmp_path):
+    """A row that says Daniel decided, without saying what, cannot be
+    reviewed and cannot be argued with later."""
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x",
+                    "conflicts_with": ["LES-0000"],
+                    "conflict_resolutions": {"LES-0000": "operator-ruling"}}])
+    msgs = [m for _, _, m in only(run_s(root), "S018")]
+    assert msgs == ["LES-0001: conflict with LES-0000 is resolved by an "
+                    "operator ruling with nothing recorded; note what was "
+                    "ruled"]
+    lessons(root, [{"id": "LES-0001", "lesson": "x",
+                    "conflicts_with": ["LES-0000"],
+                    "conflict_resolutions": {
+                        "LES-0000": {"resolution": "operator-ruling",
+                                     "note": "Daniel kept the older rule"}}}])
+    assert only(run_s(root), "S018") == []
+
+
+def test_s018_leaves_a_row_with_no_conflicts_alone(tmp_path):
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x", "informs": ["packs/coding"]}])
+    assert only(run_s(root), "S018") == []
+
+
+# --- S019 the lessons ledger against its schema -------------------------
+
+
+LESSON_SCHEMA = {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["version", "rows"],
+    "properties": {"version": {"type": "integer"}, "rows": {
+        "type": "array",
+        "items": {"type": "object", "required": ["id", "lesson"],
+                  "properties": {"id": {"type": "string",
+                                        "pattern": "^LES-\\d{4}$"}}}}},
+}
+
+
+def with_schema(root, schema=None):
+    write(root, "kernel/schemas/lesson.schema.json",
+          json.dumps(schema if schema is not None else LESSON_SCHEMA))
+
+
+def test_s019_validates_the_ledger_against_its_schema(tmp_path):
+    root = make_repo(tmp_path)
+    with_schema(root)
+    lessons(root, [{"id": "nonsense", "lesson": "x"}])
+    msgs = [m for _, _, m in only(run_s(root), "S019")]
+    assert any("schema: rows/0/id" in m for m in msgs)
+
+
+def test_s019_runs_against_the_real_kernel_schema(tmp_path):
+    """The stub above exercises the plumbing; this runs the schema the
+    repository actually ships, so the check and the schema cannot drift
+    apart unnoticed."""
+    import shutil
+
+    from conftest import REPO_ROOT
+
+    root = make_repo(tmp_path)
+    (root / "kernel" / "schemas").mkdir(parents=True, exist_ok=True)
+    shutil.copy(REPO_ROOT / "kernel" / "schemas" / "lesson.schema.json",
+                root / "kernel" / "schemas" / "lesson.schema.json")
+    row = {
+        "id": "LES-0001", "origin": "harvest", "venture": "Guth",
+        "title": "A short scannable label",
+        "lesson": "The lesson itself, one paragraph.",
+        "evidence_class": "observational", "disposition": "estate-default",
+        "outcome": "Folded into a pack.", "scope": "estate",
+        "applicability_conditions": "Where the conditions held.",
+        "decided": "2026-08",
+    }
+    lessons(root, [row])
+    assert only(run_s(root), "S019") == []
+    assert only(run_s(root), "S018") == []
+
+    # The schema requires a resolution once a conflict is named, and
+    # S018 requires it to be one the vocabulary knows.
+    lessons(root, [dict(row, conflicts_with=["WG-OPS-002"])])
+    assert [m for _, _, m in only(run_s(root), "S018")] == [
+        "LES-0001: conflicts_with WG-OPS-002 is unresolved; record the "
+        "resolution (stricter-applies, scoped-differently, superseded, "
+        "operator-ruling)"]
+    assert any("conflict_resolutions" in m
+               for _, _, m in only(run_s(root), "S019"))
+
+
+def test_s019_is_quiet_on_a_clean_ledger(tmp_path):
+    root = make_repo(tmp_path)
+    with_schema(root)
+    lessons(root, [{"id": "LES-0001", "lesson": "x"}])
+    assert only(run_s(root), "S019") == []
+
+
+def test_s019_reports_a_duplicate_id(tmp_path):
+    """informs, conflicts_with and supersedes all address a row by id,
+    so a duplicate makes every link into it ambiguous."""
+    root = make_repo(tmp_path)
+    with_schema(root)
+    lessons(root, [{"id": "LES-0001", "lesson": "x"},
+                   {"id": "LES-0001", "lesson": "y"}])
+    msgs = [m for _, _, m in only(run_s(root), "S019")]
+    assert msgs == ["duplicate lesson id LES-0001: every link into it is "
+                    "ambiguous"]
+
+
+def test_s019_reports_an_evidence_id_the_ledger_does_not_hold(tmp_path):
+    root = make_repo(tmp_path)
+    with_schema(root)
+    write(root, "registry/evidence.json",
+          json.dumps({"version": 1, "generated": "2026-08-03", "note": "n",
+                      "records": [{"id": "EV-0001"}]}))
+    lessons(root, [{"id": "LES-0001", "lesson": "x", "evidence": ["EV-9999"]}])
+    msgs = [m for _, _, m in only(run_s(root), "S019")]
+    assert msgs == ["LES-0001: cites EV-9999, which is not in "
+                    "registry/evidence.json"]
+    lessons(root, [{"id": "LES-0001", "lesson": "x", "evidence": ["EV-0001"]}])
+    assert only(run_s(root), "S019") == []
+
+
+def test_s019_says_the_schema_is_missing_rather_than_passing_quietly(tmp_path):
+    root = make_repo(tmp_path)
+    lessons(root, [{"id": "LES-0001", "lesson": "x"}])
+    msgs = [m for _, _, m in only(run_s(root), "S019")]
+    assert any("lesson.schema.json is missing" in m for m in msgs)
+
+
+def test_s019_reports_a_malformed_ledger(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "registry/lessons.json", "{not json")
+    msgs = [m for _, _, m in only(run_s(root), "S019")]
+    assert any("not valid JSON" in m for m in msgs)

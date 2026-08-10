@@ -54,7 +54,8 @@ correctly there.
 
 **Gate.** A term list plus a pseudo-locale build, per
 `packs/writing-content/guides/GD-WRIT-004-prose-gate.md`. No readability
-threshold, because B10 forbids one.
+threshold: B10 says do not gate on one, and this panel had no reason to
+depart from that.
 
 ## What changed
 

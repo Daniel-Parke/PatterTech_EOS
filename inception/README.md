@@ -10,14 +10,20 @@ The Session 0 system: how a venture goes from an idea in the operator's head
 to a compiled seed pack a cold agent can build from. Rewritten for the
 v2 kernel, where packs replace doctrine modules, the seed scales are S
 and ORG, and the interview's risk answers compile into the venture's
-policy file.
+policy file. One phase runs past the seed, Genesis, and it runs in the
+venture's own repository rather than here.
 
 - INCEPTION.md: the master playbook, phases A to E. Interview, scale
   and risk surface, pack activation walk, seed compile, gate.
-- INTERVIEW.md: the intake protocol. Thirteen venture questions, four
-  risk-surface questions, and the three mandatory challenge steps:
+- INTERVIEW.md: the intake protocol. Thirteen venture questions, five
+  risk-surface questions, the last of which names the venture's
+  material workstreams, and the three mandatory challenge steps:
   restate and be corrected, the three cheapest deaths, the strictly
   smaller version explicitly adopted or rejected.
+- GENESIS.md: the blueprint phase that runs in the venture repo after
+  the gate, at the operator's launch decision. Bounded research
+  packets, the product map, work packages, and an acceptance spine that
+  starts failing. Full form at ORG, a lite form at S.
 - EXPRESS_INCEPTION.md: the fast path for an S venture whose risk
   triggers are all silent. Six questions, inherited defaults, the same
   auto checks, two signed human items. Read its gate first.

@@ -1,5 +1,5 @@
 ---
-summary: Where does the oracle for this change come from, test-first, characterisation, contract or downstream gate?
+summary: Where does the oracle for this change come from, specification, characterisation, contract or downstream gate?
 type: guide
 tags: [testing, delivery, wargame]
 kind: guide
@@ -7,7 +7,7 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0008, EV-0070, EV-0177, EV-0178, EV-0180, EV-0181]
+sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0008, EV-0070, EV-0177, EV-0178, EV-0180, EV-0181, EV-0191, EV-0192]
 review: 2027-05
 ---
 
@@ -15,11 +15,14 @@ review: 2027-05
 
 ## The question
 
-Something has to say whether the code is right, and it has to exist
-independently of the code. When the author is a model, that is the whole
-game: the model will make the implementation and any test written
-alongside it agree with each other, including where both are wrong. The
-fork is which independent statement of intent you build, and when.
+Something has to say whether the code is right, and it has to come from
+somewhere other than the code. When the author is a model, that is the
+whole game: the model will make the implementation and any check written
+in the same context agree with each other, including where both are
+wrong. The fork is which independent statement of intent you build.
+When you write it is a separate and much smaller question, settled by
+D7 in the pack body and by
+`packs/delivery-testing/guides/WG-DEL-007-test-timing.md`.
 
 ## It depends on
 
@@ -34,16 +37,22 @@ fork is which independent statement of intent you build, and when.
 
 ## Options
 
-### A. Test-first, oracle-first
+### A. Specification-sourced, from a context that never held the code
 
-Write the executable acceptance condition before the implementation, and
-commit it first. For a FIX that means a failing reproduction. Buys: an
-oracle the implementation cannot have contaminated, which is the whole
-point. Generating tests after faulty code roughly halves fault detection
-compared with generating them independently (EV-0007), and supplying the
-right test context cut regressions from 6.08 to 1.82 per cent while
-generic instructions made them worse (EV-0003). Costs: you have to be
-able to state the condition, which rules out genuine exploration.
+Write the executable acceptance condition from the requirement, in a
+context that does not contain the candidate implementation. For a FIX
+that means a failing reproduction. The cheapest way to get that context
+is to write it before the implementation exists, which is why D7 keeps
+that as the default, but a separate session handed the specification and
+not the diff satisfies it equally. Buys: an oracle the implementation
+cannot have contaminated, which is the whole point. Generating tests
+after faulty code roughly halves fault detection compared with
+generating them independently (EV-0007), and supplying the right test
+context cut regressions from 6.08 to 1.82 per cent while generic
+instructions made them worse (EV-0003). Costs: you have to be able to
+state the condition, which rules out genuine exploration, and where the
+condition is written first a frozen oracle that turns out to be wrong
+needs a ruled amendment rather than an edit.
 
 ### B. Characterisation first
 
@@ -77,7 +86,8 @@ under every option, not an alternative to them.
 ## Decision rule
 
 - The change has a stateable acceptance condition, or is a FIX, or
-  touches a boundary: A. Commit the oracle before the implementation.
+  touches a boundary: A. Write it from the requirement, and by default
+  write it first, because that is the cheapest clean context there is.
 - The code has no trustworthy specification and you are about to move
   its structure: B first, then A for the new behaviour. See
   `packs/coding/guides/GD-COD-004-pin-then-change.md`.
@@ -91,8 +101,11 @@ under every option, not an alternative to them.
 ## Default
 
 A. Almost every change in a venture repo has a stateable acceptance
-condition, and the cost of finding out later that the tests agreed with
-the bug is higher than the cost of writing the condition first.
+condition, and the cost of finding out later that the checks agreed with
+the bug is higher than the cost of stating it. What binds is the source
+of the condition, not the moment it is written. B1 in the pack body is
+the floor: not authored by the agent holding the implementation, and
+seen to fail once before it counts.
 
 ## What does not count as an oracle
 
@@ -104,19 +117,35 @@ not fail when the behaviour is wrong, it is not an oracle.
 ## Evidence boundary
 
 The agent results above (EV-0003, EV-0004, EV-0005, EV-0007) are runs on
-curated benchmarks, mostly SWE-bench Verified. The human result runs the
-other way: across 82 observations from 39 professionals, quality and
-productivity tracked granularity and uniformity of work increments, not
-sequencing (EV-0178). These are not in conflict, because the mechanism
-differs: for a human the test is a design aid, for a model it is the
-only reliable oracle. Do not cite either side as evidence for the other.
+curated benchmarks, mostly SWE-bench Verified. Across 82 observations
+from 39 human professionals, quality and productivity tracked
+granularity and uniformity of work increments, not sequencing (EV-0178).
+The two populations agree more than this guide used to claim. Neither
+one measures ordering as the active ingredient. What EV-0007 isolates is
+the authoring context, and what EV-0178 isolates is increment size. Do
+not cite either side as evidence for the other, and do not cite either
+as evidence that the test must come first.
+
+The strongest measurement of contamination is EV-0480. Prompted with the
+buggy implementation, eleven frontier models produced 104.15
+bug-revealing tests on average, against 304.08 prompted with the correct
+implementation and 186.77 when the code was replaced by a specification.
+Its licence was recorded from a research packet rather than read at the
+source, so the row carries no observation date.
 
 ## Worked rulings
 
-- **PatterTech EOS coding pack (2026-08, argued)**: A as the binding
-  default, with D as an unconditional floor. Argued from EV-0007 and
-  EV-0003 for the sequencing, and from EV-0181 for the floor. The human
-  TDD literature was excluded from the argument on purpose.
+- **PatterTech EOS coding pack (2026-08-03, argued, superseded)**: A as
+  the binding default, with D as an unconditional floor. Argued from
+  EV-0007 and EV-0003 for the sequencing, and from EV-0181 for the
+  floor. The human TDD literature was excluded on purpose, which is how
+  the ruling came out reading sequencing as the finding.
+- **PatterTech EOS coding pack (2026-08-10, argued, ADR-0006)**: A on
+  its source, not on its clock. The binding half is the authoring
+  context plus a demonstrated failure; the ordering became D7. Argued
+  from EV-0007 for the context, EV-0006 for ordering carrying no
+  measured outcome, EV-0178 for what increment size was doing, and
+  EV-0191 with EV-0192 for the replacement proof that a check bites.
 - **Inherited parser with no tests (2026-08, argued)**: B then A. The
   behaviour pin lands in its own commit, the new failing test for the
   intended change lands next, the implementation lands third. Worked in

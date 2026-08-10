@@ -67,7 +67,7 @@ understand.
 ## Decision rule
 
 A until something outside the boundary needs to know. Then B, which is
-where most venture software stops and which requirement B4 in PACK.md
+where most venture software stops and which default D10 in PACK.md
 binds the mechanics of. Choose C only when replay or as-at-past-instant
 state is a stated requirement with a named question behind it, never
 for audit alone, because a log is cheaper (EV-0276). Choose D only

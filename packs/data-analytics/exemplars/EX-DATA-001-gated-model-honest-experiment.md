@@ -48,9 +48,9 @@ address, so `user_email` does not travel past staging. The staging model
 mints `user_key` as a salted hash of the email and drops the email
 column. No marts model has a column matching email, name or postcode.
 
-The alternative, copying `user_email` forward because it is a
-convenient join key, is the anti-pattern B3 names. It also has no
-recorded lawful basis, and D8 gives a cheaper answer for free.
+The alternative, copying `user_email` forward because it is a convenient
+join key, is the anti-pattern B3 names. It also has no recorded lawful
+basis, and D8 gives a cheaper answer for free.
 
 ## Step 3: the event taxonomy
 
@@ -81,7 +81,7 @@ Guide `packs/data-analytics/guides/GD-DATA-002-model-shape.md` rules B:
 staging one to one with the source, an intermediate model joining
 signups to orders, and two marts.
 
-B6 fires before any column is written. The fact model documentation
+D11 fires before any column is written. The fact model documentation
 opens with the grain in words:
 
 > One row per completed checkout order, at the moment the order was
@@ -93,7 +93,8 @@ which is only possible because the grain was stated first.
 
 ## Step 5: the contract, and running it
 
-Guide `packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md`
+Guide
+`packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md`
 rules A on the published marts, with the metrics of option B deferred
 because there is no history yet to compare against. Private staging and
 intermediate models carry no contract (D6).
@@ -104,7 +105,7 @@ freshness, owner and support path. The quality rules include
 `order_total` not null and within an accepted range, and one row per the
 declared grain.
 
-Then the part that matters. B2 says the gate blocks publication, so the
+Then the part that matters. D10 says the gate blocks publication, so the
 check is a step the build depends on and not a job that runs afterwards.
 Run against the shipped data, the pipeline exits non-zero and names the
 rule, the column and the offending row count. The seeded null batch does
@@ -112,9 +113,9 @@ not reach the marts layer. With the bad batch removed, the same command
 exits zero and publishes.
 
 Writing the contract and never running it is the failure mode
-`packs/data-analytics/refs/DATA_CONTRACT.md` calls documentation
-wearing a gate's clothes. It is worth noticing that this failure looks
-exactly like success in a file listing.
+`packs/data-analytics/refs/DATA_CONTRACT.md` calls documentation wearing
+a gate's clothes. It is worth noticing that this failure looks exactly
+like success in a file listing.
 
 ## Step 6: the experiment, and what it is allowed to say
 
@@ -150,8 +151,7 @@ The answer says, in this order:
    null result either.
 3. The stopping rule assumed was a fixed horizon, stated as an
    assumption because none was declared in advance. The interim
-   significance point is therefore not evidence and is not cited as
-   any.
+   significance point is therefore not evidence and is not cited as any.
 4. What to do next: fix the assignment, re-run, and this time write down
    the randomisation unit, the primary metric and the stopping rule
    before traffic starts.
@@ -166,9 +166,9 @@ is not a claim the data supports at any confidence level.
 | Rule | Fired at | Consequence |
 | --- | --- | --- |
 | B3 | Step 2 | email dropped at staging, surrogate key minted |
-| B1 | Step 5 | one contract document with a named owner |
-| B2 | Step 5 | pipeline exits non-zero on the shipped data |
-| B6 | Step 4 | grain declared in words before columns |
+| D9 | Step 5 | one contract document with a named owner |
+| D10 | Step 5 | pipeline exits non-zero on the shipped data |
+| D11 | Step 4 | grain declared in words before columns |
 | B4 | Step 6 | missing pre-declaration recorded, assumption stated |
 | B5 | Step 6 | check computed, reported, result voided |
 | D1 | Step 3 | object-action names, variation in properties |

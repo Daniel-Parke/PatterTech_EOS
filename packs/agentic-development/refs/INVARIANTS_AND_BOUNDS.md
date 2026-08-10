@@ -11,7 +11,7 @@ tags: [eos, arch, tooling]
 
 # Invariants and bounds
 
-Reference for binding requirements B1, B2, B6 and B7 in
+Reference for requirements B1, B2, B6 and B7 in
 `packs/agentic-development/PACK.md`.
 
 ## Bounding a run

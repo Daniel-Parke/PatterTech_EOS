@@ -5,7 +5,7 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
-sources: [EV-0206]
+sources: [EV-0206, EV-0379, EV-0380, EV-0381, EV-0382, EV-0383]
 review: 2028-05
 type: guide
 tags: [state, data, delivery]
@@ -17,8 +17,10 @@ tags: [state, data, delivery]
 
 The fork is not which sync library to use. It is what the product
 promises about a write the user made in a tunnel, and that promise has
-to be made per write class before any library is chosen. PACK.md binds
-this as B1, B2 and B3; this guide is the argument behind it.
+to be made per write class before any library is chosen. PACK.md
+carries this as B1, B2 and B3, defaults since the ADR-0008 audit
+because the remedies are rulings of ours rather than published rules.
+This guide is the argument behind them.
 
 The load-bearing contradiction: convergence proofs prove replicas agree
 and no update is lost (EV-0379), and say nothing about whether

@@ -1,0 +1,223 @@
+{
+  "pack": "support-operations",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "T-0024",
+  "swept": "2026-08-10",
+  "method": "Every EV id cited anywhere in packs/support-operations/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 8,
+    "note": "One quoted span of six words or more in the read surface, a suggested customer reply the pack wrote itself in GD-SUPPORT-002. The two paywalled ISO standards are paraphrased only and nothing from either is quoted, which is what their rows require."
+  },
+  "counts": {
+    "sources_cited": 22,
+    "rows_carrying_licence_evidence": 2,
+    "by_licence_state": {
+      "verified": 1,
+      "stated-unverified": 18,
+      "no-reuse-licence": 0,
+      "unknown": 2,
+      "not-stated": 1
+    },
+    "residual_unknown_or_not_stated": 3
+  },
+  "sources": [
+    {
+      "id": "EV-0020",
+      "source": "OpenSLO specification",
+      "url": "https://github.com/OpenSLO/OpenSLO",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0041",
+      "source": "UK ICO guidance on AI and data protection",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/",
+      "licence": "Open Government Licence (typical for ICO); unknown exact",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0055",
+      "source": "GitLab Handbook",
+      "url": "https://handbook.gitlab.com/handbook/about/handbook-usage/",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "verified",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0095",
+      "source": "PostHog Handbook",
+      "url": "https://posthog.com/handbook/company/communication",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0096",
+      "source": "Google SRE Workbook error budget policy",
+      "url": "https://sre.google/workbook/error-budget-policy/",
+      "licence": "CC BY-NC-ND 4.0 (published free online; verify before reuse)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0122",
+      "source": "RFC 9457 Problem Details for HTTP APIs",
+      "url": "https://www.rfc-editor.org/rfc/rfc9457.html",
+      "licence": "IETF Trust Legal Provisions (BSD-style, RFC text)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0200",
+      "source": "PagerDuty Incident Response documentation, postmortem process",
+      "url": "https://response.pagerduty.com/after/post_mortem_process/",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0210",
+      "source": "The SPACE of Developer Productivity (Forsgren, Storey, Maddila, Zimmermann, Houck, Butler)",
+      "url": "https://www.microsoft.com/en-us/research/publication/the-space-of-developer-productivity-theres-more-to-it-than-you-think/",
+      "licence": "ACM copyright; paraphrase only, no verbatim reuse",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0211",
+      "source": "Moving past simple incident metrics, Courtney Nash on the VOID (InfoQ interview)",
+      "url": "https://www.infoq.com/articles/incident-metrics-void/",
+      "licence": "Copyright C4Media Inc; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0233",
+      "source": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design",
+      "url": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+      "licence": "Copyright Jakob Nielsen; reuse of the heuristics permitted with credit and a link to the page",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0421",
+      "source": "PagerDuty Incident Response documentation, severity levels",
+      "url": "https://github.com/PagerDuty/incident-response-docs/blob/master/docs/before/severity_levels.md",
+      "licence": "Apache-2.0 (repository LICENSE)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0422",
+      "source": "PagerDuty Business Incident Response documentation, recognising and declaring a business incident",
+      "url": "https://business-response.pagerduty.com/declaring/",
+      "licence": "Apache-2.0 (repository LICENSE for PagerDuty/business-response-docs); page itself shows no notice",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0423",
+      "source": "Google SRE Book, chapter 14, Managing Incidents",
+      "url": "https://sre.google/sre-book/managing-incidents/",
+      "licence": "CC BY-NC-ND 4.0 (paraphrase only, no verbatim reuse, no derivatives)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0424",
+      "source": "Kubernetes contributor guide, issue triage",
+      "url": "https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md",
+      "licence": "Apache-2.0 (repository LICENSE)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0425",
+      "source": "ISO 10002:2018, Quality management, Customer satisfaction, Guidelines for complaints handling in organizations",
+      "url": "https://www.iso.org/standard/71580.html",
+      "licence": "ISO copyright, paywalled; paraphrase only, no reuse of text",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0426",
+      "source": "ISO/IEC 20000-1:2018, Information technology, Service management, Part 1: Service management system requirements",
+      "url": "https://www.iso.org/standard/70636.html",
+      "licence": "ISO/IEC copyright, paywalled; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0427",
+      "source": "Reichheld, The One Number You Need to Grow, Harvard Business Review",
+      "url": "https://hbr.org/2003/12/the-one-number-you-need-to-grow",
+      "licence": "Harvard Business Publishing copyright, paywalled; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0428",
+      "source": "Keiningham, Cooil, Andreassen and Aksoy, A Longitudinal Examination of Net Promoter and Firm Revenue Growth, Journal of Marketing",
+      "url": "https://journals.sagepub.com/doi/10.1509/jmkg.71.3.039",
+      "licence": "American Marketing Association and SAGE copyright, paywalled; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0429",
+      "source": "Dixon, Freeman and Toman, Stop Trying to Delight Your Customers, Harvard Business Review",
+      "url": "https://hbr.org/2010/07/stop-trying-to-delight-your-customers",
+      "licence": "Harvard Business Publishing copyright, paywalled; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0430",
+      "source": "Kingman, The single server queue in heavy traffic, Mathematical Proceedings of the Cambridge Philosophical Society",
+      "url": "https://doi.org/10.1017/S0305004100036094",
+      "licence": "Cambridge University Press copyright, paywalled; the result itself is mathematics and not subject to reuse restriction",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0431",
+      "source": "Braun and Clarke, Using thematic analysis in psychology, Qualitative Research in Psychology",
+      "url": "https://www.tandfonline.com/doi/abs/10.1191/1478088706qp063oa",
+      "licence": "Taylor and Francis copyright, paywalled; author-hosted copies exist; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0432",
+      "source": "Paul Graham, Do Things That Don't Scale",
+      "url": "https://paulgraham.com/ds.html",
+      "licence": "unknown (no licence or copyright notice shown; author copyright assumed, paraphrase only)",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    }
+  ],
+  "residual": [
+    {
+      "id": "EV-0041",
+      "source": "UK ICO guidance on AI and data protection",
+      "licence": "Open Government Licence (typical for ICO); unknown exact",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0095",
+      "source": "PostHog Handbook",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0432",
+      "source": "Paul Graham, Do Things That Don't Scale",
+      "licence": "unknown (no licence or copyright notice shown; author copyright assumed, paraphrase only)",
+      "state": "unknown"
+    }
+  ]
+}

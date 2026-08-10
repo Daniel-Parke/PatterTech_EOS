@@ -13,9 +13,10 @@ says guard.validated is true proves nothing on its own: this module
 reads the mapping file the policy names, checks that it carries a
 bypass-suite validation record whose cases all passed, and derives
 validation from that. A missing, malformed or failing mapping fails
-closed, and a guarded class the suite never demonstrated as enforced
-stays manual-only even under a validated adapter. See
-kernel/adapters/README.md.
+closed; so does a policy whose guard.validated is anything other than
+explicitly true, absent included. And a guarded class the suite never
+demonstrated as enforced stays manual-only even under a validated
+adapter. See kernel/adapters/README.md.
 
 The action descriptor is a dict. Recognised keys:
 
@@ -204,9 +205,17 @@ def adapter_state(policy, root=None):
     """Derive the adapter's real state from the mapping on disk.
 
     validated is true only when the policy names a mapping, the mapping
-    file exists, and it carries a validation record with at least one
-    bypass-suite case and no case that failed. The policy's own
-    guard.validated can withdraw validation; it can never grant it.
+    file exists, it carries a validation record with at least one
+    bypass-suite case and no case that failed, and the policy's own
+    guard.validated is explicitly true. The policy can withdraw
+    validation; it can never grant it.
+
+    Absent means withdrawn, which is what
+    kernel/schemas/policy.schema.json has always said the key means and
+    what the D008 seed check has always read it as. This module read an
+    absent key as "not withdrawn", so one word had three readings across
+    the schema, the guard and the seed check. Fail closed is the
+    safety-preserving one, so it is the one all three now hold.
 
     covered holds the classes the suite actually demonstrated as
     enforced. Every other guarded class stays manual-only, per
@@ -231,9 +240,12 @@ def adapter_state(policy, root=None):
     elif failed:
         validated = False
         reasons.append("bypass-suite cases failed: %s" % ", ".join(failed))
-    if guard_cfg.get("validated", True) is False:
+    if guard_cfg.get("validated") is not True:
         validated = False
-        reasons.append("policy guard.validated is false: validation withdrawn")
+        reasons.append(
+            "policy guard.validated is %s, not true: validation withdrawn"
+            % ("absent" if "validated" not in guard_cfg
+               else repr(guard_cfg.get("validated"))))
 
     classes = mapping.get("classes") or {}
     verdicts = {}

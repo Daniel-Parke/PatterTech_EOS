@@ -1,0 +1,231 @@
+{
+  "pack": "product-discovery",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "T-0024",
+  "swept": "2026-08-10",
+  "method": "Every EV id cited anywhere in packs/product-discovery/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 8,
+    "note": "Two quoted spans of six words or more in the read surface, both the pack's own illustrative questions in GD-DISC-002 rather than source text. Findings are restated in the pack's own words throughout and the numeric claims are attributed to their EV ids. No table, list or figure is carried from a source."
+  },
+  "counts": {
+    "sources_cited": 23,
+    "rows_carrying_licence_evidence": 1,
+    "by_licence_state": {
+      "verified": 0,
+      "stated-unverified": 17,
+      "no-reuse-licence": 3,
+      "unknown": 3,
+      "not-stated": 0
+    },
+    "residual_unknown_or_not_stated": 3
+  },
+  "sources": [
+    {
+      "id": "EV-0010",
+      "source": "METR RCT on AI tools and experienced OSS developers",
+      "url": "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "licence": "all-rights-reserved",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0059",
+      "source": "GrowthBook Experiment Decision Framework",
+      "url": "https://docs.growthbook.io/app/experiment-decisions",
+      "licence": "unknown (GrowthBook core is MIT; EDF is a Pro/Enterprise feature)",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0074",
+      "source": "GitHub Spec Kit",
+      "url": "https://github.com/github/spec-kit",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0075",
+      "source": "Spec-Driven Development essay (spec-kit)",
+      "url": "https://github.com/github/spec-kit/blob/main/spec-driven.md",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0153",
+      "source": "Martin Fowler, MonolithFirst",
+      "url": "https://martinfowler.com/bliki/MonolithFirst.html",
+      "licence": "unknown (martinfowler.com, no open licence stated)",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0403",
+      "source": "GOV.UK Service Manual, How the discovery phase works",
+      "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works",
+      "licence": "Open Government Licence v3.0, Crown copyright",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0404",
+      "source": "GOV.UK Service Manual, User research in discovery",
+      "url": "https://www.gov.uk/service-manual/user-research/user-research-in-discovery",
+      "licence": "Open Government Licence v3.0, Crown copyright",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0405",
+      "source": "Kohavi, Deng, Frasca, Walker, Xu and Pohlmann, Online Controlled Experiments at Large Scale (KDD 2013)",
+      "url": "https://dl.acm.org/doi/10.1145/2487575.2488217",
+      "licence": "ACM copyright, paywalled; paraphrase only, no reproduction of text or figures",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0406",
+      "source": "Kohavi, Deng and Vermeer, A/B Testing Intuition Busters: Common Misunderstandings in Online Controlled Experiments (KDD 2022)",
+      "url": "https://exp-platform.com/abtestingintuitionbusters/",
+      "licence": "ACM copyright for the paper; landing page unlicensed. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0407",
+      "source": "Faulkner, Beyond the five-user assumption: Benefits of increased sample sizes in usability testing",
+      "url": "https://link.springer.com/article/10.3758/BF03195514",
+      "licence": "Springer copyright, paywalled; paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0408",
+      "source": "Nielsen Norman Group, Why You Only Need to Test with 5 Users",
+      "url": "https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/",
+      "licence": "Copyright Nielsen Norman Group, all rights reserved. Paraphrase only",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0409",
+      "source": "Mavin, Wilkinson, Harwood and Novak, Easy Approach to Requirements Syntax (EARS), and the official EARS guide",
+      "url": "https://alistairmavin.com/ears/",
+      "licence": "IEEE copyright for the paper; guide site licence not stated, treat as unknown. Paraphrase only",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0410",
+      "source": "Rodden, Hutchinson and Fu, Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications (CHI 2010)",
+      "url": "https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/",
+      "licence": "ACM copyright; Google Research landing page unlicensed. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0411",
+      "source": "Design Council, Framework for Innovation (the Double Diamond)",
+      "url": "https://www.designcouncil.org.uk/our-resources/framework-for-innovation/",
+      "licence": "CC-BY-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0412",
+      "source": "Salgado Neto, Araujo and de Souza Santos, Collaborative and AI-Supported Requirements Elicitation: An Empirical Study",
+      "url": "https://arxiv.org/abs/2606.24060",
+      "licence": "CC-BY-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0413",
+      "source": "Chen, Zhu and Zheng, When Synthetic Users Fail: A Cross-Domain Benchmark of LLM-Simulated Human Survey Responses",
+      "url": "https://arxiv.org/abs/2607.26348",
+      "licence": "arXiv.org perpetual non-exclusive licence 1.0. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0414",
+      "source": "Rosa, Moreno-Lumbreras, Robles and Gonzalez-Barahona, Understanding Specification-Driven Code Generation with LLMs: An Empirical Study Design",
+      "url": "https://arxiv.org/abs/2601.03878",
+      "licence": "CC-BY-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0415",
+      "source": "Teresa Torres, Product Talk, Opportunity Solution Trees",
+      "url": "https://www.producttalk.org/2016/08/opportunity-solution-tree/",
+      "licence": "Copyright Product Talk, all rights reserved. Paraphrase only",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0416",
+      "source": "Marty Cagan, SVPG, The Four Big Risks",
+      "url": "https://www.svpg.com/four-big-risks/",
+      "licence": "Copyright Silicon Valley Product Group. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0417",
+      "source": "Sean McBride, Intercom, RICE: Simple prioritization for product managers",
+      "url": "https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/",
+      "licence": "Copyright Intercom. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0418",
+      "source": "Strategyn, What is Outcome-Driven Innovation, Anthony Ulwick",
+      "url": "https://strategyn.com/outcome-driven-innovation/market-opportunity/",
+      "licence": "Copyright Strategyn; Outcome-Driven Innovation is a registered trade mark. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0419",
+      "source": "Mike Cohn, Mountain Goat Software, Are 64% of Features Really Rarely or Never Used?",
+      "url": "https://www.mountaingoatsoftware.com/blog/are-64-of-features-really-rarely-or-never-used",
+      "licence": "Copyright Mountain Goat Software. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0420",
+      "source": "Pendo, 2019 Feature Adoption Report",
+      "url": "https://go.pendo.io/rs/185-LQW-370/images/2019%20Feature%20Adoption%20Report%20Digital.pdf",
+      "licence": "Copyright Pendo.io. Paraphrase only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    }
+  ],
+  "residual": [
+    {
+      "id": "EV-0059",
+      "source": "GrowthBook Experiment Decision Framework",
+      "licence": "unknown (GrowthBook core is MIT; EDF is a Pro/Enterprise feature)",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0153",
+      "source": "Martin Fowler, MonolithFirst",
+      "licence": "unknown (martinfowler.com, no open licence stated)",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0409",
+      "source": "Mavin, Wilkinson, Harwood and Novak, Easy Approach to Requirements Syntax (EARS), and the official EARS guide",
+      "licence": "IEEE copyright for the paper; guide site licence not stated, treat as unknown. Paraphrase only",
+      "state": "unknown"
+    }
+  ]
+}

@@ -1,4 +1,9 @@
-"""Benchcli tests: subprocess pass-through, no reimplementation, drills stub."""
+"""Benchcli tests: subprocess pass-through, no reimplementation.
+
+The drills wrapper is not a stub and has not been one since it was
+wired to tools.eos.drills; its behaviour is covered in test_drills.py
+and only the wrapper's own shape is asserted here.
+"""
 
 import json
 import sys

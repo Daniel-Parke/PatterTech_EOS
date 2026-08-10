@@ -81,9 +81,11 @@ change is small and the reviewer is the author.
 ## Default
 
 B plus C. Execute what can be executed, and force everything else to
-declare itself. B and C together are what turn binding requirement B3
-from an aspiration into a gate: a block calling a flag that no longer
-exists fails the build on the run that introduces it.
+declare itself. B and C together are what turn B3 from an aspiration
+into a gate: a block calling a flag that no longer exists fails the
+build on the run that introduces it. B3 is a default rather than a
+binding requirement, so a repository may decline the gate, and then it
+writes down which blocks it has stopped checking.
 
 ## Making the gate honest
 

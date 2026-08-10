@@ -1,0 +1,128 @@
+{
+ "pack": "docs-dx",
+ "checked": "2026-08-10",
+ "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0023",
+  "EV-0044",
+  "EV-0095",
+  "EV-0102",
+  "EV-0136",
+  "EV-0137",
+  "EV-0170",
+  "EV-0171",
+  "EV-0175",
+  "EV-0189",
+  "EV-0322",
+  "EV-0323",
+  "EV-0324",
+  "EV-0325",
+  "EV-0326",
+  "EV-0327",
+  "EV-0328",
+  "EV-0329",
+  "EV-0330",
+  "EV-0331",
+  "EV-0332",
+  "EV-0333",
+  "EV-0334",
+  "EV-0335",
+  "EV-0336"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0044",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "B6, the agent entry file convention"
+  },
+  {
+   "ev": "EV-0095",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "edit-on-encounter, a preference"
+  },
+  {
+   "ev": "EV-0102",
+   "licence_recorded": "unknown (Apache-2.0 for structurizr/dsl historically; not confirmed on the docs page)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "B4, generated reference"
+  },
+  {
+   "ev": "EV-0323",
+   "licence_recorded": "unknown (no licence statement found on the page)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D1's counter-argument against the four forms"
+  },
+  {
+   "ev": "EV-0325",
+   "licence_recorded": "unknown (IEEE/ACM proceedings copyright; no open-access copy verified)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the claim that documentation failure decomposes into named categories"
+  },
+  {
+   "ev": "EV-0326",
+   "licence_recorded": "unknown (ACM Digital Library; the ACM landing page returned 403 to automated fetch)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D6, coverage before style"
+  },
+  {
+   "ev": "EV-0327",
+   "licence_recorded": "unknown (author-hosted preprint; ICSE 2017 proceedings copyright applies to the published version)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "B5's scope note and the read-rate evidence"
+  },
+  {
+   "ev": "EV-0329",
+   "licence_recorded": "unknown (arXiv preprint; check the arXiv licence line before reuse. Springer holds the journal version)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D2, what a README answers"
+  },
+  {
+   "ev": "EV-0336",
+   "licence_recorded": "unknown (copyright DX 2026; no reuse licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the open question about onboarding time"
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/docs-dx/refs/DOC_FORMS.md",
+   "line": 14,
+   "concern": "This file is the pack's longest treatment of the four documentation forms from EV-0322, which is CC BY-SA 4.0. Share-alike would bite if any passage were carried into a repository shipping under a different licence.",
+   "resolution": "Not a concern as it stands. Only the four form names are carried, and they are terms rather than text. Recorded because this is the file to re-read first if the sweep is ever repeated."
+  },
+  {
+   "file": "packs/docs-dx/PACK.md",
+   "line": 207,
+   "concern": "D3 carries the six changelog category names from EV-0333, which is MIT. MIT reuse asks for the copyright and permission notice to be reproduced, and no notice for it appears anywhere in this repository.",
+   "resolution": "Left as is, flagged for the NOTICE decision. Six category words are almost certainly below the threshold that triggers the notice condition, but the integrator assembling NOTICE should see the fact rather than guess at it."
+  },
+  {
+   "file": "packs/docs-dx/PACK.md",
+   "line": 253,
+   "concern": "The preferences list carries the enforceable subset of EV-0334, which is CC BY 4.0 and so needs attribution on reuse.",
+   "resolution": "Not a concern. Attribution is by evidence id, the subset is a list of mechanical rules rather than the guide's prose, and the pack says outright that the guide is written for a different house."
+  }
+ ],
+ "notes": "Nine of twenty-five cited rows carry an unknown or not-stated licence, the highest share of the six packs in this lane. The reason is the domain's evidence: conference papers behind publisher terms and vendor research pages. Every one of the nine is cited for a finding rather than for wording. Two of the nine, EV-0044 and EV-0095, carry a licence_checked date, so somebody looked and recorded that the source states nothing; the other seven are unconfirmed and nobody has looked. EV-0102 is the cheapest to resolve, since the project historically shipped under Apache-2.0 and only the docs page is unconfirmed. The quotation scan found no carried passage: the only quoted strings in the read surface are our own, at GD-DOCS-003 line 42 and refs/DOC_GATE.md line 50."
+}

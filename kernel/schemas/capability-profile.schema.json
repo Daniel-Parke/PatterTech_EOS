@@ -39,7 +39,17 @@
           "required": ["n", "pass_rate"],
           "properties": {
             "n": { "type": "integer", "minimum": 0 },
-            "pass_rate": { "type": "number", "minimum": 0, "maximum": 1 }
+            "pass_rate": {
+              "type": ["number", "null"],
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Null when no sampled review has run. A rate of 1.0 against an n of 0 reads as a perfect record and makes regression_rule.thresholds.sampled_review_pass_rate_min unable to fire; null says the threshold is not evaluable, which is the true statement."
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Why the numbers are what they are, for a reader who would otherwise take a null or a zero at face value."
+            }
           }
         },
         "escaped_defects": {
@@ -61,6 +71,11 @@
     "authorised_date": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "authorisation_note": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Anything about this authorisation a reader needs and the fields cannot carry: what was back-filled, what ordering the dates hide, what the level is due to be re-argued against. Re-dating a record to make it look tidy loses the fact; a note keeps it."
     },
     "expires": {
       "type": "string",
@@ -91,6 +106,15 @@
         "on_breach": {
           "const": "regress-one-level",
           "description": "Crossing a threshold regresses the profile one level automatically, logged."
+        },
+        "evaluable": {
+          "type": "boolean",
+          "description": "False when at least one threshold has nothing to test against, so the rule cannot fire on it. A rule recorded as live while half of it is untestable reads as protection that is not there."
+        },
+        "not_evaluable_reason": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Which threshold cannot be evaluated and why, and what the rule still fires on meanwhile."
         }
       }
     }

@@ -1,0 +1,23 @@
+{
+  "id": "T-0017",
+  "intent": "Make registry/lessons.json canonical with a schema, migrate the prose rows with an origin discriminator and a disposition mapping, and leave LESSONS.md a derived view.",
+  "claims": [
+    "registry/lessons.json",
+    "registry/LESSONS.md",
+    "kernel/schemas/lesson.schema.json"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "active",
+  "owner_session": "eos-v21-L4",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-10T18:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

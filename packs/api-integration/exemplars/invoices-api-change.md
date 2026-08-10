@@ -49,8 +49,8 @@ compatibility: BACKWARD
 baseline: api/baseline/openapi.yaml
 ```
 
-That is BR-3. The tier was never written down before, which is why the
-last rename in this service went out unnoticed.
+That is default D10. The tier was never written down before, which is
+why the last rename in this service went out unnoticed.
 
 ## 4. Ship the rename as an addition
 

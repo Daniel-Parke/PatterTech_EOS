@@ -13,7 +13,7 @@ file. Frozen trees are not indexed.
 
 | path | type | tags | summary | review |
 | --- | --- | --- | --- | --- |
-| AGENTS.md | root | eos | The v2 router, entry modes, policy-routed mode entry and the never-list |  |
+| AGENTS.md | root | eos | The router, entry modes, graph builds, policy-routed mode entry and the never-list |  |
 | benchmark/drills/agentic-development.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
 | benchmark/drills/ai-ml-llm.md | example | eos testing | Cold-agent acceptance drill for the AI, ML and LLM pack, build the gate before tuning the classifier |  |
 | benchmark/drills/api-integration.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
@@ -41,45 +41,52 @@ file. Frozen trees are not indexed.
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
 | benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
 | CHANGELOG.md | governance | eos | One entry per release tag, sectioned by area |  |
-| CLAUDE.md | root | eos | The v2 router, entry modes, policy-routed mode entry and the never-list |  |
+| CLAUDE.md | root | eos | The router, entry modes, graph builds, policy-routed mode entry and the never-list |  |
 | estate/ESTATE_MAP.md | registry | eos | The estate narrative, how the repos relate, which are governed and what the seams between them are | 2026-11 |
 | examples/autowatt-seed.md | example | eos | Worked example, the AutoWatt reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | examples/v2-worked-high-assurance.md | example | eos | Worked example, an auth change routed R3 end to end, oracle first, reviewer and operator at the gate |  |
 | examples/v2-worked-lean.md | example | eos | Worked example, an Express run end to end in an S venture, from request to commit |  |
-| GOVERNANCE.md | governance | eos | The law of the EOS, the graded change path, precedence, promotion, the protected set, ids, budgets |  |
+| GOVERNANCE.md | governance | eos | The law of the EOS, the graded change path, precedence, promotion, the protected set, claims and records, ids, budgets |  |
 | inception/briefs/BRIEF-S-brochure.md | kernel | eos | Canned drill brief, a sole-trader joinery brochure site, scripted operator answers |  |
 | inception/COMPILE.md | kernel | eos | The v2 seed compiler's rules, prune, fill, policy fill, distil, report, and the never-list |  |
 | inception/EXPRESS_INCEPTION.md | kernel | eos | The S-scale fast path for Session 0, six questions, inherited defaults, two human gate items |  |
+| inception/GENESIS.md | kernel | eos | The Genesis phase, run in the venture repo after the seed gate, and the development blueprint it produces |  |
 | inception/INCEPTION.md | kernel | eos | The Session 0 master playbook in v2, phases A to E, from idea to signed seed |  |
-| inception/INTERVIEW.md | kernel | eos | The v2 intake protocol, seventeen questions, the risk-surface set and the three challenge steps |  |
+| inception/INTERVIEW.md | kernel | eos | The v2 intake protocol, eighteen questions, the risk-surface set and the three challenge steps |  |
 | inception/README.md | kernel | eos | The Session 0 system in v2, the two paths and the files that run them |  |
-| inception/WALK_ORDER.md | kernel | eos | How the pack activation walk is built and ordered, the always-walk set and the budget rule |  |
+| inception/WALK_ORDER.md | kernel | eos | How the pack activation walk is built, the always-walk set, the canonical order over every pack and the two ruling budgets |  |
 | inception/wargames/WG-EOS-001-venture-scale.md | wargame | eos wargame | What scale of organisational machinery does this venture compile, S or ORG? | 2027-07 |
 | inception/wargames/WG-EOS-002-repo-shape.md | wargame | eos wargame infra | One repo, several, or a corner of an existing one? | 2027-07 |
 | kernel/adapters/README.md | kernel | eos | What a host enforcement adapter must provide, how validation works, and why an unvalidated adapter means manual-only |  |
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
-| kernel/METADATA_SPEC.md | kernel | eos | The eight metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
+| kernel/METADATA_SPEC.md | kernel | eos | The nine metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
 | kernel/README.md | kernel | eos | The kernel in v2, the law files and the compile contract |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The v2 seed law, the S and ORG file lists, first-use directories, trigger add-ons |  |
 | kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to v2 checker ids, human items headed by cold-start |  |
+| kernel/templates/ACCEPTANCE_SPINE.tpl.md | template | eos | Acceptance spine template, the journey walk-through as a suite skeleton that starts failing and goes green journey by journey |  |
 | kernel/templates/AGENTS.tpl.md | template | eos | Venture router template, the policy-routed v2 entry, compiled output capped at 40 lines |  |
 | kernel/templates/COMPILE_REPORT.tpl.md | template | eos | Compile report template, the seed's ancestry proof and the rubric sign-off record |  |
 | kernel/templates/EOS_FEEDBACK.tpl.md | template | eos | Venture feedback file template, the one channel back to the EOS, harvested monthly |  |
+| kernel/templates/LENS.tpl.md | template | eos | Lens contract template, the eight parts agreed before an external source is studied and the provenance every lesson carries |  |
 | kernel/templates/LOCKBOOK.tpl.md | template | eos | Venture lock-book template, the machine rulings header and the module contract sections |  |
 | kernel/templates/OPERATORS_GUIDE.tpl.md | template | eos | Venture operators guide template, the human's manual, v2 launcher library per scale |  |
 | kernel/templates/org/CONSTITUTION.tpl.md | template | eos | Venture constitution template, Part I product slot, Parts II and III the protected v2 law |  |
-| kernel/templates/org/PLAYBOOKS.tpl.md | template | eos | Venture playbook template, per-mode procedures plus hardening, incident, upkeep and retro |  |
+| kernel/templates/org/GRAPH_BUILD.tpl.md | template | eos | Venture graph-build template, how a partition is cut, what a lane brief carries, how the integrator merges and what stops a run |  |
+| kernel/templates/org/PLAYBOOKS.tpl.md | template | eos | Venture playbook template, per-mode procedures plus wide build, hardening, incident, upkeep and retro |  |
 | kernel/templates/org/QUESTIONS.tpl.md | template | eos | Questions template, the human decision queue and its folding rule |  |
 | kernel/templates/org/roles/EXECUTOR.tpl.md | template | eos | EXECUTOR charter template, the default owner who plans, implements, tests and documents |  |
 | kernel/templates/org/roles/ORACLE.tpl.md | template | eos | ORACLE charter template, independent gate-test author for high-assurance work |  |
 | kernel/templates/org/roles/REVIEWER.tpl.md | template | eos | REVIEWER charter template, acceptance judgement, sampled review and bounded repair |  |
 | kernel/templates/org/START.tpl.md | template | eos | Venture boot template, per-mode budgets, ground rules, close only when exceptional |  |
 | kernel/templates/org/TEMPLATES.tpl.md | template | eos | Canonical artefact shapes template, task records, spikes, ADRs, questions, incidents |  |
-| kernel/templates/org/TESTING.tpl.md | template | eos | Adaptive testing law template, timing by change class, the test map, quality signals |  |
+| kernel/templates/org/TESTING.tpl.md | template | eos | Adaptive testing law template, staged verification, timing by change class, the test map, quality signals |  |
+| kernel/templates/PRODUCT_MAP.tpl.md | template | eos | Product map template, the domain model, contracts, dependency graph and per-journey acceptance conditions Genesis fills |  |
+| kernel/templates/RESEARCH_PACKET.tpl.md | template | eos | Research packet template, sourced facts and the decisions they settle, with a stopping condition and a cap |  |
 | kernel/templates/TASKS.tpl.md | template | eos | S-scale task list template, the single hand-kept work surface at the smallest scale |  |
 | kernel/templates/VENTURE_BRIEF.tpl.md | template | eos | Venture brief template, the business truth the interview produces, challenge steps recorded |  |
+| kernel/templates/WORK_PACKAGE.tpl.md | template | eos | Work package template, the objective, contracts, ownership boundary, context packet and acceptance conditions a build lane receives |  |
 | OPERATORS_GUIDE.md | guide | eos | The operator's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong | 2027-03 |
 | org/CADENCE.md | org | eos | Pointer, the EOS heartbeat is machine state in org/cadence.json |  |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
@@ -87,6 +94,9 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0003-lightness-and-honest-generation.md | decision | eos | Retained material that misleads an agent is a defect, the archive of record is a tag, and every derived file has a live generator |  |
 | org/decisions/ADR-0004-fewer-promises-all-of-them-kept.md | decision | eos | Two rungs not three, exceptions are ADRs, pack budgets measured where loading actually happens, and the two controls that were described but never ran |  |
 | org/decisions/ADR-0005-four-corrections-in-the-protected-set.md | decision | eos | Four false statements in protected files, the corrections proposed for them, and why they were not simply edited |  |
+| org/decisions/ADR-0006-genesis-exemplar-learning-and-the-swarm-pack.md | decision | eos | EOS v2.1, the Genesis blueprint phase, the exemplar-learning workflow, the agentic-swarm pack, hands-off ventures and staged verification |  |
+| org/decisions/ADR-0007-one-release.md | decision | eos | Hold v2, fold v2.1 into it, release once, strike the two efficiency gates with reasons and retire the sealed suite unopened |  |
+| org/decisions/ADR-0008-less-law-better-kept.md | decision | eos | The de-restriction pass, what stops binding and what stays, and what catches each loosened failure instead |  |
 | org/deviations.md | org | eos | Append-only implementation-deviation log for the EOS v2 build, per ADR-0002 |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
@@ -113,7 +123,7 @@ file. Frozen trees are not indexed.
 | org/migration/plans/Guth.md | org | eos | Guth's read-only v2 migration plan, the pin normalisation and the nineteen queue rows |  |
 | org/migration/plans/PatterTech_Website.md | org | eos | PatterTech_Website's read-only plan, fresh v2 S inception whenever the operator wants it |  |
 | org/migration/PLAYBOOK.md | org | eos | The per-venture v1 to v2 migration procedure, three routes, what is preserved, and the consent rule |  |
-| org/PLAYBOOKS.md | org | eos | The EOS-side playbooks, PB-E01 to PB-E10, one v2 procedure each |  |
+| org/PLAYBOOKS.md | org | eos | The EOS-side playbooks, PB-E01 to PB-E12, the mode procedures and the monthly pass |  |
 | org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |
@@ -130,6 +140,18 @@ file. Frozen trees are not indexed.
 | packs/agentic-development/refs/TOPOLOGY_CARD.md | guide | eos arch tooling | The ten topologies by canonical name, the pressure that licenses each, and the evidence behind it | on-change-of:agent-sdk-major-release |
 | packs/agentic-development/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
 | packs/agentic-development/research/NOTES.md | example | eos | Research synthesis for the agentic development and orchestration pack, topologies, context, tools, checkpoints, guardrails |  |
+| packs/agentic-swarm/CHECKS.md | guide | eos arch delivery testing | What a reviewer or a script can verify about a graph build, split into executable today and judgement | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md | example | eos arch delivery | The partition, packets and merge plan for the EOS v2.1 build, written as it was dispatched |  |
+| packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md | guide | eos arch delivery | Should this work be fanned out over lanes at all, or given to one agent? | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/guides/GD-SWARM-002-cut-the-partition.md | guide | eos arch delivery | Where do the cuts go when work is split across lanes, and what is never cut at all? | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/guides/GD-SWARM-003-who-holds-the-plan.md | guide | eos arch tooling | Does a script hold the fan-out shape, or does a model decide it turn by turn? | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/guides/GD-SWARM-004-verifying-a-lane.md | guide | eos delivery testing | What decides that a lane's work is good, and who is allowed to have written it? | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/PACK.md | guide | eos arch delivery tooling | How we build software by fanning work over a measured dependency graph, with one integrator and a verifier that predates the lanes | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/refs/MERGE_AND_REVIEW.md | guide | eos delivery arch | How lanes land, who decides the order, and the review topology that scales with lane count | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/refs/PACKET_AND_RETURN.md | guide | eos arch tooling | The nine packet fields, the escape, the return schema and the four terminal statuses | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/refs/RISK_REGISTER.md | guide | eos security arch ops | Fifteen risks a graph build carries, with mechanism, evidence, detection signal and control | on-change-of:agent-harness-major-release |
+| packs/agentic-swarm/research/DRILL_PROPOSAL.md | example | eos | Proposed cold-agent acceptance drill for the swarm pack, cut a partition and refuse the bad one |  |
+| packs/agentic-swarm/research/NOTES.md | guide | eos arch | How the swarm pack was assembled, what the corpus disagrees about, and the questions it could not close | on-change-of:packs/agentic-swarm |
 | packs/ai-ml-llm/CHECKS.md | guide | testing delivery tooling | What a reviewer or a script can verify about model-backed work, split into executable today and judgement | 2026-11 |
 | packs/ai-ml-llm/exemplars/EX-AIML-001-classifier-prompt-swap.md | example | testing delivery data | The ai-ml-llm pack applied end to end to a proposed prompt swap on a support ticket classifier, and the model swap after it |  |
 | packs/ai-ml-llm/guides/GD-AIML-001-acceptance-evidence.md | guide | testing delivery data | What evidence accepts or refuses a change to a model-backed feature, offline set, judge, human sample or production telemetry? | 2026-11 |
@@ -137,7 +159,7 @@ file. Frozen trees are not indexed.
 | packs/ai-ml-llm/guides/GD-AIML-003-who-grades-the-output.md | guide | testing delivery data | Who grades model output, a deterministic scorer, a human, a validated model judge or the user, and what each can settle | 2026-12 |
 | packs/ai-ml-llm/guides/GD-AIML-004-prompt-maintenance.md | guide | delivery testing content | How is a prompt maintained over time, hand-written and versioned, few-shot, compiled by an optimiser, or replaced by fine-tuning? | 2026-12 |
 | packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md | guide | perf delivery ops | Which model backs this feature and what happens when it retires, one pinned model, a cascade, self-assessed routing or a portfolio? | 2027-03 |
-| packs/ai-ml-llm/PACK.md | playbook | delivery testing data perf | Building on language models, evaluation before deployment, private held-out sets, pinned model ids and validated judges | 2027-02 |
+| packs/ai-ml-llm/PACK.md | playbook | delivery testing data perf | Building on language models, result identity, private held-out sets, pinned model ids, validated judges and a person in front of consequential output | 2027-02 |
 | packs/ai-ml-llm/refs/CONTEXT_LAYOUT.md | foundation | perf data delivery | Prompt layout mechanics, the caching against position conflict, context budget and how to measure usable length | on-change-of:EV-0261 |
 | packs/ai-ml-llm/refs/EVAL_REPORT.md | foundation | testing delivery data | The fields an eval report must carry, the paired comparison arithmetic, the held-out split and what a verdict may say | on-change-of:EV-0255 |
 | packs/ai-ml-llm/refs/MODEL_MIGRATION.md | foundation | ops delivery perf | Pinning model identifiers, recording retirement dates, the migration drill and the scheduled drift check | on-change-of:EV-0260 |
@@ -169,7 +191,7 @@ file. Frozen trees are not indexed.
 | packs/architecture/guides/WG-ARCH-006-change-proof.md | guide | arch testing ci | What proves a change changed nothing, whether a green suite, behaviour pinned first, a byte-stable output canary, or a differential run against the old version | 2027-07 |
 | packs/architecture/guides/WG-ARCH-007-vendor-seams.md | guide | arch security money | How deep a vendor is allowed into the codebase, whether SDK throughout, an owned adapter, the raw protocol, or a generated client | 2027-01 |
 | packs/architecture/guides/WG-ARCH-008-database-topology.md | guide | arch data infra | Where data rests, whether one shared database, private tables with distinct credentials, one store per deployable, or a records core with a separate readings store | 2027-06 |
-| packs/architecture/PACK.md | guide | arch data infra tooling ci | Architecture pack for boundaries declared and machine-checked, decisions recorded as ADRs, and one deployable with one database until measured evidence says otherwise | 2027-02 |
+| packs/architecture/PACK.md | guide | arch data infra tooling ci | Architecture pack for boundaries declared and machine-checked, generated contracts drift-gated, webhooks verified over raw bytes, and one deployable with one database until measured evidence says otherwise | 2027-02 |
 | packs/architecture/refs/architecture-description.md | example | arch content | The MADR heading set, the C4 levels worth authoring, the arc42 sections worth borrowing, and the ISO 42010 vocabulary behind them | 2027-05 |
 | packs/architecture/refs/boundary-tooling.md | example | arch tooling ci | Contract shapes, config skeletons and known blind spots for import-linter, dependency-cruiser and ArchUnit, plus how each is wired into a build | 2026-11 |
 | packs/architecture/refs/evidence-map.md | example | arch content | Which evidence row supports which requirement, what population it observed, and where its licence limits reuse to paraphrase | 2027-04 |
@@ -203,14 +225,14 @@ file. Frozen trees are not indexed.
 | packs/business-model-pricing/research/NOTES.md | example | eos testing | What the evidence supports for business model and pricing, three contrasting philosophies with fit conditions, the disagreements, and the binding versus default versus preference split |  |
 | packs/coding/CHECKS.md | guide | delivery ci tooling | What a reviewer or a checker can verify about coding work, split into executable today and judgement | 2027-05 |
 | packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md | example | delivery testing | The coding pack applied end to end to a webhook receiver that swallows a signature failure and returns success |  |
-| packs/coding/guides/GD-COD-001-oracle-strategy.md | guide | testing delivery wargame | Where does the oracle for this change come from, test-first, characterisation, contract or downstream gate? | 2027-05 |
+| packs/coding/guides/GD-COD-001-oracle-strategy.md | guide | testing delivery wargame | Where does the oracle for this change come from, specification, characterisation, contract or downstream gate? | 2027-05 |
 | packs/coding/guides/GD-COD-002-review-gate.md | guide | delivery ci wargame | Who reviews a change and how hard, from machine gate only to independent human review at every merge | 2027-02 |
 | packs/coding/guides/GD-COD-003-failure-mode-contract.md | guide | arch delivery wargame | How do callers learn a call failed, opaque errors, one sentinel, a declared taxonomy or typed results? | on-change-of:EV-0175 |
 | packs/coding/guides/GD-COD-004-pin-then-change.md | guide | testing delivery wargame | How do you change code nobody can specify, read carefully, pin behaviour, reconstruct a spec or rewrite behind a contract? | 2027-10 |
 | packs/coding/guides/GD-COD-005-repo-shape.md | guide | arch delivery wargame | One repository or several, and how the trunk flows through whichever you pick | 2027-08 |
 | packs/coding/PACK.md | playbook | eos delivery testing | How code is written and accepted in a venture repo, oracles, pinning, error paths and the merge gate | 2027-02 |
 | packs/coding/refs/ERROR_PATH.md | foundation | delivery testing | The error-path reference, what counts as handled, how failures are declared, and the checks that catch a swallow | 2028-02 |
-| packs/coding/refs/ORACLES.md | foundation | testing delivery | Which oracle each change type needs, what counts as one, and the commit order that proves it came first | 2027-05 |
+| packs/coding/refs/ORACLES.md | foundation | testing delivery | Which oracle each change type needs, what counts as one, and how independence and a demonstrated failure are proved | 2027-05 |
 | packs/coding/refs/REVIEW_GATE.md | foundation | delivery ci | What the machine gate must contain, how findings are split, and how a human reads a diff when one does | 2027-02 |
 | packs/coding/research/DRILL_PROPOSAL.md | example | eos | Cold-agent acceptance drill for the coding pack, pin then change an undocumented parser |  |
 | packs/coding/research/NOTES.md | example | eos | Research synthesis for the coding pack, four construction philosophies, review at scale, and what should bind |  |
@@ -222,7 +244,7 @@ file. Frozen trees are not indexed.
 | packs/data-analytics/guides/GD-DATA-004-storage-shape.md | guide | data infra arch | Where does the analytics data sit, a single managed warehouse, a warehouse over an open table format, a lakehouse, or files and a single-node engine? | 2028-01 |
 | packs/data-analytics/guides/GD-DATA-005-event-contract.md | guide | data product delivery | How are product events named and validated, hosted SDK defaults, a written convention, a reviewed tracking plan, or a registry that quarantines invalid events? | 2028-02 |
 | packs/data-analytics/PACK.md | playbook | eos data testing pii | Analytics data, event taxonomy, model shape, quality gates, experiment statistics and what the analytics layer may hold about a person | 2027-11 |
-| packs/data-analytics/refs/DATA_CONTRACT.md | foundation | data delivery testing | What a data contract has to carry to satisfy B1 and B2, the rule kinds available, and how a contract fails silently | 2028-08 |
+| packs/data-analytics/refs/DATA_CONTRACT.md | foundation | data delivery testing | What a data contract has to carry to satisfy D9 and D10, the rule kinds available, and how a contract fails silently | 2028-08 |
 | packs/data-analytics/refs/EXPERIMENT_STATS.md | foundation | data testing product | Experiment mechanics behind B4 and B5, the sample ratio check, power arithmetic, variance reduction and the interpretation errors that produce false conclusions | 2029-08 |
 | packs/data-analytics/refs/PRIVACY_IN_ANALYTICS.md | foundation | data pii security | What the analytics layer may hold about a person, the identifier ladder behind B3, UK duties, and how to read a differential privacy claim | on-change-of:EV-0225 |
 | packs/data-analytics/research/DRILL_PROPOSAL.md | example | eos testing | Single-run cold-agent acceptance drill for the data-analytics pack, with deterministic machine-checkable criteria |  |
@@ -231,7 +253,7 @@ file. Frozen trees are not indexed.
 | packs/delivery-testing/exemplars/EX-DEL-001-drifted-fake-and-a-lying-suite.md | example | delivery testing ci | A worked run of the pack: a rounding defect, a drifted fake and a clock-dependent test, fixed in order |  |
 | packs/delivery-testing/guides/WG-DEL-005-test-doubles.md | wargame | delivery testing arch | Which double stands in for this port: real, container, verified fake, or mock? | 2028-02 |
 | packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md | wargame | delivery testing ci | How independent must the oracle be from the code it judges, and who authors it? | 2028-03 |
-| packs/delivery-testing/guides/WG-DEL-007-test-timing.md | wargame | delivery testing ci | When are tests written relative to the code, and is that a rule or a default? | 2028-03 |
+| packs/delivery-testing/guides/WG-DEL-007-test-timing.md | wargame | delivery testing ci | What has to exist before work fans out, and when checks get written relative to the code | 2028-03 |
 | packs/delivery-testing/PACK.md | guide | delivery testing ci | Delivery, testing and quality: what binds, what defaults, and which fork routes to which guide | 2028-02 |
 | packs/delivery-testing/refs/CONTRACT_SUITES.md | example | delivery testing arch | How to build and run a contract suite that proves a double still matches the real thing |  |
 | packs/delivery-testing/refs/FLAKE_AND_DETERMINISM.md | example | delivery testing ci | Flake sources, the determinism budget, the quarantine record and why retries are not a policy |  |
@@ -271,6 +293,7 @@ file. Frozen trees are not indexed.
 | packs/legal-licensing/guides/GD-LEGAL-002-compliance-posture.md | guide | security delivery tooling | How a venture decides licence questions at all, standing verdict against per-file declaration against certified process against scan and review | on-change-of:https://www.apache.org/legal/resolved.html |
 | packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md | guide | security product | What licence a repository carries outbound, and which promise that makes to the people downstream | on-change-of:https://blueoakcouncil.org/list |
 | packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md | guide | security delivery | How rights arrive with inbound code, sign-off against agreement against employment against nothing, and where agent authorship sits | on-change-of:https://developercertificate.org/ |
+| packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md | guide | security delivery | What a study may lawfully carry away from a source we do not own, how deep the reading goes, and who may hold the source while the replacement is written | 2027-04 |
 | packs/legal-licensing/PACK.md | playbook | security pii delivery | Licensing, inbound provenance and UK data-protection routing for a venture, and the four situations that stop and go to a lawyer | 2027-04 |
 | packs/legal-licensing/refs/ESCALATION.md | guide | security pii | The four triggers that stop the pack and go to a human lawyer, what to hand over, and what to stop doing meanwhile | 2028-03 |
 | packs/legal-licensing/refs/LICENCE_CLASSES.md | guide | security delivery tooling | The three-bucket allowlist with its reasons, the expression grammar that matters, and what to do with the values a scan actually returns | on-change-of:https://spdx.org/licenses/ |
@@ -378,7 +401,8 @@ file. Frozen trees are not indexed.
 | packs/writing-content/research/NOTES.md | example | eos testing | Research synthesis for the writing-content pack, four philosophies of clear text, what is machine-checkable, and what should bind |  |
 | README.md | root | eos | What the PatterTech EOS is, where it stands against its own gates, how the repo is laid out, how a venture consumes it, and the principles that hold |  |
 | registry/CAPABILITIES.md | registry | eos | Derived view of the domain coverage matrix, every field in full | 2027-02 |
-| registry/LESSONS.md | registry | eos | The harvest ledger, live lessons and their dispositions, plus what has been pruned into the packs | 2026-11 |
+| registry/LESSONS.md | registry | eos | Derived view of the lessons ledger, every row with its disposition and reasoning | on-change-of:registry/lessons.json |
+| registry/LICENCE_RESIDUALS.md | registry | eos security | The cited sources whose licence is unknown or not stated, what the provenance sweep confirmed and what it did not | 2026-11 |
 | registry/PROJECTS.md | registry | eos | The venture directory, what each is pinned to, whether that pin resolves, and when it was last checked | 2026-11 |
 | registry/stacks/README.md | registry | eos infra hosting | Stack profiles, what each is for and when to reach for it | 2027-01 |
 | registry/stacks/STACK-fastapi-postgres.md | stack | infra hosting data testing | Profile 02, FastAPI on Postgres, shape, caps and hard-won constraints | 2027-01 |
@@ -387,4 +411,4 @@ file. Frozen trees are not indexed.
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
 | registry/VENDORS.md | registry | eos infra hosting | Trusted third parties, what we trust each for and the exit route | 2027-01 |
 | tools/CLI_CONTRACTS.md | kernel | eos | Subcommand contracts for python -m tools.eos, inputs, JSON outputs, exit codes |  |
-| TOUR.md | guide | eos | The teaching surface for EOS v2, what changed from v1 and why, the kernel, the packs and where to look | 2027-01 |
+| TOUR.md | guide | eos | The teaching surface for EOS v2.1, what changed from v1 and why, the modes, the risk layers, Genesis, study, graph builds, staged verification and where to look | 2027-08 |

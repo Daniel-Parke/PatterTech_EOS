@@ -15,8 +15,9 @@ tags: [arch, tooling, ci]
 
 ## The question
 
-Every boundary ends up with a machine-readable contract, because BR-1
-requires one. The fork is where it comes from: written before the code,
+Almost every boundary ends up with a machine-readable contract, because
+default D9 asks for one and BR-2 cannot run without one. The fork is
+where it comes from: written before the code,
 compiled from a definition language, emitted from the handlers, or
 assembled after the fact when someone asks for docs. The failure that
 decides it is drift: a document that says one thing while the service
@@ -66,9 +67,10 @@ implementation habits.
 ### D. No committed contract
 
 Prose docs, a shared collection, or nothing. Buys: nothing durable.
-Costs: fails BR-1, defeats the breaking-change gate (there is no
-baseline to diff), defeats schema-derived testing, and defeats client
-generation.
+Costs: departs from D9, defeats the breaking-change gate in BR-2
+(there is no baseline to diff), defeats schema-derived testing, and
+defeats client generation. Legitimate only with a recorded reason
+saying how a break gets caught instead.
 
 ## Decision rule
 
@@ -83,7 +85,7 @@ generation.
 Scope the ceremony to the surface that earns it, the way dbt scopes
 contracts to public models and leaves private ones alone (EV-0057).
 Whichever option is taken, the specification is committed and gated
-(BR-1, BR-2), and house style is enforced by a ruleset rather than by
+(D9, BR-2), and house style is enforced by a ruleset rather than by
 review comments (EV-0137).
 
 ## Default

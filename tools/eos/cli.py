@@ -61,9 +61,12 @@ def cmd_check(args):
     if args.seed:
         findings = seed_checks.run_seed(Path(args.seed), ctx)
         found = list(findings)
-        cannot = [f for f in found if f.check_id in ("D001", "D003")
-                  and "cannot run" in f.message.lower()]
-        if cannot:
+        # A seed path that does not exist, or a missing scale matrix, is
+        # a run that could not happen, not a seed that failed. The test
+        # here used to look for the words "cannot run" in the message
+        # and neither message says them, so this branch never once ran
+        # and both cases exited 1. seed.cannot_run names them at source.
+        if seed_checks.cannot_run(found):
             _emit(found, args.json)
             return 2
         return _emit(found, args.json)
@@ -169,6 +172,46 @@ def cmd_context(args):
         out = out[:300] + [f"... truncated at 300 lines of "
                            f"{len(json.dumps(packet, indent=1).splitlines())}"]
     print("\n".join(out))
+    return 0
+
+
+LENS_TEMPLATE = "kernel/templates/LENS.tpl.md"
+
+
+def cmd_study(args):
+    """Scaffold a lens contract from the kernel template.
+
+    The Study workflow (PB-E11) writes the lens contract before it reads
+    the source: what is being studied, at what version, how it was
+    lawfully acquired, what is in the lens and what is deliberately out.
+    This command only puts the skeleton where the study session can fill
+    it. It reads nothing else, fetches nothing and fills no slot: what
+    goes in the contract is Daniel's to approve, not a tool's to guess.
+    """
+    import re
+
+    template = REPO / LENS_TEMPLATE
+    if not template.is_file():
+        print(f"error: no lens template at {LENS_TEMPLATE}", file=sys.stderr)
+        return 2
+    out_dir = Path(args.out)
+    name = (args.name or "").strip()
+    target = out_dir / (f"LENS-{name}.md" if name else "LENS.md")
+    if target.exists():
+        print(f"refused: {target} already exists; a lens contract is the "
+              f"record that makes a study defensible and is never "
+              f"overwritten", file=sys.stderr)
+        return 1
+    text = template.read_text(encoding="utf-8")
+    # The scaffold is a working file, not a template: leaving
+    # template: true on it would exempt it from the slot check that
+    # exists to catch a contract shipped unfilled.
+    text = re.sub(r"^template:\s*true\s*$\n?", "", text, flags=re.M)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    target.write_text(text, encoding="utf-8", newline="\n")
+    slots = sorted(set(re.findall(r"\{\{[A-Z0-9_]+\}\}", text)))
+    print(json.dumps({"created": str(target), "template": LENS_TEMPLATE,
+                      "slots": slots}, indent=1))
     return 0
 
 
@@ -315,7 +358,14 @@ def cmd_drills(args):
     return code
 
 
-def main(argv=None):
+def build_parser():
+    """The whole argparse tree, in one place.
+
+    Split out of main so a test can read the command set and hold it
+    against tools/CLI_CONTRACTS.md, which is the law this file
+    implements. A command the contract does not mention is a command
+    nobody agreed to.
+    """
     ap = argparse.ArgumentParser(prog="python -m tools.eos")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
@@ -363,6 +413,20 @@ def main(argv=None):
     x.add_argument("--task")
     x.add_argument("--diff")
     x.set_defaults(fn=cmd_context)
+
+    st = sub.add_parser(
+        "study",
+        description="Scaffold a lens contract for the Study workflow "
+                    "(PB-E11) into a directory. It copies the kernel "
+                    "template and fills nothing: the lens is Daniel's to "
+                    "approve before the source is read.")
+    st.add_argument("--out", required=True,
+                    help="directory to write the contract into; created if "
+                         "it does not exist")
+    st.add_argument("--name",
+                    help="the four-digit id, giving LENS-NNNN.md instead of LENS.md, "
+                         "so two studies can share a directory")
+    st.set_defaults(fn=cmd_study)
 
     t = sub.add_parser(
         "task",
@@ -427,8 +491,11 @@ def main(argv=None):
     d.add_argument("--record", action="store_true",
                    help="append the run to benchmark/drills/RESULTS.json")
     d.set_defaults(fn=cmd_drills)
+    return ap
 
-    args = ap.parse_args(argv)
+
+def main(argv=None):
+    args = build_parser().parse_args(argv)
     try:
         return args.fn(args)
     except FileNotFoundError as exc:

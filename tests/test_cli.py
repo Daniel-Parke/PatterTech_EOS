@@ -150,6 +150,99 @@ def test_the_gate_reads_the_records_declared_facts(venture, capsys):
     assert [r["factor"] for r in out["reasons"]] == ["auth-surface"]
 
 
+def _subcommands(parser):
+    import argparse
+
+    for action in parser._actions:
+        if isinstance(action, argparse._SubParsersAction):
+            return dict(action.choices)
+    return {}
+
+
+def test_cli_contracts_documents_every_subcommand():
+    """The contract file is the CLI's law, and a command it does not
+    mention is a command nobody agreed to."""
+    commands = set(_subcommands(cli.build_parser()))
+    text = (REPO / "tools" / "CLI_CONTRACTS.md").read_text(encoding="utf-8")
+    headings = {line[3:].strip() for line in text.splitlines()
+                if line.startswith("## ")}
+    documented = {h.split()[0] for h in headings}
+    assert commands <= documented, sorted(commands - documented)
+    # And nothing documented as a command has quietly disappeared.
+    assert (documented - commands - {"Shared", "Exit"}) == set()
+
+
+def test_cli_contracts_documents_every_flag():
+    """Every flag the parser accepts appears in the contract, so the
+    file cannot describe a command it no longer matches."""
+    text = (REPO / "tools" / "CLI_CONTRACTS.md").read_text(encoding="utf-8")
+    for name, parser in _subcommands(cli.build_parser()).items():
+        for action in parser._actions:
+            for flag in action.option_strings:
+                if flag in ("-h", "--help"):
+                    continue
+                assert flag in text, "%s %s is undocumented" % (name, flag)
+
+
+def test_study_scaffolds_a_lens_contract(venture, capsys, tmp_path):
+    """The name goes into the filename as given.
+
+    The id form is `LENS-NNNN`, four digits, because that is what
+    `kernel/schemas/lesson.schema.json` enforces on the `lens` field a
+    study lesson carries, so that is what this passes.
+    """
+    (venture / "kernel" / "templates").mkdir(parents=True)
+    (venture / "kernel" / "templates" / "LENS.tpl.md").write_text(
+        "---\nsummary: Lens contract template\ntype: template\ntags: [eos]\n"
+        "template: true\n---\n\n# LENS · {{SOURCE_NAME}}\n",
+        encoding="utf-8")
+    out_dir = tmp_path / "lenses"
+    assert cli.main(["study", "--out", str(out_dir), "--name", "0002"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    written = Path(payload["created"])
+    assert written.name == "LENS-0002.md"
+    assert payload["slots"] == ["{{SOURCE_NAME}}"]
+    text = written.read_text(encoding="utf-8")
+    # A scaffolded contract is a working file, so it must not claim the
+    # template exemption that keeps unfilled slots out of the checker.
+    assert "template: true" not in text
+    assert "{{SOURCE_NAME}}" in text
+
+
+def test_study_refuses_to_overwrite_a_contract(venture, capsys, tmp_path):
+    (venture / "kernel" / "templates").mkdir(parents=True)
+    (venture / "kernel" / "templates" / "LENS.tpl.md").write_text(
+        "---\nsummary: t\ntype: template\ntags: [eos]\n---\nbody\n",
+        encoding="utf-8")
+    out_dir = tmp_path / "lenses"
+    assert cli.main(["study", "--out", str(out_dir)]) == 0
+    capsys.readouterr()
+    (out_dir / "LENS.md").write_text("filled in by hand\n", encoding="utf-8")
+    assert cli.main(["study", "--out", str(out_dir)]) == 1
+    assert "refused" in capsys.readouterr().err
+    assert (out_dir / "LENS.md").read_text(encoding="utf-8") == \
+        "filled in by hand\n"
+
+
+def test_study_cannot_run_without_the_kernel_template(venture, capsys, tmp_path):
+    assert cli.main(["study", "--out", str(tmp_path / "lenses")]) == 2
+    assert "no lens template" in capsys.readouterr().err
+
+
+def test_a_seed_that_is_not_there_is_a_cannot_run(venture, capsys, tmp_path):
+    """Exit 2 means the run could not happen; exit 1 means findings. The
+    branch that told them apart looked for the words "cannot run" in a
+    message, which neither message says, so it never ran."""
+    assert cli.main(["check", "--seed", str(tmp_path / "nowhere")]) == 2
+    assert "seed path not found" in capsys.readouterr().err
+
+
+def test_a_seed_that_fails_its_rubric_is_exit_one(capsys):
+    fixture = REPO / "benchmark" / "fixtures" / "seed-v1-M"
+    assert cli.main(["check", "--seed", str(fixture)]) == 1
+    assert "D004" in capsys.readouterr().err
+
+
 def test_the_gate_never_lowers_the_ruling_on_the_record(venture, capsys):
     # Someone edits the declaration down after creation. Recomputation
     # resolves upward only, so the stored ruling holds.

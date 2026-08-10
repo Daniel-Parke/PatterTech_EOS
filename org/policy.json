@@ -1,7 +1,7 @@
 {
   "version": 1,
   "venture": "PatterTech_EOS",
-  "capability_profile": "standard",
+  "capability_profile": "org/capability-profile.json",
   "risk": {
     "factors": [
       {"id": "protected-set-contact", "summary": "the diff touches the protected set", "tier_floor": "R3", "sources": ["paths:protected"]},
@@ -19,7 +19,7 @@
       {"id": "size-threshold", "summary": "diff size over the express limits", "tier_floor": "R1", "denies_express": true, "sources": ["derived:diff-size"]}
     ],
     "path_patterns": {
-      "reversible": ["doctrine/", "registry/", "estate/", "examples/", "inception/", "README.md", "GUIDE.md", "OPERATORS_GUIDE.md"],
+      "reversible": ["packs/", "registry/", "estate/", "examples/", "inception/", "README.md", "TOUR.md", "OPERATORS_GUIDE.md"],
       "sensitive": ["kernel/", "tools/eos/", "benchmark/PROTOCOL.md", "benchmark/FREEZE_MANIFEST.json", "benchmark/SEALED.json"],
       "protected": ["GOVERNANCE.md", "org/decisions/", "org/policy.json", "kernel/POLICY_SPEC.md", "kernel/templates/org/CONSTITUTION.tpl.md", "kernel/templates/org/roles/"]
     }

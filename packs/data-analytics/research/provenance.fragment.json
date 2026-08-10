@@ -1,0 +1,133 @@
+{
+ "pack": "data-analytics",
+ "checked": "2026-08-10",
+ "checked_by": "T-0019, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and compared each cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence claim below is the ledger's own recorded value, read back. Quotation was checked three ways: every quotation-marked span in the read surface was listed and read; every enumeration or coined term that could only have come from a source was traced to the row that supplies it; and the rows whose ledger licence forbids reuse of wording were read against the prose that cites them. What this method cannot do is detect an unmarked sentence copied from a source nobody has the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0041",
+  "EV-0056",
+  "EV-0057",
+  "EV-0059",
+  "EV-0138",
+  "EV-0139",
+  "EV-0225",
+  "EV-0240",
+  "EV-0305",
+  "EV-0306",
+  "EV-0307",
+  "EV-0308",
+  "EV-0309",
+  "EV-0310",
+  "EV-0311",
+  "EV-0312",
+  "EV-0313",
+  "EV-0315",
+  "EV-0316",
+  "EV-0317",
+  "EV-0318",
+  "EV-0319",
+  "EV-0320",
+  "EV-0321"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0041",
+   "licence_recorded": "Open Government Licence (typical for ICO); unknown exact",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0057",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0059",
+   "licence_recorded": "unknown (GrowthBook core is MIT; EDF is a Pro/Enterprise feature)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0139",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0240",
+   "licence_recorded": "unknown (no licence or copyright statement on the page)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0307",
+   "licence_recorded": "unknown (no licence statement on the page)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0309",
+   "licence_recorded": "unknown (no licence statement on the paper)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0311",
+   "licence_recorded": "unknown (no licence statement; vendor blog)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0312",
+   "licence_recorded": "unknown (arXiv listing; no explicit reuse licence recorded)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0313",
+   "licence_recorded": "unknown (ACM proceedings; author copies circulated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0316",
+   "licence_recorded": "unknown (ACM proceedings)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0320",
+   "licence_recorded": "unknown (US Government publication)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/data-analytics/PACK.md",
+   "line": 232,
+   "concern": "D11 states the source's three ordered dimensional decisions (EV-0308), whose ledger licence is All rights reserved, paraphrase only.",
+   "resolution": "Not a concern. The ordering is a fact about the method and the sentence is ours; no wording is carried. Left as is."
+  },
+  {
+   "file": "packs/data-analytics/PACK.md",
+   "line": 147,
+   "concern": "D1 uses the vendor's object-action naming convention (EV-0319), whose ledger licence is Copyright Twilio Inc., all rights reserved, paraphrase only.",
+   "resolution": "Not a concern. The convention is named and the rule is written in our own words, and the pack already records that the evidence is vendor assertion. Left as is."
+  }
+ ],
+ "notes": "Twelve of twenty-four cited rows carry a definite licence, two record that the source states none, and ten are unconfirmed. Three clusters: ACM proceedings read through author copies (EV-0313, EV-0316), vendor and practitioner pages with no licence statement (EV-0240, EV-0307, EV-0311), and five one-offs (EV-0041, EV-0059, EV-0309, EV-0312, EV-0320). EV-0313 and EV-0316 sit behind binding requirements B4 and B5, so they are the two worth confirming first. Two rows carry recorded reuse restrictions rather than unknowns: EV-0306 is CC BY-NC-ND 4.0 and EV-0308 and EV-0319 are all rights reserved with paraphrase only; the prose citing all three is ours. This pass also removed the backticks this pack had around its EV ids, which were left over from the fragment-id rewrite and made the citations read as code. A row marked states-none carries licence_evidence and a licence_checked date in the ledger, so somebody looked and recorded that the source states no licence. A row marked unconfirmed carries a hedged licence string and no licence_evidence, so nobody has looked. Both belong on the residual list ADR-0006 decision 7 asks for, and the difference between them is the difference between a recorded fact and a guess."
+}

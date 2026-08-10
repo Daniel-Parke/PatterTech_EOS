@@ -74,7 +74,8 @@ load-bearing, which is exactly when it is unaffordable to remove.
 ## Decision rule
 
 - Any contribution from outside the venture: A. B6 in
-  `packs/legal-licensing/PACK.md` binds this.
+  `packs/legal-licensing/PACK.md` is that default, and a departure is
+  written down before the contribution lands, not after.
 - Paid contributors: C for the underlying rights, and A anyway so the
   repository carries its own evidence.
 - Plausible future relicensing, or a corporate contributor who asks
@@ -106,10 +107,10 @@ copyright assertion on machine output that nobody has tested.
 The certification route is a primary source, short and unambiguous
 (EV-0345). Option B has no primary source in this pack
 and no outcome comparison exists in anything read at this cutoff, so
-the choice between A and B currently rests on assertion. That is why
-this guide is authority default rather than binding on the choice
-itself, while the pack binds only the weaker claim that some provenance
-assertion exists.
+the choice between A and B currently rests on assertion. That is also
+why the authority audit under ADR-0008 moved B6 from binding to
+default: the failure it prevents is real, and the basis under it is a
+ruling of ours rather than law, a standard or a measurement.
 
 ## Worked rulings
 

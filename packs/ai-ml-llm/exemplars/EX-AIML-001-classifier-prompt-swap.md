@@ -57,8 +57,8 @@ written before somebody read bad output.
 Those 18 change the design of the whole thing. A classifier that must
 pick a label on those tickets is being scored on a coin flip, so the
 output contract grows a third possibility: the function may abstain.
-That is binding requirement B6, and it comes with an `abstain_rate`
-field beside accuracy in every report from here on.
+That is default D10, and it comes with an `abstain_rate` field beside
+accuracy in every report from here on.
 
 ## Step 4: the entry point
 

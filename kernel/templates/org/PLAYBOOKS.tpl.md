@@ -1,5 +1,5 @@
 ---
-summary: Venture playbook template, per-mode procedures plus hardening, incident, upkeep and retro
+summary: Venture playbook template, per-mode procedures plus wide build, hardening, incident, upkeep and retro
 type: template
 tags: [eos]
 template: true
@@ -70,6 +70,49 @@ ruling and ends with the close rule in org/START.md.
 4. Regenerate every derived view; the full suite runs at release
    tier.
 
+## wide build
+
+For work wide enough to run several lanes at once, and only then. It is
+a shape for the parallel wrapper above, not a new mode: every lane still
+carries its own ruled mode and its own claim. `packs/agentic-swarm` owns
+the rules, the defaults and the evidence, including the evidence against
+running wide at all. Read it before the first partition; it is not
+restated here.
+
+1. Cut the partition from the product map, on dependency cohesion
+   rather than on the feature list. Hub artefacts stay with the
+   integrator and are never delegated: shared indexes, generated views,
+   the map itself, and anything two lanes would both write.
+2. Write the partition down before any lane starts. Per lane: the files
+   it owns, the interfaces it consumes and publishes, and the lanes it
+   waits on. Ownership is disjoint by construction. Two writers on one
+   file is the failure this prevents, and it is the one that costs a
+   whole run.
+3. Give each lane a closed brief: objective, exact write set, read set,
+   return contract, tools, budget, stop condition, acceptance condition.
+   Nothing is assumed inherited. Name the escape: a lane whose brief
+   does not determine something says so and returns, and that is a
+   result rather than a failure.
+4. The verifier predates the lanes. Whatever decides that a lane's work
+   is correct is authored outside that lane, before it runs, without its
+   context.
+5. Integrate small and often. The integrator owns merge order and takes
+   each lane's work as it lands, never all of it at the end.
+6. A deviation from the map is recorded on the work package, and the
+   map's section for it flips back to draft. A map that quietly
+   disagrees with the build is worse than no map.
+7. Budgets are declared per run and per lane, with a stop condition, and
+   the harness enforces them. A person still stands at every
+   consequential act; running wide changes nothing about the guard.
+8. Three to five lanes is the default. Going wider names its reason and
+   needs an oracle strong enough to decide each lane on its own. Do not
+   run wide over work one session already does well, and do not run wide
+   over a chain.
+
+Close by journalling the run: the partition, what each lane returned,
+and what the integrator had to repair. That journal is the only evidence
+the venture will have about whether running wide paid.
+
 ## hardening pass
 
 Independent evaluators and test generators run against the
@@ -101,12 +144,13 @@ date.
 
 ## retro
 
-Monthly, on evidence: sample the review pool and the exception
-ledger, read escaped defects, oracle amendment frequency and ceremony
-spend against budgets. Tune the sampling rate and the cadences;
-propose policy or doctrine changes through the graded path
-(experimental edit, ADR); set one deliberate experiment. The
-organisation edits itself here and nowhere else.
+Monthly, on evidence: sample the review pool and the recorded tier
+exceptions (one-off ones sit on the task records they lowered, standing
+ones in the venture's decision records), read escaped defects, oracle
+amendment frequency and ceremony spend against budgets. Tune the
+sampling rate and the cadences; propose policy or doctrine changes
+through the graded path (experimental edit, ADR); set one deliberate
+experiment. The organisation edits itself here and nowhere else.
 
 ## stakeholder-update
 
