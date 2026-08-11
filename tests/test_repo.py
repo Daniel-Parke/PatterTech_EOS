@@ -32,6 +32,28 @@ def test_paths_are_posix_relative(tmp_path):
         assert not f.path.startswith("/")
 
 
+def test_file_order_is_the_same_on_every_platform(tmp_path):
+    """Records come back in POSIX byte order, not the platform's order.
+
+    Path comparison is case-insensitive on Windows and case-sensitive on
+    POSIX, so sorting Path objects put UPPER.md before lower/ on Linux
+    and after it on Windows. Every derived index is written in this
+    order, so one tree produced an INDEX.md that was clean on the
+    machine that generated it and stale on the machine that checked it.
+    """
+    root = make_repo(tmp_path)
+    (root / "packs").mkdir(parents=True, exist_ok=True)
+    (root / "packs" / "INDEX.md").write_text(
+        "---\nsummary: s\ntype: index\ntags: [eos]\n---\n", encoding="utf-8")
+    (root / "packs" / "agentic-swarm").mkdir(parents=True, exist_ok=True)
+    (root / "packs" / "agentic-swarm" / "PACK.md").write_text(
+        "---\nsummary: s\ntype: guide\ntags: [eos]\n---\n", encoding="utf-8")
+    paths = [f.path for f in RepoModel.load(root, today=TODAY).files]
+    assert paths == sorted(paths), "records must come back in POSIX byte order"
+    assert paths.index("packs/INDEX.md") < paths.index(
+        "packs/agentic-swarm/PACK.md")
+
+
 def test_benchmark_files_are_loaded_not_skipped(tmp_path):
     """Fixtures and holdouts are read: the E-series still judges them.
 

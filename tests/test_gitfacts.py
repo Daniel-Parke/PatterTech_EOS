@@ -17,6 +17,19 @@ def test_current_branch_degrades_outside_a_repo(tmp_path):
     assert gitfacts.current_branch(tmp_path) is None
 
 
+def test_current_branch_is_none_on_a_detached_head(tmp_path):
+    """A pull-request run checks out a merge commit and detaches.
+
+    git prints the literal "HEAD" there. Returning that as a branch name
+    made check S007 compare a recorded branch against "HEAD" and report
+    drift on every pull request, which is a check that could not pass in
+    the environment it was written to run in.
+    """
+    root = make_git_repo(tmp_path)
+    git(root, "checkout", "--detach", "HEAD")
+    assert gitfacts.current_branch(root) is None
+
+
 def test_remote_tracking_heads_skip_the_symbolic_head(tmp_path):
     root = make_git_repo(tmp_path)
     head = gitfacts.rev_parse(root, "HEAD")
