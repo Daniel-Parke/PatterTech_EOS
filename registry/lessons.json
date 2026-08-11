@@ -4,6 +4,7 @@
  "note": "Canonical lessons ledger. One row per decision about something the estate learned, from either intake: the harvest names the venture, the Study workflow names the sources it read and the lens it read them through. Declines and deferrals stay as rows, because a decision that leaves no trace gets argued again. registry/LESSONS.md is the derived view of this file. Schema: kernel/schemas/lesson.schema.json.",
  "preamble": [
   "The lessons ledger. Two intakes write here: the harvest, which pulls\nrulings and feedback from a governed venture, and the Study workflow,\nwhich reads a named source through a lens contract. Every row carries\na disposition that points at the file which now owns the decision, and\na declined lesson keeps its reason, so a decline cannot be re-proposed\nas if it had never been argued. A silent harvest month still records\n\"checked, clean\".",
+  "Disposition is an enum, and the permitted values are listed in\n`kernel/schemas/lesson.schema.json`, which is what refuses one that is\nnot on the list. `TOUR.md` says what each of them means in practice.\nThe value `binding` is absent on purpose: this ledger can propose a\nbinding candidate and nothing more, because binding needs an accepted\nADR and Daniel under the ladder in `GOVERNANCE.md`.",
   "**A lesson leaves this ledger once its content is stated as a rule\nsomewhere else.** Keeping it here as well would be a second home for\nthe same rule, and one of the two homes would go stale. Rows that\nrecord what changed and why are provenance, and those stay.",
   "The first PB-E02 harvest ran on 2026-08-08 against the three governed\nventures. AutoWatt's two entries had both already been folded during\nthe v1 build and are recorded as such below. Guth's feedback file\ncarried fifteen entries and a matured stack profile, and is the\nsubstance of this harvest. PatterTech_Website ships no feedback file:\nit predates the template, which is itself a finding and is queued.",
   "Earlier rows came from the estate survey at EOS creation and from the\nAutoWatt reseed feedback.",
@@ -456,7 +457,7 @@
     "EV-0382"
    ],
    "lens": "LENS-0001",
-   "source_note": "First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not Daniel's. LENS-0001 is the id reserved for the contract file.",
+   "source_note": "First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not Daniel's. LENS-0001 is the id reserved for the contract file, and on the day this row was decided no such file existed in this repository: the estate names no path for an EOS-side lens contract, and `kernel/templates/LENS.tpl.md` sends a venture's to `docs/lenses/`.",
    "evidence_class": "observational",
    "disposition": "reference-only",
    "outcome": "Nothing changed. The row records the argument behind the shape already in `registry/stacks/STACK-local-first-pwa.md`, which was harvested at LES-0015 and states the shape without stating which ideals it buys.",

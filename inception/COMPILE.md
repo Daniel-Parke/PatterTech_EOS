@@ -53,6 +53,17 @@ risk-surface set rather than its venture set.
   that list, so a brief without it blocks Genesis later rather than
   now.
 
+A slot the operator cannot answer either is a template defect rather
+than a harder question. Session 0 knows the venture and not the
+product, so a slot wanting a fact from a later phase, or a number
+belonging to a run nobody has designed yet, has no truthful fill at
+compile. Stop and file it in the venture's feedback file as for a
+leftover fence. The repair is to the EOS template, because a compiled
+file may carry no slot at all and check E008 fails the seed on every
+one that survives. Inventing a value is the worst of the three
+outcomes: a made-up figure reads as ruled, and nothing in the seed says
+that nobody ruled it.
+
 ## Policy fill
 
 The policy file compiles like any other file and is then validated
@@ -175,7 +186,10 @@ compile did not touch.
 Then run `python -m tools.eos check --seed <venture path>` from the EOS
 repo and paste the summary line with the date. All auto items green
 before the human rubric items are judged; the sign-off block closes
-Session 0.
+Session 0. That block is the operator's rather than the compiler's:
+besides the five human items it records which path the seed took and
+which of the items were signed, and whether Genesis was launched or
+declined and why.
 
 ## Never
 

@@ -86,8 +86,10 @@ C, with the formula written in
 `packs/support-operations/refs/SEVERITY_AND_DECLARATION.md` and the
 declaration triggers from PACK.md D6 alongside it. Declaration records
 `declared_at` and `declared_by` at the moment it happens, plus the
-separate communication and fix owners required by PACK.md B3, and a
+separate communication and fix owners PACK.md B3 asks for, and a
 postmortem due date is set at resolution under PACK.md D9 (EV-0200).
+B3 is a default since the 2026-08 audit, so a venture that runs one
+owner for both writes down why.
 
 ## Worked rulings
 

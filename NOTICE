@@ -30,10 +30,10 @@ is carried at the point of use by evidence id. That is why most of the
 ATTRIBUTION WHERE A LICENCE ASKS FOR IT
 
 The provenance sweep of 2026-08-10 read the whole read surface of
-twenty packs and recorded, per pack, what is carried from a source and
-under what licence. A source is named below where its licence
-conditions reuse on attribution and the sweep found its terms, its list
-or its wording carried.
+twenty-one packs and recorded, per pack, what is carried from a source
+and under what licence. A source is named below where its licence
+conditions reuse on attribution and the sweep found its terms, its
+list or its wording carried.
 
 DORA capability: loosely coupled teams and architecture (EV-0151)
     Copyright Google LLC, CC BY 4.0.
@@ -101,9 +101,9 @@ SOURCES WHOSE LICENCE NOBODY HAS CONFIRMED
 registry/LICENCE_RESIDUALS.md lists them in full, by evidence id, split
 between the sources that state no licence and the sources whose licence
 was never recorded. Read that file before reusing anything that rests
-on one of them. Its counts were compiled from a ledger of 449 records
-and the ledger now holds 504, so its tables are behind the ledger by
-the rows the last import added.
+on one of them. Its counts were compiled on 2026-08-10 against the
+same 504-record ledger this file cites, so its tables cover the rows
+the last import added.
 
 
 WHAT THE SWEEP DID AND DID NOT DO

@@ -142,14 +142,14 @@ the rule in each case.
    stated cadence. Basis standard (EV-0016, EV-0194). Prevents: a test
    that has silently not run for a year.
 
-The strongest available measurement behind requirement 1 is not in the
-evidence ledger yet. Prompted with the buggy implementation, eleven
-frontier models produced 104.15 bug-revealing tests on average, against
-304.08 prompted with the correct implementation and 186.77 when the code
-was swapped for a specification. So a contaminated context does not just
-bless the bug, it suppresses the tests that would have caught anything.
-The row is EV-0480, whose licence was recorded from a research packet
-rather than read at the source.
+The strongest available measurement behind requirement 1 is EV-0480.
+Prompted with the buggy implementation, eleven frontier models produced
+104.15 bug-revealing tests on average, against 304.08 prompted with the
+correct implementation and 186.77 when the code was swapped for a
+specification. So a contaminated context does not just bless the bug, it
+suppresses the tests that would have caught anything. That row's licence
+was recorded from a research packet rather than read at the source, so
+it carries no observation date.
 
 ## Defaults
 

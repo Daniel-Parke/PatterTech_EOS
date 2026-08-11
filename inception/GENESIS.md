@@ -42,10 +42,17 @@ plan in place of separate work packages, and the acceptance spine as a
 written checklist rather than a suite. Express skips Genesis unless the
 operator asks for the lite form.
 
-Four templates under kernel/templates compile into the seed at both
+Five templates under kernel/templates compile into the seed at both
 scales, because an S venture that rescales must not need a second
-compile to get them: RESEARCH_PACKET, PRODUCT_MAP, WORK_PACKAGE and
-ACCEPTANCE_SPINE.
+compile to get them: RESEARCH_PACKET, PRODUCT_MAP, WORK_PACKAGE,
+ACCEPTANCE_SPINE and LENS. The first four are the forms for the four
+outputs below. LENS is the contract for studying something the venture
+did not build, agreed before the source is read; it is the same form
+PB-E11 of org/PLAYBOOKS.md runs on here. Research that means reading
+someone else's product or repository is a study, and the contract is
+the record that makes it defensible afterwards. The venture copies it
+to docs/lenses/LENS-NNNN.md, one per study, and a seed that ships the
+form blank costs nothing and saves a recompile.
 
 ## Inputs
 

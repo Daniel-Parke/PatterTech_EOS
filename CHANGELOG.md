@@ -42,9 +42,13 @@ does, not what it achieves.
   by what their basis field says. The policy spec's irreversible-action
   factor now names a declared rollback cost beside a declared
   irreversible action, and the seed rubric gains A15 and A16 for the two
-  new seed checks. What did not land: ADR-0008 decision 7 shrinks the
-  per-kind metadata minima, and the spec's minima table is unchanged, so
-  that decision is written and not carried out.
+  new seed checks. ADR-0008 decision 7 lands in the same file: the
+  per-kind minima table shrinks to the axes that change what an agent
+  does, `authority`, `applies_when`, `sources` and `review`, on top of
+  the summary, type and tags E002 asks of every markdown file, and the
+  derived-defaults table beside it is rewritten to match. Both tables
+  now say which parts a check actually reads, because most of that spec
+  is law here and unenforced.
 - **inception**: Genesis returns as a defined phase in
   `inception/GENESIS.md`, and the word is glossed there because in v1 it
   named the AutoWatt origin story and a reader meeting both senses
@@ -87,17 +91,22 @@ does, not what it achieves.
   read as general: the safety floors, the derived-file rule, append-only
   decisions, bidirectional supersession and the promotion ladder. The
   repository is declared Apache-2.0, with `LICENSE` and `NOTICE` at the
-  root and a provenance sweep of twenty packs behind it.
+  root and a provenance sweep of twenty-one packs behind it.
 - **governance**: the authority audit ran over 109 binding requirements
-  in seventeen packs and moved 48 of them to defaults, keeping their B
-  numbers because the checks, guides and exemplars cite them. Binding
-  now, against what each pack carried before: agentic-development 4 of
-  7, ai-ml-llm 5 of 7, api-integration 4 of 6, architecture 3 of 5,
-  business-logic-modelling 2 of 5, business-model-pricing 4 of 6,
-  data-analytics 3 of 6, docs-dx 1 of 6, legal-licensing 4 of 7,
-  native-client 3 of 7, product-discovery 2 of 8, support-operations 2
-  of 7, ui-ux 5 of 8, writing-content 5 of 10. Coding, delivery-testing
-  and marketing-growth were audited and lost no whole requirement.
+  in seventeen packs and moved 48 of them to defaults. Thirty-four of
+  the 48 keep their B numbers, in eight packs, because the checks,
+  guides and exemplars cite them. The other fourteen were renumbered
+  into their own pack's defaults block: ai-ml-llm, api-integration,
+  architecture, business-logic-modelling, business-model-pricing and
+  data-analytics each moved every rule it demoted, and updated the
+  citations. Binding now, against what each pack carried before:
+  agentic-development 4 of 7, ai-ml-llm 5 of 7, api-integration 4 of 6,
+  architecture 3 of 5, business-logic-modelling 2 of 5,
+  business-model-pricing 4 of 6, data-analytics 3 of 6,
+  docs-dx 1 of 6, legal-licensing 4 of 7, native-client 3 of 7,
+  product-discovery 2 of 8, support-operations 2 of 7, ui-ux 5 of 8,
+  writing-content 5 of 10. Coding, delivery-testing and
+  marketing-growth were audited and lost no whole requirement.
   `packs/pattertech-house` had none to test: no line in it was ever
   binding. `packs/security-privacy` B1 to B6 are excluded by name as
   protected-set floors. `packs/devops-reliability` was not audited, and
@@ -138,7 +147,7 @@ does, not what it achieves.
   E010, which warned about a stale `active_session` in `org/STATE.md`,
   and S008, the opt-in canonical-fact check that had no subscribers and
   had never fired. `tools/import_fragments.py` gains a study
-  subcommand for the intake PB-E11 writes. 455 tests, up from 395.
+  subcommand for the intake PB-E11 writes. 457 tests, up from 395.
 - **benchmark**: ADR-0007 settles the release gate, because the gate set
   ADR-0002 approved can no longer be computed. The context-token and
   wall-clock gates are struck with reasons, not met: on the reproducible

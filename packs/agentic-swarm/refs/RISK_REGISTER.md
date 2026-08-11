@@ -2,7 +2,7 @@
 summary: Fifteen risks a graph build carries, with mechanism, evidence, detection signal and control
 kind: recipe
 scope: estate
-sources: [EV-0010, EV-0107, EV-0108, EV-0112, EV-0219, EV-0244]
+sources: [EV-0010, EV-0013, EV-0107, EV-0108, EV-0112, EV-0219, EV-0244, EV-0473, EV-0474]
 type: guide
 tags: [eos, security, arch, ops]
 review: on-change-of:agent-harness-major-release

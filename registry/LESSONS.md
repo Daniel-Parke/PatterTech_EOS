@@ -25,6 +25,13 @@ a declined lesson keeps its reason, so a decline cannot be re-proposed
 as if it had never been argued. A silent harvest month still records
 "checked, clean".
 
+Disposition is an enum, and the permitted values are listed in
+`kernel/schemas/lesson.schema.json`, which is what refuses one that is
+not on the list. `TOUR.md` says what each of them means in practice.
+The value `binding` is absent on purpose: this ledger can propose a
+binding candidate and nothing more, because binding needs an accepted
+ADR and Daniel under the ladder in `GOVERNANCE.md`.
+
 **A lesson leaves this ledger once its content is stated as a rule
 somewhere else.** Keeping it here as well would be a second home for
 the same rule, and one of the two homes would go stale. Rows that
@@ -258,7 +265,7 @@ and a guide written for it would be speculation with a filename.
 - **Origin**: study
 - **Evidence**: EV-0378, EV-0382
 - **Lens**: LENS-0001
-- **Source note**: First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not Daniel's. LENS-0001 is the id reserved for the contract file.
+- **Source note**: First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not Daniel's. LENS-0001 is the id reserved for the contract file, and on the day this row was decided no such file existed in this repository: the estate names no path for an EOS-side lens contract, and `kernel/templates/LENS.tpl.md` sends a venture's to `docs/lenses/`.
 - **Evidence class**: observational
 - **Disposition**: reference-only
 - **Outcome**: Nothing changed. The row records the argument behind the shape already in `registry/stacks/STACK-local-first-pwa.md`, which was harvested at LES-0015 and states the shape without stating which ideals it buys.

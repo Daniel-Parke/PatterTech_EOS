@@ -57,4 +57,12 @@ green before the human items are judged.
 
 - [ ] H1 cold-start test · - [ ] H2 brief reads true · - [ ] H3
   rulings honest · - [ ] H4 voice holds · - [ ] H5 operator can run it
+- Path and items: full or Express, and which of the five were signed.
+  An Express seed signs H1 and H4 and says in one line why the other
+  three needed no judging, so a later reader knows what was judged and
+  what was inherited.
+- Genesis: launched, or declined with the reason in one line. It is the
+  operator's launch decision rather than a gate, so declined is a
+  complete answer; blank is not, because blank cannot tell declined
+  from forgotten.
 - Signed: {{OPERATOR}} · date: {{SIGNOFF_DATE}}

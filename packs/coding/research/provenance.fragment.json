@@ -24,13 +24,14 @@
    "status": "clear"
   },
   {
-   "finding": "One unattributed set of figures was added on 2026-08-10: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md and in GD-COD-001. Its source has no EV id yet and is recorded in packs/coding/research/sources.fragment.json as FRAG-CODING-21. The prose names the study rather than citing an id that does not exist.",
-   "status": "action",
-   "action": "Import FRAG-CODING-21, then replace the naming sentence in packs/coding/PACK.md and packs/coding/guides/GD-COD-001-oracle-strategy.md with the assigned EV id."
+   "finding": "One set of figures was added on 2026-08-10 with no id to cite: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md and in GD-COD-001. Its source was recorded in packs/coding/research/sources.fragment.json as FRAG-CODING-21, and the prose named the study instead of citing an id that did not exist.",
+   "status": "closed",
+   "closed_by": "The same day's fragment import assigned FRAG-CODING-21 the id EV-0480. packs/coding/PACK.md and packs/coding/guides/GD-COD-001-oracle-strategy.md both cite EV-0480 at the figures, so no unattributed figure is left in this read surface. EV-0480 arrived after this sweep counted the surface; it is classified in licence_findings below, and the counts there say which."
   }
  ],
  "licence_findings": {
-  "cited_ids": 39,
+  "cited_ids": 40,
+  "cited_ids_note": "39 at the sweep, plus EV-0480, which the same day's import assigned after the sweep had counted. EV-0480 was classified by the method above, off its ledger row, and sits in asserted_specific.",
   "evidenced_specific": {
    "count": 9,
    "ids": ["EV-0003", "EV-0004", "EV-0005", "EV-0006", "EV-0007", "EV-0008", "EV-0010", "EV-0094", "EV-0105"],
@@ -42,9 +43,9 @@
    "note": "Recorded as stating no reuse licence, with the observation recorded. Absence confirmed is a fact, not a gap."
   },
   "asserted_specific": {
-   "count": 17,
-   "ids": ["EV-0011", "EV-0023", "EV-0025", "EV-0026", "EV-0069", "EV-0070", "EV-0164", "EV-0167", "EV-0168", "EV-0169", "EV-0170", "EV-0171", "EV-0173", "EV-0175", "EV-0180", "EV-0182", "EV-0192"],
-   "note": "A specific licence is named and no licence_evidence line backs it. Most are well-known project licences and are probably right, and probably right is exactly what ADR-0006 decision 7 says not to record as fact. Two of these matter more than the rest: EV-0182 is CC BY-NC-ND 4.0, where the no-derivatives term bears on how closely we may restate it, and EV-0070 splits across an engine licence and rules whose terms vary."
+   "count": 18,
+   "ids": ["EV-0011", "EV-0023", "EV-0025", "EV-0026", "EV-0069", "EV-0070", "EV-0164", "EV-0167", "EV-0168", "EV-0169", "EV-0170", "EV-0171", "EV-0173", "EV-0175", "EV-0180", "EV-0182", "EV-0192", "EV-0480"],
+   "note": "A specific licence is named and no licence_evidence line backs it. Most are well-known project licences and are probably right, and probably right is exactly what ADR-0006 decision 7 says not to record as fact. Two of these matter more than the rest: EV-0182 is CC BY-NC-ND 4.0, where the no-derivatives term bears on how closely we may restate it, and EV-0070 splits across an engine licence and rules whose terms vary. EV-0480 is the post-sweep arrival: its CC BY 4.0 line came from a research packet rather than from the page, which is an assertion like the rest of this bucket."
   },
   "asserted_unknown": {
    "count": 11,
@@ -54,7 +55,7 @@
  },
  "residual": [
   "No licence was confirmed during this sweep. ADR-0006 decision 7 forbids re-fetching sources wholesale, and this lane did not fetch any. Every classification above is a reading of what the ledger already records.",
-  "28 of 39 cited ids have no licence_evidence line. That is the number to work down, not a defect in the pack prose.",
+  "29 of 40 cited ids have no licence_evidence line, 28 of them at the sweep and EV-0480 counted in afterwards. That is the number to work down, not a defect in the pack prose.",
   "The expression scan cannot prove a negative. It proves no quotation marks and no close restatement in the passages checked."
  ]
 }

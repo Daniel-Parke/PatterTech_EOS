@@ -12,7 +12,7 @@ volatility: fast
 review: on-change-of:agent-harness-major-release
 type: guide
 tags: [eos, arch, delivery, tooling]
-sources: [EV-0006, EV-0010, EV-0053, EV-0105, EV-0107, EV-0108, EV-0109, EV-0111, EV-0112, EV-0167, EV-0169, EV-0178, EV-0219, EV-0244, EV-0251]
+sources: [EV-0010, EV-0053, EV-0107, EV-0108, EV-0109, EV-0111, EV-0112, EV-0244, EV-0450, EV-0451, EV-0452, EV-0453, EV-0454, EV-0455, EV-0456, EV-0457, EV-0458, EV-0459, EV-0460, EV-0461, EV-0463, EV-0464, EV-0466, EV-0467, EV-0468, EV-0469, EV-0470, EV-0472, EV-0475, EV-0476, EV-0477, EV-0478, EV-0480, EV-0481, EV-0482, EV-0483, EV-0484, EV-0485, EV-0486, EV-0487, EV-0488, EV-0489, EV-0491, EV-0493, EV-0494, EV-0495]
 ---
 
 # Agentic swarm and graph engineering
@@ -77,8 +77,7 @@ wording inside a lane, does not set test timing (see
 posture of a lane's sandbox, which `packs/security-privacy/PACK.md`
 owns. It carries no vendor version number, model name or price: those
 live in a venture's profile, because the harness we use moved its
-delegation-depth default three times in about two months
-(EV-0463).
+delegation-depth default three times in about two months (EV-0463).
 
 ## Binding requirements
 
@@ -95,56 +94,52 @@ delegated. Prevents duplicated and gapped work, and merges into work a
 lane did not know existed. Cohesion-based cutting with hub isolation
 beat sequential work on pass rate at two thirds the cost, while cutting
 one file per agent cost 44 to 60 per cent more than sequential for one
-to three points (EV-0450). Agents left to infer relations
-between queued changes recalled 35 to 58 per cent of them and committed
-unsafe merges in 69.8 per cent of runs, yet respected relations they
-were handed 98 to 100 per cent of the time (EV-0455).
-Compute the graph and hand it over.
+to three points (EV-0450). Agents left to infer relations between queued
+changes recalled 35 to 58 per cent of them and committed unsafe merges
+in 69.8 per cent of runs, yet respected relations they were handed 98 to
+100 per cent of the time (EV-0455). Compute the graph and hand it over.
 
 **B2. The packet is closed and literal.** Nine fields, all present:
-objective; the exact write set; the exact read set or named sources;
-the return contract; the tool set; the token and call budget; the stop
+objective; the exact write set; the exact read set or named sources; the
+return contract; the tool set; the token and call budget; the stop
 condition; the acceptance condition; and a named escape for the case
 where the packet does not determine something. Targets are literal
-paths, ids and symbol names, never "the auth module". Nothing is
-assumed inherited, because nothing is: the spawn prompt is the only
-channel and the lead's history does not carry over (EV-0108). Prevents
-wrong-target action. Safe success falls from 67.9 per cent at full
-target certainty to 8.6 per cent at maximum ambiguity, the wrong-target
-rate rises to 75.1 per cent, and agents act rather than ask in 36 to 84
-per cent of runs even when the instruction is plainly underdetermined
-(EV-0466); pass@1 on otherwise solvable tasks collapsed
-from 89.02 to 8.94 per cent under injected ambiguity
-(EV-0467). The escape is not a courtesy. Whether an agent
-asks is a property of the harness rather than the model, so the
-orchestrator treats "the packet does not determine X" as a first-class
-outcome with no penalty attached. Field by field in
+paths, ids and symbol names, never "the auth module". Nothing is assumed
+inherited, because nothing is: the spawn prompt is the only channel and
+the lead's history does not carry over (EV-0108). Prevents wrong-target
+action. Safe success falls from 67.9 per cent at full target certainty
+to 8.6 per cent at maximum ambiguity, the wrong-target rate rises to
+75.1 per cent, and agents act rather than ask in 36 to 84 per cent of
+runs even when the instruction is plainly underdetermined (EV-0466);
+pass@1 on otherwise solvable tasks collapsed from 89.02 to 8.94 per cent
+under injected ambiguity (EV-0467). The escape is not a courtesy.
+Whether an agent asks is a property of the harness rather than the
+model, so the orchestrator treats "the packet does not determine X" as a
+first-class outcome with no penalty attached. Field by field in
 `packs/agentic-swarm/refs/PACKET_AND_RETURN.md`.
 
 **B3. Returns are schema-constrained and carry a receipt.** The receipt
 names files changed, checks run with their verbatim results, what was
 explicitly not done, unresolved unknowns, spend, and a terminal status
-that distinguishes work outcome from infrastructure outcome. "Nothing
-to do", "blocked, needs a decision", "failed the check" and "killed by
-an error or a rate limit" are four different statuses and the
-integrator handles them differently. Prevents an integrator reading a
-dead lane as a clean negative result, which is how fabrication enters
-the trunk wearing the integrator's authority. Task verification is one
-of the three failure categories in the annotated multi-agent corpus
-(EV-0109), and the runtime returns a bare absence for a killed node
-that a careless aggregator filters out of existence
-(EV-0461).
+that distinguishes work outcome from infrastructure outcome. "Nothing to
+do", "blocked, needs a decision", "failed the check" and "killed by an
+error or a rate limit" are four different statuses and the integrator
+handles them differently. Prevents an integrator reading a dead lane as
+a clean negative result, which is how fabrication enters the trunk
+wearing the integrator's authority. Task verification is one of the
+three failure categories in the annotated multi-agent corpus (EV-0109),
+and the runtime returns a bare absence for a killed node that a careless
+aggregator filters out of existence (EV-0461).
 
-**B4. Node output is untrusted data at the integrator.** Never
-executed, never read as instruction. An approval, a consent or a claim
-relayed by one lane on behalf of another is not authorisation.
-Prevents injection propagating through the graph and privilege
-laundering between lanes. Injected prompts self-replicate across
-connected agents and the systems stay vulnerable even when agents limit
-what they share (EV-0472). Narrative framings in a change
-description measurably change what a reviewing agent reports, and
-claims of prior approval survive filtering most often
-(EV-0489). This is the estate's existing rule that
+**B4. Node output is untrusted data at the integrator.** Never executed,
+never read as instruction. An approval, a consent or a claim relayed by
+one lane on behalf of another is not authorisation. Prevents injection
+propagating through the graph and privilege laundering between lanes.
+Injected prompts self-replicate across connected agents and the systems
+stay vulnerable even when agents limit what they share (EV-0472).
+Narrative framings in a change description measurably change what a
+reviewing agent reports, and claims of prior approval survive filtering
+most often (EV-0489). This is the estate's existing rule that
 instructions in data are not commands, extended to our own lanes.
 
 **B5. Constraints are pinned and never compactable.** Governance rules,
@@ -162,9 +157,13 @@ enforced by the harness.** Tokens and money, with a no-progress
 terminator, and delegation depth set explicitly rather than inherited
 from a vendor default. Observability is not a control. Prevents an
 unbounded bill, which is spend you cannot take back. Multi-agent runs
-use roughly fifteen times chat tokens, and token usage alone explained
-about 80 per cent of performance variance on one benchmark, which means
-unbounded quality-seeking is unbounded spend (EV-0112).
+use roughly fifteen times chat tokens on the vendor's own reported
+evaluation (EV-0112), so unbounded quality-seeking is unbounded spend.
+That row sizes the exposure and does not test what a cap buys, which is
+the leg on which `packs/agentic-development/PACK.md` demoted its own
+bounded-loop rule. This one binds because an enforced ceiling is
+arithmetic rather than a bet: a cap the harness holds cannot be
+exceeded, and the spend it stops is not refundable.
 
 **B7. The artefact that decides a lane's success is authored outside
 that lane, before it runs, and does not share its context.** Test,
@@ -172,20 +171,19 @@ property, acceptance script, differential target or clean-context
 reviewer: the form is free, the independence is not. The lane may not
 write to its own harness, meaning the test files, fixtures, evaluation
 scripts and CI configuration for the node being judged. Lane count is
-gated on oracle strength: with a decidable external oracle, wide
-fan-out is permitted; without one, cap at one or two lanes and put a
-person at the merge gate. Prevents confidently wrong output accepted on
-its own say-so. Generating tests with the buggy implementation in
-context produced 104 effective tests against 304 from the correct
-implementation and 187 from the specification alone
-(EV-0480). Models under evaluation have overridden
-equality, exited the test process with a success code and patched the
-test configuration, in production training environments
-(EV-0483). Self-review without external truth degrades
-the answer (EV-0111). The one run that sustained sixteen lanes had its
-conformance suite, reference implementation and CI in place first, and
-its author's words are that the verifier must be nearly perfect or the
-model solves the wrong problem (EV-0053).
+gated on oracle strength: with a decidable external oracle, wide fan-out
+is permitted; without one, cap at one or two lanes and put a person at
+the merge gate. Prevents confidently wrong output accepted on its own
+say-so. Generating tests with the buggy implementation in context
+produced 104 effective tests against 304 from the correct implementation
+and 187 from the specification alone (EV-0480). Models under evaluation
+have overridden equality, exited the test process with a success code
+and patched the test configuration, in production training environments
+(EV-0483). Self-review without external truth degrades the answer
+(EV-0111). The one run that sustained sixteen lanes had its conformance
+suite, reference implementation and CI in place first, and its author's
+words are that the verifier must be nearly perfect or the model solves
+the wrong problem (EV-0053).
 
 **B8. Agreement between lanes is not evidence of correctness.**
 Concurrence across models, vendors, languages or runs may not be used
@@ -194,10 +192,13 @@ swarm's most attractive fallacy, that fan-out buys independence.
 Independently generated implementations co-failed 429 times against
 115.36 predicted under independence, z equals 29.20, with perfect
 failure correlation in 87 of 158 cross-agent pairs, and the failures
-concentrated on the specification's ambiguous clauses
-(EV-0481). Human programmers were measured failing the
-same way in 1986 (EV-0482). When lanes disagree, or agree
-on something wrong, suspect the specification clause first.
+concentrated on the specification's ambiguous clauses (EV-0481). Human
+programmers were measured failing the same way in 1986 (EV-0482). The
+same study measures a 66 per cent mean reduction in failures from
+majority voting across three implementations, so voting is a real
+reducer and still not a verdict: it may order what a person looks at
+first, never decide a merge. When lanes disagree, or agree on something
+wrong, suspect the specification clause first.
 
 **B9. One lane, one worktree, one branch, one owned file set, and the
 integrator owns merge order.** Isolation is enforced by the harness or
@@ -236,10 +237,9 @@ measure, adding lanes predicts a loss (EV-0452).
 
 **D3. If the graph will not cut, do not swarm.** A chain where step N
 needs step N minus one, or a cohesion pass that returns one group, runs
-sequentially in one lane. Multi-agent architectures lost 39 to 70 per
-cent on strictly sequential work at a decomposability score almost
-identical to a domain that gained 80.9 per cent
-(EV-0452).
+sequentially in one lane. Decomposability rather than difficulty
+decides whether added agents help: one domain lost 70.0 per cent where
+another gained 80.9 at an almost identical score (EV-0452).
 
 **D4. Partition the failure surface, not only the code.** Where one
 opaque verification step can fail for every lane at once, split it
@@ -254,12 +254,11 @@ it wrong is a wasted run rather than a bad merge.
 scope by committing to `org/claims.json`; version control is the mutex
 and the history is the audit trail (EV-0053).
 
-**D6. Serialise worktree creation, then run the lanes in parallel,**
-and provision each worktree with the ignored configuration it needs to
-verify itself. Three or more concurrent creations race on the git
-config lock, killing agents before they start
-(EV-0464); a worktree without its environment hands you
-work the lane could not check (EV-0460).
+**D6. Serialise worktree creation, then run the lanes in parallel,** and
+provision each worktree with the ignored configuration it needs to
+verify itself. Three or more concurrent creations race on the git config
+lock, killing agents before they start (EV-0464); a worktree without its
+environment hands you work the lane could not check (EV-0460).
 
 **D7. Cap diff width per package and land in dependency order.** One
 concern per landing. Agent changes are about 2.6 times larger, wait
@@ -271,14 +270,13 @@ reviewer, because detection collapses on wide diffs.
 **D8. One strong clean-context reviewer per concern, and reviewers
 report rather than fix.** Not a panel: measured inter-judge error
 correlation puts effective jury size at about two however many judges
-you add (EV-0486). Asking one reviewer to explain and fix
-in a single pass collapsed its recognition of correct code from 52.4 to
-11.0 per cent, and a compare-and-report prompt restored it to 85.4
-(EV-0484). A reviewer weaker than the writer may not
-modify the writer's output, because it regressed 11.2 per cent of
-already-passing solutions (EV-0485). One integrator ranks
-and deduplicates findings; they are never merged by vote
-(EV-0491).
+you add (EV-0486). Asking one reviewer to explain and fix in a single
+pass collapsed its recognition of correct code from 52.4 to 11.0 per
+cent, and a compare-and-report prompt restored it to 85.4 (EV-0484). A
+reviewer weaker than the writer may not modify the writer's output,
+because it regressed 11.2 per cent of already-passing solutions
+(EV-0485). One integrator ranks and deduplicates findings; they are
+never merged by vote (EV-0491).
 
 **D9. Machine-detectable defect classes go to scanners, not to
 reviewers.** Secrets, dependency existence, type and build errors,
@@ -326,9 +324,9 @@ Taste. Freely overridable, no reason required.
   counting and branching belong in the orchestrator, not in a node.
 - Spend the budget on the specification before spending it on review.
   Restoring the full specification alone recovered the single-agent
-  ceiling, while conflict reports on top added nothing measurable, and
-  a mechanical seam detector beat a reviewer agent on contract
-  conflicts at 97 per cent precision (EV-0487).
+  ceiling, while conflict reports on top added nothing measurable, and a
+  mechanical detector reached 97 per cent precision on contract
+  conflicts with no model calls (EV-0487).
 - Prefer breadth of independent attempts to rounds of cross-talk.
 - One worked example of a correct return beats five rules about edge
   cases in a packet.
@@ -348,7 +346,7 @@ Packet and return mechanics are in
 `packs/agentic-swarm/refs/PACKET_AND_RETURN.md`, merge gate and review
 topology in `packs/agentic-swarm/refs/MERGE_AND_REVIEW.md`, the full
 risk table in `packs/agentic-swarm/refs/RISK_REGISTER.md`, a worked
-partition in
+partition and its one recorded departure from B7 in
 `packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md`, and
 what a reviewer or script can verify in `packs/agentic-swarm/CHECKS.md`.
 
@@ -456,16 +454,15 @@ not. Agent changes land within thirty days at 32.7 per cent against
 pipeline. Until a venture measures agent-done-to-merged on its own
 work, that is the honest position and this pack holds it.
 
-**Where the pro-swarm evidence is thin.** The partitioning result is
-28 tasks on Python repositories with no ablation over its own
-thresholds (EV-0450). The sixteen-lane success is one
-uncontrolled case in the most oracle-rich domain in software, and its
-own author lists frequent regressions near the end (EV-0053). The
-vendor whose research system reports a large uplift says in the same
-post that the pattern is a poor fit for most coding tasks (EV-0112).
-The optimistic scaling law that finds emergence at sixteen agents was
-measured on short-horizon generation with no merge gate
-(EV-0495).
+**Where the pro-swarm evidence is thin.** The partitioning result is 28
+tasks on Python repositories with no ablation over its own thresholds
+(EV-0450). The sixteen-lane success is one uncontrolled case in the most
+oracle-rich domain in software, and its own author lists frequent
+regressions near the end (EV-0053). The vendor whose research system
+reports a large uplift says in the same post that the pattern is a poor
+fit for most coding tasks (EV-0112). The optimistic scaling law that
+finds emergence at sixteen agents was measured on short-horizon
+generation with no merge gate (EV-0495).
 
 **Where our own rules are thinly evidenced, named.** B5 rests on one
 unreplicated single-author study, kept binding because the design is
@@ -481,12 +478,11 @@ metrics in D14 are one practitioner's unvalidated definitions
 **A finding that cuts against our worry.** One merge-queue dataset of
 153,000 merges found AI-assisted changes broke trunk less often than
 unassisted ones, 1.9 against 4.4 per cent, holding within the same
-repositories despite being larger (EV-0456). It
-contradicts the review-burden telemetry that reports bugs per change up
-54 per cent (EV-0458). Both cannot be straightforwardly
-true of the same population and neither source establishes the
-reconciliation. We record the disagreement rather than pick the
-convenient side.
+repositories despite being larger (EV-0456). It contradicts the
+review-burden telemetry that reports bugs per change up 54 per cent
+(EV-0458). Both cannot be straightforwardly true of the same population
+and neither source establishes the reconciliation. We record the
+disagreement rather than pick the convenient side.
 
 **What no evidence supports either way.** No measured catch rate exists
 for clean-context reviewer agents on realistic multi-file changes, and
@@ -501,15 +497,19 @@ parallel lanes (EV-0459).
 **Read this before quoting the pack at someone.** The evidence does not
 say fan-out is right. It says fan-out over a real dependency graph,
 with hub artefacts held back, one integrator and independent contexts
-per lane, is the narrow shape that survives measurement, because
-independent contexts are the only known defence against one lane's
-errors poisoning another's reasoning (EV-0244, EV-0470).
-Generic multi-agent, meaning more agents on a fixed topology with no
-verifier, loses to one good agent and loses expensively.
+per lane, is the narrow shape that survives measurement. Independent
+contexts are the defence this pack relies on against one lane's errors
+poisoning another's reasoning, and neither row behind that reliance
+measures contamination between agents (EV-0244, EV-0470). Generic
+multi-agent, meaning more agents on a fixed topology with no verifier,
+loses to one good agent and loses expensively.
 
 ## Evidence
 
 Every source is a row in `registry/evidence.json` with version,
 licence, access date and review trigger. Cite ids, never re-record
-sources. The synthesis behind this file and the questions the research
-could not close are in `packs/agentic-swarm/research/NOTES.md`.
+sources. Five rows this pack cites were merged into older ledger rows by
+URL at import and kept the older summary, so what they are cited for
+sits in the pack's fragment record rather than in the row. The synthesis
+behind this file, those five rows, and the questions the research could
+not close are in `packs/agentic-swarm/research/NOTES.md`.

@@ -1071,30 +1071,34 @@ def _lesson_rows(model: RepoModel):
 def _conflict_entries(row: dict):
     """(ref, resolution, note) per entry in the row's conflicts_with.
 
-    Two shapes are read, because both are natural and either satisfies
-    the rule. A bare id in conflicts_with takes its resolution from the
-    row's conflict_resolutions map; an entry written as an object
-    carries its own. Anything else yields no resolution, which is the
-    unresolved case.
+    One shape is read, because one shape is what
+    kernel/schemas/lesson.schema.json permits: conflicts_with holds ref
+    strings, and conflict_resolutions maps a ref to an object carrying a
+    resolution and a note. This used to read two more shapes, an object
+    inside conflicts_with and a bare string resolution, and its docstring
+    said either satisfied the rule. Neither validates, so S018 was
+    accepting rows S019 rejects and the tests that proved otherwise ran
+    without the real schema installed.
+
+    Anything the schema does not permit yields no resolution here, which
+    reports as unresolved: the shape itself is S019's finding to make,
+    and this check does not restate it.
     """
     raw = row.get("conflicts_with")
     entries = raw if isinstance(raw, list) else [raw] if raw else []
     resolutions = row.get("conflict_resolutions")
     resolutions = resolutions if isinstance(resolutions, dict) else {}
     for entry in entries:
-        if isinstance(entry, dict):
-            ref = str(entry.get("ref") or entry.get("id") or "").strip()
-            yield (ref or "(unnamed)",
-                   str(entry.get("resolution") or "").strip(),
-                   str(entry.get("note") or entry.get("reasoning") or "").strip())
+        if not isinstance(entry, str):
+            yield "(not a ref string)", "", ""
             continue
-        ref = str(entry).strip()
+        ref = entry.strip()
         recorded = resolutions.get(ref)
         if isinstance(recorded, dict):
             yield (ref, str(recorded.get("resolution") or "").strip(),
-                   str(recorded.get("note") or recorded.get("reasoning") or "").strip())
+                   str(recorded.get("note") or "").strip())
         else:
-            yield ref, str(recorded or "").strip(), ""
+            yield ref, "", ""
 
 
 @register("S018")
@@ -1109,9 +1113,11 @@ def check_s018_lesson_conflicts(ctx: dict) -> list:
 
     So: every entry in a row's conflicts_with carries a resolution, one
     of stricter-applies, scoped-differently, superseded or
-    operator-ruling. An operator ruling also records what was ruled: a
-    row that says Daniel decided, without saying what, cannot be
-    reviewed and cannot be argued with later.
+    operator-ruling, and every resolution carries a note saying what
+    settled it. The note rule is the schema's rule, not a stricter one
+    invented here: a resolution nobody can read cannot be reviewed, and
+    a row that says Daniel decided without saying what cannot be argued
+    with later.
 
     What this does not do: it does not check that the thing a row
     conflicts with exists. Conflicts are named against packs, guides,
@@ -1129,18 +1135,21 @@ def check_s018_lesson_conflicts(ctx: dict) -> list:
         for ref, resolution, note in _conflict_entries(row):
             if not resolution:
                 out.append(_f(ctx, "S018", LESSONS_PATH,
-                              "%s: conflicts_with %s is unresolved; record "
-                              "the resolution (%s)" % (rid, ref, _RESOLUTION_LIST)))
+                              "%s: conflicts_with %s is unresolved; record it "
+                              "in conflict_resolutions as {resolution, note}, "
+                              "the resolution being one of %s"
+                              % (rid, ref, _RESOLUTION_LIST)))
             elif resolution not in CONFLICT_RESOLUTIONS:
                 out.append(_f(ctx, "S018", LESSONS_PATH,
                               "%s: unknown conflict resolution for %s: %s; "
                               "expected one of %s"
                               % (rid, ref, resolution, _RESOLUTION_LIST)))
-            elif resolution == "operator-ruling" and not note:
+            elif not note:
                 out.append(_f(ctx, "S018", LESSONS_PATH,
-                              "%s: conflict with %s is resolved by an operator "
-                              "ruling with nothing recorded; note what was "
-                              "ruled" % (rid, ref)))
+                              "%s: conflict with %s is resolved %s with "
+                              "nothing recorded; note the condition, the "
+                              "ruling or the successor that settles it"
+                              % (rid, ref, resolution)))
     return out
 
 

@@ -129,6 +129,16 @@ the ledger's schema, not restated here; a harvest row carries no
 evidence id and no lens contract, which is what separates it from a
 study row.
 
+The read is a read and nothing else. It opens two files in repositories
+the estate already governs, writes nothing back, asks the venture for
+nothing and owes it no report, which is why it stands beside the
+hands-off boundary rather than against it (ADR-0006, decision 6). The
+venture is told as much in its own seed:
+`kernel/templates/EOS_FEEDBACK.tpl.md` says the harvest reads that file
+monthly and never writes in it, so the channel is one the venture was
+handed and is free to leave empty. Wanting something looked at is
+PB-E12's job, and the harvest never offers.
+
 Nothing found: record checked and clean, and stop.
 
 ## PB-E03 · Pack and kernel authoring
@@ -200,6 +210,22 @@ Regenerate derived views. Close or discard dead task records; recover
 expired claims only with liveness evidence. Sample the standing tier
 exceptions recorded in `org/decisions/` and flag any past its expiry
 date.
+
+Then drain the sampled-review pool, which is the catcher `GOVERNANCE.md`
+names for work that merges without a task record (ADR-0008, decision 3).
+List everything the express and standard lanes merged since the last
+pass, records and record-free commits alike, and read every fifth one in
+commit order against three questions: does the message carry the whole
+record, would the router have ruled that diff R2 or above on the facts
+in it, and does anything in it reach the protected set? A commit that
+should have carried a record gets one opened now, dated for when the
+work landed, and the miss is a finding of the pass. The failure this
+catches is the one ADR-0008 took on knowingly: a change whose reasoning
+nobody can reconstruct. One in five is the starting rate the
+venture-side REVIEWER charter carries
+(`kernel/templates/org/roles/REVIEWER.tpl.md`) and not a measurement;
+move it when a pass has evidence either way, and record what the
+evidence was.
 
 ## PB-E10 · Experiment sweep
 

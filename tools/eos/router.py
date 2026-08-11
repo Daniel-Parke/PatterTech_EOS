@@ -44,7 +44,9 @@ DECLARABLE = {
 # classes (paths:protected, paths:sensitive). Every name in DECLARABLE
 # appears as a source of some row: a side effect an owner can declare
 # that reaches no factor is a question the record asks and then ignores.
-# tests/test_router.py holds that as an assertion.
+# Every other source is either a detector id from DETECTOR_IDS below or
+# a name in RESERVED_SOURCES, which says plainly which sources nothing
+# detects. tests/test_router.py holds all three as assertions.
 FACTOR_TABLE = [
     {"id": "protected-set-contact", "tier_floor": "R3", "denies_express": False,
      "sources": ["paths:protected"]},
@@ -87,6 +89,70 @@ FACTOR_TABLE = [
     {"id": "size-threshold", "tier_floor": "R1", "denies_express": True,
      "sources": ["diff-size"]},
 ]
+
+# Every derived signal id this module can set. derive_signals sets all
+# of them except diff-size, which route computes against the express
+# limits. Kept beside the table so the wiring can be read in both
+# directions, because it has been wrong in both.
+DETECTOR_IDS = frozenset({
+    "ci-config",
+    "data-deletion",
+    "ddl-change",
+    "ddl-drop",
+    "dependency-manifest-delta",
+    "destructive-dml",
+    "diff-size",
+    "install-script",
+    "migration-path",
+    "paths:auth",
+    "paths:payment",
+    "paths:protected",
+    "paths:sensitive",
+    "pii-fields",
+    "public-api-delta",
+    "secret-pattern",
+})
+
+# Sources the table cites that no detector produces. They stay in the
+# table because kernel/POLICY_SPEC.md's row for each factor names the
+# same source and this table mirrors that law, and they are named here
+# because a source list otherwise reads as a promise that the router
+# detects them. It does not, and a reader would take the table for a
+# control that exists. Striking them instead is a spec change, which is
+# an ADR and not a code edit.
+RESERVED_SOURCES = {
+    "no-rollback": (
+        "Nothing in a diff says a change cannot be undone. That reading "
+        "is the owner's, and it arrives declared, as irreversible-action "
+        "or rollback-cost."),
+    "egress": (
+        "The router does not read source text for outbound calls; every "
+        "http string in a repository would activate it. sends-external "
+        "is the declared route in, and kernel/GUARD_SPEC.md rules the "
+        "act itself at run time, where a real call can be seen."),
+    "infra-state": (
+        "The ci-config detector already matches the stateful "
+        "infrastructure files this names, terraform, ansible and "
+        "compose among them, so a second detector would count the same "
+        "file twice under two names."),
+}
+
+# Detectors that reach no factor. They go on the record as evidence and
+# change no ruling, which is a choice per id rather than an oversight.
+DIAGNOSTIC_SIGNALS = {
+    "dependency-manifest-delta": (
+        "A manifest moving is not a risk factor. What raises the floor "
+        "is a manifest that gains an install hook, which install-script "
+        "detects and ci-stateful-infra consumes. The id stays on the "
+        "record so a reviewer can see which manifests moved."),
+    "paths:sensitive": (
+        "The sensitive list is a reading aid, not a factor source here. "
+        "The venture policy hangs auth-surface and money off it; this "
+        "table activates those from paths:auth and paths:payment, which "
+        "name what they matched. Flooring every kernel edit at R2 with "
+        "an auth-surface reason would put a false reason on the "
+        "ruling."),
+}
 
 DEFAULT_EXPRESS = {"max_diff_lines": 200, "max_files": 10}
 

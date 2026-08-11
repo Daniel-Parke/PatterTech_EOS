@@ -28,13 +28,14 @@
    "status": "clear"
   },
   {
-   "finding": "One unattributed set of figures was added on 2026-08-10: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md under the binding requirements. Its source has no EV id yet and is recorded in packs/delivery-testing/research/sources.fragment.json as FRAG-DELIVERY-TESTING-14. The prose describes the study rather than citing an id that does not exist.",
-   "status": "action",
-   "action": "Import FRAG-DELIVERY-TESTING-14, deduplicate it against packs/coding/research/sources.fragment.json FRAG-CODING-21, which is the same source, then replace the naming sentence in packs/delivery-testing/PACK.md with the assigned EV id."
+   "finding": "One set of figures was added on 2026-08-10 with no id to cite: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md under the binding requirements. Its source was recorded in packs/delivery-testing/research/sources.fragment.json as FRAG-DELIVERY-TESTING-14, and the prose described the study instead of citing an id that did not exist.",
+   "status": "closed",
+   "closed_by": "The same day's fragment import deduplicated FRAG-DELIVERY-TESTING-14 against FRAG-CODING-21, which is the same source, and assigned the id EV-0480. packs/delivery-testing/PACK.md now opens the paragraph on that id. EV-0480 arrived after this sweep counted the surface; it is classified in licence_findings below."
   }
  ],
  "licence_findings": {
-  "cited_ids": 32,
+  "cited_ids": 33,
+  "cited_ids_note": "32 at the sweep, plus EV-0480, which the same day's import assigned after the sweep had counted. EV-0480 was classified by the method above, off its ledger row, and sits in asserted_specific.",
   "evidenced_specific": {
    "count": 8,
    "ids": ["EV-0003", "EV-0006", "EV-0007", "EV-0009", "EV-0018", "EV-0019", "EV-0094", "EV-0105"],
@@ -46,9 +47,9 @@
    "note": "Recorded as stating no reuse licence, with the observation recorded. Absence confirmed is a fact, not a gap. Note that EV-0015, EV-0016 and EV-0090 are documentation for a tool whose code is Apache-2.0, and the docs licence is a separate question the record correctly keeps separate."
   },
   "asserted_specific": {
-   "count": 11,
-   "ids": ["EV-0036", "EV-0096", "EV-0184", "EV-0185", "EV-0186", "EV-0187", "EV-0188", "EV-0189", "EV-0190", "EV-0192", "EV-0194"],
-   "note": "A specific licence is named and no licence_evidence line backs it. Four matter more than the rest. EV-0184, EV-0185 and EV-0186 are recorded as all rights reserved, which permits fair quotation only, and the pack quotes none of them. EV-0187 and EV-0096 are recorded as CC BY-NC-ND, where the no-derivatives term bears on how closely we may restate them. EV-0194 is recorded as proprietary vendor documentation."
+   "count": 12,
+   "ids": ["EV-0036", "EV-0096", "EV-0184", "EV-0185", "EV-0186", "EV-0187", "EV-0188", "EV-0189", "EV-0190", "EV-0192", "EV-0194", "EV-0480"],
+   "note": "A specific licence is named and no licence_evidence line backs it. Four matter more than the rest. EV-0184, EV-0185 and EV-0186 are recorded as all rights reserved, which permits fair quotation only, and the pack quotes none of them. EV-0187 and EV-0096 are recorded as CC BY-NC-ND, where the no-derivatives term bears on how closely we may restate them. EV-0194 is recorded as proprietary vendor documentation. EV-0480 is the post-sweep arrival: its CC BY 4.0 line came from a research packet rather than from the page, which is an assertion like the rest of this bucket."
   },
   "asserted_unknown": {
    "count": 5,
@@ -58,7 +59,7 @@
  },
  "residual": [
   "No licence was confirmed during this sweep. ADR-0006 decision 7 forbids re-fetching sources wholesale, and this lane did not fetch any. Every classification above is a reading of what the ledger already records.",
-  "16 of 32 cited ids have no licence_evidence line. That is the number to work down.",
+  "17 of 33 cited ids have no licence_evidence line, 16 of them at the sweep and EV-0480 counted in afterwards. That is the number to work down.",
   "The pack cites three sources recorded as all rights reserved and two recorded as no-derivatives. None is quoted, so the exposure is restatement rather than reproduction, and the restatements were read and are ours. If any of those five licence lines turns out to be wrong, the exposure does not change, because none of them is quoted either way.",
   "The expression scan cannot prove a negative. It proves no quotation marks and no close restatement in the passages checked."
  ]

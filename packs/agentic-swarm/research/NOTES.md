@@ -122,12 +122,48 @@ state no reuse licence at all. Nothing in this pack reproduces text
 from any of them. Where a number appears, it is a fact cited to its
 source, not carried expression.
 
-## Citation state at authoring time
+## Citation state, and what the import did
 
-The pack body cites `FRAG-` ids because assigning evidence ids is the
-integrator's step, run by `tools/import_fragments.py` after every lane
-has landed its fragment file. Five of the 52 records duplicate URLs
-already in `registry/evidence.json`, so the import merges them and
-their FRAG ids never become EV ids: the pack cites the existing EV ids
-for those instead. Until the import and the rewrite happen, check S014
-reports every FRAG citation outside this directory, and it is right to.
+At authoring time the pack body cited `FRAG-` ids, because the evidence
+ids did not exist yet. They are assigned by
+`tools/import_fragments.py`, which runs once every lane has landed its
+fragment file. That import has since run, the body now cites the
+assigned `EV-` ids, and the only FRAG ids left in the pack are in this
+directory, which check S014 exempts as the pre-import record. On the
+committed partition the ledger and the import belonged to the registry
+lane, T-0025, rather than to the integrator; the exemplar records that
+and what it cost.
+
+Six of the 52 records matched a URL already in `registry/evidence.json`,
+so the import merged them rather than assigning new ids, and the pack
+cites the existing rows instead: EV-0013, EV-0053, EV-0108, EV-0109,
+EV-0112 and EV-0244. The other 46 arrived as EV-0450 to EV-0495.
+
+A merge keeps the older row's finding text, and for five of the six that
+text is thinner than the fragment record it absorbed. Each is cited in
+the pack for something its ledger row does not say:
+
+- **EV-0013**, in the risk register, for the span convention defining no
+  delegation-chain attribute. The row carries the conventions and their
+  development status, not the gap.
+- **EV-0053**, in D4 and D5, for coordination through claim files in git
+  and for sixteen agents hitting identical bugs on one monolithic build.
+  The row carries the sixteen-lane run and the verifier constraint.
+- **EV-0108**, in B2, B9 and the risk register, for the lead's history
+  not carrying over, for two teammates on one file overwriting each
+  other, and for the permission-skipping flag. The row carries the
+  shipped coordination primitives and the three-to-five guidance.
+- **EV-0112**, in B6, for the fifteen times token multiple, which the
+  row does carry, and until this correction for token usage explaining
+  about 80 per cent of performance variance, which it does not. That
+  second claim has been taken out of B6.
+- **EV-0244**, in the risk register, for one model family dropping 30 to
+  45 per cent as irrelevant context grew from about 300 to about 113,000
+  tokens. The row carries the shape of the effect without the figures.
+
+EV-0109 is the exception: its row carries what B3 cites it for. Every
+fact above sits in `sources.fragment.json` beside these notes, under
+FRAG-AGENTIC-SWARM-50, -13, -14, -12 and -25. The repair is to enrich
+those five ledger rows so they carry the older statement and the newer
+one, which is a change to `registry/evidence.json` and belongs to
+whoever holds that file.

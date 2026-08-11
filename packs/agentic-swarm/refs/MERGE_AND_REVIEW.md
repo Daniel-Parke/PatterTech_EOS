@@ -2,7 +2,7 @@
 summary: How lanes land, who decides the order, and the review topology that scales with lane count
 kind: recipe
 scope: estate
-sources: [EV-0053, EV-0107, EV-0108, EV-0167, EV-0169, EV-0251]
+sources: [EV-0053, EV-0107, EV-0108, EV-0167, EV-0169, EV-0251, EV-0490]
 type: guide
 tags: [eos, delivery, arch]
 review: on-change-of:agent-harness-major-release

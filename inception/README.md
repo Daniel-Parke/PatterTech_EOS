@@ -27,8 +27,8 @@ venture's own repository rather than here.
 - EXPRESS_INCEPTION.md: the fast path for an S venture whose risk
   triggers are all silent. Six questions, inherited defaults, the same
   auto checks, two signed human items. Read its gate first.
-- WALK_ORDER.md: how the pack activation walk is built from
-  packs/INDEX.md, filtered by triggers and predicates, canonically
+- WALK_ORDER.md: how the pack activation walk is built from each pack's
+  own activation_paths, filtered by triggers and predicates, canonically
   ordered and budget-capped.
 - COMPILE.md: the prune, fill, policy fill, distil and report rules the
   seed compiler follows, and its never-list.
