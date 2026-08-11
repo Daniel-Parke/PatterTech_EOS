@@ -210,6 +210,44 @@ def test_policy_validated_false_fails_closed_too():
     assert doc["verdict"] == "manual-only"
 
 
+def test_policy_with_no_validated_key_fails_closed():
+    """One word, three readings. kernel/schemas/policy.schema.json says
+    an absent validated key fails closed, the D008 seed check read it
+    that way, and this module read it as "not withdrawn", which is the
+    permissive reading of the three. Fail closed is the one that keeps
+    the safety property, so it is the one all three hold."""
+    policy = {"guard": {"adapter": "claude-code", "mapping_ref": MAPPING_REF}}
+    state = guard.adapter_state(policy)
+    assert state["validated"] is False
+    assert not state["covered"]
+    assert any("absent" in r for r in state["reasons"])
+    doc = guard.evaluate(
+        {"action_class": "external-write",
+         "payload_summary": "push a branch", "mapped_verdict": "allow"},
+        policy, True)
+    assert doc["verdict"] == "manual-only"
+    _validate_schema(doc)
+
+
+def test_explicit_true_still_validates_a_passing_adapter():
+    """Fail-closed on absent must not mean nothing can ever validate."""
+    assert guard.adapter_state(POLICY)["validated"] is True
+
+
+def test_the_schema_says_what_the_guard_now_does(tmp_path):
+    """The schema always described fail-closed; only the code differed.
+    The seed check's half of this is in tests/test_checks_seed.py."""
+    schema = json.loads(
+        (REPO / "kernel" / "schemas" / "policy.schema.json")
+        .read_text(encoding="utf-8"))
+    described = schema["properties"]["guard"]["properties"]["validated"][
+        "description"].lower()
+    assert "absent or false fails closed" in described
+    guard_block = {"adapter": "claude-code", "mapping_ref": "x.json"}
+    assert guard.adapter_state({"guard": guard_block},
+                               root=tmp_path)["validated"] is False
+
+
 def test_always_human_class_requires_approval():
     doc = guard.evaluate(
         {"action_class": "deployment",

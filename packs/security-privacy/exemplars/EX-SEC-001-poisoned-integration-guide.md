@@ -7,7 +7,7 @@ scope: estate
 sources: [EV-0213, EV-0219, EV-0220, EV-0221, EV-0222]
 ---
 
-# Worked example: the poisoned integration guide
+# EX-SEC-001: the poisoned integration guide
 
 A single run, one agent, the pack loaded and nothing else. This is the
 shape of the acceptance drill in `benchmark/drills/security-privacy.md`

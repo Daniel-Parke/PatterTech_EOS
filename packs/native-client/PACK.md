@@ -10,7 +10,7 @@ applies_when: [ships_a_binary, has_native_ui, has_local_write_store, distributes
 activation_paths: [**/ios/**, **/android/**, **/*.swift, **/*.kt, **/*.xcodeproj/**, **/AndroidManifest.xml, **/electron/**, **/*.plist]
 volatility: fast
 review: on-change-of:EN-301-549-v4-publication
-sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236]
+sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0375, EV-0376, EV-0377, EV-0378, EV-0379, EV-0380, EV-0381, EV-0382, EV-0383, EV-0386, EV-0387, EV-0388]
 type: playbook
 tags: [eos, a11y, delivery, ops, state]
 ---
@@ -84,26 +84,47 @@ pack, API versioning in api-integration, how a surface looks in ui-ux.
 Games, embedded firmware and console distribution are out of scope:
 the research covered none of them.
 
-## Binding requirements
+## Requirements
 
-Each names its predicate, its evidence and the failure it prevents.
-Where basis says decision, it binds because the estate ruled it, not
-because evidence compels it. `EV-` ids resolve in
-`registry/evidence.json`, including the nineteen native-client sources
-imported as EV-0370 to EV-0388. Several sources are
-readable and not reusable, so no source prose is copied here.
+Seven numbered requirements. Three bind and four are defaults, after
+the authority audit under ADR-0008: a rule stays binding only where it
+prevents a serious or hard-to-reverse failure and rests on law, a
+standard or evidence. Four of these rest on a ruling of ours, which is
+the test's second limb and is why they moved. A default is not a
+suggestion. Departing from one leaves a written reason in the venture's
+lock-book, and this pack expects almost nobody to depart from B2. The
+numbers do not move, because `packs/native-client/CHECKS.md`, the
+guides, the references and the worked example all cite them.
+
+| Id | Authority | Basis | Why it landed there |
+| --- | --- | --- | --- |
+| B1 | default | decision | the estate chose the vocabulary; no source ranks the policies |
+| B2 | default | decision | the failure is hard to reverse, the remedy is our ruling |
+| B3 | default | decision | the three properties are a design choice of ours |
+| B4 | binding | standard | a shipped binary cannot be taken back |
+| B5 | binding | standard | rejection or removal takes the distribution channel |
+| B6 | binding | standard | it decides whether disabled people can use the app |
+| B7 | default | decision | the pattern is a ruling, not a published rule |
+
+Each requirement names its predicate, its evidence and the failure it
+prevents. `EV-` ids resolve in `registry/evidence.json`, including the
+nineteen native-client sources imported as EV-0370 to EV-0388. Several
+sources are readable and not reusable, so no source prose is copied
+here.
 
 **B1. A conflict policy per write class, named before a sync library is
 chosen.** `has_local_write_store`. Every class is classified as
 commutative, last-writer-acceptable or invariant-bearing, and each gets
 exactly one policy from `converge`, `last-writer-wins`,
 `reserve-then-commit` or `reject-offline`, recorded in a decisions file
-citing at least three evidence ids. Prevents the library choosing the
-policy by default: convergence proofs say replicas agree and no update
-is lost, and say nothing about whether the agreed value satisfies an
-invariant (EV-0379), while the shipped server-authoritative
-product states outright that there is no single correct choice for
-handling a write failure (EV-0383). Basis: decision. See
+citing at least three evidence ids. Reason: otherwise the library picks
+the policy by default. Convergence proofs say replicas agree and no
+update is lost, and say nothing about whether the agreed value
+satisfies an invariant (EV-0379), while the shipped
+server-authoritative product states outright that there is no single
+correct choice for handling a write failure (EV-0383). Depart where
+there is no local write store at all. Authority: default. Basis:
+decision. See
 `packs/native-client/guides/GD-NAT-002-offline-write-model.md`.
 
 **B2. No offline acceptance of an invariant-bearing write without a
@@ -111,17 +132,22 @@ reservation or compensation path.** `has_invariant_bearing_writes` and
 `has_local_write_store`. Either the client holds a server-issued
 reservation before accepting the write, or the write is rejected
 offline, or a named compensation event fires for the loser on
-reconnection. Prevents two users holding one slot after a merge the
-algorithm correctly calls converged (EV-0379). Basis: decision.
+reconnection. Reason: two users hold one slot after a merge the
+algorithm correctly calls converged (EV-0379), and a booking made twice
+is a promise to a person that cannot be unmade by a later commit.
+Authority: default only because the remedy is our ruling rather than a
+published rule; the failure under it is the worst in this pack, and a
+departure is a lock-book entry a reviewer will read. Basis: decision.
 
 **B3. The outbox is durable, ordered and idempotent, and its blocked
 state is named.** `has_local_write_store`. A write acknowledged to the
 user survives process death, replays without duplicating, and the
 blocked state is surfaced within a stated timeout while reads keep
-working. Prevents the two failures of a FIFO upload queue: the write
+working. Reason: the two failures of a FIFO upload queue, the write
 lost to a crash between acknowledgement and flush, and head-of-line
 blocking, where one unacknowledged mutation stalls the whole client and
-nothing on screen says so (EV-0383). Basis: decision.
+nothing on screen says so (EV-0383). Authority: default. Basis:
+decision.
 
 **B4. Release is forward-only.** `distributes_via_app_store`. Every
 shipping binary carries a remote kill switch for the behaviour it
@@ -131,7 +157,8 @@ updates on a fixed schedule with no developer dial and no rollback
 stops further delivery and the documented remedy for a bad build is to
 ship another one (EV-0375). Flags are the rollback on a client
 (EV-0026). Prevents an incident plan whose first step is impossible.
-Basis: standard. See `packs/native-client/guides/GD-NAT-003-release-path.md`.
+Authority: binding. Basis: standard. See
+`packs/native-client/guides/GD-NAT-003-release-path.md`.
 
 **B5. A remote update channel changes presentation and content, never
 capability.** `has_remote_update_channel`. Copy, styling, assets and
@@ -140,7 +167,8 @@ permissions, SDK levels and anything a reasonable person would call a
 new feature may not. Prevents rejection or removal: the technical
 boundary sits at native code (EV-0377) and the review rule sits
 tighter still, at introducing or changing features (EV-0372).
-Basis: standard, taking the narrower of two documented lines.
+Authority: binding. Basis: standard, taking the narrower of two
+documented lines.
 
 **B6. Non-web accessibility conformance is stated per screen, declared
 in code, and gated by an automated audit with a written verdict on
@@ -154,15 +182,20 @@ target is clause 11 plus its WCAG mapping (EV-0371, EV-0027),
 which adds assistive-technology interoperability and user preference
 support. Prevents web conformance language being waved at an app, and a
 green audit being read as proof, which the web census warns against
-directly (EV-0235). Basis: standard. See
+directly (EV-0235). Authority: binding, and the audit kept it there
+because the failure is a person locked out of the product rather than a
+line of text to correct. Basis: standard. See
 `packs/native-client/guides/GD-NAT-004-a11y-profile.md`.
 
 **B7. Client and server contracts change by expand, migrate,
 contract.** `ships_a_binary`. The new shape ships alongside the old,
 waits out the installed base, then the old is removed (EV-0206).
-Prevents a server release breaking a binary its user cannot update
-today and may never update. Version numbers mean nothing until that
-surface is declared precisely (EV-0171). Basis: decision.
+Reason: a server release otherwise breaks a binary its user cannot
+update today and may never update, and version numbers mean nothing
+until that surface is declared precisely (EV-0171). Depart only where
+every client is known to be current and the venture can prove it.
+Authority: default, because the pattern is a ruling of ours and the
+source behind it is one practitioner's write-up. Basis: decision.
 
 ## Defaults
 
@@ -232,7 +265,9 @@ targets carry lower stability grades (EV-0386).
 | How a fix reaches a user | Containment lever, calendar risk, OTA envelope | `packs/native-client/guides/GD-NAT-003-release-path.md` |
 | How much non-web accessibility assurance | What a passing build may claim, and against which instrument | `packs/native-client/guides/GD-NAT-004-a11y-profile.md` |
 
-Detail sits in `packs/native-client/refs/`, a worked example in
+Detail sits in `packs/native-client/refs/`: the write classes, the
+store release mechanics, and the non-web accessibility profile. A
+worked example is in
 `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`,
 and evaluation criteria in `packs/native-client/CHECKS.md`.
 
@@ -299,7 +334,9 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
 - **The evidence import is done.** The nineteen fragment rows are in
   `registry/evidence.json` as EV-0370 to EV-0388, and every citation in
   this pack uses the ledger id. The fragment file stays in the research
-  directory as the frozen batch the import was made from.
+  directory as the frozen batch the import was made from, and the
+  synthesis behind the pack is in
+  `packs/native-client/research/NOTES.md`.
 - **Refresh triggers.** Publication of EN 301 549 v4; a change to
   either store's staged release mechanics; the next annual Play target
   API deadline; a published coverage figure for a native audit; any

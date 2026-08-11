@@ -50,8 +50,11 @@ to E run in full against the v2 matrix.
 
 **apply.** The venture's pin is a released v1 kernel and its seed
 matches that matrix. The transforms are mechanical, so
-`python -m tools.eos migrate apply` performs them and the lock-book
-gains the v2 policy pin without a fresh walk.
+`python -m tools.eos migrate apply --seed <path> --state <plan file>`
+performs them and the lock-book gains the v2 policy pin without a fresh
+walk. It needs both flags, because the plan document does not record
+which seed it planned. It is a dry run by default and reports what it
+would do; `--no-dry-run` is what lets it write.
 
 **fresh-inception.** No lock-book exists, so the venture was never
 compiled from the EOS. It runs Session 0 from the start per
@@ -108,12 +111,20 @@ Finally the venture's row in registry/PROJECTS.md is updated: the new
 pin, the scale as recompiled, the packs adopted, and the verification
 date.
 
-## What this build may not do
+## What this may not do
 
-ADR-0002 reserves every write to a sibling venture repository for a
-later decision. In this build the migration engine is exercised on
-fixture seed copies only: `migrate apply` refuses outright to run
-against a git repository, and the command refuses a seed path outside
-this repo. The per-venture files under org/migration/plans/ are
-read-only plan reports, produced by running step 1 and recording what
-it actually said.
+ADR-0002 reserved every write to a sibling venture repository for a
+later decision and ADR-0006 reserved it again, so the migration engine
+has only ever been exercised on fixture seed copies. Both refusals are
+real: `migrate apply` refuses to run against a git repository, and the
+command refuses a seed path outside this repo.
+
+The per-venture files under `org/migration/plans/` are read-only plan
+reports, produced by running step 1 on 2026-08-03 and recording what it
+actually said. Read them as dated: they carry judgement a fresh run will
+not repeat, such as AutoWatt's forty-eight work orders that the engine's
+queue transform does not see, and they carry facts that go stale. When a
+venture asks for an upgrade, PB-E06 runs step 1 again and this report is
+context, not the plan. The `report_path` line in each names the file the
+apply step would write; nothing has been applied, so no such file
+exists.

@@ -3,7 +3,7 @@ summary: How the four light tiers are built, the compositor whitelist, the degra
 kind: fact
 scope: brand:pattertech
 volatility: slow
-sources: [EV-0030, EV-0065]
+sources: [EV-0030, EV-0065, EV-0395, EV-0396, EV-0397, EV-0398, EV-0401]
 review: on-change-of:CSS-Masking-Module-Level-1
 type: implementation
 tags: [web, motion, colour, perf]

@@ -5,7 +5,7 @@ authority: default
 basis: decision
 evidence_grade: not-applicable
 scope: estate
-sources: [EV-0055, EV-0095]
+sources: [EV-0055, EV-0095, EV-0353, EV-0356, EV-0359, EV-0360, EV-0361, EV-0365, EV-0366, EV-0368, EV-0369]
 review: on-change-of:Reforge-and-IPA-primary-text-access
 type: guide
 tags: [brand, content, seo, product]

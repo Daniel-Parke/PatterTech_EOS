@@ -1,0 +1,597 @@
+{
+  "pack": "agentic-development",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "T-0024",
+  "swept": "2026-08-10",
+  "method": "Every EV id cited anywhere in packs/agentic-development/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 0,
+    "note": "No quoted span of six words or more anywhere in the read surface. The topology card names ten topologies and describes each in the pack's own words; no vendor documentation prose, prompt text or code sample is carried."
+  },
+  "counts": {
+    "sources_cited": 50,
+    "rows_carrying_licence_evidence": 31,
+    "by_licence_state": {
+      "verified": 4,
+      "stated-unverified": 18,
+      "no-reuse-licence": 0,
+      "unknown": 0,
+      "not-stated": 28
+    },
+    "residual_unknown_or_not_stated": 28
+  },
+  "sources": [
+    {
+      "id": "EV-0001",
+      "source": "OpenHands Software Agent SDK paper (MLSys 2026)",
+      "url": "https://arxiv.org/abs/2511.03690",
+      "licence": "CC-BY-4.0",
+      "licence_state": "verified",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0007",
+      "source": "On the Risk of Coding Before Testing",
+      "url": "https://arxiv.org/abs/2607.05139",
+      "licence": "CC-BY-4.0",
+      "licence_state": "verified",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0013",
+      "source": "OpenTelemetry GenAI semantic conventions (repo)",
+      "url": "https://github.com/open-telemetry/semantic-conventions-genai",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0014",
+      "source": "Agent Skills specification",
+      "url": "https://agentskills.io/specification",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0021",
+      "source": "OpenTelemetry Semantic Conventions",
+      "url": "https://opentelemetry.io/docs/specs/semconv/",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0042",
+      "source": "Agent Client Protocol",
+      "url": "https://agentclientprotocol.com/get-started/introduction",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0043",
+      "source": "OpenTelemetry GenAI semantic conventions (status check)",
+      "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+      "licence": "CC-BY-4.0",
+      "licence_state": "verified",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0045",
+      "source": "OpenAI Agents SDK (Python)",
+      "url": "https://github.com/openai/openai-agents-python",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0046",
+      "source": "Google Agent Development Kit 2.0",
+      "url": "https://github.com/google/adk-python",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0047",
+      "source": "Microsoft Agent Framework",
+      "url": "https://github.com/microsoft/agent-framework",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0048",
+      "source": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0049",
+      "source": "OpenHands (main app)",
+      "url": "https://github.com/OpenHands/OpenHands",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0050",
+      "source": "OpenHands Software Agent SDK (repo)",
+      "url": "https://github.com/OpenHands/software-agent-sdk",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0051",
+      "source": "SWE-agent",
+      "url": "https://github.com/SWE-agent/SWE-agent",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0052",
+      "source": "mini-swe-agent",
+      "url": "https://github.com/SWE-agent/mini-swe-agent",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0053",
+      "source": "Building a C compiler with Claude agent teams (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/building-c-compiler",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0054",
+      "source": "anthropics/skills repository",
+      "url": "https://github.com/anthropics/skills",
+      "licence": "Apache-2.0 for most skills; document skills (docx/pdf/pptx/xlsx) source-available, non-open-source",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0072",
+      "source": "GitHub Agent HQ",
+      "url": "https://github.blog/news-insights/company-news/welcome-home-agents/",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0073",
+      "source": "Terminal-Bench 2.0 and Harbor",
+      "url": "https://huggingface.co/datasets/harborframework/terminal-bench-2.0",
+      "licence": "Apache-2.0",
+      "licence_state": "verified",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0076",
+      "source": "OpenAI Agents SDK guardrails docs",
+      "url": "https://openai.github.io/openai-agents-python/guardrails/",
+      "licence": "MIT (SDK)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0077",
+      "source": "ADK workflow agents docs",
+      "url": "https://adk.dev/agents/workflow-agents/",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0078",
+      "source": "Microsoft Agent Framework workflows docs",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0079",
+      "source": "LangGraph interrupts docs",
+      "url": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0080",
+      "source": "OpenHands context condenser docs",
+      "url": "https://docs.openhands.dev/sdk/guides/context-condenser",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0081",
+      "source": "OpenHands security and confirmation docs",
+      "url": "https://docs.openhands.dev/sdk/guides/security",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0082",
+      "source": "OpenHands stuck detector docs",
+      "url": "https://docs.openhands.dev/sdk/guides/agent-stuck-detector",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0083",
+      "source": "OpenHands microagents and skills docs",
+      "url": "https://docs.openhands.dev/usage/prompting/microagents-overview",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0084",
+      "source": "OpenHands sub-agent delegation docs",
+      "url": "https://docs.openhands.dev/sdk/guides/agent-delegation",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0085",
+      "source": "Effective harnesses for long-running agents (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0086",
+      "source": "Effective context engineering for AI agents (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0087",
+      "source": "Demystifying evals for AI agents (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0088",
+      "source": "Building effective agents (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0089",
+      "source": "Harness design for long-running application development (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0106",
+      "source": "Cognition: Don't Build Multi-Agents",
+      "url": "https://cognition.ai/blog/dont-build-multi-agents",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0107",
+      "source": "Cognition: Multi-Agents, What's Actually Working",
+      "url": "https://cognition.com/blog/multi-agents-working",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0108",
+      "source": "Claude Code Agent Teams docs",
+      "url": "https://code.claude.com/docs/en/agent-teams",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0109",
+      "source": "Why Do Multi-Agent LLM Systems Fail? (MAST taxonomy)",
+      "url": "https://arxiv.org/abs/2503.13657",
+      "licence": "CC BY-NC-ND 4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0110",
+      "source": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "url": "https://arxiv.org/abs/2405.15793",
+      "licence": "CC-BY-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0111",
+      "source": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "licence": "CC-BY-4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0112",
+      "source": "How we built our multi-agent research system (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0113",
+      "source": "Writing effective tools for AI agents (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0114",
+      "source": "Code execution with MCP (Anthropic)",
+      "url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0115",
+      "source": "Building agents with the Claude Agent SDK (Anthropic)",
+      "url": "https://claude.com/blog/building-agents-with-the-claude-agent-sdk",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0116",
+      "source": "OpenAI Agents SDK orchestration guide (LLM versus code)",
+      "url": "https://openai.github.io/openai-agents-python/multi_agent/",
+      "licence": "MIT (SDK repository)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0117",
+      "source": "OpenAI Agents SDK sessions and compaction docs",
+      "url": "https://openai.github.io/openai-agents-python/sessions/",
+      "licence": "MIT (SDK repository)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0118",
+      "source": "OpenAI Agents SDK tracing docs",
+      "url": "https://openai.github.io/openai-agents-python/tracing/",
+      "licence": "MIT (SDK repository)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0119",
+      "source": "Google ADK callbacks docs",
+      "url": "https://adk.dev/callbacks/",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0120",
+      "source": "Google ADK plugins docs",
+      "url": "https://adk.dev/plugins/",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0121",
+      "source": "Microsoft Agent Framework workflow checkpoints docs",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints",
+      "licence": "not-stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": true
+    },
+    {
+      "id": "EV-0449",
+      "source": "LangGraph persistence and durable execution documentation (LangChain)",
+      "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+      "licence": "not stated",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": false
+    }
+  ],
+  "residual": [
+    {
+      "id": "EV-0014",
+      "source": "Agent Skills specification",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0042",
+      "source": "Agent Client Protocol",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0053",
+      "source": "Building a C compiler with Claude agent teams (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0072",
+      "source": "GitHub Agent HQ",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0077",
+      "source": "ADK workflow agents docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0078",
+      "source": "Microsoft Agent Framework workflows docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0079",
+      "source": "LangGraph interrupts docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0080",
+      "source": "OpenHands context condenser docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0081",
+      "source": "OpenHands security and confirmation docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0082",
+      "source": "OpenHands stuck detector docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0083",
+      "source": "OpenHands microagents and skills docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0084",
+      "source": "OpenHands sub-agent delegation docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0085",
+      "source": "Effective harnesses for long-running agents (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0086",
+      "source": "Effective context engineering for AI agents (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0087",
+      "source": "Demystifying evals for AI agents (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0088",
+      "source": "Building effective agents (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0089",
+      "source": "Harness design for long-running application development (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0106",
+      "source": "Cognition: Don't Build Multi-Agents",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0107",
+      "source": "Cognition: Multi-Agents, What's Actually Working",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0108",
+      "source": "Claude Code Agent Teams docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0112",
+      "source": "How we built our multi-agent research system (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0113",
+      "source": "Writing effective tools for AI agents (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0114",
+      "source": "Code execution with MCP (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0115",
+      "source": "Building agents with the Claude Agent SDK (Anthropic)",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0119",
+      "source": "Google ADK callbacks docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0120",
+      "source": "Google ADK plugins docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0121",
+      "source": "Microsoft Agent Framework workflow checkpoints docs",
+      "licence": "not-stated",
+      "state": "not-stated"
+    },
+    {
+      "id": "EV-0449",
+      "source": "LangGraph persistence and durable execution documentation (LangChain)",
+      "licence": "not stated",
+      "state": "not-stated"
+    }
+  ]
+}

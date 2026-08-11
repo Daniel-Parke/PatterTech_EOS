@@ -110,9 +110,11 @@ registry.
 
 ## Worked rulings
 
-- **PatterTech EOS docs-dx pack (2026-08, argued)**: B as the binding
-  floor, C where a fixer exists, D where an agent is a caller. Argued
-  from EV-0327 for why it matters and EV-0328 for what to write.
+- **PatterTech EOS docs-dx pack (2026-08, argued)**: B as the floor, C
+  where a fixer exists, D where an agent is a caller. Argued from
+  EV-0327 for why it matters and EV-0328 for what to write. B5 carries
+  it as a default since the ADR-0008 audit, because a poor message is
+  rewritten in one commit.
 - **PatterTech EOS itself (2026-08, inherited)**: the checker emits a
   code, a path and a message for every finding, which is B with an
   identifier. Inherited from the checker's finding format.

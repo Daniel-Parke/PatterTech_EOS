@@ -1,0 +1,61 @@
+{
+ "pack": "coding",
+ "sweep": "provenance",
+ "authority": "ADR-0006 decision 7",
+ "task": "T-0018",
+ "swept_on": "2026-08-10",
+ "swept_by": "eos-v21-L5",
+ "scope": "packs/coding read surface: PACK.md, CHECKS.md, guides/, refs/, exemplars/. research/ excluded, because it is the pre-import record and not a read surface.",
+ "method": {
+  "expression": "Mechanical scan of the read surface for quoted spans of twelve characters or more, then a read of every passage that restates a source under a no-derivatives or all-rights-reserved licence. No source was re-fetched, so no passage was diffed against its original. This finds carried quotation and close restatement of the passages we already knew were at risk. It cannot find carried expression from a source nobody flagged.",
+  "licences": "Every EV id cited in the read surface was read out of registry/evidence.json and sorted by whether its licence line carries a licence_evidence field. A licence_evidence line is a recorded fact: somebody looked at the page and wrote down what it said. A licence value with no evidence line is an assertion, whatever it says."
+ },
+ "expression_findings": [
+  {
+   "finding": "No quoted material carried into the read surface. The quoted-span scan returned zero hits across PACK.md, CHECKS.md, the five guides, the three refs and the exemplar.",
+   "status": "clear"
+  },
+  {
+   "finding": "Passages restating EV-0182 (Software Engineering at Google, CC BY-NC-ND 4.0, no derivatives) and EV-0164 (Google eng-practices, CC BY 3.0) were read in full. They restate the health-gradient rule and the scaffolding-strip argument in our own words, at a level of abstraction that is the idea rather than the expression. No sentence tracks a source sentence.",
+   "status": "clear"
+  },
+  {
+   "finding": "The numbers carried from sources are figures, not expression: 14 against 25 per cent (EV-0007), 6.08 to 1.82 per cent (EV-0003), 92 per cent of catastrophic failures (EV-0174), roughly 40 per cent of generated programs (EV-0181), 73 per cent of real faults coupled to a mutant (EV-0191), 19 per cent slower while believing 20 per cent faster (EV-0010), about 7 per cent name agreement (EV-0176). Each is attributed to its id at the point of use and each carries its population.",
+   "status": "clear"
+  },
+  {
+   "finding": "One set of figures was added on 2026-08-10 with no id to cite: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md and in GD-COD-001. Its source was recorded in packs/coding/research/sources.fragment.json as FRAG-CODING-21, and the prose named the study instead of citing an id that did not exist.",
+   "status": "closed",
+   "closed_by": "The same day's fragment import assigned FRAG-CODING-21 the id EV-0480. packs/coding/PACK.md and packs/coding/guides/GD-COD-001-oracle-strategy.md both cite EV-0480 at the figures, so no unattributed figure is left in this read surface. EV-0480 arrived after this sweep counted the surface; it is classified in licence_findings below, and the counts there say which."
+  }
+ ],
+ "licence_findings": {
+  "cited_ids": 40,
+  "cited_ids_note": "39 at the sweep, plus EV-0480, which the same day's import assigned after the sweep had counted. EV-0480 was classified by the method above, off its ledger row, and sits in asserted_specific.",
+  "evidenced_specific": {
+   "count": 9,
+   "ids": ["EV-0003", "EV-0004", "EV-0005", "EV-0006", "EV-0007", "EV-0008", "EV-0010", "EV-0094", "EV-0105"],
+   "note": "Licence stated on the page and the observation recorded. These are safe to rely on."
+  },
+  "evidenced_not_stated": {
+   "count": 2,
+   "ids": ["EV-0061", "EV-0089"],
+   "note": "Recorded as stating no reuse licence, with the observation recorded. Absence confirmed is a fact, not a gap."
+  },
+  "asserted_specific": {
+   "count": 18,
+   "ids": ["EV-0011", "EV-0023", "EV-0025", "EV-0026", "EV-0069", "EV-0070", "EV-0164", "EV-0167", "EV-0168", "EV-0169", "EV-0170", "EV-0171", "EV-0173", "EV-0175", "EV-0180", "EV-0182", "EV-0192", "EV-0480"],
+   "note": "A specific licence is named and no licence_evidence line backs it. Most are well-known project licences and are probably right, and probably right is exactly what ADR-0006 decision 7 says not to record as fact. Two of these matter more than the rest: EV-0182 is CC BY-NC-ND 4.0, where the no-derivatives term bears on how closely we may restate it, and EV-0070 splits across an engine licence and rules whose terms vary. EV-0480 is the post-sweep arrival: its CC BY 4.0 line came from a research packet rather than from the page, which is an assertion like the rest of this bucket."
+  },
+  "asserted_unknown": {
+   "count": 11,
+   "ids": ["EV-0165", "EV-0166", "EV-0172", "EV-0174", "EV-0176", "EV-0177", "EV-0178", "EV-0179", "EV-0181", "EV-0183", "EV-0191"],
+   "note": "Recorded as unknown with a parenthetical inference about the publisher's copyright. These are the honest residual: nine are conference or journal papers read through author-hosted or arXiv copies, one is a vendor report with site terms only (EV-0179), one is a practitioner site with no reuse licence found (EV-0183). We use figures and findings from them, which is fair use of facts, and we quote none of them."
+  }
+ },
+ "residual": [
+  "No licence was confirmed during this sweep. ADR-0006 decision 7 forbids re-fetching sources wholesale, and this lane did not fetch any. Every classification above is a reading of what the ledger already records.",
+  "29 of 40 cited ids have no licence_evidence line, 28 of them at the sweep and EV-0480 counted in afterwards. That is the number to work down, not a defect in the pack prose.",
+  "The expression scan cannot prove a negative. It proves no quotation marks and no close restatement in the passages checked."
+ ]
+}

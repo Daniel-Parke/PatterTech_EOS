@@ -4,7 +4,7 @@ type: guide
 tags: [security, delivery, tooling]
 kind: fact
 scope: estate
-sources: [EV-0337, EV-0338, EV-0341, EV-0342, EV-0343, EV-0348]
+sources: [EV-0337, EV-0338, EV-0341, EV-0342, EV-0343, EV-0346, EV-0348]
 volatility: slow
 review: on-change-of:https://spdx.org/licenses/
 ---

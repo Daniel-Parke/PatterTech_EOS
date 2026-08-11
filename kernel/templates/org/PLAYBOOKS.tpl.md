@@ -1,5 +1,5 @@
 ---
-summary: Venture playbook template, per-mode procedures plus hardening, incident, upkeep and retro
+summary: Venture playbook template, per-mode procedures plus wide build, hardening, incident, upkeep and retro
 type: template
 tags: [eos]
 template: true
@@ -70,6 +70,28 @@ ruling and ends with the close rule in org/START.md.
 4. Regenerate every derived view; the full suite runs at release
    tier.
 
+## wide build
+
+For work wide enough to run several lanes at once, and only then. It is
+a shape for the parallel wrapper above, not a new mode: every lane still
+carries its own ruled mode and its own claim.
+
+1. Rule the fork before anything is dispatched. The question is whether
+   this work wants lanes at all, and
+   `packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md`
+   answers it. Do not run wide over work one session already does well,
+   and do not run wide over a chain.
+2. Then run the method in org/GRAPH_BUILD.md: cut the partition, write
+   the lane briefs, dispatch, merge, and what stops a run. That file is
+   the executable half of `packs/agentic-swarm` compiled into this
+   venture, and the procedure is written there and nowhere else, so
+   there is one copy to keep true. The pack behind it holds the rules,
+   the defaults and the evidence, including the evidence against
+   running wide at all. Read the pack before the first partition.
+3. Close by journalling the run: the partition, what each lane
+   returned, and what the integrator had to repair. That journal is the
+   only evidence the venture will have about whether running wide paid.
+
 ## hardening pass
 
 Independent evaluators and test generators run against the
@@ -101,12 +123,13 @@ date.
 
 ## retro
 
-Monthly, on evidence: sample the review pool and the exception
-ledger, read escaped defects, oracle amendment frequency and ceremony
-spend against budgets. Tune the sampling rate and the cadences;
-propose policy or doctrine changes through the graded path
-(experimental edit, ADR); set one deliberate experiment. The
-organisation edits itself here and nowhere else.
+Monthly, on evidence: sample the review pool and the recorded tier
+exceptions (one-off ones sit on the task records they lowered, standing
+ones in the venture's decision records), read escaped defects, oracle
+amendment frequency and ceremony spend against budgets. Tune the
+sampling rate and the cadences; propose policy or doctrine changes
+through the graded path (experimental edit, ADR); set one deliberate
+experiment. The organisation edits itself here and nowhere else.
 
 ## stakeholder-update
 

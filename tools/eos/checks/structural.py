@@ -1,19 +1,13 @@
-"""Structural checks E001-E010, ported from tools/eos_check.py v1.
+"""Structural checks E001-E009 and E011.
 
-Parity is a hard gate: over this repository these checks produce
-exactly the findings the v1 checker produces (same ids, same paths,
-same messages, same severities). Two sanctioned differences:
-
-- E001 write mode (write_indexes) writes the derived indexes and then
-  re-verifies them against a freshly loaded model, fixing the v1
-  write-without-reverify bug.
-- The hardened front-matter parser reports malformed blocks through
-  E002 (v1 silently skipped what it could not parse). Well-formed
-  repositories, this one included, see no difference.
+E010 warned that `active_session` in org/STATE.md was stale. The v2
+state view has no such line, so the check could never fire and was
+withdrawn. The id is not reused.
 
 The tag vocabulary is parsed live from GOVERNANCE.md so governance
 stays the single source. Fixture files (benchmark/fixtures/,
-benchmark/holdout/) run the full E-series exactly as v1 did.
+benchmark/holdout/) run the full E-series: they are v1-era by design
+and exempt from the v2 semantics, not from structure.
 
 The derived indexes are scoped to live material. Frozen trees are
 checked but never indexed: a benchmark fixture's wargames are not EOS
@@ -32,7 +26,7 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import date, datetime, timedelta
+from datetime import date
 from pathlib import PurePosixPath
 
 from ..findings import Finding
@@ -269,7 +263,7 @@ def build_capabilities(model: RepoModel) -> str:
         out += [f"### {r.get('capability', '')}", "",
                 f"- **Pack**: `{_cell(r.get('pack'))}`",
                 f"- **Activation**: {_cell(r.get('activation'))}",
-                f"- **Worked example**: " + ", ".join(f"`{e}`" for e in examples),
+                "- **Worked example**: " + ", ".join(f"`{e}`" for e in examples),
                 f"- **Evaluation**: {_cell(r.get('evaluation_method'))}",
                 f"- **Estate relevance**: {_cell(r.get('estate_relevance'))}",
                 f"- **Owner**: {_cell(r.get('owner'))}",
@@ -277,6 +271,150 @@ def build_capabilities(model: RepoModel) -> str:
                 "- **Evidence**: {} rows, {}".format(
                     len(r.get("evidence_sources") or []),
                     ", ".join(r.get("evidence_sources") or []) or "none"), ""]
+    return "\n".join(out).rstrip("\n") + "\n"
+
+
+LESSONS_JSON = "registry/lessons.json"
+LESSONS_VIEW = "registry/LESSONS.md"
+
+# The lesson row fields, in the order the view renders them, keyed by
+# the names kernel/schemas/lesson.schema.json gives them. A key the
+# ledger carries that is not listed here is still rendered, after
+# these, under its own name: a view that silently drops a field it did
+# not expect is how a derived file starts lying about its source.
+LESSON_FIELDS = [
+    ("lesson", "Lesson"),
+    ("origin", "Origin"),
+    ("sources", "Evidence"),
+    ("lens", "Lens"),
+    ("venture", "Venture"),
+    ("source_note", "Source note"),
+    ("evidence_class", "Evidence class"),
+    ("disposition", "Disposition"),
+    ("outcome", "Outcome"),
+    ("scope", "Scope"),
+    ("applicability_conditions", "Applies when"),
+    ("informs", "Informs"),
+    ("conflicts_with", "Conflicts with"),
+    ("conflict_resolutions", "Conflict resolutions"),
+    ("supersedes", "Supersedes"),
+    ("superseded_by", "Superseded by"),
+    ("decided", "Decided"),
+    ("reasoning", "Reasoning"),
+    ("review", "Review"),
+    ("expires", "Expires"),
+    ("revisit_trigger", "Revisit when"),
+    ("pruned_on", "Pruned"),
+]
+# id and title are the heading, so they are not repeated as fields.
+LESSON_SKIP = {"id", "title"}
+# Sections. Rejections and deferrals are kept and shown, because a
+# decline that leaves no trace can be re-proposed for ever, which is
+# the gap ADR-0006 decision 3 closes. A pruned row is provenance: its
+# rule text lives in the file named beside it and not here as well.
+LESSON_SECTIONS = ("Live", "Rejected", "Deferred", "Pruned")
+
+
+def _lesson_section(row: dict) -> str:
+    if row.get("pruned_on"):
+        return "Pruned"
+    disposition = str(row.get("disposition") or "").strip()
+    if disposition == "rejected":
+        return "Rejected"
+    if disposition == "deferred":
+        return "Deferred"
+    return "Live"
+
+
+def _lesson_value(value) -> str:
+    """One rendered field value: lists joined, mappings spelled out."""
+    if isinstance(value, dict):
+        return "; ".join(f"{k}: {_lesson_value(v)}" for k, v in value.items())
+    if isinstance(value, list):
+        return ", ".join(_lesson_value(v) for v in value)
+    if value is None:
+        return ""
+    return " ".join(str(value).split())
+
+
+def read_lessons(model: RepoModel) -> tuple:
+    """(document, rows) from registry/lessons.json; ({}, []) when absent."""
+    raw = model.read(LESSONS_JSON)
+    if not raw:
+        return {}, []
+    try:
+        doc = json.loads(raw)
+    except ValueError:
+        return {}, []
+    if isinstance(doc, list):
+        return {}, [r for r in doc if isinstance(r, dict)]
+    if not isinstance(doc, dict):
+        return {}, []
+    rows = doc.get("rows") or doc.get("lessons") or doc.get("records") or []
+    return doc, [r for r in rows if isinstance(r, dict)]
+
+
+def build_lessons(model: RepoModel) -> str:
+    """The readable view of registry/lessons.json.
+
+    Sections rather than a table, for the reason build_capabilities
+    gives: a row carries a dozen fields and a table that fits the page
+    fits it by dropping columns. Rows sort by id inside their section,
+    so regeneration is byte-stable for unchanged input.
+
+    The ledger's own preamble is emitted verbatim, hard-wrapped by
+    whoever wrote it, because the generator does not reflow. It lives
+    in the canonical file for the obvious reason: prose that only
+    existed here would make the view the only home for it, and the view
+    would stop being derived.
+
+    The ledger is canonical; this file is a view of it and is never
+    hand-edited.
+    """
+    doc, rows = read_lessons(model)
+    rows = sorted(rows, key=lambda r: str(r.get("id", "")))
+
+    grouped = {name: [] for name in LESSON_SECTIONS}
+    for row in rows:
+        grouped[_lesson_section(row)].append(row)
+
+    out = ["---",
+           "summary: Derived view of the lessons ledger, every row with its disposition and reasoning",
+           "type: registry", "tags: [eos]", "status: active",
+           f"review: on-change-of:{LESSONS_JSON}",
+           "derived: true", "---", "",
+           "# LESSONS", "",
+           f"Derived from `{LESSONS_JSON}` by",
+           "`python -m tools.eos check --write-index`. Do not hand-edit.", "",
+           "**Live: {}. Rejected: {}. Deferred: {}. Pruned: {}.** A rejected row"
+           .format(*(len(grouped[name]) for name in LESSON_SECTIONS)),
+           "stays here with its reason, so the same proposal cannot arrive",
+           "twice unrecorded. A pruned row is provenance: its rule text now",
+           "lives in the file named beside it.", ""]
+    for paragraph in doc.get("preamble") or []:
+        out += [str(paragraph).rstrip("\n"), ""]
+
+    for name in LESSON_SECTIONS:
+        out += [f"## {name}", ""]
+        if not grouped[name]:
+            out += [f"No {name.lower()} rows.", ""]
+            continue
+        for row in grouped[name]:
+            title = _lesson_value(row.get("title"))
+            heading = str(row.get("id", "(no id)"))
+            if title:
+                heading = f"{heading} · {title}"
+            out += [f"### {heading}", ""]
+            rendered = set(LESSON_SKIP)
+            for key, label in LESSON_FIELDS:
+                if key in row and row[key] not in (None, "", [], {}):
+                    out.append(f"- **{label}**: {_lesson_value(row[key])}")
+                rendered.add(key)
+            for key in sorted(set(row) - rendered):
+                if row[key] in (None, "", [], {}):
+                    continue
+                out.append(f"- **{key}**: {_lesson_value(row[key])}")
+            out.append("")
     return "\n".join(out).rstrip("\n") + "\n"
 
 
@@ -295,6 +433,12 @@ def _wanted_indexes(model: RepoModel) -> dict:
     # Only where the matrix exists: the minirepo fixture has no registry.
     if model.read("registry/coverage.json") is not None:
         want["registry/CAPABILITIES.md"] = build_capabilities(model)
+    # Only where the ledger exists. registry/lessons.json is canonical
+    # from v2.1 and LESSONS.md is its view; before the ledger lands
+    # there is nothing to derive the view from and hand-written prose
+    # is all there is.
+    if model.read(LESSONS_JSON) is not None:
+        want[LESSONS_VIEW] = build_lessons(model)
     return want
 
 
@@ -498,6 +642,21 @@ def check_e006_review_expiry(ctx: dict) -> list:
 
 @register("E007")
 def check_e007_line_budgets(ctx: dict) -> list:
+    """One budget binds, the rest are defaults (ADR-0008 decision 5).
+
+    The forty-line cap on AGENTS.md and CLAUDE.md stays an error. That
+    file sits in every agent's context and its cost is paid on every
+    task, so a router over the cap is a bill the whole estate keeps
+    paying. Everything else warns: length is caught by the pruning test
+    in packs/PACK_SHAPE.md and by the review passes, so a long pack is a
+    thing to look at rather than a build failure.
+
+    Both over-budget cases warn, and their messages stay different on
+    purpose. A `length_waiver` is no longer the downgrade from error to
+    warning; it is the recorded reason for the departure, which is what
+    a default asks for and what the monthly pass samples. The two
+    messages let a reader tell an argued length from an unexamined one.
+    """
     model: RepoModel = ctx["model"]
     out = []
     for rec in model.files:
@@ -509,9 +668,12 @@ def check_e007_line_budgets(ctx: dict) -> list:
             out.append(_err("E007", rec.path, f"router is {n} lines, cap {ROUTER_CAP}"))
         if fm.get("type", "") in BUDGET_TYPES and n > BUDGET:
             if "length_waiver" in fm:
-                out.append(_warn("E007", rec.path, f"{n} lines under waiver: {fm['length_waiver']}"))
+                out.append(_warn("E007", rec.path,
+                                 f"{n} lines under waiver: {fm['length_waiver']}"))
             else:
-                out.append(_err("E007", rec.path, f"{n} lines over the {BUDGET} budget, no length_waiver"))
+                out.append(_warn("E007", rec.path,
+                                 f"{n} lines over the {BUDGET} budget, "
+                                 f"prune it or record a length_waiver"))
     return out
 
 
@@ -531,6 +693,15 @@ def check_e008_slots(ctx: dict) -> list:
 
 @register("E009")
 def check_e009_tag_vocabulary(ctx: dict) -> list:
+    """The GOVERNANCE list is the known set, not a wall (ADR-0008 dec 6).
+
+    An unknown tag warns. Either the file wants a tag that is already
+    there, or the estate has grown a subject and the list should grow
+    with it, and refusing the commit told a writer neither. The warning
+    is the prompt to look, and hygiene in the monthly pass is where it
+    is settled. The list is still parsed live from GOVERNANCE.md, so
+    governance stays the single source for what is known.
+    """
     model: RepoModel = ctx["model"]
     vocab = parse_tags_vocabulary(model)
     if vocab is None:
@@ -543,24 +714,59 @@ def check_e009_tag_vocabulary(ctx: dict) -> list:
         if isinstance(tags, list):
             for t in tags:
                 if t not in vocab:
-                    out.append(_err("E009", rec.path, f"tag not in GOVERNANCE vocabulary: {t}"))
+                    out.append(_warn("E009", rec.path,
+                                     f"tag not in GOVERNANCE vocabulary: {t}"))
     return out
 
 
-@register("E010")
-def check_e010_stale_active_session(ctx: dict) -> list:
+VIEWS = ("org/TASKS.md", "org/STATE.md")
+
+
+@register("E011")
+def check_e011_view_drift(ctx: dict) -> list:
+    """The derived views agree with the generator that owns them.
+
+    org/TASKS.md and org/STATE.md were declared derived, given a
+    generator (`python -m tools.eos task views`) and then compared by
+    nothing, which is the same hole packs/INDEX.md sat in: a file that
+    says it is generated and is in fact hand-maintained drifts silently
+    against a green build.
+
+    The comparison is byte-for-byte up to the state view's machine-facts
+    block, and stops there. That block records the branch and the commit
+    the view was generated from, and that commit is behind HEAD the
+    moment the view is committed, so equality can never hold in a
+    repository that keeps moving. S007 already checks those facts, by
+    ancestry rather than equality, and this check does not second-guess
+    it.
+
+    Only where the repository runs the v2 record model: with no
+    org/tasks/ directory there are no canonical records for a view to
+    be derived from.
+    """
+    from .. import taskops
+
     model: RepoModel = ctx["model"]
-    today = ctx["today"]
-    text = model.read("org/STATE.md")
-    if text is None:
+    if not (model.root / "org" / "tasks").is_dir():
         return []
-    m = re.search(r"^active_session:\s*(.+)$", text, flags=re.M)
-    if not m or m.group(1).strip().lower() == "none":
-        return []
-    d = re.search(r"(\d{4}-\d{2}-\d{2})", m.group(1))
-    if d:
-        when = datetime.strptime(d.group(1), "%Y-%m-%d").date()
-        if when < today - timedelta(days=1):
-            return [_warn("E010", "org/STATE.md", f"active_session set since {when}, likely stale")]
-        return []
-    return [_warn("E010", "org/STATE.md", "active_session set with no date")]
+    out = []
+    texts, problems = taskops.build_views(model.root, git_facts=False)
+    if problems:
+        # A malformed record or claim file changes what the generator
+        # would write, so a drift verdict against it would be noise.
+        # Report the unreadable input instead and stop.
+        return [_err("E011", f.path, f"cannot compare the derived views: {f.message}")
+                for f in problems]
+    for rel in VIEWS:
+        have = model.read(rel)
+        want = texts[rel]
+        if have is None:
+            out.append(_err("E011", rel, "missing, run task views"))
+            continue
+        if rel == "org/STATE.md":
+            have = taskops.strip_machine_facts(have)
+            want = taskops.strip_machine_facts(want)
+        if have != want:
+            out.append(_err("E011", rel,
+                            "stale against its generator, run task views"))
+    return out

@@ -67,9 +67,10 @@ EOS as the shared brain; nothing in the estate has yet earned B.
 ## Worked rulings
 
 - **AutoWatt (2026-07, argued)**: A. Three surfaces (api, app, website)
-  ship as containers from one tree per ADR-0002, and the Heads of Terms
-  contemplate handover of the whole; one repo is the clean unit. Ruled
-  ahead of this wargame at the reseed and recorded in its lock-book.
+  ship as containers from one tree per its own ADR-0002, and the Heads
+  of Terms contemplate handover of the whole; one repo is the clean
+  unit. Ruled ahead of this wargame at the reseed and recorded in its
+  lock-book.
 - **PatterTech_Business (2026-06, argued, pre-EOS)**: A. Its ADR-0011
   fixed one platform monorepo with every layer extraction-ready, after
   living with the alternative; the extraction-ready clause is the

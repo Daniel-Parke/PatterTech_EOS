@@ -35,8 +35,8 @@ need no human input.
 | C-05 | Lifetime value did not come from blended churn | Recompute average revenue per account over blended churn from the inputs; the reported lifetime value must not land within one per cent of it | D4 |
 | C-06 | Every metric is defined | The set of metric names in decision.json minus the names defined in definitions.md is empty, and every definition carries a formula | D5 |
 | C-07 | Obligations are named | obligations.md contains VAT, Making Tax Digital, cooling-off and renewal reminder | B2, B5 |
-| C-08 | Payment terms are stated | obligations.md states 30 days as the commercial default, in numerals, and payment_terms.days is at most 60 | B3 |
-| C-09 | Evidence resolves | evidence.md cites at least three fragment or EV ids and every cited id resolves in the ledger or the pack fragment file | B1 to B6 |
+| C-08 | Payment terms are stated | obligations.md states 30 days as the commercial default, in numerals, and payment_terms.days is at most 60 | D9 |
+| C-09 | Evidence resolves | evidence.md cites at least three EV ids and every cited id resolves in `registry/evidence.json` | Whole pack |
 | C-10 | The repricing trigger runs | Inject a unit cost rise above the trigger band, run the venture's repricing script; it exits zero and emits a new price with a cause of type cost | D8 |
 | C-11 | Unit cost is allocated | unit_cost_allocated is present and above zero for every charged unit | D7 |
 | C-12 | A trial number carries a test plan | If trial.days is present and above zero, trial.test_plan is a non-empty reference | D3 |
@@ -54,11 +54,11 @@ later; none is executable now.
 | J-02 | The unavoidable and optional split is honest, and each optional charge really is declinable | Reviewer, because the boundary is where enforcement disputes sit (EV-0299) | B1 |
 | J-03 | The value case is quantified for a named segment, where the practice is value-informed | Reviewer | D1 |
 | J-04 | The stated cause of a price change is the real cause | Reviewer, because a schema can refuse a demand label and cannot detect a demand motive | D2 |
-| J-05 | No pattern from the almost-always-harmful list appears in the pricing or checkout flow | Reviewer, walking the flow (EV-0300) | B6 |
+| J-05 | No pattern from the almost-always-harmful list appears in the pricing or checkout flow | Reviewer, walking the flow (EV-0300) | D10 |
 | J-06 | The metered unit is one the buyer can forecast and control | Reviewer | GD-BMP-002 |
 | J-07 | The bundle decomposes into distinct performance obligations with defensible stand-alone selling prices under the declared framework | Reviewer, or an accountant (EV-0297) | B4 |
 | J-08 | A survey-derived number was treated as a bracket rather than a decision | Reviewer | D6 |
-| J-09 | An agreed payment term longer than thirty days is fair to both parties | Reviewer (EV-0301) | B3 |
+| J-09 | An agreed payment term longer than thirty days is fair to both parties | Reviewer (EV-0301) | D9 |
 | J-10 | The cancellation route works, end to end, without contacting anyone | Person, doing it | B2 |
 | J-11 | The trial test plan reads out all three funnel stages | Reviewer | D3 |
 

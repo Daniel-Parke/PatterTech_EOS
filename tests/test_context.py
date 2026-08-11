@@ -173,9 +173,16 @@ def test_undeclared_predicates_are_returned_for_confirmation(tmp_path):
 
 def test_every_live_pack_declares_a_path_trigger():
     """PACK_SHAPE requires a non-keyword trigger on every pack, because
-    routing has to be deterministic given the same inputs."""
+    routing has to be deterministic given the same inputs.
+
+    Counted against the packs on disk rather than against a number
+    typed in here. The number was 20, and a twenty-first pack failed
+    this test for existing, which tells a reader nothing about
+    triggers.
+    """
     triggers = contextgen.pack_triggers(REPO)
-    assert len(triggers) == 20
+    built = sorted(p.parent.name for p in (REPO / "packs").glob("*/PACK.md"))
+    assert sorted(t["pack"] for t in triggers) == built
     missing = [t["pack"] for t in triggers if not t["paths"]]
     assert missing == []
     no_predicate = [t["pack"] for t in triggers if not t["predicates"]]

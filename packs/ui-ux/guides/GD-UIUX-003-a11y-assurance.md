@@ -77,9 +77,10 @@ assistive-technology use exposes disability status without consent
 
 ## Default
 
-B is the floor for anything with a web UI, and it is binding as B2 and
-B3 in PACK.md rather than optional here. C is the default for anything
-public. Plan against roughly a third of defects being machine-findable,
+B is the floor for anything with a web UI. Its six-class half binds as
+B3 in PACK.md; its pinned-run half is B2, a default since the 2026-08
+audit, so a surface that skips it says why. C is the default for
+anything public. Plan against roughly a third of defects being machine-findable,
 not the tool vendor's higher figure, when deciding what the gap costs
 (EV-0236, EV-0104).
 
@@ -89,7 +90,8 @@ not the tool vendor's higher figure, when deciding what the gap costs
   service flow carried a manual verdict file whose entry count equals
   the scanner's incomplete count, and each interactive component
   carried a keyboard contract test asserting key behaviour rather than
-  rendering. See `packs/ui-ux/exemplars/two-surfaces-one-spine.md`.
+  rendering. See
+  `packs/ui-ux/exemplars/EX-UIUX-001-two-surfaces-one-spine.md`.
 - **The census that sets the floor (external, inherited)**: the six
   commonest failures are cheap to detect and were present on the
   majority of the top million home pages in February 2026 (EV-0235),

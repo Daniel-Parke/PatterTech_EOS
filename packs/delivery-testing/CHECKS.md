@@ -27,10 +27,12 @@ means a person rules.
 | C1 | The new or changed test goes red when the implementation is reverted | Requirement 1 | Executable: revert the file, run the suite, expect non-zero |
 | C2 | The new test reaches the code through its public interface only, with no private attribute access and no patching inside the module under test | Requirement 1 | Executable: AST scan of the added test |
 | C3 | No retry, rerun or flaky marker added to a blocking gate in the diff, in test code or in CI configuration | Requirement 4 | Executable: diff and config grep |
-| C4 | Every quarantine record carries a test, a reason, a named owner, an entry date and an ISO expiry within thirty days, and none has expired. No quarantine at all is a pass; a bare quarantine is a fail | Requirement 4 | Executable: schema check over the quarantine file |
-| C5 | Every double standing in for an external dependency has a contract file that reaches both the double and the real client from the same parameterisation | Requirement 3 | Executable: AST scan for both symbols under one parameterisation |
+| C4 | Every quarantine record carries a test, a reason, a named owner and an entry date. No quarantine at all is a pass; a bare quarantine is a fail | Requirement 4 | Executable: schema check over the quarantine file |
+| C4b | No quarantine has passed its expiry, default thirty days | Defaults | Executable: date arithmetic over the same file |
+| C5 | Every double standing in for a dependency outside the venture's control has a contract file that reaches both the double and the real client from the same parameterisation | Requirement 3 | Executable: AST scan for both symbols under one parameterisation, once the venture lists which dependencies are outside its control |
 | C6 | The contract suite detects a seeded drift: run against recorded real responses, it goes red for a stale double | Requirement 3 | Executable, where a recording exists |
 | C7 | Every threshold used as a gate states a number, a scope and the command that produces it | Requirement 5 | Partly: config parse finds the number, a person judges the scope wording |
+| C7b | Every check named as a gate can fail: it has a command, that command runs in CI, and its non-zero exit blocks | Requirement 5 | Executable: CI config parse, plus one run against a deliberately failing input |
 | C8 | No threshold, floor or allowlist moved in the loosening direction in this change | Requirement 2 | Executable: compare gate values against the base commit |
 | C9 | The repository declares a full unselected run and its cadence, and the last one is inside that cadence | Requirement 6 | Executable, where CI declares the cadence |
 | C10 | Property-based tests in blocking gates pin their seed | Defaults | Executable: config parse |
@@ -54,9 +56,18 @@ means a person rules.
   allowed; the reviewer checks that the product-defect question was
   asked first, because a newly flaky test is a real regression about
   one time in six (EV-0195).
+- **Did a verifier exist before the work fanned out?** For parallel
+  work the reviewer asks who wrote the acceptance conditions, when, and
+  whether any lane could have seen them being written. Lanes agreeing
+  with each other is not an answer (WG-DEL-007).
 - **Is the timing cell the right one?** The matrix is a default. A
   departure needs a recorded reason, and the reason should be about the
   change class rather than the deadline.
+- **Has the harness been staged honestly, or just skipped?** The stage
+  layer is a default and defers breadth, not floors. The reviewer checks
+  that the risk classes were never deferred, that the cheap tier is a
+  command rather than a list, and that the deferral was named at review
+  rather than left silent.
 - **Does the suite tell the truth about what it covers?** Selection
   hides tests that never run. The reviewer checks that requirement 6 is
   actually satisfied rather than declared (EV-0016).
@@ -68,3 +79,6 @@ means a person rules.
 - Test count, test-to-code ratio, or layer proportions.
 - Mutation score, unless the venture has recorded its own threshold and
   scope (EV-0190).
+- How complete the product is. Nothing here fires at a percentage of
+  features done, because no standard or study we found gates rigour
+  that way.

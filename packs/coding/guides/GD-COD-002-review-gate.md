@@ -124,8 +124,10 @@ justify dropping a tier on how fast it feels.
 - **PatterTech EOS coding pack (2026-08, argued)**: C at R1, D at R2 and
   above, with the machine gate binding everywhere. Argued from EV-0166
   for the ceremony claim and EV-0167 for the accountability gap.
-- **Webhook signature verification (2026-08, argued)**: D. The auth
-  surface factor puts the task at R2 regardless of the two-line diff.
+- **Webhook signature verification (2026-08, argued)**: D plus operator
+  approval. The auth surface factor alone would put the task at R2
+  regardless of the small diff, and the declared production-data write
+  takes it to R3.
   See `packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md`.
 - **Documentation and comment-only diffs (2026-08, inherited)**: A,
   inherited from the R0 routing in `kernel/POLICY_SPEC.md`.

@@ -6,10 +6,6 @@ the v1 scale matrix (kernel/SCALE_MATRIX.md, embedded below as data)
 and proposes a route. apply(seed_root, plan) performs the v1-to-v2
 transforms, defaults to dry_run, and refuses to run against a git
 repository so it is only ever exercised on fixture copies.
-
-This module does not import tools.eos.frontmatter, to avoid
-import-order coupling across lanes; the minimal reader below is a
-duplicate on purpose and tools/eos/frontmatter.py is canonical.
 """
 
 from __future__ import annotations
@@ -20,6 +16,7 @@ from datetime import date
 from pathlib import Path
 
 from tools.eos import taskops
+from tools.eos.frontmatter import parse as parse_front_matter
 
 # The v1 scale matrix, from kernel/SCALE_MATRIX.md (the law of what a
 # compiled seed contains). Path to the scales that require it.
@@ -58,24 +55,6 @@ _ROLE_NOTE = (
 )
 
 
-def _read_front_matter(text):
-    # Minimal front-matter reader; tools/eos/frontmatter.py is canonical.
-    lines = text.splitlines()
-    if not lines or lines[0].strip() != "---":
-        return {}
-    data = {}
-    for line in lines[1:60]:
-        stripped = line.strip()
-        if stripped == "---":
-            return data
-        if not stripped or stripped.startswith("#") or line.startswith((" ", "\t", "-")):
-            continue
-        if ":" in line:
-            key, _, value = line.partition(":")
-            data[key.strip()] = value.strip()
-    return {}
-
-
 def _venture_name(seed_root, lockbook_text):
     for line in lockbook_text.splitlines():
         m = re.match(r"^#\s+(.+?)\s+lock-book\s*$", line.strip())
@@ -102,7 +81,7 @@ def plan(seed_root):
         }
 
     lockbook_text = lockbook_path.read_text(encoding="utf-8")
-    fm = _read_front_matter(lockbook_text)
+    fm = parse_front_matter(lockbook_text).data
     scale = fm.get("scale", "S")
     version = fm.get("eos_version", "unknown")
     commit = fm.get("eos_commit", "unknown")

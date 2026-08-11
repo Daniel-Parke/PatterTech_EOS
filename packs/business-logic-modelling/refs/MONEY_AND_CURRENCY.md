@@ -21,7 +21,7 @@ A money value is two fields and no more:
   not a fixed-point wrapper over a float.
 - `currency`: an alphabetic code from the published lists (EV-0283).
 
-Construction refuses anything else, per B3. There is no constructor
+Construction refuses anything else, per D9. There is no constructor
 that takes a decimal amount without also taking the currency, because
 the exponent is meaningless without it.
 

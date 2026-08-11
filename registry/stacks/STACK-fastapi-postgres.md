@@ -37,8 +37,11 @@ implementation: WiseWattage (its `pyproject.toml`, `docker/` and
 ## Constraints to design around
 
 - Cap `urllib3>=2.2,<2.5`: 2.5+ moved ProxyConfig and broke Railway
-  deploys at import time; lift the cap only after a real deploy proves
-  it (registry/LESSONS.md).
+  startup at import time in WiseWattage, 2026-07; lift the cap only
+  after a real deploy proves it. This profile is where the rule lives.
+  The lessons ledger carries the harvest row it came from and names
+  this profile as its owner, which is provenance rather than a second
+  home for the rule.
 - The Docker dependency layer must never be keyed on source: a stale
   layer with fresh code shipped a broken prod once. Key on the
   manifest, nothing else.
@@ -57,6 +60,12 @@ implementation: WiseWattage (its `pyproject.toml`, `docker/` and
 
 ## When not to use this profile
 
-No server state: profile 01. Heavy telemetry: keep records and readings
-in separate stores behind a separate ingestion boundary; this profile
-is the records side.
+No server state: profile 01.
+
+Where heavy telemetry goes is not this profile's question to answer.
+`packs/architecture/guides/WG-ARCH-008-database-topology.md` owns it and
+D8 of `packs/architecture/PACK.md` carries the live default, which is
+one database with private tables and distinct credentials, and two
+stores only once a second real owner or a genuinely volume-asymmetric
+feed appears. This profile used to answer it with a blanket separate
+stores, which was v1's answer and predates that guide.

@@ -53,8 +53,20 @@ None expected. Anything here blocks the gate until ruled.
 Paste the `python -m tools.eos check --seed` summary line and date. All auto items
 green before the human items are judged.
 
+- Walk counts, beside the summary line: the pair of ruling counts
+  inception/WALK_ORDER.md asks for, as N interview-triggered and M
+  doctrine-triggered.
+
 ## Sign-off (human rubric items)
 
 - [ ] H1 cold-start test · - [ ] H2 brief reads true · - [ ] H3
   rulings honest · - [ ] H4 voice holds · - [ ] H5 operator can run it
+- Path and items: full or Express, and which of the five were signed.
+  An Express seed signs H1 and H4 and says in one line why the other
+  three needed no judging, so a later reader knows what was judged and
+  what was inherited.
+- Genesis: launched, or declined with the reason in one line. It is the
+  operator's launch decision rather than a gate, so declined is a
+  complete answer; blank is not, because blank cannot tell declined
+  from forgotten.
 - Signed: {{OPERATOR}} · date: {{SIGNOFF_DATE}}

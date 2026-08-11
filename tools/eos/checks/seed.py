@@ -20,7 +20,11 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
   M and org/work/NEXT.md at L; v2 uses docs/TASKS.md at S and the
   org/tasks/ records at ORG, because org/TASKS.md is a derived view
   and is never seeded.
-- D005 the matrix's empty directories exist at the ruled scale.
+- D005 the matrix's empty directories exist at the ruled scale. Only a
+  v1 matrix declares any: the v2 matrix ships nothing empty, so a v2
+  seed passes D005 vacuously. The check is kept because a seed pinned
+  to a v1 commit resolves the v1 matrix, and seeds in the estate are
+  pinned that way.
 - D006 every WG id the lock-book cites resolves in the pinned EOS
   (worktree fallback when the commit is unavailable, with a warning).
 - D007 the seed's policy file (per the matrix at the ruled scale)
@@ -32,6 +36,22 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
 - D009 org/claims.json, when the matrix requires it and it is present,
   validates against kernel/schemas/claims.schema.json and carries the
   seeded state: an empty lanes list.
+- D010 a seed carries the Genesis templates its governing matrix
+  requires at the ruled scale: one compiled file per template. Matched
+  on the compiled_from source, not on a destination path, so the matrix
+  decides where each one lands and this check does not have to agree
+  with it twice. It engages only where that matrix names a Genesis
+  template at that scale: a seed pinned before those templates existed
+  could not have carried them, exactly as D007 to D009 stay quiet
+  against v1 seeds, and a scale the matrix leaves unmarked is not asked
+  for a file it was never told to compile.
+- D011 the compiled acceptance spine still carries its expected-fail
+  marking and a manifest table with a state column, wherever D010 found
+  a file compiled from the spine template. It follows D010 and so
+  follows the matrix: the live matrix marks the spine at S and at ORG,
+  so both are checked. What it does not check is whether the suite
+  fails. There is no suite at compile time and no runtime to run one
+  in, so this reads the form and only the form.
 
 The scale matrix that governs a seed is the one at the seed's pinned
 eos_commit, read with git show; the working-tree matrix is only a
@@ -41,7 +61,8 @@ the corresponding files, so v1 seeds are unaffected.
 
 ctx is the standard check context: {root (the EOS repo), today,
 offline}. A missing seed path or missing SCALE_MATRIX is reported as
-an error finding; the CLI maps that shape to exit 2.
+an error finding, and cannot_run() names those two findings so the CLI
+can map them to exit 2 rather than recognise them by their prose.
 """
 
 from __future__ import annotations
@@ -61,7 +82,11 @@ LOCKBOOK_KEYS = ("eos_version", "eos_commit", "scale", "stack")
 ROUTER_CAP = 40
 RULING_ROW = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·")
 RULING_OK = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·.+?·\s*(argued|inherited)\s*·")
-SLOT_RE = re.compile(r"\{\{[A-Z_]+\}\}")
+# Digits included, matching the structural check's pattern: the kernel
+# ships {{SUCCESS_90}} in VENTURE_BRIEF.tpl.md, and a pattern of
+# [A-Z_]+ let it through rubric item A4 unfilled, so a seed could ship
+# green with an empty slot in the brief a stranger reads first.
+SLOT_RE = re.compile(r"\{\{[A-Z0-9_]+\}\}")
 SCALE_FENCE_RE = re.compile(r"<!--\s*scale:")
 WG_REF = re.compile(r"\bWG-[A-Z]+-\d{3}\b")
 DEFERRAL = "set at first build"
@@ -91,6 +116,24 @@ MATRIX_PATH = "kernel/SCALE_MATRIX.md"
 POLICY_FILES = ("docs/policy.json", "org/policy.json")
 POLICY_SCHEMA = "kernel/schemas/policy.schema.json"
 CLAIMS_SCHEMA = "kernel/schemas/claims.schema.json"
+
+# The Genesis blueprint set (ADR-0006 decision 1), named by its kernel
+# sources. A compiled seed file records the template it came from in
+# compiled_from, so checking the sources leaves the destination paths
+# to kernel/SCALE_MATRIX.md, which is where they are decided.
+GENESIS_TEMPLATES = (
+    "kernel/templates/PRODUCT_MAP.tpl.md",
+    "kernel/templates/WORK_PACKAGE.tpl.md",
+    "kernel/templates/RESEARCH_PACKET.tpl.md",
+    "kernel/templates/ACCEPTANCE_SPINE.tpl.md",
+    "kernel/templates/LENS.tpl.md",
+)
+SPINE_TEMPLATE = "kernel/templates/ACCEPTANCE_SPINE.tpl.md"
+# What a compiled spine has to carry for a condition to be markable as
+# outstanding: the marking itself, and a manifest table with a state
+# column to put it in.
+EXPECTED_FAIL_MARK = "expected-fail"
+STATE_COLUMN = re.compile(r"^\|.*\|\s*state\s*\|", re.I)
 
 # Same install command taskops names when jsonschema is missing.
 _JSONSCHEMA_INSTALL = (
@@ -122,6 +165,21 @@ def _show_at_commit(root, commit: str, path: str):
     if proc.returncode != 0:
         return None
     return proc.stdout
+
+
+# The two findings that mean the run never happened, rather than a
+# seed that failed its rubric. Written once, here, beside the code that
+# emits them, so the CLI does not have to recognise them by prose.
+SEED_PATH_MISSING = "seed path not found"
+MATRIX_MISSING = "missing; cannot check a seed"
+CANNOT_RUN_PAIRS = frozenset({("D001", SEED_PATH_MISSING),
+                              ("D003", MATRIX_MISSING)})
+
+
+def cannot_run(findings) -> list:
+    """The findings that mean this run could not happen at all."""
+    return [f for f in findings
+            if (f.check_id, f.message) in CANNOT_RUN_PAIRS]
 
 
 def _cells(line: str) -> list:
@@ -184,6 +242,48 @@ def parse_matrix_text(text: str) -> tuple:
         empty_dirs["M"] = m_dirs
         empty_dirs["L"] = m_dirs + l_dirs
     return required, addons, empty_dirs
+
+
+def parse_matrix_sources(text: str, scale: str = None) -> set:
+    """The source cells the matrix table names, all or at one scale.
+
+    The second column says where a required file is compiled from. D010
+    reads it twice. Without a scale it answers whether the matrix
+    governing a seed knows about the Genesis templates at all: a seed
+    pinned to a commit from before they existed could not have carried
+    them and is not asked to. With a scale it answers which of them that
+    matrix requires at the seed's ruled scale, so the check follows the
+    matrix rather than a scale list kept beside it, which is the copy
+    that goes stale.
+    """
+    sources: set = set()
+    scales: list = []
+    mode = None
+    for line in text.splitlines():
+        if not line.lstrip().startswith("|"):
+            continue
+        cells = _cells(line)
+        if not cells or not cells[0]:
+            continue
+        if cells[0] == "path":
+            scales = [c for c in cells[2:] if c]
+            mode = "matrix"
+            continue
+        if cells[0] == "addon":
+            mode = "addon"
+            continue
+        if cells[0].startswith("-"):
+            continue
+        if mode == "matrix" and len(cells) >= 2 and cells[1]:
+            if scale is None:
+                sources.add(cells[1])
+                continue
+            marks = cells[2:2 + len(scales)]
+            marks += [""] * (len(scales) - len(marks))
+            for col, mark in zip(scales, marks):
+                if col == scale and mark == "x":
+                    sources.add(cells[1])
+    return sources
 
 
 def parse_matrix(eos_root) -> tuple:
@@ -252,11 +352,14 @@ def run_seed(seed_root, ctx: dict) -> Findings:
     seed = Path(seed_root).resolve()
     eos_root = Path(ctx["root"])
     if not seed.exists():
-        findings.add(Finding("D001", "error", str(seed_root), "seed path not found"))
+        findings.add(Finding("D001", "error", str(seed_root), SEED_PATH_MISSING))
         return findings
 
-    err = lambda check, path, msg: findings.add(Finding(check, "error", path, msg))
-    warn = lambda check, path, msg: findings.add(Finding(check, "warn", path, msg))
+    def err(check, path, msg):
+        findings.add(Finding(check, "error", path, msg))
+
+    def warn(check, path, msg):
+        findings.add(Finding(check, "warn", path, msg))
 
     # --- lock-book pin first: it decides which matrix governs ----------
     eos_commit = None
@@ -273,17 +376,23 @@ def run_seed(seed_root, ctx: dict) -> Findings:
 
     # --- the governing matrix: at the pin, worktree as a warned fallback
     required = addon_files = empty_dirs = None
+    matrix_text = None
     if pin_available:
         pinned_matrix = _show_at_commit(eos_root, eos_commit, MATRIX_PATH)
         if pinned_matrix is not None:
             req, add, dirs = parse_matrix_text(pinned_matrix)
             if req:
                 required, addon_files, empty_dirs = req, add, dirs
+                matrix_text = pinned_matrix
     if required is None:
         required, addon_files, empty_dirs = parse_matrix(eos_root)
+        worktree_matrix = Path(eos_root) / MATRIX_PATH
+        if worktree_matrix.is_file():
+            matrix_text = worktree_matrix.read_text(encoding="utf-8",
+                                                    errors="replace")
         if required is None:
             findings.add(Finding("D003", "error", "kernel/SCALE_MATRIX.md",
-                                 "missing; cannot check a seed"))
+                                 MATRIX_MISSING))
             return findings
         if pin_available:
             warn("D003", "kernel/SCALE_MATRIX.md",
@@ -329,12 +438,12 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         warn("D002", "docs/LOCKBOOK.md",
              f"eos_commit {eos_commit} not in the EOS history, degrading to worktree checks")
 
-    # --- per-file checks (rubric A1, A4, A5; D001; D002) ---------------
+    # --- per-file checks (rubric A1, A4, A7, A8) -----------------------
     for r, text, fm in parsed:
         if not fm.present:
             err("E002", r, "no front-matter block")
         if SLOT_RE.search(text):
-            err("E008", r, f"unfilled {{{{SLOT}}}} in compiled seed")
+            err("E008", r, "unfilled {{SLOT}} in compiled seed")
         if SCALE_FENCE_RE.search(text):
             err("E008", r, "leftover scale marker in compiled seed")
 
@@ -356,7 +465,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                 elif not (eos_root / source).is_file():
                     err("D002", r, f"compiled_from {source} absent from the EOS worktree")
 
-    # --- router parity and cap (rubric A9, A10) ------------------------
+    # --- router byte copy and cap (rubric A5, A6) ----------------------
     a, c = seed / "AGENTS.md", seed / "CLAUDE.md"
     if a.exists() and c.exists():
         if a.read_bytes() != c.read_bytes():
@@ -365,13 +474,13 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         if n > ROUTER_CAP:
             err("E007", "AGENTS.md", f"compiled router is {n} lines, cap {ROUTER_CAP}")
 
-    # --- required files per scale (rubric A6) --------------------------
+    # --- required files per scale (rubric A17) -------------------------
     if scale:
         for fpath in required[scale]:
             if not (seed / fpath).exists():
                 err("E008", fpath, f"required at scale {scale}, missing")
 
-    # --- add-ons named in the lock-book (rubric A7) --------------------
+    # --- add-ons named in the lock-book (rubric A18) -------------------
     addon_allowed: set = set()
     for name in addons:
         if name not in (addon_files or {}):
@@ -389,7 +498,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                     err("E008", fpath, f"addon {name} file missing")
                 addon_allowed.add(fpath)
 
-    # --- compile-report ancestry (rubric A8) ---------------------------
+    # --- compile-report ancestry (rubric A19) --------------------------
     ancestry: dict = {}
     cr = seed / "docs" / "COMPILE_REPORT.md"
     if cr.exists():
@@ -406,20 +515,25 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                     if not (seed / cell).exists():
                         err("E008", "docs/COMPILE_REPORT.md", f"report names absent file {cell}")
 
-    # --- D003 negative matrix ------------------------------------------
+    # --- D003 negative matrix (rubric A9) ------------------------------
     if scale:
         authored = {f for f, source in ancestry.items()
                     if source.split()[0].lower() in ("authored", "normalised", "preserved")}
-        genesis = tuple((empty_dirs or {}).get(scale, []))
+        # Directories a v1 matrix declares empty at compile: their
+        # contents arrive later, so a file inside one is expected
+        # rather than unaccounted for. v1 called those contents
+        # Genesis outputs, in the older sense of that word; Genesis now
+        # means only the blueprint phase of ADR-0006.
+        first_use_dirs = tuple((empty_dirs or {}).get(scale, []))
         for r in seed_md:
             if r in required[scale] or r in addon_allowed or r in authored:
                 continue
-            if genesis and r.startswith(genesis):
+            if first_use_dirs and r.startswith(first_use_dirs):
                 continue
             err("D003", r, f"not required at scale {scale}, "
                            "not an add-on, not marked authored in the compile report")
 
-    # --- D004 deferrals need an open queue item ------------------------
+    # --- D004 deferrals need an open queue item (rubric A10) -----------
     queue_rel = _queue_file(scale, required) if scale else None
     if scale and queue_rel:
         queue_path = seed / queue_rel
@@ -539,4 +653,50 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                 lanes = claims.get("lanes") if isinstance(claims, dict) else None
                 if isinstance(lanes, list) and lanes:
                     err("D009", rel, "seeded claims must be an empty lanes list")
+
+    # --- D010 the Genesis template set, D011 the spine's marking -------
+    # Which templates are asked for is the matrix's ruling, read at the
+    # seed's scale, never a scale list kept beside the check. ADR-0006
+    # scopes the lite and full Genesis forms to running the phase, not
+    # to the file set, so the matrix marking a row at S means an S seed
+    # carries the blank form and both checks engage there.
+    matrix_sources = parse_matrix_sources(matrix_text or "")
+    governs_genesis = bool(matrix_sources.intersection(GENESIS_TEMPLATES))
+    at_scale = parse_matrix_sources(matrix_text or "", scale=scale) if scale else set()
+    wanted = [t for t in GENESIS_TEMPLATES if t in at_scale]
+    if governs_genesis and wanted:
+        compiled = {}
+        for r, _text, fm in parsed:
+            if not fm.present:
+                continue
+            source = fm.data.get("compiled_from")
+            if isinstance(source, str) and source:
+                compiled.setdefault(source.strip(), []).append(r)
+        for template in wanted:
+            if not compiled.get(template):
+                err("D010", template,
+                    f"no file in this {scale} seed is compiled from it; the "
+                    f"governing kernel/SCALE_MATRIX.md requires a file "
+                    f"compiled from this template at {scale}, whether or not "
+                    "the operator runs the Genesis phase")
+
+        # D011 reads the compiled form, and only the form. There is no
+        # suite at compile time and no runtime to run one in, so this
+        # cannot know that a spine fails; what it can see is whether the
+        # compiled file still carries the marking the spine works by. A
+        # spine compiled or edited without it has no way to say a
+        # condition is outstanding, and a suite that cannot say that
+        # reads as an acceptance walk already passed.
+        for r in compiled.get(SPINE_TEMPLATE, []):
+            text = next(t for rr, t, _f in parsed if rr == r)
+            if EXPECTED_FAIL_MARK not in text:
+                err("D011", r,
+                    f"acceptance spine never says {EXPECTED_FAIL_MARK}: the "
+                    "marking is how an unbuilt condition fails loudly "
+                    "instead of skipping quietly. Structural check only; "
+                    "nothing here runs the suite")
+            if not any(STATE_COLUMN.match(line) for line in text.splitlines()):
+                err("D011", r,
+                    "acceptance spine has no manifest table with a state "
+                    "column, so no condition can be marked outstanding")
     return findings

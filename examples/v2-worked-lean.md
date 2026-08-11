@@ -18,10 +18,14 @@ benchmark/fixtures/seed-v2-S/docs/LOCKBOOK.md is the lock-book this
 example reads and benchmark/fixtures/seed-v2-S/docs/policy.json is the
 policy it routes against.
 
-The scene is two weeks after Session 0. The first-build lock-in, the
-top row of benchmark/fixtures/seed-v2-S/docs/TASKS.md, has landed, so
-the QC gate section of the lock-book now names real commands instead of
-deferrals.
+The scene is two weeks after Session 0, and it runs one step ahead of
+the fixture. In the checked-in seed the first-build lock-in is still the
+top open row of benchmark/fixtures/seed-v2-S/docs/TASKS.md, and all five
+QC gates in the lock-book still carry the sanctioned `set at first
+build` deferral. This example reads as though that lock-in has landed
+and the five gates name real commands, because an Express run has to be
+able to run them. Nothing else here is invented: the files, the policy
+and the budgets are the fixture as it stands.
 
 ## The request
 
@@ -36,11 +40,11 @@ surface. It says what to read, in order: the lock-book, then route,
 then record.
 
 From the lock-book the agent reads two sections and skips the rest: the
-structural contracts, six lines, and the QC gates, thirteen lines. The
-identity, narrative and token sections are not touched by a phone
-number and are not read.
+structural contracts, five lines with their heading, and the QC gates,
+twelve as the fixture stands. The identity, narrative and token
+sections are not touched by a phone number and are not read.
 
-That is forty-four lines of context beyond the task itself, against the
+That is forty-nine lines of context beyond the task itself, against the
 Express budget of sixty in docs/policy.json. Nothing else loads. No
 pack activates, because a copy change satisfies no pack's predicates:
 the UI and UX pack wants a design or component decision and this is
@@ -87,8 +91,9 @@ escalate and nothing durable to write down.
 Two edits: the contact page copy and the same number in the brief,
 because the brief is the venture's business truth and a stale number
 there would outlive the page. Then the targeted checks the lock-book's
-QC gates name for a copy-only change: the build, and the overflow check
-at 375 pixels because the number's length changed. The full screenshot
+QC gates name for a copy-only change, once the lock-in has ruled them:
+the build, and the overflow check at 375 pixels because the number's
+length changed. The full screenshot
 and regression sets do not run; they are not affected and Express does
 not run unaffected suites.
 
@@ -113,7 +118,7 @@ is the log in v2. No derived view moved, because no record changed.
 
 ## What it cost
 
-Forty-four lines of boot reading, one commit, two checks. Under v1 the
+Forty-nine lines of boot reading, one commit, two checks. Under v1 the
 same change would have opened a work order, claimed the session in
 STATE, written a session log with a Resume Packet at close, and run the
 full gate ladder from G1. That gap is the whole argument for the

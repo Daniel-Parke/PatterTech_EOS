@@ -115,5 +115,4 @@ drawn in the wrong place: fix the port rather than fork the suite.
 - **WiseWattage (2026, inherited)**: the external weather API runs in a
   synthetic mode built as infrastructure rather than as a per-test
   mock, so CI is offline and deterministic. The determinism fix landed
-  once, in the adapter, and every test inherited it. Recorded in
-  WG-DEL-004.
+  once, in the adapter, and every test inherited it.

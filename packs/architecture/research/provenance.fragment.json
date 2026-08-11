@@ -1,0 +1,181 @@
+{
+ "pack": "architecture",
+ "checked": "2026-08-10",
+ "checked_by": "T-0019, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and compared each cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence claim below is the ledger's own recorded value, read back. Quotation was checked three ways: every quotation-marked span in the read surface was listed and read; every enumeration or coined term that could only have come from a source was traced to the row that supplies it; and the rows whose ledger licence forbids reuse of wording were read against the prose that cites them. What this method cannot do is detect an unmarked sentence copied from a source nobody has the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0010",
+  "EV-0023",
+  "EV-0024",
+  "EV-0025",
+  "EV-0057",
+  "EV-0061",
+  "EV-0097",
+  "EV-0098",
+  "EV-0099",
+  "EV-0100",
+  "EV-0101",
+  "EV-0102",
+  "EV-0146",
+  "EV-0147",
+  "EV-0148",
+  "EV-0149",
+  "EV-0150",
+  "EV-0151",
+  "EV-0152",
+  "EV-0153",
+  "EV-0154",
+  "EV-0155",
+  "EV-0156",
+  "EV-0157",
+  "EV-0158",
+  "EV-0159",
+  "EV-0160",
+  "EV-0161",
+  "EV-0162",
+  "EV-0163",
+  "EV-0180",
+  "EV-0191",
+  "EV-0193",
+  "EV-0202",
+  "EV-0276",
+  "EV-0285"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0057",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0061",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0102",
+   "licence_recorded": "unknown (Apache-2.0 for structurizr/dsl historically; not confirmed on the docs page)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0149",
+   "licence_recorded": "unknown (site states open source and free including commercial use; specific licence page not inspected)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0150",
+   "licence_recorded": "unknown (author's site, no explicit licence found)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0152",
+   "licence_recorded": "unknown (ACM proceedings; author PDF hosted by SIGOPS)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0153",
+   "licence_recorded": "unknown (martinfowler.com, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0154",
+   "licence_recorded": "unknown (publisher copyright; open-access author copy via Harvard DASH)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0157",
+   "licence_recorded": "unknown (site copyright, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0159",
+   "licence_recorded": "unknown (Shopify site, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0160",
+   "licence_recorded": "unknown (Uber site, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0161",
+   "licence_recorded": "unknown (Stripe documentation, proprietary)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0162",
+   "licence_recorded": "unknown (site copyright, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0163",
+   "licence_recorded": "unknown (martinfowler.com, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0191",
+   "licence_recorded": "unknown (author-hosted preprint of an ACM paper)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0193",
+   "licence_recorded": "unknown (docs.pact.io site, Pact Foundation copyright; Pact tooling itself MIT)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0202",
+   "licence_recorded": "Apache-2.0 for Atlas community edition; docs terms unknown; some analyzers are Pro-only",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0285",
+   "licence_recorded": "unknown (no licence statement on the post)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/architecture/PACK.md",
+   "line": 150,
+   "concern": "D2 lists DORA's three split signals close to the source's own wording (EV-0151).",
+   "resolution": "Not a concern. EV-0151 is CC BY 4.0, which permits reuse with attribution, and the citation is present. Left as is."
+  }
+ ],
+ "notes": "The weakest licence position after business-model-pricing, and it was already known: packs/architecture/refs/evidence-map.md carries a Licence constraints on reuse section listing the rows that are paraphrase only. Sixteen of thirty-six cited rows are unconfirmed. Ten are practitioner sites, vendor documentation and single-company engineering blogs with a copyright footer and no licence page (EV-0149, EV-0150, EV-0153, EV-0157, EV-0159, EV-0160, EV-0161, EV-0162, EV-0163, EV-0285). Three are papers read through author-hosted copies (EV-0152, EV-0154, EV-0191). The other three are documentation pages whose terms were never read: EV-0102, EV-0193 and EV-0202. The evidence map previously said the remainder were permissive or CC BY, which was untrue for EV-0102, EV-0152 and EV-0154; that sentence has been corrected in this pass. No lifted expression was found. A row marked states-none carries licence_evidence and a licence_checked date in the ledger, so somebody looked and recorded that the source states no licence. A row marked unconfirmed carries a hedged licence string and no licence_evidence, so nobody has looked. Both belong on the residual list ADR-0006 decision 7 asks for, and the difference between them is the difference between a recorded fact and a guess."
+}

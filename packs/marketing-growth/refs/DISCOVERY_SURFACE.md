@@ -2,7 +2,7 @@
 summary: Crawler directives, sitemaps and structured data as release-gated artefacts, and the folk levers the index operator says are inert
 kind: fact
 scope: estate
-sources: [EV-0022]
+sources: [EV-0022, EV-0353, EV-0355, EV-0357, EV-0358]
 volatility: fast
 review: on-change-of:Google-structured-data-guidelines-revision
 type: implementation

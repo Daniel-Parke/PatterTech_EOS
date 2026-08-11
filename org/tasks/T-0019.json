@@ -1,0 +1,27 @@
+{
+  "id": "T-0019",
+  "intent": "Six packs: correct the stale import prose, complete front-matter sources, run the authority audit against the binding test, and write the provenance fragment. Closed: the six packs carry corrected prose, complete front-matter sources, an audited authority column and a provenance fragment each.",
+  "claims": [
+    "packs/ai-ml-llm/",
+    "packs/api-integration/",
+    "packs/architecture/",
+    "packs/business-logic-modelling/",
+    "packs/business-model-pricing/",
+    "packs/data-analytics/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "done",
+  "owner_session": "eos-v21-L6",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

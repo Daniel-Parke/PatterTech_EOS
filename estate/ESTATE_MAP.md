@@ -26,15 +26,19 @@ The domain model everywhere is organisation, then venture, then project.
 
 ## Governed and not
 
-Three repos are governed by the EOS: AutoWatt, Guth and
-PatterTech_Website. Governed means the EOS seeded it or has adopted it,
-it carries a pin, and it feeds rulings back through the harvest.
+Three repos carry `governed: true` in the manifest: AutoWatt, Guth and
+PatterTech_Website. Governed means the EOS seeded or adopted the repo
+and holds its pin. It does not mean the EOS rules it. Under ADR-0006 the
+EOS hands off at venture birth, so rulings come back when a venture
+chooses to send them and not because the EOS asked.
 
 Every other repo in the manifest is an inventory row, `governed: false`
 and `status: candidate`. That is not a judgement about the repo. It is
-an honest statement that the EOS neither seeded it nor currently
-governs it, and it exists so the quarterly estate review has to answer
-adopt or defer for each one rather than quietly leaving them out.
+an honest statement that the EOS neither seeded nor adopted it, and it
+exists so the estate review has to answer adopt or defer for each one
+rather than quietly leaving them out. Under ADR-0008 that review is
+triggered by an event, a repository added or a seed compiled, rather
+than by a quarterly clock.
 
 Two rows carry a different status for a reason. PatterTech_EOS is
 `self`: it is the manifest's own home, not a venture. PatterTech_WebKit
@@ -85,18 +89,19 @@ Every row in the manifest was checked read-only against the repository
 on disk: its role, its branch tip, whether a remote is configured, and
 whether the repo's own README still describes it correctly. Nothing was
 written into any sibling repository, which the build's approval
-explicitly reserves.
+explicitly reserves. What it found about each repo is in that repo's
+`notes` and is not repeated here.
 
-Three findings worth carrying: AutoWatt, PatterHome and PatterPower have
-no git remote configured locally, so nothing in them is pushed anywhere.
-PatterTech_App's README says it has no remote, and it does have one.
-PatterHome had a commit on the day of the pass, which makes it the most
-active repo the EOS does not govern.
+The one finding that is about the estate rather than about a repo:
+AutoWatt, PatterHome and PatterPower have no git remote configured
+locally, so nothing in them is pushed anywhere and a lost machine would
+be a lost repository.
 
 ## Agent files
 
-Every repo that agents work in carries `AGENTS.md` as its entry point
-with `CLAUDE.md` a byte-identical copy: the EOS standard, enforced here
-by check E003 and in PatterTech_Website by its own lint script. The
-three document-and-guide repos (PatterOS, PatterHome, PatterPower) carry
-none, which is one of the things the adopt-or-defer review should settle.
+The EOS standard is `AGENTS.md` as the entry point with `CLAUDE.md` a
+byte-identical copy, enforced here by check E003 and in
+PatterTech_Website by its own lint script. The manifest's `agent_files`
+records which repos carry it. The three that carry none are the
+document-and-guide repos, which is one of the things the adopt-or-defer
+review should settle.

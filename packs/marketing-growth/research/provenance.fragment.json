@@ -1,0 +1,136 @@
+{
+ "pack": "marketing-growth",
+ "checked": "2026-08-10",
+ "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0022",
+  "EV-0041",
+  "EV-0055",
+  "EV-0059",
+  "EV-0060",
+  "EV-0095",
+  "EV-0225",
+  "EV-0241",
+  "EV-0353",
+  "EV-0354",
+  "EV-0355",
+  "EV-0356",
+  "EV-0357",
+  "EV-0358",
+  "EV-0359",
+  "EV-0360",
+  "EV-0361",
+  "EV-0362",
+  "EV-0363",
+  "EV-0364",
+  "EV-0365",
+  "EV-0366",
+  "EV-0367",
+  "EV-0368",
+  "EV-0369"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0041",
+   "licence_recorded": "Open Government Licence (typical for ICO); unknown exact",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "impact assessments, in the non-goals and the seam with security-privacy"
+  },
+  {
+   "ev": "EV-0059",
+   "licence_recorded": "unknown (GrowthBook core is MIT; EDF is a Pro/Enterprise feature)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D12, guardrail metrics"
+  },
+  {
+   "ev": "EV-0095",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "pull rather than push, a preference"
+  },
+  {
+   "ev": "EV-0360",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "B2 and D9, the deliverability thresholds"
+  },
+  {
+   "ev": "EV-0362",
+   "licence_recorded": "unknown (INFORMS subscription content; abstract publicly readable)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D3, the holdout rule"
+  },
+  {
+   "ev": "EV-0364",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "D4, attribution distributes a measured total"
+  },
+  {
+   "ev": "EV-0365",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "D2, the reinvestment step"
+  },
+  {
+   "ev": "EV-0366",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "the pull-rather-than-push preference and its limit"
+  },
+  {
+   "ev": "EV-0367",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08",
+   "cited_for": "D5, funnel definitions as configuration"
+  },
+  {
+   "ev": "EV-0369",
+   "licence_recorded": "unknown; IPA and WARC content is paywalled",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D11, the time horizon declaration"
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/marketing-growth/PACK.md",
+   "line": 227,
+   "concern": "D10 paraphrases EV-0368, which is all rights reserved and marked paraphrase-only, and which the pack records as having been read at second hand.",
+   "resolution": "Not a concern. What is carried is a direction and a scope note, not a sentence. The second-hand reading is already disclosed in the pack's open questions."
+  },
+  {
+   "file": "packs/marketing-growth/PACK.md",
+   "line": 234,
+   "concern": "D11 names the 60:40 split from EV-0369, which is paywalled, whose licence is unknown and whose edition is unknown.",
+   "resolution": "Not a concern. A ratio is a fact rather than expression, and the pack states it only in order to refuse to adopt it. It should never be restated as this pack's own figure."
+  },
+  {
+   "file": "packs/marketing-growth/refs/SEND_PREFLIGHT.md",
+   "line": 33,
+   "concern": "The numeric deliverability thresholds come from EV-0360, whose licence is not-stated.",
+   "resolution": "Not a concern. Published requirement figures are facts, and the reference already carries the scope note that they are one mailbox provider's rules for its own inboxes."
+  }
+ ],
+ "notes": "Ten of twenty-five cited rows carry an unknown or not-stated licence, and six of the ten were licence-checked at source on 2026-08-08 with the answer that the publisher states nothing: EV-0095, EV-0360, EV-0364, EV-0365, EV-0366 and EV-0367. That is a recorded fact rather than a gap. The residual is four unconfirmed rows nobody has looked at: EV-0041, EV-0059, EV-0362 and EV-0369, of which EV-0362 and EV-0369 sit behind a subscription or a paywall and may never resolve. One further row, EV-0368, is known and restrictive at all rights reserved, paraphrase only. The pack already records in its open questions that three sources were read at second hand. The quotation scan returned nothing for this pack."
+}

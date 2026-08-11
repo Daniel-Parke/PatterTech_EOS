@@ -1,0 +1,475 @@
+{
+ "version": 1,
+ "generated": "2026-08-11",
+ "note": "Canonical lessons ledger. One row per decision about something the estate learned, from either intake: the harvest names the venture, the Study workflow names the sources it read and the lens it read them through. Declines and deferrals stay as rows, because a decision that leaves no trace gets argued again. registry/LESSONS.md is the derived view of this file. Schema: kernel/schemas/lesson.schema.json.",
+ "preamble": [
+  "The lessons ledger. Two intakes write here: the harvest, which pulls\nrulings and feedback from a governed venture, and the Study workflow,\nwhich reads a named source through a lens contract. Every row carries\na disposition that points at the file which now owns the decision, and\na declined lesson keeps its reason, so a decline cannot be re-proposed\nas if it had never been argued. A silent harvest month still records\n\"checked, clean\".",
+  "Disposition is an enum. `kernel/schemas/lesson.schema.json` lists\nthe permitted values and refuses one that is not on the list, and\n`TOUR.md` is the home for what they mean: its table under \"The\neleven dispositions\" defines all eleven. Each value names the kind\nof home a decision found; the row's own `outcome` and `informs`\nname the file that holds it now. The value `binding` is absent on\npurpose: this ledger can propose a binding candidate and nothing\nmore, because binding needs an accepted ADR and Daniel under the\nladder in `GOVERNANCE.md`.",
+  "**A lesson leaves this ledger once its content is stated as a rule\nsomewhere else.** Keeping it here as well would be a second home for\nthe same rule, and one of the two homes would go stale. Rows that\nrecord what changed and why are provenance, and those stay.",
+  "The first PB-E02 harvest ran on 2026-08-08 against the three governed\nventures. AutoWatt's two entries had both already been folded during\nthe v1 build and are recorded as such below. Guth's feedback file\ncarried fifteen entries and a matured stack profile, and is the\nsubstance of this harvest. PatterTech_Website ships no feedback file:\nit predates the template, which is itself a finding and is queued.",
+  "Earlier rows came from the estate survey at EOS creation and from the\nAutoWatt reseed feedback.",
+  "The PB-E04 promotion review ran the same day and promoted nothing. The\nsample: zero live `lifecycle: experimental` items, so nothing expired\npast the ninety-day window; zero `lifecycle: contested` rules; the\ntwenty-four binding rules in `packs/` unchanged; and no exception\nledger to sample, because ADR-0004 withdrew `org/exceptions.jsonl` and\nmoved a one-off exception onto the task record it applies to. Of the\nharvest's three promotion candidates, each carries one argued ruling\nfrom one venture, which under the ladder in `GOVERNANCE.md` is short\nof binding-candidate. Guth's five draft wargames stay candidates for\nthe same reason: a fork that happened once is not a recurring fork,\nand a guide written for it would be speculation with a filename."
+ ],
+ "rows": [
+  {
+   "id": "LES-0001",
+   "origin": "harvest",
+   "title": "Hydration warnings are often browser-extension noise",
+   "lesson": "Hydration warnings are often browser-extension noise; verify in a clean profile before treating one as a bug.",
+   "venture": "WiseWattage",
+   "source_note": "Recorded at EOS creation as \"Lesson row only, declined as doctrine (too narrow)\".",
+   "evidence_class": "anecdotal",
+   "disposition": "rejected",
+   "outcome": "Declined. No guide id and no evidence row, on purpose.",
+   "scope": "estate",
+   "applicability_conditions": "Browser applications reporting hydration or client-render mismatches in development.",
+   "decided": "2026-07",
+   "reasoning": "Too narrow to bind, and no pack owns it."
+  },
+  {
+   "id": "LES-0002",
+   "origin": "harvest",
+   "title": "Plan and build decouple, and nothing in the build is generative",
+   "lesson": "Plan and build decouple: agent-driven planning, a deterministic byte-stable build, nothing generative in the build step.",
+   "venture": "PatterStudio",
+   "source_note": "Recorded at EOS creation against PatterTech_Business and corrected to PatterStudio in the v2 pass on 2026-08-03.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Became an EOS principle, \"compiled, never composed\", in `README.md`, and the compile contract in `kernel/README.md`.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Any pipeline where an agent plans and a tool builds. What pays is a build a second run reproduces byte for byte.",
+   "informs": [
+    "README.md",
+    "kernel/README.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0003",
+   "origin": "harvest",
+   "title": "Stale docs are a bug, so delete them and ban-list the path",
+   "lesson": "Stale docs are a bug: delete them, ban-list the old path in a test, never archive in place.",
+   "venture": "WiseWattage",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Absorbed into the supersession rules in `GOVERNANCE.md`.",
+   "scope": "estate",
+   "applicability_conditions": "Repositories where documentation ships with the code and a superseded document keeps its old path.",
+   "informs": [
+    "GOVERNANCE.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0004",
+   "origin": "harvest",
+   "title": "A design law one directory from the code may as well not exist",
+   "lesson": "A design law that lives one directory away from the code might as well not exist.",
+   "venture": "PatterTech_Website",
+   "source_note": "The v4 pass.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "WG-WEB-013 filed by Daniel, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/guides/GD-UIUX-004-token-source.md`.",
+   "scope": "estate",
+   "applicability_conditions": "Products with a design system whose tokens are enforced somewhere other than the code that consumes them.",
+   "informs": [
+    "WG-WEB-013",
+    "packs/ui-ux/guides/GD-UIUX-004-token-source.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0005",
+   "origin": "harvest",
+   "title": "Uniform ceremony kills small work",
+   "lesson": "Uniform ceremony kills small work; a bug fix must never need sixteen acceptance criteria.",
+   "venture": "External research",
+   "source_note": "Recorded at EOS creation as \"External (SDD research)\", in the estate survey rather than from a venture. No evidence row was written for it at the time and none has been written since.",
+   "evidence_class": "asserted",
+   "disposition": "estate-default",
+   "outcome": "Became the scale system and the WG-EOS-001 mandate, and then the whole of the v2 kernel: modes, tiers and ceremony budgets, ADR-0002.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Any process applying one ceremony to work of different sizes. It stands on the practice that followed rather than on a cited source.",
+   "informs": [
+    "WG-EOS-001",
+    "ADR-0002",
+    "kernel/SCALE_MATRIX.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0006",
+   "origin": "harvest",
+   "title": "Venture history in a template must be a slot, not boilerplate",
+   "lesson": "Template boilerplate that states venture history must be a slot; a reseed with real history should fill it, not overwrite it.",
+   "venture": "AutoWatt",
+   "source_note": "Reseed feedback.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Default changed: `kernel/templates/org/CONSTITUTION.tpl.md` gained the amendment-history slot.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Compiling a template into a repository that already has history worth preserving.",
+   "informs": [
+    "kernel/templates/org/CONSTITUTION.tpl.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0007",
+   "origin": "harvest",
+   "title": "Dark-first loses to print-native institutional brands",
+   "lesson": "The dark-first surface register loses to print-native institutional brands; the ink-like clause carried a real venture.",
+   "venture": "AutoWatt",
+   "source_note": "Reseed feedback.",
+   "evidence_class": "observational",
+   "disposition": "venture-ruling",
+   "outcome": "Argued ruling appended to WG-WEB-001, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-001-surface-register.md`. One argued ruling from one venture, so it is not yet promotion evidence; the philosophy question it raises is carried by `packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md`.",
+   "scope": "estate",
+   "applicability_conditions": "Brands with a print-native or institutional register. One argued ruling from one venture, which under the ladder in GOVERNANCE.md is short of promotion evidence.",
+   "informs": [
+    "WG-WEB-001",
+    "packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0008",
+   "origin": "harvest",
+   "title": "Ancestry tables need preserved rows, not only compiled ones",
+   "lesson": "Reseeds meet pre-EOS files; the ancestry table needs normalised and preserved row kinds beyond compiled and authored.",
+   "venture": "AutoWatt",
+   "source_note": "Reseed feedback.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Default changed: `kernel/templates/COMPILE_REPORT.tpl.md` documents both kinds.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Compiling into a repository that predates the template being compiled.",
+   "informs": [
+    "kernel/templates/COMPILE_REPORT.tpl.md"
+   ],
+   "decided": "2026-07"
+  },
+  {
+   "id": "LES-0009",
+   "origin": "harvest",
+   "title": "A slot pattern that excludes digits lets a slot ship unfilled",
+   "lesson": "A slot pattern that excludes digits lets a digit-bearing slot ship unfilled through a green seed check.",
+   "venture": "Guth",
+   "source_note": "Cold-start probe.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "Bug fixed: E008's `SLOT_RE` in `tools/eos/checks/structural.py` widened to `[A-Z0-9_]+`, with a regression test. `{{SUCCESS_90}}` in `kernel/templates/VENTURE_BRIEF.tpl.md` was the live instance.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Any checker matching template slots by pattern, where a slot name may carry digits.",
+   "informs": [
+    "tools/eos/checks/structural.py",
+    "kernel/templates/VENTURE_BRIEF.tpl.md"
+   ],
+   "decided": "2026-08"
+  },
+  {
+   "id": "LES-0010",
+   "origin": "harvest",
+   "title": "A checker that walks every file trips on vendored trees",
+   "lesson": "A checker that walks every markdown file under the seed path fails on vendored dependency trees.",
+   "venture": "Guth",
+   "source_note": "S1.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "Already fixed in v2: `SKIP_DIRS` in `tools/eos/repo.py` skips `node_modules`, `.git`, `__pycache__` and `.pytest_cache`. Recorded as confirmation that the v2 rewrite closed it.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Ventures whose repository carries vendored dependency trees under the seed path.",
+   "informs": [
+    "tools/eos/repo.py"
+   ],
+   "decided": "2026-08"
+  },
+  {
+   "id": "LES-0011",
+   "origin": "harvest",
+   "title": "A two-edit claim protocol lets two launchers collide",
+   "lesson": "A claim protocol where the queue row and the claim are two edits lets two launchers collide on one item.",
+   "venture": "Guth",
+   "source_note": "S1.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "Fixed by design in v2: claims are coordinator-assigned and committed before dispatch, and lanes never acquire or mutate one (`kernel/schemas/claims.schema.json`).",
+   "scope": "eos-internal",
+   "applicability_conditions": "Any queue where more than one session can start work at the same time.",
+   "informs": [
+    "kernel/schemas/claims.schema.json"
+   ],
+   "decided": "2026-08"
+  },
+  {
+   "id": "LES-0012",
+   "origin": "harvest",
+   "title": "Inception necessarily writes to main",
+   "lesson": "Inception necessarily writes to main, because the org that mandates branches is being compiled during the writes.",
+   "venture": "Guth",
+   "source_note": "S1.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "Deferred at the harvest and queued as T-0005. That task closed on 2026-08-11: `inception/INCEPTION.md` states the Session 0 write-to-main exemption under its own heading, so the first review session no longer reads Session 0's history as a violation.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Session 0 in a fresh venture repository, before the branch rule it is compiling exists.",
+   "informs": [
+    "inception/INCEPTION.md",
+    "T-0005"
+   ],
+   "decided": "2026-08-11",
+   "pruned_on": "2026-08-11"
+  },
+  {
+   "id": "LES-0013",
+   "origin": "harvest",
+   "title": "A cold-start probe finds defects a warm session cannot see",
+   "lesson": "A cold-start probe run before the human rubric is signed surfaces real defects a warm session cannot see.",
+   "venture": "Guth",
+   "source_note": "S1.",
+   "evidence_class": "observational",
+   "disposition": "venture-ruling",
+   "outcome": "Promotion candidate for PB-E04. One argued ruling from one venture, so not yet binding evidence. The drill apparatus is the natural home: all twenty-two drills now carry scenarios and graders, and ADR-0007 defers running them, so nothing has graded this.",
+   "scope": "eos-internal",
+   "applicability_conditions": "A venture at Session 0 whose rubric is not yet signed, probed by a session with no prior context of the repository.",
+   "informs": [
+    "PB-E04"
+   ],
+   "decided": "2026-08"
+  },
+  {
+   "id": "LES-0014",
+   "origin": "harvest",
+   "title": "Doctrine-heavy ventures walk long at Session 0",
+   "lesson": "A venture whose master prompt fixes deep product doctrine walks long at Session 0, because doctrine engages triggers the interview leaves silent.",
+   "venture": "Guth",
+   "source_note": "S1, 32 rulings against a 20 budget.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "Deferred at the harvest and queued as T-0006. That task closed on 2026-08-11: `inception/WALK_ORDER.md` budgets interview-triggered and doctrine-triggered rulings separately, so a correct doctrine-heavy walk no longer reads as an overrun.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Ventures arriving with fixed product doctrine already in the master prompt.",
+   "informs": [
+    "inception/WALK_ORDER.md",
+    "T-0006"
+   ],
+   "decided": "2026-08-11",
+   "pruned_on": "2026-08-11"
+  },
+  {
+   "id": "LES-0015",
+   "origin": "harvest",
+   "title": "Local-first PWA with a WASM core is a distinct proven shape",
+   "lesson": "A local-first browser product with a WASM compute core is a distinct proven shape, not a bend of the fullstack profile.",
+   "venture": "Guth",
+   "source_note": "S1.",
+   "evidence_class": "observational",
+   "disposition": "dated-registry-fact",
+   "outcome": "Registry addition: `registry/stacks/STACK-local-first-pwa.md`, carrying S1's worked evidence and five sharp edges.",
+   "scope": "estate",
+   "applicability_conditions": "A browser-delivered product whose data stays on the operator's machines and whose compute is latency-sensitive. Where the data may leave the machine, the fullstack profile is the cheaper shape.",
+   "informs": [
+    "registry/stacks/STACK-local-first-pwa.md"
+   ],
+   "decided": "2026-08",
+   "review": "2027-02"
+  },
+  {
+   "id": "LES-0016",
+   "origin": "harvest",
+   "title": "Platform-native deployment beats containers on a sovereign LAN",
+   "lesson": "Platform-native deployment beats the container default on a sovereign LAN with no parity or handover trigger.",
+   "venture": "Guth",
+   "source_note": "WG-OPS-002 ruled contrary.",
+   "evidence_class": "observational",
+   "disposition": "venture-ruling",
+   "outcome": "Contrary evidence recorded against the container default. Under `GOVERNANCE.md` precedence this triggers review, never automatic demotion, and one ruling from one venture is not promotion evidence. Carried to `packs/devops-reliability` at the next authoring pass.",
+   "scope": "estate",
+   "applicability_conditions": "Deployment onto machines the operator owns, on a LAN, with no environment-parity requirement and no handover to another operator.",
+   "informs": [
+    "packs/devops-reliability/PACK.md"
+   ],
+   "conflicts_with": [
+    "WG-OPS-002"
+   ],
+   "conflict_resolutions": {
+    "WG-OPS-002": {
+     "resolution": "scoped-differently",
+     "note": "The container default holds where environment parity or a handover to another operator is in play; this ruling covers a sovereign LAN with neither."
+    }
+   },
+   "decided": "2026-08"
+  },
+  {
+   "id": "LES-0017",
+   "origin": "harvest",
+   "title": "A split voice register reads cleanly in practice",
+   "lesson": "A split voice register, warm-guide for in-app coaching and peer-expert for docs, reads cleanly in practice.",
+   "venture": "Guth",
+   "source_note": "WG-VOX-001 ruled split.",
+   "evidence_class": "observational",
+   "disposition": "venture-ruling",
+   "outcome": "Early supporting evidence for the three-way voice scope in `packs/writing-content/guides/GD-WRIT-003-voice-scope.md`, which already sanctions per-surface splits.",
+   "scope": "estate",
+   "applicability_conditions": "Products carrying both in-app coaching copy and reference documentation, where one register would have to serve both.",
+   "informs": [
+    "packs/writing-content/guides/GD-WRIT-003-voice-scope.md"
+   ],
+   "decided": "2026-08"
+  },
+  {
+   "id": "LES-0018",
+   "origin": "harvest",
+   "title": "Cap urllib3 below 2.5 until a deploy proves otherwise",
+   "lesson": "urllib3 2.5 and above breaks Railway startup; cap it below 2.5.0 until a deploy proves otherwise.",
+   "venture": "WiseWattage",
+   "source_note": "Estate survey at EOS creation.",
+   "evidence_class": "observational",
+   "disposition": "dated-registry-fact",
+   "outcome": "Now owned by `registry/stacks/STACK-fastapi-postgres.md`.",
+   "scope": "estate",
+   "applicability_conditions": "Python services on the FastAPI and Postgres profile deploying to Railway.",
+   "informs": [
+    "registry/stacks/STACK-fastapi-postgres.md"
+   ],
+   "decided": "2026-07",
+   "review": "2027-01",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0019",
+   "origin": "harvest",
+   "title": "Dockerignore node_modules or Windows pnpm symlinks break the build",
+   "lesson": "Docker builds on Windows fail on pnpm symlinks unless every node_modules directory is dockerignored.",
+   "venture": "WiseWattage",
+   "source_note": "Estate survey at EOS creation.",
+   "evidence_class": "observational",
+   "disposition": "dated-registry-fact",
+   "outcome": "Now owned by `registry/stacks/STACK-fullstack-app.md`.",
+   "scope": "estate",
+   "applicability_conditions": "Docker builds run on a Windows host in a pnpm workspace.",
+   "informs": [
+    "registry/stacks/STACK-fullstack-app.md"
+   ],
+   "decided": "2026-07",
+   "review": "2027-01",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0020",
+   "origin": "harvest",
+   "title": "Generated artefacts need a drift check or they rot",
+   "lesson": "Generated artefacts, OpenAPI types and schemas among them, must be committed with a CI drift check, or they rot silently.",
+   "venture": "WiseWattage",
+   "source_note": "Estate survey at EOS creation.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Now owned by `packs/architecture/PACK.md` and its CHECKS row, argued in WG-ARCH-005.",
+   "scope": "estate",
+   "applicability_conditions": "Any repository committing generated artefacts alongside the source they are generated from.",
+   "informs": [
+    "packs/architecture/PACK.md",
+    "WG-ARCH-005"
+   ],
+   "decided": "2026-07",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0021",
+   "origin": "harvest",
+   "title": "Visual regression needs a pinned image or fonts diverge",
+   "lesson": "Visual regression needs a Docker-pinned image or fonts diverge across machines.",
+   "venture": "WiseWattage",
+   "source_note": "Estate survey at EOS creation.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Now owned by `packs/delivery-testing/PACK.md`, argued in WG-DEL-003.",
+   "scope": "estate",
+   "applicability_conditions": "Test suites comparing rendered screenshots across machines.",
+   "informs": [
+    "packs/delivery-testing/PACK.md",
+    "WG-DEL-003"
+   ],
+   "decided": "2026-07",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0022",
+   "origin": "harvest",
+   "title": "Migrations: forward-only, idempotent, advisory-locked",
+   "lesson": "Migrations: forward-only, idempotent, advisory-locked, run before app start, fail closed.",
+   "venture": "WiseWattage",
+   "source_note": "Estate survey at EOS creation.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Now owned by `packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md`.",
+   "scope": "estate",
+   "applicability_conditions": "Relational schema changes shipped with the application that reads them.",
+   "informs": [
+    "packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md"
+   ],
+   "decided": "2026-07",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0023",
+   "origin": "harvest",
+   "title": "Ratcheting gates beat big-bang strictness",
+   "lesson": "Ratcheting gates, a mypy allowlist and coverage floors among them, beat big-bang strictness.",
+   "venture": "WiseWattage",
+   "source_note": "Estate survey at EOS creation.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Now owned by `packs/delivery-testing/refs/QUALITY_SIGNALS.md` and its CHECKS rows.",
+   "scope": "estate",
+   "applicability_conditions": "Tightening quality gates on a codebase that does not pass them yet.",
+   "informs": [
+    "packs/delivery-testing/refs/QUALITY_SIGNALS.md"
+   ],
+   "decided": "2026-07",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0024",
+   "origin": "harvest",
+   "title": "The prune-and-fill compile is mechanical enough to script",
+   "lesson": "The prune-and-fill compile is mechanical enough to script; twenty lines compiled the two largest files with zero manual fixes.",
+   "venture": "AutoWatt",
+   "source_note": "Reseed feedback.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "Now owned by `inception/INCEPTION.md` phase D.",
+   "scope": "eos-internal",
+   "applicability_conditions": "Compiling kernel templates into a venture repository where the fill values are already known.",
+   "informs": [
+    "inception/INCEPTION.md"
+   ],
+   "decided": "2026-07",
+   "pruned_on": "2026-08-03"
+  },
+  {
+   "id": "LES-0025",
+   "origin": "study",
+   "title": "Local-first is seven ideals, and a product names the subset it buys",
+   "lesson": "Offline capability is one of the seven local-first ideals and not the load-bearing one: multi-device, collaboration, longevity, security and privacy, user control and no-spinners drive most of the architecture. A product that keeps its data on the operator's machines should name the subset it is buying and the ones it is declining, because shipped systems treat the list as a menu. A sync engine that narrowed itself to the read path and left writes to the application is the worked case: most of the benefit, a fraction of the cost.",
+   "sources": [
+    "EV-0378",
+    "EV-0382"
+   ],
+   "lens": "LENS-0001",
+   "source_note": "First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not Daniel's. LENS-0001 is the id reserved for the contract file, and on the day this row was decided no such file existed in this repository: the estate names no path for an EOS-side lens contract, and `kernel/templates/LENS.tpl.md` sends a venture's to `docs/lenses/`.",
+   "evidence_class": "observational",
+   "disposition": "reference-only",
+   "outcome": "Nothing changed. The row records the argument behind the shape already in `registry/stacks/STACK-local-first-pwa.md`, which was harvested at LES-0015 and states the shape without stating which ideals it buys.",
+   "scope": "estate",
+   "applicability_conditions": "A local-first or browser-delivered product deciding how much sync to build. The primary source is a 2019 position paper by CRDT authors with a stake in the answer and no measurement behind it, so it argues the shape of the decision rather than settling it.",
+   "informs": [
+    "registry/stacks/STACK-local-first-pwa.md",
+    "LES-0015"
+   ],
+   "decided": "2026-08-10",
+   "reasoning": "The profile already carried the shape; what it lacked was the argument for which ideals a machine-local product actually buys.",
+   "review": "2027-02"
+  }
+ ]
+}

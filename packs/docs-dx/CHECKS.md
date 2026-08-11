@@ -41,7 +41,7 @@ human input, unless a row says otherwise.
 | C-15 | External link checking does not block | Injecting a link to an unreachable host fails no step | D5 |
 | C-16 | The blocking steps run offline | The blocking documentation job runs with network access disabled and still passes | D5 |
 | C-17 | A running Unreleased section exists | Heading present in `CHANGELOG.md`, with at least one entry when the diff changes a user-visible surface | D3 |
-| C-18 | README question set present | Headings or content covering what, why, how, status and next are present | D2 |
+| C-18 | README question set present | Headings or content covering all five questions in `packs/docs-dx/refs/DOC_FORMS.md`: what, why, how, state and next | D2 |
 | C-19 | Prose rules are advisory | The prose linter's step reports without failing the build unless the rule is on the promoted list | D7 |
 
 C-01 through C-10 are the gate. C-11 and C-12 need a venture-specific
@@ -70,11 +70,14 @@ later; none is executable now.
 
 ## How to read a failing check
 
-C-01 through C-10 are non-negotiable wherever their predicate is true.
-A failing C-05 is usually a half-finished rename, and the fix is in the
-same change, not a follow-up. A failing C-08 or C-16 means the gate is
-not trustworthy, which is more serious than any single broken link,
-because it means every other green run was uninformative.
+C-09 and C-10 sit behind B4, the one requirement the ADR-0008 audit
+left binding, and they are non-negotiable wherever their predicate is
+true. C-01 to C-08 and C-11 to C-14 now sit behind defaults: the tests
+are unchanged, and what changed is that a venture may decline one and
+write down why. A failing C-05 is usually a half-finished rename,
+and the fix is in the same change, not a follow-up. A failing C-08 or
+C-16 means the gate is not trustworthy, which is worse than any single
+broken link, because every other green run was uninformative.
 
 A J-row that nobody performed is a J-row that failed. J-01, J-05 and
 J-06 are the three most commonly skipped, and they are the three that

@@ -65,7 +65,7 @@ figures (EV-0270).
 3. Everything outside the boundary is eventually consistent, and the
    change record says what may be stale and for how long.
 4. Any state change with an outbound message goes through the outbox,
-   and every consumer is idempotent (EV-0157). This is B4 in PACK.md
+   and every consumer is idempotent (EV-0157). This is D10 in PACK.md
    and it is what makes rule 3 honest.
 
 ## Boundaries are provisional

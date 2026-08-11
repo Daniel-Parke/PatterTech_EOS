@@ -6,7 +6,7 @@ type: example
 tags: [web, a11y, layout]
 ---
 
-# Worked example: two surfaces, one spine
+# EX-UIUX-001: two surfaces, one spine
 
 The situation. One repository must ship two surfaces for the same
 venture: a public task flow where a citizen completes a three-field

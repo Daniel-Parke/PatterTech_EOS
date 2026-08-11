@@ -22,8 +22,9 @@ where a document's truth lives, which documents can be made to fail a
 build, and what a failure message owes the person reading it. It
 activates on any task that writes or changes documentation, renames or
 deletes a documented page, cuts a release, or adds a user-visible
-failure. Link integrity, snippet execution, generated reference and
-error-message content bind. Prose style does not.
+failure. Only one rule binds, that generated reference is regenerated
+and never hand-edited. Link integrity, snippet execution and
+error-message content are defaults. Prose style is taste.
 
 ## Activation
 
@@ -84,53 +85,86 @@ opinion about where explanation lives relative to reference. It does
 not measure documentation with a productivity number, for the reason in
 Open questions.
 
-## Binding requirements
+## Requirements
 
-Six requirements bind. A run that breaks one fails, whatever else it
-achieved. Each names its basis, because binding has to be earned. All
-six exist because documentation failure decomposes into named,
+Six numbered requirements. One binds and five are defaults, after the
+authority audit under ADR-0008: a rule stays binding only where it
+prevents a serious or hard-to-reverse failure and rests on law, a
+standard or evidence. Almost every documentation defect is undone by a
+later commit, which is why five moved. A default is not a suggestion.
+Departing from one leaves a written reason, and every check in
+`packs/docs-dx/CHECKS.md` still runs. The numbers do not move, because
+the checks, the guides and the worked example cite them.
+
+| Id | Authority | Basis | Why it landed there |
+| --- | --- | --- | --- |
+| B1 | default | standard | a dead cross-reference is repaired by a commit |
+| B2 | default | decision | the inbound links can be fixed after the move |
+| B3 | default | standard | a drifted snippet is corrected in place |
+| B4 | binding | standard | the correct fix is silently undone by the next run |
+| B5 | default | empirical-evidence | a bad message is rewritten in one commit |
+| B6 | default | decision | the estate ruled it; the convention measures presence |
+
+All six exist because documentation failure decomposes into named,
 detectable categories rather than being one quality judgement
-(EV-0325), and a convention only binds once it is executable
-(EV-0137).
+(EV-0325), and a convention is worth writing down only once it is
+executable (EV-0137).
 
-**B1. Internal links and anchors resolve, checked in CI, blocking.**
-The check runs offline over the repository, validates fragments and not
-just paths, and distinguishes a broken link from a broken checker so a
-tool failure is never read as a clean run (EV-0331). Basis: standard,
-plus the exemplar at EV-0332 where the same check gates merges across
-sibling repositories. Prevents the silent break: an internal
-cross-reference to `#install-it` keeps pointing at nothing the moment
-someone retitles the heading, and nobody notices until a reader does.
-See `packs/docs-dx/refs/DOC_GATE.md`.
+**Evidence pointer.** Every `EV-` id resolves in
+`registry/evidence.json`, which carries each source's version, licence,
+access date, maintenance state and review trigger. Of the sixteen
+sources researched for this pack, fifteen were imported as EV-0322 to
+EV-0336 and one was already in the ledger as EV-0044; the rest cited
+here are shared estate rows. The frozen batch the import was made from
+stays at `packs/docs-dx/research/sources.fragment.json`, and the
+synthesis behind the pack is in `packs/docs-dx/research/NOTES.md`.
+
+**B1. Internal links and anchors resolve, checked in CI, and the check
+blocks.** The check runs offline over the repository, validates
+fragments and not just paths, and distinguishes a broken link from a
+broken checker so a tool failure is never read as a clean run
+(EV-0331). Reason: an internal cross-reference to `#install-it` keeps
+pointing at nothing the moment someone retitles the heading, and nobody
+notices until a reader does. Depart where the repository has no
+cross-references worth the CI minute, and say so. Authority: default.
+Basis: standard, plus the exemplar at EV-0332 where the same check
+gates merges across sibling repositories. See
+`packs/docs-dx/refs/DOC_GATE.md`.
 
 **B2. A renamed or deleted page leaves a redirect, or every reference
 to it is updated in the same change.** One or the other, verified, in
-the commit that does the moving (EV-0332). Basis: decision, taken on
-that exemplar. Prevents the half-move, where the page is renamed, the
-inbound links are found later, and the reader in between gets a
-dead end with no clue what replaced it.
+the commit that does the moving (EV-0332). Reason: the half-move, where
+the page is renamed, the inbound links are found later, and the reader
+in between gets a dead end with no clue what replaced it. Authority:
+default. Basis: decision, taken on that exemplar.
 
 **B3. Every executable snippet either runs in CI or carries an explicit
 declaration of why it does not.** A fenced block that names a command,
 flag or API call is executed by the documentation gate, or it carries a
 marker saying it is illustrative, environment-bound or expected to
-fail. Absence of the marker is itself the failure (EV-0330). Basis:
-standard, from a toolchain that has run this way for a decade. Prevents
-the drifted quickstart: a flag is renamed, the shell block in the
+fail. Absence of the marker is itself the finding (EV-0330). Reason:
+the drifted quickstart. A flag is renamed, the shell block in the
 quickstart still names the old spelling, and nothing anywhere knows.
-Scope note: executing a snippet proves it runs, never that it is the
-right snippet to show, and the prose around it stays unverified. See
+Depart where nothing in the tree can execute the block, and record
+which blocks that covers. Authority: default. Basis: standard, from a
+toolchain that has run this way for a decade. Scope note: executing a
+snippet proves it runs, never that it is the right snippet to show, and
+the prose around it stays unverified. See
 `packs/docs-dx/guides/GD-DOCS-002-executable-examples.md`.
 
 **B4. Generated reference is verified as regenerated, not hand-edited.**
 Where reference material is produced from a schema, model or interface
 document, CI regenerates it and fails on any difference (EV-0332,
-EV-0102, EV-0023). Basis: standard. Prevents the patched artefact:
-someone fixes a wrong line in the generated file, the generator keeps
-producing the wrong line, and the next regeneration reverts the fix.
-Annotations in code comments do not satisfy this, because proximity is
-not accuracy and nothing fails when a docstring is wrong about the
-function beneath it.
+EV-0102, EV-0023). Authority: binding. Basis: standard. Prevents the
+patched artefact: someone fixes a wrong line in the generated file, the
+generator keeps producing the wrong line, and the next regeneration
+reverts the fix. It is the one requirement here the audit left binding,
+because the repair does not hold. The person who made it believes it
+landed, and the wrong line ships again on the next run. ADR-0008 names
+the never-hand-edit-a-derived-file rule among the things it does not
+loosen, and this is that rule stated for a venture. Annotations in code
+comments do not satisfy it, because proximity is not accuracy and
+nothing fails when a docstring is wrong about the function beneath it.
 
 **B5. Every user-visible failure names the condition, the
 caller-relevant identity, and what to do next.** The message says what
@@ -138,24 +172,24 @@ was wrong, shows or names the offending input, and points at the
 accepted alternative. Detail beyond that goes behind an explicit
 request rather than inline (EV-0328). Which failures a caller may tell
 apart is an interface decision and is declared, not inferred
-(EV-0175). Basis: empirical-evidence. Prevents the dead stop: a user
-does the wrong thing, gets `error` and exit 1, and cannot tell whether
-they mistyped, hit a bug or lack a permission. Scope note: the
-read-rate and time-to-fix evidence is an eye-tracking study of 56
-students fixing planted Java defects in Eclipse in 2017 (EV-0327). The
-direction transfers, the percentages are not a target, and nothing
-there tested an agent reader. See
+(EV-0175). Reason: the dead stop. A user does the wrong thing, gets
+`error` and exit 1, and cannot tell whether they mistyped, hit a bug or
+lack a permission. Authority: default. Basis: empirical-evidence. Scope
+note: the read-rate and time-to-fix evidence is an eye-tracking study
+of 56 students fixing planted Java defects in Eclipse in 2017
+(EV-0327). The direction transfers, the percentages are not a target,
+and nothing there tested an agent reader. See
 `packs/docs-dx/guides/GD-DOCS-004-failure-messages.md`.
 
 **B6. Every repository carries an agent entry file at the conventional
 root path, and the commands it names are covered by B3.** The
 convention fixes location and nothing else, which is why it was adopted
-across vendors that agree on very little (EV-0044). Basis: decision.
-Prevents an agent guessing at build and test commands, and the softer
-failure where the file exists, is never checked, and confidently names
-a command removed two releases ago. Adoption counts measure file
-existence, so presence alone is worth nothing without the second half
-of this requirement.
+across vendors that agree on very little (EV-0044). Reason: an agent
+guessing at build and test commands, and the softer failure where the
+file exists, is never checked, and confidently names a command removed
+two releases ago. Adoption counts measure file existence, so presence
+alone is worth nothing without the second half. Authority: default.
+Basis: decision.
 
 ## Defaults
 
@@ -172,12 +206,15 @@ framework has no research base beyond its author's practice, and four
 empty directories on day one produce a tutorial nobody wrote (EV-0323).
 See `packs/docs-dx/refs/DOC_FORMS.md`.
 
-**D2. A README answers what it is, why it exists, how to use it, and
-whether it is maintained.** Reason: sampled READMEs cluster on what and
-how and systematically omit why and status, which are the questions a
-reader cannot answer any other way (EV-0329). Scope note: that is a
-descriptive study of open-source READMEs sampled before 2018, and it
-never linked section presence to an outcome.
+**D2. A README answers five questions: what it is, why it exists, how
+to use it, what state it is in, and where to go next.** The wording and
+the order sit in `packs/docs-dx/refs/DOC_FORMS.md`, which owns the set,
+and C-18 checks against that file rather than against this sentence.
+Reason: sampled READMEs cluster on what and how and systematically omit
+why and state, which are the questions a reader cannot answer any other
+way (EV-0329). Scope note: that is a descriptive study of open-source
+READMEs sampled before 2018, and it never linked section presence to an
+outcome.
 
 **D3. A curated changelog with a running Unreleased section.** One
 entry per version, newest first, dated, grouped into added, changed,

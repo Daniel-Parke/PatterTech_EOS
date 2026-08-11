@@ -7,10 +7,10 @@ tags: [eos]
 # EXPRESS_INCEPTION
 
 The fast path through Session 0, for a venture whose risk triggers are
-all silent. It compiles the same nine-file S seed as the full path and
-passes the same auto checks. What it drops is argument nobody needed:
-questions whose answers were never going to change a ruling, and a walk
-whose every row would have read inherited.
+all silent. It compiles the same fourteen-file S seed as the full path
+and passes the same auto checks. What it drops is argument nobody
+needed: questions whose answers were never going to change a ruling,
+and a walk whose every row would have read inherited.
 
 Target: under thirty minutes of the operator's time, in one sitting,
 with the operator present throughout because there is nothing left to
@@ -25,8 +25,7 @@ true. The list below is a gate and it binds.
 - Personal or regulated data is touched, anyone's.
 - Anything authenticates, authorises or holds server-side state.
 - Anything is deployed, monitored or backed up with state behind it.
-- A second human holds a decision, or the venture could be handed over
-  or sold as a unit.
+- A second human holds a decision.
 
 Any yes means the risk surface needs arguing into policy and the walk
 needs real rulings. Express cannot produce either. A venture that
@@ -38,9 +37,9 @@ restarts at phase A of the full path with the answers already given.
 1. What is it, in one paragraph, in your words?
 2. Who is it for, and who pays (if anyone)?
 3. What surfaces exist: site, app, api, documents?
-4. The gate: does any of money, personal or regulated data, auth or
-   server state, or a deployment with state apply? Read the list back
-   and take a yes or no on each.
+4. The gate: money, personal or regulated data, auth or server state, a
+   deployment with state behind it, a second human holding a decision.
+   Read all five back and take a yes or no on each.
 5. What may this venture spend, and who approves spend? A number or
    "nothing without me", never silence.
 6. What is out of scope, and what does success look like in ninety
@@ -60,24 +59,34 @@ Everything else takes its default and says so.
 
 - Scale S, argued, on the strength of question 4.
 - Repo shape A, the monorepo, inherited.
-- The always-walk set of inception/WALK_ORDER.md, ruled inherited
-  throughout, plus the UI and UX pack when the venture has a surface.
-  No other pack activates, because activation needs a predicate and the
-  gate question proved none holds.
+- The security-privacy pack, the third member of the always-walk set,
+  ruled inherited. Its floors bind whatever a walk would have said.
+- The UI and UX pack, inherited, where the venture has a surface.
+- Every other pack keeps its default, unwalked. Express does not run
+  the pack walk at all, and skipping it is only honest because the gate
+  has already proved that no risk trigger is live. A venture that trips
+  the gate gets the full walk instead.
 - The policy's path lists take the stack profile's defaults, with the
   whole tree reversible except the policy file itself, which is
   protected. Guard validated stays false, so every guarded class is
   manual-only.
+- The material workstreams the full interview asks for at question 18
+  are the surfaces from question 3, one line each, read back and
+  confirmed. Express does not ask a separate question for them, because
+  a venture that answered no to the gate has as many workstreams as it
+  has surfaces.
 
 ## Compile and gate
 
-Compile per inception/COMPILE.md, unchanged. The deferral rule still
-binds: every `set at first build` value needs its first-build lock-in
-row in docs/TASKS.md, or check D004 fails the seed.
+Compile per inception/COMPILE.md and gate per phase E of
+inception/INCEPTION.md, both unchanged. Every auto item green before a
+human judges anything, exactly as on the full path. Nothing about the
+fast path relaxes the machine.
 
-Run `python -m tools.eos check --seed <venture path>`. Every auto item
-must be green, as on the full path; nothing about the fast path relaxes
-the machine.
+Genesis is skipped by default on this path, and the skip line goes in
+the sign-off block like any other. An operator who wants a blueprint
+takes the lite form of inception/GENESIS.md; the templates are in the
+seed either way.
 
 Two human items are signed rather than five: H1, the cold-start test,
 and H4, voice on the surfaces a stranger reads first. H2 is already

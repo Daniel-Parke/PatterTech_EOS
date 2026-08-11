@@ -1,13 +1,13 @@
 """Drill runner tests: real verdicts, honest manuals, no false greens.
 
-Most shipped drills still have no scenario and no graders, so the tests
-that prove the runner actually evaluates anything build their own
-synthetic drill root: a manifest, a spec, a scenario tree and graders.
-That way pass, fail and manual are all exercised for real rather than
-asserted about a stub.
-
-The architecture drill is the exception and has both, so it is also
-tested end to end against the fixture it ships with.
+All twenty-two shipped drills now carry a scenario and graders. The
+tests that prove the runner actually evaluates anything still build
+their own synthetic drill root, a manifest, a spec, a scenario tree and
+graders, because a shipped drill cannot exercise the failure paths: it
+cannot be made to lose its graders or fail its own hash without
+editing frozen material. So pass, fail and manual are exercised against
+the synthetic root, and the architecture drill is run end to end
+against the fixture it ships with.
 """
 
 import json
@@ -23,6 +23,7 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
 from tools.eos import benchcli, drills  # noqa: E402
+from tools.eos.repo import content_sha256  # noqa: E402
 
 SPEC = """---
 summary: A synthetic drill used only by the tests
@@ -78,7 +79,7 @@ def drill_root(tmp_path):
     # raw bytes here made the fixture depend on the platform: _write
     # goes through text mode, so Windows puts CRLF on disk and the
     # digest stopped matching the moment the drill hasher normalised.
-    digest = drills.sha256_file(spec)
+    digest = content_sha256(spec)
     _write(root / drills.MANIFEST_REL, json.dumps({
         "version": 2,
         "drills": {

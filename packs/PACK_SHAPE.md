@@ -7,9 +7,10 @@ tags: [eos]
 # PACK_SHAPE
 
 The contract for a knowledge pack. Packs replace doctrine modules. A
-pack is loaded in three levels: its first paragraph is always in
-context, its `PACK.md` body loads on activation, and everything else
-loads on demand. This file changes through the ADR path (ADR-0004).
+pack is loaded in three levels: its first paragraph reaches an agent
+through `packs/INDEX.md` whether the pack loads or not, its `PACK.md`
+body loads on activation, and everything else loads on demand. This
+file changes through the ADR path (ADR-0004).
 
 ## Invariant organs
 
@@ -17,14 +18,16 @@ Every built pack has all three:
 
 - `PACK.md`. The pack itself. Its **first paragraph is level-one
   metadata**: under eighty words, saying what the pack covers and when
-  it activates, because that paragraph sits in every agent's context
-  whether the pack loads or not. The body stays under five hundred
-  lines and carries activation, outcomes and non-goals, binding
+  it activates, because that is the paragraph `packs/INDEX.md` carries
+  and the only one an agent reads before deciding to load anything. The
+  body carries activation, outcomes and non-goals, binding
   requirements, defaults, preferences, a decision map, failure modes,
-  counter-evidence and the evidence pointer.
+  counter-evidence and the evidence pointer, inside the line budget
+  `GOVERNANCE.md` sets.
 - `guides/`. The arguments of record, one fork per guide, ids
   `GD-<PACK>-NNN`. Wargames inherited from v1 keep their `WG-` ids and
-  live here unchanged.
+  live here; several were re-argued against the 2026 evidence sweep
+  when they were carried across, and the guide says so where it was.
 - `CHECKS.md`. What a reviewer or a script can verify about work in
   this domain, split into executable today and judgement today. A check
   that needs a person is still a check.
@@ -33,9 +36,10 @@ Every built pack has all three:
 
 Add only what the domain earns:
 
-- `refs/`. Mechanics, cards and tables too long for the body.
+- `refs/`. Mechanics, cards and tables too long for the body. Every ref
+  is named from the pack body, because an organ nothing points at is
+  never read.
 - `exemplars/`. Worked examples, ids `EX-<PACK>-NNN`.
-- `recipes/`. Short repeatable procedures, four metadata fields each.
 - `research/`. The synthesis notes and the drill proposal behind the
   pack.
 

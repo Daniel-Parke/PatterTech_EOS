@@ -87,9 +87,16 @@ def test_superseded_rows_are_excluded(tmp_path):
 
 def test_the_real_ledger_reproduces_the_published_figures():
     """The report's numbers are reproducible, and the ceremony gate does
-    turn on the convention."""
+    turn on the convention.
+
+    The two variant labels are passed rather than defaulted. They are
+    the labels the published figures were computed under, and this test
+    is about those figures; if the command's defaults move to another
+    batch, that is a change to what gates.py reports by default and not
+    a change to what the report said.
+    """
     rows = gates.load_rows()
-    result = gates.compute(rows)
+    result = gates.compute(rows, "v1", "v2-routed-once")
     by_metric = {g.get("metric"): g for g in result["gates"] if "metric" in g}
     assert by_metric["ceremony_lines"]["verdict_depends_on_convention"] is True
     assert by_metric["ceremony_lines"]["drop"]["passes"] is True

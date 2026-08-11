@@ -1,4 +1,9 @@
-"""Benchcli tests: subprocess pass-through, no reimplementation, drills stub."""
+"""Benchcli tests: subprocess pass-through, no reimplementation.
+
+The drills wrapper is not a stub and has not been one since it was
+wired to tools.eos.drills; its behaviour is covered in test_drills.py
+and only the wrapper's own shape is asserted here.
+"""
 
 import json
 import sys
@@ -32,17 +37,17 @@ _FAIL_SCRIPT = (
 def bench_root(tmp_path):
     root = tmp_path / "repo"
     (root / "benchmark").mkdir(parents=True)
-    (root / "benchmark" / "runner.py").write_text(_ECHO_SCRIPT, encoding="utf-8")
+    (root / "benchmark" / "harness.py").write_text(_ECHO_SCRIPT, encoding="utf-8")
     (root / "benchmark" / "score.py").write_text(_ECHO_SCRIPT, encoding="utf-8")
     return root
 
 
-def test_runner_passes_args_through_verbatim(bench_root):
-    proc = benchcli.runner(
-        bench_root, ["run", "--task", "tasks/T1", "--variant", "v2"])
+def test_harness_passes_args_through_verbatim(bench_root):
+    proc = benchcli.harness(
+        bench_root, ["prepare", "--task", "tasks/T1", "--variant", "v2"])
     assert proc.returncode == 0
     argv = json.loads(proc.stdout)["argv"]
-    assert argv == ["run", "--task", "tasks/T1", "--variant", "v2"]
+    assert argv == ["prepare", "--task", "tasks/T1", "--variant", "v2"]
 
 
 def test_score_passes_args_through_verbatim(bench_root):
@@ -68,24 +73,24 @@ def test_missing_frozen_script_raises(tmp_path):
     root = tmp_path / "empty"
     (root / "benchmark").mkdir(parents=True)
     with pytest.raises(FileNotFoundError):
-        benchcli.runner(root, ["run"])
+        benchcli.harness(root, ["prepare"])
 
 
 def test_benchcli_never_imports_the_frozen_suite():
     # Contract: subprocess only. The module must not import or exec the
-    # frozen runner or scorer, in any form.
+    # frozen harness or scorer, in any form.
     source = (REPO / "tools" / "eos" / "benchcli.py").read_text(encoding="utf-8")
-    assert "import runner" not in source
+    assert "import harness" not in source
     assert "import score" not in source
     assert "from benchmark" not in source
     assert "importlib" not in source
     assert "exec(" not in source
 
 
-def test_real_frozen_scripts_are_present_and_untouched_by_this_lane():
-    # The wrappers point at benchmark/runner.py and benchmark/score.py;
-    # both must exist in the real repo for the CLI to be wireable.
-    assert (REPO / "benchmark" / "runner.py").is_file()
+def test_the_two_frozen_scripts_the_cli_invokes_are_present():
+    # benchmark prepare drives harness.py and benchmark score drives
+    # score.py; both must exist for the CLI to be wireable at all.
+    assert (REPO / "benchmark" / "harness.py").is_file()
     assert (REPO / "benchmark" / "score.py").is_file()
 
 

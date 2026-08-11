@@ -96,8 +96,11 @@ Readability reported if anyone wants it, blocking nothing.
 
 - **This repository (2026-08, inherited)**: check E004 is the house
   linter, failing on em-dashes and warning on exclamation marks and
-  cliches. It enforces PACK.md B8 mechanically and nothing else, and it
-  is the only prose check here.
+  cliches. It enforces the mechanical part of PACK.md B8 and nothing
+  else, and it is the only prose check here. B8 is a default since the
+  2026-08 audit and E004 still fails the build, which is the case for
+  writing down what the check actually does rather than reading the
+  authority axis as the gate.
 - **Worked example (2026-08, argued)**: B over a string file, with the
   injected wrong term failing the step, in
   `packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md`.

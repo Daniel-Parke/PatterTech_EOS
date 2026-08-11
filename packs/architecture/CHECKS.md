@@ -4,6 +4,7 @@ kind: record
 scope: estate
 type: example
 tags: [arch, ci, tooling]
+sources: [EV-0097, EV-0159]
 ---
 
 # Architecture pack checks
@@ -24,12 +25,12 @@ These need no judgement. A script or a CI step decides.
 | A-03 | The boundary command exits 0 on the delivered tree | run it | B1 |
 | A-04 | The boundary command exits non-zero when a violation is injected, and 0 again when reverted | inject, run, revert, run | B1 |
 | A-05 | The same command is invoked from a committed CI workflow or pre-commit config | grep both files for the command string | B1 |
-| A-06 | A decision record exists for each door-closing change in the diff | path match against the decisions directory | B2 |
-| A-07 | Each decision record carries a considered-options heading with two or more options and a decision-outcome heading | heading and list-item parse | B2 |
-| A-08 | Each decision record names the enforcement tool and states the dependency direction | string presence of the tool name plus a direction phrase | B2 |
+| A-06 | A decision record exists for each door-closing change in the diff | path match against the decisions directory | D11 |
+| A-07 | Each decision record carries a considered-options heading with two or more options and a decision-outcome heading | heading and list-item parse | D11 |
+| A-08 | Each decision record names the enforcement tool and states the dependency direction | string presence of the tool name plus a direction phrase | D11 |
 | A-09 | A container-level view artefact exists and names every module in the contract | parse the DSL or the Markdown heading, compare module names | D4 |
-| A-10 | Two independent builds of the same source produce identical bytes | build twice, compare hashes | B3 |
-| A-11 | Build tools are pinned by version or hash rather than taken from the host | manifest and lockfile inspection | B3 |
+| A-10 | Two independent builds of the same source produce identical bytes | build twice, compare hashes | D12 |
+| A-11 | Build tools are pinned by version or hash rather than taken from the host | manifest and lockfile inspection | D12 |
 | A-12 | Committed generated artefacts match a fresh generation from source | regenerate into a temp dir, diff | B4 |
 | A-13 | Every generated client call site checks the response succeeded | pattern scan of the generated client surface | B4 |
 | A-14 | Webhook handlers read the raw body before any parse, and verify before any use | call-order scan of the handler module | B5 |
@@ -57,7 +58,7 @@ and the answers belong in the review record rather than in a gate.
 | Id | Question | Serves |
 | --- | --- | --- |
 | J-01 | Is the declared decomposition the right one, or merely enforced? No tool in the ledger can answer this, and all three say so | B1 |
-| J-02 | Does the decision record's losing option represent a case someone would actually argue, or a straw one? | B2 |
+| J-02 | Does the decision record's losing option represent a case someone would actually argue, or a straw one? | D11 |
 | J-03 | Is the boundary crossed at runtime through dependency injection, reflection or string-keyed lookup, where no static check can see it? | B1 |
 | J-04 | Does the adapter interface model the venture's need, or the current vendor's shape? | D7 |
 | J-05 | Is the exit route written down specific enough to cost, naming what replaces the vendor and what migrates? | D7 |

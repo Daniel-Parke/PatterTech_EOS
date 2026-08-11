@@ -1,0 +1,24 @@
+{
+  "id": "T-0020",
+  "intent": "Tooling: the conflict check, the lesson checks and generator, the two new seed checks, the study scaffold command, the dead checks removed, the guard validated reading unified, and tests for all of it. Closed: the conflict check, the lesson checks and generator, the two seed checks and the study scaffold ship with tests, and the dead checks are gone.",
+  "claims": [
+    "tools/",
+    "tests/",
+    "kernel/schemas/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "done",
+  "owner_session": "eos-v21-L7",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

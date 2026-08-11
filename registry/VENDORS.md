@@ -38,5 +38,6 @@ vendor become load-bearing without a row here. Where the exit route is
 unknown, the row says unknown rather than inventing one.
 
 Five rows were added in the v2 build after an audit found live and
-planned dependencies with no row at all. Four of them belong to
-PatterTech_App, which is dormant, so none is proven and all say so.
+planned dependencies with no row at all: Listmonk, Amazon SES, Fly.io,
+Umami and Migadu. Every one of the five is named in PatterTech_App,
+which is dormant, so none is proven and all say so.

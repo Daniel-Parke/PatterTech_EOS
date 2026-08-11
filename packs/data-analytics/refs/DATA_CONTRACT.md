@@ -1,25 +1,25 @@
 ---
-summary: What a data contract has to carry to satisfy B1 and B2, the rule kinds available, and how a contract fails silently
+summary: What a data contract has to carry to satisfy D9 and D10, the rule kinds available, and how a contract fails silently
 type: foundation
 tags: [data, delivery, testing]
 kind: fact
 scope: estate
-sources: [EV-0056, EV-0057]
+sources: [EV-0056, EV-0057, EV-0305, EV-0306]
 volatility: slow
 review: 2028-08
 ---
 
 # Data contract reference
 
-Level-three material behind binding requirements B1 and B2 and guide
-`packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md`.
-The pack binds what a contract must carry and what happens when it
-fails. It does not bind the format.
+Level-three material behind defaults D9 and D10 and guide
+`packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md`. The
+pack sets what a contract carries and what happens when it fails, as
+defaults you depart from in writing. It has never had anything to say
+about the format.
 
 ## The five things one document has to carry
 
-A contract that omits any of these leaves an unowned gap
-(`EV-0305`).
+A contract that omits any of these leaves an unowned gap (EV-0305).
 
 | Element | What it states | Why it cannot live elsewhere |
 | --- | --- | --- |
@@ -50,12 +50,11 @@ infrastructure metadata, are dead weight inside a single venture.
 | Distribution | metric within its historic band | drift nobody wrote a rule for | a bug that arrived before the history did |
 
 The first eight are declared. The ninth is computed, needs history, and
-is the only one that catches what you failed to anticipate
-(`EV-0306`).
+is the only one that catches what you failed to anticipate (EV-0306).
 
 ## Blocking against monitoring
 
-B2 says a quality gate failure blocks publication. Concretely:
+D10 says a quality gate failure blocks publication. Concretely:
 
 - The check runs inside the build, as a step the pipeline depends on,
   not as a job scheduled afterwards.
@@ -80,8 +79,8 @@ consumer outside the session that wrote it? If not, no contract.
   every shape check. No source found offers a gate. Put the unit in the
   column name and treat unexplained metric step changes as bugs.
 - **Suggested constraints.** Rules derived from the current data encode
-  whatever the data currently does, including the defect
-  (`EV-0306`). Read every suggestion before accepting it.
+  whatever the data currently does, including the defect (EV-0306). Read
+  every suggestion before accepting it.
 - **Expectation rot.** A suite checks what you declared, not what you
   forgot to declare, and the gap grows as the product changes (EV-0056).
 - **The contract nobody runs.** The most common failure. Criteria 1 and

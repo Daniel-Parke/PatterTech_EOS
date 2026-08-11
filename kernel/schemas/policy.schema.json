@@ -152,7 +152,7 @@
         { "contains": { "const": "/risk" } },
         { "contains": { "const": "/approvals" } }
       ],
-      "description": "JSON pointers whose content is protected. Must include /risk and /approvals; the checker refuses edits under these pointers without an acknowledged accepted ADR."
+      "description": "JSON pointers whose content is protected. Must include /risk and /approvals. The list is a declaration and no command reads it to rule a touch: what enforces the protected set is python -m tools.eos route, which exits 3 when the diff matches a pattern in risk.path_patterns.protected and no --adr was given. See kernel/POLICY_SPEC.md."
     }
   },
   "$defs": {

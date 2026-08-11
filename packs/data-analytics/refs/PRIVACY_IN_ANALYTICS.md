@@ -4,7 +4,7 @@ type: foundation
 tags: [data, pii, security]
 kind: fact
 scope: estate
-sources: [EV-0041, EV-0225]
+sources: [EV-0041, EV-0225, EV-0320, EV-0321]
 volatility: slow
 review: on-change-of:EV-0225
 ---
@@ -25,8 +25,8 @@ basis, no retention rule, no deletion path and no privacy budget.
 
 ## The identifier ladder
 
-Work down this list and stop at the first rung that answers the
-question you actually have.
+Work down this list and stop at the first rung that answers the question
+you actually have.
 
 1. **No identifier.** Aggregate counts by dimension. Answers most
    product questions.
@@ -42,9 +42,8 @@ question you actually have.
    postcode. Requires a recorded lawful basis under B3 and a stated
    reason why rungs one to four do not answer the question.
 
-Copying a source column forward because it was in the source is how
-rung five gets reached by accident. That is the failure B3 exists to
-prevent.
+Copying a source column forward because it was in the source is how rung
+five gets reached by accident. That is the failure B3 exists to prevent.
 
 ## UK duties, in short
 
@@ -68,13 +67,13 @@ ledger.
 
 Differentially private counts, sums, means, variances and quantiles with
 budget accounting are available as Apache-2.0 libraries, so the barrier
-is design rather than implementation (`EV-0321`). Before
-believing any such claim, in your own system or a vendor's, ask:
+is design rather than implementation (EV-0321). Before believing any
+such claim, in your own system or a vendor's, ask:
 
 - **What is the privacy unit?** One row, one user, one user per day. The
   guarantee means completely different things for each.
 - **What are the parameters?** A claim without its parameters stated is
-  not a claim (`EV-0320`).
+  not a claim (EV-0320).
 - **Who limits contribution?** The primitives assume each user
   contributes a bounded number of rows per partition and do not enforce
   it. Contribution limiting is the caller's job, and getting it wrong
@@ -82,7 +81,7 @@ believing any such claim, in your own system or a vendor's, ask:
 - **What does the implementation do that the proof does not cover?**
   Evaluation is layered rather than a single number, and the hazards
   that open between the mathematics and the running software are named
-  explicitly in the guidance (`EV-0320`).
+  explicitly in the guidance (EV-0320).
 
 For a small venture the usual honest answer is that this machinery is
 not the right control, and collecting less is. Aggregate statistics are
@@ -91,7 +90,7 @@ re-identification risk in an event stream.
 
 ## Retention
 
-Retention is a rule the contract carries (B1), not a convention. State
+Retention is a rule the contract carries (D9), not a convention. State
 the period per table, state what happens at the end of it, and make the
 deletion a scheduled job rather than an intention. A retention rule with
 no job is the same shape of failure as a quality rule with no gate.

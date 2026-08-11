@@ -5,7 +5,7 @@ authority: default
 basis: empirical-evidence
 evidence_grade: controlled
 scope: estate
-sources: [EV-0059]
+sources: [EV-0059, EV-0362, EV-0363, EV-0364, EV-0367]
 review: on-change-of:GA4-attribution-model-set
 type: guide
 tags: [content, testing, tooling]

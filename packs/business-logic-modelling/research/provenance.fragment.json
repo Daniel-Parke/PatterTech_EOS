@@ -1,0 +1,125 @@
+{
+ "pack": "business-logic-modelling",
+ "checked": "2026-08-10",
+ "checked_by": "T-0019, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and compared each cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence claim below is the ledger's own recorded value, read back. Quotation was checked three ways: every quotation-marked span in the read surface was listed and read; every enumeration or coined term that could only have come from a source was traced to the row that supplies it; and the rows whose ledger licence forbids reuse of wording were read against the prose that cites them. What this method cannot do is detect an unmarked sentence copied from a source nobody has the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0010",
+  "EV-0017",
+  "EV-0071",
+  "EV-0098",
+  "EV-0099",
+  "EV-0100",
+  "EV-0138",
+  "EV-0150",
+  "EV-0157",
+  "EV-0163",
+  "EV-0188",
+  "EV-0206",
+  "EV-0269",
+  "EV-0270",
+  "EV-0271",
+  "EV-0272",
+  "EV-0273",
+  "EV-0274",
+  "EV-0275",
+  "EV-0276",
+  "EV-0277",
+  "EV-0278",
+  "EV-0279",
+  "EV-0280",
+  "EV-0281",
+  "EV-0282",
+  "EV-0283",
+  "EV-0284",
+  "EV-0285",
+  "EV-0286"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0017",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0150",
+   "licence_recorded": "unknown (author's site, no explicit licence found)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0157",
+   "licence_recorded": "unknown (site copyright, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0163",
+   "licence_recorded": "unknown (martinfowler.com, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0269",
+   "licence_recorded": "unknown (Domain Language, Inc. and contributors copyright; no open licence stated on the library page or the PDFs)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0271",
+   "licence_recorded": "unknown (site copyright, all rights reserved; the name EventStorming is claimed as the originator's mark and no open licence is stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0282",
+   "licence_recorded": "unknown (no licence statement on the documentation page; the proposal repository states its own terms)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0283",
+   "licence_recorded": "unknown (lists published free of charge by the maintenance agency; the ISO 4217 standard text itself is sold by ISO and no reuse licence for the lists is stated on the page)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0284",
+   "licence_recorded": "unknown (Stripe documentation copyright, no open licence stated)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0285",
+   "licence_recorded": "unknown (no licence statement on the post)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/business-logic-modelling/PACK.md",
+   "line": 218,
+   "concern": "D11 names all four of the source's coined patterns (event notification, event-carried state transfer, event sourcing, CQRS) from EV-0163, whose ledger licence is unconfirmed and whose author reserves all rights on neighbouring rows.",
+   "resolution": "Not a concern. Naming the four is the point of the rule and there is no other way to refer to them; the surrounding sentences are ours. Left as is."
+  },
+  {
+   "file": "packs/business-logic-modelling/PACK.md",
+   "line": 100,
+   "concern": "B1 describes the ISO 4217 list structure (EV-0283), whose reuse licence is unconfirmed.",
+   "resolution": "Not a concern. The pack describes the structure and cites the row; no list content is reproduced. Left as is."
+  }
+ ],
+ "notes": "Twenty of thirty cited rows carry a definite licence. One records that the source states none. The residual is nine, and the shape of it matters: this pack leans on practitioner essays, and the ledger already records several of them as Copyright Martin Fowler, all rights reserved, paraphrase only (EV-0206, EV-0272 to EV-0276). Those are recorded facts, not unknowns, and the prose citing them is ours throughout. The genuinely unconfirmed nine are EV-0150, EV-0157, EV-0163, EV-0269, EV-0271, EV-0282, EV-0283, EV-0284 and EV-0285. EV-0283 is worth the check first, because B1 rests on it and the currency lists are published free while the standard text is sold. A row marked states-none carries licence_evidence and a licence_checked date in the ledger, so somebody looked and recorded that the source states no licence. A row marked unconfirmed carries a hedged licence string and no licence_evidence, so nobody has looked. Both belong on the residual list ADR-0006 decision 7 asks for, and the difference between them is the difference between a recorded fact and a guess."
+}

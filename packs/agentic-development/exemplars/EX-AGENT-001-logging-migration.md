@@ -9,7 +9,7 @@ tags: [eos, arch, tooling]
 # EX-AGENT-001: coupled logging migration
 
 A real-shaped worked example. The file below is both the example and
-the artefact binding requirement B5 asks for, so the six sections are
+the artefact requirement B5 asks for, so the six sections are
 the record itself rather than a description of one.
 
 **The situation.** One service repository. About thirty modules call an

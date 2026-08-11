@@ -78,7 +78,8 @@ nothing, and honest users have to ask (EV-0348).
 - Rights genuinely withheld: D, stated as proprietary or
   source-available, never described as open source.
 - Never publish with no licence file. B1 in
-  `packs/legal-licensing/PACK.md` binds this.
+  `packs/legal-licensing/PACK.md` is that default, and departing from
+  it means publishing something nobody may lawfully use.
 
 Whichever is chosen, record it as an identifier from the list rather
 than as prose, so a machine can read it (EV-0337).
@@ -109,6 +110,7 @@ outbound licences by outcome, and none of this is legal advice.
   default, B where patents are plausible. Argued from the promise
   framing rather than from adoption statistics, because no adoption
   measurement was read at this cutoff.
-- **PatterTech EOS itself (2026-08, inherited)**: private repository,
-  no outbound licence yet. The moment it is published, B1 applies and
-  this guide runs for real.
+- **PatterTech EOS itself (2026-08, argued)**: B. ADR-0006 decision 7
+  declares Apache-2.0 at the root, so this repository now carries the
+  permissive-with-patent-grant promise rather than none. The provenance
+  sweep behind that decision is the work of keeping it.

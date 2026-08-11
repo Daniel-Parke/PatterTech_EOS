@@ -1,6 +1,6 @@
 {
   "id": "T-0002",
-  "intent": "Author the WG-DEL-005 test-doubles decision guide in the Wave A delivery pack: fake against mock against real per port, verified fakes (contract suites over both adapters) as the decision rule's spine, AutoWatt's ADR-0003 as the first argued ruling. The 2026-07-07 scheduling hold was lifted by ADR-0002 for the EOS v2 build only.",
+  "intent": "Author the WG-DEL-005 test-doubles decision guide in the Wave A delivery pack: fake against mock against real per port, verified fakes (contract suites over both adapters) as the decision rule's spine, AutoWatt's ADR-0003 as the first argued ruling. The 2026-07-07 scheduling hold was lifted by ADR-0002 for the EOS v2 build only. Closed: packs/delivery-testing/guides/WG-DEL-005-test-doubles.md was written during the v2 build, with the verified fake as option C and AutoWatt's ruling as the first argued row.",
   "declared": {
     "capabilities": [],
     "side_effects": []
@@ -16,11 +16,12 @@
       "evidence": "estimated: a full decision guide with evidence rows exceeds the express diff limits of 150 lines"
     }
   ],
-  "status": "proposed",
+  "status": "done",
   "owner_session": "unassigned",
   "claims": [],
   "timestamps": {
     "opened": "2026-08-03T12:00:00Z",
-    "updated": "2026-08-03T12:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   }
 }

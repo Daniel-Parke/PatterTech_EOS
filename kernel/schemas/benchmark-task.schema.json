@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.pattertech.eos/benchmark-task.schema.json",
   "title": "EOS benchmark task",
-  "description": "benchmark/tasks/<id>/task.json. Formalises the existing frozen shape unchanged: the task set, fixtures, oracles, scoring, budgets and thresholds were frozen in P0 and post-freeze changes need an ADR amendment.",
+  "description": "benchmark/tasks/<id>/task.json. Formalises the existing frozen shape unchanged: the task set, fixtures, oracles, scoring, budgets and thresholds were frozen in P0 and post-freeze changes need an ADR amendment. The benchmark is retired under ADR-0007 and no further tasks will be authored, so this schema documents the fourteen frozen task files rather than gating anything: no check loads it. All fourteen validate against it.",
   "type": "object",
   "additionalProperties": false,
   "required": [

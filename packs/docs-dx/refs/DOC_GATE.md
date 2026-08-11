@@ -11,9 +11,11 @@ review: on-change-of:lychee-exit-codes-or-fragment-checking
 
 # Documentation gate reference
 
-Level 3 material behind binding requirements B1 to B4 and guide
+Level 3 material behind requirements B1 to B4 and guide
 `packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md`. Read this when
-wiring or debugging a documentation gate.
+wiring or debugging a documentation gate. B4 binds; B1, B2 and B3 are
+defaults since the ADR-0008 audit, so a repository may run a narrower
+gate than the one below and writes down what it dropped.
 
 ## The steps, in order
 

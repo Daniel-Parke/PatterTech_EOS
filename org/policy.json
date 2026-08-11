@@ -1,11 +1,11 @@
 {
   "version": 1,
   "venture": "PatterTech_EOS",
-  "capability_profile": "standard",
+  "capability_profile": "org/capability-profile.json",
   "risk": {
     "factors": [
       {"id": "protected-set-contact", "summary": "the diff touches the protected set", "tier_floor": "R3", "sources": ["paths:protected"]},
-      {"id": "irreversible-action", "summary": "an action that cannot be rolled back", "tier_floor": "R3", "sources": ["irreversible-action", "derived:no-rollback"]},
+      {"id": "irreversible-action", "summary": "an action that cannot be rolled back, or one whose rollback cost the owner had to declare", "tier_floor": "R3", "sources": ["irreversible-action", "rollback-cost", "derived:no-rollback"]},
       {"id": "destructive-migration", "summary": "a schema change that can lose data", "tier_floor": "R3", "sources": ["migrates-schema", "derived:ddl-destructive"]},
       {"id": "key-material", "summary": "secret patterns in the diff or environment", "tier_floor": "R3", "sources": ["derived:secret-patterns"]},
       {"id": "data-deletion", "summary": "deletion beyond the working tree", "tier_floor": "R3", "sources": ["writes-production-data", "derived:deletion-beyond-worktree"]},
@@ -19,7 +19,7 @@
       {"id": "size-threshold", "summary": "diff size over the express limits", "tier_floor": "R1", "denies_express": true, "sources": ["derived:diff-size"]}
     ],
     "path_patterns": {
-      "reversible": ["doctrine/", "registry/", "estate/", "examples/", "inception/", "README.md", "GUIDE.md", "OPERATORS_GUIDE.md"],
+      "reversible": ["packs/", "registry/", "estate/", "examples/", "inception/", "README.md", "TOUR.md", "OPERATORS_GUIDE.md"],
       "sensitive": ["kernel/", "tools/eos/", "benchmark/PROTOCOL.md", "benchmark/FREEZE_MANIFEST.json", "benchmark/SEALED.json"],
       "protected": ["GOVERNANCE.md", "org/decisions/", "org/policy.json", "kernel/POLICY_SPEC.md", "kernel/templates/org/CONSTITUTION.tpl.md", "kernel/templates/org/roles/"]
     }

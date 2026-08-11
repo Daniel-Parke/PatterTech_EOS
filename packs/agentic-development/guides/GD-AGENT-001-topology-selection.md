@@ -115,7 +115,7 @@ terminating in J.
 ## Default
 
 A, bounded by C, with J at any irreversible act. Anything richer is
-recorded per binding requirement B5 in
+recorded per B5 in
 `packs/agentic-development/PACK.md`, naming the pressure and the
 failure mode it removes.
 

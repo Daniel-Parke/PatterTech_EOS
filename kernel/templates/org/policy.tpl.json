@@ -14,7 +14,7 @@
   "risk": {
     "factors": [
       {"id": "protected-set-contact", "summary": "the diff touches the protected set", "tier_floor": "R3", "sources": ["paths:protected"]},
-      {"id": "irreversible-action", "summary": "an action that cannot be rolled back", "tier_floor": "R3", "sources": ["irreversible-action", "derived:no-rollback"]},
+      {"id": "irreversible-action", "summary": "an action that cannot be rolled back, or one whose rollback cost the owner had to declare", "tier_floor": "R3", "sources": ["irreversible-action", "rollback-cost", "derived:no-rollback"]},
       {"id": "destructive-migration", "summary": "a schema change that can lose data", "tier_floor": "R3", "sources": ["migrates-schema", "derived:ddl-destructive"]},
       {"id": "key-material", "summary": "secret patterns in the diff or environment", "tier_floor": "R3", "sources": ["derived:secret-patterns"]},
       {"id": "data-deletion", "summary": "deletion beyond the working tree", "tier_floor": "R3", "sources": ["writes-production-data", "derived:deletion-beyond-worktree"]},

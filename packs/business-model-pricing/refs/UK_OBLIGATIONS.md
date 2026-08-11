@@ -11,9 +11,10 @@ review: on-change-of:DMCC-Part-4-Chapter-2-commencement
 
 # UK obligations a price creates
 
-Level three material behind binding requirements B1 to B6. Every row is
-dated, and every row has a refresh trigger. Nothing here is a permanent
-fact, and none of it is legal advice.
+Level three material behind binding requirements B1, B2, B4 and B5,
+and behind defaults D9 and D10. Every row is dated, and every row has a
+refresh trigger. Nothing here is a permanent fact, and none of it is
+legal advice.
 
 ## The table
 

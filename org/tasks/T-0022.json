@@ -1,0 +1,23 @@
+{
+  "id": "T-0022",
+  "intent": "Build the agentic-swarm pack to the eleven-point definition of done from 232 cited sources, with its counter-evidence organ carrying the results that argue against swarms, and compile the executable half into the kernel. Closed: packs/agentic-swarm ships to the eleven-point definition of done with its counter-evidence organ, and kernel/templates/org/GRAPH_BUILD.tpl.md compiles its executable half into ORG seeds.",
+  "claims": [
+    "packs/agentic-swarm/",
+    "kernel/templates/org/GRAPH_BUILD.tpl.md"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "done",
+  "owner_session": "eos-v21-L9",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

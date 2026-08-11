@@ -195,7 +195,6 @@ def test_update_task_missing_record(repo_root):
 def test_refusal_when_actor_not_named(tmp_path):
     findings = taskops.verify_claims(
         tmp_path, _claims_doc(), "lane/unknown", ["tools/eos/router.py"], now=NOW)
-    assert findings.exit_code() == 1
     assert len(findings.errors) == 1
     assert "refused" in findings.errors[0].message
 
@@ -204,7 +203,6 @@ def test_diff_inside_claims_is_clean(tmp_path):
     findings = taskops.verify_claims(
         tmp_path, _claims_doc(), "lane/t2",
         ["tools/eos/router.py", "tests/test_router.py"], now=NOW)
-    assert findings.exit_code() == 0
     assert findings.errors == []
 
 
@@ -226,7 +224,6 @@ def test_prefix_needs_trailing_slash(tmp_path):
 def test_file_outside_claims_is_an_error(tmp_path):
     findings = taskops.verify_claims(
         tmp_path, _claims_doc(), "lane/t2", ["kernel/POLICY_SPEC.md"], now=NOW)
-    assert findings.exit_code() == 1
     assert findings.errors[0].path == "kernel/POLICY_SPEC.md"
 
 
@@ -243,7 +240,6 @@ def test_expired_claim_surfaces_liveness_never_takeover(tmp_path):
     doc = _claims_doc(expires="2026-08-03T09:00")
     findings = taskops.verify_claims(
         tmp_path, doc, "lane/t2", ["tools/eos/router.py"], now=NOW)
-    assert findings.exit_code() == 1
     message = findings.errors[0].message
     assert "host=box-1" in message
     assert "pid=4242" in message
@@ -262,7 +258,6 @@ def test_derived_files_are_integrator_only(tmp_path):
     doc = _claims_doc(path_claims=["INDEX.md", "tools/eos/"])
     findings = taskops.verify_claims(
         tmp_path, doc, "lane/t2", ["INDEX.md"], now=NOW)
-    assert findings.exit_code() == 1
     assert "integrator" in findings.errors[0].message
 
 
@@ -284,7 +279,6 @@ def test_missing_jsonschema_degrades_with_install_command(repo_root, monkeypatch
 
     monkeypatch.setattr(builtins, "__import__", fake_import)
     findings = taskops.validate_task_record(repo_root, _record())
-    assert findings.exit_code() == 1
     assert "pip install" in findings.errors[0].message
 
 
@@ -369,7 +363,29 @@ def test_render_views_machine_facts_track_git(tmp_path):
     taskops.render_views(root)
     state_view = (root / "org" / "STATE.md").read_text(encoding="utf-8")
     # The exact shape the S007 check parses and verifies.
-    assert "```facts\nbranch: main\ncommit: %s\n```" % head in state_view
+    assert "```facts\ncommit: %s\n```" % head in state_view
+
+
+def test_render_views_records_no_branch_name(tmp_path):
+    """The commit is the only machine fact written down.
+
+    A branch name in a committed file is correct on the branch it was
+    generated on and wrong the moment that branch merges, with no input
+    having changed, so a check on it goes red on the merge commit's own
+    run. The commit survives the merge by ancestry, which is what S007
+    tests it for.
+    """
+    root = _view_root(tmp_path)
+    git(root, "init", "-q", "-b", "some-feature-branch")
+    git(root, "config", "user.email", "suite@example.invalid")
+    git(root, "config", "user.name", "Test Suite")
+    git(root, "config", "commit.gpgsign", "false")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "records land")
+    taskops.render_views(root)
+    state_view = (root / "org" / "STATE.md").read_text(encoding="utf-8")
+    assert "branch" not in state_view
+    assert "some-feature-branch" not in state_view
 
 
 def test_render_views_without_git_omits_the_facts_block(tmp_path):
@@ -486,3 +502,43 @@ def test_no_claims_file_means_the_model_is_not_running(repo_root):
     control does not apply to it."""
     assert not (repo_root / "org" / "claims.json").exists()
     assert taskops.create_task(repo_root, _claim_record(), session="anyone")
+
+
+def _empty_claim_set(root):
+    (root / "org").mkdir(parents=True, exist_ok=True)
+    (root / "org" / "claims.json").write_text(json.dumps(
+        {"version": 1, "assigned": "2026-08-11", "lanes": []}, indent=1),
+        encoding="utf-8")
+
+
+def test_an_empty_lanes_list_is_not_a_claim_model(repo_root):
+    """ADR-0008 decision 1: a claim is required only where more than one
+    session may write at once, and a session working alone is implicitly
+    claimed. The check keyed on the file existing rather than on it
+    holding a lane, so it refused the lone operator, whose released
+    claim set is committed empty rather than deleted. It would also have
+    refused a venture's very first task new: check D009 requires a
+    compiled ORG seed to ship org/claims.json with an empty lanes list.
+    No session identity is supplied here, because a solo operator has
+    none to supply."""
+    root = repo_root
+    _empty_claim_set(root)
+    assert taskops.require_claim(
+        root, root / "org" / "tasks" / "T-0042.json") is None
+    assert Path(taskops.create_task(root, _claim_record(),
+                                    session="solo")).is_file()
+
+
+def test_a_populated_claim_set_still_refuses_an_unnamed_session(repo_root):
+    """The other direction, and the one that matters. What releases the
+    control is the integrator emptying the list, never a session reading
+    it. With lanes present the refusal is unchanged, and being named is
+    still not enough on its own."""
+    root = repo_root
+    _claim_set(root)
+    record_path = root / "org" / "tasks" / "T-0042.json"
+    with pytest.raises(taskops.ClaimRefused) as exc:
+        taskops.require_claim(root, record_path, session="drive-by")
+    assert "not named in the committed claim set" in exc.value.payload["reason"]
+    lane = taskops.require_claim(root, record_path, session="s1")
+    assert lane["lane_id"] == "integrator"

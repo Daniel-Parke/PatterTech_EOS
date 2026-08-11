@@ -1,4 +1,4 @@
-"""Tests for RepoModel loading, fixture flags and skip rules."""
+"""Tests for RepoModel loading, skip rules and content hashing."""
 
 from datetime import date
 
@@ -32,17 +32,46 @@ def test_paths_are_posix_relative(tmp_path):
         assert not f.path.startswith("/")
 
 
-def test_fixture_flag_for_benchmark_paths(tmp_path):
+def test_file_order_is_the_same_on_every_platform(tmp_path):
+    """Records come back in POSIX byte order, not the platform's order.
+
+    Path comparison is case-insensitive on Windows and case-sensitive on
+    POSIX, so sorting Path objects put UPPER.md before lower/ on Linux
+    and after it on Windows. Every derived index is written in this
+    order, so one tree produced an INDEX.md that was clean on the
+    machine that generated it and stale on the machine that checked it.
+    """
+    root = make_repo(tmp_path)
+    (root / "packs").mkdir(parents=True, exist_ok=True)
+    (root / "packs" / "INDEX.md").write_text(
+        "---\nsummary: s\ntype: index\ntags: [eos]\n---\n", encoding="utf-8")
+    (root / "packs" / "agentic-swarm").mkdir(parents=True, exist_ok=True)
+    (root / "packs" / "agentic-swarm" / "PACK.md").write_text(
+        "---\nsummary: s\ntype: guide\ntags: [eos]\n---\n", encoding="utf-8")
+    paths = [f.path for f in RepoModel.load(root, today=TODAY).files]
+    assert paths == sorted(paths), "records must come back in POSIX byte order"
+    assert paths.index("packs/INDEX.md") < paths.index(
+        "packs/agentic-swarm/PACK.md")
+
+
+def test_benchmark_files_are_loaded_not_skipped(tmp_path):
+    """Fixtures and holdouts are read: the E-series still judges them.
+
+    Only the drill scenarios and the benchmark surfaces are read past,
+    and for reasons repo.py states. Which of the loaded files a check
+    then judges is the check's own exemption list.
+    """
     root = make_repo(tmp_path)
     _write(root, "benchmark/fixtures/seedling/NOTE.md")
     _write(root, "benchmark/holdout/secret/NOTE.md")
-    _write(root, "benchmark/tasks/NOTE.md")
+    _write(root, "benchmark/drills/scenarios/toy/README.md")
+    _write(root, "benchmark/surfaces/v2/AGENTS.md")
     model = RepoModel.load(root, today=TODAY)
-    flags = {f.path: f.fixture for f in model.files}
-    assert flags["benchmark/fixtures/seedling/NOTE.md"] is True
-    assert flags["benchmark/holdout/secret/NOTE.md"] is True
-    assert flags["benchmark/tasks/NOTE.md"] is False
-    assert flags["AGENTS.md"] is False
+    paths = {f.path for f in model.files}
+    assert "benchmark/fixtures/seedling/NOTE.md" in paths
+    assert "benchmark/holdout/secret/NOTE.md" in paths
+    assert "benchmark/drills/scenarios/toy/README.md" not in paths
+    assert "benchmark/surfaces/v2/AGENTS.md" not in paths
 
 
 def test_skip_dirs(tmp_path):

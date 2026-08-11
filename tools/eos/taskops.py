@@ -36,44 +36,7 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-try:  # The lane T1 findings module is canonical once present.
-    from tools.eos.findings import Finding, Findings
-except ImportError:  # Structurally identical minimal fallback.
-    from dataclasses import dataclass, field
-
-    @dataclass
-    class Finding:
-        check_id: str
-        severity: str  # 'error' | 'warn'
-        path: str
-        message: str
-
-    @dataclass
-    class Findings:
-        items: list = field(default_factory=list)
-
-        def add(self, finding):
-            self.items.append(finding)
-
-        @property
-        def errors(self):
-            return [f for f in self.items if f.severity == "error"]
-
-        @property
-        def warns(self):
-            return [f for f in self.items if f.severity == "warn"]
-
-        def to_json(self):
-            return json.dumps([vars(f) for f in self.items], indent=2)
-
-        def to_text(self):
-            return "\n".join(
-                "%s %s %s: %s" % (f.severity.upper(), f.check_id, f.path, f.message)
-                for f in self.items)
-
-        def exit_code(self):
-            return 1 if self.errors else 0
-
+from .findings import Finding, Findings
 
 _TASK_ID_RE = re.compile(r"^T-(\d{4})$")
 _JSONSCHEMA_INSTALL = (
@@ -92,6 +55,7 @@ DERIVED_FILES = (
     "packs/index.md",
     "packs/guide_index.md",
     "registry/capabilities.md",
+    "registry/lessons.md",
     "org/tasks.md",
     "org/state.md",
 )
@@ -225,8 +189,23 @@ def require_claim(root, task_path, *, record=None, session=None):
     """Refuse a task-record write by a session with no claim on it.
 
     Returns the lane that authorises the write. Raises ClaimRefused
-    otherwise. Where no claims file exists at all the repository is not
-    running the assigned-claims model, and the control does not apply.
+    otherwise. Two shapes mean the assigned-claims model is not in
+    force and the control does not apply: no claims file at all, and a
+    claims file holding no lanes.
+
+    The second is the one that matters. ADR-0008 decision 1 rules that
+    a claim is required only when more than one session may write at
+    once, and that a single session working alone is implicitly
+    claimed. Keying on the file existing rather than on it holding a
+    lane refused every solo operator, because a released claim set is
+    committed with an empty lanes list rather than deleted. It would
+    also have stopped a freshly compiled ORG seed at its very first
+    `task new`: check D009 requires the seed to ship org/claims.json
+    seeded with exactly that empty list.
+
+    Where lanes are present nothing is loosened: a session not named in
+    the set is refused, and a named lane still needs a claim covering
+    the path it is writing.
     """
     root = Path(root)
     claims_path = root / "org" / "claims.json"
@@ -237,6 +216,10 @@ def require_claim(root, task_path, *, record=None, session=None):
     except ValueError as exc:
         raise ClaimRefused("claim set is not readable: %s" % exc)
 
+    lanes = (doc.get("lanes") if isinstance(doc, dict) else None) or []
+    if not lanes:
+        return None
+
     who = _session_id(root, record=record, session=session)
     if not who:
         raise ClaimRefused(
@@ -244,12 +227,12 @@ def require_claim(root, task_path, *, record=None, session=None):
             "or name owner_session on the record, and be named in the "
             "committed claim set.")
 
-    lanes = doc.get("lanes") or []
-    lane = next((l for l in lanes
-                 if who in (l.get("session_id"), l.get("lane_id"))), None)
+    lane = next((row for row in lanes
+                 if who in (row.get("session_id"), row.get("lane_id"))), None)
     if lane is None:
         named = ", ".join(sorted(
-            {str(l.get("session_id") or l.get("lane_id")) for l in lanes})) or "none"
+            {str(row.get("session_id") or row.get("lane_id"))
+             for row in lanes})) or "none"
         raise ClaimRefused(
             "refused: session %r is not named in the committed claim set; "
             "unscheduled work stays quarantined on its branch for the "
@@ -362,7 +345,7 @@ def verify_claims(root, claims_doc, lane_id, diff_paths, *, now=None):
     now = now or datetime.now(timezone.utc)
 
     lanes = (claims_doc or {}).get("lanes", [])
-    lane = next((l for l in lanes if l.get("lane_id") == lane_id), None)
+    lane = next((row for row in lanes if row.get("lane_id") == lane_id), None)
     if lane is None:
         findings.add(Finding(
             "C001", "error", "org/claims.json",
@@ -459,7 +442,7 @@ def _tasks_view(records):
     return "\n".join(lines) + "\n"
 
 
-def _state_view(records, claims_doc, cadence, branch, head):
+def _state_view(records, claims_doc, cadence, head):
     lines = [
         "---",
         "summary: Derived state view of claims, operator flags, cadence and machine facts",
@@ -508,9 +491,12 @@ def _state_view(records, claims_doc, cadence, branch, head):
     else:
         lines.append("No cadence rows recorded.")
     lines += ["", "## Machine facts", ""]
+    # The commit and nothing else. A branch name written into a
+    # committed file is a fact that any merge invalidates: a view
+    # generated on a feature branch records that name, and the merge to
+    # main makes it wrong without a single input having changed. The
+    # commit survives the merge by ancestry, which is how S007 reads it.
     facts = []
-    if branch:
-        facts.append("branch: %s" % branch)
     if head:
         facts.append("commit: %s" % head)
     if facts:
@@ -520,20 +506,48 @@ def _state_view(records, claims_doc, cadence, branch, head):
     return "\n".join(lines) + "\n"
 
 
-def render_views(root):
-    """Regenerate org/TASKS.md and org/STATE.md; return a findings list.
+MACHINE_FACTS_HEADING = "## Machine facts"
+MACHINE_FACTS_ABSENT = "Git facts unavailable in this working copy."
+_FACTS_BLOCK = re.compile(r"```facts\n.*?```", re.S)
+_FACTS_TOKEN = "<machine facts>"
 
-    Integrator-only, like every derived file in DERIVED_FILES. Inputs:
-    the task records under org/tasks/, org/claims.json, org/cadence.json
-    and read-only git facts (current branch, head commit). TASKS.md
-    carries one table row per record (id, mode, tier, status, owner).
-    STATE.md carries the assigned claim set, the operator flags (task
-    records with a status in OPERATOR_FLAG_STATUSES), the cadence
-    next-due rows and a machine-facts block the S007 check can verify.
-    Regeneration is byte-stable for unchanged inputs: records sort by
-    id, claim and cadence rows keep their committed order, and nothing
-    is stamped with the time of rendering. A malformed input file is
-    reported as an error finding and skipped, never guessed at.
+
+def strip_machine_facts(text):
+    """The state view with the machine-facts values blanked out.
+
+    The block records the commit the view was generated from, and that
+    commit is behind HEAD the moment the view is committed. Check S007
+    tests it by ancestry for exactly that reason, so drift detection
+    blanks the values and leaves them to S007.
+
+    Only the values go. Everything around them, including anything a
+    hand adds after the block, is still compared: cutting the file at
+    the heading would have made the end of it a place edits could hide.
+    """
+    head, sep, tail = text.partition(MACHINE_FACTS_HEADING)
+    if not sep:
+        return text
+    blanked, count = _FACTS_BLOCK.subn(_FACTS_TOKEN, tail, count=1)
+    if not count:
+        blanked = tail.replace(MACHINE_FACTS_ABSENT, _FACTS_TOKEN, 1)
+    return head + sep + blanked
+
+
+def build_views(root, *, git_facts=True):
+    """The derived views as text: {relative path: content}.
+
+    One implementation, shared by render_views (which writes them) and
+    check E011 (which compares them). A checker with its own copy of a
+    generator's rule is how the two come to disagree, which is the
+    defect the evidence ledger's cited_by field already suffered once.
+
+    git_facts False skips the git subprocess call. The fact only reaches
+    the state view's machine-facts block, which the drift compare cuts
+    off anyway, so a caller that is comparing rather than writing pays
+    nothing for it.
+
+    Returns (views, findings): findings report a malformed input file,
+    which is reported and skipped, never guessed at.
     """
     root = Path(root)
     findings = []
@@ -563,16 +577,42 @@ def render_views(root):
             findings.append(Finding("V003", "error", "org/cadence.json", problem))
             cadence = None
 
-    branch = head = None
-    try:
-        from tools.eos import gitfacts
-    except ImportError:
-        gitfacts = None
-    if gitfacts is not None:
-        branch = gitfacts.current_branch(root)
-        head = gitfacts.rev_parse(root, "HEAD")
+    head = None
+    if git_facts:
+        try:
+            from tools.eos import gitfacts
+        except ImportError:
+            gitfacts = None
+        if gitfacts is not None:
+            head = gitfacts.rev_parse(root, "HEAD")
 
-    _atomic_write(root / "org" / "TASKS.md", _tasks_view(records))
-    _atomic_write(root / "org" / "STATE.md",
-                  _state_view(records, claims_doc, cadence, branch, head))
+    views = {
+        "org/TASKS.md": _tasks_view(records),
+        "org/STATE.md": _state_view(records, claims_doc, cadence, head),
+    }
+    return views, findings
+
+
+def render_views(root):
+    """Regenerate org/TASKS.md and org/STATE.md; return a findings list.
+
+    Integrator-only, like every derived file in DERIVED_FILES. Inputs:
+    the task records under org/tasks/, org/claims.json, org/cadence.json
+    and one read-only git fact, the head commit. TASKS.md carries one
+    table row per record (id, mode, tier, status, owner). STATE.md
+    carries the assigned claim set, the operator flags (task records
+    with a status in OPERATOR_FLAG_STATUSES), the cadence next-due rows
+    and a machine-facts block the S007 check can verify.
+    Regeneration is byte-stable for unchanged inputs: records sort by
+    id, claim and cadence rows keep their committed order, and nothing
+    is stamped with the time of rendering. A malformed input file is
+    reported as an error finding and skipped, never guessed at.
+
+    The text itself comes from build_views, which check E011 also reads,
+    so the writer and the drift check cannot disagree.
+    """
+    root = Path(root)
+    views, findings = build_views(root)
+    for rel, text in views.items():
+        _atomic_write(root / rel, text)
     return findings

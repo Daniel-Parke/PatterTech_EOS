@@ -131,10 +131,12 @@ simple: revert the fix, and the test must go red.
   signed agreement, its §A5, was written as a failing suite at Genesis,
   before any implementation, and the acceptance skips were lifted only
   when the journeys went green end to end. The agreement, not the code,
-  was the oracle.
+  was the oracle. Genesis here means the v1 phase PB-001, which is
+  history. The v2.1 phase of the same name is a different thing under
+  `inception/`, and this ruling predates it.
 - **PatterTech EOS delivery pack (2026-08, argued)**: independence
   binds, ordering does not. Argued from EV-0007, which isolates
   independence rather than test-first as the load-bearing property, and
   from EV-0009 on why quality numbers stop meaning anything once the
-  oracle is contaminated. The timing question was deliberately left to
-  WG-DEL-007 and the P7 ablation.
+  oracle is contaminated. Timing was left to WG-DEL-007, whose ablation
+  ran on 2026-08-03 and ranked the timings on cost alone.

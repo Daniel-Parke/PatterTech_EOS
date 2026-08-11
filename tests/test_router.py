@@ -197,3 +197,114 @@ def test_declaration_only_route_is_what_a_record_stores():
 
     clean = router.route({"capabilities": [], "side_effects": []}, {}, None)
     assert clean == {"tier": "R0", "reasons": [], "discrepancies": []}
+
+
+# --- every declarable side effect reaches a factor ----------------------
+
+
+def test_every_declarable_side_effect_reaches_a_factor():
+    """A side effect the record invites an owner to declare, that no
+    factor consumes, is a question asked and then ignored. Two were:
+    writes-production-data and rollback-cost both routed a clean R0."""
+    wired = {s for f in router.FACTOR_TABLE for s in f["sources"]}
+    assert router.DECLARABLE - wired == set()
+
+
+def test_every_source_in_the_table_is_declared_detected_or_reserved():
+    """The same rule read the other way. A source that is neither
+    declarable nor produced by a detector is a control the table
+    promises and nobody wrote, so it has to be named in
+    RESERVED_SOURCES with the reason it is not detected."""
+    wired = {s for f in router.FACTOR_TABLE for s in f["sources"]}
+    unaccounted = wired - router.DECLARABLE - router.DETECTOR_IDS \
+        - set(router.RESERVED_SOURCES)
+    assert unaccounted == set()
+    assert set(router.RESERVED_SOURCES) <= wired
+    assert not set(router.RESERVED_SOURCES) & router.DETECTOR_IDS
+    for reason in router.RESERVED_SOURCES.values():
+        assert reason.strip()
+
+
+def test_every_detector_reaches_a_factor_or_is_named_a_diagnostic():
+    """And the third direction: a detector nobody consumes computes a
+    fact that can never change a ruling. Two are deliberate, and both
+    say why in DIAGNOSTIC_SIGNALS."""
+    wired = {s for f in router.FACTOR_TABLE for s in f["sources"]}
+    assert router.DETECTOR_IDS - wired == set(router.DIAGNOSTIC_SIGNALS)
+    for reason in router.DIAGNOSTIC_SIGNALS.values():
+        assert reason.strip()
+
+
+def test_derive_signals_produces_no_id_the_module_does_not_name(git_repo):
+    """DETECTOR_IDS is maintained by hand, so a run over a diff that
+    trips most of the detectors holds it to what the code does."""
+    (git_repo / "migrations" / "004_mixed.sql").write_text(
+        "DROP TABLE t;\nDELETE FROM u WHERE 1=1;\n"
+        "CREATE TABLE v (id int);\n", encoding="utf-8")
+    (git_repo / "package.json").write_text(
+        '{\n  "name": "fixture",\n  "scripts": {\n'
+        '    "postinstall": "node setup.js"\n  }\n}\n', encoding="utf-8")
+    (git_repo / ".github").mkdir()
+    (git_repo / ".github" / "workflows").mkdir()
+    (git_repo / ".github" / "workflows" / "ci.yml").write_text(
+        "on: push\n", encoding="utf-8")
+    (git_repo / "api").mkdir()
+    (git_repo / "api" / "auth.py").write_text(
+        'API_KEY = "sk-live-notreal"\nssn = None\n', encoding="utf-8")
+    (git_repo / "billing").mkdir()
+    (git_repo / "billing" / "invoice.py").write_text("x = 1\n", encoding="utf-8")
+    _git(git_repo, "add", "-A")
+    policy = {"risk": {"path_patterns": {
+        "reversible": [], "sensitive": ["api/*"], "protected": ["README.md"]}}}
+    derived = router.derive_signals(git_repo, "HEAD", {}, policy=policy)
+    produced = set(derived["signals"])
+    assert produced - router.DETECTOR_IDS == set()
+    # And the fixture is worth having: it trips most of them, including
+    # both diagnostics, which are the ones no ruling would show.
+    assert len(produced) >= 10
+    assert set(router.DIAGNOSTIC_SIGNALS) <= produced
+
+
+def test_writes_production_data_routes_r3_through_data_deletion():
+    ruling = router.route(
+        {"side_effects": ["writes-production-data"]}, {}, None)
+    assert ruling["tier"] == "R3"
+    assert [r["factor"] for r in ruling["reasons"]] == ["data-deletion"]
+    assert ruling["reasons"][0]["source"] == "declared"
+
+
+def test_rollback_cost_routes_r3_through_irreversible_action():
+    ruling = router.route({"side_effects": ["rollback-cost"]}, {}, None)
+    assert ruling["tier"] == "R3"
+    assert [r["factor"] for r in ruling["reasons"]] == ["irreversible-action"]
+
+
+def test_the_policy_and_the_table_agree_on_the_two_wired_sources():
+    """org/policy.json listed writes-production-data as a source of the
+    data-deletion factor and the code's table did not, so the two
+    disagreed and the code won silently.
+
+    rollback-cost was the mirror image: wired into the table, and left
+    out of the policy copy until the same ADR-0006 authorisation was
+    applied to both. The assertion covers it now, because a test that
+    steps around the source the change actually added proves nothing
+    about the change.
+
+    Scoped to the two this lane wired. The whole table is not asserted
+    equal because one row genuinely differs: the policy names
+    migrates-schema under destructive-migration, where the spec says
+    "migrates-schema with data loss" and the router routes a plain
+    schema migration to schema-change at R2. Making that assertion pass
+    would mean editing a protected file to match a test.
+    """
+    import json
+
+    policy = json.loads((REPO / "org" / "policy.json").read_text(encoding="utf-8"))
+    factors = {f["id"]: f for f in policy["risk"]["factors"]}
+    table = {f["id"]: set(f["sources"]) for f in router.FACTOR_TABLE}
+    assert "writes-production-data" in factors["data-deletion"]["sources"]
+    assert "writes-production-data" in table["data-deletion"]
+    assert "rollback-cost" in factors["irreversible-action"]["sources"]
+    assert "rollback-cost" in table["irreversible-action"]
+    assert "derived:no-rollback" in factors["irreversible-action"]["sources"]
+    assert "no-rollback" in table["irreversible-action"]
