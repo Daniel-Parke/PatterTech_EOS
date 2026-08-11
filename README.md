@@ -28,6 +28,13 @@ something looks wrong. To see one task run start to finish, read
 `examples/v2-worked-lean.md`. To start a venture, the ordered path is
 under "Installing and running the checks" below.
 
+Most ventures cited here appear under a stable placeholder rather than
+their own name: Venture A, Venture B and so on, one placeholder per
+repository and never two ventures folded into one. This repository and
+the public website keep their real names. A worked ruling therefore
+still claims what it always claimed, that a real venture argued a real
+fork on a real date, and `registry/PROJECTS.md` carries the fuller note.
+
 Licensed under Apache-2.0. `LICENSE` at the root carries the terms and
 `NOTICE` carries the attributions. `registry/LICENCE_RESIDUALS.md` is
 the honest gap list behind that choice.

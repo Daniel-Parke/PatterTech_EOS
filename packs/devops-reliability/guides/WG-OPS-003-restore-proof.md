@@ -125,6 +125,6 @@ never validated is an anecdote.
   point-in-time recovery beneath it, and audit trail integrity raising
   the evidential bar. Under this re-grade that ruling moves to C, and
   the cadence row now owes an evidence record.
-- **WiseWattage (2026, inherited)**: A in practice, managed backups
+- **Venture B (2026, inherited)**: A in practice, managed backups
   unexercised. Counted as the gap that argued this wargame into
   existence, not as evidence for A.

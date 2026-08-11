@@ -16,6 +16,13 @@ this one for how the pieces relate and where the seams are.
 seeded ventures. When these disagree, `estate/repos.json` describes
 ownership and `registry/PROJECTS.md` describes governance.
 
+**The venture names here are placeholders.** Every venture below is
+real, and so are its seams and its dates. A venture's name is replaced
+by a stable placeholder, Venture A and so on, and the mapping back to
+the real name is held privately. One placeholder per venture, always
+the same one and never shared with another. This repository and
+PatterTech_Website keep their own names, because both are public.
+
 ## The shape
 
 PatterTech is a multi-repo estate by deliberate decision: one repo per
@@ -26,8 +33,8 @@ The domain model everywhere is organisation, then venture, then project.
 
 ## Governed and not
 
-Three repos carry `governed: true` in the manifest: Venture A, Guth and
-PatterTech_Website. Governed means the EOS seeded or adopted the repo
+Three repos carry `governed: true` in the manifest: Venture A, Venture C
+and PatterTech_Website. Governed means the EOS seeded or adopted the repo
 and holds its pin. It does not mean the EOS rules it. Under ADR-0006 the
 EOS hands off at venture birth, so rulings come back when a venture
 chooses to send them and not because the EOS asked.
@@ -41,45 +48,45 @@ triggered by an event, a repository added or a seed compiled, rather
 than by a quarterly clock.
 
 Two rows carry a different status for a reason. PatterTech_EOS is
-`self`: it is the manifest's own home, not a venture. PatterTech_WebKit
-is `planned`: it has no directory and no commits, and it stays listed
+`self`: it is the manifest's own home, not a venture. Venture K is
+`planned`: it has no directory and no commits, and it stays listed
 because the extraction it names is a live intention inside
 PatterTech_Website.
 
-Exclusions are recorded too, in the `excluded` block of the manifest,
-each with the ruling that excluded it. A repo left out silently would be
-indistinguishable from one nobody remembered.
+The manifest lists the estate's repositories, not every directory on
+disk. Sibling directories that are not PatterTech ventures are out of
+scope and carry no row.
 
 ## The seams that matter
 
 - **The document model** is meant to be one typed tree across print and
-  web. PatterStudio's asset-pack model is canonical and the Website's
+  web. Venture D's asset-pack model is canonical and the Website's
   block tree is its web profile. They are not unified yet, and that
   convergence is the largest piece of unscheduled estate work.
 - **The design system** is implemented three times: the EOS token
-  doctrine, the Website's stylesheet, and PatterStudio's hand-ported
+  doctrine, the Website's stylesheet, and Venture D's hand-ported
   print CSS. The intended fix is one shared source extracted into
-  PatterTech_WebKit, which has not started.
+  Venture K, which has not started.
 - **Visual media**, the branded recordings and the embed routes, is
-  rendered by the Website and referenced by PatterStudio's content bank.
-- **The agent control plane** in PatterStage intends to consume
-  PatterStack's run engine rather than keep its own. Today it keeps its
-  own.
-- **State the static site cannot hold** goes to PatterTech_App. The
-  Website stays a pure static client on purpose, so anything that must
-  remember a person or prove a consent belongs in the App. The App is
-  dormant, so today that seam has nothing behind it.
+  rendered by the Website and referenced by Venture D's content bank.
+- **The agent control plane** in Venture E intends to consume the run
+  engine in Venture D's service fabric rather than keep its own. Today
+  it keeps its own.
+- **State the static site cannot hold** goes to Venture J. The Website
+  stays a pure static client on purpose, so anything that must remember
+  a person or prove a consent belongs there. Venture J is dormant, so
+  today that seam has nothing behind it.
 
 ## The two shared brains
 
 The estate carries two complementary shared brains, split by lifecycle.
 **PatterTech_EOS** holds the git-pinned knowledge: the packs, this
 manifest, the registries, and in time the shared document-model schema
-as a compiled seed. **PatterStack**, inside PatterStudio, holds the
+as a compiled seed. **The service fabric**, inside Venture D, holds the
 live queryable capability: the tool gateway, the corpus, the run engine
 and the document engine. Git for knowledge, a service for capability.
 
-The platform vision document inside PatterStudio predates the EOS and
+The platform vision document inside Venture D predates the EOS and
 does not mention it. Reconciling the two along that split is standing
 estate work, and it is nobody's task yet.
 
@@ -93,7 +100,7 @@ explicitly reserves. What it found about each repo is in that repo's
 `notes` and is not repeated here.
 
 The one finding that is about the estate rather than about a repo:
-Venture A, PatterHome and PatterPower have no git remote configured
+Venture A, Venture G and Venture H have no git remote configured
 locally, so nothing in them is pushed anywhere and a lost machine would
 be a lost repository.
 

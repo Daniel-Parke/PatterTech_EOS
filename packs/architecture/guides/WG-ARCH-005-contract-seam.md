@@ -112,14 +112,14 @@ and gated, or it lies. Where the boundary is public,
 
 ## Worked rulings
 
-- **WiseWattage (2026, argued)**: B. OpenAPI generated from the FastAPI
+- **Venture B (2026, argued)**: B. OpenAPI generated from the FastAPI
   app into a committed types package and typed client, with the drift
   check in CI. The stack profile was drawn from it.
-- **PatterStudio (2026-06, argued)**: B, in its ADR-0006, after failed
+- **Venture D (2026-06, argued)**: B, in its ADR-0006, after failed
   mutations masqueraded as success in a plain-JS client. Check A-13 of
   `packs/architecture/CHECKS.md` came from it.
 - **No venture runs C or D.** C never arises, because every venture with
-  a backend runs Python under TypeScript. PatterStage's one HTTP adapter
+  a backend runs Python under TypeScript. Venture E's one HTTP adapter
   onto a third-party agent runtime is where D gets argued first.
 
 Venture A is not listed. Its lock-book carries no WG-ARCH row,

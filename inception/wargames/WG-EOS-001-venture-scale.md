@@ -82,13 +82,13 @@ risk, never by ambition.
 
 - **Venture A (2026-07, argued)**: L. All six triggers fire: contracted
   money, live UK data duties, auth and server state, an AWS estate, a
-  second human (Gareth), multi-year lifespan. Landed in the reseed
-  lock-book header, and reads as ORG at its v2 recompile.
+  second human joined and held decisions, multi-year lifespan. Landed in
+  the reseed lock-book header, and reads as ORG at its v2 recompile.
 - **PatterTech_Website (2026-07, argued)**: S. Static brochure and
   journal, no state, no money, one human; ruled retroactively at EOS
   creation, recorded in registry/PROJECTS.md. Rescale condition: any
   server-handled form or reader accounts.
-- **Guth (2026-07, argued)**: M. Standing ops fires because the LAN rig
-  deploys from the tree; personal data stays silent because the only
+- **Venture C (2026-07, argued)**: M. Standing ops fires because the LAN
+  rig deploys from the tree; personal data stays silent because the only
   recordings are the operator's own. Reads as ORG at its v2 recompile
   with no change of argument.

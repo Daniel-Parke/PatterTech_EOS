@@ -116,11 +116,11 @@ whether or not they are needed yet.
 
 ## Worked rulings
 
-- **WiseWattage (2026, argued)**: B behind the `WW_DURABLE_JOBS` flag
-  (its ADR-006), in-process the default path, after deploys orphaned
+- **Venture B (2026, argued)**: B behind a durable-jobs flag (its
+  ADR-006), in-process the default path, after deploys orphaned
   forecast jobs. The unit-builder registry exists because a fresh
   worker could not pick up a closure.
-- **Guth (2026-07, argued)**: A, the in-process executor, against this
+- **Venture C (2026-07, argued)**: A, the in-process executor, against this
   guide's default. Rig jobs may vanish without harm, because the client
   degrades gracefully and resubmits, and idempotency comes free since a
   job is a pure function of an audio hash and its parameters. The

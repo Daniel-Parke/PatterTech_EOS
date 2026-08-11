@@ -126,6 +126,6 @@ filename.
   already the v1 devops doctrine position, applied before app start,
   idempotent and advisory-locked. The re-grade adds the explicit expand,
   migrate, contract split and the CI gate, which v1 left implicit.
-- **WiseWattage (2026, inherited)**: single-deploy schema changes with
+- **Venture B (2026, inherited)**: single-deploy schema changes with
   no linter, counted as the gap that argued this guide into existence
   rather than as evidence for D.

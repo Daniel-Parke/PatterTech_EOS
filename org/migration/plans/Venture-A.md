@@ -8,7 +8,7 @@ tags: [eos]
 
 Read-only. Produced on 2026-08-03 by running, from the EOS repo:
 
-`python -m tools.eos migrate plan --seed C:/Users/Daniel/Documents/Coding/Github/Venture A`
+`python -m tools.eos migrate plan --seed "Venture A"`
 
 Nothing was written to Venture A. ADR-0002 reserves every sibling-repo
 write for a later decision, so this file is a report and not a change.

@@ -9,7 +9,7 @@ review: 2027-01
 # Stack profile 02: FastAPI on Postgres
 
 The default stack for APIs and services with a database. Reference
-implementation: WiseWattage (its `pyproject.toml`, `docker/` and
+implementation: Venture B (its `pyproject.toml`, `docker/` and
 `docs/ADR-001/002/003/006/007` are the receipts).
 
 ## Shape
@@ -37,7 +37,7 @@ implementation: WiseWattage (its `pyproject.toml`, `docker/` and
 ## Constraints to design around
 
 - Cap `urllib3>=2.2,<2.5`: 2.5+ moved ProxyConfig and broke Railway
-  startup at import time in WiseWattage, 2026-07; lift the cap only
+  startup at import time in Venture B, 2026-07; lift the cap only
   after a real deploy proves it. This profile is where the rule lives.
   The lessons ledger carries the harvest row it came from and names
   this profile as its owner, which is provenance rather than a second

@@ -66,15 +66,15 @@ EOS as the shared brain; nothing in the estate has yet earned B.
 
 ## Worked rulings
 
-- **Venture A (2026-07, argued)**: A. Three surfaces (api, app, website)
-  ship as containers from one tree per its own ADR-0002, and the Heads
-  of Terms contemplate handover of the whole; one repo is the clean
-  unit. Ruled ahead of this wargame at the reseed and recorded in its
-  lock-book.
-- **PatterTech_Business (2026-06, argued, pre-EOS)**: A. Its ADR-0011
+- **Venture A (2026-07, argued)**: option A. Three surfaces (api, app,
+  website) ship as containers from one tree per its own ADR-0002, and
+  the Heads of Terms contemplate handover of the whole; one repo is the
+  clean unit. Ruled ahead of this wargame at the reseed and recorded in
+  its lock-book.
+- **Venture D (2026-06, argued, pre-EOS)**: option A. Its ADR-0011
   fixed one platform monorepo with every layer extraction-ready, after
   living with the alternative; the extraction-ready clause is the
   polyrepo escape hatch done cheaply.
-- **WiseWattage (2026, inherited, pre-EOS)**: A in practice (api, app,
-  website, packages in one tree); never argued, counted here as the
+- **Venture B (2026, inherited, pre-EOS)**: option A in practice (api,
+  app, website, packages in one tree); never argued, counted here as the
   default holding, not as promotion evidence.

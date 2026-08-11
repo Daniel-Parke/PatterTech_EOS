@@ -991,7 +991,7 @@ def lessons(root, rows, **top):
 # schema, or none at all, S018 will happily accept shapes S019 rejects,
 # which is exactly how the two drifted apart.
 VALID_LESSON_ROW = {
-    "id": "LES-0001", "origin": "harvest", "venture": "Guth",
+    "id": "LES-0001", "origin": "harvest", "venture": "Venture C",
     "title": "A short scannable label",
     "lesson": "The lesson itself, one paragraph.",
     "evidence_class": "observational", "disposition": "estate-default",
@@ -1159,7 +1159,7 @@ def test_s019_runs_against_the_real_kernel_schema(tmp_path):
     shutil.copy(REPO_ROOT / "kernel" / "schemas" / "lesson.schema.json",
                 root / "kernel" / "schemas" / "lesson.schema.json")
     row = {
-        "id": "LES-0001", "origin": "harvest", "venture": "Guth",
+        "id": "LES-0001", "origin": "harvest", "venture": "Venture C",
         "title": "A short scannable label",
         "lesson": "The lesson itself, one paragraph.",
         "evidence_class": "observational", "disposition": "estate-default",

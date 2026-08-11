@@ -402,8 +402,8 @@ def test_e008_unfilled_slot(tmp_path):
 
 def test_e008_slot_with_digits(tmp_path):
     """The kernel ships {{SUCCESS_90}}. A pattern of [A-Z_]+ let it
-    through a green seed check unfilled; Guth's cold-start probe found
-    it, and the harvest of 2026-08-08 brought it back."""
+    through a green seed check unfilled; Venture C's cold-start probe
+    found it, and the harvest of 2026-08-08 brought it back."""
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
          "The fixture repo is at rest. {{SUCCESS_90}}")
@@ -573,7 +573,7 @@ LEDGER = {
     "note": "A test ledger",
     "preamble": ["The ledger's own history, emitted verbatim."],
     "rows": [
-        {"id": "LES-0002", "origin": "harvest", "venture": "Guth",
+        {"id": "LES-0002", "origin": "harvest", "venture": "Venture C",
          "title": "A cold-start probe finds what a warm session cannot",
          "lesson": "A cold-start probe run before the rubric is signed "
                    "surfaces defects a warm session cannot see",
@@ -589,11 +589,11 @@ LEDGER = {
          "lesson": "Boilerplate stating venture history must be a slot",
          "disposition": "deferred", "scope": "estate",
          "revisit_trigger": "The next reseed"},
-        {"id": "LES-0004", "origin": "harvest", "venture": "Guth",
+        {"id": "LES-0004", "origin": "harvest", "venture": "Venture C",
          "title": "Ceremony budgets split by trigger",
          "lesson": "Doctrine-triggered rulings are counted separately",
          "disposition": "estate-default", "scope": "estate"},
-        {"id": "LES-0005", "origin": "harvest", "venture": "WiseWattage",
+        {"id": "LES-0005", "origin": "harvest", "venture": "Venture B",
          "title": "Cap urllib3 below 2.5", "lesson": "It breaks startup",
          "disposition": "dated-registry-fact", "scope": "estate",
          "pruned_on": "2026-08-03"},

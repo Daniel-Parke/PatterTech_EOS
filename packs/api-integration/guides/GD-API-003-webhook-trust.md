@@ -98,7 +98,7 @@ library, not a vendor SDK.
 
 ## Worked rulings
 
-- **WiseWattage (2026, argued, inherited here)**: raw protocol for
+- **Venture B (2026, argued, inherited here)**: raw protocol for
   webhooks, standard-library HMAC-SHA256, idempotency keys, no provider
   SDKs, recorded in its own architecture ADR. See
   `packs/architecture/guides/WG-ARCH-007-vendor-seams.md` and

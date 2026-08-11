@@ -96,14 +96,14 @@ recorded next to the code, not assumed.
 
 ## Worked rulings
 
-- **WiseWattage (2026, argued, inherited here)**: C. OpenAPI generated
+- **Venture B (2026, argued, inherited here)**: C. OpenAPI generated
   from the API app, compiled into a types package and a typed client,
   committed with a CI drift check. See
   `packs/architecture/guides/WG-ARCH-005-contract-seam.md` and the
   2026-07 lesson in `registry/LESSONS.md`, which records that generated
   artefacts rot silently without the drift check.
-- **PatterTech_Business (2026-06, argued, inherited here)**: C, from
-  the same wargame, after failed mutations masqueraded as success in a
-  plain-JS client.
+- **Venture D (2026-06, argued, inherited here)**: C, from the same
+  wargame, after failed mutations masqueraded as success in a plain-JS
+  client.
 - No venture has yet argued B. The definition-language option stays a
   preference until one does.

@@ -130,9 +130,10 @@ twenty of these, split the walk over two sittings and finish before
 phase D.
 
 An S venture with a single surface typically activates two or three
-packs and rules under a dozen guides in one sitting. Guth's walk ran to
-thirty-two rulings and was recorded as an overrun, because the twenty
-was written for the interview-triggered kind and then applied to both
-kinds added together. Both numbers here are starting values with that
-one walk behind them, not measurements; a walk that beats either of them
-for a reason it can state is worth more than a walk that came in under.
+packs and rules under a dozen guides in one sitting. Venture C's walk
+ran to thirty-two rulings and was recorded as an overrun, because the
+twenty was written for the interview-triggered kind and then applied to
+both kinds added together. Both numbers here are starting values with
+that one walk behind them, not measurements; a walk that beats either of
+them for a reason it can state is worth more than a walk that came in
+under.

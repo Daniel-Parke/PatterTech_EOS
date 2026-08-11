@@ -111,13 +111,13 @@ never to an aesthetic.
 
 ## Worked rulings
 
-- **PatterTech_Business (2026-06, argued)**: B, rings enforced by
-  import-linter over a flat tree, later reaching for one database per
-  service as a target once a second real owner existed.
+- **Venture D (2026-06, argued)**: B, rings enforced by import-linter
+  over a flat tree, later reaching for one database per service as a
+  target once a second real owner existed.
 - **Venture A (2026-07, argued)**: B with C at the vendor seams, and a
   constitutional carve-out for telemetry as the one volume-asymmetric
   component.
-- **WiseWattage (2026, argued)**: B in substance, with one-way
+- **Venture B (2026, argued)**: B in substance, with one-way
   dependencies from app to api to engine. The erosion it suffered
   before the checks arrived is the reason WG-ARCH-001 binds.
 

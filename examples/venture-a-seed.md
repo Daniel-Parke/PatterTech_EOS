@@ -16,10 +16,10 @@ result; `docs/COMPILE_REPORT.md` there is the ancestry proof.
 ## The inputs
 
 A ruled lock-book did not exist yet; the walk produced it. Everything
-else was already on disk in Venture A: the product brief (v2,
-HoT-aligned), the constitution's Part I product doctrine (adopted
-2026-07-06, one amendment), the UK compliance registry with a live
-legal duty, two ADRs, two human session logs, ten open questions.
+else was already on disk in Venture A: the product brief (v2, aligned
+to the venture's agreement), the constitution's Part I product doctrine
+(adopted 2026-07-06, one amendment), the UK compliance registry with a
+live legal duty, two ADRs, two human session logs, ten open questions.
 
 ## The walk, and what it proved
 

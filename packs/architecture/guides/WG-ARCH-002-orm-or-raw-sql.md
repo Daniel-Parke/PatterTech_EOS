@@ -122,11 +122,11 @@ not plausible here, and a port bought for one is ceremony.
 
 ## Worked rulings
 
-- **WiseWattage (2026, argued)**: B. Its ADR-003 moved persistence to
+- **Venture B (2026, argued)**: B. Its ADR-003 moved persistence to
   batched `executemany` against hypertables once row-by-row inserts
   proved a cliff, and the repository layer kept the change local. An
   ORM could not have hidden that cost better, only for longer.
-- **Guth (2026-07, inherited)**: not applicable. The venture holds no
+- **Venture C (2026-07, inherited)**: not applicable. The venture holds no
   relational store anywhere, storing through Dexie over IndexedDB, so
   the fork never fires and its lock-book says so rather than picking a
   dialect it will never use. Recorded inherited, not argued: the

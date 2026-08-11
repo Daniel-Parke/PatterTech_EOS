@@ -103,11 +103,11 @@ agent writing code, which in this estate means almost never.
 
 ## Worked rulings
 
-- **PatterTech_Business (2026-06, argued)**: B first, rings enforced
-  by import-linter over a flat tree; then C once an output-hash canary
+- **Venture D (2026-06, argued)**: B first, rings enforced by
+  import-linter over a flat tree; then C once an output-hash canary
   proved the physical move neutral, with both hashes unchanged after
   the re-shape.
-- **WiseWattage (2026, argued)**: B in substance. One-way dependencies
+- **Venture B (2026, argued)**: B in substance. One-way dependencies
   from app to api to engine, documented and review-enforced, with CI
   boundary checks arriving piecemeal. The erosion it suffered first is
   why the rule exists.

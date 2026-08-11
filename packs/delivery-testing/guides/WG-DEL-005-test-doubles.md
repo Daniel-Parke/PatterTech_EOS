@@ -112,7 +112,7 @@ drawn in the wrong place: fix the port rather than fork the suite.
   which are email, error reporting, the clock and id generation, get a
   small interface and swappable implementations, which is C. Recorded
   in that venture's ADR-0003.
-- **WiseWattage (2026, inherited)**: the external weather API runs in a
+- **Venture B (2026, inherited)**: the external weather API runs in a
   synthetic mode built as infrastructure rather than as a per-test
   mock, so CI is offline and deterministic. The determinism fix landed
   once, in the adapter, and every test inherited it.

@@ -1,29 +1,28 @@
 ---
-summary: Guth's read-only v2 migration plan, the pin normalisation and the nineteen queue rows
+summary: Venture C's read-only v2 migration plan, the pin normalisation and the nineteen queue rows
 type: org
 tags: [eos]
 ---
 
-# Migration plan · Guth
+# Migration plan · Venture C
 
 Read-only. Produced on 2026-08-03 by running, from the EOS repo:
 
-`python -m tools.eos migrate plan --seed C:/Users/Daniel/Documents/Coding/Github/Project_Guth`
+`python -m tools.eos migrate plan --seed "Venture C"`
 
-Nothing was written to Project_Guth. ADR-0002 reserves every
-sibling-repo write for a later decision, so this file is a report and
-not a change.
+Nothing was written to Venture C. ADR-0002 reserves every sibling-repo
+write for a later decision, so this file is a report and not a change.
 
 ## What the command reported
 
-- venture: Guth
+- venture: Venture C
 - pin_current: v1.0.0@3807eb163f7ada8d533e40a137267945cf95709a
 - route: recompile
 - steps: pin-policy; roles-to-tier-note; queue-to-tasks (queue rows
   become task records); inventory, which came back "inventory complete"
 - provenance_preserved: the lock-book rulings, the decisions directory,
   the logs directory
-- report_path: org/reports/migration-Guth.md
+- report_path: org/reports/migration-Venture C.md
 
 ## The pin, and why it needs normalising
 
@@ -53,9 +52,10 @@ be trusting a label the pin itself contradicts.
 
 ## Scale and rulings
 
-Guth is M, so it recompiles as ORG with no change of argument: standing
-ops fires because the LAN rig deploys from the tree, and personal data
-stays silent because the only recordings are the operator's own.
+Venture C is M, so it recompiles as ORG with no change of argument:
+standing ops fires because the LAN rig deploys from the tree, and
+personal data stays silent because the only recordings are the
+operator's own.
 
 The header is the estate's densest, and every row carries across
 verbatim. Several rulings are worth flagging to the harvest rather than
