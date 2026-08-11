@@ -130,13 +130,13 @@ python -m tools.eos check --repo
 python -m pytest -q
 ```
 
-The suite is 504 tests and they pass, verified 2026-08-11. The checker
+The suite is 513 tests and they pass, verified 2026-08-11. The checker
 should report no errors; a warning does not fail it. If yours reports
 errors, that is the finding, not the code you were about to read, and
 the common one is a derived file left stale by an edit to its source,
 which `python -m tools.eos check --write-index` fixes.
 `tools/CLI_CONTRACTS.md` is the contract for every command and its exit
-codes, and two tests hold it there.
+codes, and three tests hold it there.
 
 Nothing here runs at commit time. There is no pre-commit hook in this
 repository, so a voice slip or a stale index is caught by the checker

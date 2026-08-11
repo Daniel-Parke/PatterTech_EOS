@@ -466,7 +466,7 @@ def test_the_state_view_cannot_emit_the_line_e010_watched():
 
     assert "E010" not in REGISTRY
     assert "active_session" not in taskops._state_view(
-        [], None, None, None, None)
+        [], None, None, None)
 
 
 # --- E011 derived view drift --------------------------------------------
@@ -522,7 +522,7 @@ def test_e011_leaves_the_machine_facts_block_to_s007(tmp_path):
     ancestry for that reason; equality here would overturn S007."""
     root = make_view_repo(tmp_path)
     edit(root, "org/STATE.md", "Git facts unavailable in this working copy.",
-         "```facts\nbranch: main\ncommit: 0123456789abcdef\n```")
+         "```facts\ncommit: 0123456789abcdef\n```")
     assert only(run_e(root), "E011") == []
 
 
@@ -534,7 +534,7 @@ def test_e011_still_reads_past_the_machine_facts_block(tmp_path):
     state.write_text(
         state.read_text(encoding="utf-8").replace(
             "Git facts unavailable in this working copy.",
-            "```facts\nbranch: main\ncommit: 0123456789abcdef\n```\n\n"
+            "```facts\ncommit: 0123456789abcdef\n```\n\n"
             "And a paragraph somebody added by hand."),
         encoding="utf-8", newline="\n")
     assert only(run_e(root), "E011") == [

@@ -131,16 +131,6 @@ def _semantic_scope(rec) -> bool:
     return True
 
 
-def _past_month(value: str, today: date) -> bool:
-    m = re.match(r"^(\d{4})-(\d{2})$", value.strip())
-    if not m:
-        return False
-    y, mo = int(m.group(1)), int(m.group(2))
-    if not 1 <= mo <= 12:
-        return False
-    return (y, mo) < (today.year, today.month)
-
-
 # --- S001 status and axis enums ----------------------------------------
 
 
@@ -460,6 +450,16 @@ FACTS_BLOCK = re.compile(r"```facts\n(.*?)```", re.S)
 
 @register("S007")
 def check_s007_machine_facts(ctx: dict) -> list:
+    """The recorded git facts against the repository they name.
+
+    There is deliberately no branch arm. A branch name in a committed
+    file is a fact that any merge invalidates: a view generated on a
+    feature branch records that name, and the merge to main makes it
+    wrong with no input having changed, so the check would go red on the
+    merge commit's own run. The generator stopped recording it for the
+    same reason. The commit and the tag both survive a merge, which is
+    why they are checked here and the branch is not.
+    """
     model: RepoModel = ctx["model"]
     out = []
     for rec in model.files:
@@ -475,11 +475,6 @@ def check_s007_machine_facts(ctx: dict) -> list:
             km = re.match(r"^([a-z_]+):\s*(.+)$", line.strip())
             if km:
                 facts[km.group(1)] = km.group(2).strip()
-        if "branch" in facts:
-            actual = gitfacts.current_branch(model.root)
-            if actual is not None and actual != facts["branch"]:
-                out.append(_f(ctx, "S007", rec.path,
-                              f"machine fact branch: {facts['branch']} but git says {actual}"))
         if "commit" in facts:
             # A derived view records the commit it was generated from,
             # and that commit is behind HEAD the moment the view is
@@ -711,11 +706,17 @@ def check_s011_changelog_tags(ctx: dict) -> list:
     text = model.read("CHANGELOG.md")
     if text is None:
         return out
+    # The check needs git to answer at all: with no repository there are
+    # no tags, and every heading would be reported as missing one. It
+    # used to ask for a branch name, which meant the same thing until a
+    # detached HEAD began returning None, and that switched the check
+    # off on every pull-request run, where actions/checkout leaves the
+    # tree detached. A detached checkout still has the tags.
+    if gitfacts.rev_parse(model.root, "HEAD") is None:
+        return out
     versions = CHANGELOG_HEADING.findall(text)
     known = {name: sha for name, sha in gitfacts.tags(model.root).items()
              if SEMVER_TAG.match(name)}
-    if gitfacts.current_branch(model.root) is None:
-        return out
     for v in versions:
         if f"v{v}" not in known:
             out.append(_f(ctx, "S011", "CHANGELOG.md",

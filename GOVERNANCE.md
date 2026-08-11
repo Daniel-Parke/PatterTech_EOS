@@ -208,8 +208,8 @@ stale without anyone noticing.
 Required where they change what an agent does: `authority`,
 `applies_when`, `sources` and `review`. A rule with no `applies_when`
 gets applied where it does not belong, and a binding rule with no
-`sources` cannot be argued with. The rest of the eight axes are optional
-and derived where possible (ADR-0008). *Caught instead by*: nothing was
+`sources` cannot be argued with. The rest of the axes are optional and
+derived where possible (ADR-0008). *Caught instead by*: nothing was
 catching them before, so this makes the written rule match the enforced
 one rather than shrinking real enforcement.
 

@@ -363,7 +363,29 @@ def test_render_views_machine_facts_track_git(tmp_path):
     taskops.render_views(root)
     state_view = (root / "org" / "STATE.md").read_text(encoding="utf-8")
     # The exact shape the S007 check parses and verifies.
-    assert "```facts\nbranch: main\ncommit: %s\n```" % head in state_view
+    assert "```facts\ncommit: %s\n```" % head in state_view
+
+
+def test_render_views_records_no_branch_name(tmp_path):
+    """The commit is the only machine fact written down.
+
+    A branch name in a committed file is correct on the branch it was
+    generated on and wrong the moment that branch merges, with no input
+    having changed, so a check on it goes red on the merge commit's own
+    run. The commit survives the merge by ancestry, which is what S007
+    tests it for.
+    """
+    root = _view_root(tmp_path)
+    git(root, "init", "-q", "-b", "some-feature-branch")
+    git(root, "config", "user.email", "suite@example.invalid")
+    git(root, "config", "user.name", "Test Suite")
+    git(root, "config", "commit.gpgsign", "false")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "records land")
+    taskops.render_views(root)
+    state_view = (root / "org" / "STATE.md").read_text(encoding="utf-8")
+    assert "branch" not in state_view
+    assert "some-feature-branch" not in state_view
 
 
 def test_render_views_without_git_omits_the_facts_block(tmp_path):

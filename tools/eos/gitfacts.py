@@ -55,22 +55,6 @@ def output(root, *args: str) -> str:
     return proc.stdout
 
 
-def current_branch(root) -> str | None:
-    """The checked-out branch, or None where there is not one.
-
-    A detached HEAD has no branch and git says so by printing the
-    literal "HEAD". Returning that string as if it were a branch name
-    is how a pull-request run fails: actions/checkout builds the merge
-    commit and leaves the tree detached, so every caller comparing a
-    recorded branch against this one sees "HEAD" and reports drift that
-    is not there. None means unknowable, and a caller that cannot check
-    should skip rather than fail.
-    """
-    out = _git(root, "rev-parse", "--abbrev-ref", "HEAD")
-    name = out.strip() if out else None
-    return None if name in (None, "", "HEAD") else name
-
-
 def remote_tracking_heads(root) -> dict:
     """Locally known remote-tracking heads (refs/remotes), no network.
 

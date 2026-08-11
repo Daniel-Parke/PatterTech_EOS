@@ -311,21 +311,37 @@ def _gitify(root):
     git(root, "commit", "-q", "-m", "fixture")
 
 
-def test_s007_machine_facts_mismatch(tmp_path):
+def test_s007_reports_a_commit_that_does_not_resolve(tmp_path):
     root = make_repo(tmp_path)
     _gitify(root)
     edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
-         "```facts\nbranch: release\ncommit: 0000000\n```\n")
-    fs = run_s(root)
-    got = only(fs, "S007")
-    assert ("error", "org/STATE.md",
-            "machine fact branch: release but git says main") in got
-    assert ("error", "org/STATE.md",
-            "machine fact commit: 0000000 does not resolve") in got
+         "```facts\ncommit: 0000000\n```\n")
+    assert only(run_s(root), "S007") == [
+        ("error", "org/STATE.md",
+         "machine fact commit: 0000000 does not resolve")]
+
+
+def test_s007_ignores_a_recorded_branch(tmp_path):
+    """There is no branch arm, and a stale branch name is not a finding.
+
+    A branch name written into a committed file is correct until the
+    branch merges and wrong the moment it does, with no input having
+    changed, so checking it turned the merge commit's own run red. The
+    generator stopped recording it and this stopped checking it.
+    """
+    root = make_repo(tmp_path)
+    _gitify(root)
+    edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
+         "```facts\nbranch: some-feature-branch\n```\n")
+    assert only(run_s(root), "S007") == []
 
 
 def test_s007_commit_behind_head_is_clean(tmp_path):
-    """A view records the commit it was built from, so it is always behind."""
+    """A view records the commit it was built from, so it is always behind.
+
+    Ancestry is also what carries the fact through a merge, which is why
+    the commit is the one machine fact worth committing to a file.
+    """
     root = make_repo(tmp_path)
     _gitify(root)
     head = git(root, "rev-parse", "HEAD").strip()
@@ -333,22 +349,42 @@ def test_s007_commit_behind_head_is_clean(tmp_path):
     git(root, "add", ".")
     git(root, "commit", "-q", "-m", "moves on")
     edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
-         f"```facts\nbranch: main\ncommit: {head[:12]}\n```\n")
+         f"```facts\ncommit: {head[:12]}\n```\n")
     assert only(run_s(root), "S007") == []
 
 
-def test_s007_matching_facts_clean(tmp_path):
+def test_s007_commit_off_the_current_history_is_drift(tmp_path):
+    """A recorded commit that HEAD cannot reach is the real drift."""
     root = make_repo(tmp_path)
     _gitify(root)
+    git(root, "checkout", "-q", "-b", "sidetrack")
+    (root / "aside.txt").write_text("aside\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "off to one side")
+    aside = git(root, "rev-parse", "HEAD").strip()
+    git(root, "checkout", "-q", "main")
     edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
-         "```facts\nbranch: main\n```\n")
-    assert only(run_s(root), "S007") == []
+         f"```facts\ncommit: {aside}\n```\n")
+    got = only(run_s(root), "S007")
+    assert len(got) == 1
+    assert got[0][:2] == ("error", "org/STATE.md")
+    assert got[0][2].startswith(f"machine fact commit: {aside} is not an ancestor")
+
+
+def test_s007_reports_a_recorded_tag_git_does_not_have(tmp_path):
+    root = make_repo(tmp_path)
+    _gitify(root)
+    git(root, "tag", "v0.1.0")
+    edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
+         "```facts\ntag: v9.9.9\n```\n")
+    assert only(run_s(root), "S007") == [
+        ("error", "org/STATE.md", "machine fact tag: v9.9.9 is not a git tag")]
 
 
 def test_s007_no_git_degrades_silently(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "Nothing is in flight. The fixture repo is at rest.",
-         "```facts\nbranch: release\n```\n")
+         "```facts\ncommit: 0000000\n```\n")
     assert only(run_s(root), "S007") == []
 
 
@@ -559,6 +595,28 @@ def test_s011_reports_entries_written_up_against_no_commits(tmp_path):
     assert only(run_s(root), "S011") == [
         ("error", "CHANGELOG.md",
          "Unreleased section has entries but no commits since v0.1.0")]
+
+
+def test_s011_runs_on_a_detached_head(tmp_path):
+    """The environment CI actually runs it in.
+
+    actions/checkout builds the merge commit and leaves the tree
+    detached, so a check that asks for a branch name before it will run
+    is a check that never runs on a pull request. This one asks whether
+    git answers at all, and a detached checkout still has the tags.
+    """
+    root = make_git_repo(tmp_path)
+    git(root, "checkout", "--detach", "HEAD")
+    write(root, "CHANGELOG.md", "# Changelog\n\n## v9.9.9 · 2026-08-01\n\n- a change\n")
+    assert only(run_s(root), "S011") == [("error", "CHANGELOG.md",
+                                          "heading v9.9.9 has no matching git tag")]
+
+
+def test_s011_is_silent_outside_a_repository(tmp_path):
+    """No git means no tags, and every heading would read as missing one."""
+    root = make_repo(tmp_path)
+    write(root, "CHANGELOG.md", "# Changelog\n\n## v9.9.9 · 2026-08-01\n\n- a change\n")
+    assert only(run_s(root), "S011") == []
 
 
 # --- S012 ---------------------------------------------------------------

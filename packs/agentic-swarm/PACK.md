@@ -99,8 +99,10 @@ beat sequential work on pass rate at two thirds the cost, while cutting
 one file per agent cost 44 to 60 per cent more than sequential for one
 to three points (EV-0450). Agents left to infer relations between queued
 changes recalled 35 to 58 per cent of them and committed unsafe merges
-in 69.8 per cent of runs, yet respected relations they were handed 98 to
-100 per cent of the time (EV-0455). Compute the graph and hand it over.
+in 69.8 per cent of runs; the relations they did identify they then
+respected 98 to 100 per cent of the time, and handing them the true
+relations raised the delivery score by 22.3 to 50.2 points (EV-0455).
+Compute the graph and hand it over.
 
 **B2. The packet is closed and literal.** Nine fields, all present:
 objective; the exact write set; the exact read set or named sources; the

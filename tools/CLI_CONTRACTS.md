@@ -18,7 +18,12 @@ so a missing task directory there reports 1 rather than 2.
 
 - **0**: clean, or warnings only.
 - **1**: findings (errors, refusals, blocking verdicts, failed criteria).
-- **2**: cannot run (absent file, malformed input). A missing
+- **2**: cannot run (absent file, malformed input). Absent covers a file
+  the caller named that is not there and a `--diff` range git cannot
+  resolve; malformed covers a JSON input that will not parse and a task
+  record the schema rejects. The message names the input and no
+  traceback is printed, because a caller reads a traceback's exit 1 as
+  findings. A missing
   `jsonschema` is not one of these. Schema validation degrades instead:
   S013, S017, S019 on the repo path and D007 and D009 on the seed path
   each emit an error-severity finding naming what went unvalidated, so
@@ -48,7 +53,9 @@ overriding `--relax-semantic` where both are passed),
 and `--json`. Output: a findings list `[{check, path, message, severity}]`.
 `--series` filters on the id prefix, so `--series E` runs E001 upward
 and nothing else; the seed D-series is not in that registry and runs
-only under `--seed`.
+only under `--seed`. Any value outside that set is refused with exit 2:
+a prefix match on an unknown letter selects no checks at all, so a typo
+reported a clean tree.
 
 `--write-index` regenerates every derived index to a fixpoint and is the
 only sanctioned way to update them. Three are always written:
@@ -110,12 +117,17 @@ lesson carries, so pass the number and `--name 0002` writes
 `LENS-0002.md`. The command does not check the form: whatever `--name`
 carries lands in the filename, so a slug there produces a contract no
 lesson row can cite. The copy drops `template: true`, because a scaffolded
-contract is a working file and has to stay under the unfilled-slot check.
+contract is a working file rather than a template: that flag exempts a
+file from the semantic series, the freshness series and E008 alike, so a
+contract still carrying it is one no checker ever reads.
 Nothing is filled in and nothing is fetched: the lens contract is agreed
 with the operator before the source is read (PB-E11).
 
 Output: `{created, template, slots}`, where `slots` lists any `{{SLOT}}`
-still to fill. Exit 0 on write, 1 when the target file already exists,
+markers the copied template carries. `kernel/templates/LENS.tpl.md`
+carries none: it prompts with prose blanks such as `- Agreed by:`
+instead, so `slots` comes back empty for it and E008 has nothing to fire
+on. Exit 0 on write, 1 when the target file already exists,
 which is refused rather than overwritten, and 2 when the kernel template
 is absent.
 
@@ -175,8 +187,10 @@ it, so apply is told which seed to work on rather than guessing; without
 is accepted and changes nothing about the behaviour; without
 `--no-dry-run` apply reports what it would do and writes nothing, and
 with it the steps execute and advance their statuses. This build runs on
-fixture seeds inside this repo only, and exits 2 if pointed at a sibling
-repo. Exit 1 when any step ends blocked.
+fixture seeds inside this repo only, and exits 2 if pointed anywhere
+else. The test is path containment, so a sibling directory whose name
+merely extends this repository's is outside it too. Exit 1 when any step
+ends blocked.
 
 ## benchmark
 

@@ -46,9 +46,11 @@ the merge and picking something else (EV-0053).
 The integrator owns the order and records it before the first merge.
 Order is a decision, not a consequence of who finished first. Left to
 infer relations between queued changes, agents recalled 35 to 58 per
-cent of them and committed unsafe merges in 69.8 per cent of runs;
-handed the relations, they respected them 98 to 100 per cent of the
-time. So the partition artefact is also the merge plan.
+cent of them and committed unsafe merges in 69.8 per cent of runs; what
+they respected 98 to 100 per cent of the time was the relations they had
+identified for themselves, and handing them the true relations raised
+the delivery score by 22.3 to 50.2 points. So the partition artefact is
+also the merge plan.
 
 Per lane, at the gate:
 
