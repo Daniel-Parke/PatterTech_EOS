@@ -5,7 +5,7 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [EV-0026, EV-0204]
+sources: [EV-0026, EV-0204, EV-0372, EV-0373, EV-0374, EV-0375, EV-0376, EV-0377]
 review: on-change-of:play-staged-rollout-mechanics
 type: guide
 tags: [delivery, ops, ci]

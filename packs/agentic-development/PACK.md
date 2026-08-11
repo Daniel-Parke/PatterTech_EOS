@@ -12,18 +12,18 @@ volatility: fast
 review: on-change-of:agent-sdk-major-release
 type: guide
 tags: [eos, arch, tooling]
-sources: [EV-0001, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121]
+sources: [EV-0001, EV-0007, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121, EV-0449]
 ---
 
 # Agentic development
 
 This pack covers how to shape agent work: which of ten topologies to
-run, how to bound it, how to verify it, and how to feed it context. It
-activates when a task designs, changes or reviews an agent workflow, a
-harness, a subagent, a tool surface or an orchestration graph. The
-governing rule is the simplest topology that satisfies the task, and
-anything above a direct single agent must name the pressure that forced
-it.
+run, and how to bound, verify and feed it. It activates on any task that
+designs, changes or reviews an agent workflow, harness, subagent, tool
+surface or orchestration graph. The governing rule is the simplest
+topology that satisfies the task, and anything above a direct single
+agent names the pressure that forced it. How we ourselves build with
+agent graphs is `packs/agentic-swarm/`.
 
 ## Activation
 
@@ -71,29 +71,45 @@ It also does not govern non-agentic model calls, retrieval quality, or
 the security posture of a sandbox, which the security-privacy pack
 owns.
 
+**The line with `packs/agentic-swarm/`.** This pack covers agent systems
+built into a venture's product. That pack covers how we ourselves build
+software, by fanning work out over a dependency graph. Same machinery,
+different subject: if the agents ship to a customer, you are here; if
+the agents are the ones doing the building, read that pack and follow
+its rules there rather than inferring them from these.
+
 ## Binding requirements
 
-Seven. Each names the failure it prevents. Violating one is a defect,
+Four. Each names the failure it prevents. Violating one is a defect,
 not a style disagreement.
+
+The 2026-08 authority audit under ADR-0008 put one test to all seven
+requirements this pack used to bind: a rule binds only where it prevents
+a concrete failure that is serious or hard to reverse **and** its basis
+is law, a standard, empirical evidence or a protected-set floor. B2, B5
+and B6 failed it and are now defaults. They keep their B numbers,
+because `packs/agentic-development/CHECKS.md`, the guides and the refs
+cite them, and they sit under Defaults below. A default is departed from
+in writing, never in silence.
 
 **B1. One writer.** Several agents may read shared state. Writes to any
 shared artefact are serialised through exactly one owner, or split into
 disjoint files each with a single owner. Prevents the conflicting
 decisions and silent overwrite failures that dominate multi-agent
 traces (EV-0109, EV-0106, EV-0107). This is the constraint that lets
-parallel reading and single-writer merging coexist.
-
-**B2. Every loop is bounded.** A loop carries numeric limits on turns,
-tokens or wall-clock, at least two of the three, with units, plus a
-stated stop condition and what happens when it trips (EV-0051,
-EV-0052). Prevents unbounded spend and the stall that looks like
-progress.
+parallel reading and single-writer merging coexist. Binds on both legs:
+a silent overwrite destroys work that nobody knows to look for, and
+ADR-0008 kept the estate's own claim refusal binding for the same
+reason, on its own conflict data.
 
 **B3. Irreversible or externally visible acts pass a human
 checkpoint.** The gate sits at the risky act, not at a tidy phase
 boundary (EV-0079, EV-0108). Prevents an agent publishing, deploying,
 deleting or spending on its own. The checkpoint is a recorded approval
-event, never a claim in prose.
+event, never a claim in prose. Binds as a protected-set floor: approval
+for consequential external actions is named in `GOVERNANCE.md`, carried
+by `packs/security-privacy/` B6, and enforced at the act by
+`kernel/GUARD_SPEC.md`. No audit touches it.
 
 **B4. Evaluation is separate from generation, and the evaluator holds
 external truth.** Tests, types, schema validators, linters, a fresh
@@ -101,6 +117,40 @@ context or a person. Without external truth, self-review degrades the
 answer (EV-0111), and an agent asked to grade itself will praise itself
 (EV-0089, EV-0115). Prevents verification theatre. Where no external
 oracle exists, say so and do not claim an evaluator-optimizer loop.
+Binds on measurement: tests generated after faulty code caught 14 per
+cent of faults against 25 per cent for tests generated independently,
+because the tests inherit the implementation's wrong assumptions
+(EV-0007), and the self-correction result is controlled and
+peer-reviewed (EV-0111). ADR-0006 decision 5 makes independence the
+binding remainder across the estate, and this is its statement here.
+
+**B7. Checkpoint state is a trust boundary.** Never resume from a
+checkpoint of unknown provenance, and treat the store as attack surface
+(EV-0121). Prevents code execution through a deserialised run state.
+Binds as a protected-set floor: a checkpoint of unknown provenance is
+untrusted content deciding what the agent does next, which
+`packs/security-privacy/` B1 and B2 already hold.
+
+## Defaults
+
+Overridable, but the override is recorded with its reason in the
+topology decision record.
+
+### Demoted from binding, 2026-08
+
+Three rules that used to bind. Each still names the failure it prevents,
+and each says which leg of the ADR-0008 test it failed. Numbers are
+unchanged so the checks, refs and exemplar that cite them still resolve.
+
+**B2. Every loop is bounded.** A loop carries numeric limits on turns,
+tokens or wall-clock, at least two of the three, with units, plus a
+stated stop condition and what happens when it trips (EV-0051,
+EV-0052). Prevents unbounded spend and the stall that looks like
+progress. Failed the basis leg: both sources are repositories that
+happen to implement bounds, and nothing measures what bounding buys.
+The failure is still real and still expensive, and money spent is not
+refunded, so a run that departs from this default says what ceiling it
+is accepting instead.
 
 **B5. Any topology above direct single-agent is recorded.** The record
 names the pressure that forced the promotion and the failure mode it
@@ -109,26 +159,25 @@ Pressures, Bounds, Resumability, Verification, Approval. Front-matter
 carries `summary`, `type` and `tags` including `eos`, it cites at least
 four evidence ids of which at least two come from this pack's own set,
 and it stays under 120 lines. Prevents topology chosen by fashion, and
-prevents a design no reviewer can check. The section-by-section requirements are in
+prevents a design no reviewer can check. The section-by-section
+requirements are in
 `packs/agentic-development/refs/DECISION_RECORD_SHAPE.md` and a worked
 record is
 `packs/agentic-development/exemplars/EX-AGENT-001-logging-migration.md`.
+Failed the seriousness leg: an unrecorded topology is written down
+later at the cost of one reading.
 
 **B6. Runs are traceable.** A stable span vocabulary (run, turn, agent,
 generation, tool, guardrail, handoff), a workflow name, and a group id
 linking related runs, with a switch that keeps spans while excluding
 payloads where data policy forbids them (EV-0118, EV-0021). Prevents
 failures that cannot be located, which is the whole cost of parallel
-work.
+work. Failed the basis leg: the sources are vendor documentation for
+their own tracing products. The payload-exclusion half is not loosened
+by this, because personal data in a trace is a `packs/security-privacy/`
+B5 matter and that binds on its own.
 
-**B7. Checkpoint state is a trust boundary.** Never resume from a
-checkpoint of unknown provenance, and treat the store as attack surface
-(EV-0121). Prevents code execution through a deserialised run state.
-
-## Defaults
-
-Overridable, but the override is recorded with its reason in the
-topology decision record.
+### Standing defaults
 
 **D1. Start at direct single-agent with a strong oracle** (EV-0088,
 EV-0052). Promote only on a named pressure. Reason: the promotion
@@ -267,7 +316,11 @@ are judgement calls today and the guides say so.
 
 Every source is a row in `registry/evidence.json` with version, licence,
 access date and review trigger. Cite ids, never re-record sources. The
-pack's own set is EV-0109 to EV-0121, imported from this pack's
-research fragments; the rest are shared estate rows. Research synthesis
-and the disagreements behind this file are in
-`packs/agentic-development/research/NOTES.md`.
+pack's own set is the fourteen rows imported from its research fragment,
+EV-0109 to EV-0121 plus EV-0449; the rest are shared estate rows. The
+frozen batch the import was made from stays at
+`packs/agentic-development/research/sources.fragment.json`. Research
+synthesis and the disagreements behind this file are in
+`packs/agentic-development/research/NOTES.md`, and the licence and
+quotation sweep, including the rows whose source states no licence, is
+at `packs/agentic-development/research/provenance.fragment.json`.

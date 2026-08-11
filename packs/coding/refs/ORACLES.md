@@ -1,10 +1,10 @@
 ---
-summary: Which oracle each change type needs, what counts as one, and the commit order that proves it came first
+summary: Which oracle each change type needs, what counts as one, and how independence and a demonstrated failure are proved
 type: foundation
 tags: [testing, delivery]
 kind: fact
 scope: estate
-sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0094, EV-0178, EV-0180]
+sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0094, EV-0105, EV-0178, EV-0180, EV-0191, EV-0192]
 volatility: slow
 review: 2027-05
 ---
@@ -23,24 +23,54 @@ skipped.
 
 ## Oracle by change type
 
-| Change type | Oracle | Lands before |
+| Change type | Oracle | Where it comes from |
 | --- | --- | --- |
-| FIX | A test reproducing the reported failure, failing at the current commit | The fix |
-| FEATURE | A test asserting the new acceptance condition, failing at the current commit | The implementation |
-| REFACTOR | A characterisation or approval test capturing current behaviour, passing at the current commit | The structural change |
-| CHORE, mechanical bulk | The existing suite, plus a sampled acceptance check over the class of change | The bulk edit |
-| Interface change | The declared failure and success surface asserted at the boundary | The implementation |
+| FIX | A test reproducing the reported failure | The report, and it fails at the current commit |
+| FEATURE | A test asserting the new acceptance condition | The requirement, and it fails at the current commit |
+| REFACTOR | A characterisation or approval test capturing current behaviour | The running code, deliberately, and it passes at the current commit |
+| CHORE, mechanical bulk | The existing suite, plus a sampled acceptance check over the class of change | The class, not the instance |
+| Interface change | The declared failure and success surface asserted at the boundary | The interface declaration |
 
-A change that is two of these is two commits, in that order.
+A change that is two of these is two commits, and a characterisation pin
+is always its own commit, because a pin and a specification are
+different claims and a reviewer has to be able to tell them apart.
 
-## Commit order is the proof
+## How independence is proved
 
-The claim that the oracle came first is only checkable in history.
-Commit the oracle on its own, then the implementation. Where a
-characterisation pin and a new behaviour test are both needed, that is
-three commits: pin, new failing test, implementation. History that shows
-the implementation first cannot be distinguished from tests written to
-match the code, which is exactly the failure mode being avoided.
+Two proofs, and the second one is the one that binds.
+
+**Authoring context.** Record which session wrote the oracle, what was
+in front of it, and by which method it stayed independent. The task
+record carries this as `oracle_provenance`, with `author_session` and
+`independence_method`. If the record does not exist, the commit message
+answers the same question in one line: which specification,
+reproduction, invariant or reference the expected value came from. An
+unanswerable question here is a stop, not a shrug.
+
+**Commit order, where you have it.** Committing the oracle on its own
+and the implementation after is the cheapest evidence that the oracle
+was not read off the code, because at that moment the code did not
+exist. This is worth doing and it is default D7, not a rule. History
+showing the implementation first is not proof of contamination, only an
+absence of the cheap proof, and the authoring record has to carry the
+weight instead.
+
+## How the bite is proved
+
+A check that has never been observed failing is an instrument nobody
+calibrated. Test-first gave that proof away free, once per new test.
+Its replacement is stronger and costs more.
+
+- Revert the change and run the check. It must go red.
+- Where a revert will not isolate it, mutate the changed lines and
+  require the check to kill the mutants (EV-0192, EV-0191).
+- Where the change is a new module with nothing to revert to, seed a
+  fault by hand and record what the check did.
+
+Mutation is diff-scoped by default, because whole-repository runs cost
+more than they return, and mutation-guided generation is the production
+version of the same idea (EV-0105). The delivery-testing pack owns the
+mechanics in `packs/delivery-testing/refs/QUALITY_SIGNALS.md`.
 
 ## Why independence matters more for agents
 
@@ -63,19 +93,21 @@ particular measures resolving tests somebody else wrote, which is a
 different problem from deciding what the tests should say. None of these
 numbers is a claim about human developers, about arbitrary production
 diffs, or about this estate's code. What they support is the direction:
-the oracle has to exist independently, and it has to exist first.
+the oracle has to come from somewhere other than the code it judges.
+They do not support a claim about the order.
 
-## The human literature runs the other way, and that is fine
+## What the human literature adds
 
 Across 82 observations from 39 professional developers, quality and
 productivity were associated with granularity and uniformity of work
 increments rather than with whether the test came before or after the
 code (EV-0178). Small sample, short greenfield tasks, correlational
-within an experimental corpus. It does not license abandoning test-first
-where regression protection rather than developer productivity is the
-goal. The mechanism differs between the two populations: for a human the
-test is a design aid, for a model it is the only reliable oracle. Never
-cite one side as evidence about the other.
+within an experimental corpus. Read together with the agent evidence it
+says the same thing twice: the order is not the ingredient. What the
+order was quietly buying is a clean context and small steps, and both of
+those are now stated directly, as B1 and D8 in the pack body. Never cite
+one population as evidence about the other, and do not cite either as
+evidence that the test must come first.
 
 ## What does not count
 
@@ -83,8 +115,8 @@ cite one side as evidence about the other.
   the behaviour does. Agent test-writing frequency is about the same in
   runs that resolve and runs that do not, and what gets written is
   mostly observational prints rather than assertions (EV-0006).
-- A test written in the same turn as the implementation by the same
-  author with no failing run recorded.
+- A test written by the author that had the implementation in front of
+  it, in any order, with no failing run recorded.
 - A snapshot approved without anyone reading the diff. Approval is a
   deliberate act or the file is decoration (EV-0180).
 - A test whose result depends on a network call it does not control. An

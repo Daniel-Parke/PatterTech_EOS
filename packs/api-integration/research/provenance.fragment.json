@@ -1,0 +1,129 @@
+{
+ "pack": "api-integration",
+ "checked": "2026-08-10",
+ "checked_by": "T-0019, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and compared each cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence claim below is the ledger's own recorded value, read back. Quotation was checked three ways: every quotation-marked span in the read surface was listed and read; every enumeration or coined term that could only have come from a source was traced to the row that supplies it; and the rows whose ledger licence forbids reuse of wording were read against the prose that cites them. What this method cannot do is detect an unmarked sentence copied from a source nobody has the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0011",
+  "EV-0012",
+  "EV-0023",
+  "EV-0024",
+  "EV-0034",
+  "EV-0039",
+  "EV-0057",
+  "EV-0061",
+  "EV-0091",
+  "EV-0122",
+  "EV-0123",
+  "EV-0124",
+  "EV-0125",
+  "EV-0126",
+  "EV-0127",
+  "EV-0128",
+  "EV-0129",
+  "EV-0130",
+  "EV-0131",
+  "EV-0132",
+  "EV-0133",
+  "EV-0134",
+  "EV-0135",
+  "EV-0136",
+  "EV-0137",
+  "EV-0138",
+  "EV-0139",
+  "EV-0140",
+  "EV-0141",
+  "EV-0142",
+  "EV-0143",
+  "EV-0144",
+  "EV-0145"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0057",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0061",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0091",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0125",
+   "licence_recorded": "unknown (repository licence file not inspected)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0126",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0131",
+   "licence_recorded": "unknown (repository licence file not inspected)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0132",
+   "licence_recorded": "unknown (repository licence file not inspected; repo commonly Apache-2.0 or CC-BY-4.0)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  },
+  {
+   "ev": "EV-0133",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0135",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0139",
+   "licence_recorded": "not-stated",
+   "state": "states-none",
+   "inspected": true,
+   "licence_checked": "2026-08-08"
+  },
+  {
+   "ev": "EV-0140",
+   "licence_recorded": "unknown (spec text served under an Open Web Foundation agreement; licence page not retrieved)",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/api-integration/PACK.md",
+   "line": 179,
+   "concern": "D10 reproduces two toolchain vocabularies verbatim: FILE, PACKAGE, WIRE_JSON, WIRE from buf (EV-0135) and BACKWARD, FORWARD, FULL, NONE from the schema registry (EV-0139).",
+   "resolution": "Not a concern. These are identifier values a reader has to type exactly, not expression, and both are attributed. Left as is."
+  }
+ ],
+ "notes": "Twenty-two of thirty-three cited rows carry a definite licence. Seven record that the source states none, each checked. The residual is four rows whose licence string says outright that nobody inspected it: EV-0125, EV-0131, EV-0132 and EV-0140. Three of those are public GitHub repositories, so the check is cheap and is the first thing to do when this pack is next opened. EV-0140 is a specification served under an Open Web Foundation agreement whose licence page was never retrieved. No quotation concern beyond the vocabulary note below. A row marked states-none carries licence_evidence and a licence_checked date in the ledger, so somebody looked and recorded that the source states no licence. A row marked unconfirmed carries a hedged licence string and no licence_evidence, so nobody has looked. Both belong on the residual list ADR-0006 decision 7 asks for, and the difference between them is the difference between a recorded fact and a guess."
+}

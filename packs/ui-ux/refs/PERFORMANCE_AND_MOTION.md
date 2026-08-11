@@ -12,8 +12,9 @@ tags: [perf, motion, web]
 # Performance and motion
 
 Reference for the performance default in PACK.md and for the motion
-safety default. House motion numbers are not here; they belong to the
-Wave B preference pack.
+safety default. House motion numbers are not here; they belong to
+whichever preference pack a venture adopts, which for us is
+`packs/pattertech-house/refs/BUDGETS.md`.
 
 ## Performance as a design constraint
 
@@ -79,7 +80,7 @@ These carry across every philosophy:
   script.
 - One tokenised easing curve per project, so motion reads as one hand.
 
-The v1 doctrine also carries a house table of what may move and for how
-long. Those numbers are house taste, and they are the subject of an
-unresolved contradiction noted in PACK.md. They arrive with the Wave B
-preference pack, not with this one.
+A house table of what may move and for how long is taste, not portable
+law, so it is not here. Ours lives in
+`packs/pattertech-house/refs/BUDGETS.md`, which is also where the v1
+duty-cycle contradiction was settled.

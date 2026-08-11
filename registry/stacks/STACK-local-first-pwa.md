@@ -11,7 +11,8 @@ review: 2027-02
 For a browser-delivered product whose data never leaves the operator's
 machines, with real-time or otherwise latency-sensitive local
 processing, and optionally a LAN companion for heavier compute.
-Reference implementation: Project_Guth, S1.
+Reference implementation: Guth, S1, whose directory on disk is
+Project_Guth.
 
 Harvested 2026-08-08 from Guth's `docs/EOS_FEEDBACK.md`, where it was
 filed as the venture's fifth draft wargame at Session 0 and matured

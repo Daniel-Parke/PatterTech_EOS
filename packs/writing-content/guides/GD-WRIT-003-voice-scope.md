@@ -34,13 +34,16 @@ piece of text sits under, and what happens when they disagree.
 
 ## Options
 
-### A. EOS-internal law, authority binding
+### A. EOS-internal house rule, authority default
 Every file in this repository. Plain, spoken, British spelling, no
 em-dashes, no exclamation marks, no AI cliches, no two-fragment
-antithesis. Basis: decision, ADR-0002. Buys one recognisable register
-across a corpus that agents read constantly, and a mechanical check
-that catches the commonest tells. Costs nothing outside this repository,
-because it applies nowhere else. Scope: eos-internal.
+antithesis. Basis: decision, ADR-0002. PACK.md B8 carried this as
+binding until the 2026-08 audit and carries it as a default now, on the
+basis leg: a house ruling is not law, a standard or a measured effect.
+Check E004 fails the build either way, which is what actually holds
+the register. Buys one recognisable voice across a corpus that agents
+read constantly. Costs nothing outside this repository, because it
+applies nowhere else. Scope: eos-internal.
 
 ### B. Venture documentation default, authority default
 Documentation and product prose inside a venture repo. Plain-language
@@ -100,8 +103,11 @@ venture as a requirement.
   em-dashes, and the EOS voice law has no authority over it. The
   version one behaviour of applying A to venture prose is the failure
   this guide exists to end.
-- **PatterTech house voice (2026-08, argued)**: C, held in the
-  pattertech-house pack rather than here, adopted per venture and never
-  by default. That pack is research-only at the time of writing, so no
-  brand voice is adoptable yet, and the honest statement is that
-  nothing is missing from a venture that has not adopted one.
+- **PatterTech house voice (2026-08, re-argued)**: C, and it does not
+  exist. The earlier ruling put it in the pattertech-house pack. That
+  pack is built, it covers the house visual language, and its own
+  non-goals say it is not a copy guide, so it never held a brand voice
+  and does not hold one now. Scope C is therefore defined here and
+  filled nowhere. A venture that wants a brand voice writes one and
+  adopts it by name, and nothing is missing from a venture that has
+  not.

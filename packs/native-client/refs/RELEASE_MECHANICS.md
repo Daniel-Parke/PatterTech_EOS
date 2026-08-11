@@ -2,7 +2,7 @@
 summary: Store release mechanics side by side, the over-the-air envelope, the kill-switch contract and the distribution clock
 kind: fact
 scope: estate
-sources: [EV-0026, EV-0204]
+sources: [EV-0026, EV-0204, EV-0372, EV-0373, EV-0376, EV-0377]
 volatility: fast
 review: on-change-of:play-staged-rollout-mechanics
 type: implementation

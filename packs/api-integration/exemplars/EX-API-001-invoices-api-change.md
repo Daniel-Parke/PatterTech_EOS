@@ -7,7 +7,7 @@ type: example
 tags: [arch, money, security]
 ---
 
-# Worked example: changing a live invoices API
+# EX-API-001: changing a live invoices API
 
 A venture runs an invoices service with two external consumers and a
 payment provider pushing webhooks. Four changes land in one week: rename
@@ -49,8 +49,8 @@ compatibility: BACKWARD
 baseline: api/baseline/openapi.yaml
 ```
 
-That is BR-3. The tier was never written down before, which is why the
-last rename in this service went out unnoticed.
+That is default D10. The tier was never written down before, which is
+why the last rename in this service went out unnoticed.
 
 ## 4. Ship the rename as an addition
 

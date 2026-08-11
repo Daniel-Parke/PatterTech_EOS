@@ -1,12 +1,22 @@
 ---
-summary: Four false statements in protected files, the corrections proposed for them, and why they were not simply edited
+summary: Four false statements in protected files, the corrections applied to them, and why they needed a record first
 type: decision
 tags: [eos]
-status: proposed
+status: accepted
+decided_by: Daniel Parke
 date: 2026-08-10
 ---
 
 # ADR-0005: four corrections in the protected set
+
+**Where this stands.** Accepted, and all four corrections are in the
+tree. Everything below was written while the record was still a
+proposal, and it says so in the present tense; `org/decisions/` is
+append-only, so it is left exactly as written rather than tidied. The
+Decision section at the foot is the ruling. Only the summary line in
+the front matter was corrected, because it feeds `INDEX.md` and a
+reader scanning that index would otherwise read these four corrections
+as still pending.
 
 Proposed on 2026-08-10 by the post-merge documentation pass. Not
 accepted. `GOVERNANCE.md` requires an accepted ADR and Daniel before
@@ -86,11 +96,15 @@ version alone, and that is the argument for taking it.
 
 ## Decision
 
-None yet. Daniel accepts or declines.
+Accepted by Daniel on 2026-08-10, at the start of the v2.1 build. The
+four replacements above are applied and nothing else. No rule changes,
+no threshold moves, and no behaviour is added: each edit makes a
+description match what the code already does.
 
-If accepted, apply the four replacements above and nothing else. No
-rule changes, no threshold moves, and no behaviour is added: each edit
-makes a description match what the code already does.
+One further instance of the same defect was found while applying this
+and is corrected under ADR-0006, because it sits in a protected file
+this record did not name: `packs/security-privacy/PACK.md` B3 and its
+choices list still pointed at the withdrawn exception ledger.
 
 If declined, the alternative is to build the two controls the text
 claims, a check that reads expiry dates and a merge gate that refuses

@@ -10,7 +10,7 @@ applies_when: [has_customer_inbound, has_paying_customers, has_customer_visible_
 activation_paths: [**/support/**, **/tickets/**, **/status/**, **/incidents/**, **/*complaint*, **/*feedback*]
 volatility: slow
 review: on-change-of:ISO-10002-revision
-sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233]
+sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233, EV-0421, EV-0422, EV-0423, EV-0424, EV-0425, EV-0426, EV-0427, EV-0428, EV-0429, EV-0430, EV-0431, EV-0432]
 type: playbook
 tags: [eos, ops, product, pii]
 ---
@@ -21,9 +21,9 @@ This pack covers customer support as an operating function: what
 arrives, how it is classified, how a customer-visible incident is run
 and told, and how a week of inbox becomes backlog items. It activates
 on any task touching a support inbox, ticket queue, status page,
-complaints route or feedback synthesis. Classification, honest incident
-communication and personal-data handling bind. The ticket system, the
-number of severity bands and the survey instrument do not.
+complaints route or feedback synthesis. Honest incident communication
+and personal-data handling bind. Classification and the severity ladder
+are defaults; the ticket system and the survey instrument are taste.
 
 The through-line: the queue is not the product, and the only reason to
 run it well is that it is the cheapest evidence about the product you
@@ -90,55 +90,28 @@ pack warns about.
 
 ## Binding requirements
 
-Seven requirements bind. Two rest on standards, two on measurement, one
-on law, and two on an estate decision that is labelled as such. The
-rest of this pack is defaults and preferences, which is the honest
-shape for a domain where most published practice is convention that
-nobody has measured.
+Two requirements bind. One rests on law, one on a protected-set floor
+this pack restates for customer messages. The rest of this pack is
+defaults and preferences, which is the honest shape for a domain where
+most published practice is convention that nobody has measured.
 
-**Evidence note.** Ids of the form `FRAG-SUPPORT-OPERATIONS-NN` are
-rows in this pack's frozen research fragment at
-`packs/support-operations/research/sources.fragment.json`, each
-carrying its version, licence, access date, maintenance state and
-review trigger. The integrator imports that fragment into
-`registry/evidence.json` and assigns final EV ids; until it runs, the
-fragment ids are the citable form, and every EV id used here is one
-that already exists in the ledger. Several sources are paywalled and
-paraphrased only, so nothing here quotes them.
+The 2026-08 authority audit under ADR-0008 put one test to all seven
+requirements this pack used to bind: a rule binds only where it prevents
+a concrete failure that is serious or hard to reverse **and** its basis
+is law, a standard, empirical evidence or a protected-set floor. Five
+failed it and are now defaults, keeping their B numbers because
+`packs/support-operations/CHECKS.md`, the guides and the exemplar cite
+them. A default is departed from in writing, never in silence.
 
-**B1. Nothing enters a backlog without a classification, and untriaged
-is a state rather than an absence.** `has_customer_inbound`. Every
-inbound item carries four independent values before it is ranked:
-kind, priority, owning queue, and a triage state that is either
-accepted or needs-info (EV-0424). Classification
-comes before prioritisation, not after
-(EV-0426). Where one cause explains several reports,
-they carry one shared incident or defect id and get one answer
-(EV-0425). A needs-info item carries the date its
-next action is due. Basis: standard. Prevents three failures: work that
-is invisible because nobody can query for it, a priority argued from
-whoever wrote most recently, and five people receiving five different
-accounts of one bug.
-
-**B2. The severity ladder is written before the incident, and one band
-changes what the organisation does.** `has_customer_visible_incident`.
-The ladder is ordered, each band has a written impact criterion, it
-states that the higher band is taken when the call is unclear, and at
-least one threshold switches the response mode rather than only the
-wording (EV-0421). The band is not litigated during
-the incident; the argument goes in the postmortem. Basis: decision,
-taken on exemplar practice with no outcome data behind it. Prevents
-severity being assigned afterwards to justify the response that already
-happened.
-
-**B3. A customer-visible incident records a communication owner
-separately from the person changing the system.**
-`has_customer_visible_incident`. Both fields are filled even when the
-two values are the same name, because the record has to show the
-decision was taken (EV-0423,
-EV-0422). Basis: decision. Prevents the fixer's
-attention being spent on updates, and prevents an incident closing with
-nobody accountable for having told anyone.
+**Evidence note.** The twelve sources researched for this pack were
+imported into `registry/evidence.json` as EV-0421 to EV-0432, and every
+citation here uses the ledger id. Each row carries its version, licence,
+access date, maintenance state and review trigger. The frozen batch the
+import was made from stays at
+`packs/support-operations/research/sources.fragment.json`, and the
+synthesis behind the pack is in
+`packs/support-operations/research/NOTES.md`. Several sources are
+paywalled and paraphrased only, so nothing here quotes them.
 
 **B4. A customer-facing message never reports a bypassed check as
 passing.** `has_customer_visible_incident`. If a gate was skipped,
@@ -146,21 +119,15 @@ waived or run under an emergency route to get the fix out, the incident
 record and any all-clear say so in those words. A status update states
 what has been verified and by what, and "not yet verified" and "cause
 unknown" are legal things to publish. No update asserts a cause the
-incident record does not support. Basis: decision, mirroring the
-kernel's rule that bypassed gates are recorded as bypassed and that no
-emergency overlay lowers a floor (`kernel/GUARD_SPEC.md`). Prevents the
-two failures that cost the most trust: an all-clear resting on
-verification nobody performed, and a second outage from an unverified
-fix that the record made look verified.
-
-**B5. No target and no published figure is the mean of a duration
-distribution.** `reports_support_metric`. Incident and response
-durations are reported as percentiles, as raw counts, or not at all
-(EV-0211). Per-band time targets are not set, because the corpus that
-looked found no correlation between duration and severity. Basis:
-empirical-evidence. Prevents a target that describes no incident that
-ever happened, and prevents a skewed distribution being summarised by
-the one statistic it defeats.
+incident record does not support. Basis: decision, and it binds as a
+protected-set floor rather than on the support literature:
+`kernel/GUARD_SPEC.md` records a bypassed gate as bypassed and lets no
+emergency overlay lower it, and this is that rule pointed at the people
+outside the venture. Prevents the two failures that cost the most trust:
+an all-clear resting on verification nobody performed, and a second
+outage from an unverified fix that the record made look verified. A
+published all-clear cannot be unpublished, which is the hard-to-reverse
+half.
 
 **B6. A support inbox is a personal-data store and is run as one.**
 `has_customer_inbound`, `exports_ticket_text`. Retention, access and
@@ -169,21 +136,11 @@ estate already cites (EV-0041). No export of ticket text into a
 synthesis, analytics or model tool without the recorded basis. Derived
 artefacts such as triage files, theme reports and public postmortems
 carry ids or hashes, never names, addresses or account numbers. Basis:
-law. Prevents a support archive becoming an unrecorded personal-data
-store, and prevents a convenience export becoming an unlawful transfer.
-
-**B7. A loyalty or satisfaction score is a trend about one population,
-never a cross-firm benchmark.** `reports_support_metric`. The score is
-reported with its population, its n and its date range, and it is never
-used to claim a position relative to another company or an industry
-figure (EV-0428). Basis: empirical-evidence.
-Prevents an instrument being sold internally as evidence it has been
-tested for and failed to provide. Scope note: the replication that
-settles this covered 21 firms and more than 15,500 interviews from one
-national panel, in industries and an era that predate subscription
-software. It refutes a superiority claim; it does not show the score is
-useless, and it says nothing about behaviour at the sample sizes a
-venture with sixty customers actually has.
+law, and data protection is a protected-set item under `GOVERNANCE.md`.
+Prevents a support archive becoming an unrecorded personal-data store,
+and prevents a convenience export becoming an unlawful transfer. An
+export into a synthesis or model tool cannot be recalled, which is the
+hard-to-reverse half.
 
 **What deliberately does not bind.** Acknowledging a complaint on
 receipt and closing it only once the complainant has been told the
@@ -197,6 +154,79 @@ fewest ventures to depart from.
 ## Defaults
 
 Followed unless the task records a reason to depart.
+
+### Demoted from binding, 2026-08
+
+Five rules that used to bind. Each still names the failure it prevents,
+and each says which leg of the ADR-0008 test it failed. Numbers are
+unchanged so the checks, guides and exemplar that cite them still
+resolve.
+
+**B1. Nothing enters a backlog without a classification, and untriaged
+is a state rather than an absence.** `has_customer_inbound`. Every
+inbound item carries four independent values before it is ranked:
+kind, priority, owning queue, and a triage state that is either
+accepted or needs-info (EV-0424). Classification
+comes before prioritisation, not after
+(EV-0426). Where one cause explains several reports,
+they carry one shared incident or defect id and get one answer
+(EV-0425). A needs-info item carries the date its
+next action is due. Basis: standard. Prevents three failures: work that
+is invisible because nobody can query for it, a priority argued from
+whoever wrote most recently, and five people receiving five different
+accounts of one bug. Failed the seriousness leg: a misfiled item is
+refiled, and the queue is recoverable at any point.
+
+**B2. The severity ladder is written before the incident, and one band
+changes what the organisation does.** `has_customer_visible_incident`.
+The ladder is ordered, each band has a written impact criterion, it
+states that the higher band is taken when the call is unclear, and at
+least one threshold switches the response mode rather than only the
+wording (EV-0421). The band is not litigated during
+the incident; the argument goes in the postmortem. Basis: decision,
+taken on exemplar practice with no outcome data behind it. Prevents
+severity being assigned afterwards to justify the response that already
+happened. Failed the basis leg, which the pack already said out loud.
+
+**B3. A customer-visible incident records a communication owner
+separately from the person changing the system.**
+`has_customer_visible_incident`. Both fields are filled even when the
+two values are the same name, because the record has to show the
+decision was taken (EV-0423,
+EV-0422). Basis: decision. Prevents the fixer's
+attention being spent on updates, and prevents an incident closing with
+nobody accountable for having told anyone. Failed the basis leg.
+Nothing else in this pack catches an incident that closed with nobody
+accountable for telling anyone, so this is the default a venture should
+think hardest before departing from.
+
+**B5. No target and no published figure is the mean of a duration
+distribution.** `reports_support_metric`. Incident and response
+durations are reported as percentiles, as raw counts, or not at all
+(EV-0211). Per-band time targets are not set, because the corpus that
+looked found no correlation between duration and severity. Basis:
+empirical-evidence. Prevents a target that describes no incident that
+ever happened, and prevents a skewed distribution being summarised by
+the one statistic it defeats. Failed the seriousness leg: a bad metric
+is replaced by a better one at no cost, and the number itself harms
+nobody.
+
+**B7. A loyalty or satisfaction score is a trend about one population,
+never a cross-firm benchmark.** `reports_support_metric`. The score is
+reported with its population, its n and its date range, and it is never
+used to claim a position relative to another company or an industry
+figure (EV-0428). Basis: empirical-evidence.
+Prevents an instrument being sold internally as evidence it has been
+tested for and failed to provide. Scope note: the replication that
+settles this covered 21 firms and more than 15,500 interviews from one
+national panel, in industries and an era that predate subscription
+software. It refutes a superiority claim; it does not show the score is
+useless, and it says nothing about behaviour at the sample sizes a
+venture with sixty customers actually has. Failed the seriousness leg
+by the same reasoning as B5. Publishing the comparison outside the
+venture is a marketing claim and belongs to `packs/marketing-growth/`.
+
+### Standing defaults
 
 - **D1. Two queues, incident and request, with separate targets and no
   item in both.** Restoring an interrupted service and fulfilling a
@@ -363,12 +393,12 @@ in
   that closes only on answer (EV-0425). Both are
   defensible for different relationships, so GD-SUPPORT-002 forces the
   choice per channel instead of letting a tool default decide.
-- **B2 and B3 bind above their evidence grade.** Both come from
-  exemplar practice with no comparative measurement. They bind because
-  a ladder written during an incident is not a ladder, and because an
+- **B2 and B3 used to bind above their evidence grade.** Both come from
+  exemplar practice with no comparative measurement, and the 2026-08
+  audit made them defaults for that reason. The arguments behind them
+  stand: a ladder written during an incident is not a ladder, and an
   unnamed communication owner is indistinguishable in the record from
-  nobody. Basis is decision in both cases, and both are open to
-  challenge by an argued ruling.
+  nobody. Departing from either now leaves a written reason.
 - **Error-recovery and help heuristics** (EV-0233) give reviewers
   shared vocabulary for support-visible interface defects and are not a
   conformance claim; there is no evidence that following them improves

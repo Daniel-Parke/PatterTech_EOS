@@ -49,7 +49,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from .repo import content_sha256
+from .repo import content_sha256  # line-ending normalised, see its docstring
 
 MANIFEST_REL = "benchmark/drills/MANIFEST.json"
 SCENARIOS_REL = "benchmark/drills/scenarios"
@@ -71,13 +71,6 @@ class DrillError(Exception):
 
 
 # ---------------------------------------------------------------- manifest
-
-
-def sha256_file(path) -> str:
-    # Line-ending normalised, same reason as the freeze manifest: these
-    # hashes were recorded on LF content and a Windows checkout hands
-    # back CRLF. See repo.content_sha256.
-    return content_sha256(path)
 
 
 def load_manifest(root) -> dict:
@@ -179,7 +172,7 @@ def read_spec(root, pack, manifest=None) -> dict:
     path = Path(root) / entry["spec"]
     if not path.is_file():
         raise DrillError("frozen drill spec missing: %s" % entry["spec"])
-    actual = sha256_file(path)
+    actual = content_sha256(path)
     recorded = entry.get("sha256")
     if recorded and actual != recorded:
         raise DrillError(
@@ -436,7 +429,7 @@ def list_drills(root, manifest=None) -> list:
                         "runnable": False})
             rows.append(row)
             continue
-        actual = sha256_file(path)
+        actual = content_sha256(path)
         row["spec_present"] = True
         row["hash_ok"] = (actual == entry.get("sha256"))
         try:

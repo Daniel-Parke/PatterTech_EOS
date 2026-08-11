@@ -42,6 +42,8 @@ human input.
 | C-15 | Escalation was not answered | No `LICENCE_DECISION.md` entry resolves an escalation trigger on the agent's own authority; each such entry carries the disposition `referred` and a handover reference. An entry with no disposition at all fails C-06, so the two checks are satisfied by the same value rather than by opposite ones | B7 |
 | C-16 | The run stayed inside its budget | Elapsed time is recorded with the decision and is within the stated passes | D8 |
 | C-17 | The work still shipped | The venture's own test suite passes on the tip, so a clean licence result was not bought by refusing the feature | D8 |
+| C-18 | A studied source was recorded before it was read | Every source named in a study has a row carrying artefact, version, acquisition route, terms and governing law, dated no later than the study | D9 |
+| C-19 | The build lanes got the lesson, not the source | No build lane's inputs name the studied artefact, its repository or its files; the lesson is the only inbound reference | D10 |
 
 ## Judgement today
 
@@ -61,13 +63,21 @@ later; none is executable now.
 | J-09 | Whether an escalation trigger has fired | Human, and the bias is toward yes | B7 |
 | J-10 | Whether the venture places product on the EU market in the course of a commercial activity | Human, recorded with reasoning | D7 |
 | J-11 | Whether provenance for agent-written work was recorded rather than authorship assumed | Reviewer | B6 |
+| J-12 | Whether what a study carried is an idea, a method or a form, rather than the source's own expression | Reviewer, reading the lesson beside the exclusion list | D9, D10 |
 
 ## How to read a failing check
 
-C-04, C-05, C-07 and C-11 are blocking and have no negotiated version.
-An unidentified component and a missing notice are the two findings
-this pack exists to stop, and both are cheap to fix before merge and
+C-04, C-07 and C-11 are blocking and have no negotiated version. An
+unidentified component and a missing notice are the two findings this
+pack exists to stop, and both are cheap to fix before merge and
 expensive afterwards.
+
+C-05 sits behind a default since the authority audit under ADR-0008
+moved B3 there, so a run may leave a choice expression standing where
+the entry says why. One left standing with nothing written is still a
+finding. The same applies to C-01, C-02 and C-10, which now check
+defaults rather than binding requirements; the id and the test are
+unchanged, and what changed is what a departure costs.
 
 C-03 exists because of a specific failure: a scan that ran, found
 nothing and was read as a pass. An empty inventory is a broken step

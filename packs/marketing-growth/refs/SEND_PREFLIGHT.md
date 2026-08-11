@@ -2,7 +2,7 @@
 summary: The gates a sending domain and a message pass before a first bulk send, and the one-click unsubscribe mechanics
 kind: fact
 scope: estate
-sources: [EV-0225]
+sources: [EV-0225, EV-0359, EV-0360]
 volatility: fast
 review: on-change-of:Gmail-sender-guidelines-requirements
 type: implementation

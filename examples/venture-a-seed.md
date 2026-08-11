@@ -43,7 +43,9 @@ with the mapping recorded. Live state transcribed, not rewritten:
 cadence dates from the S-0000 baseline, all ten questions verbatim.
 Three pre-EOS files needed front-matter normalisation, content
 untouched, recorded as `normalised` rows in the ancestry table.
-`eos_check.py --seed`: 0 errors, 0 warnings, first full run.
+The seed check ran green, 0 errors and 0 warnings, on its first full
+run. The v1 script that ran it has since been replaced by
+`python -m tools.eos check --seed`.
 
 ## The feedback loop, working
 
@@ -52,7 +54,10 @@ compile and were harvested the same day (D2): the constitution
 template's hardcoded amendment-history line became a slot, and the
 WG-WEB-001 ruling report was appended to the wargame. A reseed that
 changes the kernel before Genesis even runs is the compounding loop the
-EOS exists for.
+EOS exists for. Genesis there is v1's PB-001, the playbook Venture A's
+own organisation was about to run; it is history, at the
+archive/v1-final tag. `inception/GENESIS.md` defines what the word
+means now.
 
 ## What a reader should copy
 

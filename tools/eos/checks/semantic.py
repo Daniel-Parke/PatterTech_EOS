@@ -1,12 +1,16 @@
-"""Semantic checks S001-S017.
+"""Semantic checks S001-S007 and S009-S019.
 
-Severity: the S-series lands as ERRORS. The repository is clean under
-the series, so the P4 flip has happened: a new semantic defect is a
-build failure, not an item on a list nobody reads. ctx["strict_semantic"]
-still forces strict, and ctx["relax_semantic"] = True drops the series
-back to warnings for a caller that wants the work list rather than the
-gate. The CLI exposes the relaxed form as `--relax-semantic`, and
-`--strict-semantic` pins the strict form against a future relaxation.
+S008 asked that a fact declared canonical in one file was not restated
+in another. No file ever declared canonical_facts, so it had no
+subscribers and never fired once; it was withdrawn (ADR-0006 decision
+8). The id is not reused.
+
+Severity: the S-series lands as errors, so a new semantic defect is a
+build failure rather than an item on a list nobody reads.
+ctx["strict_semantic"] forces strict, and ctx["relax_semantic"] drops
+the series back to warnings for a caller who wants the work list rather
+than the gate. The CLI exposes those as `--strict-semantic` and
+`--relax-semantic`.
 
 Exemptions, applied uniformly unless a check says otherwise:
 
@@ -30,9 +34,9 @@ Exemptions, applied uniformly unless a check says otherwise:
 - template: true files document syntax (placeholder enums, slot
   values) and are exempt from value-level semantic checks.
 
-WG id references are checked by both E005 (the v1 parity port, which
-also covers fixtures) and S004 (the generalised scheme table), so an
-undefined WG reference reports twice by design until E005 retires.
+WG id references are checked by both E005, which also covers the frozen
+fixtures, and S004, which generalises to every id scheme, so an
+undefined WG reference in a live file reports twice.
 """
 
 from __future__ import annotations
@@ -63,7 +67,7 @@ V2_SCOPES = {"estate", "venture", "eos-internal"}
 
 DERIVED_GENERATED = {"INDEX.md",
                      "packs/GUIDE_INDEX.md", "packs/INDEX.md",
-                     "registry/CAPABILITIES.md",
+                     "registry/CAPABILITIES.md", "registry/LESSONS.md",
                      "org/TASKS.md", "org/STATE.md"}
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")
@@ -92,19 +96,22 @@ ESTATE_ROW_ALLOWED = {
 ESTATE_TOP_REQUIRED = ("version", "updated", "root", "repos")
 
 
-STRICT_DEFAULT = True
-
 # Verbatim material and out-of-tree material: see the module docstring.
 EXEMPT_PREFIXES = ("benchmark/", "archive/", "org/logs/")
 RESEARCH_SEGMENT = re.compile(r"^packs/[^/]+/research/")
 
 
 def _sev(ctx: dict) -> str:
-    if ctx.get("strict_semantic"):
-        return "error"
-    if ctx.get("relax_semantic"):
+    """Error, unless the caller asked for the work list not the gate.
+
+    strict_semantic wins over relax_semantic, which is the whole of what
+    it does now that error is the default: a command line that carries
+    both flags, because a script built it out of parts, resolves to the
+    gate rather than to the softer of the two.
+    """
+    if ctx.get("relax_semantic") and not ctx.get("strict_semantic"):
         return "warn"
-    return "error" if STRICT_DEFAULT else "warn"
+    return "error"
 
 
 def _f(ctx, check, path, msg):
@@ -122,16 +129,6 @@ def _semantic_scope(rec) -> bool:
     if rec.fm.data.get("template"):
         return False
     return True
-
-
-def _past_month(value: str, today: date) -> bool:
-    m = re.match(r"^(\d{4})-(\d{2})$", value.strip())
-    if not m:
-        return False
-    y, mo = int(m.group(1)), int(m.group(2))
-    if not 1 <= mo <= 12:
-        return False
-    return (y, mo) < (today.year, today.month)
 
 
 # --- S001 status and axis enums ----------------------------------------
@@ -453,6 +450,16 @@ FACTS_BLOCK = re.compile(r"```facts\n(.*?)```", re.S)
 
 @register("S007")
 def check_s007_machine_facts(ctx: dict) -> list:
+    """The recorded git facts against the repository they name.
+
+    There is deliberately no branch arm. A branch name in a committed
+    file is a fact that any merge invalidates: a view generated on a
+    feature branch records that name, and the merge to main makes it
+    wrong with no input having changed, so the check would go red on the
+    merge commit's own run. The generator stopped recording it for the
+    same reason. The commit and the tag both survive a merge, which is
+    why they are checked here and the branch is not.
+    """
     model: RepoModel = ctx["model"]
     out = []
     for rec in model.files:
@@ -468,11 +475,6 @@ def check_s007_machine_facts(ctx: dict) -> list:
             km = re.match(r"^([a-z_]+):\s*(.+)$", line.strip())
             if km:
                 facts[km.group(1)] = km.group(2).strip()
-        if "branch" in facts:
-            actual = gitfacts.current_branch(model.root)
-            if actual is not None and actual != facts["branch"]:
-                out.append(_f(ctx, "S007", rec.path,
-                              f"machine fact branch: {facts['branch']} but git says {actual}"))
         if "commit" in facts:
             # A derived view records the commit it was generated from,
             # and that commit is behind HEAD the moment the view is
@@ -498,79 +500,43 @@ def check_s007_machine_facts(ctx: dict) -> list:
     return out
 
 
-# --- S008 canonical-fact duplication -----------------------------------
-
-
-@register("S008")
-def check_s008_canonical_facts(ctx: dict) -> list:
-    """One writer per fact, for facts that opt in.
-
-    No live file declares canonical_facts today, so this check has no
-    subscribers and has never fired. That is recorded rather than hidden:
-    the check works, tested below, and it is opt-in by design because
-    exact-string ownership over teaching prose would flag every
-    deliberate restatement in TOUR.md and OPERATORS_GUIDE.md. Declare a
-    fact here when a phrase must live in exactly one place and going
-    stale in the second one would mislead.
-    """
-    model: RepoModel = ctx["model"]
-    owners = []
-    for rec in model.files:
-        if not _semantic_scope(rec):
-            continue
-        facts = rec.fm.data.get("canonical_facts")
-        if isinstance(facts, list):
-            owners.append((rec, [x for x in facts if len(x) >= 8]))
-    out = []
-    for owner, facts in owners:
-        for fact in facts:
-            for rec in model.files:
-                if rec.path == owner.path or not _semantic_scope(rec):
-                    continue
-                if rec.fm.data.get("derived"):
-                    continue
-                if fact in rec.text:
-                    out.append(_f(ctx, "S008", rec.path,
-                                  f"restates canonical fact owned by {owner.path}: {fact}"))
-    return out
-
-
 # --- S009 cadence overdue ----------------------------------------------
 
 
-def _table_rows(text: str) -> list:
-    rows = []
-    for line in text.splitlines():
-        if line.startswith("|"):
-            cells = [c.strip() for c in line.strip().strip("|").split("|")]
-            rows.append(cells)
-    return rows
+def _overdue(value: str, today: date) -> bool:
+    """True when a next_due value has actually passed.
 
-
-def _parse_due(value: str):
+    A month-only value names a window, not a deadline: a cadence due
+    2026-08 is due some time in August and is late in September. Read
+    as the first of the month it reports overdue from the second day
+    onward, which is a false late on every monthly row for most of its
+    month. E006 and F001 already read a bare month this way.
+    """
     m = re.match(r"^(\d{4})-(\d{2})(?:-(\d{2}))?$", value.strip())
     if not m:
-        return None
+        return False
+    year, month, day = int(m.group(1)), int(m.group(2)), m.group(3)
+    if day is None:
+        return (year, month) < (today.year, today.month)
     try:
-        return date(int(m.group(1)), int(m.group(2)), int(m.group(3) or 1))
+        return date(year, month, int(day)) < today
     except ValueError:
-        return None
+        return False
 
 
 @register("S009")
 def check_s009_cadence_overdue(ctx: dict) -> list:
+    """Overdue cadence rows, read from org/cadence.json.
+
+    The check used to read a Markdown table out of org/CADENCE.md as
+    well. That file was cut at release, because all it said was that
+    the JSON was next door, so the branch could never fire again. The
+    JSON is the canonical surface and its finding is the better one: it
+    names the procedure to run, which the table never carried.
+    """
     model: RepoModel = ctx["model"]
     today = ctx["today"]
     out = []
-    cadence = model.read("org/CADENCE.md")
-    if cadence:
-        for cells in _table_rows(cadence):
-            if len(cells) >= 5 and cells[0] not in ("Cadence", "---") \
-                    and not cells[0].startswith("-"):
-                due = _parse_due(cells[4])
-                if due and due < today:
-                    out.append(_f(ctx, "S009", "org/CADENCE.md",
-                                  f"cadence '{cells[0]}' overdue: next_due {cells[4]}"))
     machine = model.read("org/cadence.json")
     if machine:
         try:
@@ -578,8 +544,7 @@ def check_s009_cadence_overdue(ctx: dict) -> list:
         except ValueError:
             return out + [Finding("S009", "error", "org/cadence.json", "malformed JSON")]
         for row in rows if isinstance(rows, list) else []:
-            due = _parse_due(str(row.get("next_due", "")))
-            if due and due < today:
+            if _overdue(str(row.get("next_due", "")), today):
                 out.append(_f(ctx, "S009", "org/cadence.json",
                               f"cadence '{row.get('id', '?')}' overdue: "
                               f"next_due {row.get('next_due')}, "
@@ -676,6 +641,20 @@ def _load_estate(model: RepoModel):
 PIN_SHA = re.compile(r"@\s*([0-9a-f]{7,40})\b")
 
 
+def _table_rows(text: str) -> list:
+    """Markdown table rows as cell lists. S010's reader, and only its.
+
+    It sat beside S009 while that check still read a cadence table out
+    of org/CADENCE.md. The file is gone and so is the branch.
+    """
+    rows = []
+    for line in text.splitlines():
+        if line.startswith("|"):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            rows.append(cells)
+    return rows
+
+
 @register("S010")
 def check_s010_cross_registry(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
@@ -727,11 +706,17 @@ def check_s011_changelog_tags(ctx: dict) -> list:
     text = model.read("CHANGELOG.md")
     if text is None:
         return out
+    # The check needs git to answer at all: with no repository there are
+    # no tags, and every heading would be reported as missing one. It
+    # used to ask for a branch name, which meant the same thing until a
+    # detached HEAD began returning None, and that switched the check
+    # off on every pull-request run, where actions/checkout leaves the
+    # tree detached. A detached checkout still has the tags.
+    if gitfacts.rev_parse(model.root, "HEAD") is None:
+        return out
     versions = CHANGELOG_HEADING.findall(text)
     known = {name: sha for name, sha in gitfacts.tags(model.root).items()
              if SEMVER_TAG.match(name)}
-    if gitfacts.current_branch(model.root) is None:
-        return out
     for v in versions:
         if f"v{v}" not in known:
             out.append(_f(ctx, "S011", "CHANGELOG.md",
@@ -1056,4 +1041,204 @@ def check_s017_evidence_matches_its_schema(ctx: dict) -> list:
                       "states none. PACK_SHAPE item 11 wants a fact here."
                       % (len(unknown), ", ".join(unknown[:5]),
                          ", ..." if len(unknown) > 5 else "")))
+    return out
+
+
+# --- the lessons ledger: S018 conflicts, S019 schema --------------------
+
+LESSONS_PATH = "registry/lessons.json"
+LESSON_SCHEMA = "kernel/schemas/lesson.schema.json"
+
+# How a lesson row may record that it has settled a contradiction it
+# names. GOVERNANCE's five precedence rules decide which of the first
+# three applies; the fourth is Daniel ruling in the room, which is
+# authority rather than derivation and therefore has to say what he
+# ruled.
+CONFLICT_RESOLUTIONS = ("stricter-applies", "scoped-differently",
+                        "superseded", "operator-ruling")
+_RESOLUTION_LIST = ", ".join(CONFLICT_RESOLUTIONS)
+_LESSON_EV = re.compile(r"\bEV-\d{4}\b")
+
+
+def _lesson_rows(model: RepoModel):
+    """(rows, problem): the ledger's lesson rows, or why they are absent.
+
+    Absent is not a problem: registry/lessons.json is new in v2.1 and a
+    repository without one simply has no lessons to check.
+    """
+    raw = model.read(LESSONS_PATH)
+    if raw is None:
+        return [], None
+    try:
+        doc = json.loads(raw)
+    except ValueError as exc:
+        return [], "not valid JSON: %s" % exc
+    if isinstance(doc, list):
+        rows = doc
+    elif isinstance(doc, dict):
+        rows = doc.get("lessons") or doc.get("rows") or doc.get("records") or []
+    else:
+        return [], "the ledger is neither an object nor a list"
+    return [r for r in rows if isinstance(r, dict)], None
+
+
+def _conflict_entries(row: dict):
+    """(ref, resolution, note) per entry in the row's conflicts_with.
+
+    One shape is read, because one shape is what
+    kernel/schemas/lesson.schema.json permits: conflicts_with holds ref
+    strings, and conflict_resolutions maps a ref to an object carrying a
+    resolution and a note. This used to read two more shapes, an object
+    inside conflicts_with and a bare string resolution, and its docstring
+    said either satisfied the rule. Neither validates, so S018 was
+    accepting rows S019 rejects and the tests that proved otherwise ran
+    without the real schema installed.
+
+    Anything the schema does not permit yields no resolution here, which
+    reports as unresolved: the shape itself is S019's finding to make,
+    and this check does not restate it.
+    """
+    raw = row.get("conflicts_with")
+    entries = raw if isinstance(raw, list) else [raw] if raw else []
+    resolutions = row.get("conflict_resolutions")
+    resolutions = resolutions if isinstance(resolutions, dict) else {}
+    for entry in entries:
+        if not isinstance(entry, str):
+            yield "(not a ref string)", "", ""
+            continue
+        ref = entry.strip()
+        recorded = resolutions.get(ref)
+        if isinstance(recorded, dict):
+            yield (ref, str(recorded.get("resolution") or "").strip(),
+                   str(recorded.get("note") or "").strip())
+        else:
+            yield ref, "", ""
+
+
+@register("S018")
+def check_s018_lesson_conflicts(ctx: dict) -> list:
+    """A lesson naming a contradiction must say how it was settled.
+
+    ADR-0006 decision 2: the conflict pass runs before Daniel sees a
+    finding, and the resolution is recorded on the row it belongs to.
+    Without this check the contradiction is caught later, by whoever
+    next reads two rules that disagree, which is how a ledger of
+    decisions turns into a ledger of arguments nobody had.
+
+    So: every entry in a row's conflicts_with carries a resolution, one
+    of stricter-applies, scoped-differently, superseded or
+    operator-ruling, and every resolution carries a note saying what
+    settled it. The note rule is the schema's rule, not a stricter one
+    invented here: a resolution nobody can read cannot be reviewed, and
+    a row that says Daniel decided without saying what cannot be argued
+    with later.
+
+    What this does not do: it does not check that the thing a row
+    conflicts with exists. Conflicts are named against packs, guides,
+    policies and prior lessons, which live in four different id spaces,
+    and a reference check across all four is a different check from
+    this one.
+    """
+    model: RepoModel = ctx["model"]
+    rows, problem = _lesson_rows(model)
+    if problem:
+        return [_f(ctx, "S018", LESSONS_PATH, problem)]
+    out = []
+    for row in rows:
+        rid = row.get("id") or "(row with no id)"
+        for ref, resolution, note in _conflict_entries(row):
+            if not resolution:
+                out.append(_f(ctx, "S018", LESSONS_PATH,
+                              "%s: conflicts_with %s is unresolved; record it "
+                              "in conflict_resolutions as {resolution, note}, "
+                              "the resolution being one of %s"
+                              % (rid, ref, _RESOLUTION_LIST)))
+            elif resolution not in CONFLICT_RESOLUTIONS:
+                out.append(_f(ctx, "S018", LESSONS_PATH,
+                              "%s: unknown conflict resolution for %s: %s; "
+                              "expected one of %s"
+                              % (rid, ref, resolution, _RESOLUTION_LIST)))
+            elif not note:
+                out.append(_f(ctx, "S018", LESSONS_PATH,
+                              "%s: conflict with %s is resolved %s with "
+                              "nothing recorded; note the condition, the "
+                              "ruling or the successor that settles it"
+                              % (rid, ref, resolution)))
+    return out
+
+
+@register("S019")
+def check_s019_lessons_match_the_schema(ctx: dict) -> list:
+    """registry/lessons.json validates, and its ids resolve.
+
+    The same rule evidence.json gets from S017: a schema nobody
+    validates against is a comment. Three things are checked here.
+
+    The ledger matches kernel/schemas/lesson.schema.json. Ids are
+    unique, which the schema cannot express and which matters because
+    informs, conflicts_with and supersedes all address a row by id, so
+    a duplicate makes every link into it ambiguous. And every EV id a
+    row cites resolves in registry/evidence.json, because a study row
+    whose source is not in the ledger cannot be re-read.
+    """
+    model: RepoModel = ctx["model"]
+    rows, problem = _lesson_rows(model)
+    if problem:
+        return [_f(ctx, "S019", LESSONS_PATH, problem)]
+    raw = model.read(LESSONS_PATH)
+    if raw is None:
+        return []
+
+    out = []
+    schema_raw = model.read(LESSON_SCHEMA)
+    if schema_raw is None:
+        out.append(_f(ctx, "S019", LESSONS_PATH,
+                      "%s is missing, so the ledger was not validated "
+                      "against a schema on this run" % LESSON_SCHEMA))
+    else:
+        try:
+            import jsonschema
+        except ImportError:
+            out.append(_f(ctx, "S019", LESSONS_PATH,
+                          "jsonschema is not installed, so the ledger was not "
+                          "validated against its schema on this run"))
+        else:
+            schema = json.loads(schema_raw)
+            doc = json.loads(raw)
+            errors = sorted(
+                jsonschema.Draft202012Validator(schema).iter_errors(doc),
+                key=lambda e: list(e.path))
+            for err in errors[:10]:
+                where = "/".join(str(p) for p in err.path) or "(root)"
+                out.append(_f(ctx, "S019", LESSONS_PATH,
+                              "schema: %s: %s" % (where, err.message)))
+
+    seen = set()
+    for row in rows:
+        rid = row.get("id")
+        if not rid:
+            out.append(_f(ctx, "S019", LESSONS_PATH, "a row carries no id"))
+            continue
+        if rid in seen:
+            out.append(_f(ctx, "S019", LESSONS_PATH,
+                          "duplicate lesson id %s: every link into it is "
+                          "ambiguous" % rid))
+        seen.add(rid)
+
+    ledger_raw = model.read("registry/evidence.json")
+    known_ev = set()
+    if ledger_raw:
+        try:
+            known_ev = {r.get("id") for r
+                        in json.loads(ledger_raw).get("records", [])}
+        except (ValueError, AttributeError, TypeError):
+            known_ev = set()
+    if known_ev:
+        for row in rows:
+            rid = row.get("id") or "(row with no id)"
+            for ev in sorted(set(_LESSON_EV.findall(json.dumps(row)))):
+                if ev not in known_ev:
+                    out.append(_f(ctx, "S019", LESSONS_PATH,
+                                  "%s: cites %s, which is not in "
+                                  "registry/evidence.json" % (rid, ev)))
     return out

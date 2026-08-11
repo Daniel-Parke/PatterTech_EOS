@@ -30,7 +30,7 @@ venture repository.
 | retention.csv | One row per cohort age, observed and projected | C-04 |
 | definitions.md | Every metric named anywhere in the decision, with its formula | C-06 |
 | obligations.md | The legal, tax and payment duties this price creates | C-07, C-08 |
-| evidence.md | The evidence cited, by ledger or fragment id | C-09 |
+| evidence.md | The evidence cited, by EV id from `registry/evidence.json` | C-09 |
 
 A repricing script sits beside them and is executable, because the
 repricing trigger has to be runnable rather than remembered. See
@@ -55,7 +55,7 @@ Draft 2020-12. What it requires, in one table.
 | unit_of_charge | flat-period, per-seat, metered or outcome-share | Per GD-BMP-002 |
 | unit_cost_allocated | number at or above zero | The FinOps allocation, per D7 |
 | reporting_framework | IFRS, FRS102, FRS105 or ASC606 | Recognition rules differ, per B4 |
-| payment_terms | days from 1 to 60, and a basis | Per B3 |
+| payment_terms | days from 1 to 60, and a basis | Per D9 |
 | metrics | non-empty array of names | Each must appear in definitions.md |
 | lifetime_value | value and a method name | Per D4 |
 | trial | days and a test_plan, where a trial exists | Per D3 |

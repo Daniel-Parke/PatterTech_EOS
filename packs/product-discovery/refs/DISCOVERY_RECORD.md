@@ -11,8 +11,9 @@ review: 2028-07
 
 # The discovery record
 
-Level-three material behind binding requirements B1 to B8 in
-`packs/product-discovery/PACK.md`. One record per decision, named
+Level-three material behind requirements B1 to B8 in
+`packs/product-discovery/PACK.md`, of which B6 and B7 bind and the rest
+are defaults after the 2026-08 audit. One record per decision, named
 `discovery.md`, beside the work it decides. A record longer than two
 screens is usually a research note that forgot to reach a verdict.
 

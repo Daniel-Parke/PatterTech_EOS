@@ -18,6 +18,10 @@ Derived file. Edit guide front-matter, then run
 | GD-AGENT-002 | How does context reach an agent, and what happens when the window runs out? | agentic-development | default | on-change-of:anthropic-context-engineering-publication |
 | GD-AGENT-003 | Should this work be a subagent at all, and if so as a tool, a handoff or a peer worker? | agentic-development | default | on-change-of:agent-sdk-major-release |
 | GD-AGENT-004 | What holds the truth that checks an agent's work, and what do you do when nothing does? | agentic-development | default | on-change-of:anthropic-evals-publication |
+| GD-SWARM-001 | Should this work be fanned out over lanes at all, or given to one agent? | agentic-swarm | default | on-change-of:agent-harness-major-release |
+| GD-SWARM-002 | Where do the cuts go when work is split across lanes, and what is never cut at all? | agentic-swarm | default | on-change-of:agent-harness-major-release |
+| GD-SWARM-003 | Does a script hold the fan-out shape, or does a model decide it turn by turn? | agentic-swarm | default | on-change-of:agent-harness-major-release |
+| GD-SWARM-004 | What decides that a lane's work is good, and who is allowed to have written it? | agentic-swarm | default | on-change-of:agent-harness-major-release |
 | GD-AIML-001 | What evidence accepts or refuses a change to a model-backed feature, offline set, judge, human sample or production telemetry? | ai-ml-llm | default | 2026-11 |
 | GD-AIML-002 | Where does the model get the facts, retrieval, whole context, per-query routing or fine-tuning? | ai-ml-llm | default | on-change-of:EV-0245 |
 | GD-AIML-003 | Who grades model output, a deterministic scorer, a human, a validated model judge or the user, and what each can settle | ai-ml-llm | default | 2026-12 |
@@ -46,7 +50,7 @@ Derived file. Edit guide front-matter, then run
 | GD-BMP-002 | What the buyer is charged per, and what each unit costs in accounting, forecasting and support | business-model-pricing | default | 2028-01 |
 | GD-BMP-003 | How a buyer experiences the product before paying, and why the evidence gives a measurement rule rather than a trial length | business-model-pricing | default | on-change-of:multi-firm-trial-length-replication |
 | GD-BMP-004 | What opens a price change, what cause is announced with it, and who is protected from the change | business-model-pricing | default | 2028-06 |
-| GD-COD-001 | Where does the oracle for this change come from, test-first, characterisation, contract or downstream gate? | coding | default | 2027-05 |
+| GD-COD-001 | Where does the oracle for this change come from, specification, characterisation, contract or downstream gate? | coding | default | 2027-05 |
 | GD-COD-002 | Who reviews a change and how hard, from machine gate only to independent human review at every merge | coding | default | 2027-02 |
 | GD-COD-003 | How do callers learn a call failed, opaque errors, one sentinel, a declared taxonomy or typed results? | coding | default | on-change-of:EV-0175 |
 | GD-COD-004 | How do you change code nobody can specify, read carefully, pin behaviour, reconstruct a spec or rewrite behind a contract? | coding | default | 2027-10 |
@@ -58,7 +62,7 @@ Derived file. Edit guide front-matter, then run
 | GD-DATA-005 | How are product events named and validated, hosted SDK defaults, a written convention, a reviewed tracking plan, or a registry that quarantines invalid events? | data-analytics | default | 2028-02 |
 | WG-DEL-005 | Which double stands in for this port: real, container, verified fake, or mock? | delivery-testing | default | 2028-02 |
 | WG-DEL-006 | How independent must the oracle be from the code it judges, and who authors it? | delivery-testing | binding | 2028-03 |
-| WG-DEL-007 | When are tests written relative to the code, and is that a rule or a default? | delivery-testing | default | 2028-03 |
+| WG-DEL-007 | What has to exist before work fans out, and when checks get written relative to the code | delivery-testing | default | 2028-03 |
 | GD-DEVOPS-001 | Reversible migrations, expand-migrate-contract, online schema change, or a freeze window? | devops-reliability | default | 2027-09 |
 | GD-DEVOPS-002 | All at once, watched canary, analysis-gated rollout, or flag-decoupled release? | devops-reliability | default | 2027-12 |
 | GD-DEVOPS-003 | No budget, advisory budget, enforced budget policy, or calendar change freezes? | devops-reliability | default | 2028-03 |
@@ -73,6 +77,7 @@ Derived file. Edit guide front-matter, then run
 | GD-LEGAL-002 | How a venture decides licence questions at all, standing verdict against per-file declaration against certified process against scan and review | legal-licensing | default | on-change-of:https://www.apache.org/legal/resolved.html |
 | GD-LEGAL-003 | What licence a repository carries outbound, and which promise that makes to the people downstream | legal-licensing | default | on-change-of:https://blueoakcouncil.org/list |
 | GD-LEGAL-004 | How rights arrive with inbound code, sign-off against agreement against employment against nothing, and where agent authorship sits | legal-licensing | default | on-change-of:https://developercertificate.org/ |
+| GD-LEGAL-005 | What a study may lawfully carry away from a source we do not own, how deep the reading goes, and who may hold the source while the replacement is written | legal-licensing | default | 2027-04 |
 | GD-MKTG-001 | Which growth philosophy does this venture run? | marketing-growth | default | on-change-of:Reforge-and-IPA-primary-text-access |
 | GD-MKTG-002 | Where does a lawful marketing address come from, and what may be sent to it? | marketing-growth | binding | on-change-of:PECR-reg-22-amendment |
 | GD-MKTG-003 | How is a channel's effect measured, and what may be claimed from it? | marketing-growth | default | on-change-of:GA4-attribution-model-set |

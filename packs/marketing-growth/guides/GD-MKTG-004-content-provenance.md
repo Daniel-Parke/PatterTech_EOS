@@ -5,7 +5,7 @@ authority: default
 basis: decision
 evidence_grade: not-applicable
 scope: estate
-sources: [EV-0095]
+sources: [EV-0095, EV-0353, EV-0354, EV-0356]
 review: on-change-of:Google-spam-policies-revision
 type: guide
 tags: [content, seo, voice]

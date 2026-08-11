@@ -1,6 +1,6 @@
 {
   "id": "T-0007",
-  "intent": "PatterTech_Website carries no docs/EOS_FEEDBACK.md, so the first PB-E02 harvest could read nothing from a governed venture. It was seeded before the feedback template existed. Either compile the template into it at the next upgrade, or record in estate/repos.json that the venture is exempt and why. A governed venture with no channel back to the EOS is a hole in the harvest, not a quiet absence.",
+  "intent": "PatterTech_Website carries no docs/EOS_FEEDBACK.md, so the first PB-E02 harvest could read nothing from a governed venture. It was seeded before the feedback template existed. Either compile the template into it at the next upgrade, or record in estate/repos.json that the venture is exempt and why. A governed venture with no channel back to the EOS is a hole in the harvest, not a quiet absence. Closed: the absent feedback file is recorded as a fact in registry/PROJECTS.md, which is the recording half of the choice this record set out. The other half is now ruled out, because under ADR-0006 the EOS never writes into a venture repository.",
   "declared": {
     "capabilities": [],
     "side_effects": []
@@ -9,7 +9,7 @@
   "tier_proposed": "R1",
   "tier_ruled": "R0",
   "reasons": [],
-  "status": "proposed",
+  "status": "done",
   "owner_session": "unassigned",
   "claims": [
     "estate/",
@@ -17,7 +17,8 @@
   ],
   "timestamps": {
     "opened": "2026-08-08T12:00:00Z",
-    "updated": "2026-08-08T12:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "hypothesis_ledger": []
 }

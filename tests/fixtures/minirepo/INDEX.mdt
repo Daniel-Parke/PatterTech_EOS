@@ -19,6 +19,6 @@ file. Frozen trees are not indexed.
 | org/STATE.md | org | eos | Minirepo state file, the single line of session state |  |
 | packs/PACK_SHAPE.md | governance | eos | Minirepo pack contract, the shape a fixture pack has to hold |  |
 | packs/testmod/CHECKS.md | doctrine | eos | Evaluation criteria for the test pack | 2030-01 |
-| packs/testmod/guides/WG-TST-001-sample.md | wargame | eos wargame | Should the fixture repo carry a wargame at all | 2030-01 |
 | packs/testmod/PACK.md | doctrine | eos | Testmod doctrine, one plain principle for the test fixture | 2030-01 |
 | packs/testmod/README.md | doctrine | eos | Testmod module map, what the module holds and where to start | 2030-01 |
+| packs/testmod/guides/WG-TST-001-sample.md | wargame | eos wargame | Should the fixture repo carry a wargame at all | 2030-01 |

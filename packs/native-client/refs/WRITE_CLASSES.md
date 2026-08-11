@@ -2,7 +2,7 @@
 summary: Write classification, the four conflict policies, the reservation pattern and what the outbox must guarantee
 kind: fact
 scope: estate
-sources: [EV-0206]
+sources: [EV-0206, EV-0379, EV-0381, EV-0383]
 volatility: slow
 review: 2028-08
 type: pattern
@@ -11,8 +11,10 @@ tags: [state, data, delivery]
 
 # Write classes and conflict policies
 
-Reference for PACK.md B1, B2 and B3, and for GD-NAT-002. Nothing here
-is a library recommendation.
+Reference for PACK.md B1, B2 and B3, and for GD-NAT-002. Those three
+are defaults since the ADR-0008 audit, so a venture may depart from any
+of them with a written reason; nothing below changes as a result.
+Nothing here is a library recommendation.
 
 ## Classify first
 

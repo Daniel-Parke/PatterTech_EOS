@@ -1,9 +1,15 @@
 """Read-only git facts via subprocess. Never writes, never mutates.
 
-Every helper degrades to a harmless default (None, empty dict or empty
-list) when git is unavailable, the directory is not a repository, or
-the ref does not exist, so checks can carry on and report what they
+Every fact helper degrades to a harmless default (None, empty dict or
+empty list) when git is unavailable, the directory is not a repository,
+or the ref does not exist, so checks can carry on and report what they
 could not verify rather than crashing.
+
+output() is the one exception and is deliberate. The router and the
+context packet both read a diff against a base ref the caller named,
+and a ref that does not resolve must stop the command: degraded to an
+empty result it reads as a diff with nothing in it, which routes a
+clean R0 and reports a change surface of nothing changed.
 """
 
 from __future__ import annotations
@@ -14,16 +20,21 @@ from pathlib import Path
 _TIMEOUT = 20
 
 
+def _run(root, args):
+    """One invocation, so the timeout is set once for both readings."""
+    return subprocess.run(
+        ["git", "-C", str(Path(root)), *args],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=_TIMEOUT,
+    )
+
+
 def _git(root, *args: str) -> str | None:
     try:
-        proc = subprocess.run(
-            ["git", "-C", str(Path(root)), *args],
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=_TIMEOUT,
-        )
+        proc = _run(root, args)
     except (OSError, subprocess.TimeoutExpired):
         return None
     if proc.returncode != 0:
@@ -31,38 +42,40 @@ def _git(root, *args: str) -> str | None:
     return proc.stdout
 
 
-def current_branch(root) -> str | None:
-    out = _git(root, "rev-parse", "--abbrev-ref", "HEAD")
-    return out.strip() if out else None
+def output(root, *args: str) -> str:
+    """Run git and return stdout, raising RuntimeError when it fails.
 
-
-def branch_heads(root) -> dict:
-    """Local branch name -> commit sha. for-each-ref lists no symbolic refs."""
-    out = _git(
-        root, "for-each-ref", "refs/heads",
-        "--format=%(refname:short)%00%(objectname)",
-    )
-    heads: dict = {}
-    for line in (out or "").splitlines():
-        if "\x00" in line:
-            name, sha = line.split("\x00", 1)
-            heads[name] = sha
-    return heads
+    The strict counterpart to the degrading helpers, for the callers
+    named in the module docstring.
+    """
+    proc = _run(root, args)
+    if proc.returncode != 0:
+        raise RuntimeError("git %s failed: %s"
+                           % (" ".join(args), proc.stderr.strip()))
+    return proc.stdout
 
 
 def remote_tracking_heads(root) -> dict:
-    """Locally known remote-tracking heads (refs/remotes), no network."""
+    """Locally known remote-tracking heads (refs/remotes), no network.
+
+    The remote's symbolic HEAD is skipped. It is filtered on the full
+    refname, because %(refname:short) renders refs/remotes/origin/HEAD
+    as plain "origin", so a filter on the short name never matches it
+    and the pointer lands in the dict as a remote with no branch.
+    """
     out = _git(
         root, "for-each-ref", "refs/remotes",
-        "--format=%(refname:short)%00%(objectname)",
+        "--format=%(refname)%00%(refname:short)%00%(objectname)",
     )
     heads: dict = {}
     for line in (out or "").splitlines():
-        if "\x00" in line:
-            name, sha = line.split("\x00", 1)
-            if name.endswith("/HEAD"):
-                continue
-            heads[name] = sha
+        parts = line.split("\x00")
+        if len(parts) != 3:
+            continue
+        full, name, sha = parts
+        if full.endswith("/HEAD"):
+            continue
+        heads[name] = sha
     return heads
 
 
@@ -142,33 +155,3 @@ def commit_count(root, range_spec: str) -> int | None:
         return int(out.strip())
     except ValueError:
         return None
-
-
-def _merge_base(root, base: str) -> str | None:
-    out = _git(root, "merge-base", base, "HEAD")
-    return out.strip() if out else None
-
-
-def changed_files(root, base: str) -> list:
-    """Paths changed between merge-base(base, HEAD) and the working tree."""
-    start = _merge_base(root, base) or base
-    out = _git(root, "diff", "--name-only", start, "--")
-    return [line for line in (out or "").splitlines() if line]
-
-
-def numstat(root, base: str) -> list:
-    """(added, deleted, path) rows for the same range as changed_files.
-
-    Binary files carry None for the counts.
-    """
-    start = _merge_base(root, base) or base
-    out = _git(root, "diff", "--numstat", start, "--")
-    rows: list = []
-    for line in (out or "").splitlines():
-        bits = line.split("\t")
-        if len(bits) != 3:
-            continue
-        add = None if bits[0] == "-" else int(bits[0])
-        rem = None if bits[1] == "-" else int(bits[1])
-        rows.append((add, rem, bits[2]))
-    return rows

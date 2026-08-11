@@ -21,8 +21,9 @@ data activate no factor.
 from __future__ import annotations
 
 import re
-import subprocess
 from pathlib import Path
+
+from .gitfacts import output as _git
 
 TIERS = ("R0", "R1", "R2", "R3")
 _TIER_RANK = {t: i for i, t in enumerate(TIERS)}
@@ -41,18 +42,32 @@ DECLARABLE = {
 
 # The 13-row factor table, mirroring kernel/POLICY_SPEC.md (the law).
 # sources are declared side-effect names, derived detector ids, or path
-# classes (paths:protected, paths:sensitive).
+# classes (paths:protected, paths:sensitive). Every name in DECLARABLE
+# appears as a source of some row: a side effect an owner can declare
+# that reaches no factor is a question the record asks and then ignores.
+# Every other source is either a detector id from DETECTOR_IDS below or
+# a name in RESERVED_SOURCES, which says plainly which sources nothing
+# detects. tests/test_router.py holds all three as assertions.
 FACTOR_TABLE = [
     {"id": "protected-set-contact", "tier_floor": "R3", "denies_express": False,
      "sources": ["paths:protected"]},
+    # rollback-cost is declarable and reached no factor until v2.1, so
+    # declaring it changed nothing and the record read as a clean R0.
+    # It belongs here: a change whose rollback cost the owner has to
+    # declare is a change that is hard to undo, which is what this
+    # factor is. ADR-0006 authorises the wiring.
     {"id": "irreversible-action", "tier_floor": "R3", "denies_express": False,
-     "sources": ["irreversible-action", "no-rollback"]},
+     "sources": ["irreversible-action", "rollback-cost", "no-rollback"]},
     {"id": "destructive-migration", "tier_floor": "R3", "denies_express": False,
      "sources": ["ddl-drop", "destructive-dml"]},
     {"id": "key-material", "tier_floor": "R3", "denies_express": False,
      "sources": ["secret-pattern"]},
+    # writes-production-data was the other declarable side effect that
+    # reached no factor. org/policy.json already listed it as a source
+    # of this factor and the table here did not, so the policy and the
+    # code disagreed and the code won silently.
     {"id": "data-deletion", "tier_floor": "R3", "denies_express": False,
-     "sources": ["data-deletion"]},
+     "sources": ["writes-production-data", "data-deletion"]},
     {"id": "auth-surface", "tier_floor": "R2", "denies_express": False,
      "sources": ["touches-auth", "paths:auth"]},
     {"id": "money", "tier_floor": "R2", "denies_express": False,
@@ -75,6 +90,70 @@ FACTOR_TABLE = [
     {"id": "size-threshold", "tier_floor": "R1", "denies_express": True,
      "sources": ["diff-size"]},
 ]
+
+# Every derived signal id this module can set. derive_signals sets all
+# of them except diff-size, which route computes against the express
+# limits. Kept beside the table so the wiring can be read in both
+# directions, because it has been wrong in both.
+DETECTOR_IDS = frozenset({
+    "ci-config",
+    "data-deletion",
+    "ddl-change",
+    "ddl-drop",
+    "dependency-manifest-delta",
+    "destructive-dml",
+    "diff-size",
+    "install-script",
+    "migration-path",
+    "paths:auth",
+    "paths:payment",
+    "paths:protected",
+    "paths:sensitive",
+    "pii-fields",
+    "public-api-delta",
+    "secret-pattern",
+})
+
+# Sources the table cites that no detector produces. They stay in the
+# table because kernel/POLICY_SPEC.md's row for each factor names the
+# same source and this table mirrors that law, and they are named here
+# because a source list otherwise reads as a promise that the router
+# detects them. It does not, and a reader would take the table for a
+# control that exists. Striking them instead is a spec change, which is
+# an ADR and not a code edit.
+RESERVED_SOURCES = {
+    "no-rollback": (
+        "Nothing in a diff says a change cannot be undone. That reading "
+        "is the owner's, and it arrives declared, as irreversible-action "
+        "or rollback-cost."),
+    "egress": (
+        "The router does not read source text for outbound calls; every "
+        "http string in a repository would activate it. sends-external "
+        "is the declared route in, and kernel/GUARD_SPEC.md rules the "
+        "act itself at run time, where a real call can be seen."),
+    "infra-state": (
+        "The ci-config detector already matches the stateful "
+        "infrastructure files this names, terraform, ansible and "
+        "compose among them, so a second detector would count the same "
+        "file twice under two names."),
+}
+
+# Detectors that reach no factor. They go on the record as evidence and
+# change no ruling, which is a choice per id rather than an oversight.
+DIAGNOSTIC_SIGNALS = {
+    "dependency-manifest-delta": (
+        "A manifest moving is not a risk factor. What raises the floor "
+        "is a manifest that gains an install hook, which install-script "
+        "detects and ci-stateful-infra consumes. The id stays on the "
+        "record so a reviewer can see which manifests moved."),
+    "paths:sensitive": (
+        "The sensitive list is a reading aid, not a factor source here. "
+        "The venture policy hangs auth-surface and money off it; this "
+        "table activates those from paths:auth and paths:payment, which "
+        "name what they matched. Flooring every kernel edit at R2 with "
+        "an auth-surface reason would put a false reason on the "
+        "ruling."),
+}
 
 DEFAULT_EXPRESS = {"max_diff_lines": 200, "max_files": 10}
 
@@ -104,16 +183,6 @@ _DML_DESTRUCTIVE_RE = re.compile(r"(?i)\b(?:DELETE\s+FROM|UPDATE\s+\w+\s+SET)\b"
 _DROP_DATABASE_RE = re.compile(r"(?i)\bDROP\s+DATABASE\b")
 _INSTALL_SCRIPT_RE = re.compile(r'"(?:preinstall|postinstall|install|prepare|prepublish)"\s*:')
 _PII_RE = re.compile(r"(?i)\b(?:ssn|social_security|national_insurance|date_of_birth|passport_number)\b")
-
-
-def _git(root, *args):
-    proc = subprocess.run(
-        ["git", "-C", str(root), *args],
-        capture_output=True, text=True, encoding="utf-8", errors="replace",
-    )
-    if proc.returncode != 0:
-        raise RuntimeError("git %s failed: %s" % (" ".join(args), proc.stderr.strip()))
-    return proc.stdout
 
 
 def _is_sqlish(path):
@@ -180,8 +249,8 @@ def derive_signals(root, base_ref, declared, *, policy=None):
                 changed_paths.append(old)
 
     diff_text = _git(root, "diff", base_ref)
-    added_lines = [l[1:] for l in diff_text.splitlines()
-                   if l.startswith("+") and not l.startswith("+++")]
+    added_lines = [line[1:] for line in diff_text.splitlines()
+                   if line.startswith("+") and not line.startswith("+++")]
     added_text = "\n".join(added_lines)
 
     path_patterns = (policy.get("risk", {}) or {}).get("path_patterns", {})

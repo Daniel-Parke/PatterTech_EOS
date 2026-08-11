@@ -10,7 +10,7 @@ applies_when: [adopts_pattertech_house]
 activation_paths: [**/*.css, **/*.scss, **/tokens/**, **/theme/**, **/tailwind.config.*, **/design-system/**]
 volatility: slow
 review: on-change-of:WCAG-2.2
-sources: [EV-0027, EV-0030, EV-0065, EV-0232, EV-0234, EV-0236, EV-0239]
+sources: [EV-0027, EV-0030, EV-0065, EV-0232, EV-0234, EV-0236, EV-0239, EV-0389, EV-0390, EV-0391, EV-0392, EV-0393, EV-0394, EV-0395, EV-0396, EV-0397, EV-0398, EV-0399, EV-0400, EV-0402]
 type: guide
 tags: [web, brand, colour, motion, layout, typography]
 ---
@@ -53,7 +53,9 @@ number. Keywords never override the adoption gate.
 | has_dark_register | the ground is dark under GD-HOUSE-003 |
 
 **Authority.** Everything here is `authority: preference` under
-`kernel/METADATA_SPEC.md`, because a brand scope caps it there. There is
+`kernel/METADATA_SPEC.md`, because a brand scope caps it there. The
+authority audit under ADR-0008 found nothing in this pack to demote,
+for that reason: no line in it was ever binding. There is
 no deviation machinery: no waiver, no ADR, no recorded exception. A
 venture departs by writing the departure in its lock-book and moving on.
 Activation gives advice and never permission, and no line here lowers a
@@ -89,7 +91,9 @@ taste.
 **Evidence pointer.** EV ids resolve in `registry/evidence.json`. The
 fourteen house sources are frozen with version, licence, access date and
 review trigger in `packs/pattertech-house/research/sources.fragment.json`
-and were imported as `EV-0389` to `EV-0402`. This pack cites the EV ids.
+and were imported as `EV-0389` to `EV-0402`. The synthesis behind the
+pack is in `packs/pattertech-house/research/NOTES.md`. This pack cites
+the EV ids.
 
 **H1. The container comes from the content, not from the layout.**
 `adopts_pattertech_house`. Parallel facts take a ledger, numbers take a
@@ -235,7 +239,11 @@ Taste, ours, and not portable. Depart without asking.
 | Which container does this content take | Ledger, plaque, panel, table or prose | `packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md` |
 | Which polarity register does the surface take | Dark, light, dual or mixed, and what each costs | `packs/pattertech-house/guides/GD-HOUSE-003-polarity-register.md` |
 | How austere is this figure | Whether a figure may carry a distinguishing device | `packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md` |
-| Should the surface answer presence | Inert, hover-only or field-reactive | WG-WEB-011, carried unchanged |
+
+Whether a surface answers presence is not a fork with a guide behind
+it. The default above settles it: one delegated pointer listener, fine
+pointers only, components opting in. A venture that wants an inert
+surface writes that line in its lock-book.
 
 Level-three detail: every number in
 `packs/pattertech-house/refs/BUDGETS.md`, the container and furniture

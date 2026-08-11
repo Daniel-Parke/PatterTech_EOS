@@ -77,7 +77,7 @@ classes, nobody giving up.
 ## Decision rule
 
 Always run C and D. They cost nothing beyond the triage record that
-PACK.md B1 already requires, and D is the only number here that warns
+PACK.md B1 asks for, and D is the only number here that warns
 before customers do. Add B when there is a self-service layer or more
 than one channel, because that is where effort is manufactured. Add A
 only if someone will act on the trend, and then report it with its
@@ -93,9 +93,11 @@ here for the same reason.
 
 C and D from the first paying customer. Durations at percentiles or as
 raw counts only: no key, heading or target names an average or a mean
-of a duration, which is PACK.md B5 and is a hard stop rather than a
-style note (EV-0211). B once a help centre exists. A is optional and
-carries its scope statement wherever it is shown.
+of a duration, which is PACK.md B5. B5 is a default since the 2026-08
+audit, so it is departed from in writing rather than in passing, and
+the measurement behind it has not moved (EV-0211). B once a help
+centre exists. A is optional and carries its scope statement wherever
+it is shown.
 
 ## Worked rulings
 

@@ -35,37 +35,40 @@ when a trigger changes.
 
 ## Options
 
-### S. Nine files, no org
+### S. Fourteen files, no org
 Routers, operators guide, brief, lock-book, feedback, compile report,
-policy and task list (kernel/SCALE_MATRIX.md is exact). One human, one
-task surface, no charters, no integrator tooling. Costs nothing to
-run; offers no separation of duties and no compliance machinery.
+policy and task list, plus the five blank Genesis forms. Seven of the
+fourteen are operating surface; kernel/SCALE_MATRIX.md holds the list
+and the accounting. One human, one task surface, no charters, no
+integrator tooling. Costs nothing to run; offers no separation of
+duties and no compliance machinery.
 
 ### ORG. The full shape
-Adds the constitution, the boot file, the testing law, the artefact
-shapes, the questions file, the playbooks, the three situational
-charters (EXECUTOR, ORACLE, REVIEWER), the cadence file and the claims
-file. Work becomes task records with derived views; separation of
-duties exists where the router asks for it. Verification bandwidth
-becomes the limiting resource.
+Twenty-five files. Adds the constitution, the boot file, the testing
+law, the artefact shapes, the questions file, the playbooks, the
+wide-build file, the three situational charters (EXECUTOR, ORACLE,
+REVIEWER), the cadence file and the claims file. Work becomes task
+records with derived views; separation of duties exists where the
+router asks for it. Verification bandwidth becomes the limiting
+resource.
 
-## The v2 narrowing
+## Why two options and not four
 
-v1 offered S, M and L. ADR-0002 merges M and L into a single ORG scale,
-so the fork is now two-way and an existing M or L venture reads as ORG
-at its next recompile. The trigger set and the decision rule below are
-unchanged; only the destination of the heavier answers moved.
+v1 offered S, M and L. The live matrix, kernel/SCALE_MATRIX.md, carries
+S and ORG only, so the fork is two-way and an existing M or L venture
+reads as ORG at its next recompile. The trigger set and the decision
+rule below are unchanged; only the destination of the heavier answers
+moved. That is why two of the worked rulings still say L and M.
 
 ## Decision rule
 
-All six triggers silent: S. Any of server state, auth, standing ops,
-money under contract, personal or regulated data as working material,
-a second human holding decisions, or a multi-surface estate with
-deploys: ORG. Lifespan never forces a scale by itself: a long-lived
-venture with no other trigger stays S with its rescale conditions
-written in; what lifespan does is make the rescale conditions
-mandatory, because a venture that lives will eventually trip one.
-Trigger add-ons attach regardless of scale (a compliance file the
+All six triggers silent: S. Any one of server state or auth, money,
+personal or regulated data, standing ops, or a second human holding
+decisions: ORG. Lifespan is the sixth and never forces a scale by
+itself: a long-lived venture with no other trigger stays S with its
+rescale conditions written in. What lifespan does is make those rescale
+conditions mandatory, because a venture that lives will eventually trip
+one. Trigger add-ons attach regardless of scale (a compliance file the
 moment regulated data appears; see the matrix). Torn between the two,
 take S and write the rescale condition into the lock-book; rescale is
 cheap and deliberate, over-ceremony is a standing tax.

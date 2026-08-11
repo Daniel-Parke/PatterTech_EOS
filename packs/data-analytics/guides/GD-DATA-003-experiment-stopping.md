@@ -7,7 +7,7 @@ scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-sources: [EV-0059]
+sources: [EV-0059, EV-0312, EV-0313, EV-0315, EV-0316, EV-0317]
 review: 2028-01
 ---
 
@@ -38,21 +38,20 @@ the stopping point, do not look until it lands. Buys: the most power per
 unit of traffic, and a decision rule nobody can argue with afterwards.
 Costs: it is only valid if nobody looks. Monitoring a fixed-horizon test
 continuously can push the false positive rate far above its nominal five
-per cent (`EV-0313`), so the method depends on operator
-discipline that most teams do not have.
+per cent (EV-0313), so the method depends on operator discipline that
+most teams do not have.
 
 ### B. Always valid, monitor freely
 
 Treat peeking as a property of the stopping rule rather than of the
 operator, and use a statistic whose p-values and intervals stay valid at
-every moment (`EV-0312`). Group sequential tests and
-multiple-comparison correction ship in a maintained Apache-2.0 library
-(`EV-0317`). Buys: continuous monitoring becomes a
-supported operation instead of a violation, and early stopping for harm
-is legitimate. Costs: validity at all times is bought with power, so for
-a fixed effect size it needs more samples than a fixed-horizon test that
-is genuinely left alone. Nobody has measured that penalty at venture
-sample sizes.
+every moment (EV-0312). Group sequential tests and multiple-comparison
+correction ship in a maintained Apache-2.0 library (EV-0317). Buys:
+continuous monitoring becomes a supported operation instead of a
+violation, and early stopping for harm is legitimate. Costs: validity at
+all times is bought with power, so for a fixed effect size it needs more
+samples than a fixed-horizon test that is genuinely left alone. Nobody
+has measured that penalty at venture sample sizes.
 
 ### C. Asymmetric gating
 
@@ -83,8 +82,8 @@ for one.
 - Stable units observed before the test, and a metric their pre-period
   behaviour predicts: add variance reduction and re-power. It bought
   roughly half the variance at Bing, which is the same power at half the
-  users (`EV-0315`). It does nothing for first-session
-  funnels or anonymous traffic.
+  users (EV-0315). It does nothing for first-session funnels or
+  anonymous traffic.
 
 ## Default
 
@@ -100,9 +99,9 @@ it is a written decision, not a mid-test rescue.
   read, and a failed check voids the result outright (B5). The causes
   sort into assignment, execution, log processing, telemetry and
   interference, which is a search order rather than just a red light
-  (`EV-0316`).
+  (EV-0316).
 - A surprisingly large effect is evidence of a bug before it is evidence
-  of a win (`EV-0313`).
+  of a win (EV-0313).
 
 ## The standoff, stated plainly
 
@@ -124,8 +123,7 @@ a computed input.
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: A as the
   default with D as the honest venture answer, and B4 and B5 binding
-  regardless. Argued from `EV-0313` and
-  `EV-0316`.
+  regardless. Argued from EV-0313 and EV-0316.
 - **Checkout variant test (2026-08, argued)**: assumed A, and the answer
   refused. The assignment ratio failed the sample ratio check, so no
   stopping rule applied and no winner was declared. See

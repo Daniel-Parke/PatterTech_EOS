@@ -1,0 +1,263 @@
+{
+  "pack": "ui-ux",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "T-0024",
+  "swept": "2026-08-10",
+  "method": "Every EV id cited anywhere in packs/ui-ux/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 2,
+    "note": "No quoted span of six words or more anywhere in the read surface. WCAG criteria are cited by number rather than reproduced, APG patterns are named rather than transcribed, and no design system's token values or component source are carried."
+  },
+  "counts": {
+    "sources_cited": 27,
+    "rows_carrying_licence_evidence": 0,
+    "by_licence_state": {
+      "verified": 0,
+      "stated-unverified": 19,
+      "no-reuse-licence": 5,
+      "unknown": 3,
+      "not-stated": 0
+    },
+    "residual_unknown_or_not_stated": 3
+  },
+  "sources": [
+    {
+      "id": "EV-0027",
+      "source": "WCAG 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "licence": "W3C Document Licence",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0028",
+      "source": "WAI-ARIA Authoring Practices Guide (repo)",
+      "url": "https://github.com/w3c/aria-practices",
+      "licence": "W3C licence (LICENSE.md present; exact variant not shown on landing page)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0029",
+      "source": "WAI-ARIA APG introduction",
+      "url": "https://www.w3.org/WAI/ARIA/apg/about/introduction/",
+      "licence": "W3C Document Licence",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0030",
+      "source": "Design Tokens Community Group format module",
+      "url": "https://github.com/design-tokens/community-group",
+      "licence": "W3C Community Group licence (LICENSE.md present; variant not shown)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0062",
+      "source": "GOV.UK Design System",
+      "url": "https://github.com/alphagov/govuk-design-system",
+      "licence": "MIT (code); docs under Open Government Licence 3.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0063",
+      "source": "govuk-frontend",
+      "url": "https://github.com/alphagov/govuk-frontend",
+      "licence": "MIT (code); docs Crown copyright / OGL 3.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0064",
+      "source": "U.S. Web Design System",
+      "url": "https://github.com/uswds/uswds",
+      "licence": "CC0 1.0 (public domain) for most code; some parts carry attribution requirements per LICENSE.md",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0065",
+      "source": "Style Dictionary",
+      "url": "https://github.com/style-dictionary/style-dictionary",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0066",
+      "source": "Radix Primitives",
+      "url": "https://github.com/radix-ui/primitives",
+      "licence": "MIT (WorkOS)",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0067",
+      "source": "shadcn/ui",
+      "url": "https://github.com/shadcn-ui/ui",
+      "licence": "MIT",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0103",
+      "source": "GOV.UK community backlog and component criteria",
+      "url": "https://design-system.service.gov.uk/community/upcoming-components-patterns/",
+      "licence": "Open Government Licence 3.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0104",
+      "source": "Storybook testing docs",
+      "url": "https://storybook.js.org/docs/writing-tests",
+      "licence": "MIT (Storybook); docs licence unknown",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0227",
+      "source": "IBM Carbon Design System (monorepo)",
+      "url": "https://github.com/carbon-design-system/carbon",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0228",
+      "source": "Microsoft Fluent UI (web repo)",
+      "url": "https://github.com/microsoft/fluentui",
+      "licence": "MIT for repository code; fonts and icons under a separate assets licence agreement",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0229",
+      "source": "Fluent 2 design language site",
+      "url": "https://fluent2.microsoft.design/",
+      "licence": "Proprietary, Microsoft terms of use; no open licence offered for the guidance",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0230",
+      "source": "Apple Human Interface Guidelines",
+      "url": "https://developer.apple.com/design/human-interface-guidelines",
+      "licence": "Proprietary, Apple copyright; freely readable, not reusable",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0231",
+      "source": "Material Web components",
+      "url": "https://github.com/material-components/material-web",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0232",
+      "source": "Expressive Material Design, Google research write-up",
+      "url": "https://design.google/library/expressive-material-design-google-research",
+      "licence": "Proprietary, Google copyright; no reuse licence stated",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0233",
+      "source": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design",
+      "url": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+      "licence": "Copyright Jakob Nielsen; reuse of the heuristics permitted with credit and a link to the page",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0234",
+      "source": "Nielsen Norman Group, Flat Design: Its Origins, Its Problems",
+      "url": "https://www.nngroup.com/articles/flat-design/",
+      "licence": "Copyright 1998-2026 Nielsen Norman Group, all rights reserved",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0235",
+      "source": "WebAIM Million 2026",
+      "url": "https://webaim.org/projects/million/",
+      "licence": "Copyright 2026 WebAIM, Utah State University; no reuse licence stated",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0236",
+      "source": "axe-core",
+      "url": "https://github.com/dequelabs/axe-core",
+      "licence": "MPL-2.0 for axe-core; bundled dependencies under their own terms",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0237",
+      "source": "Overlay Fact Sheet",
+      "url": "https://overlayfactsheet.com/en/",
+      "licence": "unknown (no licence or copyright notice shown)",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0238",
+      "source": "Shopify Polaris React",
+      "url": "https://github.com/Shopify/polaris",
+      "licence": "Custom MIT-based licence limited to applications that integrate with Shopify software or services; icons and images under the Polaris Design Guidelines licence",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0239",
+      "source": "Guardian csnx monorepo, home of the Source design system",
+      "url": "https://github.com/guardian/csnx",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0240",
+      "source": "Grafana dashboard best practices",
+      "url": "https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/",
+      "licence": "unknown (no licence or copyright statement on the page)",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "EV-0241",
+      "source": "web.dev, how Core Web Vitals affect business metrics",
+      "url": "https://web.dev/case-studies/vitals-business-impact",
+      "licence": "Content CC-BY-4.0; code samples Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    }
+  ],
+  "residual": [
+    {
+      "id": "EV-0104",
+      "source": "Storybook testing docs",
+      "licence": "MIT (Storybook); docs licence unknown",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0237",
+      "source": "Overlay Fact Sheet",
+      "licence": "unknown (no licence or copyright notice shown)",
+      "state": "unknown"
+    },
+    {
+      "id": "EV-0240",
+      "source": "Grafana dashboard best practices",
+      "licence": "unknown (no licence or copyright statement on the page)",
+      "state": "unknown"
+    }
+  ]
+}

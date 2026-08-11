@@ -1,0 +1,99 @@
+{
+ "pack": "native-client",
+ "checked": "2026-08-10",
+ "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "ev_ids_checked": [
+  "EV-0026",
+  "EV-0027",
+  "EV-0104",
+  "EV-0171",
+  "EV-0204",
+  "EV-0206",
+  "EV-0230",
+  "EV-0235",
+  "EV-0236",
+  "EV-0370",
+  "EV-0371",
+  "EV-0372",
+  "EV-0373",
+  "EV-0374",
+  "EV-0375",
+  "EV-0376",
+  "EV-0377",
+  "EV-0378",
+  "EV-0379",
+  "EV-0380",
+  "EV-0381",
+  "EV-0382",
+  "EV-0383",
+  "EV-0384",
+  "EV-0385",
+  "EV-0386",
+  "EV-0387",
+  "EV-0388"
+ ],
+ "licence_unknown": [
+  {
+   "ev": "EV-0104",
+   "licence_recorded": "MIT (Storybook); docs licence unknown",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D6, the contested web accessibility catch rate"
+  },
+  {
+   "ev": "EV-0377",
+   "licence_recorded": "unknown; no licence stated on the page",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "B5, the technical boundary of a remote update channel"
+  },
+  {
+   "ev": "EV-0378",
+   "licence_recorded": "unknown; no explicit licence notice on the essay page, ACM proceedings version under ACM terms",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "the open question naming local-first as advocacy"
+  },
+  {
+   "ev": "EV-0383",
+   "licence_recorded": "unknown; no licence stated on the page",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "B1 and B3, the outbox and the blocked state"
+  },
+  {
+   "ev": "EV-0386",
+   "licence_recorded": "Apache-2.0 for the Kotlin project; documentation reuse terms not stated on the page",
+   "state": "unconfirmed",
+   "inspected": false,
+   "licence_checked": null,
+   "cited_for": "D1, shared logic with a native interface"
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/native-client/refs/A11Y_NON_WEB.md",
+   "line": 25,
+   "concern": "This file is the pack's longest treatment of EV-0370, which is under the W3C Document Licence and recorded paraphrase-only with no verbatim reuse, and of EV-0371, which is ETSI copyright with redistribution restricted and no open reuse licence.",
+   "resolution": "Not a concern. Clause numbers, the unit of conformance and the requirement identities are facts a reader has to be able to look up. No sentence of either document appears. If any file in this pack needs a second read, it is this one."
+  },
+  {
+   "file": "packs/native-client/refs/RELEASE_MECHANICS.md",
+   "line": 94,
+   "concern": "The rejection statistic comes from EV-0373, which is Apple copyright with no reuse licence stated.",
+   "resolution": "Not a concern. A published figure from a vendor census is a fact, and the reference already carries the scope note that it is self-reported."
+  },
+  {
+   "file": "packs/native-client/PACK.md",
+   "line": 329,
+   "concern": "Two Apple primary sources resisted plain fetch and the pack rests partly on secondary write-ups of them.",
+   "resolution": "Open, and already disclosed in the pack's open questions. This is a verification gap rather than a quotation one: nothing from EV-0230 or EV-0388 may be quoted without re-reading the primary."
+  }
+ ],
+ "notes": "Five of twenty-eight cited rows carry an unknown or partly unknown licence, and none of the five carries a licence_checked date, so all five are unconfirmed. Two of them, EV-0377 and EV-0383, are load-bearing for requirements rather than for colour, which makes them the first to resolve. Five further rows are known and restrictive rather than unknown: EV-0206, EV-0230, EV-0235, EV-0370 and EV-0379 are each recorded paraphrase-only or not reusable. The quotation scan found no carried passage. The only quoted strings in the read surface are our own: a scare quote at PACK.md line 277 and three example invariants at refs/WRITE_CLASSES.md line 28."
+}

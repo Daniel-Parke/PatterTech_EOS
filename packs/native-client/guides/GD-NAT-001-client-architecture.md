@@ -5,7 +5,7 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
-sources: [EV-0171, EV-0230]
+sources: [EV-0171, EV-0230, EV-0372, EV-0384, EV-0385, EV-0386, EV-0387]
 review: 2028-05
 type: guide
 tags: [arch, delivery, a11y]

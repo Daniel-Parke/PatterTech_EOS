@@ -1,10 +1,11 @@
 """Thin subprocess wrappers over the frozen benchmark suite.
 
-benchmark/runner.py and benchmark/score.py are frozen under
+benchmark/harness.py and benchmark/score.py are frozen under
 benchmark/FREEZE_MANIFEST.json. This module never imports them and
 never reimplements any scoring: every call is a subprocess with the
 arguments passed straight through, so the frozen behaviour is the only
-behaviour.
+behaviour, and the frozen script's exit code is the one the caller
+sees.
 
 drills is different in kind: the pack acceptance drills are not part of
 the frozen suite, so this module hands the work to tools.eos.drills and
@@ -17,10 +18,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-try:  # The lane T1 findings module is canonical once present.
-    from tools.eos.findings import Finding, Findings
-except ImportError:  # Reuse the fallback shipped with taskops.
-    from tools.eos.taskops import Finding, Findings
+from .findings import Finding, Findings
 
 
 def _invoke(root, script, args):
@@ -34,11 +32,6 @@ def _invoke(root, script, args):
     )
 
 
-def runner(root, args):
-    """Invoke the frozen benchmark/runner.py with pass-through args."""
-    return _invoke(root, "runner.py", args)
-
-
 def harness(root, args):
     """Invoke benchmark/harness.py with pass-through args."""
     return _invoke(root, "harness.py", args)
@@ -49,7 +42,7 @@ def score(root, args):
     return _invoke(root, "score.py", args)
 
 
-def drills(root, action, pack=None, scratch=None, record=False, date=None,
+def drills(root, action, pack=None, scratch=None, record=False,
            attempt=None):
     """List or run the pack acceptance drills.
 
@@ -97,7 +90,7 @@ def drills(root, action, pack=None, scratch=None, record=False, date=None,
         return {"action": action, "error": str(exc)}, 2
 
     if record:
-        drillmod.append_results(root, results, date=date)
+        drillmod.append_results(root, results)
     code = drillmod.exit_code(results)
     if pack and len(results) == 1:
         payload = dict(results[0])

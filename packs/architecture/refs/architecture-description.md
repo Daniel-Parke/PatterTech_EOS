@@ -11,7 +11,8 @@ tags: [arch, content]
 
 # Architecture description reference
 
-Level 3 material for B2 and D4 of `packs/architecture/PACK.md`. The
+Level 3 material for defaults D11 and D4 of
+`packs/architecture/PACK.md`. The
 one idea that ties all four sources together, and it is ISO 42010's
 (EV-0158): a view exists to answer a named concern of a named
 stakeholder, so any diagram with no stated concern is undefended and
@@ -23,7 +24,7 @@ MADR scales with the decision. Full, minimal and bare variants mean a
 record can be three lines or three pages, which keeps ceremony opt-in
 per decision rather than mandatory per change.
 
-The headings a record must carry for B2:
+The headings a record carries under D11:
 
 ```markdown
 # ADR-0007: Enforce module boundaries with import-linter
@@ -67,8 +68,9 @@ Rules that matter more than the template:
 
 **Honest limit.** EV-0097 records that there is no measured evidence
 decision records improve outcomes, and that mandating a template for
-every choice becomes ceremony. B2 binds records for door-closing
-decisions only.
+every choice becomes ceremony. That is why the ADR-0008 authority
+audit moved the rule to a default, and why D11 asks for a record on
+door-closing decisions only.
 
 ## Views: C4 (EV-0101, CC BY 4.0)
 

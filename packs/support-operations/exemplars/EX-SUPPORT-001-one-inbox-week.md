@@ -6,7 +6,7 @@ type: example
 tags: [ops, product, pii, money]
 ---
 
-# Worked example: one inbox week and one outage
+# EX-SUPPORT-001: one inbox week and one outage
 
 The situation. A two-person venture sells a scheduling tool to sixty
 paying customers. One founder answers everything. Over one week, forty

@@ -9,8 +9,17 @@
 
 [project]
 name = "eos-tools"
-version = "2.0.0.dev0"
-description = "PatterTech EOS v2 tooling (checks, router, guard, context, tasks, migrate, benchmark)"
+version = "2.1.0"
+# ADR-0007 holds v2 unreleased and folds v2.1 into the same line, so this
+# is the first released version and it carries the v2.1 number. The
+# CHANGELOG's newest heading and the release tag say the same thing, and
+# check S011 holds the three to each other.
+description = "PatterTech EOS tooling: the repository checker, the task router, the action-time guard, context packets, task records, seed migration and the benchmark wrappers"
+# ADR-0006 decision 7 puts the repository under Apache-2.0. The terms are
+# in LICENSE at the repository root and the attributions in NOTICE, one
+# level above this file, so no path here can point at either: a build
+# backend refuses a license-files entry outside the project directory.
+license = "Apache-2.0"
 requires-python = ">=3.11"
 dependencies = [
     "jsonschema==4.23.0",

@@ -7,38 +7,47 @@ tags: [eos]
 # PatterTech EOS
 
 The PatterTech Engineering Operating System. A documentation and process
-repository, no build, that seeds and governs our ventures so a capable
-agent can take a project from idea to operated software to the standard
-of an experienced senior engineer, with Daniel supplying judgement at a
-few named gates rather than repeating himself venture after venture.
+repository, no build, that seeds our ventures and learns from them, so a
+capable agent can take a project from idea to operated software to the
+standard of an experienced senior engineer, with Daniel supplying
+judgement at a few named gates rather than repeating himself venture
+after venture.
 
 It does that by putting engineering judgement in files: packs of argued
 knowledge per domain, a kernel that decides how much ceremony a piece of
 work deserves, registries of what is true today, and a governance layer
 that lets all of it improve without rotting. The architecture of record
-is `org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md`.
+is `org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md`,
+extended by ADR-0006 and loosened by ADR-0008.
 
-New here? Read `TOUR.md`. It teaches the system, says what changed from
-v1 and why, and points at the canonical files as it goes. To start a
-venture, run `inception/INCEPTION.md`. To see one task run start to
-finish first, read `examples/v2-worked-lean.md`.
+New here? Read `TOUR.md`. It teaches the system once, defines the words
+this repository uses in a particular way, and points at the canonical
+files as it goes. `OPERATORS_GUIDE.md` is the manual for the person
+running it: what to launch, what to approve, and what to do when
+something looks wrong. To see one task run start to finish, read
+`examples/v2-worked-lean.md`. To start a venture, the ordered path is
+under "Installing and running the checks" below.
+
+Licensed under Apache-2.0. `LICENSE` at the root carries the terms and
+`NOTICE` carries the attributions. `registry/LICENCE_RESIDUALS.md` is
+the honest gap list behind that choice.
 
 ## Where this stands
 
-v2 is merged and unreleased. Read this before trusting a number.
+v2 was merged and never released. v2.1 folded into it, and the two ship
+as one release (ADR-0007). Read this before trusting a number.
 
-You need Python 3.11 or newer and two libraries:
+**The release gate is now this**, and nothing else: the checker green
+with the semantic and freshness series, the full test suite green, the
+CHANGELOG written, no false statement about the tree surviving the final
+review, and Daniel's explicit approval under PB-E05. No benchmark gate
+is on it.
 
-```
-python -m pip install --require-hashes -r tools/requirements-dev.txt
-```
-
-Then run `python -m tools.eos check` and `python -m pytest -q`. Both
-should be clean. If they are not, that is the finding, not the code you
-were about to read.
-
-The benchmark ran 103 sessions on the encoded harness, 53 under v1 and
-50 under v2. This table is reproducible:
+The evidence offered for the release is delivery quality. The benchmark
+ran 103 sessions on 2026-08-08, 53 under v1 and 50 under v2.
+**Fifty-three v1 runs produced fully passing work thirty-nine times.
+Fifty v2 runs produced it fifty times.** Ceremony fell 77.3 per cent.
+The table below is reproducible:
 
 ```
 python benchmark/gates.py --baseline v1-2026-08-08 --candidate v2-2026-08-08
@@ -49,75 +58,152 @@ python benchmark/gates.py --baseline v1-2026-08-08 --candidate v2-2026-08-08
 | Ceremony lines | 60% fewer | 77.3% fewer | pass |
 | Aggregate pass rate | no regression | 73.6% to 100% | pass |
 | Completeness | 3 trials a slot | 12 slots, none short | pass |
-| Context tokens | 30% fewer | 9.1% fewer | **fail** |
-| Wall clock | 25% faster | 4.6% faster | **fail** |
+| Context tokens | 30% fewer | 9.1% fewer | struck |
+| Wall clock | 25% faster | 4.6% faster | struck |
 
-Run bare, `gates.py` compares older variants and prints different
-figures. Three of five computable gates pass. The two efficiency gates
-miss on a mixed picture rather than a uniformly bad one: on context
-tokens v2 is cheaper on seven of the twelve tasks and dearer on five.
-The protocol sets eight gates; the three missing here are uncomputed
-rather than failed, for the reasons below. Rows dated 2026-08-03
-measured a variant that never reached the tree and are kept as history,
-not as evidence. `org/reports/V2_FINAL_REPORT.md` holds the method and
-the per-task split.
+That is five of the eight gates in `benchmark/PROTOCOL.md`. Efficiency
+is offered as unmeasured, and here is exactly what that means:
 
-What is not proven, and is not pretended otherwise:
-
-- **The sealed suite has never been opened.** It needs Daniel's key and
-  runs once. Two of the eight gates depend on it, so they are uncomputed
-  rather than passed.
-- **No drill reports a verdict.** All twenty-two have a scenario and
-  graders, and graders make a verdict possible without being one. That
-  needs twenty-two cold-agent sessions, and it is the third uncomputed
-  gate.
+- **The two efficiency gates are struck, not met.** They were written
+  to compare two kernels under a frozen harness. The system they were
+  meant to judge has changed shape since, and the instrument that would
+  re-judge it is not being run, so ADR-0007 strikes them with that
+  reason recorded. A struck gate is not a met gate and no file here may
+  call it one. The 9.1 and 4.6 per cent figures are recorded as
+  achieved, not as passed.
+- **No measurement of the current system exists.** No benchmark run was
+  made during the v2.1 work, so every figure above measures the v2 tree
+  as it stood on 2026-08-08 and none of them measures what you are
+  reading. Amending the thresholds to match the figures already achieved
+  would be tuning the target to the result, so it was not done.
+- **The sealed suite is retired unopened.** `SEALED-BENCH-2026-08` runs
+  once, needs Daniel's private key, and was authored for a comparison
+  this release supersedes. It stays in the tree with its hashes, the key
+  stays with Daniel, and a future sealed evaluation is written fresh
+  against whatever it is meant to judge. Two of the protocol's eight
+  gates depended on it and are therefore uncomputed. That is a real
+  reduction in assurance against the plan ADR-0002 approved, accepted
+  knowingly.
+- **No drill has ever returned a verdict.** All twenty-two pack drills
+  carry a scenario and graders, and fifteen have a grader for every
+  criterion, which makes a verdict possible without being one. The
+  append-only ledger `benchmark/drills/RESULTS.json` holds twenty-two
+  entries and every one records a null verdict. Running them properly is
+  a spend decision, deferred, and not a release blocker.
 - **The graders live in the tree a drill drops an agent into**, with no
   holdout exclusion of the kind `benchmark/fixtures` has. A harness
   decision, deliberately left open rather than settled quietly.
 - **Three policy ablations never ran** (`v2-wip1`, `v2-mandatory-logs`,
   `v2-no-sampled-review`). They are the designed instrument for
-  isolating residual ceremony overhead.
-- **Four descriptions in protected files are known wrong.** ADR-0005
-  records them and is proposed, not accepted, so the wrong text stands.
-  Two of the four compile into every ORG seed.
+  isolating residual ceremony overhead, and they move to the optional
+  post-release list.
+- **The action-time guard grants nothing autonomous.** Its one shipped
+  host adapter was validated at mapping level, offline, on 2026-08-03.
+  That run proved the mapping, not that a live session's hooks fire.
+  Three of the ten guarded classes are covered and all three rule
+  require-approval, so even those resolve only on a recorded operator
+  decision. `TOUR.md` explains the two layers and `OPERATORS_GUIDE.md`
+  says what it means at the keyboard.
 
-No licence is declared, at the root or in `tools/pyproject.toml`, which
-this repository's own `packs/legal-licensing/PACK.md` B1 requires of
-every repository.
+Run bare, `benchmark/gates.py` compares older variants and prints
+different figures. Rows dated 2026-08-03 measured a variant that never
+reached the tree and are kept as history, not as evidence.
+`org/reports/V2_FINAL_REPORT.md` holds the method and the per-task
+split.
 
 `org/STATE.md` carries the live claims and operator flags, `org/TASKS.md`
 the task table. Both are derived: fix the record under `org/tasks/` and
-regenerate, never hand-edit the view. Writing anything here needs a
-claim; `OPERATORS_GUIDE.md` says how one is made.
+regenerate, never hand-edit the view. A claim is needed when more than
+one session may write at once; a session working alone is implicitly
+claimed (ADR-0008). `OPERATORS_GUIDE.md` says how a claim is made and
+what the empty claim file in this repository does to `task new`.
+
+## Installing and running the checks
+
+You need Python 3.11 or newer and two libraries. CI runs the same checks
+on Ubuntu and Windows against Python 3.11 and 3.14, from
+`.github/workflows/checks.yml`, on every push and pull request.
+
+```
+python -m pip install --require-hashes -r tools/requirements-dev.txt
+python -m tools.eos check --repo
+python -m pytest -q
+```
+
+The suite is 513 tests and they pass, verified 2026-08-11. The checker
+should report no errors; a warning does not fail it. If yours reports
+errors, that is the finding, not the code you were about to read, and
+the common one is a derived file left stale by an edit to its source,
+which `python -m tools.eos check --write-index` fixes.
+`tools/CLI_CONTRACTS.md` is the contract for every command and its exit
+codes, and three tests hold it there.
+
+Nothing here runs at commit time. There is no pre-commit hook in this
+repository, so a voice slip or a stale index is caught by the checker
+when you run it and by CI when you push.
+
+From a fresh clone to a seeded venture is four steps, and no other
+document collects them: clone this repository and run the three commands
+above; read `TOUR.md`; run launcher L2 in `OPERATORS_GUIDE.md` from the
+new venture's own repository, which is Session 0 and ends with a
+compiled seed you sign; then run L3 for Genesis if you want the build
+blueprint. Everything after that happens in the venture's repository,
+not this one.
 
 ## Map
 
 | Path | What lives there |
 | --- | --- |
-| `AGENTS.md` / `CLAUDE.md` | The router: entry modes and the never-list, byte identical |
+| `AGENTS.md` / `CLAUDE.md` | The router: entry modes and the never-list, byte identical, capped at forty lines |
 | `TOUR.md` | The teaching surface, rewritten by hand each release |
 | `GOVERNANCE.md` | The graded change path, precedence, promotion, the protected set |
-| `OPERATORS_GUIDE.md` | The operator's manual: launchers, approval duties, the guard, cadences |
-| `packs/` | The knowledge. `packs/INDEX.md` is the always-loaded surface |
-| `kernel/` | Policy, guard and metadata law, schemas, and the templates a seed compiles from |
-| `inception/` | Session 0: interview, scale, walk order, compile |
-| `examples/` | One task run end to end, lean and high-assurance |
-| `org/` | The EOS's own state: task records, claims, decisions, playbooks, logs |
-| `registry/` | Projects, capabilities, evidence, vendors, lessons, stack profiles |
-| `estate/` | Which repo owns what, and which repos the EOS governs |
+| `OPERATORS_GUIDE.md` | The operator's manual: launchers, approval duties, the guard, the monthly pass |
+| `packs/` | The knowledge: twenty-one built packs, ninety-eight decision guides. `packs/INDEX.md` is the always-loaded surface |
+| `packs/PACK_SHAPE.md` | The contract a pack keeps, including the eleven-point definition of done |
+| `kernel/` | Policy, guard and metadata law, the scale matrix, the seed rubric, eleven schemas, and the templates a seed compiles from |
+| `inception/` | Session 0 and Genesis: interview, scale, walk order, compile, blueprint |
+| `examples/` | Two worked task runs, lean and high-assurance, plus the Venture A reseed and the website redesign |
+| `org/` | The EOS's own state: task records, claims, cadence, eight decision records, playbooks, v1 logs |
+| `registry/` | Projects, capabilities, evidence, lessons, vendors, stack profiles |
+| `registry/evidence.json` | The canonical ledger, 504 rows, one per source, nothing uncited |
+| `registry/lessons.json` | What we studied, what was decided, and what was rejected and why |
+| `estate/` | Which repos exist, which the EOS governs, and which were left out on whose ruling |
 | `benchmark/` | The frozen v1-against-v2 protocol, fixtures, drills and results |
-| `tools/` | The one executable, `python -m tools.eos` |
+| `tools/` | The one executable, `python -m tools.eos`, version 2.1.0 |
 | `archive/` | A pointer to the `archive/v1-final` tag, where the whole v1 tree lives |
-| `INDEX.md` | Derived index of every file, grep the tag column |
+| `LICENSE`, `NOTICE` | Apache-2.0, and the attributions behind it |
+| `INDEX.md` | Derived index of every live file, 397 rows, grep the tag column |
 
 ## How a venture consumes the EOS
 
 A venture never reads this repo at random. Session 0 compiles it a seed
 pack: a thin router, a lock-book of its rulings, the distilled standards
-it needs and, at ORG scale, an org kernel. The seed is stamped with the
-EOS commit it came from. The venture pins that commit and never
-auto-upgrades; an upgrade is a deliberate run of the upgrade playbook.
-`GOVERNANCE.md` sets what a pin must resolve to.
+it needs and, at ORG scale, an org kernel. `kernel/SCALE_MATRIX.md` is
+the law of what that contains. The seed is stamped with the EOS commit
+it came from. Genesis then turns that seed into a build blueprint inside
+the venture's own repository: research packets, a product map with a
+dependency graph, work packages, and a failing acceptance spine.
+
+**Then the EOS lets go.** It compiles a seed and a blueprint and stops.
+There is no standing obligation on a venture to stay in line with this
+repository, and no standing obligation on this repository to keep it
+there. Ventures diverge freely, for their own good reasons, and the
+guidance they were born with is advice they may discard. The EOS never
+initiates contact.
+
+A check-in happens only when a venture asks for one. It reviews the
+venture against current guidance, returns findings and candidate
+lessons, and applies nothing. Pulling a newer version of the EOS is the
+same kind of thing: the venture pins the commit it compiled from and
+never auto-upgrades, and an upgrade is a deliberate run of the upgrade
+playbook that the venture chooses to start. `GOVERNANCE.md` sets what a
+pin must resolve to.
+
+`registry/PROJECTS.md` is the venture directory, three rows today. Read
+its standing note before reading a status line: it records what was true
+when a venture was born and when somebody last looked, not what is true
+now. A stale status line there is a stale reading, not a venture in
+breach.
 
 Working agents read the venture's own files first and follow citations
 back here. Nothing in this repo is read by a venture at runtime.
@@ -132,7 +218,15 @@ What must stay true as the EOS grows.
   worked ruling or an exemplar, not in a pack.
 - **Evidence before authority.** A rule earns its place by surviving
   argument and citing sources, not by being written confidently.
-  Promotion has numbers and demotion exists (`GOVERNANCE.md`).
+  Promotion has numbers and demotion exists (`GOVERNANCE.md`). A
+  rejected lesson keeps its reason, so nobody can propose it forever.
+- **Never describe a control you have not built.** Sixty-six false
+  statements about this tree got into it once. An honest gap is cheaper
+  than a confident sentence, and the standing section above is what that
+  costs in prose.
+- **The venture is sovereign.** The EOS is a library and a midwife, not
+  a landlord. It compiles a seed and a blueprint at birth and then
+  stops. Guidance a venture was born with is advice it may discard.
 - **Files over memory.** Everything an agent needs is in the repos.
   Session memory is a convenience, never the source of truth.
 - **Packs argue; registries date.** Timeless rules and dated facts never
@@ -143,8 +237,8 @@ What must stay true as the EOS grows.
   pay for a schema migration's assurance.
 - **Compiled, never composed.** Ventures are seeded by slot-filling
   hand-written templates, with a compile report proving ancestry.
-- **Every venture feeds back.** Rulings and lessons are harvested,
-  repeated argued rulings become defaults, and defaults become binding
-  only with an ADR.
+- **Ventures feed back when they choose to.** Rulings and lessons are
+  harvested from the ventures that share them, repeated argued rulings
+  become defaults, and defaults become binding only with an ADR.
 - **Lean.** Capture the decision structure, not restatements of common
   knowledge. If removing a line would not cause a mistake, cut it.

@@ -1,0 +1,24 @@
+{
+  "id": "T-0025",
+  "intent": "Registry and estate truth: import the provenance fragments, write NOTICE and the honest residual licence list, and correct the venture status and Genesis references in the registries and worked examples. Closed: the provenance fragments are imported, NOTICE and registry/LICENCE_RESIDUALS.md are written, and the venture status and Genesis references are corrected in the registries and the worked examples.",
+  "claims": [
+    "registry/",
+    "estate/",
+    "examples/"
+  ],
+  "declared": {
+    "capabilities": [],
+    "side_effects": []
+  },
+  "mode": "standard",
+  "tier_proposed": "R1",
+  "status": "done",
+  "owner_session": "eos-v21-L12",
+  "timestamps": {
+    "opened": "2026-08-10T18:00:00Z",
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
+  },
+  "tier_ruled": "R0",
+  "reasons": []
+}

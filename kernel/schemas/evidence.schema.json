@@ -92,8 +92,10 @@
       "standard",
       "repository",
       "vendor-doc",
-      "blog"
-     ]
+      "blog",
+      "artefact"
+     ],
+     "description": "artefact is the Study workflow's row: a product, a game or a system that was read directly and was never published as a document. Added with the study intake in tools/import_fragments.py (ADR-0006 decision 2)."
     },
     "study_design": {
      "type": [

@@ -24,8 +24,8 @@ human input.
 
 | Id | Verifies | How | Requirement |
 | --- | --- | --- | --- |
-| C-01 | An eval entry point exists and runs headlessly | The recorded command exits zero on a clean tree and writes its report to the recorded path | B1 |
-| C-02 | The report carries a metric, an item count and an interval | Field presence check for the primary metric, `n`, and either `stderr` or a low and high bound; a bare metric fails | B1 |
+| C-01 | An eval entry point exists and runs headlessly | The recorded command exits zero on a clean tree and writes its report to the recorded path | D9 |
+| C-02 | The report carries a metric, an item count and an interval | Field presence check for the primary metric, `n`, and either `stderr` or a low and high bound; a bare metric fails | D9, D2 |
 | C-03 | The report carries the template identity | Field presence for the template path and its content hash, and string equality of the hash against the file on disk | B2 |
 | C-04 | The report carries a pinned model id | Field presence, and a match against the configured pinned-id pattern for each provider in use | B2, B4 |
 | C-05 | No moving model aliases in source | Pattern scan over the source for the configured moving-alias forms, for example a `latest` suffix or a bare family name | B4 |
@@ -34,7 +34,7 @@ human input.
 | C-08 | The held-out set is not read by the tuning path | Grep of prompt-selection and optimiser code for the held-out filename returns zero matches, and the report names the file | B3 |
 | C-09 | Comparisons are paired | The comparison report carries a field naming the pairing key | D2 |
 | C-10 | The gate states what it can detect | The report carries a minimum detectable effect at the current sample size | D2 |
-| C-11 | Abstention is reachable and reported | The output type admits an abstention, the report carries `abstain_rate`, and at least one item in the recorded run abstains where the set contains known-ambiguous items | B6 |
+| C-11 | Abstention is reachable and reported | The output type admits an abstention, the report carries `abstain_rate`, and at least one item in the recorded run abstains where the set contains known-ambiguous items | D10 |
 | C-12 | Judge runs are labelled | Where a model produced the score, the report carries the judge model id, the human-labelled sample size and the measured agreement | B5 |
 | C-13 | Pairwise judging ran both orderings | The judge report carries a per-ordering count and an order-inconsistency rate | B5 |
 | C-14 | Retrieval metrics are split by stage | A retrieval system's report carries retriever-stage and generator-stage fields rather than one score | D5 |
@@ -47,12 +47,12 @@ later, none is executable now.
 
 | Id | Verifies | Who decides | Requirement |
 | --- | --- | --- | --- |
-| J-01 | The acceptance set measures the thing the product cares about | Reviewer, because coverage of the failure you fear cannot be checked by field presence | B1 |
+| J-01 | The acceptance set measures the thing the product cares about | Reviewer, because coverage of the failure you fear cannot be checked by field presence | D9 |
 | J-02 | The verdict matches the arithmetic | Reviewer, in particular that a difference inside the noise was recorded as unresolved rather than as a win (EV-0255) | D2 |
 | J-03 | The rubric was derived from graded outputs rather than written first | Reviewer (EV-0254) | D1 |
 | J-04 | The held-out set is genuinely unseen | Reviewer, because a file the provider has never seen cannot be proved by grep (EV-0257) | B3 |
 | J-05 | The judge is not a family-mate of the model under test, or the offset is reported | Reviewer | B5 |
-| J-06 | The abstention threshold is right for the product | Product owner, because the evidence says score abstention and not where to set it (EV-0250) | B6 |
+| J-06 | The abstention threshold is right for the product | Product owner, because the evidence says score abstention and not where to set it (EV-0250) | D10 |
 | J-07 | Consequential output had a person in front of it | Human, at the floor set by `kernel/GUARD_SPEC.md` | B7 |
 | J-08 | Groundedness failures were read, not just counted | Reviewer, reading spans against the retrieved context | D5 |
 | J-09 | Scope of a borrowed number | Reviewer, that no benchmark figure was promoted beyond its population | Whole pack |
@@ -61,7 +61,10 @@ later, none is executable now.
 ## How to read a failing check
 
 C-01 to C-06 are the floor. Without them there is no evidence at all,
-and no other row means anything. C-07 to C-11 are what turn a number
+and no other row means anything. C-01 and C-02 stand on default D9, so
+a venture that recorded a reason not to run an eval has answered them;
+everything from C-03 down still applies to whatever result it does
+offer. C-07 to C-11 are what turn a number
 into a verdict, and they are the rows most often skipped under time
 pressure. C-12 and C-13 apply only where a model grades. C-14 and
 C-15 apply only to retrieval systems and to production traffic

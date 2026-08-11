@@ -11,7 +11,7 @@ tags: [arch, ci, delivery]
 
 # Reference: breaking changes, tiers and the gate
 
-Level 3 detail behind BR-2, BR-3 and BR-6.
+Level 3 detail behind BR-2 and BR-6, and behind default D10.
 
 ## Three guarantees, not one
 

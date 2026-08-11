@@ -86,7 +86,7 @@ source shape.
   and both surfaces consuming semantic names only. The two surfaces
   differ in spacing density and type scale by consuming different
   semantic sets over the same primitives. See
-  `packs/ui-ux/exemplars/two-surfaces-one-spine.md`.
+  `packs/ui-ux/exemplars/EX-UIUX-001-two-surfaces-one-spine.md`.
 - **PatterTech Website (2026-07, inherited)**: one home for tokens with
   a mirroring contract across code, styleguide and documentation, and a
   test that fails the build on any re-typed raw value. Recorded in

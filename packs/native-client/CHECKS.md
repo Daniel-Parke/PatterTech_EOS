@@ -17,6 +17,10 @@ it today. "Executable" means a script decides it without a human
 reading the output. "Judgement" means a person rules and the record is
 the evidence.
 
+B4, B5 and B6 bind. B1, B2, B3 and B7 are defaults since the ADR-0008
+audit, so the rows behind them still run and a venture that departs
+records why. J9 already covers the reason being written down.
+
 ## Executable today
 
 | # | Check | Verifies | How |

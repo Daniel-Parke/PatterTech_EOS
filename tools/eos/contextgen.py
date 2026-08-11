@@ -15,24 +15,18 @@ packs cost more than five thin modules ever did.
 from __future__ import annotations
 
 import re
-import subprocess
 from pathlib import Path
 
 from tools.eos import router
 from tools.eos.frontmatter import parse as parse_front_matter
+from tools.eos.gitfacts import output as _git
 
 _SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", "node_modules"}
 _TEXT_SUFFIXES = {".md", ".txt", ".json", ".yml", ".yaml", ".py", ".toml", ".html", ".sql"}
 
 
 def _read_front_matter(text):
-    """Front-matter as a dict, via the canonical hardened parser.
-
-    This module used to carry its own reader, kept deliberately as a
-    duplicate to avoid import-order coupling between build lanes. The
-    lanes merged, and the copy had a real bug: it returned nothing at
-    all when a block ran past its sixtieth line.
-    """
+    """Front-matter as a dict, via the canonical hardened parser."""
     fm = parse_front_matter(text)
     return fm.data if fm.present else {}
 
@@ -135,16 +129,6 @@ def activated_packs(root, changed, *, declared_predicates=None) -> list:
         })
     out.sort(key=lambda r: (-r["matched_path_count"], r["pack"]))
     return out
-
-
-def _git(root, *args):
-    proc = subprocess.run(
-        ["git", "-C", str(root), *args],
-        capture_output=True, text=True, encoding="utf-8", errors="replace",
-    )
-    if proc.returncode != 0:
-        raise RuntimeError("git %s failed: %s" % (" ".join(args), proc.stderr.strip()))
-    return proc.stdout
 
 
 def _changed_files(root, base_ref):

@@ -7,7 +7,7 @@ scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
-sources: [EV-0056, EV-0057]
+sources: [EV-0056, EV-0057, EV-0305, EV-0306]
 review: 2027-12
 ---
 
@@ -37,22 +37,20 @@ advance.
 
 The producer declares the interface (columns, types, constraints,
 freshness, owner) and the build refuses to publish anything that breaks
-it (EV-0057, `EV-0305`). Buys: consumers can write
-against a promise, and a breaking change is impossible to make by
-accident. Costs: it checks shape, not meaning, so a column that changes
-from pence to pounds passes every gate. You also own the declaration and
-have to maintain it.
+it (EV-0057, EV-0305). Buys: consumers can write against a promise, and
+a breaking change is impossible to make by accident. Costs: it checks
+shape, not meaning, so a column that changes from pence to pounds passes
+every gate. You also own the declaration and have to maintain it.
 
 ### B. Observability-first
 
 Compute metrics over the data each run (row counts, null rates,
 distributions) and alert on deviation from the historic series, with
-incremental computation so cost does not scale with history
-(`EV-0306`). Buys: it catches drift nobody wrote a rule
-for, which is most of what actually goes wrong. Costs: constraint
-suggestion learns from the data as it is, so it will happily propose a
-rule that encodes a current bug as the norm, and it needs history before
-it says anything useful.
+incremental computation so cost does not scale with history (EV-0306).
+Buys: it catches drift nobody wrote a rule for, which is most of what
+actually goes wrong. Costs: constraint suggestion learns from the data
+as it is, so it will happily propose a rule that encodes a current bug
+as the norm, and it needs history before it says anything useful.
 
 ### C. Both, layered
 
@@ -65,9 +63,9 @@ alert can come from.
 
 Land raw, fix in the transformation layer, notice problems when a human
 queries. Buys: nothing to build. Costs: every consumer discovers the
-problem separately, and the discovery is a wrong decision. Honestly
-fits exactly one case: a single-consumer pipeline where the consumer is
-the author and a wrong number costs an afternoon.
+problem separately, and the discovery is a wrong decision. Honestly fits
+exactly one case: a single-consumer pipeline where the consumer is the
+author and a wrong number costs an afternoon.
 
 ## Decision rule
 
@@ -77,8 +75,8 @@ the author and a wrong number costs an afternoon.
 - New pipeline where you do not yet know what normal looks like: B
   first, and promote the invariants you learn into A.
 - Any table a decision or a customer-facing number rests on: C.
-- Whatever you pick, the rule and the owner live in one document (B1),
-  and a failure blocks publication rather than raising a ticket (B2).
+- Whatever you pick, the rule and the owner live in one document (D9),
+  and a failure blocks publication rather than raising a ticket (D10).
 
 ## Default
 
@@ -93,8 +91,7 @@ freshness monitor with no named owner produce the same outage: the table
 is technically correct and eight hours stale, and nobody is responsible
 for noticing. Putting schema, quality rules, service level and owner in
 one document is the structural point behind the data contract standard,
-and it matters more than which format the document is in
-(`EV-0305`).
+and it matters more than which format the document is in (EV-0305).
 
 ## What none of these catch
 
@@ -108,9 +105,9 @@ otherwise.
 ## Worked rulings
 
 - **PatterTech EOS data-analytics pack (2026-08, argued)**: C as the
-  default shape, with B1 and B2 binding the ownership and the blocking
+  default shape, with D9 and D10 carrying the ownership and the blocking
   behaviour rather than the tool. Argued from EV-0057 for the
-  interface-only scope and `EV-0306` for the drift case.
+  interface-only scope and EV-0306 for the drift case.
 - **Signup and checkout event model (2026-08, argued)**: A on the
   published fact model with a not-null rule on the order total, run in
   the build so a seeded null batch fails the pipeline. See

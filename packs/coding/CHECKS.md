@@ -24,8 +24,8 @@ human input.
 
 | Id | Verifies | How | Requirement |
 | --- | --- | --- | --- |
-| C-01 | An oracle commit precedes the implementation commit | History walk: the first commit touching a changed source file is preceded by a commit adding or changing a test for it | B1 |
-| C-02 | The oracle actually failed before the fix | The new test is run against the parent commit and must fail there and pass on the tip | B1 |
+| C-01 | The oracle was not authored by the session that wrote the implementation | Compare `oracle_provenance.author_session` on the task record against the session named on the implementation commits, and read `oracle_provenance.independence_method` | B1 |
+| C-02 | The oracle has been seen to fail | The new or changed test is run against the parent commit, or against the change reverted, and must go red there and green on the tip. Where a revert will not isolate it, diff-scoped mutation on the changed lines stands in | B1 |
 | C-03 | Behaviour is pinned before structure moves | A characterisation or approval test for the touched file exists and passes at both the parent commit and the tip | B2 |
 | C-04 | No swallowed errors | Pattern scan over changed files for bare catch-alls and for catch bodies that are only a pass, a continue or a bare default return | B3 |
 | C-05 | Declared failure names agree | String equality of every declared failure name across the module, the tests and the interface documentation, no synonyms | B4 |
@@ -36,6 +36,8 @@ human input.
 | C-10 | Style is settled by tooling | Formatter and linter clean, with configuration in the repository | D2 |
 | C-11 | Tier declaration matches the diff | Router recomputation at the gate does not raise the tier above what was declared | D1 |
 | C-12 | Trunk conditions | Branch age at merge, active branch count, and merge cadence sampled against the venture's thresholds | D3 |
+| C-13 | The oracle landed first | History walk: the first commit touching a changed source file is preceded by a commit adding or changing a check for it | Default D7 |
+| C-14 | Package size is inside the recorded cap | Diff size and file count for the package against the venture's stated cap, reported with the spread across packages in the batch | Default D8 |
 
 ## Judgement today
 
@@ -44,7 +46,7 @@ later; none is executable now.
 
 | Id | Verifies | Who decides | Requirement |
 | --- | --- | --- | --- |
-| J-01 | The oracle states intent rather than restating the implementation | Reviewer | B1 |
+| J-01 | The oracle states intent rather than restating the implementation, and the reviewer can name where its expected value came from | Reviewer. C-01 is a proxy: a separate session can still be handed the code | B1 |
 | J-02 | The test is an assertion and not an observational print dressed as one | Reviewer, because a passing test that would pass regardless is syntactically fine (EV-0006) | B1 |
 | J-03 | An approved file change is a deliberate behaviour decision rather than a reflexive stamp | Reviewer (EV-0180) | B2 |
 | J-04 | A translation did not lose information the caller needed | Reviewer (EV-0175) | B3 |
@@ -56,10 +58,17 @@ later; none is executable now.
 
 ## How to read a failing check
 
-C-01 through C-07 are about the change itself and are non-negotiable at
+C-01 through C-06 are about the change itself and are non-negotiable at
 every tier. C-08 and C-09 are the gate and are non-negotiable at every
-tier. C-11 and C-12 are process conditions and are the two most likely
-to carry a recorded lock-book override.
+tier. C-07, C-11, C-12, C-13 and C-14 serve defaults, so a recorded
+lock-book reason moves them and no ADR is needed.
+
+C-01 needs a task record to be executable, and under ADR-0008 ordinary
+R0 and R1 work records itself in the commit message instead. Where there
+is no record, C-01 is a question the reviewer asks and the answer goes
+in the commit message: which specification, reproduction, invariant or
+reference the expected value came from. Do not let the absence of a
+record read as a pass.
 
 A J-row cannot fail silently, because a J-row that nobody performed is a
 J-row that failed. At R0 and R1 the J-rows are performed by a reviewing
@@ -81,6 +90,8 @@ above a person performs J-06 through J-09 directly.
 
 C-04, C-05 and C-07 are the three checks a venture has to configure
 before the pack has teeth, because each needs a tool choice and a pinned
-version. The rest are either history walks or already present in a
-normal CI run. Nothing here is executable until the venture writes those
-three into its own gate configuration.
+version. C-14 needs a number the venture picks. The rest are either
+history walks or already present in a normal CI run. Nothing here is
+executable until the venture writes those into its own gate
+configuration, and a check that is written down but cannot be run is
+worth nothing.

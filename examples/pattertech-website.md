@@ -6,9 +6,10 @@ tags: [web, brand]
 
 # Worked example: the PatterTech website redesign (2026-07)
 
-The project that produced this module. Repo: `PatterTech_Website` (its
-`docs/DESIGN_SYSTEM.md` is the lock-in). The design language is called "the
-instrument and the journal".
+Venture history, not current EOS guidance. This is the project whose
+vocabulary became `packs/pattertech-house/`. Repo: `PatterTech_Website`
+(its `docs/DESIGN_SYSTEM.md` is the lock-in). The design language is
+called "the instrument and the journal".
 
 ## The diagnosis
 

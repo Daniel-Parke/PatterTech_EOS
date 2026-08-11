@@ -19,9 +19,10 @@ pack body.
 Coverage says which lines ran. It says nothing about whether anything
 was checked while they ran. It is a floor mechanism, useful for
 catching whole modules nobody exercised, and useless as a target. The
-estate's position, argued in WG-DEL-001, is a measured floor per
-surface that only ratchets upwards, set from the first honest
-measurement rather than an aspiration.
+estate's position is a measured floor per surface that only ratchets
+upwards, set from the first honest measurement rather than from an
+aspiration. A ratchet moves in the change that earned the movement,
+never because a number happened to rise.
 
 Two limits worth carrying. Coverage of a suite whose oracle came from
 the implementation is informative only while the code is assumed
