@@ -2,7 +2,7 @@
 summary: The nine packet fields, the escape, the return schema and the four terminal statuses
 kind: recipe
 scope: estate
-sources: [EV-0108, EV-0112]
+sources: [EV-0108, EV-0465, EV-0492]
 type: guide
 tags: [eos, arch, tooling]
 review: on-change-of:agent-harness-major-release

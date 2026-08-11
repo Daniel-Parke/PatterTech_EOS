@@ -657,6 +657,31 @@ def lessons(root, rows, **top):
     write(root, "registry/lessons.json", json.dumps(doc, indent=1) + "\n")
 
 
+# A row that validates against the shipped schema. S018 reads shapes out
+# of a lesson row, so a test asserting that a shape is accepted has to
+# run against the real schema and a row that satisfies it: with a stub
+# schema, or none at all, S018 will happily accept shapes S019 rejects,
+# which is exactly how the two drifted apart.
+VALID_LESSON_ROW = {
+    "id": "LES-0001", "origin": "harvest", "venture": "Guth",
+    "title": "A short scannable label",
+    "lesson": "The lesson itself, one paragraph.",
+    "evidence_class": "observational", "disposition": "estate-default",
+    "outcome": "Folded into a pack.", "scope": "estate",
+    "applicability_conditions": "Where the conditions held.",
+    "decided": "2026-08",
+}
+
+
+def with_kernel_schema(root):
+    """Install the lesson schema the repository actually ships."""
+    from conftest import REPO_ROOT
+
+    (root / "kernel" / "schemas").mkdir(parents=True, exist_ok=True)
+    shutil.copy(REPO_ROOT / "kernel" / "schemas" / "lesson.schema.json",
+                root / "kernel" / "schemas" / "lesson.schema.json")
+
+
 def test_s018_says_nothing_without_a_ledger(tmp_path):
     """registry/lessons.json is new in v2.1. A repository without one
     has no lessons, which is not a finding."""
@@ -669,54 +694,94 @@ def test_s018_fires_on_an_unresolved_conflict(tmp_path):
                     "conflicts_with": ["packs/coding/PACK.md#B1"]}])
     msgs = [m for _, _, m in only(run_s(root), "S018")]
     assert msgs == ["LES-0001: conflicts_with packs/coding/PACK.md#B1 is "
-                    "unresolved; record the resolution (stricter-applies, "
-                    "scoped-differently, superseded, operator-ruling)"]
+                    "unresolved; record it in conflict_resolutions as "
+                    "{resolution, note}, the resolution being one of "
+                    "stricter-applies, scoped-differently, superseded, "
+                    "operator-ruling"]
 
 
-def test_s018_accepts_a_resolution_recorded_beside_the_link(tmp_path):
+def test_s018_accepts_the_shape_the_schema_permits(tmp_path):
+    """One shape: a ref string in conflicts_with, and an object under
+    conflict_resolutions carrying the resolution and the note."""
     root = make_repo(tmp_path)
-    lessons(root, [{"id": "LES-0001", "lesson": "x",
-                    "conflicts_with": ["LES-0000"],
-                    "conflict_resolutions": {"LES-0000": "stricter-applies"}}])
+    with_kernel_schema(root)
+    lessons(root, [dict(
+        VALID_LESSON_ROW,
+        conflicts_with=["LES-0000"],
+        conflict_resolutions={"LES-0000": {
+            "resolution": "stricter-applies",
+            "note": "the older rule is the tighter one"}})])
     assert only(run_s(root), "S018") == []
+    assert only(run_s(root), "S019") == []
 
 
-def test_s018_accepts_a_resolution_written_inline(tmp_path):
+def test_s018_does_not_accept_a_bare_string_resolution(tmp_path):
+    """The schema wants an object under each ref. A bare string reads as
+    no resolution here rather than as a resolution in the wrong wrapper,
+    and S019 reports the shape, which is its job and not this check's."""
     root = make_repo(tmp_path)
-    lessons(root, [{"id": "LES-0001", "lesson": "x", "conflicts_with": [
+    with_kernel_schema(root)
+    lessons(root, [dict(VALID_LESSON_ROW, conflicts_with=["LES-0000"],
+                        conflict_resolutions={"LES-0000": "stricter-applies"})])
+    assert [m for _, _, m in only(run_s(root), "S018")] == [
+        "LES-0001: conflicts_with LES-0000 is unresolved; record it in "
+        "conflict_resolutions as {resolution, note}, the resolution being "
+        "one of stricter-applies, scoped-differently, superseded, "
+        "operator-ruling"]
+    assert any("is not of type 'object'" in m
+               for _, _, m in only(run_s(root), "S019"))
+
+
+def test_s018_does_not_accept_a_resolution_written_inside_the_link(tmp_path):
+    """conflicts_with holds ref strings. An object written in there is
+    not a second sanctioned shape: the schema rejects it, so S018 must
+    not report it settled."""
+    root = make_repo(tmp_path)
+    with_kernel_schema(root)
+    lessons(root, [dict(VALID_LESSON_ROW, conflicts_with=[
         {"ref": "LES-0000", "resolution": "scoped-differently",
-         "note": "one is estate scope, one is venture"}]}])
-    assert only(run_s(root), "S018") == []
+         "note": "one is estate scope, one is venture"}])])
+    assert [m for _, _, m in only(run_s(root), "S018")] == [
+        "LES-0001: conflicts_with (not a ref string) is unresolved; record "
+        "it in conflict_resolutions as {resolution, note}, the resolution "
+        "being one of stricter-applies, scoped-differently, superseded, "
+        "operator-ruling"]
+    assert only(run_s(root), "S019") != []
 
 
 def test_s018_rejects_a_resolution_outside_the_vocabulary(tmp_path):
     root = make_repo(tmp_path)
-    lessons(root, [{"id": "LES-0001", "lesson": "x",
-                    "conflicts_with": ["LES-0000"],
-                    "conflict_resolutions": {"LES-0000": "we talked about it"}}])
+    with_kernel_schema(root)
+    lessons(root, [dict(VALID_LESSON_ROW, conflicts_with=["LES-0000"],
+                        conflict_resolutions={"LES-0000": {
+                            "resolution": "we talked about it",
+                            "note": "at some point"}})])
     msgs = [m for _, _, m in only(run_s(root), "S018")]
     assert msgs == ["LES-0001: unknown conflict resolution for LES-0000: "
                     "we talked about it; expected one of stricter-applies, "
                     "scoped-differently, superseded, operator-ruling"]
 
 
-def test_s018_wants_an_operator_ruling_to_say_what_was_ruled(tmp_path):
-    """A row that says Daniel decided, without saying what, cannot be
-    reviewed and cannot be argued with later."""
+def test_s018_wants_a_note_on_every_resolution(tmp_path):
+    """The schema requires a note for every resolution, not only for an
+    operator ruling: a resolution nobody can read cannot be reviewed."""
     root = make_repo(tmp_path)
-    lessons(root, [{"id": "LES-0001", "lesson": "x",
-                    "conflicts_with": ["LES-0000"],
-                    "conflict_resolutions": {"LES-0000": "operator-ruling"}}])
-    msgs = [m for _, _, m in only(run_s(root), "S018")]
-    assert msgs == ["LES-0001: conflict with LES-0000 is resolved by an "
-                    "operator ruling with nothing recorded; note what was "
-                    "ruled"]
-    lessons(root, [{"id": "LES-0001", "lesson": "x",
-                    "conflicts_with": ["LES-0000"],
-                    "conflict_resolutions": {
-                        "LES-0000": {"resolution": "operator-ruling",
-                                     "note": "Daniel kept the older rule"}}}])
+    with_kernel_schema(root)
+    for resolution in ("operator-ruling", "superseded"):
+        lessons(root, [dict(VALID_LESSON_ROW, conflicts_with=["LES-0000"],
+                            conflict_resolutions={"LES-0000": {
+                                "resolution": resolution, "note": ""}})])
+        msgs = [m for _, _, m in only(run_s(root), "S018")]
+        assert msgs == ["LES-0001: conflict with LES-0000 is resolved %s "
+                        "with nothing recorded; note the condition, the "
+                        "ruling or the successor that settles it"
+                        % resolution]
+    lessons(root, [dict(VALID_LESSON_ROW, conflicts_with=["LES-0000"],
+                        conflict_resolutions={"LES-0000": {
+                            "resolution": "operator-ruling",
+                            "note": "Daniel kept the older rule"}})])
     assert only(run_s(root), "S018") == []
+    assert only(run_s(root), "S019") == []
 
 
 def test_s018_leaves_a_row_with_no_conflicts_alone(tmp_path):
@@ -782,9 +847,10 @@ def test_s019_runs_against_the_real_kernel_schema(tmp_path):
     # S018 requires it to be one the vocabulary knows.
     lessons(root, [dict(row, conflicts_with=["WG-OPS-002"])])
     assert [m for _, _, m in only(run_s(root), "S018")] == [
-        "LES-0001: conflicts_with WG-OPS-002 is unresolved; record the "
-        "resolution (stricter-applies, scoped-differently, superseded, "
-        "operator-ruling)"]
+        "LES-0001: conflicts_with WG-OPS-002 is unresolved; record it in "
+        "conflict_resolutions as {resolution, note}, the resolution being "
+        "one of stricter-applies, scoped-differently, superseded, "
+        "operator-ruling"]
     assert any("conflict_resolutions" in m
                for _, _, m in only(run_s(root), "S019"))
 

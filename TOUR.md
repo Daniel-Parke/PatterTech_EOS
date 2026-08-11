@@ -180,7 +180,10 @@ a check-in returns findings and candidate lessons and changes nothing.
 `packs/agentic-swarm/` is the twenty-first pack and it describes how we
 build substantial work: fan out over a measured dependency graph, with
 one integrator and a verifier that predates the lanes. Anything else is
-either a single agent or an expensive mistake.
+either a single agent or an expensive mistake. The integrator is the
+one session that commits the claims, adopts or discards what the lanes
+return and regenerates the derived views. `OPERATORS_GUIDE.md` gives
+those duties to the operator, and here the operator is Daniel.
 
 What that means in practice:
 
@@ -205,10 +208,12 @@ What that means in practice:
 The pack carries its own counter-evidence, and it is strong: in the one
 study that normalised tool access and accounting across ten benchmarks,
 five of six multi-agent systems scored below a single-agent baseline
-while burning 24 to 286 per cent more tokens. Coordination cost grows
-faster than the work does. No public benchmark measures the shape we
-use, so our own runs are the best evidence we have, and the pack says
-that plainly rather than claiming swarms are faster.
+while costing more, one of them 286 per cent more tokens. The sixth
+came out above the baseline by a margin inside the uncertainty band, at
+24 per cent more tokens. Coordination cost grows faster than the work
+does. No public benchmark measures the shape we use, so our own runs
+are the best evidence we have, and the pack says that plainly rather
+than claiming swarms are faster.
 
 `kernel/templates/org/GRAPH_BUILD.tpl.md` compiles the usable half of
 this into every ORG seed, so a venture gets the method too.
@@ -226,19 +231,25 @@ percentage of completeness. There is no coverage gate.
   touching personal data or anything irreversible take the strict path.
 - **At interface stability**: when a package declares its contract
   stable, contract tests on that boundary start blocking its neighbours.
-- **At stabilisation**: only when the stated signals fire is the broad
-  harness assembled, and it is derived from the map and the
-  specifications rather than from the code, authored or reviewed
-  independently of the model that wrote the implementation, and
-  mutation-checked before it is allowed to block anything.
+- **At stabilisation**: only when the stability signals fire is the
+  broad harness assembled. `packs/delivery-testing/PACK.md` states
+  them, and states that they are starting values a venture overrides in
+  its lock-book rather than measured thresholds. The harness is derived
+  from the map and the specifications rather than from the code,
+  authored or reviewed independently of the model that wrote the
+  implementation, and mutation-checked before it is allowed to block
+  anything.
 
 **Test-first is no longer doctrine.** The rule in `packs/coding` that
 required it is now a default: do it unless you record why not. Two
-measurements moved it. Forcing a frontier model to write tests first
-across about five hundred benchmark tasks changed the number of tasks
-resolved by zero. And prompting a model with the buggy implementation
-in front of it cut bug-revealing tests by about two thirds against
-giving it the specification instead.
+measurements moved it, and neither of them tests ordering head to
+head. Prompting a frontier model for more tests across the five hundred
+tasks of SWE-bench Verified changed test-writing behaviour on most
+tasks and left the number of tasks resolved statistically unchanged.
+And prompting a model with the buggy implementation in front of it cut
+bug-revealing tests by about two thirds against giving it the correct
+implementation, and by about 44 per cent against giving it the
+specification. `packs/coding/PACK.md` carries both rows by evidence id.
 
 Read those two together and the binding rule is narrower and better
 evidenced than the one it replaces: **the artefact that decides whether

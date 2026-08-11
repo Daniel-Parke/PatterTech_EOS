@@ -325,13 +325,14 @@ The import did exactly that. The source is EV-0480, one row for both
 fragment rows, and neither fragment id appears in a pack's read surface
 any more.
 
-The tail of it is not a provenance question. The three passages carrying
-the figures, in `packs/coding/PACK.md`,
-`packs/coding/guides/GD-COD-001-oracle-strategy.md` and
-`packs/delivery-testing/PACK.md`, still say the row is awaiting import,
-which stopped being true when EV-0480 landed. They understate what the
-ledger holds rather than overstate it, and the correction belongs to
-those packs.
+The tail of it was not a provenance question, and it is closed. Three
+passages carrying the figures, in `packs/coding/PACK.md`, in
+`packs/coding/guides/GD-COD-001-oracle-strategy.md` and in
+`packs/delivery-testing/PACK.md`, went on describing the row as
+awaiting import after EV-0480 had landed. That understated what the
+ledger held rather than overstating it, which is the harmless
+direction, and the correction belonged to those packs. All three now
+name the id.
 
 One item is open rather than done, and it is a fetch. The
 `packs/legal-licensing` fragment flagged nine rows carried from a

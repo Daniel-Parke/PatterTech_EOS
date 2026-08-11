@@ -36,16 +36,19 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
 - D009 org/claims.json, when the matrix requires it and it is present,
   validates against kernel/schemas/claims.schema.json and carries the
   seeded state: an empty lanes list.
-- D010 an ORG seed carries the Genesis template set: one compiled file
-  per template in GENESIS_TEMPLATES. Matched on the compiled_from
-  source, not on a destination path, so the matrix decides where each
-  one lands and this check does not have to agree with it twice. It
-  engages only when the governing matrix names a Genesis template at
-  all: a seed pinned before those templates existed could not have
-  carried them, exactly as D007 to D009 stay quiet against v1 seeds.
+- D010 a seed carries the Genesis templates its governing matrix
+  requires at the ruled scale: one compiled file per template. Matched
+  on the compiled_from source, not on a destination path, so the matrix
+  decides where each one lands and this check does not have to agree
+  with it twice. It engages only where that matrix names a Genesis
+  template at that scale: a seed pinned before those templates existed
+  could not have carried them, exactly as D007 to D009 stay quiet
+  against v1 seeds, and a scale the matrix leaves unmarked is not asked
+  for a file it was never told to compile.
 - D011 the compiled acceptance spine still carries its expected-fail
-  marking and a manifest table with a state column. Compile time is the
-  only time this check runs, so it reads the form and nothing else: it
+  marking and a manifest table with a state column, wherever D010 found
+  a file compiled from the spine template. Compile time is the only
+  time this check runs, so it reads the form and nothing else: it
   cannot know whether a suite really fails, and it does not claim to.
 
 The scale matrix that governs a seed is the one at the seed's pinned
@@ -124,9 +127,6 @@ GENESIS_TEMPLATES = (
     "kernel/templates/LENS.tpl.md",
 )
 SPINE_TEMPLATE = "kernel/templates/ACCEPTANCE_SPINE.tpl.md"
-# Full-form Genesis is the ORG default; S takes the lite form, which is
-# a build plan and a checklist rather than this file set.
-GENESIS_SCALES = ("ORG",)
 # What a compiled spine has to carry for a condition to be markable as
 # outstanding: the marking itself, and a manifest table with a state
 # column to put it in.
@@ -242,15 +242,20 @@ def parse_matrix_text(text: str) -> tuple:
     return required, addons, empty_dirs
 
 
-def parse_matrix_sources(text: str) -> set:
-    """Every source cell the matrix table names.
+def parse_matrix_sources(text: str, scale: str = None) -> set:
+    """The source cells the matrix table names, all or at one scale.
 
     The second column says where a required file is compiled from. D010
-    reads it to learn whether the matrix governing a seed knows about
-    the Genesis templates at all. A seed pinned to a commit from before
-    they existed could not have carried them and is not asked to.
+    reads it twice. Without a scale it answers whether the matrix
+    governing a seed knows about the Genesis templates at all: a seed
+    pinned to a commit from before they existed could not have carried
+    them and is not asked to. With a scale it answers which of them that
+    matrix requires at the seed's ruled scale, so the check follows the
+    matrix rather than a scale list kept beside it, which is the copy
+    that goes stale.
     """
     sources: set = set()
+    scales: list = []
     mode = None
     for line in text.splitlines():
         if not line.lstrip().startswith("|"):
@@ -259,6 +264,7 @@ def parse_matrix_sources(text: str) -> set:
         if not cells or not cells[0]:
             continue
         if cells[0] == "path":
+            scales = [c for c in cells[2:] if c]
             mode = "matrix"
             continue
         if cells[0] == "addon":
@@ -267,7 +273,14 @@ def parse_matrix_sources(text: str) -> set:
         if cells[0].startswith("-"):
             continue
         if mode == "matrix" and len(cells) >= 2 and cells[1]:
-            sources.add(cells[1])
+            if scale is None:
+                sources.add(cells[1])
+                continue
+            marks = cells[2:2 + len(scales)]
+            marks += [""] * (len(scales) - len(marks))
+            for col, mark in zip(scales, marks):
+                if col == scale and mark == "x":
+                    sources.add(cells[1])
     return sources
 
 
@@ -637,9 +650,17 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                     err("D009", rel, "seeded claims must be an empty lanes list")
 
     # --- D010 the Genesis template set, D011 the spine's marking -------
+    # Which templates are asked for is the matrix's ruling, read at the
+    # seed's scale. This used to be a tuple in this file naming ORG, on
+    # the reading that the lite form at S is a different file set. It is
+    # not: ADR-0006 scopes lite and full to running the phase, and the
+    # matrix marks the Genesis rows at both scales, so D011 never ran
+    # against an S spine the matrix required.
     matrix_sources = parse_matrix_sources(matrix_text or "")
     governs_genesis = bool(matrix_sources.intersection(GENESIS_TEMPLATES))
-    if scale in GENESIS_SCALES and governs_genesis:
+    at_scale = parse_matrix_sources(matrix_text or "", scale=scale) if scale else set()
+    wanted = [t for t in GENESIS_TEMPLATES if t in at_scale]
+    if governs_genesis and wanted:
         compiled = {}
         for r, _text, fm in parsed:
             if not fm.present:
@@ -647,12 +668,13 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             source = fm.data.get("compiled_from")
             if isinstance(source, str) and source:
                 compiled.setdefault(source.strip(), []).append(r)
-        for template in GENESIS_TEMPLATES:
+        for template in wanted:
             if not compiled.get(template):
                 err("D010", template,
                     f"no file in this {scale} seed is compiled from it; the "
-                    "Genesis blueprint set is compiled into every ORG seed "
-                    "whether or not the operator runs the phase")
+                    f"governing kernel/SCALE_MATRIX.md requires a file "
+                    f"compiled from this template at {scale}, whether or not "
+                    "the operator runs the Genesis phase")
 
         # D011 reads the compiled form, and only the form. There is no
         # suite at compile time and no runtime to run one in, so this

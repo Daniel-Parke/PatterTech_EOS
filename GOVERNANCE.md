@@ -95,8 +95,15 @@ the integrator still owns every derived view.
 above, any diff touching the protected set, and anything a reviewer must
 later be able to find. Ordinary R0 and R1 work records itself in the
 commit message, which is what Express already did. *Caught instead by*:
-git is the log, ruled in ADR-0002, and the monthly pass's sampled review
-reads commits and not only records. The failure this leaves open is a
+git is the log, ruled in ADR-0002, and the close step of the standard
+path in `org/PLAYBOOKS.md`, which re-routes against the actual diff and
+opens a record when the work turns out to rule R2 or above. ADR-0008
+named a sampled review of commits as the second catcher. That one
+counts only where a section of `org/PLAYBOOKS.md` says how many commits
+it reads, chosen how, and against what, because a pool nothing drains
+is a name rather than a control. Until a section says so, the two
+named above are the ones that actually run. The failure this leaves
+open is a
 change whose reasoning nobody can reconstruct. If a monthly pass finds
 one, ADR-0008 is the suspect, and the fix is to raise the bar for what
 counts as gate-bearing rather than to reinstate records everywhere.
@@ -310,7 +317,11 @@ Triggers and topics:
 
 Every budget but the router cap is a warning (ADR-0008), on the
 argument that length is caught by the pruning test in
-`packs/PACK_SHAPE.md` and by the review passes. Check E007 does that: a
+`packs/PACK_SHAPE.md` and by the review passes. Check E007 warns on the
+six types listed above and on nothing else: a `PACK.md` body is
+`type: playbook` and a guide is `type: guide`, so no check warns on
+either of those two budgets and both are kept by review alone. Know
+that before quoting one at somebody. Where E007 does reach, a
 budgeted type over one hundred and fifty lines warns, and a
 `length_waiver` no longer changes the severity, only the wording. With
 one, the finding names the reason the file is long. Without one, it

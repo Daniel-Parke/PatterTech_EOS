@@ -30,12 +30,24 @@ a FIX.
 
 The task record declares touches-auth, because signature verification is
 an authentication surface, and writes-production-data, because the
-handler writes to the ledger. Under `kernel/POLICY_SPEC.md` the auth
-surface factor carries a floor of R2, so the router rules R2 despite the
-diff being small. Under guide
+handler writes to the ledger. Under `kernel/POLICY_SPEC.md` those are
+two active factors with two floors, and the higher one wins:
+writes-production-data is a declared source of the data-deletion factor,
+floor R3, and touches-auth is a source of the auth surface factor, floor
+R2. The router rules R3, with the data-deletion reason first and the
+auth surface reason second. That factor is named for its derived half, a
+deletion detected in the diff; a declared production-data write is the
+other source on the same row, and it carries the same floor. Under guide
 `packs/coding/guides/GD-COD-002-review-gate.md` that means independent
-human review at acceptance and the oracle frozen before implementation.
+human review at acceptance, the oracle frozen before implementation, and
+the operator approving the merge because an R3 always takes a human.
 Nobody argued the tier down. The diff size was never the input.
+
+Worth noticing, because it is the part most runs get wrong: declaring
+the ledger write is what took this from R2 to R3. Leaving it off the
+record would have ruled R2 and looked tidier, and no detector would have
+argued: the router derives nothing that says a diff writes production
+data, so that declaration rests on the owner and on nobody else.
 
 ## Step 2: the oracle strategy
 
@@ -112,7 +124,8 @@ well-formed input behaves exactly as before.
 
 ## Step 7: review and merge
 
-R2, so a person reads it. They read the error paths first, per
+R3, so an independent person reads it and the operator signs before it
+lands. They read the error paths first, per
 `packs/coding/refs/REVIEW_GATE.md`. They ask one question: whether
 translating the ledger write failure would have been better than
 re-raising it. The answer is no, because the provider retry is the
@@ -123,14 +136,16 @@ They do not comment on the helper's name. Naming uniformity is a
 preference in this pack, not a gate.
 
 Approved on the health gradient: the change definitely improves overall
-code health, and it is not perfect. One reviewer, one iteration. Merged
-to trunk the same day, which is default D3.
+code health, and it is not perfect. One reviewer, one iteration. The
+operator reads the ruling and its two reasons off the record and
+approves, which is what the R3 floor is for. Merged to trunk the same
+day, which is default D3.
 
 ## What this run cost
 
-Three commits, one blocking gate finding, one review question. The pin
-took a few minutes and is the reason anyone can say with confidence that
-well-formed events still behave the same.
+Three commits, one blocking gate finding, one review question, and one
+operator approval. The pin took a few minutes and is the reason anyone
+can say with confidence that well-formed events still behave the same.
 
 ## What it would have looked like without the pack
 

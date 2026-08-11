@@ -35,19 +35,24 @@ when a trigger changes.
 
 ## Options
 
-### S. Nine files, no org
+### S. Fourteen files, no org
 Routers, operators guide, brief, lock-book, feedback, compile report,
-policy and task list (kernel/SCALE_MATRIX.md is exact). One human, one
-task surface, no charters, no integrator tooling. Costs nothing to
-run; offers no separation of duties and no compliance machinery.
+policy and task list, plus the five blank Genesis forms
+(kernel/SCALE_MATRIX.md is exact). Seven of the fourteen are operating
+surface on the matrix's own accounting: CLAUDE.md is a byte copy of the
+router, the compile report is meta, and nobody opens a blank form until
+the venture decides to run Genesis. One human, one task surface, no
+charters, no integrator tooling. Costs nothing to run; offers no
+separation of duties and no compliance machinery.
 
 ### ORG. The full shape
-Adds the constitution, the boot file, the testing law, the artefact
-shapes, the questions file, the playbooks, the three situational
-charters (EXECUTOR, ORACLE, REVIEWER), the cadence file and the claims
-file. Work becomes task records with derived views; separation of
-duties exists where the router asks for it. Verification bandwidth
-becomes the limiting resource.
+Twenty-five files. Adds the constitution, the boot file, the testing
+law, the artefact shapes, the questions file, the playbooks, the
+wide-build file, the three situational charters (EXECUTOR, ORACLE,
+REVIEWER), the cadence file and the claims file. Work becomes task
+records with derived views; separation of duties exists where the
+router asks for it. Verification bandwidth becomes the limiting
+resource.
 
 ## The v2 narrowing
 

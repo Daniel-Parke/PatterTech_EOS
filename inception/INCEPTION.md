@@ -76,11 +76,15 @@ a signal the factor table cites, per kernel/POLICY_SPEC.md.
 
 ## Phase C · Pack activation walk
 
-Packs replace v1's doctrine modules, so the walk is built from
-packs/INDEX.md rather than a wargame index. Build and order it per
-inception/WALK_ORDER.md: filter the index rows by the venture's
-triggers, test each candidate against its applicability predicates, and
-rule the guides that every activated pack names.
+Packs replace v1's doctrine modules, so the walk is built from the
+packs themselves rather than from a wargame index. Build and order it
+per inception/WALK_ORDER.md: match the surfaces the interview named
+against each pack's own activation_paths, by hand at Session 0 because
+the context command has no venture-tree mode this build, test each
+candidate against its applicability predicates, and rule the guides that
+every activated pack names. packs/INDEX.md is a reading aid and not the
+walk's input, because a walk built by eye off the index reads every row
+in it.
 
 Every ruling lands as one row in the lock-book header, in the form
 id · ruling · argued|inherited · note. Argued means the venture's facts

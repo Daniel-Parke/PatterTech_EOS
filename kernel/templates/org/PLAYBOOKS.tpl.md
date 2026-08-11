@@ -74,44 +74,23 @@ ruling and ends with the close rule in org/START.md.
 
 For work wide enough to run several lanes at once, and only then. It is
 a shape for the parallel wrapper above, not a new mode: every lane still
-carries its own ruled mode and its own claim. `packs/agentic-swarm` owns
-the rules, the defaults and the evidence, including the evidence against
-running wide at all. Read it before the first partition; it is not
-restated here.
+carries its own ruled mode and its own claim.
 
-1. Cut the partition from the product map, on dependency cohesion
-   rather than on the feature list. Hub artefacts stay with the
-   integrator and are never delegated: shared indexes, generated views,
-   the map itself, and anything two lanes would both write.
-2. Write the partition down before any lane starts. Per lane: the files
-   it owns, the interfaces it consumes and publishes, and the lanes it
-   waits on. Ownership is disjoint by construction. Two writers on one
-   file is the failure this prevents, and it is the one that costs a
-   whole run.
-3. Give each lane a closed brief: objective, exact write set, read set,
-   return contract, tools, budget, stop condition, acceptance condition.
-   Nothing is assumed inherited. Name the escape: a lane whose brief
-   does not determine something says so and returns, and that is a
-   result rather than a failure.
-4. The verifier predates the lanes. Whatever decides that a lane's work
-   is correct is authored outside that lane, before it runs, without its
-   context.
-5. Integrate small and often. The integrator owns merge order and takes
-   each lane's work as it lands, never all of it at the end.
-6. A deviation from the map is recorded on the work package, and the
-   map's section for it flips back to draft. A map that quietly
-   disagrees with the build is worse than no map.
-7. Budgets are declared per run and per lane, with a stop condition, and
-   the harness enforces them. A person still stands at every
-   consequential act; running wide changes nothing about the guard.
-8. Three to five lanes is the default. Going wider names its reason and
-   needs an oracle strong enough to decide each lane on its own. Do not
-   run wide over work one session already does well, and do not run wide
-   over a chain.
-
-Close by journalling the run: the partition, what each lane returned,
-and what the integrator had to repair. That journal is the only evidence
-the venture will have about whether running wide paid.
+1. Rule the fork before anything is dispatched. The question is whether
+   this work wants lanes at all, and
+   `packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md`
+   answers it. Do not run wide over work one session already does well,
+   and do not run wide over a chain.
+2. Then run the method in org/GRAPH_BUILD.md: cut the partition, write
+   the lane briefs, dispatch, merge, and what stops a run. That file is
+   the executable half of `packs/agentic-swarm` compiled into this
+   venture, and the procedure is written there and nowhere else, so
+   there is one copy to keep true. The pack behind it holds the rules,
+   the defaults and the evidence, including the evidence against
+   running wide at all. Read the pack before the first partition.
+3. Close by journalling the run: the partition, what each lane
+   returned, and what the integrator had to repair. That journal is the
+   only evidence the venture will have about whether running wide paid.
 
 ## hardening pass
 

@@ -17,6 +17,11 @@ against which requirement, and whether a machine can settle it today.
 output. "Judgement" means a person rules and the record is the
 evidence. A check that needs a person is still a check.
 
+B4 and B6 bind. B1, B2, B3, B5 and B7 are defaults since the ADR-0008
+audit, so the rows behind them still run and a venture that departs
+records why. A row that fails against a default is a finding to be
+answered in writing, not a finding to be waved through.
+
 ## Executable today
 
 | # | Check | Verifies | How |

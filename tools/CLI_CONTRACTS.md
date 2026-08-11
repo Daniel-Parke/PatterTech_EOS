@@ -14,13 +14,24 @@ Exit codes, uniform across commands:
 
 - **0**: clean, or warnings only.
 - **1**: findings (errors, refusals, blocking verdicts, failed criteria).
-- **2**: cannot run (missing dependency, absent file, malformed input).
-  Missing jsonschema exits 2 and prints the install command.
-- **3**: protected-touch-unacknowledged: the requested change reaches a
-  protected-set file or a policy `protected_pointers` target without
-  `--adr` given. The command checks only that a value was passed;
+- **2**: cannot run (absent file, malformed input). A missing
+  `jsonschema` is not one of these. Schema validation degrades instead:
+  S013, S017, S019 on the repo path and D007 and D009 on the seed path
+  each emit an error-severity finding naming what went unvalidated, so
+  the run finishes and exits 1 with the rest of its findings. A library
+  that stopped the run would throw away everything already collected,
+  which is the failure that shape avoids.
+- **3**: protected-touch-unacknowledged: `route` ruled the factor
+  `protected-set-contact` and no `--adr` was given. That factor is
+  activated by a changed path matching a glob in the policy's
+  `path_patterns.protected` list, which is the only thing that raises
+  this exit code. The command checks only that a value was passed;
   nothing yet reads the id or confirms the ADR is accepted, so the
-  operator carries that check.
+  operator carries that check. A policy's `protected_pointers` list is a
+  declaration, validated against `kernel/schemas/policy.schema.json` by
+  the seed check D007; no command reads it to rule a touch, so a change
+  that reaches a pointer target without also matching a protected path
+  does not raise this code.
 
 ## check
 

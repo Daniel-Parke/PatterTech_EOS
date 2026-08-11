@@ -34,9 +34,10 @@ answer would satisfy a stranger.
 12. What does success look like in ninety days?
 13. What is explicitly out of scope?
 
-Question 8 is the one that goes missing. It is absent from the canned
-brief the inception drill uses, and it carries real money, so ask it
-even when the venture looks free to run.
+Question 8 is the one that goes missing, because a venture with nothing
+to sell reads as a venture with nothing to spend. It carries real money
+either way, so ask it even when the venture looks free to run. The
+canned drill brief went without an answer to it until 2026-08-11.
 
 Answers to 4 through 11 become the trigger list for WG-EOS-001 and the
 pack walk. Vague answers on server state, money or personal data are

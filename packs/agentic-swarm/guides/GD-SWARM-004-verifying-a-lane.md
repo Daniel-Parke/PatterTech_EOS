@@ -6,7 +6,7 @@ lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
 scope: estate
-sources: [EV-0006, EV-0053, EV-0105, EV-0111, EV-0178, EV-0251]
+sources: [EV-0006, EV-0053, EV-0105, EV-0111, EV-0178, EV-0251, EV-0480]
 review: on-change-of:agent-harness-major-release
 type: guide
 tags: [eos, delivery, testing]
@@ -112,11 +112,12 @@ than a coverage percentage, because coverage is not the meter
 
 ## Notes
 
-Ordering is ceremony and independence is not. Forcing a frontier model
-to write tests across about 500 benchmark tasks changed the number
-resolved by zero (EV-0006), and the ingredient the older evidence
-actually supports is small uniform work increments rather than the
-sequence (EV-0178). Meanwhile, prompting an oracle author with the
-buggy implementation instead of the specification cut bug-revealing
-tests by about two thirds, and self-review without external feedback
+Ordering is ceremony and independence is not. Prompting a frontier model
+for more tests across about 500 benchmark tasks left the number of tasks
+resolved statistically unchanged (EV-0006), and the ingredient the older
+evidence actually supports is small uniform work increments rather than
+the sequence (EV-0178). Meanwhile, prompting an oracle author with the
+buggy implementation rather than the specification cut bug-revealing
+tests by about 44 per cent, and by about two thirds against the correct
+implementation (EV-0480), and self-review without external feedback
 degrades the answer (EV-0111). Drop the ritual; keep the separation.

@@ -7,10 +7,10 @@ tags: [eos]
 # EXPRESS_INCEPTION
 
 The fast path through Session 0, for a venture whose risk triggers are
-all silent. It compiles the same nine-file S seed as the full path and
-passes the same auto checks. What it drops is argument nobody needed:
-questions whose answers were never going to change a ruling, and a walk
-whose every row would have read inherited.
+all silent. It compiles the same fourteen-file S seed as the full path
+and passes the same auto checks. What it drops is argument nobody
+needed: questions whose answers were never going to change a ruling,
+and a walk whose every row would have read inherited.
 
 Target: under thirty minutes of the operator's time, in one sitting,
 with the operator present throughout because there is nothing left to

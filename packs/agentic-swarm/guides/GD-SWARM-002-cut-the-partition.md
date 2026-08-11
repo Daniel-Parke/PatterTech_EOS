@@ -6,7 +6,7 @@ lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
 scope: estate
-sources: [EV-0053, EV-0109]
+sources: [EV-0053, EV-0109, EV-0471]
 review: on-change-of:agent-harness-major-release
 type: guide
 tags: [eos, arch, delivery]

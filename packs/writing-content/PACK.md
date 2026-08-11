@@ -21,9 +21,10 @@ This pack covers text people read: interface strings, error messages,
 product documentation and the prose in this repository. It activates on
 any task that writes or reviews user-facing copy, documentation, or a
 translatable string. Message structure, error identification and
-licence obligations bind. Voice splits three ways: law inside the EOS,
-a default for venture documentation, a preference for brand that
-nothing yet fills. Readability scores never gate anything.
+licence obligations bind. Voice splits three ways: a house rule inside
+the EOS that a check enforces, a default for venture documentation, a
+preference for brand that nothing yet fills. Readability scores never
+gate anything.
 
 ## Activation
 
@@ -98,9 +99,14 @@ re-scoped it. The three are separate and they are allowed to disagree.
 
 | Scope | Authority | What it governs | Basis |
 | --- | --- | --- | --- |
-| eos-internal | binding | every file in this repository | decision, ADR-0002 |
+| eos-internal | default, and E004 fails the commit | every file in this repository | decision, ADR-0002 |
 | venture | default | documentation and product copy in a venture repo | standard, plain-language guidance |
 | brand:`<name>` | preference | how a venture sounds to its market | taste, adopted explicitly |
+
+The first row read binding until the 2026-08 audit. B8 failed the basis
+leg and sits under Defaults now, which changes nothing an agent does:
+check E004 still fails a commit on an em-dash, and `AGENTS.md` states
+the same law in the file every session already reads.
 
 A brand scope caps at preference by `kernel/METADATA_SPEC.md`, so no
 brand voice can ever bind a venture's engineers. Where the scopes
@@ -118,7 +124,7 @@ one by default.
 
 ## Binding requirements
 
-Five bind. Each names its predicate, its evidence and the failure it
+Four bind. Each names its predicate, its evidence and the failure it
 prevents, and each states its basis, because binding is the most
 expensive claim this pack makes. Most of what follows this section is
 default or preference, which is the correct shape for a domain where
@@ -128,7 +134,7 @@ The 2026-08 authority audit under ADR-0008 put one test to all ten
 requirements this pack used to bind: a rule binds only where it prevents
 a concrete failure that is serious or hard to reverse **and** its basis
 is law, a standard, empirical evidence or a protected-set floor. B3, B5,
-B6, B7 and B10 failed it and are now defaults. They keep their B
+B6, B7, B8 and B10 failed it and are now defaults. They keep their B
 numbers, because `packs/writing-content/CHECKS.md`, the guides, the refs
 and the exemplar cite them, and they sit under Defaults below. A default
 is departed from in writing, never in silence.
@@ -174,19 +180,6 @@ person who cannot tell what a good answer looks like cannot finish the
 form at all, which is serious wherever the duty in 3.3.1 reaches and
 wherever it does not.
 
-**B8. Prose in this repository follows the voice law.**
-`writes_eos_internal_prose`. Plain, spoken, British spelling, no
-em-dashes, no exclamation marks, no AI cliches, no two-fragment
-antithesis. Scope eos-internal only. Check E004 enforces the
-mechanical part today. Prevents drift in the one repository every agent
-reads. Basis: decision, ADR-0002. This rule has no evidence behind it
-and does not need any: it is a house ruling about a house, and it
-carries no authority over a venture's product copy or its brand. It
-stayed binding through the audit for one reason, which ADR-0008
-decision 7 gives: E004 already fails a commit on the mechanical part,
-so writing it down as a default would put this pack out of step with
-the rule the repository actually enforces.
-
 **B9. Licence obligations on external style guidance are recorded
 before the guidance informs a house guide.**
 `reuses_external_style_guidance`. Open Government Licence material
@@ -202,7 +195,7 @@ Followed unless the task records a reason to depart.
 
 ### Demoted from binding, 2026-08
 
-Five rules that used to bind. Each still names the failure it prevents,
+Six rules that used to bind. Each still names the failure it prevents,
 and each says which leg of the ADR-0008 test it failed. Numbers are
 unchanged so the checks, guides, refs and exemplar that cite them still
 resolve.
@@ -247,6 +240,24 @@ disagrees with the first. Basis: decision, and an admittedly cheap
 bet: no study was found showing that a maintained termbase improves
 comprehension or reduces support load. Failed the basis leg, on that
 admission.
+
+**B8. Prose in this repository follows the voice law.**
+`writes_eos_internal_prose`. Plain, spoken, British spelling, no
+em-dashes, no exclamation marks, no AI cliches, no two-fragment
+antithesis. Scope eos-internal only. Prevents drift in the one
+repository every agent reads. Basis: decision, ADR-0002. Failed the
+basis leg: a house ruling about a house is not law, a standard or a
+measured effect, and no study of a voice rule's effect was looked for
+or found. It does not clear the seriousness leg either, because prose
+that drifts is repaired by rewriting it.
+
+Demoting it changes nothing an agent does. Check E004 fails a commit
+on an em-dash and warns on exclamation marks and cliches, so the
+mechanical part is not departable in this repository whatever this pack
+says about its authority, and `AGENTS.md` states the same law in the
+file every session reads. What a task can record a reason against is
+the judgement part, the register and the phrasing. The rule still
+carries no authority over a venture's product copy or its brand.
 
 **B10. No readability formula gates a merge, a release or a review.**
 `writes_user_facing_text`. A score may be reported on a diff and may

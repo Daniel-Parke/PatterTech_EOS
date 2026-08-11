@@ -728,6 +728,14 @@ GENESIS_MATRIX = V2_TEST_MATRIX.replace(
     "\n" + "".join("| %s | %s | | x |\n" % (dest, src)
                    for src, dest in GENESIS_DESTINATIONS.items())
     + "\n## Trigger add-ons")
+# The shape the live kernel matrix has: the Genesis rows marked at both
+# scales. D010 and D011 follow the matrix, so this is the matrix that
+# puts them to work at S.
+GENESIS_MATRIX_BOTH_SCALES = V2_TEST_MATRIX.replace(
+    "\n\n## Trigger add-ons",
+    "\n" + "".join("| %s | %s | x | x |\n" % (dest, src)
+                   for src, dest in GENESIS_DESTINATIONS.items())
+    + "\n## Trigger add-ons")
 
 SPINE_BODY = """
 ## The manifest
@@ -747,8 +755,8 @@ def _genesis_file(seed, rel, source, body="Body.\n"):
         encoding="utf-8")
 
 
-def _genesis_seed(tmp_path, missing=(), spine_body=SPINE_BODY):
-    seed = _v2_seed(tmp_path, scale="ORG")
+def _genesis_seed(tmp_path, missing=(), spine_body=SPINE_BODY, scale="ORG"):
+    seed = _v2_seed(tmp_path, scale=scale)
     for source, dest in GENESIS_DESTINATIONS.items():
         if source in missing:
             continue
@@ -783,11 +791,36 @@ def test_d010_matches_on_the_source_not_the_destination(tmp_path):
     assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
 
 
-def test_d010_stays_quiet_at_s_scale(tmp_path):
-    """Full Genesis is the ORG default; S takes the lite form."""
+def test_d010_stays_quiet_where_the_matrix_marks_the_rows_org_only(tmp_path):
+    """The matrix rules the scale, not a list kept beside the check.
+    This matrix marks the Genesis rows at ORG and not at S, so an S seed
+    is not asked for a file it was never told to compile."""
     eos = _v2_eos(tmp_path, GENESIS_MATRIX)
     seed = _v2_seed(tmp_path, scale="S")
     assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
+
+
+def test_d010_runs_at_s_where_the_matrix_marks_the_rows_there(tmp_path):
+    """Which is the live matrix's ruling. ADR-0006 scopes the lite form
+    to running the phase, not to the file set, so an S seed carries the
+    blank forms and D010 asks for them."""
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX_BOTH_SCALES)
+    seed = _v2_seed(tmp_path, scale="S")
+    paths = [p for _s, p, _m in only(run_seed(seed, _v2_ctx(eos)), "D010")]
+    assert paths == list(GENESIS_DESTINATIONS)
+
+
+def test_d011_reads_an_s_scale_spine(tmp_path):
+    """The gap this closes: the spine is required at S, and D011 sat
+    behind an ORG-only gate, so an S seed whose spine had lost its
+    marking passed the auto gate silently."""
+    eos = _v2_eos(tmp_path, GENESIS_MATRIX_BOTH_SCALES)
+    seed = _genesis_seed(tmp_path, scale="S",
+                         spine_body="No marking and no manifest here.\n")
+    got = only(run_seed(seed, _v2_ctx(eos)), "D011")
+    assert [p for _s, p, _m in got] == ["docs/genesis/ACCEPTANCE_SPINE.md"] * 2
+    assert "never says expected-fail" in got[0][2]
+    assert "no manifest table with a state column" in got[1][2]
 
 
 def test_d010_stays_quiet_when_the_matrix_predates_genesis(tmp_path):
@@ -796,6 +829,24 @@ def test_d010_stays_quiet_when_the_matrix_predates_genesis(tmp_path):
     eos = _v2_eos(tmp_path)
     seed = _v2_seed(tmp_path, scale="ORG")
     assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
+
+
+def test_the_shipped_matrix_still_names_every_genesis_template():
+    """D010 and D011 engage through the source column of
+    kernel/SCALE_MATRIX.md. Nothing else binds the two together, so a
+    renamed template path there would switch both checks off with every
+    other test still green. The matrix's own prose rules that the five
+    Genesis forms ship at both scales; this holds it to that."""
+    from tools.eos.checks.seed import GENESIS_TEMPLATES, parse_matrix_sources
+
+    text = (REPO_ROOT / "kernel" / "SCALE_MATRIX.md").read_text(encoding="utf-8")
+    missing = set(GENESIS_TEMPLATES) - parse_matrix_sources(text)
+    assert missing == set(), "matrix no longer names: %s" % sorted(missing)
+    for scale in ("S", "ORG"):
+        at_scale = parse_matrix_sources(text, scale=scale)
+        assert set(GENESIS_TEMPLATES) <= at_scale, (
+            "%s no longer requires: %s"
+            % (scale, sorted(set(GENESIS_TEMPLATES) - at_scale)))
 
 
 def test_d010_leaves_the_frozen_org_fixture_alone():

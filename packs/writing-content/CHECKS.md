@@ -17,6 +17,12 @@ it today. "Executable" means a script decides it with no human reading
 the output. "Judgement" means a person rules and the record is the
 evidence. A check that needs a person is still a check.
 
+B1, B2, B4 and B9 bind. B3, B5, B6, B7, B8 and B10 are defaults since
+the ADR-0008 audit, so the rows behind them still run and a project
+that departs records why. C16 is the odd one: B8 is a default and
+check E004 fails the commit anyway, because the voice law is this
+repository's own and does not wait on the pack's authority.
+
 ## Executable today
 
 | # | Check | Verifies | How |

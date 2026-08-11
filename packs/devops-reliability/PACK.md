@@ -113,6 +113,25 @@ non-requirements below.
 Seven. Each names the failure it prevents and cites the evidence that
 earns it. Departure needs an accepted ADR, not a task-level judgement.
 
+The 2026-08 authority audit under ADR-0008 did not run over this
+section, and this paragraph is the note saying so. What the ADR
+excludes is "the production-safety rules in `packs/devops-reliability`",
+named that way rather than by number, and nobody has ruled which of the
+seven those words cover. Requirements 1, 2 and 3 are production safety
+past argument: they govern what a change does to live data, and they
+are why this pack is the home of a protected-set subject under
+`GOVERNANCE.md`. Requirement 5 is the only evidence that data loss is
+recoverable at all, so it reads the same way. Requirements 4, 6 and 7
+are process rules, a machine-readable SLO, an owned postmortem and flag
+lifecycle, and the exclusion does not plainly reach them.
+
+So read 4, 6 and 7 as untested against the two-limb test rather than as
+tested and upheld. None of the seven states a basis, which every
+audited pack now does per rule, and stating one is part of the work the
+audit would do here. All seven stay binding meanwhile, because an
+untested rule is not a demoted one and nothing but the audit moves
+them.
+
 1. **Backwards-incompatible schema change ships as expand, migrate,
    contract, in separate deploys.** Add the new shape, move every caller
    and row, delete the old shape only once nothing reads it. No deploy
