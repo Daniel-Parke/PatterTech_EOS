@@ -88,13 +88,19 @@ def test_task_new_says_when_the_ruling_is_a_clean_r0(venture, capsys):
     assert "no factor active, a clean R0" in captured.err
 
 
-def test_task_new_refuses_an_invalid_record(venture):
+def test_task_new_refuses_an_invalid_record(venture, capsys):
+    """A record the schema rejects is a run that could not happen.
+
+    It used to raise out of main, print a traceback and exit 1, and 1
+    is the code for findings, so a caller read a malformed record as a
+    failing check.
+    """
     bad = venture / "bad.json"
     record = _record()
     del record["intent"]
     bad.write_text(json.dumps(record), encoding="utf-8")
-    with pytest.raises(ValueError):
-        cli.main(["task", "new", "--record", str(bad)])
+    assert cli.main(["task", "new", "--record", str(bad)]) == 2
+    assert "task record invalid" in capsys.readouterr().err
     assert not (venture / "org" / "tasks" / "T-0001.json").exists()
 
 
@@ -209,6 +215,28 @@ def test_cli_contracts_documents_every_task_op():
                     "%s %s is undocumented" % (name, choice)
 
 
+def test_the_series_flag_takes_only_the_series_that_exist(capsys):
+    """A typo used to read as a clean run.
+
+    `--series` is a prefix match over the check ids, so any other value
+    selected nothing and reported "0 errors, 0 warnings", exit 0. The
+    choices are held against the registry here so the flag cannot drift
+    from the checks that exist.
+    """
+    from tools.eos import checks
+
+    series = None
+    for action in _subcommands(cli.build_parser())["check"]._actions:
+        if "--series" in action.option_strings:
+            series = set(action.choices or ())
+    assert series == {check_id[0] for check_id in checks.REGISTRY}
+
+    with pytest.raises(SystemExit) as exit_code:
+        cli.main(["check", "--series", "Z"])
+    assert exit_code.value.code == 2
+    assert "invalid choice" in capsys.readouterr().err
+
+
 # --- the documented exit codes, exercised ------------------------------
 
 
@@ -231,6 +259,58 @@ def test_cannot_run_is_two_and_findings_are_one(venture, capsys, tmp_path):
 
     assert cli.main(["route", "--facts", str(tmp_path / "nothing.json")]) == 2
     assert "No such file" in capsys.readouterr().err
+
+
+def test_malformed_input_is_two_rather_than_a_traceback(venture, capsys):
+    """Malformed input is the other half of "cannot run".
+
+    Each of these raised out of main, printed a traceback and exited 1.
+    A caller reads 1 as findings, so a broken invocation looked like a
+    failing check, and the message a caller got was a stack trace.
+    """
+    facts = venture / "facts.json"
+    facts.write_text("not json at all\n", encoding="utf-8")
+    assert cli.main(["route", "--facts", str(facts)]) == 2
+    err = capsys.readouterr().err
+    assert "declared facts file" in err and "is not JSON" in err
+    assert "Traceback" not in err
+
+    # Valid JSON of the wrong shape is malformed for this purpose too:
+    # it used to reach the reader as a list and fail there.
+    facts.write_text(json.dumps(["capabilities"]), encoding="utf-8")
+    assert cli.main(["route", "--facts", str(facts)]) == 2
+    assert "not a JSON object" in capsys.readouterr().err
+
+    assert cli.main(["task", "new", "--record",
+                     _record_file(venture)]) == 0
+    capsys.readouterr()
+    assert cli.main(["task", "update", "--id", "T-0001",
+                     "--patch", "status: done"]) == 2
+    assert "--patch is not JSON" in capsys.readouterr().err
+
+
+def test_a_diff_ref_git_cannot_resolve_is_a_cannot_run(venture, capsys):
+    """The portable one. The merge gate wraps `route --diff BASE...HEAD`
+    and a CI checkout often has only origin/main, so a base ref that
+    does not resolve has to be distinguishable from discrepancies
+    found."""
+    facts = venture / "facts.json"
+    facts.write_text(json.dumps({"capabilities": [], "side_effects": []}),
+                     encoding="utf-8")
+    git(venture, "init", "-q", "-b", "main")
+    git(venture, "config", "user.email", "suite@example.invalid")
+    git(venture, "config", "user.name", "Test Suite")
+    git(venture, "config", "commit.gpgsign", "false")
+    git(venture, "add", ".")
+    git(venture, "commit", "-q", "-m", "base")
+
+    assert cli.main(["route", "--facts", str(facts),
+                     "--diff", "nosuchref...HEAD"]) == 2
+    err = capsys.readouterr().err
+    assert "failed" in err and "Traceback" not in err
+
+    assert cli.main(["context", "--diff", "nosuchref...HEAD"]) == 2
+    assert "failed" in capsys.readouterr().err
 
 
 def test_guard_rules_allow_block_and_cannot_judge_apart(venture, capsys):
@@ -291,6 +371,24 @@ def test_migrate_apply_refuses_a_seed_outside_this_repository(
     state.write_text(json.dumps({"version": 1, "steps": []}), encoding="utf-8")
     assert cli.main(["migrate", "apply", "--seed", str(outside),
                      "--state", str(state)]) == 2
+    assert "only in this build" in capsys.readouterr().err
+
+
+def test_migrate_apply_refuses_a_sibling_whose_name_extends_the_repo(
+        venture, capsys, tmp_path):
+    """The guard was a string prefix, so any sibling directory whose
+    name merely extended this one passed it: a PatterTech_EOS_backup
+    beside PatterTech_EOS. With --no-dry-run apply rewrites the
+    lock-book header and every file under org/roles/, so what got
+    through was a destructive write into another repository."""
+    sibling = tmp_path / (venture.name + "_backup")
+    (sibling / "docs").mkdir(parents=True)
+    state = venture / "state.json"
+    state.write_text(json.dumps({"version": 1, "steps": []}), encoding="utf-8")
+    assert str(sibling).startswith(str(venture)), \
+        "the fixture has to reproduce the prefix that used to pass"
+    assert cli.main(["migrate", "apply", "--seed", str(sibling),
+                     "--state", str(state), "--no-dry-run"]) == 2
     assert "only in this build" in capsys.readouterr().err
 
 

@@ -442,7 +442,7 @@ def _tasks_view(records):
     return "\n".join(lines) + "\n"
 
 
-def _state_view(records, claims_doc, cadence, branch, head):
+def _state_view(records, claims_doc, cadence, head):
     lines = [
         "---",
         "summary: Derived state view of claims, operator flags, cadence and machine facts",
@@ -491,9 +491,12 @@ def _state_view(records, claims_doc, cadence, branch, head):
     else:
         lines.append("No cadence rows recorded.")
     lines += ["", "## Machine facts", ""]
+    # The commit and nothing else. A branch name written into a
+    # committed file is a fact that any merge invalidates: a view
+    # generated on a feature branch records that name, and the merge to
+    # main makes it wrong without a single input having changed. The
+    # commit survives the merge by ancestry, which is how S007 reads it.
     facts = []
-    if branch:
-        facts.append("branch: %s" % branch)
     if head:
         facts.append("commit: %s" % head)
     if facts:
@@ -512,10 +515,10 @@ _FACTS_TOKEN = "<machine facts>"
 def strip_machine_facts(text):
     """The state view with the machine-facts values blanked out.
 
-    The block records the branch and the commit the view was generated
-    from, and that commit is behind HEAD the moment the view is
-    committed. Check S007 tests those facts by ancestry for exactly that
-    reason, so drift detection blanks them and leaves them to S007.
+    The block records the commit the view was generated from, and that
+    commit is behind HEAD the moment the view is committed. Check S007
+    tests it by ancestry for exactly that reason, so drift detection
+    blanks the values and leaves them to S007.
 
     Only the values go. Everything around them, including anything a
     hand adds after the block, is still compared: cutting the file at
@@ -538,10 +541,10 @@ def build_views(root, *, git_facts=True):
     generator's rule is how the two come to disagree, which is the
     defect the evidence ledger's cited_by field already suffered once.
 
-    git_facts False skips the two git subprocess calls. The facts only
-    reach the state view's machine-facts block, which the drift compare
-    cuts off anyway, so a caller that is comparing rather than writing
-    pays nothing for them.
+    git_facts False skips the git subprocess call. The fact only reaches
+    the state view's machine-facts block, which the drift compare cuts
+    off anyway, so a caller that is comparing rather than writing pays
+    nothing for it.
 
     Returns (views, findings): findings report a malformed input file,
     which is reported and skipped, never guessed at.
@@ -574,19 +577,18 @@ def build_views(root, *, git_facts=True):
             findings.append(Finding("V003", "error", "org/cadence.json", problem))
             cadence = None
 
-    branch = head = None
+    head = None
     if git_facts:
         try:
             from tools.eos import gitfacts
         except ImportError:
             gitfacts = None
         if gitfacts is not None:
-            branch = gitfacts.current_branch(root)
             head = gitfacts.rev_parse(root, "HEAD")
 
     views = {
         "org/TASKS.md": _tasks_view(records),
-        "org/STATE.md": _state_view(records, claims_doc, cadence, branch, head),
+        "org/STATE.md": _state_view(records, claims_doc, cadence, head),
     }
     return views, findings
 
@@ -596,11 +598,11 @@ def render_views(root):
 
     Integrator-only, like every derived file in DERIVED_FILES. Inputs:
     the task records under org/tasks/, org/claims.json, org/cadence.json
-    and read-only git facts (current branch, head commit). TASKS.md
-    carries one table row per record (id, mode, tier, status, owner).
-    STATE.md carries the assigned claim set, the operator flags (task
-    records with a status in OPERATOR_FLAG_STATUSES), the cadence
-    next-due rows and a machine-facts block the S007 check can verify.
+    and one read-only git fact, the head commit. TASKS.md carries one
+    table row per record (id, mode, tier, status, owner). STATE.md
+    carries the assigned claim set, the operator flags (task records
+    with a status in OPERATOR_FLAG_STATUSES), the cadence next-due rows
+    and a machine-facts block the S007 check can verify.
     Regeneration is byte-stable for unchanged inputs: records sort by
     id, claim and cadence rows keep their committed order, and nothing
     is stamped with the time of rendering. A malformed input file is

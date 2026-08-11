@@ -17,7 +17,8 @@ what the person holding them does.
 Agents read this to know what the human does. You read it to know what
 to launch and when. There is no work-in-progress limit. What bounds
 concurrency is claims, and claims are needed when more than one session
-may write at once.
+may write at once. `org/policy.json` declares `parallelism.max_lanes`,
+but no code reads it, so it is a note to yourself and not a ceiling.
 
 ## Launchers
 
@@ -25,9 +26,9 @@ Paste one line into a fresh agent session, in the repository named. The
 numbering is local to this file and nothing else cites it.
 
 - **L1, work on the EOS.** "Read AGENTS.md, entry mode 2. Take T-####
-  from org/TASKS.md." The workhorse. This repository. If the session
-  needs to open a new task record, read the claims section below first,
-  because as the tree stands it will be refused.
+  from org/TASKS.md." The workhorse. This repository. A session working
+  alone opens its own task record and writes freely. Read the claims
+  section below before dispatching more than one at a time.
 - **L2, Session 0.** "Read AGENTS.md, entry mode 3. The new venture is
   <one line>. Repo at <path>." Run from the venture's repository. It
   ends with the seed rubric in front of you and the launch decision in
@@ -113,7 +114,7 @@ A claim is a written statement of who is writing which paths, committed
 before the work starts. `org/claims.json` names the lane, the session
 id, the paths and an expiry.
 
-- **One session, working alone**: no claim file needed. It is implicitly
+- **One session, working alone**: no claim needed. It is implicitly
   claimed, because there is nobody to collide with. Git history and the
   checker are what catch it going wrong (ADR-0008).
 - **More than one session writing at once**: you write and commit the
@@ -121,16 +122,24 @@ id, the paths and an expiry.
   change to a product file, so make it before the sessions start, not
   during. Lanes never acquire or mutate a claim.
 
-Here is the edge, and it will bite somebody. The control keys on the
-file existing, not on it holding lanes. `org/claims.json` is in this
-repository right now with an empty lane list, so `task new` and
-`task update` refuse every session, including a solo one, printing
-`{"refused": true, reason, claim_set_ref}` and exiting 1. A solo session
-that needs a task record either names itself in a lane here first, or
-deletes the file. An expired claim refuses the same way, so a lapsed
-standing claim has to be rewritten and committed before the session that
-needs it. Only where there is no claims file at all is the repository
-not running this model, and then the control does not apply.
+The control keys on lanes, not on the file. `org/claims.json` sits in
+this repository with an empty lane list, and an empty list is the
+release rather than a lock: it reads as no claim model in force, so a
+solo session writes freely. That is ADR-0008 decision 1, and it is why a
+finished claim set is committed empty rather than deleted. Deleting it
+would be worse than pointless, because check D009 requires a compiled
+ORG seed to ship `org/claims.json` carrying exactly that empty list. No
+claims file at all reads the same way.
+
+Where lanes are present the control is live. A session not named in one
+is refused, and so is a named session writing a path its own lane holds
+no claim over. The session id is `--session ID`, else `EOS_SESSION_ID`,
+else the record's `owner_session`, and with lanes present a session
+carrying none of the three is refused too. Every refusal prints
+`{"refused": true, reason, claim_set_ref}` and exits 1. Expiry is not
+tested at this gate: a lapsed claim still lets a task record through,
+and it is `task claims-verify` at the merge that reports it as C002,
+with the lane's liveness identity attached.
 
 Ordinary file writes are not gated. The control bites at two points
 only: where a task record is written, and again at integration through
@@ -141,11 +150,18 @@ There is no `claims assign`, `renew` or `recover` command. Those were
 described once and never built, and `tools/CLI_CONTRACTS.md` records
 which commands exist.
 
-A lane's claim over its own product paths also covers its own task
-record under `org/tasks/`. It does not cover anything derived: you alone
-regenerate those, with `python -m tools.eos check --write-index` for the
-five indexes and views and `python -m tools.eos task views` for
-`org/TASKS.md` and `org/STATE.md`.
+Here is the edge, and it will bite somebody. ADR-0008 decision 2 lets a
+lane open its own task record, but no claim over a lane's product paths
+implies one over the record: `task new` compares
+`org/tasks/T-####.json` against the lane's claims like any other path,
+and `claims-verify` reports it as C003 at the merge if it is outside
+them. So when you assign a lane that will open a record, write
+`org/tasks/` into its claims alongside its product paths.
+
+No lane claim covers anything derived: you alone regenerate those, with
+`python -m tools.eos check --write-index` for the five indexes and views
+and `python -m tools.eos task views` for `org/TASKS.md` and
+`org/STATE.md`.
 
 ## The guard, fail-closed, in practice
 

@@ -20,7 +20,7 @@ gate table below reads the way it does.
 
 ### The release tidy
 
-The last pass over the tree before the release commit. It added no
+The tidying pass over the tree before the release commit. It added no
 capability. It took out things that were not doing any work, fixed what
 it found broken, closed the record, and rewrote the documentation
 against the tree as it now stands. No benchmark run was made, because
@@ -50,7 +50,8 @@ ADR-0007 makes none, so nothing here is measured.
   for `--seed` and says why. S009 read a month-only `next_due` as the
   first of that month, so a cadence due in a month reported overdue from
   the second day of it, which is every monthly row for most of its
-  month. 504 tests, up from 464.
+  month. 504 tests at the close of this pass, up from 464; the two
+  passes after it take the suite to 513.
 - **org**: org/QUEUE.md and org/CADENCE.md are deleted, so neither is a
   path any more. Each was a signpost to a signpost, pointing at the
   machine state that had already replaced it, and what they said past
@@ -81,13 +82,44 @@ ADR-0007 makes none, so nothing here is measured.
   using and had defined nowhere: the words it uses in a particular way,
   and a table of the eleven lesson dispositions.
 
+Two commits after that pass fixed two checks that could not pass in the
+environment they run in. Every derived index was written in the
+platform's path order, and path comparison is case-insensitive on
+Windows and case-sensitive elsewhere, so the same tree produced an
+`INDEX.md` that was clean on the machine that generated it and stale on
+the machine that checked it. The sort now runs on the POSIX string, and
+`INDEX.md` and the minirepo fixture index are regenerated: forty-six
+rows move and no content changes. The other sits in `current_branch`,
+which handed back the literal `HEAD` that git prints on a detached
+checkout as though it were a branch name, so S007 reported drift on
+every pull request, where `actions/checkout` builds the merge commit and
+detaches. None now means unknowable, and S007 already skips what it
+cannot check. A test each.
+
+The last pass before the merge closed what a five-lens review found.
+Two were blocking, and both were the same disease. `org/STATE.md`
+recorded the branch it was generated on, so this work was green on its
+own branch and would have turned the checker red on main the moment it
+merged, which no edit before the merge could have prevented; the state
+view no longer records a branch and S007 no longer checks one, because
+a branch name in a committed file is a fact that merging invalidates,
+while the commit fact survives by ancestry. And the operator's manual
+described the claim refusal that the release tidy had removed in the
+same commit, with a remedy that caused the failure it warned about. The
+review also found that fixing the detached-HEAD case had silently
+switched check S011 off on every pull request, four inputs that exited 1
+with a traceback where the contract promises 2, and a containment guard
+that a sibling directory could pass by name. That is what takes the
+suite to 513.
+
 Nothing here settles the release gate. Of the five items ADR-0007
 decision 5 names, three are in the tree to be checked: the suite is
-green at 504, this section is the CHANGELOG, and the checker's remaining
-errors are all derived views stale against their sources, which
-regenerating clears. The other two, that no false statement about the
-tree survives the final review and Daniel's approval under PB-E05, are
-his alone.
+green at 513, this section is the CHANGELOG, and the checker reports no
+errors and one warning, which is E004 on an evidence row in
+`registry/LICENCE_RESIDUALS.md` carrying a conference name that has an
+exclamation mark in it, quoted as it was published. The other two, that
+no false statement about the tree survives the final review and Daniel's
+approval under PB-E05, are his alone.
 
 ### v2.1 · Genesis, the swarm pack and the de-restriction pass
 
@@ -164,8 +196,8 @@ does, not what it achieves.
   repository is declared Apache-2.0, with `LICENSE` and `NOTICE` at the
   root and a provenance sweep of twenty-one packs behind it.
 - **governance**: the authority audit ran over 109 binding requirements
-  in seventeen packs and moved 48 of them to defaults. Thirty-four of
-  the 48 keep their B numbers, in eight packs, because the checks,
+  in seventeen packs and moved 49 of them to defaults. Thirty-five of
+  the 49 keep their B numbers, in eight packs, because the checks,
   guides and exemplars cite them. The other fourteen were renumbered
   into their own pack's defaults block: ai-ml-llm, api-integration,
   architecture, business-logic-modelling, business-model-pricing and
@@ -176,14 +208,15 @@ does, not what it achieves.
   business-model-pricing 4 of 6, data-analytics 3 of 6,
   docs-dx 1 of 6, legal-licensing 4 of 7, native-client 3 of 7,
   product-discovery 2 of 8, support-operations 2 of 7, ui-ux 5 of 8,
-  writing-content 5 of 10. Coding, delivery-testing and
+  writing-content 4 of 10. Coding, delivery-testing and
   marketing-growth were audited and lost no whole requirement.
   `packs/pattertech-house` had none to test: no line in it was ever
   binding. `packs/security-privacy` B1 to B6 are excluded by name as
   protected-set floors. `packs/devops-reliability` was not audited, and
-  the pack carries no note saying so: nobody ruled which of its seven
-  count as the production-safety rules the exclusion protects, and four
-  of them are process rules that would move on basis alone.
+  the pack says so in its binding-requirements preamble: nobody ruled
+  which of its seven count as the production-safety rules the exclusion
+  protects, and three of them are process rules that would move on basis
+  alone.
 - **registry**: `registry/lessons.json` becomes the canonical lessons
   ledger, twenty-five rows, and `registry/LESSONS.md` becomes a derived
   view with a live generator. Rejections are retained rather than

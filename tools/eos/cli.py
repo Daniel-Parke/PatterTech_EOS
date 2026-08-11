@@ -14,6 +14,37 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent.parent
 
 
+class CannotRun(Exception):
+    """An input the caller named is absent or will not parse.
+
+    main() prints the message and returns 2. Exit 2 is a promise to a
+    caller: 1 means the command ran and found something, 2 means it
+    never ran. Raising this rather than letting json or a helper throw
+    is how the message gets to say which input it was reading.
+    """
+
+
+def _read_json(path, what):
+    """Parse a JSON input, naming which one when it will not parse.
+
+    json's own message, "Expecting value: line 1 column 1 (char 0)",
+    does not say which of a command's inputs it was reading. A file
+    that is not there raises FileNotFoundError, whose message already
+    names the path, and main() maps that to the same exit code.
+
+    Every input read this way is a JSON object, so a document that
+    parses to something else is malformed for this purpose; without the
+    check it reaches the reader as a list and fails there instead.
+    """
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise CannotRun(f"{what} {path} is not JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise CannotRun(f"{what} {path} is not a JSON object")
+    return data
+
+
 def _ctx(args):
     from .repo import RepoModel
 
@@ -82,13 +113,13 @@ def cmd_route(args):
     declared = {}
     stored_tier = None
     if args.facts:
-        declared = json.loads(Path(args.facts).read_text(encoding="utf-8"))
+        declared = _read_json(args.facts, "the declared facts file")
     elif args.task:
         rec = REPO / "org" / "tasks" / f"{args.task}.json"
         if not rec.exists():
             print(f"error: no task record {rec}", file=sys.stderr)
             return 2
-        record = json.loads(rec.read_text(encoding="utf-8"))
+        record = _read_json(rec, "task record")
         # The record's declared block is the fact set; the ruling stored
         # on it at creation is the floor this recomputation may raise
         # and never lower.
@@ -130,13 +161,13 @@ def cmd_guard(args):
     action = {"action_class": args.action_class,
               "payload_summary": args.payload or ""}
     if args.input:
-        action = json.loads(Path(args.input).read_text(encoding="utf-8"))
+        action = _read_json(args.input, "the action file")
         if args.tool:
             action.setdefault("tool", args.tool)
     policy = None
     policy_path = REPO / "org" / "policy.json"
     if policy_path.exists():
-        policy = json.loads(policy_path.read_text(encoding="utf-8"))
+        policy = _read_json(policy_path, "the policy")
     try:
         verdict = evaluate(action, policy, adapter_validated=args.adapter_validated)
     except ValueError as exc:
@@ -161,7 +192,7 @@ def cmd_context(args):
         if not rec.exists():
             print(f"error: no task record {rec}", file=sys.stderr)
             return 2
-        record = json.loads(rec.read_text(encoding="utf-8"))
+        record = _read_json(rec, "task record")
         predicates = list(record.get("applies_when") or [])
     packet = build_packet(REPO, base_ref=args.diff,
                           declared_predicates=predicates)
@@ -233,7 +264,7 @@ def _cmd_task(args, taskops):
         # the declared facts and stores it on the record, so the caller
         # sees the ruling without a second command and later sessions
         # read it off the record.
-        record = json.loads(Path(args.record).read_text(encoding="utf-8"))
+        record = _read_json(args.record, "the record file")
         path = taskops.create_task(REPO, record, session=session)
         tier = record.get("tier_ruled")
         reasons = record.get("reasons") or []
@@ -260,12 +291,16 @@ def _cmd_task(args, taskops):
         print(rec.read_text(encoding="utf-8"))
         return 0
     if args.op == "update":
-        patch = json.loads(args.patch)
+        try:
+            patch = json.loads(args.patch)
+        except json.JSONDecodeError as exc:
+            # The patch arrives on the command line rather than in a
+            # file, so there is no path to name; say which argument.
+            raise CannotRun(f"--patch is not JSON: {exc}") from exc
         taskops.update_task(REPO, args.id, patch, session=session)
         return 0
     if args.op == "claims-verify":
-        claims_doc = json.loads(
-            (REPO / "org" / "claims.json").read_text(encoding="utf-8"))
+        claims_doc = _read_json(REPO / "org" / "claims.json", "the claim set")
         diff_paths = args.paths or []
         findings = taskops.verify_claims(REPO, claims_doc, args.lane,
                                          diff_paths)
@@ -292,7 +327,7 @@ def cmd_migrate(args):
         print(json.dumps(state, indent=1))
         return 0
     if args.op == "apply":
-        state = json.loads(Path(args.state).read_text(encoding="utf-8"))
+        state = _read_json(args.state, "the migration state")
         # The state document cannot name its own seed: the schema at
         # kernel/schemas/migration-state.schema.json fixes the key set
         # and has no seed_root in it. So apply is told which seed to
@@ -302,9 +337,15 @@ def cmd_migrate(args):
                   "the migration state does not record which seed it "
                   "planned", file=sys.stderr)
             return 2
-        seed_root = Path(args.seed)
-        if not str(seed_root.resolve()).replace("\\", "/").startswith(
-                str(REPO).replace("\\", "/")):
+        seed_root = Path(args.seed).resolve()
+        # Path containment, not a string prefix. A prefix test lets any
+        # sibling whose name merely extends this one through:
+        # PatterTech_EOS_backup next to PatterTech_EOS passed it. With
+        # --no-dry-run apply rewrites the lock-book header and every
+        # file under org/roles/, so the thing the guard exists to stop
+        # is a destructive write into a neighbouring repository, and a
+        # plausible backup name defeated it.
+        if not seed_root.is_relative_to(Path(REPO).resolve()):
             print("error: apply runs on fixture seeds inside this repo, and "
                   "only in this build", file=sys.stderr)
             return 2
@@ -376,7 +417,13 @@ def build_parser():
     c.add_argument("--seed")
     c.add_argument("--write-index", action="store_true")
     c.add_argument("--json", action="store_true")
-    c.add_argument("--series")
+    # Constrained, because the filter is a plain prefix match: any
+    # other value selected no checks at all and reported a clean tree,
+    # so a typo read as a pass. A test holds this list against the
+    # registered check ids. The seed D-series is not in that registry
+    # and runs only under --seed.
+    c.add_argument("--series", choices=["B", "E", "F", "S"],
+                   help="run one series by its check-id prefix")
     c.add_argument("--strict-semantic", action="store_true",
                    help="force the S-series to error severity. Error is "
                         "already the default, so this only overrides "
@@ -499,10 +546,16 @@ def main(argv=None):
     args = build_parser().parse_args(argv)
     try:
         return args.fn(args)
-    except FileNotFoundError as exc:
-        # A file the caller named is not there: a run that could not
-        # happen, which is exit 2. A missing jsonschema is not one of
-        # these; every import of it is guarded at the point of use and
-        # degrades to an error-severity finding instead.
+    except (CannotRun, FileNotFoundError, RuntimeError, ValueError) as exc:
+        # A run that could not happen, which is exit 2: a file the
+        # caller named is not there, a --diff ref git cannot resolve
+        # (RuntimeError out of gitfacts.output), a record the schema
+        # rejects or a patch that is not JSON (ValueError, which
+        # JSONDecodeError is). Uncaught, each of these printed a
+        # traceback and exited 1, and 1 is the code for findings, so a
+        # caller read a broken invocation as a failing check. A missing
+        # jsonschema is not one of these; every import of it is guarded
+        # at the point of use and degrades to an error-severity finding
+        # instead.
         print(f"error: {exc}", file=sys.stderr)
         return 2

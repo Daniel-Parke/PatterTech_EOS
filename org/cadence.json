@@ -4,6 +4,7 @@
   "frequency": "monthly",
   "last_run": "2026-08-08",
   "next_due": "2026-09-08",
-  "procedure": "org/PLAYBOOKS.md#the-monthly-pass"
+  "procedure": "org/PLAYBOOKS.md#the-monthly-pass",
+  "note": "This row is a fuse, and that is deliberate. S009 reads next_due at error severity, so the first check run after that date fails, and so does every run after it, until the pass is run and last_run and next_due move on. A red build the day after a due date is the cadence firing rather than a regression: run the procedure above instead of editing the date. A caller who wants the work list rather than the gate passes check --relax-semantic, which drops the whole S-series to warnings."
  }
 ]

@@ -27,6 +27,5 @@ Nothing waits on the operator.
 ## Machine facts
 
 ```facts
-branch: feat/eos-v2.1-genesis-and-swarm
-commit: ed25b40bd68c9b7c6e4833c023a8615f26c3f5be
+commit: 5372e2d4c287e46cb680da76919e2e343fd4c097
 ```
