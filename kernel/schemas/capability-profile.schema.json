@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.pattertech.eos/capability-profile.schema.json",
   "title": "EOS capability profile",
-  "description": "Evidence-earned, versioned and expiring authority record. Profile level tunes Express thresholds, the free decision band and review sampling; it never affects tier floors or non-waivable floors. The checker rejects profile changes without an operator authorisation entry: agents cannot expand their own authority.",
+  "description": "Evidence-earned, versioned and expiring authority record. Profile level tunes Express thresholds, the free decision band and review sampling; it never affects tier floors or non-waivable floors. No code loads this record and no check reads it: the required authorised_by entry is what a reviewer holds a promotion to, not a gate a checker enforces. The tuning is a person reading the record and editing the policy.",
   "type": "object",
   "additionalProperties": false,
   "required": [

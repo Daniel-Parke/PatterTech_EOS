@@ -13,10 +13,81 @@ inception, registry, org, tools, benchmark.
 ## Unreleased
 
 ADR-0007 holds v2 unreleased and folds v2.1 into the same line, so
-everything in this section ships as one release. Both entries stay,
+everything in this section ships as one release. All three entries stay,
 newest first. Nothing in v2.1 supersedes the v2 record of how the
 benchmark instrument was rebuilt, and that record is the reason the
 gate table below reads the way it does.
+
+### The release tidy
+
+The last pass over the tree before the release commit. It added no
+capability. It took out things that were not doing any work, fixed what
+it found broken, closed the record, and rewrote the documentation
+against the tree as it now stands. No benchmark run was made, because
+ADR-0007 makes none, so nothing here is measured.
+
+- **tools**: dead code out. A fallback import branch in
+  `tools/eos/taskops.py` reimplemented `Finding` and `Findings` against
+  the canonical module being missing. It sits in the same package and is
+  never missing, so the branch could not run. `benchcli.runner` wrapped
+  `benchmark/runner.py`, and the two benchmark ops the CLI exposes drive
+  `harness.py` and `score.py`, so nothing but its own test reached it.
+  Several functions had no caller in the tooling, kept alive by their
+  own tests where they had any: `Findings.extend`, `to_json` and
+  `exit_code`, and `branch_heads`, `changed_files` and `numstat` in
+  `gitfacts.py` with the private helper only those three used. Two
+  deliberate duplicates go with them. `migrate.py` carried its own
+  front-matter reader, kept during the build to avoid coupling lanes
+  that have since merged, and `router.py` and `contextgen.py` each
+  carried a copy of the same git helper. Both now call the canonical one.
+  Then three real bugs, all found by reading rather than by a failing
+  test. `remote_tracking_heads` filtered the remote's symbolic HEAD on the
+  short refname, which renders `refs/remotes/origin/HEAD` as plain
+  `origin`, so the filter never matched once and the pointer entered
+  the result as a remote with no branch. `migrate apply` took its seed
+  path from a key the migration-state schema does not permit, so the
+  documented invocation could never run and always refused; it now asks
+  for `--seed` and says why. S009 read a month-only `next_due` as the
+  first of that month, so a cadence due in a month reported overdue from
+  the second day of it, which is every monthly row for most of its
+  month. 504 tests, up from 464.
+- **org**: org/QUEUE.md and org/CADENCE.md are deleted, so neither is a
+  path any more. Each was a signpost to a signpost, pointing at the
+  machine state that had already replaced it, and what they said past
+  the pointer had gone stale: the cadence one described three rows where
+  the file it pointed at now holds one. `org/cadence.json` is cut to that
+  single monthly row, matching the one monthly pass ADR-0008 left
+  standing. Twenty-one task records reach a terminal state, twenty done
+  and T-0003 discarded with its reason, so every record under
+  `org/tasks/` is now closed.
+- **packs**: the delivery-testing decision map loses four forks that
+  routed at v1 wargames this tree does not contain. Three are answered
+  inside the pack instead, and the fourth, what visual regression
+  covers, is answered by no pack in this estate and now says so. Five
+  worked exemplars take the `EX-` ids the scheme requires:
+  `EX-API-001`, `EX-API-002`, `EX-ARCH-001`, `EX-SEC-001` and
+  `EX-UIUX-001`.
+- **registry**: five evidence rows now carry what the swarm pack cites
+  them for. Six of that pack's fifty-two research records matched a URL
+  already in the ledger, so the import merged them into the older row
+  and kept the older summary; for five of the six that summary did not
+  contain the claim the pack rests on it. EV-0013, EV-0053, EV-0108,
+  EV-0112 and EV-0244 carry both statements now. In the lessons ledger,
+  LES-0012 and LES-0014 stop being deferred: the tasks they were waiting
+  on, T-0005 and T-0006, landed in `inception/INCEPTION.md` and
+  `inception/WALK_ORDER.md`, so both rows are pruned to provenance.
+- **roots**: `README.md`, `TOUR.md` and `OPERATORS_GUIDE.md` rewritten
+  against the settled tree. TOUR gains two things the repository was
+  using and had defined nowhere: the words it uses in a particular way,
+  and a table of the eleven lesson dispositions.
+
+Nothing here settles the release gate. Of the five items ADR-0007
+decision 5 names, three are in the tree to be checked: the suite is
+green at 504, this section is the CHANGELOG, and the checker's remaining
+errors are all derived views stale against their sources, which
+regenerating clears. The other two, that no false statement about the
+tree survives the final review and Daniel's approval under PB-E05, are
+his alone.
 
 ### v2.1 · Genesis, the swarm pack and the de-restriction pass
 
@@ -117,7 +188,8 @@ does, not what it achieves.
   ledger, twenty-five rows, and `registry/LESSONS.md` becomes a derived
   view with a live generator. Rejections are retained rather than
   deleted, and the view has a section for each state: fifteen live, one
-  rejected, two deferred, seven pruned. A ledger that keeps only what it
+  rejected, nine pruned and, since the release tidy closed the last two,
+  none deferred. A ledger that keeps only what it
   accepted cannot show what it turned down, which is how the same
   candidate gets argued twice. The evidence ledger grows from 449
   records to 504. `registry/LICENCE_RESIDUALS.md` is new: the cited
@@ -147,7 +219,7 @@ does, not what it achieves.
   E010, which warned about a stale `active_session` in `org/STATE.md`,
   and S008, the opt-in canonical-fact check that had no subscribers and
   had never fired. `tools/import_fragments.py` gains a study
-  subcommand for the intake PB-E11 writes. 457 tests, up from 395.
+  subcommand for the intake PB-E11 writes. 464 tests, up from 395.
 - **benchmark**: ADR-0007 settles the release gate, because the gate set
   ADR-0002 approved can no longer be computed. The context-token and
   wall-clock gates are struck with reasons, not met: on the reproducible

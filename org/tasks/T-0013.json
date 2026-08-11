@@ -1,6 +1,6 @@
 {
   "id": "T-0013",
-  "intent": "Integrate the v2.1 build: Genesis, exemplar learning, the agentic-swarm pack and the de-restriction pass. Author ADR-0006, ADR-0007 and ADR-0008, apply ADR-0005, add Apache-2.0, then dispatch twelve lanes on disjoint paths, merge them, regenerate every derived view and run the review passes.",
+  "intent": "Integrate the v2.1 build: Genesis, exemplar learning, the agentic-swarm pack and the de-restriction pass. Author ADR-0006, ADR-0007 and ADR-0008, apply ADR-0005, add Apache-2.0, then dispatch twelve lanes on disjoint paths, merge them, regenerate every derived view and run the review passes. Closed: the v2.1 build is integrated. ADR-0006, ADR-0007 and ADR-0008 accepted, ADR-0005 applied, Apache-2.0 declared, twelve lanes merged and the derived views regenerated.",
   "claims": [
     "GOVERNANCE.md",
     "kernel/POLICY_SPEC.md",
@@ -13,11 +13,12 @@
   },
   "mode": "standard",
   "tier_proposed": "R3",
-  "status": "active",
+  "status": "done",
   "owner_session": "eos-v21-integrator",
   "timestamps": {
     "opened": "2026-08-10T18:00:00Z",
-    "updated": "2026-08-10T18:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "tier_ruled": "R0",
   "reasons": []

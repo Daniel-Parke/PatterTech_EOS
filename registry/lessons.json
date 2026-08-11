@@ -1,10 +1,10 @@
 {
  "version": 1,
- "generated": "2026-08-10",
+ "generated": "2026-08-11",
  "note": "Canonical lessons ledger. One row per decision about something the estate learned, from either intake: the harvest names the venture, the Study workflow names the sources it read and the lens it read them through. Declines and deferrals stay as rows, because a decision that leaves no trace gets argued again. registry/LESSONS.md is the derived view of this file. Schema: kernel/schemas/lesson.schema.json.",
  "preamble": [
   "The lessons ledger. Two intakes write here: the harvest, which pulls\nrulings and feedback from a governed venture, and the Study workflow,\nwhich reads a named source through a lens contract. Every row carries\na disposition that points at the file which now owns the decision, and\na declined lesson keeps its reason, so a decline cannot be re-proposed\nas if it had never been argued. A silent harvest month still records\n\"checked, clean\".",
-  "Disposition is an enum, and the permitted values are listed in\n`kernel/schemas/lesson.schema.json`, which is what refuses one that is\nnot on the list. `TOUR.md` says what each of them means in practice.\nThe value `binding` is absent on purpose: this ledger can propose a\nbinding candidate and nothing more, because binding needs an accepted\nADR and Daniel under the ladder in `GOVERNANCE.md`.",
+  "Disposition is an enum. `kernel/schemas/lesson.schema.json` lists\nthe permitted values and refuses one that is not on the list, and\n`TOUR.md` is the home for what they mean: its table under \"The\neleven dispositions\" defines all eleven. Each value names the kind\nof home a decision found; the row's own `outcome` and `informs`\nname the file that holds it now. The value `binding` is absent on\npurpose: this ledger can propose a binding candidate and nothing\nmore, because binding needs an accepted ADR and Daniel under the\nladder in `GOVERNANCE.md`.",
   "**A lesson leaves this ledger once its content is stated as a rule\nsomewhere else.** Keeping it here as well would be a second home for\nthe same rule, and one of the two homes would go stale. Rows that\nrecord what changed and why are provenance, and those stay.",
   "The first PB-E02 harvest ran on 2026-08-08 against the three governed\nventures. Venture A's two entries had both already been folded during\nthe v1 build and are recorded as such below. Guth's feedback file\ncarried fifteen entries and a matured stack profile, and is the\nsubstance of this harvest. PatterTech_Website ships no feedback file:\nit predates the template, which is itself a finding and is queued.",
   "Earlier rows came from the estate survey at EOS creation and from the\nVenture A reseed feedback.",
@@ -209,16 +209,16 @@
    "venture": "Guth",
    "source_note": "S1.",
    "evidence_class": "observational",
-   "disposition": "deferred",
-   "outcome": "Queued as T-0005: `inception/INCEPTION.md` needs the one-line exemption so the first review session does not read Session 0 as a violation.",
+   "disposition": "implementation-reference",
+   "outcome": "Deferred at the harvest and queued as T-0005. That task closed on 2026-08-11: `inception/INCEPTION.md` states the Session 0 write-to-main exemption under its own heading, so the first review session no longer reads Session 0's history as a violation.",
    "scope": "eos-internal",
    "applicability_conditions": "Session 0 in a fresh venture repository, before the branch rule it is compiling exists.",
    "informs": [
     "inception/INCEPTION.md",
     "T-0005"
    ],
-   "decided": "2026-08",
-   "revisit_trigger": "T-0005 lands the exemption line in inception/INCEPTION.md."
+   "decided": "2026-08-11",
+   "pruned_on": "2026-08-11"
   },
   {
    "id": "LES-0013",
@@ -229,7 +229,7 @@
    "source_note": "S1.",
    "evidence_class": "observational",
    "disposition": "venture-ruling",
-   "outcome": "Promotion candidate for PB-E04. One argued ruling from one venture, so not yet binding evidence. The v2 drill apparatus is the natural home once it has graders.",
+   "outcome": "Promotion candidate for PB-E04. One argued ruling from one venture, so not yet binding evidence. The drill apparatus is the natural home: all twenty-two drills now carry scenarios and graders, and ADR-0007 defers running them, so nothing has graded this.",
    "scope": "eos-internal",
    "applicability_conditions": "A venture at Session 0 whose rubric is not yet signed, probed by a session with no prior context of the repository.",
    "informs": [
@@ -245,16 +245,16 @@
    "venture": "Guth",
    "source_note": "S1, 32 rulings against a 20 budget.",
    "evidence_class": "observational",
-   "disposition": "deferred",
-   "outcome": "Queued as T-0006: `inception/WALK_ORDER.md` should count interview-triggered and doctrine-triggered rulings separately rather than budgeting them as one number.",
+   "disposition": "implementation-reference",
+   "outcome": "Deferred at the harvest and queued as T-0006. That task closed on 2026-08-11: `inception/WALK_ORDER.md` budgets interview-triggered and doctrine-triggered rulings separately, so a correct doctrine-heavy walk no longer reads as an overrun.",
    "scope": "eos-internal",
    "applicability_conditions": "Ventures arriving with fixed product doctrine already in the master prompt.",
    "informs": [
     "inception/WALK_ORDER.md",
     "T-0006"
    ],
-   "decided": "2026-08",
-   "revisit_trigger": "T-0006 splits the walk-order budget into interview-triggered and doctrine-triggered counts."
+   "decided": "2026-08-11",
+   "pruned_on": "2026-08-11"
   },
   {
    "id": "LES-0015",

@@ -1,5 +1,5 @@
 ---
-summary: Four false statements in protected files, the corrections proposed for them, and why they were not simply edited
+summary: Four false statements in protected files, the corrections applied to them, and why they needed a record first
 type: decision
 tags: [eos]
 status: accepted
@@ -8,6 +8,15 @@ date: 2026-08-10
 ---
 
 # ADR-0005: four corrections in the protected set
+
+**Where this stands.** Accepted, and all four corrections are in the
+tree. Everything below was written while the record was still a
+proposal, and it says so in the present tense; `org/decisions/` is
+append-only, so it is left exactly as written rather than tidied. The
+Decision section at the foot is the ruling. Only the summary line in
+the front matter was corrected, because it feeds `INDEX.md` and a
+reader scanning that index would otherwise read these four corrections
+as still pending.
 
 Proposed on 2026-08-10 by the post-merge documentation pass. Not
 accepted. `GOVERNANCE.md` requires an accepted ADR and Daniel before

@@ -1,6 +1,6 @@
 {
   "id": "T-0003",
-  "intent": "Add the hexagonal boundary statement to the architecture pack (v1 queue item G2): ports at every vendor and IO seam, the domain never imports adapters, the config-only against code-port boundary distinction, with Venture A's ADR-0003 as the worked material. Held pending Venture A W1 per Daniel, 2026-07-07; ADR-0002 lifted the hold only for WG-DEL-005, so this item stays held.",
+  "intent": "Add the hexagonal boundary statement to the architecture pack (v1 queue item G2): ports at every vendor and IO seam, the domain never imports adapters, the config-only against code-port boundary distinction, with Venture A's ADR-0003 as the worked material. Held pending Venture A W1 per Daniel, 2026-07-07; ADR-0002 lifted the hold only for WG-DEL-005, so this item stays held. Discarded: packs/architecture settles this decision already, through B1, D7, WG-ARCH-001 and WG-ARCH-007, the fork has occurred once so GOVERNANCE forbids a guide for it, and the Venture A hold cannot lift because under ADR-0006 the EOS no longer observes the venture.",
   "declared": {
     "capabilities": [],
     "side_effects": []
@@ -16,11 +16,12 @@
       "evidence": "estimated: an argued boundary statement with evidence rows exceeds the express diff limits of 150 lines"
     }
   ],
-  "status": "blocked",
+  "status": "discarded",
   "owner_session": "unassigned",
   "claims": [],
   "timestamps": {
     "opened": "2026-08-03T12:00:00Z",
-    "updated": "2026-08-03T12:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   }
 }

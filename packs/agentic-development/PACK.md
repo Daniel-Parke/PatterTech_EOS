@@ -12,7 +12,7 @@ volatility: fast
 review: on-change-of:agent-sdk-major-release
 type: guide
 tags: [eos, arch, tooling]
-sources: [EV-0001, EV-0007, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121]
+sources: [EV-0001, EV-0007, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121, EV-0449]
 ---
 
 # Agentic development
@@ -321,4 +321,6 @@ EV-0109 to EV-0121 plus EV-0449; the rest are shared estate rows. The
 frozen batch the import was made from stays at
 `packs/agentic-development/research/sources.fragment.json`. Research
 synthesis and the disagreements behind this file are in
-`packs/agentic-development/research/NOTES.md`.
+`packs/agentic-development/research/NOTES.md`, and the licence and
+quotation sweep, including the rows whose source states no licence, is
+at `packs/agentic-development/research/provenance.fragment.json`.

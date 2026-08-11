@@ -88,16 +88,9 @@ underneath them.
 Guides additionally mark rulings inline: venture, date, and whether the
 ruling was argued or inherited, using canonical venture names.
 
-One warning before this table is read as enforcement, because it mostly
-is not. E002 keys on `type`, the file axis, and never on `kind`. It
-asks `summary`, `type` and `tags` everywhere, `status` on the types
-wargame, decision, stack and registry, and `review` on the types
-wargame, stack, registry and guide. So the `review` column above is
-enforced only where the file's type is one of those four, which for a
-guide it usually is and for a fact or a rule it usually is not:
-`packs/coding/refs/ORACLES.md` is a fact typed foundation, and a
-`PACK.md` is a rule typed playbook. Nothing at all reads `sources`,
-`authority` or `applies_when`.
+Do not read that table as enforcement. It is law here and mostly
+unchecked; Enforcement at the foot says which columns a check reads and
+which are a reader's job.
 
 `status` is a file-type requirement rather than one of the nine axes,
 which is why it is absent above. Dropping it from a wargame or a
@@ -229,6 +222,13 @@ every markdown file, `status` on types wargame, decision, stack and
 registry, `review` on types wargame, stack, registry and guide. Either
 spelling satisfies that last one, `review` or v1's `review_by`.
 
+So the `review` column of the minima table binds only where the file's
+type is one of those four, and the two axes part company often:
+`packs/coding/refs/ORACLES.md` is a fact typed foundation, and a
+`PACK.md` is a rule typed either playbook or guide, so some pack bodies
+are asked for a review date and some are not. Nothing anywhere reads
+`sources`, `authority` or `applies_when`.
+
 S001 checks the axis enums, and only on files that declare a `kind`.
 S002 checks supersession bidirectionality. F001 checks that a stated
 `review` is a YYYY-MM month, an on-change-of trigger or `none`, and
@@ -243,16 +243,13 @@ for a check that does not exist yet. Say it anyway. The alternative is
 that the contradiction is found by whoever next reads two rules that
 disagree, which is late and is somebody else's afternoon.
 
-The per-kind minima, the derivation rule and the compatibility table
-are law here and mostly not checked. `review` is enforced only where
-the file's type is one of E002's four; `sources`, `authority` and
-`applies_when` are enforced nowhere. The binding test is in the same
-position: no check reads a rule's `basis` and demotes it, so that work
-is done by the ADR-0008 authority audit and by whoever writes the rule.
-A hand-written derived default costs nothing today. Restating a field
-at its derived value is still a defect, because manually authored
-metadata is ceremony and ceremony carries a budget; departing from a
-default is not a defect, because that is the file saying something.
+The binding test is in the same position: no check reads a rule's
+`basis` and demotes it, so that work is done by the ADR-0008 authority
+audit and by whoever writes the rule. A hand-written derived default
+costs nothing today. Restating a field at its derived value is still a
+defect, because manually authored metadata is ceremony and ceremony
+carries a budget; departing from a default is not a defect, because
+that is the file saying something.
 
 The front-matter parser is hardened: unterminated blocks, bad key
 charsets and malformed lists are findings, never silent skips.

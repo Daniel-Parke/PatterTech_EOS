@@ -82,8 +82,11 @@ delegation-depth default three times in about two months (EV-0463).
 ## Binding requirements
 
 Ten. Each names the failure it prevents and rests on law, standard or
-measurement, which is the test ADR-0008 sets. Violating one is a
-defect, not a style disagreement.
+measurement, which is the test ADR-0008 sets. This pack was written
+after that record, so its rules were drafted against the test rather
+than audited back to it, and B5 is the one the counter-evidence below
+puts closest to the line. Violating one is a defect, not a style
+disagreement.
 
 **B1. The partition is written before any lane starts, and it is cut on
 the dependency graph.** It names, per lane: the files owned, the
@@ -148,9 +151,9 @@ summarised, truncated or cleared, and are re-asserted verbatim in every
 packet. Prevents a lane breaking a rule it can no longer see. With the
 policy fully visible, violations were zero; after compaction they
 averaged 30 per cent and reached 59 per cent for some model families,
-and pinning returned them to zero, over 1,323 episodes
-(EV-0468). One study, single author, unreplicated, and
-said so in the counter-evidence below.
+and pinning returned them to zero, over 1,323 episodes (EV-0468). That
+is one study, single author, unreplicated, and the counter-evidence
+below says so.
 
 **B6. Every run declares a global budget and every node a cap, both
 enforced by the harness.** Tokens and money, with a no-progress
@@ -350,26 +353,16 @@ partition and its one recorded departure from B7 in
 `packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md`, and
 what a reviewer or script can verify in `packs/agentic-swarm/CHECKS.md`.
 
-## Risk register
+## The risk that governs the rest
 
-Seven risks this pack exists to hold. Mechanism, evidence and control
-for these and eight more are in
-`packs/agentic-swarm/refs/RISK_REGISTER.md`.
-
-| Risk | Detection signal |
-| --- | --- |
-| Injection replicating lane to lane (EV-0472) | Instruction-shaped text crossing a lane boundary |
-| The checkpoint store as an execution surface (EV-0475, EV-0476) | User-controlled filters reaching state history, or a pickle fallback enabled |
-| Permission inheritance by teammates, including a permission-skipping flag (EV-0108) | A lane holding authority wider than its packet declares |
-| Hallucinated dependencies, 5.2 and 21.7 per cent (EV-0477) | A name that does not resolve before merge, which is B10 |
-| Runaway spend (EV-0112) | Spend per merged change against the single-agent control |
-| Non-idempotent effects executed N times, including from losing branches (EV-0478) | Duplicate external records |
-| Scaffolding rot, structure kept for a model weakness that has gone (EV-0107) | A rule here whose stated failure can no longer be reproduced |
-
-Every rule in this pack names its failure precisely so the last row is
-checkable. The clearest instance of that risk is public: a practitioner
-who argued against multi-agent systems in 2025 published three working
-patterns ten months later (EV-0107).
+Read the register named above before cutting a partition for the first
+time. One risk governs all fifteen of its rows: every rule in this pack
+compensates for something a model cannot do today, and those
+assumptions expire. So every rule names its failure precisely, and a
+rule whose failure can no longer be reproduced goes. The clearest
+public instance is a practitioner who argued against multi-agent
+systems in 2025 and published three working patterns ten months later
+(EV-0107).
 
 ## Failure modes and anti-patterns
 
@@ -383,17 +376,12 @@ patterns ten months later (EV-0107).
   conversation (EV-0108).
 - **The silent kill.** A rate-limited lane returning nothing, read as
   "nothing to fix", entering the integrator as a fact.
-- **Compaction that eats the rules** (EV-0468), and
-  **three lanes agreeing** read as confirmation
-  (EV-0481).
 - **The panel.** Five judges bought for the price of five and worth
   about two (EV-0486).
 - **Explain-and-fix review.** A reviewer told to produce a fix,
   inventing requirements to justify one (EV-0484).
 - **Merge order by finish time**, with hidden relations deciding the
   rest (EV-0455).
-- **The fast swarm.** Generation got quicker, landing did not, and
-  nobody measured the difference (EV-0457, EV-0010).
 
 ## Counter-evidence and open questions
 
@@ -509,7 +497,12 @@ loses to one good agent and loses expensively.
 Every source is a row in `registry/evidence.json` with version,
 licence, access date and review trigger. Cite ids, never re-record
 sources. Five rows this pack cites were merged into older ledger rows by
-URL at import and kept the older summary, so what they are cited for
-sits in the pack's fragment record rather than in the row. The synthesis
+URL at import and kept the older summary; the release tidy enriched all
+five, so each row now carries what this pack cites it for. The synthesis
 behind this file, those five rows, and the questions the research could
-not close are in `packs/agentic-swarm/research/NOTES.md`.
+not close are in `packs/agentic-swarm/research/NOTES.md`. The licence
+and quotation sweep is at
+`packs/agentic-swarm/research/provenance.fragment.json`, and it is
+blunt about the position: of the sixty-two ids cited across this pack,
+ten carry licence evidence and fifty-two are assertions read back off
+the ledger.

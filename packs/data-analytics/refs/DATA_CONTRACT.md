@@ -13,8 +13,9 @@ review: 2028-08
 
 Level-three material behind defaults D9 and D10 and guide
 `packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md`. The
-pack binds what a contract must carry and what happens when it fails. It
-does not bind the format.
+pack sets what a contract carries and what happens when it fails, as
+defaults you depart from in writing. It has never had anything to say
+about the format.
 
 ## The five things one document has to carry
 

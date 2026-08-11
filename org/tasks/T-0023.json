@@ -1,6 +1,6 @@
 {
   "id": "T-0023",
-  "intent": "Six packs: stale prose, front-matter sources, the authority audit excluding production safety, the provenance fragment, and the exemplar-study rules legal-licensing owes the study workflow.",
+  "intent": "Six packs: stale prose, front-matter sources, the authority audit excluding production safety, the provenance fragment, and the exemplar-study rules legal-licensing owes the study workflow. Closed: the six packs carry corrected prose, complete sources, an audited authority column that leaves production safety binding, a provenance fragment each, and legal-licensing's exemplar-study rules.",
   "claims": [
     "packs/devops-reliability/",
     "packs/docs-dx/",
@@ -15,11 +15,12 @@
   },
   "mode": "standard",
   "tier_proposed": "R1",
-  "status": "active",
+  "status": "done",
   "owner_session": "eos-v21-L10",
   "timestamps": {
     "opened": "2026-08-10T18:00:00Z",
-    "updated": "2026-08-10T18:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "tier_ruled": "R0",
   "reasons": []

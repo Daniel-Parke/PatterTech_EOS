@@ -6,34 +6,40 @@ tags: [eos]
 
 # Kernel
 
-The organisational machinery Session 0 compiles into each venture.
-Ventures get compiled copies stamped with the EOS version they came
-from; nothing here is read by a venture at runtime.
+The law and the seed material. Session 0 compiles a venture out of this
+directory and stops; the venture then owns its copies. Nothing here is
+edited by a venture, and nothing here runs: the code that reads these
+files lives in `tools/eos/`.
+
+A venture does keep reaching back. Its lock-book pins `eos_root` and
+`eos_commit`, and it resolves the schemas, the scale matrix and the
+packs it adopted at that commit, which is what makes an upgrade a diff
+against a pin rather than a guess.
 
 ## What lives here
 
-- Law the templates instantiate: `kernel/POLICY_SPEC.md` (the risk
-  model and factor table), `kernel/GUARD_SPEC.md` (the action-time
-  guard), `kernel/METADATA_SPEC.md` (the metadata axes).
-- Schemas under kernel/schemas/ for every machine file: policy, task
-  records, claims, guard actions, capability profiles, coverage,
-  evidence, benchmark, migration.
-- Templates under kernel/templates/: the router, operators guide,
-  brief, lock-book, compile report and feedback file at every scale;
-  the constitution, the three charters (EXECUTOR, ORACLE, REVIEWER),
-  the policy and cadence instances, the testing law, the artefact
-  shapes, the playbooks and the boot file for the ORG seed; the task
-  list for S.
-- `kernel/SEED_RUBRIC.md`, the pass gate a compiled seed must clear.
+- The law the templates instantiate: `POLICY_SPEC.md` (the risk model
+  and the factor table the router rules from), `GUARD_SPEC.md` (the
+  action-time guard), `METADATA_SPEC.md` (the knowledge metadata axes).
+- `SCALE_MATRIX.md`, the file list per scale, and `SEED_RUBRIC.md`, the
+  gate a compiled seed must clear.
+- `schemas/`, one JSON Schema per machine file or command output:
+  policy, task record, claims, guard action, capability profile,
+  coverage, evidence, lesson, migration state, and two that document
+  the frozen benchmark.
+- `templates/`, every file a seed can contain, plus `adapters/`, the
+  host enforcement mappings the guard reads.
+
+`SCALE_MATRIX.md` is the only place that says which template lands
+where, at which scale, and how many files a seed comes to. It is not
+restated here, because the copy that used to live here went stale.
 
 ## Scale in v2
 
-Two seeds: S at nine files and ORG at nineteen; v1's M and L merge
-into ORG. `kernel/SCALE_MATRIX.md` holds the v2 law and the seed check
-parses it there. The swap happened once the v1 baseline scoring that
-depended on the old matrix completed; the v1 matrix, with its S, M and
-L columns, is at `archive/v1-final:kernel/SCALE_MATRIX.md`. A seed
-resolves whichever matrix its pinned commit carries, so a venture
+Two seeds, S and ORG; v1's M and L merge into ORG. The seed check
+parses the matrix out of `SCALE_MATRIX.md`. The v1 matrix, with its S,
+M and L columns, is at `archive/v1-final:kernel/SCALE_MATRIX.md`, and a
+seed resolves whichever matrix its pinned commit carries, so a venture
 pinned before the swap still checks against v1's.
 
 ## The compile contract
@@ -68,7 +74,8 @@ discard.
 
 ## Status
 
-The v2 kernel content is on main. It is not released law until the
-benchmark gates pass and Daniel approves release; ADR-0002 records
-what was approved for implementation. The v1 template set this
-replaces is preserved in git history.
+This content is unreleased law until Daniel approves the release.
+ADR-0002 records what was approved for implementation. ADR-0007 settles
+what the release gate now is, and strikes the two benchmark gates that
+can no longer be computed. The v1 template set this replaces is
+preserved in git history.

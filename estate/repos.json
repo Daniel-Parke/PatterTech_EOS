@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "updated": "2026-08-10",
+  "updated": "2026-08-11",
   "root": "C:\\Users\\Daniel\\Documents\\Coding\\Github",
-  "note": "Canonical estate manifest. Membership follows Daniel's rulings of 2026-08-02: every Patter* repository, plus WiseWattage, Venture A and Guth. governed is true only for the three seeded ventures, and after ADR-0006 it means the EOS seeded or adopted the repo and holds its pin rather than that the EOS rules it; every other row is an inventory row that the estate review asks adopt or defer about, and under ADR-0008 that review runs when a repository is added or a seed is compiled rather than on a quarterly clock. Every row below was read read-only on 2026-08-03; nothing was written into any sibling repository. The 2026-08-10 edit corrected prose in this file and read no repository, so every observation here still dates from 2026-08-03 or earlier. estate/ESTATE_MAP.md is the human narrative of this file and does not restate membership. The v1 YAML manifest is archived at archive/v1-final:estate/repos.yaml.",
+  "note": "Canonical estate manifest. Membership follows Daniel's rulings of 2026-08-02: every Patter* repository, plus WiseWattage, Venture A and Guth. governed is true only for the three seeded ventures, and after ADR-0006 it means the EOS seeded or adopted the repo and holds its pin rather than that the EOS rules it; every other row is an inventory row that the estate review asks adopt or defer about, and under ADR-0008 that review runs when a repository is added or a seed is compiled rather than on a quarterly clock. Every row below was read read-only on 2026-08-03; nothing was written into any sibling repository. The 2026-08-10 and 2026-08-11 edits corrected prose in this file and read no repository, so every branch tip and commit date here still dates from the 2026-08-03 pass. estate/ESTATE_MAP.md is the human narrative of this file and does not restate membership. The v1 YAML manifest is archived at archive/v1-final:estate/repos.yaml.",
   "excluded": [
     {
       "name": "WiseWattageReflex",
@@ -50,7 +50,7 @@
         "check": "python -m tools.eos check --repo"
       },
       "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md, enforced by check E003",
-      "notes": "Not a governed venture and not a candidate: it is the manifest's own home, which is why status is self rather than candidate. Branch feat/eos-v2-agentic-development, the v2 integration branch."
+      "notes": "Not a governed venture and not a candidate: it is the manifest's own home, which is why status is self rather than candidate."
     },
     "Venture A": {
       "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\Venture A",
@@ -128,7 +128,7 @@
         "The factory that produces it"
       ],
       "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
-      "notes": "The estate's exemplar tenant and the source of most vendor rows in registry/VENDORS.md. Live with real users. Branch dev, last commit 2026-07-20. Adopt or defer at the quarterly estate review; it is the strongest adoption candidate because it already carries the practices."
+      "notes": "The estate's exemplar tenant and the source of most vendor rows in registry/VENDORS.md. Live with real users. Branch dev, last commit 2026-07-20. It is the strongest adoption candidate, because it already carries the practices; adopt or defer is answered at the next estate review."
     },
     "PatterStudio": {
       "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterStudio",
@@ -192,7 +192,7 @@
         "The household platform: accounts, capability permissions, quick capture, permission-aware search and the backup subsystem where restore is the acceptance test"
       ],
       "agent_files": "none",
-      "notes": "Planning stage by its own README, though the tree already holds source, migrations and tests. No git remote is configured locally. Branch main, last commit 2026-08-03, which makes it the most active unowned repo in the estate and the strongest argument for the quarterly adopt-or-defer review."
+      "notes": "Planning stage by its own README, though the tree already holds source, migrations and tests. No git remote is configured locally. Branch main, last commit 2026-08-03, which made it the most active repo the EOS does not govern on the day of the pass."
     },
     "PatterPower": {
       "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterPower",
@@ -207,7 +207,7 @@
         "Any running platform; nothing here is deployed"
       ],
       "agent_files": "none",
-      "notes": "Documents and schema sketches rather than a product. No git remote is configured locally. Branch platform-blueprint, last commit 2026-07-04. It carries commercial and regulatory material that no EOS pack covers, which is why business-model-pricing-and-operations and legal-licensing-and-compliance-routing are Wave B rows."
+      "notes": "Documents and schema sketches rather than a product. No git remote is configured locally. Branch platform-blueprint, last commit 2026-07-04. It carries commercial and regulatory material, which is the estate need behind the business-model-pricing and legal-licensing packs."
     },
     "PatterTech_App": {
       "path": "C:\\Users\\Daniel\\Documents\\Coding\\Github\\PatterTech_App",

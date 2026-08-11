@@ -43,7 +43,9 @@ with the mapping recorded. Live state transcribed, not rewritten:
 cadence dates from the S-0000 baseline, all ten questions verbatim.
 Three pre-EOS files needed front-matter normalisation, content
 untouched, recorded as `normalised` rows in the ancestry table.
-`eos_check.py --seed`: 0 errors, 0 warnings, first full run.
+The seed check ran green, 0 errors and 0 warnings, on its first full
+run. The v1 script that ran it has since been replaced by
+`python -m tools.eos check --seed`.
 
 ## The feedback loop, working
 

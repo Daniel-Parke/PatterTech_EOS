@@ -68,12 +68,15 @@ manual-only.
 
 Naming a host permission system is not an adapter. An adapter exists
 only when its mapping is shipped with the policy
-(`guard.mapping_ref`), its behaviour is proven by the bypass suite, and
-the validation report is committed. Seed validation fails any venture
-that claims autonomous guarded actions without shipping the mapping it
-names. It does not read that mapping's validation record; the
-bypass-suite proof binds at action time, in the guard, which rules
-manual-only on a mapping that is caseless or failing.
+(`guard.mapping_ref`) and carries a `validation` block the bypass suite
+wrote. There is no separate report file: the record lives in the
+mapping, and `tests/test_guard.py` re-runs the suite against it, so a
+stale record fails the tests rather than sitting there being believed.
+Seed validation fails any venture that claims autonomous guarded
+actions without shipping the mapping it names. It does not read that
+mapping's validation record; the bypass-suite proof binds at action
+time, in the guard, which rules manual-only on a mapping that is
+caseless or failing.
 
 The guard reads the mapping rather than believing the policy. A policy
 that claims validation while naming a mapping that is absent,
@@ -88,6 +91,12 @@ other class stays manual-only under exactly the same fail-closed rule.
 The mapping's ruling for a class is a ceiling: the guard takes the
 stricter of that ruling and the action's own, and no mapping moves a
 floor.
+
+A policy has one lever here and it only tightens. Any class named in
+`approvals.always_human` rules require-approval whatever the mapping
+says, so a covered class can never quietly become an allow. The lever
+is read after the floors, so it can neither loosen one nor reach an
+uncovered class.
 
 ## Claude Code adapter mapping
 
@@ -127,10 +136,14 @@ at least:
 - indirect network calls (curl inside make, git remotes from scripts),
 - attempts to disable, rewrite or route around the hooks.
 
-A class the suite cannot demonstrate as enforced stays manual-only. The
-suite's results form the adapter validation report; `guard.validated`
-may be true only while that report is current, and any adapter or
-mapping change voids it until the suite passes again.
+A class the suite cannot demonstrate as enforced stays manual-only.
+`guard.validated` may be true only while the mapping's `validation`
+block is current, and any adapter or mapping change voids it until the
+suite passes again.
+
+The record states its method. A mapping-level run proves the mapping
+and not that the host's hooks fired in a live session, so no class may
+be raised to allow on a mapping-level run alone.
 
 Cases run against the hook surface: the tool name and the tool input,
 with file contents dropped, because that is all a pre-tool hook reads.

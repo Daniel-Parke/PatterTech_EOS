@@ -7,7 +7,7 @@ type: example
 tags: [arch, money, delivery]
 ---
 
-# Worked example: reading Stripe's versioning
+# EX-API-002: reading Stripe's versioning
 
 Stripe is the most cited answer to breaking-change management, and it is
 routinely copied by estates that have none of the conditions that make

@@ -4,7 +4,6 @@ type: template
 tags: [eos]
 template: true
 extracted_from: Venture A@d2e3250
-supersedes: the v0.1 PROJECT_LOCKIN migration
 eos_root: {{EOS_ROOT}}
 eos_version: {{EOS_VERSION}}
 eos_commit: {{EOS_COMMIT}}
@@ -65,6 +64,10 @@ sitting and notes it in the worklog or queue.
   {{MEASURE_FULL}} · block gap {{BLOCK_GAP}}
 
 ## QC gates (exact commands)
+
+Before a first build exists, a gate the stack profile does not already
+name takes the same sanctioned deferral: `set at first build` plus where
+the command gets ruled.
 
 - Build: {{GATE_BUILD}}
 - Overflow at 375: {{GATE_OVERFLOW}}

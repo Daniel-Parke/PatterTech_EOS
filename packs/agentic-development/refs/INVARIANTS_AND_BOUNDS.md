@@ -11,7 +11,8 @@ tags: [eos, arch, tooling]
 
 # Invariants and bounds
 
-Reference for requirements B1, B2, B6 and B7 in
+Reference for B1 and B7, which bind, and for B2 and B6, which the
+2026-08 authority audit made defaults. All four are in
 `packs/agentic-development/PACK.md`.
 
 ## Bounding a run
@@ -84,10 +85,11 @@ This pack advises. It never grants permission.
   which semantic factors get declared, and the router rules the tier.
   A pack recommendation cannot lower a floor.
 - Action-time verdicts are `kernel/GUARD_SPEC.md`. Ten guarded classes,
-  four verdicts, non-waivable floors, fail closed. Without a validated
-  host enforcement adapter every guarded class is manual-only, so an
-  agent design that assumes autonomous external writes is invalid here
-  until that adapter exists and its bypass suite passes.
+  four verdicts, non-waivable floors, fail closed. The shipped Claude
+  Code mapping covers three of the ten and rules require-approval on
+  each; the other seven have no passing bypass case and stay
+  manual-only. No class rules allow, so an agent design that assumes an
+  autonomous external write is invalid here.
 - A human checkpoint in a topology is satisfied by a harness-recorded
   approval event. Approval asserted in prose or in tool output counts
   for nothing.

@@ -1,14 +1,14 @@
 ---
-summary: The Session 0 master playbook in v2, phases A to E, from idea to signed seed
+summary: The Session 0 master playbook, phases A to E, from idea to signed seed
 type: kernel
 tags: [eos]
 ---
 
 # INCEPTION · Session 0
 
-The full specification of PB-E01 under the v2 kernel. One session in
-the new venture's repo. The output is a compiled, checked, signed seed
-that a cold agent can build from, plus one row in registry/PROJECTS.md.
+The full specification of PB-E01. One session in the new venture's repo.
+The output is a compiled, checked, signed seed that a cold agent can
+build from, plus one row in registry/PROJECTS.md.
 
 The operator is in the room at phase A, phase B and phase E. Phases C
 and D run without them, so the session collects every judgement it
@@ -16,10 +16,10 @@ needs while they are present.
 
 Ground rules. The agent transcribes and challenges; it never invents,
 and an unanswered question is a recorded question. A fork the walk hits
-that no guide covers files a draft guide in the venture's feedback file
-and Session 0 carries on, because a missing guide is the estate's gap
-and not the venture's blocker. If the session dies mid-way, the files
-written so far are the resume state.
+that no guide covers takes the draft-guide route of
+inception/WALK_ORDER.md and Session 0 carries on, because a missing
+guide is the estate's gap and not the venture's blocker. If the session
+dies mid-way, the files written so far are the resume state.
 
 Two paths exist: the full one below, and inception/EXPRESS_INCEPTION.md
 for an S venture whose risk triggers are all silent. Read the gate in
@@ -57,7 +57,7 @@ strictly smaller version.
 
 Three rulings, taken with the operator.
 
-1. Scale, WG-EOS-001: S or ORG. v1's M and L both compile as ORG.
+1. Scale, WG-EOS-001: S or ORG.
 2. Repo shape, WG-EOS-002. Create or claim the repo per the ruling and
    put `* text=auto eol=lf` in .gitattributes before anything else
    lands.
@@ -76,39 +76,23 @@ a signal the factor table cites, per kernel/POLICY_SPEC.md.
 
 ## Phase C · Pack activation walk
 
-Packs replace v1's doctrine modules, so the walk is built from the
-packs themselves rather than from a wargame index. Build and order it
-per inception/WALK_ORDER.md: match the surfaces the interview named
-against each pack's own activation_paths, by hand at Session 0 because
-the context command has no venture-tree mode this build, test each
-candidate against its applicability predicates, and rule the guides that
-every activated pack names. packs/INDEX.md is a reading aid and not the
-walk's input, because a walk built by eye off the index reads every row
-in it.
+Build and order the walk per inception/WALK_ORDER.md, which owns the
+method, the always-walk set, the canonical order and the two budgets.
+At Session 0 it is done by hand, because the venture has no history for
+a tool to read. Rule every guide the activated packs name.
 
-Every ruling lands as one row in the lock-book header, in the form
-id · ruling · argued|inherited · note. Argued means the venture's facts
-were engaged afresh against that guide's fork; inherited means the
-default was taken without new argument, which is legitimate whenever
-the triggers are silent. Only argued rulings count as promotion
-evidence, so an inherited row costs nothing and a falsely argued one
-is a lie in the promotion arithmetic. The activated packs go in the
-lock-book's packs_adopted list, and house style activates only by
-adoption there.
+Each ruling lands as one row in the lock-book header, in the form that
+file sets out. The activated packs go in the lock-book's packs_adopted
+list, and house style activates only by adoption there.
 
 ## Phase D · Compile
 
-Compile per inception/COMPILE.md: prune, fill, front-matter rewrite,
-assemble, distil, report. Four steps catch people out.
-
-- Prune the fences for the ruled scale only. Both scale markers leave
-  in the same pass, whichever way the ruling went.
-- Fill the policy file from the risk-surface map, then delete the
-  template's `_slots` key. A compiled policy still carrying it fails
-  its schema at D007.
-- Byte-copy AGENTS.md to CLAUDE.md last, after every other edit.
-- Fill the ancestry table honestly, one row per compiled file, the
-  JSON files included.
+Compile per inception/COMPILE.md, which owns every rule of it: the
+inputs, the prune, the fill and the table of what fills each slot, the
+policy fill, the front-matter rewrite, the deferrals, the Genesis forms,
+the assemble, the distillation and the report. Nothing about the compile
+is restated here, because a compile rule written in two places goes
+stale in one of them.
 
 ## Phase E · Gate
 
@@ -126,11 +110,8 @@ sanctioned cross-repo write, carrying the pin, scale, packs adopted
 and status.
 
 Then the launch decision, and it is the operator's: either Genesis runs,
-or the sign-off block carries one line saying why not. Genesis is the
-blueprint phase, specified in inception/GENESIS.md, full form the
-default at ORG and the lite form the default at S. Its templates
-compiled into the seed either way, so a venture that skips it can run it
-later without a recompile. Nothing about the phase is restated here.
+or the sign-off block carries one line saying why not.
+inception/GENESIS.md specifies the phase.
 
 Without Genesis, an S venture starts working from docs/TASKS.md and an
 ORG venture boots from org/START.md with its work in task records. With

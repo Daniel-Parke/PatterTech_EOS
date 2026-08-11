@@ -50,10 +50,10 @@ and more of them, and that is the philosophy talking, not a defect.
 
 ## Density
 
-Density is chosen with the audience, not inherited. The v1 fork
-WG-WEB-006 still applies: skim-first for readers arriving for the gist,
-read-first for readers going end to end, reference-first for people
-looking one thing up.
+Density is chosen with the audience, not inherited. Three answers,
+carried forward from v1 practice: skim-first for readers arriving for
+the gist, read-first for readers going end to end, reference-first for
+people looking one thing up.
 
 Signals worth reading:
 

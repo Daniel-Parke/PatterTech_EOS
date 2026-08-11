@@ -1,29 +1,13 @@
-"""Structural checks E001-E009 and E011, ported from tools/eos_check.py v1.
+"""Structural checks E001-E009 and E011.
 
 E010 warned that `active_session` in org/STATE.md was stale. The v2
-state view has no such line: org/claims.json holds the claim set and
-org/migration/MIGRATION_MAP.md records the retirement. The generator
-cannot emit the line, so the check could never fire and was withdrawn
-in v2.1. The id is not reused.
-
-E011 is new in v2.1 and is not part of the v1 parity port: it compares
-the two derived views org/TASKS.md and org/STATE.md against their
-generator, which nothing did.
-
-Parity is a hard gate: over this repository these checks produce
-exactly the findings the v1 checker produces (same ids, same paths,
-same messages, same severities). Two sanctioned differences:
-
-- E001 write mode (write_indexes) writes the derived indexes and then
-  re-verifies them against a freshly loaded model, fixing the v1
-  write-without-reverify bug.
-- The hardened front-matter parser reports malformed blocks through
-  E002 (v1 silently skipped what it could not parse). Well-formed
-  repositories, this one included, see no difference.
+state view has no such line, so the check could never fire and was
+withdrawn. The id is not reused.
 
 The tag vocabulary is parsed live from GOVERNANCE.md so governance
 stays the single source. Fixture files (benchmark/fixtures/,
-benchmark/holdout/) run the full E-series exactly as v1 did.
+benchmark/holdout/) run the full E-series: they are v1-era by design
+and exempt from the v2 semantics, not from structure.
 
 The derived indexes are scoped to live material. Frozen trees are
 checked but never indexed: a benchmark fixture's wargames are not EOS
@@ -279,7 +263,7 @@ def build_capabilities(model: RepoModel) -> str:
         out += [f"### {r.get('capability', '')}", "",
                 f"- **Pack**: `{_cell(r.get('pack'))}`",
                 f"- **Activation**: {_cell(r.get('activation'))}",
-                f"- **Worked example**: " + ", ".join(f"`{e}`" for e in examples),
+                "- **Worked example**: " + ", ".join(f"`{e}`" for e in examples),
                 f"- **Evaluation**: {_cell(r.get('evaluation_method'))}",
                 f"- **Estate relevance**: {_cell(r.get('estate_relevance'))}",
                 f"- **Owner**: {_cell(r.get('owner'))}",

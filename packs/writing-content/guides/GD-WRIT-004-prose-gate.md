@@ -98,7 +98,7 @@ Readability reported if anyone wants it, blocking nothing.
   linter, failing on em-dashes and warning on exclamation marks and
   cliches. It enforces the mechanical part of PACK.md B8 and nothing
   else, and it is the only prose check here. B8 is a default since the
-  2026-08 audit and E004 still fails the commit, which is the case for
+  2026-08 audit and E004 still fails the build, which is the case for
   writing down what the check actually does rather than reading the
   authority axis as the gate.
 - **Worked example (2026-08, argued)**: B over a string file, with the

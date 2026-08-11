@@ -1,5 +1,5 @@
 ---
-summary: The router, entry modes, graph builds, policy-routed mode entry and the never-list
+summary: The router: entry modes, how a tier is ruled, graph builds and the never-list
 type: root
 tags: [eos]
 ---
@@ -22,9 +22,8 @@ Pick your entry point:
    graph, per `packs/agentic-swarm/PACK.md`. Lanes on disjoint paths,
    one integrator on the hubs, a verifier that predates the lanes.
 
-Tier is ruled once when a record is written and read back from it; only
-the merge gate re-rules it, upward. Load only what `packs/INDEX.md`
-activates.
+Tier is ruled once when a record is written and read back from it; only the
+merge gate re-rules it, upward. Load only what `packs/INDEX.md` activates.
 
 Never:
 
@@ -35,6 +34,7 @@ Never:
 - Commit secrets. This repo is documentation.
 - Write over a live lane: in parallel work the integrator commits the
   claim set first (ADR-0008).
+- Describe a control that is not built. Check the code, not the prose.
 
 Voice: plain, spoken, British spelling, no em-dashes, no exclamation
 marks, no AI clichés. Run `python -m tools.eos check --repo` to finish.

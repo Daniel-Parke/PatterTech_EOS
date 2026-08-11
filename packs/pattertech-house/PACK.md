@@ -91,7 +91,9 @@ taste.
 **Evidence pointer.** EV ids resolve in `registry/evidence.json`. The
 fourteen house sources are frozen with version, licence, access date and
 review trigger in `packs/pattertech-house/research/sources.fragment.json`
-and were imported as `EV-0389` to `EV-0402`. This pack cites the EV ids.
+and were imported as `EV-0389` to `EV-0402`. The synthesis behind the
+pack is in `packs/pattertech-house/research/NOTES.md`. This pack cites
+the EV ids.
 
 **H1. The container comes from the content, not from the layout.**
 `adopts_pattertech_house`. Parallel facts take a ledger, numbers take a
@@ -237,7 +239,11 @@ Taste, ours, and not portable. Depart without asking.
 | Which container does this content take | Ledger, plaque, panel, table or prose | `packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md` |
 | Which polarity register does the surface take | Dark, light, dual or mixed, and what each costs | `packs/pattertech-house/guides/GD-HOUSE-003-polarity-register.md` |
 | How austere is this figure | Whether a figure may carry a distinguishing device | `packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md` |
-| Should the surface answer presence | Inert, hover-only or field-reactive | WG-WEB-011, carried unchanged |
+
+Whether a surface answers presence is not a fork with a guide behind
+it. The default above settles it: one delegated pointer listener, fine
+pointers only, components opting in. A venture that wants an inert
+surface writes that line in its lock-book.
 
 Level-three detail: every number in
 `packs/pattertech-house/refs/BUDGETS.md`, the container and furniture

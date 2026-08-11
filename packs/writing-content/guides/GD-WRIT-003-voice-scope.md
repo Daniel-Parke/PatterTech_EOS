@@ -40,7 +40,7 @@ em-dashes, no exclamation marks, no AI cliches, no two-fragment
 antithesis. Basis: decision, ADR-0002. PACK.md B8 carried this as
 binding until the 2026-08 audit and carries it as a default now, on the
 basis leg: a house ruling is not law, a standard or a measured effect.
-Check E004 fails the commit either way, which is what actually holds
+Check E004 fails the build either way, which is what actually holds
 the register. Buys one recognisable voice across a corpus that agents
 read constantly. Costs nothing outside this repository, because it
 applies nowhere else. Scope: eos-internal.

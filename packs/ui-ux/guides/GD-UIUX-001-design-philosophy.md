@@ -119,7 +119,7 @@ Rulings are marked argued (engaged the triggers afresh) or inherited
   A and an operations dashboard took F in one repo, sharing one token
   source and one behaviour layer, with measurably different type scale,
   density and component inventory. Written up in
-  `packs/ui-ux/exemplars/two-surfaces-one-spine.md`.
+  `packs/ui-ux/exemplars/EX-UIUX-001-two-surfaces-one-spine.md`.
 - **PatterTech Website (2026-07, argued, inherited into this pack)**:
   long reads took a skim layer over a read-first structure, which is
   option D with the density fork of WG-WEB-006 answered read-first.

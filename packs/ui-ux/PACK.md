@@ -78,8 +78,10 @@ pack it adopts explicitly, and adoption is a recorded choice.
 
 ## Binding requirements
 
-Five bind. Each names its predicate, its evidence and the failure it
-prevents.
+Five bind. Each names its predicate, its evidence, the failure it
+prevents and the row in `packs/ui-ux/CHECKS.md` that settles it. A
+requirement nobody can check is a wish, so a rule here either has a
+test or it sits under Defaults.
 
 The 2026-08 authority audit under ADR-0008 put one test to all eight
 requirements this pack used to bind: a rule binds only where it prevents
@@ -94,16 +96,19 @@ Every EV id points at a row in `registry/evidence.json` carrying that
 source's version, licence, access date, maintenance state and review
 trigger. The fifteen sources researched for this pack were imported as
 EV-0227 to EV-0241, and the frozen batch the import was made from stays
-at `packs/ui-ux/research/sources.fragment.json`. This pack cites ids and
-never restates them, and it never copies source prose: several of the
-sources below are readable and not reusable.
+at `packs/ui-ux/research/sources.fragment.json`, and the synthesis
+behind the pack is in `packs/ui-ux/research/NOTES.md`. This pack cites
+ids and never restates them, and it never copies source prose: several
+of the sources below are readable and not reusable.
 
 **B1. Conformance is stated as named criteria, not confidence.**
 `has_web_ui`. A surface claiming WCAG 2.2 at a level names the level
 and the criteria that pass (EV-0027). The artefact is a conformance
-record listing the level, every criterion in it and that criterion's
-verdict; C5 settles it, and a claim with no such record fails whatever
-the scanner says. Prevents a conformance claim that rests on how the
+record listing the version, the level, every criterion in that level
+and that criterion's verdict. C17 settles that the record exists and is
+complete; C5 supplies the machine-decidable half of the verdicts in it.
+A claim with no such record fails whatever the scanner says, which is
+what C17 is for. Prevents a conformance claim that rests on how the
 reviewer felt. Basis: standard. Binds because the claim is a public
 statement that cannot be withdrawn from the people who read it, and
 where `statutory_a11y_duty` holds it is a legal one.
@@ -111,7 +116,8 @@ where `statutory_a11y_duty` holds it is a legal one.
 **B3. The six cheap failure classes are gated individually.**
 `has_web_ui`. Contrast, image alternative text, form labels, empty
 links, empty buttons and declared page language each get their own
-assertion (EV-0235, EV-0236). Prevents the defects that the 2026 census
+assertion (EV-0235, EV-0236); C7 is those six assertions and settles
+it. Prevents the defects that the 2026 census
 found on the majority of home pages shipping again here. Basis:
 standard. Binds because each of the six stops somebody using the
 surface at all, which is serious whether or not it is also unlawful.
@@ -143,6 +149,8 @@ and that is what kept this binding when the audit ran.
 **B6. Tokens are defined once and generated; derived files are never
 hand-edited.** `has_design_tokens`. One source in the DTCG shape, with
 per-platform outputs produced by a build (EV-0030, EV-0065, EV-0064).
+C1, C2, C3 and C15 settle it, C3 being the one that catches the
+hand-edit: regeneration must leave a clean tree.
 Prevents platforms drifting apart and prevents a value edited in one
 output being silently overwritten. Basis: standard. Binds because
 ADR-0008 keeps the derived-file rule by name: a file with a generator is
@@ -178,10 +186,12 @@ are named in an exported states manifest, one entry per component per
 state, and C9 walks that manifest with one render assertion per entry.
 A state a component cannot enter is declared absent in the manifest
 with a reason rather than left out of it, because a missing entry and
-a deliberate omission are indistinguishable to the walk. The full six is
-an estate decision, taken because a restrained visual style removes
-affordance that has to be paid back somewhere (EV-0234, EV-0232, both
-weak). Basis: decision. Failed the basis leg on those two weak sources.
+a deliberate omission are indistinguishable to the walk. Prevents a
+control that gives no sign it is focused, busy or unavailable, which is
+affordance a restrained visual style removed and never paid back. The
+full six is an estate decision taken on that reasoning (EV-0234,
+EV-0232, both weak). Basis: decision. Failed the basis leg on those two
+weak sources.
 Focus visibility does not move with it: it is a WCAG criterion
 (EV-0027) and C8 asserts it under B4.
 
@@ -245,11 +255,17 @@ Taste. Depart freely, no reason needed.
 | Where do interactive components come from | Upstream fix flow, bundle, freedom to restyle | `packs/ui-ux/guides/GD-UIUX-002-component-sourcing.md` |
 | How much accessibility assurance | What a passing build is allowed to claim | `packs/ui-ux/guides/GD-UIUX-003-a11y-assurance.md` |
 | Where do tokens live and how do they reach platforms | Drift risk, rebrand cost, design-tool coupling | `packs/ui-ux/guides/GD-UIUX-004-token-source.md` |
-| How dense, for whom | Reading aids and information per screen | WG-WEB-006 (v1, carried) |
-| Motion and ornament budget | What may move and how much | WG-WEB-004, WG-WEB-005 (v1, carried) |
 
-Reference material the body defers to sits in `packs/ui-ux/refs/`, and
-a worked end-to-end example in `packs/ui-ux/exemplars/`.
+Density is not a separate fork here. It falls out of the philosophy, so
+GD-UIUX-001 settles it and `packs/ui-ux/refs/LAYOUT_AND_MEASURE.md`
+carries the structure. Motion and ornament budgets are house taste and
+belong to whichever preference pack a venture adopts, which for us is
+`packs/pattertech-house/refs/BUDGETS.md`.
+
+Level-three detail sits in `packs/ui-ux/refs/`: the accessibility
+floor, the component contract, layout and measure, performance and
+motion, and the token pipeline. A worked end-to-end example is in
+`packs/ui-ux/exemplars/`.
 
 ## Failure modes and anti-patterns
 
@@ -319,9 +335,3 @@ a worked end-to-end example in `packs/ui-ux/exemplars/`.
 - **EN 301 549 v4.x and WCAG 2.2** are expected to meet in 2026 by
   several secondary sources. No primary source confirmed it, so this
   pack records nothing about it.
-- **The 18s against 12s conduit contradiction from v1 is unresolved
-  here.** The older doctrine states a duty cycle of 18 seconds or
-  longer; the newer argued ruling in WG-WEB-005 relaxed it to 12. The
-  newer argued ruling wins, and the resolution lands in the house
-  preference pack in Wave B, not here. This pack carries no house
-  motion numbers at all.

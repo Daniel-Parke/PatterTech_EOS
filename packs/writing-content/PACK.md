@@ -99,13 +99,13 @@ re-scoped it. The three are separate and they are allowed to disagree.
 
 | Scope | Authority | What it governs | Basis |
 | --- | --- | --- | --- |
-| eos-internal | default, and E004 fails the commit | every file in this repository | decision, ADR-0002 |
+| eos-internal | default, and E004 fails the build | every file in this repository | decision, ADR-0002 |
 | venture | default | documentation and product copy in a venture repo | standard, plain-language guidance |
 | brand:`<name>` | preference | how a venture sounds to its market | taste, adopted explicitly |
 
 The first row read binding until the 2026-08 audit. B8 failed the basis
 leg and sits under Defaults now, which changes nothing an agent does:
-check E004 still fails a commit on an em-dash, and `AGENTS.md` states
+check E004 still fails the build on an em-dash, and `AGENTS.md` states
 the same law in the file every session already reads.
 
 A brand scope caps at preference by `kernel/METADATA_SPEC.md`, so no
@@ -144,8 +144,10 @@ sources researched for this pack were imported as EV-0433 to EV-0448,
 and every citation here uses the ledger id. Each row carries its own
 version, licence, access date, maintenance state and review trigger. The
 frozen batch the import was made from stays at
-`packs/writing-content/research/sources.fragment.json`. This pack cites
-ids, restates none of them, and copies no source prose: several of these
+`packs/writing-content/research/sources.fragment.json`, and the
+synthesis behind the pack is in
+`packs/writing-content/research/NOTES.md`. This pack cites ids,
+restates none of them, and copies no source prose: several of these
 sources are readable and not reusable, and which ones is recorded in
 `packs/writing-content/research/provenance.fragment.json`.
 
@@ -251,7 +253,7 @@ measured effect, and no study of a voice rule's effect was looked for
 or found. It does not clear the seriousness leg either, because prose
 that drifts is repaired by rewriting it.
 
-Demoting it changes nothing an agent does. Check E004 fails a commit
+Demoting it changes nothing an agent does. Check E004 fails the build
 on an em-dash and warns on exclamation marks and cliches, so the
 mechanical part is not departable in this repository whatever this pack
 says about its authority, and `AGENTS.md` states the same law in the
@@ -319,8 +321,8 @@ Taste. Depart freely, no reason needed.
 | Which voice applies to this text | Register, style rules, who may overrule | `packs/writing-content/guides/GD-WRIT-003-voice-scope.md` |
 | How prose is checked in CI | What blocks a merge and what only reports | `packs/writing-content/guides/GD-WRIT-004-prose-gate.md` |
 
-Detail the body defers to sits in `packs/writing-content/refs/`, and a
-worked example in
+Detail the body defers to sits in `packs/writing-content/refs/`: the
+error contract and the i18n mechanics. A worked example is in
 `packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md`.
 
 ## Failure modes and anti-patterns

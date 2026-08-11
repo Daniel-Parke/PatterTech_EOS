@@ -12,7 +12,7 @@ derived: true
 Derived from `registry/lessons.json` by
 `python -m tools.eos check --write-index`. Do not hand-edit.
 
-**Live: 15. Rejected: 1. Deferred: 2. Pruned: 7.** A rejected row
+**Live: 15. Rejected: 1. Deferred: 0. Pruned: 9.** A rejected row
 stays here with its reason, so the same proposal cannot arrive
 twice unrecorded. A pruned row is provenance: its rule text now
 lives in the file named beside it.
@@ -25,12 +25,15 @@ a declined lesson keeps its reason, so a decline cannot be re-proposed
 as if it had never been argued. A silent harvest month still records
 "checked, clean".
 
-Disposition is an enum, and the permitted values are listed in
-`kernel/schemas/lesson.schema.json`, which is what refuses one that is
-not on the list. `TOUR.md` says what each of them means in practice.
-The value `binding` is absent on purpose: this ledger can propose a
-binding candidate and nothing more, because binding needs an accepted
-ADR and Daniel under the ladder in `GOVERNANCE.md`.
+Disposition is an enum. `kernel/schemas/lesson.schema.json` lists
+the permitted values and refuses one that is not on the list, and
+`TOUR.md` is the home for what they mean: its table under "The
+eleven dispositions" defines all eleven. Each value names the kind
+of home a decision found; the row's own `outcome` and `informs`
+name the file that holds it now. The value `binding` is absent on
+purpose: this ledger can propose a binding candidate and nothing
+more, because binding needs an accepted ADR and Daniel under the
+ladder in `GOVERNANCE.md`.
 
 **A lesson leaves this ledger once its content is stated as a rule
 somewhere else.** Keeping it here as well would be a second home for
@@ -208,7 +211,7 @@ and a guide written for it would be speculation with a filename.
 - **Source note**: S1.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
-- **Outcome**: Promotion candidate for PB-E04. One argued ruling from one venture, so not yet binding evidence. The v2 drill apparatus is the natural home once it has graders.
+- **Outcome**: Promotion candidate for PB-E04. One argued ruling from one venture, so not yet binding evidence. The drill apparatus is the natural home: all twenty-two drills now carry scenarios and graders, and ADR-0007 defers running them, so nothing has graded this.
 - **Scope**: eos-internal
 - **Applies when**: A venture at Session 0 whose rubric is not yet signed, probed by a session with no prior context of the repository.
 - **Informs**: PB-E04
@@ -294,6 +297,10 @@ and a guide written for it would be speculation with a filename.
 
 ## Deferred
 
+No deferred rows.
+
+## Pruned
+
 ### LES-0012 · Inception necessarily writes to main
 
 - **Lesson**: Inception necessarily writes to main, because the org that mandates branches is being compiled during the writes.
@@ -301,13 +308,13 @@ and a guide written for it would be speculation with a filename.
 - **Venture**: Guth
 - **Source note**: S1.
 - **Evidence class**: observational
-- **Disposition**: deferred
-- **Outcome**: Queued as T-0005: `inception/INCEPTION.md` needs the one-line exemption so the first review session does not read Session 0 as a violation.
+- **Disposition**: implementation-reference
+- **Outcome**: Deferred at the harvest and queued as T-0005. That task closed on 2026-08-11: `inception/INCEPTION.md` states the Session 0 write-to-main exemption under its own heading, so the first review session no longer reads Session 0's history as a violation.
 - **Scope**: eos-internal
 - **Applies when**: Session 0 in a fresh venture repository, before the branch rule it is compiling exists.
 - **Informs**: inception/INCEPTION.md, T-0005
-- **Decided**: 2026-08
-- **Revisit when**: T-0005 lands the exemption line in inception/INCEPTION.md.
+- **Decided**: 2026-08-11
+- **Pruned**: 2026-08-11
 
 ### LES-0014 · Doctrine-heavy ventures walk long at Session 0
 
@@ -316,15 +323,13 @@ and a guide written for it would be speculation with a filename.
 - **Venture**: Guth
 - **Source note**: S1, 32 rulings against a 20 budget.
 - **Evidence class**: observational
-- **Disposition**: deferred
-- **Outcome**: Queued as T-0006: `inception/WALK_ORDER.md` should count interview-triggered and doctrine-triggered rulings separately rather than budgeting them as one number.
+- **Disposition**: implementation-reference
+- **Outcome**: Deferred at the harvest and queued as T-0006. That task closed on 2026-08-11: `inception/WALK_ORDER.md` budgets interview-triggered and doctrine-triggered rulings separately, so a correct doctrine-heavy walk no longer reads as an overrun.
 - **Scope**: eos-internal
 - **Applies when**: Ventures arriving with fixed product doctrine already in the master prompt.
 - **Informs**: inception/WALK_ORDER.md, T-0006
-- **Decided**: 2026-08
-- **Revisit when**: T-0006 splits the walk-order budget into interview-triggered and doctrine-triggered counts.
-
-## Pruned
+- **Decided**: 2026-08-11
+- **Pruned**: 2026-08-11
 
 ### LES-0018 · Cap urllib3 below 2.5 until a deploy proves otherwise
 

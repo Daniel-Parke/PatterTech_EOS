@@ -1,12 +1,12 @@
 """Structural E-series tests: one defect per check, exact findings.
 
-Includes the parity hard gate: the registry's E-checks over this
-repository must produce exactly the findings the v1 checker prints.
+Each check gets a case that makes it fire and a case that proves it
+stays quiet on the shape it is not there to catch, because a check
+that fires on everything is as useless as one that fires on nothing.
 """
 
 import hashlib
 import json
-import re
 import shutil
 import subprocess
 import sys
@@ -20,7 +20,7 @@ from tools.eos.checks.structural import (
     build_pack_index,
     write_indexes,
 )
-from tools.eos.repo import SKIP_DIRS, RepoModel
+from tools.eos.repo import RepoModel
 
 TODAY = date(2026, 8, 3)
 
@@ -45,27 +45,19 @@ def edit(root, rel, old, new):
     p.write_text(text.replace(old, new), encoding="utf-8")
 
 
-# --- parity hard gate ---------------------------------------------------
-
-
-V1_LINE = re.compile(r"^(ERROR|warn)\s+(E\d{3})\s+(.+?): (.*)$")
-
-
-def test_v1_checker_is_a_forwarding_shim():
-    """The v1 checker was the port's parity gate and is now retired.
-
-    It proved the E-series port faithful while both could see the same
-    tree. The pack restructure moved the knowledge layer, so v1's
-    hardcoded doctrine and wargame-index paths no longer resolve and
-    parity is not a meaningful assertion. The original is kept at
-    archive/v1-final:tools/eos_check.py; the live path forwards.
+def test_the_v1_checker_path_still_resolves_and_forwards():
+    """ADR-0001 is accepted and append-only and names tools/eos_check.py
+    as the sanctioned executable, so check S003 holds that path. The
+    file is a shim: it says it is deprecated and forwards to the
+    package. Delete it and the ADR starts pointing at nothing.
     """
     proc = subprocess.run(
         [sys.executable, str(REPO_ROOT / "tools" / "eos_check.py"), "--repo"],
         capture_output=True, text=True, encoding="utf-8", cwd=str(REPO_ROOT),
     )
     assert "deprecated" in proc.stderr
-    assert "errors," in proc.stderr or "errors," in proc.stdout
+    assert "errors," in proc.stderr
+
 
 def test_minirepo_is_green(tmp_path):
     assert run_e(make_repo(tmp_path)) == []
@@ -250,6 +242,17 @@ def test_e004_cliche(tmp_path):
          "We delve into the fixture repo.")
     fs = run_e(root)
     assert only(fs, "E004") == [("warn", "org/STATE.md", "possible cliche: delve")]
+
+
+def test_e004_judges_prose_and_not_code(tmp_path):
+    """The voice rules are about what a reader reads. A command, a
+    regex or a sample string is quoted material: flagging it would make
+    the check unusable in any file that shows a command line."""
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "Run `python -m tools.eos check --repo` first.\n\n"
+         "```\nprint('unlock the seamless thing!')\nlabel = 'a b'\n```\n")
+    assert only(run_e(root), "E004") == []
 
 
 # --- E005 ---------------------------------------------------------------
@@ -451,20 +454,19 @@ def test_e009_skipped_when_vocabulary_missing(tmp_path):
 # --- E010, withdrawn ----------------------------------------------------
 
 
-def test_e010_is_withdrawn_not_merely_unused():
-    """E010 warned about an active_session line in org/STATE.md.
+def test_the_state_view_cannot_emit_the_line_e010_watched():
+    """E010 warned that `active_session` in org/STATE.md was stale.
 
-    The v2 state view has no such line and its generator cannot emit
-    one, so the check could not fire whatever the tree did. A check that
-    cannot fire teaches a reader that the thing it names is watched. It
-    is gone, and the id is not reused.
+    The generator has no such line to emit, which is why the check was
+    withdrawn rather than kept as reassurance. If a state view ever
+    grows one again, the withdrawal needs revisiting and this fails.
     """
+    from tools.eos import taskops
     from tools.eos.checks import REGISTRY
 
     assert "E010" not in REGISTRY
-    from tools.eos import taskops
-
-    assert "active_session" not in taskops._state_view([], None, None, None, None)
+    assert "active_session" not in taskops._state_view(
+        [], None, None, None, None)
 
 
 # --- E011 derived view drift --------------------------------------------
@@ -769,3 +771,49 @@ def test_b001_detects_two_spellings_of_one_path(tmp_path):
     model = RepoModel.load(root, today=TODAY)
     msgs = [f.message for f in freeze.verify(model)]
     assert any("duplicate entry" in m for m in msgs)
+
+
+def test_b001_says_nothing_where_there_is_no_freeze(tmp_path):
+    """A venture repository has no frozen suite, so there is no freeze
+    to verify and no finding to make."""
+    from tools.eos.checks import freeze
+
+    model = RepoModel.load(make_repo(tmp_path), today=TODAY)
+    assert freeze.verify(model) == []
+
+
+def test_b001_reports_a_frozen_file_that_has_gone(tmp_path):
+    """A deletion is the loudest change a freeze can suffer, and hashing
+    only what is present would report it as nothing at all."""
+    from tools.eos.checks import freeze
+
+    root = make_repo(tmp_path)
+    (root / "benchmark").mkdir(exist_ok=True)
+    (root / "benchmark" / "FREEZE_MANIFEST.json").write_text(
+        json.dumps({"version": 1, "files": {"benchmark/gone.py": "0" * 64}}),
+        encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    msgs = [f.message for f in freeze.verify(model)]
+    assert msgs == ["frozen file is missing: benchmark/gone.py"]
+
+
+def test_b001_names_an_amendment_rather_than_crying_tamper(tmp_path):
+    """A recorded amendment is the sanctioned way to change frozen
+    material. It still reports, because the manifest hash is now stale,
+    but it tells the reader which of the two situations they are in."""
+    from tools.eos.checks import freeze
+
+    root = make_repo(tmp_path)
+    (root / "benchmark").mkdir(exist_ok=True)
+    target = root / "benchmark" / "frozen.py"
+    target.write_text("original\n", encoding="utf-8", newline="\n")
+    (root / "benchmark" / "FREEZE_MANIFEST.json").write_text(
+        json.dumps({"version": 1,
+                    "files": {"benchmark/frozen.py": "0" * 64},
+                    "amendments": [{"adr": "ADR-0002",
+                                    "files": ["benchmark/frozen.py"]}]}),
+        encoding="utf-8", newline="\n")
+    model = RepoModel.load(root, today=TODAY)
+    findings = freeze.verify(model)
+    assert len(findings) == 1
+    assert "listed in an amendment" in findings[0].message

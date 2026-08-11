@@ -6,25 +6,20 @@ tags: [eos]
 
 # PLAYBOOKS
 
-The EOS's own procedures under the v2 kernel. Venture-side procedure
-templates live in `kernel/templates/org/PLAYBOOKS.tpl.md` and compile
-into seeds; these run the EOS itself. Every session starts from the
-router's ruling against `org/policy.json`, opens a task record where the
-work is gate-bearing, and leaves derived views to the integrator.
+The EOS's own procedures. Venture-side procedure templates live in
+`kernel/templates/org/PLAYBOOKS.tpl.md` and compile into seeds; these
+run the EOS itself. Every session starts from the router's ruling
+against `org/policy.json`, opens a task record where the work is
+gate-bearing, and leaves derived views to the integrator.
 
-The PB-E series below is governance work: harvest, review, release,
-upgrade. Ordinary development on this repository runs the mode
-procedures in the next section. Those were missing entirely until
-2026-08-08: `AGENTS.md` routes a session here for the playbook its task
-names, and this file held ten governance procedures and no express,
-standard or spike lane, so the commonest work in the repo had no
-written process at all.
+Ordinary development runs the mode procedures below. The PB-E series
+after them is governance work: harvest, review, release, upgrade.
 
 ## The mode procedures
 
-One per execution mode, matching
-`kernel/templates/org/PLAYBOOKS.tpl.md` so a venture and the EOS run the
-same shapes. The mode comes from the router's ruling, never from choice.
+One per mode in `org/policy.json`, in the same shapes as the venture
+template, so a venture and the EOS run the same way. The mode comes from
+the router's ruling, never from choice.
 
 ### express (R0)
 
@@ -69,22 +64,29 @@ same shapes. The mode comes from the router's ruling, never from choice.
    (`packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md`).
 3. Independent review, and a person for anything irreversible. The
    guard rules every consequential action at the moment it runs.
-4. Amendments to a frozen oracle are append-only, authored by someone
-   other than the implementer, and their rate is reviewed at retro.
+4. Amendments to a frozen oracle are append-only and authored by
+   someone other than the implementer. A run that needed several is a
+   finding for the next monthly pass: the oracle was guessed rather than
+   specified. The EOS has no retro of its own; a venture does, and its
+   template says the same thing there.
 
 ### parallel
 
-A wrapper, not a mode. The integrator assigns and commits claims before
-any lane is dispatched; each lane carries its own mode and its own
-claim, and lanes never acquire or mutate one. A session not named in
-`org/claims.json` is refused by `task new` and `task update`. Only the
-integrator regenerates shared indexes. Every lane branch is merged and
-deleted before its phase closes.
+A wrapper, not a mode. Cut the partition first: `packs/agentic-swarm`
+holds the method and the evidence, and its GD-SWARM-001 rules whether
+the work wants lanes at all. Do not run wide over work one session
+already does well.
+
+Then the integrator assigns and commits claims before any lane is
+dispatched; each lane carries its own mode and its own claim, and lanes
+never acquire or mutate one. A session not named in `org/claims.json` is
+refused by `task new` and `task update`. Only the integrator regenerates
+shared indexes. Every lane branch is merged and deleted before its phase
+closes.
 
 ## The monthly pass
 
-Four procedures used to hold four monthly cadence rows. They run as one
-sitting now, four sections in this order (ADR-0008).
+One sitting, four sections in this order (ADR-0008).
 
 1. **Harvest**, PB-E02. New material comes in first.
 2. **Promotion review**, PB-E04. It reads what the harvest queued.
@@ -99,19 +101,17 @@ that was skipped is a finding, and it records why it was skipped.
 
 ## What is not on a calendar
 
-Everything else fires on an event, and each procedure names its own
-event. The inception drill and the projects review
-used to hold quarterly rows and neither had fired once since v1. A
-calendar trigger nobody honours is not a control, so both were
-re-pointed at the events that warrant them (ADR-0008). The study
-workflow and the venture check-in have never been on a calendar: one
-starts when Daniel points at a source, the other when a venture asks.
+Everything else fires on an event, and each procedure below names its
+own. Nothing but the monthly pass holds a row in `org/cadence.json`
+(ADR-0008).
 
 ## PB-E01 · Inception (Session 0)
 
 Run a new venture's Session 0 end to end per `inception/INCEPTION.md`,
-which is the v2 walk, phases A to E. Gate: seed checks green, then Daniel signs the
-human rubric items. Close: one row in `registry/PROJECTS.md`.
+phases A to E. Gate: seed checks green, then Daniel signs the human
+rubric items. Close: one row in `registry/PROJECTS.md`, then the launch
+decision, which is his. Either Genesis runs per `inception/GENESIS.md`
+or the sign-off block carries one line saying why not.
 
 ## PB-E02 · Harvest
 
@@ -121,23 +121,20 @@ since the last pass. Fold argued rulings into the packs and guides that
 own the decision, as graded evidence with one ledger row per source.
 Queue promotion candidates for section two.
 
-The procedure is unchanged. What changed is where it records. A folded
-ruling appends a row to `registry/lessons.json` with origin harvest,
-naming the venture it came from. `registry/LESSONS.md` is the derived
-view of that file and is never hand-edited. The row shape is fixed by
-the ledger's schema, not restated here; a harvest row carries no
-evidence id and no lens contract, which is what separates it from a
+A folded ruling appends a row to `registry/lessons.json` with origin
+harvest, naming the venture it came from. `registry/LESSONS.md` is the
+derived view of that file and is never hand-edited. The row shape is
+fixed by the ledger's schema, not restated here; a harvest row carries
+no evidence id and no lens contract, which is what separates it from a
 study row.
 
-The read is a read and nothing else. It opens two files in repositories
-the estate already governs, writes nothing back, asks the venture for
-nothing and owes it no report, which is why it stands beside the
-hands-off boundary rather than against it (ADR-0006, decision 6). The
-venture is told as much in its own seed:
-`kernel/templates/EOS_FEEDBACK.tpl.md` says the harvest reads that file
-monthly and never writes in it, so the channel is one the venture was
-handed and is free to leave empty. Wanting something looked at is
-PB-E12's job, and the harvest never offers.
+The read is a read and nothing else: two files opened, nothing written
+back, nothing asked of the venture and no report owed to it. That is
+what keeps the harvest on the right side of the hands-off boundary
+(ADR-0006, decision 6). The venture was handed the channel in its own
+seed, `kernel/templates/EOS_FEEDBACK.tpl.md` says as much, and it is
+free to leave the file empty. Wanting something looked at is PB-E12's
+job, and the harvest never offers.
 
 Nothing found: record checked and clean, and stop.
 
@@ -154,23 +151,39 @@ checks green and the derived views regenerated.
 
 Section two of the monthly pass, under the graded change path: sample
 five governance items (experimental edits, exceptions, contested rules);
-expire experiments past their 90-day window. Promotion: default to
-binding candidate on two argued rulings from two ventures, or one plus a
-source with basis standard or evidence grade controlled; binding
-requires an ADR and Daniel. Contrary rulings against binding rules
-trigger review, never automatic demotion; law and standard based
-rules change only through an ADR citing the changed source.
+expire experiments past their 90-day window. A standing tier exception
+is an accepted ADR carrying an expiry date (ADR-0004), and no check
+reads that date, so this sample is the only thing that catches one that
+has run out. Promotion: default to binding candidate on two argued
+rulings from two ventures, or one plus a source with basis standard or
+evidence grade controlled; binding requires an ADR and Daniel. Contrary
+rulings against binding rules trigger review, never automatic demotion;
+law and standard based rules change only through an ADR citing the
+changed source.
 
 ## PB-E05 · Release
 
-Full check run green, semantic series included. CHANGELOG entry
-written; required drills and benchmark gates satisfied; files past
-their supersession grace archived. Tag semver, push with tags. The
-policy's guard.validated may say true only while a current adapter
-validation report from the bypass suite is committed; without one
-every guarded class stays manual-only. The Claude Code mapping carries
-one, dated 2026-08-03, so check it is still current rather than
-assuming it.
+The gate is ADR-0007, decision 5, and it is five things:
+`python -m tools.eos check --repo` green with the semantic and
+freshness series, `python -m pytest` green, the CHANGELOG entry
+written, no false statement about the tree surviving the final review,
+and Daniel's explicit approval. Benchmark gates are not on it. Of the
+eight in `benchmark/PROTOCOL.md`, three passed on the 2026-08-08 batch,
+two were struck with reasons, two cannot be computed without the sealed
+suite, which is retired unopened, and the pack drills report no verdict
+because running them is a spend decision Daniel deferred. A struck gate
+is not a met gate and nothing may describe it as one.
+
+Then: superseded files archived once nothing live refers to them, tag
+semver, push with tags.
+
+Before tagging, check the guard rather than assuming it. The policy's
+`guard.validated` may say true only while the mapping it names carries a
+current bypass-suite validation block; there is no separate report file.
+Without one every guarded class stays manual-only. The Claude Code
+mapping in `kernel/adapters/claude-code.json` carries a block dated
+2026-08-03, mapping-level only, and any change to the adapter or the
+mapping voids it.
 
 ## PB-E06 · Venture upgrade
 
@@ -180,36 +193,36 @@ against the venture's lock-book and records. Apply what matters in the
 venture repo, re-run the seed checks there, update the pin and the
 PROJECTS row.
 
-The projects review used to point here on a quarterly row that never
-fired once. It fires now when a repository joins the estate or a venture
-changes status, and it is a read of `registry/PROJECTS.md` against
-`estate/repos.json` for anything that has stopped being true, not an
-upgrade of anything.
+The estate review sits here too and is a different job. It fires when a
+repository joins the estate or a venture changes status: read
+`registry/PROJECTS.md` against `estate/repos.json` for anything that has
+stopped being true. It upgrades nothing.
 
 ## PB-E07 · Inception drill
 
 Fires when a seed is compiled, or when the inception walk changes; not
-on the calendar (ADR-0008). Take a canned brief from inception/briefs/,
+on the calendar (ADR-0008). Take a canned brief from `inception/briefs/`,
 run Session 0 cold in a scratch repo, grade the output against
-SEED_RUBRIC without charity. Findings become task records.
+`kernel/SEED_RUBRIC.md` without charity. Findings become task records.
 
 ## PB-E08 · Rescale
 
-When a venture's triggers change (money arrives, PII appears, a
-second human joins): re-rule the scale, compile the delta between the
-old and new seed manifests, migrate state files, note the rescale in
-the venture lock-book and PROJECTS.
+On request, like the upgrade above, when a venture's triggers change:
+money arrives, personal data appears, a second person joins. Re-rule the
+scale, compile the delta between the old and new seed manifests, migrate
+the state files, and note the rescale in the venture lock-book and in
+`registry/PROJECTS.md`. Only one rescale exists now, S to ORG, because
+v2 merged M and L into ORG.
 
 ## PB-E09 · Hygiene
 
 Section four of the monthly pass, and last, because it regenerates the
 derived views after the other three have moved things. Run
-python -m tools.eos check --repo with the semantic and freshness series
-and fix findings. Re-verify or supersede everything past review.
+`python -m tools.eos check --repo` with the semantic and freshness
+series and fix findings. Re-verify or supersede everything past review.
 Regenerate derived views. Close or discard dead task records; recover
-expired claims only with liveness evidence. Sample the standing tier
-exceptions recorded in `org/decisions/` and flag any past its expiry
-date.
+expired claims only with liveness evidence. Exceptions are section two's
+to sample, not this one's.
 
 Then drain the sampled-review pool, which is the catcher `GOVERNANCE.md`
 names for work that merges without a task record (ADR-0008, decision 3).
@@ -221,11 +234,9 @@ in it, and does anything in it reach the protected set? A commit that
 should have carried a record gets one opened now, dated for when the
 work landed, and the miss is a finding of the pass. The failure this
 catches is the one ADR-0008 took on knowingly: a change whose reasoning
-nobody can reconstruct. One in five is the starting rate the
-venture-side REVIEWER charter carries
-(`kernel/templates/org/roles/REVIEWER.tpl.md`) and not a measurement;
-move it when a pass has evidence either way, and record what the
-evidence was.
+nobody can reconstruct. One in five is a starting rate carried over from
+`kernel/templates/org/roles/REVIEWER.tpl.md`, not a measurement. Move it
+when a pass has evidence either way, and record the evidence.
 
 ## PB-E10 · Experiment sweep
 
@@ -240,8 +251,11 @@ Daniel points at a source and says what to study it for. Nothing else
 starts this, and nothing schedules it. The whole procedure runs in one
 session, which is the only session that sees the raw source.
 
-**1. Agree the lens contract, before reading anything.** One page from
-`kernel/templates/LENS.tpl.md`: what the source is, at its exact version
+**1. Agree the lens contract, before reading anything.** One page,
+scaffolded by `python -m tools.eos study --out DIR --name NNNN` from
+`kernel/templates/LENS.tpl.md`, and the id form is `LENS-NNNN` because
+that is what a study lesson row cites. It carries: what the source is,
+at its exact version
 or commit; how it was lawfully acquired; the governing licence or terms
 and the jurisdiction that applies; the lenses in, named aspect by
 aspect; the lenses out, always including no verbatim code or assets, no

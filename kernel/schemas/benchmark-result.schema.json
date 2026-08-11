@@ -2,7 +2,7 @@
  "$schema": "https://json-schema.org/draft/2020-12/schema",
  "$id": "https://schemas.pattertech.eos/benchmark-result.schema.json",
  "title": "EOS benchmark ledger",
- "description": "benchmark/results/ledger.json. Append only: score.py refuses duplicate run_id values and nothing is ever rewritten. Formalises the existing row shape written by score.py unchanged.",
+ "description": "benchmark/results/ledger.json, the final measured state of the v1-against-v2 line. Append only: score.py refuses duplicate run_id values and nothing is ever rewritten. The benchmark is retired under ADR-0007 and no further rows will be written, so this schema documents the frozen ledger rather than gating anything: no check loads it. It was written from score.py's row shape and did not match the ledger on five points, all corrected here against the file.",
  "type": "object",
  "additionalProperties": false,
  "required": [
@@ -49,10 +49,8 @@
     },
     "variant": {
      "type": "string",
-     "enum": [
-      "v1",
-      "v2"
-     ]
+     "minLength": 1,
+     "description": "The process surface the session ran under. The pilot rows say v1 or v2; the 2026-08-08 batch dates its labels (v1-2026-08-08, v2-2026-08-08) and the ablation arms name themselves (v2-no-router, v2-routed-once, timing-alongside, timing-acceptance-first, timing-harden-last). An enum of v1 and v2 rejected 178 of the 275 rows."
     },
     "ablation": {
      "type": [
@@ -156,6 +154,33 @@
        "description": "Human gates still outstanding when the run ended: work the process left awaiting operator approval. Reported beside quality criteria, never folded into them."
       }
      }
+    },
+    "criteria_sha256": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+     },
+     "description": "Criterion id to the sha256 of the grader script that produced the verdict, so a row says which grader judged it."
+    },
+    "scored_at": {
+     "type": "string",
+     "minLength": 1,
+     "description": "When score.py wrote the row, ISO 8601 with offset. date is the run's day; this is the scoring instant."
+    },
+    "supersedes": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "run_id of an earlier row this one replaces after a re-score. The earlier row stays in the ledger and gains superseded_by, because append-only means corrected in place is not available."
+    },
+    "superseded_by": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "run_id of the row that replaced this one. The pair is written together; seventeen rows carry each side."
     },
     "notes": {
      "type": "string"

@@ -60,9 +60,7 @@ Notes:
   `estate/repos.json` with `governed: false`. The estate review asks
   adopt or defer for each, and under ADR-0008 it runs when a repository
   is added or a seed is compiled rather than on a quarterly clock.
-- The first PB-E02 harvest ran on 2026-08-08 against all three ventures.
-  Guth's feedback file was the substance of it, Venture A's two entries
-  had already been folded during the v1 build, and PatterTech_Website
-  ships no feedback file at all. The other rows already in
-  `registry/LESSONS.md` came from the pre-cadence estate survey and the
-  Venture A reseed feedback, and they say so.
+- The last harvest column is a date and an outcome, nothing more. What
+  each harvest produced is in `registry/lessons.json`, one row per
+  decision, and its preamble says where the rows that predate the
+  cadence came from.

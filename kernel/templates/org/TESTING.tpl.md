@@ -140,23 +140,18 @@ mode, at any tier. A check believed wrong is escalated through the
 oracle amendment workflow or a question, with the reasoning on
 record.
 
-## Measured, 2026-08
+## Where these defaults come from
 
-The timing matrix above was a default set until the ablation ran on
-2026-08-03. Eighteen runs across three tasks, three timings, six runs
-each: every arm passed six of six, so timing did not separate quality on
-this work. Cost did separate, clearly. Implement-then-harden spent 3.8M
-tokens and 313 seconds against 2.3M and 208 seconds for alongside, and
-2.4M and 217 seconds for acceptance-first.
+The timing table is argued, with its figures, in
+`packs/delivery-testing/guides/WG-DEL-007-test-timing.md` at the EOS
+commit this venture pins. The short of it: a timing ablation run in the
+EOS on 2026-08-03 found every arm passing, so the cells stand on cost
+and on independence and say nothing about which timing catches more
+faults. Row two is unaffected either way, being a risk floor rather
+than a timing preference.
 
-So the matrix stands as written, and the reason is now evidence rather than
-assertion: acceptance-first where a gate depends on the oracle, alongside
-for ordinary features, and harden-last kept for spikes where deferring the
-oracle is the entire point. The sample is small and every arm passed, so
-this ranks cost and says nothing about which timing catches more faults.
-
-The staging above has no comparable measurement behind it. No controlled
-comparison of building the harness early against building it on
-stability signals was found, so it is a default with an argument, and
-the signals are starting values a venture is expected to replace with
-its own.
+The staging table has no comparable measurement behind it. No
+controlled comparison of building the harness early against building it
+on stability signals was found, so it is a default with an argument,
+and its signals are starting values this venture is expected to replace
+with its own.

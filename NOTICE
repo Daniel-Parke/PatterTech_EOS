@@ -101,9 +101,8 @@ SOURCES WHOSE LICENCE NOBODY HAS CONFIRMED
 registry/LICENCE_RESIDUALS.md lists them in full, by evidence id, split
 between the sources that state no licence and the sources whose licence
 was never recorded. Read that file before reusing anything that rests
-on one of them. Its counts were compiled on 2026-08-10 against the
-same 504-record ledger this file cites, so its tables cover the rows
-the last import added.
+on one of them. Its tables are counted against the same 504-record
+ledger this file cites, so they cover the rows the last import added.
 
 
 WHAT THE SWEEP DID AND DID NOT DO

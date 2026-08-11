@@ -10,7 +10,7 @@ applies_when: [ships_code, has_test_suite]
 activation_paths: [**/tests/**, **/test/**, **/*_test.py, **/test_*.py, **/*.test.ts, **/*.spec.ts, **/conftest.py, **/.github/workflows/**, **/*.ci.y*ml, **/fixtures/**, **/e2e/**]
 volatility: slow
 review: 2028-02
-sources: [EV-0006, EV-0007, EV-0009, EV-0015, EV-0016, EV-0017, EV-0018, EV-0019, EV-0036, EV-0053, EV-0090, EV-0091, EV-0092, EV-0093, EV-0094, EV-0096, EV-0105, EV-0184, EV-0185, EV-0186, EV-0187, EV-0188, EV-0189, EV-0190, EV-0191, EV-0192, EV-0193, EV-0194, EV-0195, EV-0196]
+sources: [EV-0006, EV-0007, EV-0009, EV-0015, EV-0016, EV-0017, EV-0018, EV-0019, EV-0036, EV-0053, EV-0090, EV-0091, EV-0092, EV-0093, EV-0094, EV-0096, EV-0105, EV-0184, EV-0185, EV-0186, EV-0187, EV-0188, EV-0189, EV-0190, EV-0191, EV-0192, EV-0193, EV-0194, EV-0195, EV-0196, EV-0480]
 type: guide
 tags: [delivery, testing, ci]
 ---
@@ -121,7 +121,8 @@ the rule in each case.
    retries.** Blocking gates run zero retries. A test that cannot be
    made deterministic this week is quarantined out of the blocking path
    with a named owner; an unowned quarantine is a finding. Basis
-   standard (EV-0015, EV-0195), and see WG-DEL-004 for the argument.
+   standard (EV-0015, EV-0195); the mechanics are in
+   `packs/delivery-testing/refs/FLAKE_AND_DETERMINISM.md`.
    Prevents: a green build that lies, and a quarantine queue nobody
    drains. The thirty-day expiry that used to sit inside this rule is
    now a default, because open question 4 below admits the number is our
@@ -268,19 +269,25 @@ Taste. Override freely, no reason needed.
 
 | Fork | Guide |
 | --- | --- |
-| Which double stands in for this port | WG-DEL-005 |
-| Where the oracle comes from, and who writes it | WG-DEL-006 |
-| What has to exist before work fans out, and when checks get written | WG-DEL-007 |
-| What coverage floor, and how it moves | WG-DEL-001 |
-| How much weight the end-to-end layer carries | WG-DEL-002 |
-| What visual regression covers | WG-DEL-003 |
-| What happens when a test flakes | WG-DEL-004 |
+| Which double stands in for this port | `packs/delivery-testing/guides/WG-DEL-005-test-doubles.md` |
+| Where the oracle comes from, and who writes it | `packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md` |
+| What has to exist before work fans out, and when checks get written | `packs/delivery-testing/guides/WG-DEL-007-test-timing.md` |
 
-The first three live in `packs/delivery-testing/guides/`. The last four
-are the v1 delivery wargames in `archive/v1-final:doctrine/delivery/wargames`, carried
-forward unchanged and re-graded by this pack's evidence rather than
-rewritten. Mechanics that no fork depends on sit in
-`packs/delivery-testing/refs/`.
+Four more forks used to sit in this table, pointing at v1 wargames that
+are not in the tree. Three are answered here instead: the coverage
+floor is requirement 5, a floor per surface and never a universal gate;
+layer weighting is the preference above, confidence per test rather
+than a ratio; flake is requirement 4. Visual regression scope is
+answered by no pack in this estate, so a venture that needs it decides
+the scope and records it in its lock-book.
+
+Mechanics: building and running a contract suite in
+`packs/delivery-testing/refs/CONTRACT_SUITES.md`, flake sources and the
+quarantine record in
+`packs/delivery-testing/refs/FLAKE_AND_DETERMINISM.md`, and what
+coverage, mutation score, property tests and selection are each worth
+in `packs/delivery-testing/refs/QUALITY_SIGNALS.md`. A worked run is
+`packs/delivery-testing/exemplars/EX-DEL-001-drifted-fake-and-a-lying-suite.md`.
 
 ## Failure modes and anti-patterns
 
@@ -289,7 +296,7 @@ rewritten. Mechanics that no fork depends on sit in
 - **Mocking your own collaborators.** A suite that passes while the
   assembled system is broken (EV-0185).
 - **Retry as flake policy.** Teaches everyone that red sometimes means
-  run it again (EV-0015, WG-DEL-004).
+  run it again (EV-0015).
 - **Quarantine as a graveyard.** No owner, no expiry, and a real
   regression sitting in it. Google reported a newly flaky test being a
   genuine production defect roughly one time in six (EV-0195).
@@ -344,6 +351,25 @@ Named honestly, because the research did not resolve them.
    carrying cost of deferral is real, which is why the staging default
    asks for the deferral to be named at review rather than left silent
    until the signals fire.
-7. **Selection quality is unmeasured.** EV-0194 publishes no
+8. **Selection quality is unmeasured.** EV-0194 publishes no
    missed-failure rate, and EV-0016 admits import-graph selection
    misses runtime coupling. Requirement 6 is the guard against both.
+
+## Evidence pointer
+
+Every source is a row in `registry/evidence.json` carrying version or
+commit, licence, access date, applicability limits and a review
+trigger. Cite ids, never re-record sources. The rows from this pack's
+own sweep were imported as EV-0184 to EV-0196, and the frozen batch
+they came from stays at
+`packs/delivery-testing/research/sources.fragment.json`. The rest are
+estate rows this pack borrows, chiefly the agent test-generation
+results (EV-0006, EV-0007), the flake and selection rows (EV-0015,
+EV-0016), the mutation rows (EV-0018, EV-0019, EV-0105) and the
+contamination measurement (EV-0480). The synthesis is in
+`packs/delivery-testing/research/NOTES.md`, and the licence and
+quotation sweep is at
+`packs/delivery-testing/research/provenance.fragment.json`. That sweep
+confirmed no licence: 17 of the 33 ids this pack cites carry no licence
+evidence, three sources are recorded all rights reserved and two
+no-derivatives, and none of the five is quoted anywhere in the pack.

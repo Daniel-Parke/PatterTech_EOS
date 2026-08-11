@@ -398,5 +398,8 @@ trigger. The fragment file stays as the frozen record of what the
 research pass found. The maintained implementations among the rows are
 Inspect (MIT, inspected 2026-08-03, EV-0264), Ragas (Apache-2.0,
 EV-0265) and DSPy (MIT, EV-0266), each a published repository with its
-own row and its own review trigger. The licence and quotation sweep over
-these rows is at `packs/ai-ml-llm/research/provenance.fragment.json`.
+own row and its own review trigger. The synthesis and the
+disagreements behind this file are in
+`packs/ai-ml-llm/research/NOTES.md`, and the licence and quotation
+sweep over these rows is at
+`packs/ai-ml-llm/research/provenance.fragment.json`.

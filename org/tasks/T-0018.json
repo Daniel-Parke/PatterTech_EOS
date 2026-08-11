@@ -1,6 +1,6 @@
 {
   "id": "T-0018",
-  "intent": "Stage verification by risk and stability signals rather than a completeness threshold, demote coding B1 from binding to default while keeping oracle independence binding, and restate the timing guide as verifier-first.",
+  "intent": "Stage verification by risk and stability signals rather than a completeness threshold, demote coding B1 from binding to default while keeping oracle independence binding, and restate the timing guide as verifier-first. Closed: verification stages on risk and stability signals, packs/coding B1 is a default, oracle independence still binds, and the timing guide reads verifier-first.",
   "claims": [
     "packs/delivery-testing/",
     "packs/coding/",
@@ -13,11 +13,12 @@
   },
   "mode": "standard",
   "tier_proposed": "R1",
-  "status": "active",
+  "status": "done",
   "owner_session": "eos-v21-L5",
   "timestamps": {
     "opened": "2026-08-10T18:00:00Z",
-    "updated": "2026-08-10T18:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "tier_ruled": "R0",
   "reasons": []

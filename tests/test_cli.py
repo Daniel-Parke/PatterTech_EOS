@@ -150,6 +150,18 @@ def test_the_gate_reads_the_records_declared_facts(venture, capsys):
     assert [r["factor"] for r in out["reasons"]] == ["auth-surface"]
 
 
+def test_the_package_and_its_metadata_report_one_version():
+    """Two version strings that can disagree will, and the one a reader
+    trusts is whichever they happened to look at."""
+    import re
+
+    import tools.eos
+
+    text = (REPO / "tools" / "pyproject.toml").read_text(encoding="utf-8")
+    declared = re.search(r'(?m)^version\s*=\s*"([^"]+)"', text).group(1)
+    assert tools.eos.__version__ == declared
+
+
 def _subcommands(parser):
     import argparse
 
@@ -182,6 +194,136 @@ def test_cli_contracts_documents_every_flag():
                 if flag in ("-h", "--help"):
                     continue
                 assert flag in text, "%s %s is undocumented" % (name, flag)
+
+
+def test_cli_contracts_documents_every_task_op():
+    """The op is positional, so the flag test above never sees it, and
+    a documented op that no longer exists reads as a command a session
+    can run."""
+    text = (REPO / "tools" / "CLI_CONTRACTS.md").read_text(encoding="utf-8")
+    for name in ("task", "migrate", "benchmark"):
+        parser = _subcommands(cli.build_parser())[name]
+        for action in parser._actions:
+            for choice in action.choices or ():
+                assert "`%s" % choice in text or "%s " % choice in text, \
+                    "%s %s is undocumented" % (name, choice)
+
+
+# --- the documented exit codes, exercised ------------------------------
+
+
+def test_cannot_run_is_two_and_findings_are_one(venture, capsys, tmp_path):
+    """Exit 2 says the run could not happen; exit 1 says it happened and
+    found something. A caller that cannot tell them apart retries a
+    broken invocation as though it were a failing check.
+    """
+    assert cli.main(["check", "--repo", "--seed", str(tmp_path)]) == 2
+    assert "different runs" in capsys.readouterr().err
+
+    assert cli.main(["route", "--task", "T-9999"]) == 2
+    assert "no task record" in capsys.readouterr().err
+
+    assert cli.main(["context", "--task", "T-9999"]) == 2
+    assert "no task record" in capsys.readouterr().err
+
+    assert cli.main(["task", "show", "--id", "T-9999"]) == 2
+    assert "no task record" in capsys.readouterr().err
+
+    assert cli.main(["route", "--facts", str(tmp_path / "nothing.json")]) == 2
+    assert "No such file" in capsys.readouterr().err
+
+
+def test_guard_rules_allow_block_and_cannot_judge_apart(venture, capsys):
+    """Exit 0 allow, 1 any blocking verdict, 2 when the guard cannot
+    judge the action at all. Without a validated adapter every guarded
+    class is manual-only, so 1 is the answer a repository with no
+    adapter gets."""
+    assert cli.main(["guard", "eval", "--class", "deletion",
+                     "--payload", "delete the production bucket"]) == 1
+    verdict = json.loads(capsys.readouterr().out)
+    assert verdict["verdict"] in ("manual-only", "deny")
+    assert verdict["adapter_validated"] is False
+
+    assert cli.main(["guard", "eval", "--class", "deletion"]) == 2
+    assert "cannot evaluate" in capsys.readouterr().err
+
+
+def test_migrate_apply_needs_the_seed_the_state_cannot_name(venture, capsys):
+    """The documented `apply --state FILE` could never run.
+
+    `plan` cannot write the seed path into its state document, because
+    `migration-state.schema.json` fixes the key set and has no room for
+    one, so apply read a key that is never there, fell back to an empty
+    string and refused every invocation as out of tree.
+    """
+    seed = venture / "seed"
+    (seed / "docs").mkdir(parents=True)
+    (seed / "docs" / "LOCKBOOK.md").write_text(
+        "---\nsummary: A v1 lock-book\ntype: template\ntags: [eos]\n"
+        "eos_version: 1.0.0\neos_commit: 6590a82\nscale: S\n"
+        "stack: STACK-test\n---\n\n# Fieldwork lock-book\n",
+        encoding="utf-8")
+    state_path = venture / "state.json"
+
+    assert cli.main(["migrate", "plan", "--seed", str(seed)]) == 0
+    state = json.loads(capsys.readouterr().out)
+    assert "seed_root" not in state
+    state_path.write_text(json.dumps(state), encoding="utf-8")
+
+    assert cli.main(["migrate", "apply", "--state", str(state_path)]) == 2
+    assert "needs --seed" in capsys.readouterr().err
+
+    before = (seed / "docs" / "LOCKBOOK.md").read_bytes()
+    assert cli.main(["migrate", "apply", "--seed", str(seed),
+                     "--state", str(state_path)]) == 0
+    report = json.loads(capsys.readouterr().out)
+    assert report["dry_run"] is True
+    assert report["changes"]
+    assert (seed / "docs" / "LOCKBOOK.md").read_bytes() == before
+
+
+def test_migrate_apply_refuses_a_seed_outside_this_repository(
+        venture, capsys, tmp_path):
+    """The fixture-only guard. Pointed at a sibling tree it exits 2."""
+    outside = tmp_path / "elsewhere"
+    outside.mkdir()
+    state = venture / "state.json"
+    state.write_text(json.dumps({"version": 1, "steps": []}), encoding="utf-8")
+    assert cli.main(["migrate", "apply", "--seed", str(outside),
+                     "--state", str(state)]) == 2
+    assert "only in this build" in capsys.readouterr().err
+
+
+def test_route_exits_three_on_an_unacknowledged_protected_touch(
+        venture, capsys, tmp_path):
+    """Exit 3 is the only enforcement of the protected set the tooling
+    has. The factor id has to match router.FACTOR_TABLE exactly, and a
+    near miss switches the whole control off silently."""
+    facts = venture / "facts.json"
+    facts.write_text(json.dumps({"capabilities": [], "side_effects": []}),
+                     encoding="utf-8")
+    (venture / "org").mkdir(exist_ok=True)
+    (venture / "org" / "policy.json").write_text(json.dumps(
+        {"risk": {"path_patterns": {"protected": ["GOVERNANCE.md"]}}}),
+        encoding="utf-8")
+
+    git(venture, "init", "-q", "-b", "main")
+    git(venture, "config", "user.email", "suite@example.invalid")
+    git(venture, "config", "user.name", "Test Suite")
+    git(venture, "config", "commit.gpgsign", "false")
+    git(venture, "add", ".")
+    git(venture, "commit", "-q", "-m", "base")
+    (venture / "GOVERNANCE.md").write_text("changed\n", encoding="utf-8")
+    git(venture, "add", "-A")
+
+    assert cli.main(["route", "--facts", str(facts), "--diff", "HEAD"]) == 3
+    captured = capsys.readouterr()
+    assert "protected-set touch without --adr" in captured.err
+    assert "GOVERNANCE.md" in captured.err
+
+    # Acknowledged, the same touch is no longer a refusal.
+    assert cli.main(["route", "--facts", str(facts), "--diff", "HEAD",
+                     "--adr", "ADR-0005"]) == 0
 
 
 def test_study_scaffolds_a_lens_contract(venture, capsys, tmp_path):

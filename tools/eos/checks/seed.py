@@ -47,9 +47,11 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
   for a file it was never told to compile.
 - D011 the compiled acceptance spine still carries its expected-fail
   marking and a manifest table with a state column, wherever D010 found
-  a file compiled from the spine template. Compile time is the only
-  time this check runs, so it reads the form and nothing else: it
-  cannot know whether a suite really fails, and it does not claim to.
+  a file compiled from the spine template. It follows D010 and so
+  follows the matrix: the live matrix marks the spine at S and at ORG,
+  so both are checked. What it does not check is whether the suite
+  fails. There is no suite at compile time and no runtime to run one
+  in, so this reads the form and only the form.
 
 The scale matrix that governs a seed is the one at the seed's pinned
 eos_commit, read with git show; the working-tree matrix is only a
@@ -60,11 +62,7 @@ the corresponding files, so v1 seeds are unaffected.
 ctx is the standard check context: {root (the EOS repo), today,
 offline}. A missing seed path or missing SCALE_MATRIX is reported as
 an error finding, and cannot_run() names those two findings so the CLI
-can map them to exit 2. The CLI used to look for the words "cannot
-run" in the message text, which neither message contains, so the whole
-exit-2 branch was unreachable and a seed path that does not exist
-reported as findings (exit 1) rather than as a run that could not
-happen.
+can map them to exit 2 rather than recognise them by their prose.
 """
 
 from __future__ import annotations
@@ -84,7 +82,11 @@ LOCKBOOK_KEYS = ("eos_version", "eos_commit", "scale", "stack")
 ROUTER_CAP = 40
 RULING_ROW = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·")
 RULING_OK = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·.+?·\s*(argued|inherited)\s*·")
-SLOT_RE = re.compile(r"\{\{[A-Z_]+\}\}")
+# Digits included, matching the structural check's pattern: the kernel
+# ships {{SUCCESS_90}} in VENTURE_BRIEF.tpl.md, and a pattern of
+# [A-Z_]+ let it through rubric item A4 unfilled, so a seed could ship
+# green with an empty slot in the brief a stranger reads first.
+SLOT_RE = re.compile(r"\{\{[A-Z0-9_]+\}\}")
 SCALE_FENCE_RE = re.compile(r"<!--\s*scale:")
 WG_REF = re.compile(r"\bWG-[A-Z]+-\d{3}\b")
 DEFERRAL = "set at first build"
@@ -353,8 +355,11 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         findings.add(Finding("D001", "error", str(seed_root), SEED_PATH_MISSING))
         return findings
 
-    err = lambda check, path, msg: findings.add(Finding(check, "error", path, msg))
-    warn = lambda check, path, msg: findings.add(Finding(check, "warn", path, msg))
+    def err(check, path, msg):
+        findings.add(Finding(check, "error", path, msg))
+
+    def warn(check, path, msg):
+        findings.add(Finding(check, "warn", path, msg))
 
     # --- lock-book pin first: it decides which matrix governs ----------
     eos_commit = None
@@ -433,12 +438,12 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         warn("D002", "docs/LOCKBOOK.md",
              f"eos_commit {eos_commit} not in the EOS history, degrading to worktree checks")
 
-    # --- per-file checks (rubric A1, A4, A5; D001; D002) ---------------
+    # --- per-file checks (rubric A1, A4, A7, A8) -----------------------
     for r, text, fm in parsed:
         if not fm.present:
             err("E002", r, "no front-matter block")
         if SLOT_RE.search(text):
-            err("E008", r, f"unfilled {{{{SLOT}}}} in compiled seed")
+            err("E008", r, "unfilled {{SLOT}} in compiled seed")
         if SCALE_FENCE_RE.search(text):
             err("E008", r, "leftover scale marker in compiled seed")
 
@@ -460,7 +465,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                 elif not (eos_root / source).is_file():
                     err("D002", r, f"compiled_from {source} absent from the EOS worktree")
 
-    # --- router parity and cap (rubric A9, A10) ------------------------
+    # --- router byte copy and cap (rubric A5, A6) ----------------------
     a, c = seed / "AGENTS.md", seed / "CLAUDE.md"
     if a.exists() and c.exists():
         if a.read_bytes() != c.read_bytes():
@@ -469,13 +474,13 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         if n > ROUTER_CAP:
             err("E007", "AGENTS.md", f"compiled router is {n} lines, cap {ROUTER_CAP}")
 
-    # --- required files per scale (rubric A6) --------------------------
+    # --- required files per scale (rubric A17) -------------------------
     if scale:
         for fpath in required[scale]:
             if not (seed / fpath).exists():
                 err("E008", fpath, f"required at scale {scale}, missing")
 
-    # --- add-ons named in the lock-book (rubric A7) --------------------
+    # --- add-ons named in the lock-book (rubric A18) -------------------
     addon_allowed: set = set()
     for name in addons:
         if name not in (addon_files or {}):
@@ -493,7 +498,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                     err("E008", fpath, f"addon {name} file missing")
                 addon_allowed.add(fpath)
 
-    # --- compile-report ancestry (rubric A8) ---------------------------
+    # --- compile-report ancestry (rubric A19) --------------------------
     ancestry: dict = {}
     cr = seed / "docs" / "COMPILE_REPORT.md"
     if cr.exists():
@@ -510,7 +515,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                     if not (seed / cell).exists():
                         err("E008", "docs/COMPILE_REPORT.md", f"report names absent file {cell}")
 
-    # --- D003 negative matrix ------------------------------------------
+    # --- D003 negative matrix (rubric A9) ------------------------------
     if scale:
         authored = {f for f, source in ancestry.items()
                     if source.split()[0].lower() in ("authored", "normalised", "preserved")}
@@ -528,7 +533,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             err("D003", r, f"not required at scale {scale}, "
                            "not an add-on, not marked authored in the compile report")
 
-    # --- D004 deferrals need an open queue item ------------------------
+    # --- D004 deferrals need an open queue item (rubric A10) -----------
     queue_rel = _queue_file(scale, required) if scale else None
     if scale and queue_rel:
         queue_path = seed / queue_rel
@@ -651,11 +656,10 @@ def run_seed(seed_root, ctx: dict) -> Findings:
 
     # --- D010 the Genesis template set, D011 the spine's marking -------
     # Which templates are asked for is the matrix's ruling, read at the
-    # seed's scale. This used to be a tuple in this file naming ORG, on
-    # the reading that the lite form at S is a different file set. It is
-    # not: ADR-0006 scopes lite and full to running the phase, and the
-    # matrix marks the Genesis rows at both scales, so D011 never ran
-    # against an S spine the matrix required.
+    # seed's scale, never a scale list kept beside the check. ADR-0006
+    # scopes the lite and full Genesis forms to running the phase, not
+    # to the file set, so the matrix marking a row at S means an S seed
+    # carries the blank form and both checks engage there.
     matrix_sources = parse_matrix_sources(matrix_text or "")
     governs_genesis = bool(matrix_sources.intersection(GENESIS_TEMPLATES))
     at_scale = parse_matrix_sources(matrix_text or "", scale=scale) if scale else set()

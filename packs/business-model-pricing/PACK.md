@@ -359,11 +359,12 @@ The eighteen sources behind this pack were frozen at
 `packs/business-model-pricing/research/sources.fragment.json` and have
 since been imported into `registry/evidence.json` as EV-0287 to EV-0304.
 Every `EV-` id cited above resolves to a row there carrying version,
-licence, access date and review trigger. Six rows come from earlier
+licence, access date and review trigger. Seven rows come from earlier
 estate research rather than this pack's sweep: the two public handbooks
 (EV-0055, EV-0095), the error budget policy (EV-0096), the FinOps
-allocation (EV-0197) and the two engineering-metric sources behind D5
-(EV-0199, EV-0210). The synthesis is in
+allocation (EV-0197), the two engineering-metric sources behind D5
+(EV-0199, EV-0210) and the experiment decision framework the trial
+guide uses (EV-0059). The synthesis is in
 `packs/business-model-pricing/research/NOTES.md`, and the licence and
 quotation sweep is at
 `packs/business-model-pricing/research/provenance.fragment.json`. That
