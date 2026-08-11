@@ -81,7 +81,14 @@ class RepoModel:
     def load(cls, root, *, today: date) -> "RepoModel":
         root = Path(root).resolve()
         files: list[FileRecord] = []
-        for p in sorted(root.rglob("*.md")):
+        # Sort on the POSIX string, never on the Path. Path comparison
+        # is case-insensitive on Windows and case-sensitive on POSIX, so
+        # sorting Path objects orders packs/INDEX.md before or after
+        # packs/agentic-swarm/PACK.md depending on the machine. Every
+        # derived index is written in this order, so the same tree
+        # generated an INDEX.md that was clean on Windows and stale on
+        # Linux, and CI caught it only because CI runs both.
+        for p in sorted(root.rglob("*.md"), key=lambda q: q.as_posix()):
             if SKIP_DIRS.intersection(p.parts):
                 continue
             rel = p.relative_to(root).as_posix()
