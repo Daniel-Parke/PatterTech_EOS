@@ -97,7 +97,7 @@ the option taken.
   from one shared module built on headless primitives, so a service
   form and an operations dashboard share zero duplicate component
   implementations while looking nothing alike. See
-  `packs/ui-ux/exemplars/two-surfaces-one-spine.md`.
+  `packs/ui-ux/exemplars/EX-UIUX-001-two-surfaces-one-spine.md`.
 - **Counter-ruling worth reading (external, inherited)**: one large
   estate archived its React implementation and moved to framework
   agnostic web components (EV-0238) while another kept three

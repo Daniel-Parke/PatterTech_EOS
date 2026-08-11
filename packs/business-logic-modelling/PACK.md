@@ -257,9 +257,11 @@ Taste. Record them, do not gate on them, and depart without asking.
 | How much time does this fact carry | Type width and number of dimensions | `packs/business-logic-modelling/guides/GD-BLM-004-time-modelling.md` |
 | State or events as the record | Storage, replay, corrections, erasure | `packs/business-logic-modelling/guides/GD-BLM-005-state-or-events.md` |
 
-Detail sits in `packs/business-logic-modelling/refs/`, a worked run in
-`packs/business-logic-modelling/exemplars/`, and what a reviewer or
-script can verify in `packs/business-logic-modelling/CHECKS.md`.
+Detail sits in `packs/business-logic-modelling/refs/`, a worked run of
+one renewal through money, time and lifecycle at
+`packs/business-logic-modelling/exemplars/EX-BLM-001-subscription-renewal.md`,
+and what a reviewer or script can verify in
+`packs/business-logic-modelling/CHECKS.md`.
 
 ## Failure modes and anti-patterns
 

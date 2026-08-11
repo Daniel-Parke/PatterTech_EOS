@@ -42,11 +42,14 @@ right, and probably right is what the ADR says not to record as fact.
   in as many words that the row was not read at source. These tell you
   nothing.
 
-Separately, fifty-six records name a licence that is restrictive and
-known: all rights reserved, proprietary, paywalled, or a publisher's
-copyright with paraphrase-only noted. Those are not residuals. They are
-answered questions with a restrictive answer, and they are out of scope
-here.
+The remaining 332 records name a licence. Some of those names are
+restrictive rather than open: all rights reserved, proprietary,
+paywalled, or a publisher's copyright with paraphrase-only noted. Those
+are not residuals. They are answered questions with a restrictive
+answer, and they are out of scope here. No count is given for them,
+because there is no mechanical line between a restrictive name and a
+permissive one and any number would be an artefact of where somebody
+drew it.
 
 ## What the sweep covered
 
@@ -57,41 +60,45 @@ ids by whether the licence line has an observation behind it. The
 fragments are at `packs/<pack>/research/provenance.fragment.json` and
 each one carries its own reasoning, which this file does not restate.
 
-The counts below are mine, not each lane's. The fragments come in three
-shapes and count residuals slightly differently, so every id each one
-names was read back against the ledger here and classified the same way,
-which makes the rows comparable. A fragment may have moved since it was
-read.
+All twenty-one packs were swept on 2026-08-10. The table below is not
+the fragments' arithmetic. The fragments come in three shapes and count residuals
+slightly differently, so this is recounted from the ledger instead: one
+row per pack, the evidence rows whose `cited_by` names that pack, and
+how many of those land in table A and table B. Recounted on 2026-08-11,
+and a reader with the ledger open can reproduce every cell.
 
-| Pack | Swept | Ids checked | Not stated | Unknown |
-| --- | --- | --- | --- | --- |
-| `packs/agentic-development/` | 2026-08-10 | 50 | 28 | 0 |
-| `packs/agentic-swarm/` | 2026-08-10 | 62 | 18 | 3 |
-| `packs/ai-ml-llm/` | 2026-08-10 | 36 | 6 | 3 |
-| `packs/api-integration/` | 2026-08-10 | 33 | 7 | 4 |
-| `packs/architecture/` | 2026-08-10 | 36 | 2 | 16 |
-| `packs/business-logic-modelling/` | 2026-08-10 | 30 | 1 | 9 |
-| `packs/business-model-pricing/` | 2026-08-10 | 25 | 1 | 11 |
-| `packs/coding/` | 2026-08-10 | 39 | 2 | 11 |
-| `packs/data-analytics/` | 2026-08-10 | 24 | 2 | 10 |
-| `packs/delivery-testing/` | 2026-08-10 | 32 | 8 | 5 |
-| `packs/devops-reliability/` | 2026-08-10 | 22 | 0 | 3 |
-| `packs/docs-dx/` | 2026-08-10 | 25 | 2 | 7 |
-| `packs/legal-licensing/` | 2026-08-10 | 19 | 0 | 4 |
-| `packs/marketing-growth/` | 2026-08-10 | 25 | 6 | 4 |
-| `packs/native-client/` | 2026-08-10 | 28 | 0 | 4 |
-| `packs/pattertech-house/` | 2026-08-10 | 21 | 0 | 7 |
-| `packs/product-discovery/` | 2026-08-10 | 23 | 0 | 3 |
-| `packs/security-privacy/` | 2026-08-10 | 30 | 3 | 9 |
-| `packs/support-operations/` | 2026-08-10 | 22 | 1 | 2 |
-| `packs/ui-ux/` | 2026-08-10 | 27 | 0 | 3 |
-| `packs/writing-content/` | 2026-08-10 | 22 | 0 | 3 |
+| Pack | Cited rows | States none | Unrecorded |
+| --- | --- | --- | --- |
+| `packs/agentic-development/` | 50 | 28 | 0 |
+| `packs/agentic-swarm/` | 62 | 18 | 3 |
+| `packs/ai-ml-llm/` | 37 | 6 | 4 |
+| `packs/api-integration/` | 34 | 7 | 4 |
+| `packs/architecture/` | 40 | 4 | 17 |
+| `packs/business-logic-modelling/` | 30 | 1 | 9 |
+| `packs/business-model-pricing/` | 25 | 1 | 11 |
+| `packs/coding/` | 42 | 3 | 11 |
+| `packs/data-analytics/` | 24 | 2 | 10 |
+| `packs/delivery-testing/` | 37 | 9 | 5 |
+| `packs/devops-reliability/` | 24 | 1 | 4 |
+| `packs/docs-dx/` | 25 | 2 | 7 |
+| `packs/legal-licensing/` | 30 | 0 | 13 |
+| `packs/marketing-growth/` | 25 | 6 | 4 |
+| `packs/native-client/` | 28 | 0 | 4 |
+| `packs/pattertech-house/` | 31 | 0 | 7 |
+| `packs/product-discovery/` | 23 | 0 | 3 |
+| `packs/security-privacy/` | 30 | 3 | 9 |
+| `packs/support-operations/` | 22 | 1 | 2 |
+| `packs/ui-ux/` | 27 | 0 | 3 |
+| `packs/writing-content/` | 22 | 0 | 3 |
+
+A row cited by two packs is counted in both, so the columns do not sum
+to the totals above.
 
 `packs/agentic-swarm/` swept last. Its pack lane filed no fragment, so
-the sweep was run over its read surface afterwards and its row is newer
-than the other twenty. Its sources are most of what moved the numbers in
-this file: of the 55 rows imported on 2026-08-10, 46 are cited by that
-pack and 9 by `packs/legal-licensing/`.
+the sweep was run over its read surface afterwards. Its sources are most
+of what moved the numbers in this file: of the 55 rows the 2026-08-10
+import added, EV-0450 to EV-0504, 46 are cited by that pack and 9 by
+`packs/legal-licensing/`.
 
 ## What the sweep did not do
 
@@ -118,14 +125,13 @@ guess and the fact stay distinguishable. Observed means a
 `licence_checked` date exists, which means somebody read the page.
 
 The split is mechanical, so you can check it. A record is in table A
-when its whole licence value says the source states none, which the
-ledger spells three ways: `not-stated`, `not stated` and `not-stated on
-page`. It is in table B when the value says unknown, or begins
-not-verified. Everything else names a licence, whether or not anybody
-looked, and the restrictive count above is the part of that remainder
-naming no open licence and naming all rights reserved, proprietary, a
-paywall or a publisher's copyright. Three spellings of one fact is
-drift the ledger should lose, and nothing here turns on which is used.
+when its whole licence value is `not-stated`, meaning the source was
+read and states none. It is in table B when the value says unknown, or
+begins not-verified. Everything else names a licence, whether or not
+anybody looked. The ledger used to spell the table A value three ways,
+`not-stated`, `not stated` and `not-stated on page`; that drift was
+normalised to `not-stated` on 2026-08-11 and the membership of the
+table did not change.
 
 Which pack cites which id is not repeated here. That mapping is
 `cited_by` in `registry/evidence.json`, it is derived, and a second
@@ -346,7 +352,8 @@ Nothing else in the twenty-one fragments asks anyone to change a line.
 
 ## When this goes stale
 
-Compiled from `registry/evidence.json` on 2026-08-10, at 504 records.
-It is not a derived file: no generator writes it and no check compares
-it against the ledger, so when the ledger changes somebody has to
-re-read it. The next import will change every count above.
+Compiled from `registry/evidence.json` on 2026-08-10 and re-counted
+against it on 2026-08-11, at 504 records both times. It is not a derived
+file: no generator writes it and no check compares it against the
+ledger, so when the ledger changes somebody has to re-read it. The next
+import will change every count above.

@@ -79,6 +79,13 @@ and finds what it needs among the same answers.
   gallery, and joiners are hired from photographs. Keep the gallery as
   its own page."
 
+## The launch decision at the gate
+
+Phase E ends with the operator ruling on Genesis, so the drill needs an
+answer scripted for it: "Not yet. Get the pages up first. When there is
+something to look at, I will say whether it needs a plan." A decline
+with a reason is a complete answer, and the sign-off block carries it.
+
 ## Facts the compile may rely on
 
 Venture name: Ashdown Joinery. Pages: home, work (the gallery), about,

@@ -10,7 +10,7 @@ import json
 import shutil
 from datetime import date
 
-from conftest import git, make_git_repo, make_repo
+from conftest import REPO_ROOT, git, make_git_repo, make_repo
 from tools.eos.checks import run_all
 from tools.eos.repo import RepoModel
 
@@ -77,7 +77,8 @@ def test_s001_relax_flag_drops_to_warning(tmp_path):
 
 
 def test_s_series_defaults_to_error_with_no_flag_at_all(tmp_path):
-    """No key in the context means strict: the P4 flip, defaulted."""
+    """No key in the context means the gate. A caller who says nothing
+    gets the strict reading, not the soft one."""
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
          "status: active", "status: bogus")
@@ -86,6 +87,17 @@ def test_s_series_defaults_to_error_with_no_flag_at_all(tmp_path):
     assert only(run_all(ctx, series="S"), "S001") == [
         ("error", "packs/testmod/guides/WG-TST-001-sample.md",
          "invalid status: bogus")]
+
+
+def test_strict_wins_over_relax_where_a_caller_passes_both(tmp_path):
+    """Which is all --strict-semantic does now that error is the
+    default. A command line assembled from parts can carry both, and it
+    has to resolve to the gate rather than to the softer of the two."""
+    root = make_repo(tmp_path)
+    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
+         "status: active", "status: bogus")
+    fs = run_s(root, strict=True, relax=True)
+    assert [sev for sev, _p, _m in only(fs, "S001")] == ["error"]
 
 
 def test_s001_invalid_v2_axis(tmp_path):
@@ -270,6 +282,23 @@ def test_s006_missing_guides_dir(tmp_path):
     assert only(fs, "S006") == [("error", "packs/testmod", "pack missing guides/")]
 
 
+def test_s006_a_complete_pack_is_silent(tmp_path):
+    """The fixture pack has all three organs, so nothing is reported.
+    Named here so the silence is attributable to S006 rather than to
+    the whole-series green."""
+    assert only(run_s(make_repo(tmp_path)), "S006") == []
+
+
+def test_s006_research_fragments_are_not_yet_a_pack(tmp_path):
+    """A directory holding only imported fragments is a pack that has
+    not been authored, not a pack missing its organs."""
+    root = make_repo(tmp_path)
+    write(root, "packs/incoming/research/sources.md",
+          "---\nsummary: Fragments waiting on an author\ntype: org\n"
+          "tags: [eos]\n---\n\nNotes.\n")
+    assert only(run_s(root), "S006") == []
+
+
 # --- S007 ---------------------------------------------------------------
 
 
@@ -326,10 +355,11 @@ def test_s007_no_git_degrades_silently(tmp_path):
 # --- S008, withdrawn ----------------------------------------------------
 
 
-def test_s008_is_withdrawn_and_nothing_declared_it(tmp_path):
+def test_nothing_opts_into_the_key_s008_watched(tmp_path):
     """S008 held one writer per fact, for facts that opted in through a
-    canonical_facts key. Nothing ever opted in, so it never fired once.
-    Withdrawn with the rest of the dead weight; the id is not reused."""
+    canonical_facts key. Nothing ever opted in, so it never fired once
+    and was withdrawn; the id is not reused. If a file starts declaring
+    the key, the withdrawal needs revisiting and this fails."""
     from tools.eos.checks import REGISTRY
 
     assert "S008" not in REGISTRY
@@ -341,16 +371,18 @@ def test_s008_is_withdrawn_and_nothing_declared_it(tmp_path):
 # --- S009 ---------------------------------------------------------------
 
 
-def test_s009_cadence_table_overdue(tmp_path):
+def test_s009_month_only_next_due_is_late_once_the_month_has_passed(tmp_path):
+    """A month-only next_due is a window, and a window closes. This case
+    used to be read out of a Markdown table in org/CADENCE.md; that file
+    was cut at release, so the only cadence surface is the JSON."""
     root = make_repo(tmp_path)
-    write(root, "org/CADENCE.md",
-          "---\nsummary: Cadence table\ntype: org\ntags: [eos]\n---\n\n"
-          "| Cadence | Playbook | Frequency | last_run | next_due |\n"
-          "| --- | --- | --- | --- | --- |\n"
-          "| Hygiene | PB-E09 | Monthly | 2026-06-01 | 2026-07 |\n")
+    write(root, "org/cadence.json",
+          json.dumps([{"id": "hygiene", "next_due": "2026-07",
+                       "procedure": "org/PLAYBOOKS.md#pb-e09-hygiene"}]))
     fs = run_s(root)
-    assert ("error", "org/CADENCE.md",
-            "cadence 'Hygiene' overdue: next_due 2026-07") in only(fs, "S009")
+    assert ("error", "org/cadence.json",
+            "cadence 'hygiene' overdue: next_due 2026-07, "
+            "procedure org/PLAYBOOKS.md#pb-e09-hygiene") in only(fs, "S009")
 
 
 def test_s009_machine_rows_overdue(tmp_path):
@@ -373,6 +405,29 @@ def test_s009_malformed_machine_rows(tmp_path):
     write(root, "org/cadence.json", "not json")
     fs = run_s(root)
     assert only(fs, "S009") == [("error", "org/cadence.json", "malformed JSON")]
+
+
+def test_s009_a_cadence_still_in_its_window_is_not_overdue(tmp_path):
+    """A month-only next_due names a window, so a cadence due this
+    month is on time all month. Read as the first of the month it
+    reported every monthly row late from the second day onward, and a
+    list that is always red is a list nobody reads."""
+    root = make_repo(tmp_path)
+    write(root, "org/cadence.json",
+          json.dumps([{"id": "hygiene", "next_due": "2026-08",
+                       "procedure": "org/PLAYBOOKS.md#pb-e09-hygiene"},
+                      {"id": "harvest", "next_due": "2026-08-03",
+                       "procedure": "org/PLAYBOOKS.md#pb-e02-harvest"}]))
+    assert only(run_s(root), "S009") == []
+
+
+def test_s009_ignores_a_next_due_it_cannot_read(tmp_path):
+    """A malformed date is not a late cadence. Guessing at one would
+    put an overdue row on the operator's desk with no date behind it."""
+    root = make_repo(tmp_path)
+    write(root, "org/cadence.json",
+          json.dumps([{"id": "harvest", "next_due": "whenever"}]))
+    assert only(run_s(root), "S009") == []
 
 
 # --- S010 ---------------------------------------------------------------
@@ -418,6 +473,33 @@ def test_s010_unresolvable_pin(tmp_path):
                                  "venture alpha pin abc1234 does not resolve")]
 
 
+def test_s010_a_venture_in_the_manifest_with_no_pin_is_clean(tmp_path):
+    """The registry and the manifest agree and nothing claims a commit,
+    so there is nothing to resolve and nothing to report."""
+    root = make_repo(tmp_path)
+    write(root, "estate/repos.yaml", ESTATE_YAML)
+    write(root, "registry/PROJECTS.md",
+          "---\nsummary: Ventures registry\ntype: registry\ntags: [eos]\n"
+          "status: active\n---\n\n"
+          "| Venture | Path | Status | Pin |\n"
+          "| --- | --- | --- | --- |\n"
+          "| alpha | `ventures/alpha` | active | none |\n")
+    assert only(run_s(root), "S010") == []
+
+
+def test_s010_says_nothing_without_both_registries(tmp_path):
+    """One half of a cross-check is not a cross-check. A repository with
+    no estate manifest is not making a claim S010 can test."""
+    root = make_repo(tmp_path)
+    write(root, "registry/PROJECTS.md",
+          "---\nsummary: Ventures registry\ntype: registry\ntags: [eos]\n"
+          "status: active\n---\n\n"
+          "| Venture | Path | Status | Pin |\n"
+          "| --- | --- | --- | --- |\n"
+          "| ghost | `ventures/ghost` | active | none |\n")
+    assert only(run_s(root), "S010") == []
+
+
 # --- S011 ---------------------------------------------------------------
 
 
@@ -445,6 +527,38 @@ def test_s011_tag_without_heading_and_empty_unreleased(tmp_path):
     assert ("error", "CHANGELOG.md", "git tag v0.2.0 has no CHANGELOG heading") in got
     assert ("error", "CHANGELOG.md",
             "1 commits since v0.2.0 but the Unreleased section is empty") in got
+
+
+def test_s011_a_tagged_changelog_with_work_written_up_is_clean(tmp_path):
+    """Every heading has a tag, every tag has a heading, and the commits
+    since the last tag are written up. Nothing to report."""
+    root = make_git_repo(tmp_path)
+    write(root, "CHANGELOG.md",
+          "# Changelog\n\n## Unreleased\n\n- the work since v0.1.0\n\n"
+          "## v0.1.0 · 2026-08-01\n\n- first cut\n")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "changelog")
+    git(root, "tag", "v0.1.0")
+    (root / "b.txt").write_text("two\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "the work")
+    assert only(run_s(root), "S011") == []
+
+
+def test_s011_reports_entries_written_up_against_no_commits(tmp_path):
+    """The other direction, and the one a release pass trips: an
+    Unreleased section carrying entries with nothing behind them means
+    the tag was cut and the section was never emptied."""
+    root = make_git_repo(tmp_path)
+    write(root, "CHANGELOG.md",
+          "# Changelog\n\n## Unreleased\n\n- a change nobody committed\n\n"
+          "## v0.1.0 · 2026-08-01\n\n- first cut\n")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "changelog")
+    git(root, "tag", "v0.1.0")
+    assert only(run_s(root), "S011") == [
+        ("error", "CHANGELOG.md",
+         "Unreleased section has entries but no commits since v0.1.0")]
 
 
 # --- S012 ---------------------------------------------------------------
@@ -620,6 +734,162 @@ def test_s014_research_is_the_pre_import_record(tmp_path):
           "---\nsummary: Research notes before import\ntype: org\n"
           "tags: [eos]\n---\n\nFRAG-TESTMOD-01 says so.\n")
     assert only(run_s(root), "S014") == []
+
+
+# --- S015 pack activation triggers --------------------------------------
+
+PACK_HEAD = ("---\nsummary: Testmod doctrine, one plain principle\n"
+             "type: doctrine\ntags: [eos]\nreview: 2030-01\n")
+
+
+def test_s015_is_quiet_when_a_pack_declares_both_triggers(tmp_path):
+    """The fixture pack carries both, so the whole S-series is green on
+    it. This names the check so the silence is attributable."""
+    root = make_repo(tmp_path)
+    assert only(run_s(root), "S015") == []
+
+
+def test_s015_a_pack_without_activation_paths_cannot_be_reached(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/PACK.md",
+          PACK_HEAD + "applies_when: [does_a_fixture_thing]\n---\n\n"
+          "# Testmod\n\nBody.\n")
+    msgs = [m for _, _, m in only(run_s(root), "S015")]
+    assert msgs == ["no activation_paths: the pack cannot be reached "
+                    "deterministically, so it will never activate"]
+
+
+def test_s015_a_pack_without_predicates_has_no_real_gate(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/PACK.md",
+          PACK_HEAD + "activation_paths: [**/testmod/**]\n---\n\n"
+          "# Testmod\n\nBody.\n")
+    msgs = [m for _, _, m in only(run_s(root), "S015")]
+    assert msgs == ["no applies_when: predicates are the real gate "
+                    "under packs/PACK_SHAPE.md"]
+
+
+def test_s015_judges_pack_md_and_nothing_else_under_a_pack(tmp_path):
+    """A guide or a checks file is not an activation surface, so it is
+    never asked for triggers it has no business carrying."""
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/CHECKS.md",
+          "---\nsummary: Testmod acceptance checks\ntype: doctrine\n"
+          "tags: [eos]\nreview: 2030-01\n---\n\n# Checks\n\nBody.\n")
+    assert only(run_s(root), "S015") == []
+
+
+# --- S016 cited_by is derived, not typed in ------------------------------
+
+
+def _ledger(root, records, cutoff="2026-08-01"):
+    doc = {"version": 1, "generated": "2026-08-01",
+           "note": "Fixture ledger.", "records": records}
+    if cutoff:
+        doc["research_cutoff"] = cutoff
+    write(root, "registry/evidence.json", json.dumps(doc, indent=1) + "\n")
+
+
+def test_s016_is_quiet_when_cited_by_matches_the_tree(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/CITES.md",
+          "---\nsummary: A pack file citing one evidence row\n"
+          "type: doctrine\ntags: [eos]\nreview: 2030-01\n---\n\n"
+          "# Cites\n\nThe rule rests on EV-0001.\n")
+    _ledger(root, [{"id": "EV-0001", "cited_by": ["testmod"]}])
+    assert only(run_s(root), "S016") == []
+
+
+def test_s016_reports_a_record_that_claims_a_citation_it_has_not(tmp_path):
+    """cited_by is derived. Typed in, it says a dead record is load
+    bearing, which is the shape that hid 107 uncited rows."""
+    root = make_repo(tmp_path)
+    _ledger(root, [{"id": "EV-0001", "cited_by": ["testmod"]}])
+    msgs = [m for _, _, m in only(run_s(root), "S016")]
+    assert len(msgs) == 1
+    assert "cited_by is stale for 1 record(s) (EV-0001)" in msgs[0]
+    assert "python tools/import_fragments.py" in msgs[0]
+
+
+def test_s016_wants_the_ledger_to_date_its_own_reading(tmp_path):
+    root = make_repo(tmp_path)
+    _ledger(root, [{"id": "EV-0001", "cited_by": []}], cutoff=None)
+    msgs = [m for _, _, m in only(run_s(root), "S016")]
+    assert msgs == ["no research_cutoff: the ledger cannot say how old "
+                    "its own reading is"]
+
+
+def test_s016_says_nothing_without_a_ledger(tmp_path):
+    assert only(run_s(make_repo(tmp_path)), "S016") == []
+
+
+# --- S017 the evidence ledger against its schema ------------------------
+
+
+def _evidence_schema(root):
+    (root / "kernel" / "schemas").mkdir(parents=True, exist_ok=True)
+    shutil.copy(
+        str(REPO_ROOT / "kernel" / "schemas" / "evidence.schema.json"),
+        str(root / "kernel" / "schemas" / "evidence.schema.json"))
+
+
+def _record(**over):
+    row = {
+        "id": "EV-0001",
+        "source": "A source the fixture cites",
+        "url": "https://example.invalid/a",
+        "kind": "maintainer",
+        "publication_status": "blog",
+        "study_design": None,
+        "population": None,
+        "model": None,
+        "benchmark": None,
+        "version_or_commit": "2026-08-01",
+        "licence": "CC-BY-4.0",
+        "access_date": "2026-08-01",
+        "maintenance": "active",
+        "finding": "The fixture needs one finding.",
+        "applicability_limits": "It is a fixture.",
+        "counter_evidence": None,
+        "cited_by": [],
+        "review": "2030-01",
+    }
+    row.update(over)
+    return row
+
+
+def test_s017_is_quiet_on_a_ledger_that_matches_its_schema(tmp_path):
+    root = make_repo(tmp_path)
+    _evidence_schema(root)
+    _ledger(root, [_record()])
+    assert only(run_s(root), "S017") == []
+
+
+def test_s017_reports_a_value_outside_the_schema_enum(tmp_path):
+    """A schema nobody validates against is a comment."""
+    root = make_repo(tmp_path)
+    _evidence_schema(root)
+    _ledger(root, [_record(publication_status="probably-out-by-now")])
+    msgs = [m for _, _, m in only(run_s(root), "S017")]
+    assert msgs and all(m.startswith("schema: ") for m in msgs)
+    assert any("publication_status" in m for m in msgs)
+
+
+def test_s017_holds_the_licence_floor(tmp_path):
+    """PACK_SHAPE item 11 wants a fact. A record may say the source
+    states no licence; 'unknown' means nobody looked."""
+    root = make_repo(tmp_path)
+    _evidence_schema(root)
+    _ledger(root, [_record(licence="unknown")])
+    msgs = [m for _, _, m in only(run_s(root), "S017")]
+    assert len(msgs) == 1
+    assert "licence 'unknown' (EV-0001)" in msgs[0]
+
+
+def test_s017_says_nothing_without_a_ledger_or_a_schema(tmp_path):
+    root = make_repo(tmp_path)
+    _ledger(root, [_record(licence="unknown")])
+    assert only(run_s(root), "S017") == []
 
 
 # --- retired trees ------------------------------------------------------

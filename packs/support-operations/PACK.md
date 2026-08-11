@@ -108,8 +108,10 @@ imported into `registry/evidence.json` as EV-0421 to EV-0432, and every
 citation here uses the ledger id. Each row carries its version, licence,
 access date, maintenance state and review trigger. The frozen batch the
 import was made from stays at
-`packs/support-operations/research/sources.fragment.json`. Several
-sources are paywalled and paraphrased only, so nothing here quotes them.
+`packs/support-operations/research/sources.fragment.json`, and the
+synthesis behind the pack is in
+`packs/support-operations/research/NOTES.md`. Several sources are
+paywalled and paraphrased only, so nothing here quotes them.
 
 **B4. A customer-facing message never reports a bypassed check as
 passing.** `has_customer_visible_incident`. If a gate was skipped,

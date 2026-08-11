@@ -2,6 +2,8 @@
 
 import re
 
+import pytest
+
 from conftest import git, make_git_repo
 from tools.eos import gitfacts
 
@@ -15,16 +17,39 @@ def test_current_branch_degrades_outside_a_repo(tmp_path):
     assert gitfacts.current_branch(tmp_path) is None
 
 
-def test_branch_heads_excludes_symbolic_refs(tmp_path):
+def test_remote_tracking_heads_skip_the_symbolic_head(tmp_path):
     root = make_git_repo(tmp_path)
-    git(root, "branch", "feature")
-    heads = gitfacts.branch_heads(root)
-    assert set(heads) == {"main", "feature"}
+    head = gitfacts.rev_parse(root, "HEAD")
+    git(root, "update-ref", "refs/remotes/origin/main", head)
+    git(root, "symbolic-ref", "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/main")
+    heads = gitfacts.remote_tracking_heads(root)
+    assert set(heads) == {"origin/main"}
     assert all(re.fullmatch(r"[0-9a-f]{40}", sha) for sha in heads.values())
 
 
-def test_branch_heads_degrade(tmp_path):
-    assert gitfacts.branch_heads(tmp_path) == {}
+def test_remote_tracking_heads_degrade(tmp_path):
+    assert gitfacts.remote_tracking_heads(tmp_path) == {}
+
+
+def test_output_returns_stdout(tmp_path):
+    root = make_git_repo(tmp_path)
+    assert gitfacts.output(root, "rev-parse", "--abbrev-ref", "HEAD").strip() \
+        == "main"
+
+
+def test_output_raises_where_the_fact_helpers_degrade(tmp_path):
+    """The strict helper is strict on purpose.
+
+    A base ref that does not resolve must stop the router and the
+    context packet. Degraded to an empty diff it reads as a change with
+    nothing in it, which routes a clean R0.
+    """
+    root = make_git_repo(tmp_path)
+    assert gitfacts.rev_parse(root, "no-such-ref") is None
+    with pytest.raises(RuntimeError) as excinfo:
+        gitfacts.output(root, "rev-parse", "--verify", "no-such-ref")
+    assert "git rev-parse" in str(excinfo.value)
 
 
 def test_tags_peel_annotated(tmp_path):
@@ -66,20 +91,6 @@ def test_commit_count(tmp_path):
     assert gitfacts.commit_count(root, "v0.1.0..HEAD") == 1
     assert gitfacts.commit_count(root, "HEAD..HEAD") == 0
     assert gitfacts.commit_count(root, "nonsense..HEAD") is None
-
-
-def test_changed_files_and_numstat(tmp_path):
-    root = make_git_repo(tmp_path)
-    base = gitfacts.rev_parse(root, "HEAD")
-    (root / "a.txt").write_text("one\nplus\n", encoding="utf-8")
-    (root / "c.txt").write_text("new\n", encoding="utf-8")
-    git(root, "add", ".")
-    git(root, "commit", "-q", "-m", "changes")
-    changed = gitfacts.changed_files(root, base)
-    assert set(changed) == {"a.txt", "c.txt"}
-    rows = {path: (add, rem) for add, rem, path in gitfacts.numstat(root, base)}
-    assert rows["a.txt"] == (1, 0)
-    assert rows["c.txt"] == (1, 0)
 
 
 def test_object_exists_and_ls_tree(tmp_path):

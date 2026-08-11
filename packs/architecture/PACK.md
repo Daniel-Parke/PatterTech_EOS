@@ -125,14 +125,16 @@ parsing ahead of verification, non-zero replay tolerance, idempotency
 keys on the handler, and the payload version pinned. Evidence: Stripe
 webhook documentation (EV-0161), paraphrased. Prevents: a forged or
 replayed event accepted as truth, and the specific defect where
-middleware re-serialises the body and destroys the signature. What
-transfers is the rule, never the constants; each vendor's tolerance and
-header format differ. The ADR-0008 audit left this one alone even though
-its only source is vendor documentation: verifying the authenticity of
-an inbound message is a security floor, and a floor stays binding
-whatever its basis field says. It is the same rule as BR-4 of
-`packs/api-integration/PACK.md`, stated once in each pack because each
-activates on a different trigger.
+middleware re-serialises the body and destroys the signature. The
+ADR-0008 audit left this one alone even though its only source is
+vendor documentation: verifying the authenticity of an inbound message
+is a security floor, and a floor stays binding whatever its basis field
+says. This is BR-4 of `packs/api-integration/PACK.md`, stated in both
+because the two packs activate on different triggers and a floor cannot
+depend on which one fired. The mechanics belong to that pack and are
+not repeated here: the order of operations, the tolerance, rotation and
+the provider variance that defeats one implementation are in
+`packs/api-integration/refs/webhook-verification.md`.
 
 ## Defaults
 
@@ -366,12 +368,19 @@ likely to move next.
 ## Where the rest lives
 
 - Decision guides: `packs/architecture/guides/`
-- Reference material: `packs/architecture/refs/`
-- Worked example: `packs/architecture/exemplars/`
+- Reference material: what each boundary tool cannot see,
+  `packs/architecture/refs/boundary-tooling.md`; how much description a
+  system earns and in what form,
+  `packs/architecture/refs/architecture-description.md`
+- Worked example: a boundary declared, enforced and then crossed,
+  `packs/architecture/exemplars/EX-ARCH-001-billing-catalogue-boundary.md`
 - Evaluation criteria: `packs/architecture/CHECKS.md`
 - Evidence pointer: `packs/architecture/refs/evidence-map.md`, which
   maps every claim above to its ledger row, its population limit and its
   licence constraint. The eighteen rows from this pack's own sweep were
   imported into `registry/evidence.json` as EV-0146 to EV-0163; the rest
-  are estate rows this pack borrows. The licence and quotation sweep is
-  at `packs/architecture/research/provenance.fragment.json`.
+  are estate rows this pack borrows. The frozen batch they came from
+  stays at `packs/architecture/research/sources.fragment.json`, the
+  synthesis behind this file is
+  `packs/architecture/research/NOTES.md`, and the licence and quotation
+  sweep is at `packs/architecture/research/provenance.fragment.json`.

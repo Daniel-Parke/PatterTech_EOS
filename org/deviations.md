@@ -1,16 +1,25 @@
 ---
-summary: Append-only implementation-deviation log for the EOS v2 build, per ADR-0002
+summary: The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures
 type: org
 tags: [eos]
 ---
 
 # DEVIATIONS
 
-The append-only log of departures from the approved v2 plan. A material
-departure requires an ADR-0002 amendment before proceeding; minor deviations
-are recorded here with reasons and surfaced at the release checkpoint. Format:
-date, phase, what changed against the plan, why, classification (minor or
-material), and the amendment reference where one exists.
+Where the v2 build departed from the plan ADR-0002 approved, and why.
+Minor departures were logged with reasons; a material one needed Daniel
+before it proceeded, and the two that happened say so.
+
+**This log is closed.** Its last entry is 2026-08-03 and the v2 build
+ended. It is kept because it is the audit trail behind the benchmark
+figures ADR-0007 rests on: read it before trusting any number in
+`org/reports/V2_FINAL_REPORT.md`, because it records every scoring
+correction made to reach them. The v2.1 build recorded its departures
+in ADR-0006, ADR-0007 and ADR-0008 instead. A later build states its
+own mechanism or has none.
+
+Format: date, phase, what changed against the plan, why, classification,
+and the amendment reference where one exists.
 
 ## Entries
 

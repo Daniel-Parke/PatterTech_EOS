@@ -141,6 +141,20 @@ def test_f002_malformed_json(tmp_path):
     assert only(fs, "F002") == [("error", "registry/evidence.json", "malformed JSON")]
 
 
+def test_f002_leaves_the_three_legal_review_policies_alone(tmp_path):
+    """METADATA_SPEC allows a month, an event trigger and none. Only the
+    month can expire; an event-triggered row fires on its source moving
+    and has no date to compare against."""
+    root = make_repo(tmp_path)
+    write(root, "registry/evidence.json", json.dumps(
+        {"version": 1, "generated": "2026-08-01", "note": "",
+         "records": [{"id": "EV-0001", "review": "2030-01"},
+                     {"id": "EV-0002", "review": "on-change-of:the source"},
+                     {"id": "EV-0003", "review": "none"},
+                     {"id": "EV-0004", "review": "2026-08"}]}))
+    assert only(run_f(root), "F002") == []
+
+
 # --- F003 ---------------------------------------------------------------
 
 

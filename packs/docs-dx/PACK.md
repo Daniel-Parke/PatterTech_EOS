@@ -110,6 +110,15 @@ detectable categories rather than being one quality judgement
 (EV-0325), and a convention is worth writing down only once it is
 executable (EV-0137).
 
+**Evidence pointer.** Every `EV-` id resolves in
+`registry/evidence.json`, which carries each source's version, licence,
+access date, maintenance state and review trigger. Of the sixteen
+sources researched for this pack, fifteen were imported as EV-0322 to
+EV-0336 and one was already in the ledger as EV-0044; the rest cited
+here are shared estate rows. The frozen batch the import was made from
+stays at `packs/docs-dx/research/sources.fragment.json`, and the
+synthesis behind the pack is in `packs/docs-dx/research/NOTES.md`.
+
 **B1. Internal links and anchors resolve, checked in CI, and the check
 blocks.** The check runs offline over the repository, validates
 fragments and not just paths, and distinguishes a broken link from a
@@ -197,12 +206,15 @@ framework has no research base beyond its author's practice, and four
 empty directories on day one produce a tutorial nobody wrote (EV-0323).
 See `packs/docs-dx/refs/DOC_FORMS.md`.
 
-**D2. A README answers what it is, why it exists, how to use it, and
-whether it is maintained.** Reason: sampled READMEs cluster on what and
-how and systematically omit why and status, which are the questions a
-reader cannot answer any other way (EV-0329). Scope note: that is a
-descriptive study of open-source READMEs sampled before 2018, and it
-never linked section presence to an outcome.
+**D2. A README answers five questions: what it is, why it exists, how
+to use it, what state it is in, and where to go next.** The wording and
+the order sit in `packs/docs-dx/refs/DOC_FORMS.md`, which owns the set,
+and C-18 checks against that file rather than against this sentence.
+Reason: sampled READMEs cluster on what and how and systematically omit
+why and state, which are the questions a reader cannot answer any other
+way (EV-0329). Scope note: that is a descriptive study of open-source
+READMEs sampled before 2018, and it never linked section presence to an
+outcome.
 
 **D3. A curated changelog with a running Unreleased section.** One
 entry per version, newest first, dated, grouped into added, changed,

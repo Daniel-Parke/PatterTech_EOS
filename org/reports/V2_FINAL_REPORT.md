@@ -7,10 +7,18 @@ tags: [eos]
 # EOS v2 final report
 
 Written at the release checkpoint, revised 2026-08-03 after both corrective
-iterations, corrected 2026-08-04 by the pre-release review and again
-2026-08-10 by the documentation pass. The build was pushed to
+iterations, corrected 2026-08-04 by the pre-release review, 2026-08-10 by
+the documentation pass and 2026-08-11 by the release pass. The build was
+pushed to
 `feat/eos-v2-agentic-development` and has since been merged to `main`.
 Nothing here has been tuned to pass a gate.
+
+**The decision this report was written for has been taken.** ADR-0007,
+2026-08-10: the 2026-08-08 figures are the final measured state of the
+line, the context-token and wall-clock gates are struck with reasons, a
+struck gate is not a met gate, and the sealed suite is retired unopened.
+No further benchmark runs are made, so nothing here will be re-measured
+against v2.1.
 
 **Read the 2026-08-08 sections first.** They carry the current
 numbers, and everything above them records what was claimed earlier.
@@ -23,13 +31,16 @@ published so the record of what was claimed survives; what changed is that
 the method behind them is now known, and one gate's verdict turns on an
 unwritten convention.
 
-## The decision this report is for
+## The decision this report was for
 
-v2 passes three of the six numeric gates and misses three. Under the
-approved plan a missed gate does not release, and the choice is Daniel's:
+v2 passed three of the six numeric gates and missed three. Under the
+approved plan a missed gate did not release, and the choice was Daniel's:
 amend the thresholds by ADR with reasons, adopt partially, or halt with the
-branch preserved. Both corrective iterations the plan allowed have now been
-spent, so there is no third attempt on the table.
+branch preserved. Both corrective iterations the plan allowed were spent,
+so there was no third attempt on the table. He took none of the three as
+written: ADR-0007 folds v2.1 into the unreleased line, strikes the two
+efficiency gates rather than amending them, and offers delivery quality as
+the evidence for the release with efficiency offered as unmeasured.
 
 ## Final gate table
 
@@ -42,9 +53,12 @@ spent, so there is no third attempt on the table.
 | Aggregate quality | within 3 points | 100 against 96 | 96 against 96 | pass |
 | Completeness | three trials a slot | met | met | pass |
 
-Human gates left pending at the end of a run: v1 twelve, v2 zero. That
-number did not move across any correction, and it is the finding I would
-put above the rest.
+Human gates left pending at the end of a run: v1 twelve, v2 zero. **That
+claim is withdrawn.** The 2026-08-08 rebuild found that nothing in this
+repository ever wrote the file the figure was read from, so every zero it
+reported means not measured. See "Two gates that were scoring the wrong
+thing" at the foot. It is left here because it was this report's headline
+and deleting it would hide what was claimed.
 
 ## What the two corrections changed, and what found them
 
@@ -88,15 +102,26 @@ cent more tokens and 50 per cent more wall clock. The testing matrix
 therefore stands as written, with its reason now measured rather than
 asserted, and the capability profile carries the evidence.
 
-## The twenty pack drills
+## The twenty pack drills, 2026-08-03
 
-Twenty cold agents, one per pack, each told that an honest negative was
-worth more than a polite pass. Not one returned a clean pass, and the
-criticism was mostly structural rather than about the doctrine:
+**Nothing in this section is a drill verdict, and no drill has ever
+produced one.** `benchmark/drills/RESULTS.json` reads `pass: null` on
+twenty-two of twenty-two, `registry/coverage.json` records the same
+against every built pack, and ADR-0007 decision 4 defers the runs that
+would settle them. The acceptance drill that `benchmark/drills/README.md`
+defines has never been run: no cold agent has been handed a scenario.
 
-- The drill specs ship no fixtures and no graders, so every agent built the
-  scenario it was then judged against. Several said plainly that their own
-  result should not be read as an independent pass. They are right.
+What happened on 2026-08-03 was something weaker, done before any
+scenario or grader existed. Twenty cold agents, one per pack, each told
+that an honest negative was worth more than a polite pass, each building
+the scenario it was then judged against and judging its own work. Read
+what follows as criticism of the packs and never as a grade on them. Not
+one reported its pack coming through clean, and the criticism was mostly
+structural rather than about the doctrine:
+
+- The drill specs shipped no fixtures and no graders. Several agents said
+  plainly that their own result should not be read as an independent
+  pass. They are right.
 - Most packs' exemplars sit close enough to their drill that passing does
   not prove the pack was used. One called its exemplar a step-by-step
   answer key.
@@ -108,19 +133,35 @@ criticism was mostly structural rather than about the doctrine:
   conflict; devops-reliability never resolves how its own mandated
   destructive step passes its own mandated gate.
 
-None of that is fixed. It is a work list, and it is the most valuable
-output of the drills.
+None of that was fixed when this section was written. It became the work
+list the v2.1 pack passes took on, recorded against T-0019, T-0023 and
+T-0024, and this report does not track what they closed. It is still the
+most valuable output of the drills.
 
 ## What has not been done
+
+*This list and the residual risks below are the 2026-08-04 state. Three
+items have moved since. All twenty-two drills now carry scenarios and
+graders, so what is outstanding there is the cold-agent verdicts and
+that is a spend decision Daniel has deferred (ADR-0007, decision 4). The
+sealed suite is retired unopened rather than waiting on a decision, and
+the key stays with him. And ceremony passes at 77.3 per cent on the
+rebuilt instrument, so two efficiency gates are unmet rather than three,
+and both are struck.*
 
 - The remaining policy ablations (wip1, mandatory-logs, no-sampled-review)
   are specified and frozen but not executed. The routing and timing
   ablations were run.
-- The twenty pack drills were run by cold agents, but self-fixtured and
-  self-graded, so they are evidence about the packs' usability and not an
-  independent pass. Building real fixtures and graders for them is
-  outstanding.
-- The defects the drills found in six packs are recorded and unfixed.
+- The pack drills carry no verdict. What ran on 2026-08-03 was the
+  self-fixtured, self-graded read of the packs described above, which is
+  evidence about the packs' usability and never was a pass. Fixtures and
+  graders were outstanding when this list was written and are now built
+  for all twenty-two. The cold-agent attempt that a verdict needs is
+  still outstanding, and ADR-0007 decision 4 defers it.
+- The defects the drills found in six packs were recorded, and were
+  unfixed when this list was written. The v2.1 pack passes took them on
+  under T-0019, T-0023 and T-0024, and this report does not track what
+  they closed.
 - The sealed final suite has not been opened. It requires the private key
   Daniel holds, and by protocol it runs once, against frozen v1 and final
   v2 together, after corrective iteration. Opening it now would spend the

@@ -110,27 +110,32 @@ non-requirements below.
 
 ## Binding requirements
 
-Seven. Each names the failure it prevents and cites the evidence that
-earns it. Departure needs an accepted ADR, not a task-level judgement.
+Seven. Each names the failure it prevents, the evidence that earns it
+and the basis it rests on. Departure needs an accepted ADR, not a
+task-level judgement.
 
 The 2026-08 authority audit under ADR-0008 did not run over this
-section, and this paragraph is the note saying so. What the ADR
-excludes is "the production-safety rules in `packs/devops-reliability`",
-named that way rather than by number, and nobody has ruled which of the
-seven those words cover. Requirements 1, 2 and 3 are production safety
-past argument: they govern what a change does to live data, and they
-are why this pack is the home of a protected-set subject under
-`GOVERNANCE.md`. Requirement 5 is the only evidence that data loss is
-recoverable at all, so it reads the same way. Requirements 4, 6 and 7
-are process rules, a machine-readable SLO, an owned postmortem and flag
-lifecycle, and the exclusion does not plainly reach them.
+section, and this paragraph is the note saying so. ADR-0008 excludes
+"the production-safety rules in `packs/devops-reliability`", naming
+them that way rather than by number. Requirements 1, 2, 3 and 5 are
+production safety past argument: the first three govern what a change
+does to live data, and the fourth is the only evidence that lost data
+is recoverable at all. Requirements 4, 6 and 7 are process rules, and
+the exclusion does not plainly reach them, so read those three as
+untested against the two-limb test rather than as tested and upheld.
+All seven stay binding meanwhile. An untested rule is not a demoted
+one, and only an accepted ADR moves them.
 
-So read 4, 6 and 7 as untested against the two-limb test rather than as
-tested and upheld. None of the seven states a basis, which every
-audited pack now does per rule, and stating one is part of the work the
-audit would do here. All seven stay binding meanwhile, because an
-untested rule is not a demoted one and nothing but the audit moves
-them.
+**Evidence pointer.** Every `EV-` id resolves in
+`registry/evidence.json`, which carries each source's version, licence,
+access date, maintenance state and review trigger. The fifteen sources
+researched for this pack were imported as EV-0197 to EV-0211, and the
+seven others cited here are shared estate rows. The frozen batch the
+import was made from stays at
+`packs/devops-reliability/research/sources.fragment.json`, and the
+synthesis behind the pack is in
+`packs/devops-reliability/research/NOTES.md`. This pack cites ids and
+never restates the versioned facts.
 
 1. **Backwards-incompatible schema change ships as expand, migrate,
    contract, in separate deploys.** Add the new shape, move every caller
@@ -138,6 +143,8 @@ them.
    may break the application version still running beside it (EV-0206,
    EV-0207). *Prevents*: an application rollback that needs a database
    change to go with it, at the exact moment nobody can think straight.
+   *Basis*: decision, on one practitioner write-up and one maintainer
+   document. It binds as a production-safety floor rather than on that.
 
 2. **Recovery is forward-only and the change record says so.** No down
    or undo scripts. The maintainer of the most used migration tool says
@@ -145,7 +152,8 @@ them.
    recover a script that failed on statement seven of ten (EV-0207).
    Corrections are new migrations. *Prevents*: a down function that has
    never executed against production-shaped data being treated as a
-   safety net.
+   safety net. *Basis*: decision, on a maintainer argument the pack
+   notes below is not disinterested. Binds as a production-safety floor.
 
 3. **CI runs a migration linter that fails the build on destructive and
    backwards-incompatible findings, and the change record names the risk
@@ -154,6 +162,8 @@ them.
    history; only the first two are reliably decidable before running, so
    those two fail and the rest warn (EV-0202). *Prevents*: an
    irreversible DDL reaching production because the diff looked small.
+   *Basis*: decision, on one analyzer's documented class taxonomy. Binds
+   as a production-safety floor.
 
    **How the contract step gets through this gate.** The contract phase
    requirement 1 mandates is a destructive migration, so this linter is
@@ -175,7 +185,7 @@ them.
    shape for SLI, SLO, error budget and alert policy, so the target is
    checkable rather than prose in a wiki (EV-0020). *Prevents*:
    reliability arguments with no shared referent, where whoever speaks
-   last wins.
+   last wins. *Basis*: standard. Not tested by the audit, see above.
 
 5. **A restore drill runs on cadence and produces a dated evidence
    record with a measured elapsed time, a validation query and a
@@ -186,7 +196,9 @@ them.
    the run can falsify something (EV-0203). *Prevents*: the four named
    assumptions, that a backup exists, that it is uncorrupted, that
    restore fits the RTO, and that a restored snapshot holds the data
-   without anybody querying it back out.
+   without anybody querying it back out. *Basis*: standard, from the
+   reliability pillar's own practice. Binds as a production-safety
+   floor.
 
 6. **Every incident above the agreed threshold gets an owned postmortem
    with a deadline, a timeline reconstructed from evidence, and
@@ -194,7 +206,8 @@ them.
    owner; the owner files the actions and does not then chase them
    (EV-0200, which is Apache-2.0 and so reusable directly). *Prevents*:
    the same outage twice, and a timeline reconstructed from memory that
-   flatters everyone in it.
+   flatters everyone in it. *Basis*: decision, on one exemplar's process
+   documentation. Not tested by the audit, see above.
 
 7. **Every feature flag declares an owner and an expiry date at
    creation, and long-term dependencies are taken only on stable
@@ -204,7 +217,8 @@ them.
    stability is a per-signal contract, and anything below stable is
    pinned and schema-mapped (EV-0198). *Prevents*: permanent dead
    branches nobody owns, and dashboards and alerts silently emptying on
-   a minor version bump.
+   a minor version bump. *Basis*: decision on the flag half, standard on
+   the signal-stability half. Not tested by the audit, see above.
 
 ## Defaults
 
@@ -272,8 +286,10 @@ The material forks in this domain, each argued in a guide.
 | Which reliability and delivery numbers are kept | `packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md` |
 | What proves the backups work | `packs/devops-reliability/guides/WG-OPS-003-restore-proof.md` |
 
-Reference material the body defers to sits in
-`packs/devops-reliability/refs/`, and a full worked application is in
+Level-three detail sits in `packs/devops-reliability/refs/`: the four
+migration risk classes, the restore-drill evidence record, the SLO and
+error-budget shapes, the flag and rollout lifecycle, and signal
+stability with cost allocation. A full worked application is in
 `packs/devops-reliability/exemplars/EX-DEVOPS-001-email-to-contacts.md`.
 The pack's own evaluation criteria are in
 `packs/devops-reliability/CHECKS.md`.

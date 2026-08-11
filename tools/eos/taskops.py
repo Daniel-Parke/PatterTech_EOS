@@ -36,44 +36,7 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-try:  # The lane T1 findings module is canonical once present.
-    from tools.eos.findings import Finding, Findings
-except ImportError:  # Structurally identical minimal fallback.
-    from dataclasses import dataclass, field
-
-    @dataclass
-    class Finding:
-        check_id: str
-        severity: str  # 'error' | 'warn'
-        path: str
-        message: str
-
-    @dataclass
-    class Findings:
-        items: list = field(default_factory=list)
-
-        def add(self, finding):
-            self.items.append(finding)
-
-        @property
-        def errors(self):
-            return [f for f in self.items if f.severity == "error"]
-
-        @property
-        def warns(self):
-            return [f for f in self.items if f.severity == "warn"]
-
-        def to_json(self):
-            return json.dumps([vars(f) for f in self.items], indent=2)
-
-        def to_text(self):
-            return "\n".join(
-                "%s %s %s: %s" % (f.severity.upper(), f.check_id, f.path, f.message)
-                for f in self.items)
-
-        def exit_code(self):
-            return 1 if self.errors else 0
-
+from .findings import Finding, Findings
 
 _TASK_ID_RE = re.compile(r"^T-(\d{4})$")
 _JSONSCHEMA_INSTALL = (
@@ -226,8 +189,23 @@ def require_claim(root, task_path, *, record=None, session=None):
     """Refuse a task-record write by a session with no claim on it.
 
     Returns the lane that authorises the write. Raises ClaimRefused
-    otherwise. Where no claims file exists at all the repository is not
-    running the assigned-claims model, and the control does not apply.
+    otherwise. Two shapes mean the assigned-claims model is not in
+    force and the control does not apply: no claims file at all, and a
+    claims file holding no lanes.
+
+    The second is the one that matters. ADR-0008 decision 1 rules that
+    a claim is required only when more than one session may write at
+    once, and that a single session working alone is implicitly
+    claimed. Keying on the file existing rather than on it holding a
+    lane refused every solo operator, because a released claim set is
+    committed with an empty lanes list rather than deleted. It would
+    also have stopped a freshly compiled ORG seed at its very first
+    `task new`: check D009 requires the seed to ship org/claims.json
+    seeded with exactly that empty list.
+
+    Where lanes are present nothing is loosened: a session not named in
+    the set is refused, and a named lane still needs a claim covering
+    the path it is writing.
     """
     root = Path(root)
     claims_path = root / "org" / "claims.json"
@@ -238,6 +216,10 @@ def require_claim(root, task_path, *, record=None, session=None):
     except ValueError as exc:
         raise ClaimRefused("claim set is not readable: %s" % exc)
 
+    lanes = (doc.get("lanes") if isinstance(doc, dict) else None) or []
+    if not lanes:
+        return None
+
     who = _session_id(root, record=record, session=session)
     if not who:
         raise ClaimRefused(
@@ -245,12 +227,12 @@ def require_claim(root, task_path, *, record=None, session=None):
             "or name owner_session on the record, and be named in the "
             "committed claim set.")
 
-    lanes = doc.get("lanes") or []
-    lane = next((l for l in lanes
-                 if who in (l.get("session_id"), l.get("lane_id"))), None)
+    lane = next((row for row in lanes
+                 if who in (row.get("session_id"), row.get("lane_id"))), None)
     if lane is None:
         named = ", ".join(sorted(
-            {str(l.get("session_id") or l.get("lane_id")) for l in lanes})) or "none"
+            {str(row.get("session_id") or row.get("lane_id"))
+             for row in lanes})) or "none"
         raise ClaimRefused(
             "refused: session %r is not named in the committed claim set; "
             "unscheduled work stays quarantined on its branch for the "
@@ -363,7 +345,7 @@ def verify_claims(root, claims_doc, lane_id, diff_paths, *, now=None):
     now = now or datetime.now(timezone.utc)
 
     lanes = (claims_doc or {}).get("lanes", [])
-    lane = next((l for l in lanes if l.get("lane_id") == lane_id), None)
+    lane = next((row for row in lanes if row.get("lane_id") == lane_id), None)
     if lane is None:
         findings.add(Finding(
             "C001", "error", "org/claims.json",

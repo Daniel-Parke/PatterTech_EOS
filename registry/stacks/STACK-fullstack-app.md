@@ -59,6 +59,6 @@ WiseWattage; AutoWatt builds on it per its ADR-0002 (AWS variant).
 ## When not to use this profile
 
 No app, just content: profile 01. Service without a front: profile 02.
-Multi-tenant platform machinery or heavy realtime: rule it through the
-architecture module first; this profile assumes one product team and
+Multi-tenant platform machinery or heavy realtime: rule it through
+`packs/architecture/` first; this profile assumes one product team and
 request-response shapes.

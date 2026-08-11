@@ -37,11 +37,15 @@ the evidence.
 | C14 | Performance budget respected | performance default | headless run, total bytes after a full scroll, fail over budget |
 | C15 | No raw value re-typed where the token scale already names it | B6 | source scan with a written allowlist |
 | C16 | Surfaces with different philosophies differ measurably | B8 | computed type scale, spacing density and component inventory differ by a stated threshold |
+| C17 | The conformance record exists and is complete | B1 | schema validation of the record, plus a count assertion: one verdict per criterion in the claimed version and level, and the record names both |
 
 C5 needs a real browser engine: contrast checks depend on computed
 style and do not run in a simulated DOM (EV-0236). C7 is separate from
 C5 on purpose, so an aggregate pass cannot hide a regression in the six
-commonest defects (EV-0235).
+commonest defects (EV-0235). C17 is separate from C5 for a different
+reason: a green scanner is not a conformance claim, and B1 asks for the
+record rather than the run. A surface with zero violations and no
+record has not claimed anything.
 
 ## Judgement, recorded not automated
 
@@ -75,7 +79,7 @@ following them improves outcomes.
 
 ## Cadence
 
-C1 to C12 and C15 run on every change set. C13, C14 and C16 run on any
-change touching layout, assets or tokens. The judgement rows run at
+C1 to C12, C15 and C17 run on every change set. C13, C14 and C16 run on
+any change touching layout, assets or tokens. The judgement rows run at
 review, and J2 runs once per surface at the point the philosophy is
 chosen, then again if the surface's audience changes.

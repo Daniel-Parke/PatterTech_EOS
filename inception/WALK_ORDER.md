@@ -7,34 +7,27 @@ tags: [eos]
 # WALK_ORDER
 
 How phase C of inception/INCEPTION.md builds the list of guides a
-venture actually rules, and the order it rules them in. Packs replace
-v1's doctrine modules, so the walk starts from the pack index. It stays
+venture actually rules, and the order it rules them in. It stays
 bounded by design: only activated packs are walked, and everything else
 inherits its default silently and costs nothing.
 
 ## Build the walk
 
-1. Run `python -m tools.eos context --diff <range>` in the EOS repo, or
-   match the surfaces the interview named against the same front-matter
-   by hand. The command diffs this repository and has no venture-tree
-   mode this build, so at Session 0, before the venture has a history,
-   the hand match is the route. It reads
-   each pack's own `activation_paths` and returns the packs the surface
-   activates, with the paths that matched and the predicates still to
-   confirm. This is the walk's input, not `packs/INDEX.md`: the index
-   is for a human reading, and a walk built by eye reads every row in
-   it.
-2. Collect the venture's trigger set: the surfaces, domains and risk
-   answers the interview surfaced, plus the add-ons the scale ruling
-   attached. Predicates the venture can settle go on the task record's
-   `applies_when`, so the next run resolves them without asking.
-3. Confirm each returned pack's predicates, which are the real gate: a
+1. Match the surfaces, domains and risk answers the interview gave
+   against each pack's own `activation_paths`, by hand. That match is
+   the walk's input, not `packs/INDEX.md`: the index is for a human
+   reading, and a walk built by eye off it reads every row in it. The
+   `python -m tools.eos context` command narrows the same front-matter
+   from a diff, but it diffs this repository and has no venture-tree
+   mode, so at Session 0, before the venture has a history, there is
+   nothing for it to read.
+2. Confirm each candidate pack's predicates, which are the real gate: a
    pack that trips a path trigger and satisfies no predicate loads
-   nothing beyond its first paragraph and is not walked. The tool
-   narrows; it does not decide.
-4. For every kept pack, walk the guides under its guides directory.
-   Wargames inherited from v1 keep their WG- ids and walk like any
-   other guide.
+   nothing beyond its first paragraph and is not walked. Put the answer
+   in that pack's ruling note, so the next walk reads it rather than
+   asking again.
+3. For every kept pack, walk the guides under its guides directory.
+   Guides with WG- ids walk like any other.
 
 Domains with no built pack are not gaps in the walk. Each carries an
 honest row in registry/CAPABILITIES.md, and a fork landing in one takes

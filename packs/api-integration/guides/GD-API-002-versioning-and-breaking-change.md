@@ -107,6 +107,7 @@ in DECISIONS.md or an ADR, in a form a checker can parse.
   the baseline a gate needs; the tier itself was never written down,
   which is exactly the gap D10 closes.
 - **No venture has argued D.** Stripe's approach is read as an exemplar
-  in `packs/api-integration/exemplars/stripe-versioning.md`, not adopted.
+  in `packs/api-integration/exemplars/EX-API-002-stripe-versioning.md`,
+  not adopted.
 - **No venture has argued C.** The three mature estates disagree
   (EV-0131, EV-0132, EV-0061), so there is no default to inherit.

@@ -140,8 +140,10 @@ cites the existing rows instead: EV-0013, EV-0053, EV-0108, EV-0109,
 EV-0112 and EV-0244. The other 46 arrived as EV-0450 to EV-0495.
 
 A merge keeps the older row's finding text, and for five of the six that
-text is thinner than the fragment record it absorbed. Each is cited in
-the pack for something its ledger row does not say:
+text was thinner than the fragment record it absorbed. The release tidy
+enriched all five, so each row now carries both the older statement and
+the newer one. What follows is the record of what was missing and why,
+kept because the next import can do the same thing again:
 
 - **EV-0013**, in the risk register, for the span convention defining no
   delegation-chain attribute. The row carries the conventions and their
@@ -161,9 +163,9 @@ the pack for something its ledger row does not say:
   45 per cent as irrelevant context grew from about 300 to about 113,000
   tokens. The row carries the shape of the effect without the figures.
 
-EV-0109 is the exception: its row carries what B3 cites it for. Every
-fact above sits in `sources.fragment.json` beside these notes, under
-FRAG-AGENTIC-SWARM-50, -13, -14, -12 and -25. The repair is to enrich
-those five ledger rows so they carry the older statement and the newer
-one, which is a change to `registry/evidence.json` and belongs to
-whoever holds that file.
+EV-0109 is the exception: its row always carried what B3 cites it for.
+Every fact above sits in `sources.fragment.json` beside these notes,
+under FRAG-AGENTIC-SWARM-50, -13, -14, -12 and -25, and now in the
+ledger rows themselves. The lesson for the next import is that
+deduplicating by URL is right and keeping only the older finding is not:
+the merge should carry both.

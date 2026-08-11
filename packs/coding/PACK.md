@@ -12,7 +12,7 @@ applies_when: [edits_source, reviews_change, decides_merge]
 activation_paths: [**/*.py, **/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.go, **/*.rs, **/*.java, **/*.rb, **/*.c, **/*.cpp, **/*.h, **/pyproject.toml, **/package.json, **/Cargo.toml]
 volatility: slow
 review: 2027-02
-sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0105, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183, EV-0191, EV-0192]
+sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0105, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183, EV-0191, EV-0192, EV-0480]
 ---
 
 # Coding pack
@@ -299,6 +299,14 @@ without asking.
 | How do you change code nobody can specify? | `packs/coding/guides/GD-COD-004-pin-then-change.md` | Pin with a characterisation test, then change |
 | One repository or several? | `packs/coding/guides/GD-COD-005-repo-shape.md` | Monorepo per venture |
 
+Level-three detail: which oracle each change type needs and how
+independence is proved, `packs/coding/refs/ORACLES.md`; what counts as a
+handled error, `packs/coding/refs/ERROR_PATH.md`; what the machine gate
+contains, `packs/coding/refs/REVIEW_GATE.md`. A worked run of the pack
+on one defect is
+`packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md`, and what
+a reviewer or a script can verify is `packs/coding/CHECKS.md`.
+
 ## Failure modes and anti-patterns
 
 - **An oracle read back off the code it judges.** Same author, same
@@ -396,3 +404,21 @@ un-archive of the source behind EV-0164; a peer-reviewed replacement
 for EV-0167; the next annual DORA report; an independent replication of
 the EV-0179 structural metrics; a current-model replication of the
 EV-0181 scenario battery.
+
+## Evidence pointer
+
+Every source is a row in `registry/evidence.json` carrying version or
+commit, licence, access date, applicability limits and a review
+trigger. Cite ids, never re-record sources. The rows from this pack's
+own sweep were imported as EV-0164 to EV-0183, and the frozen batch
+they came from stays at `packs/coding/research/sources.fragment.json`.
+The rest are estate rows this pack borrows, chiefly the agent-run
+results (EV-0003 to EV-0008), the productivity trial (EV-0010), the
+gate tooling (EV-0069, EV-0070) and the mutation rows the
+delivery-testing pack owns (EV-0191, EV-0192, EV-0105). The synthesis
+and the disagreements behind this file are in
+`packs/coding/research/NOTES.md`, and the licence and quotation sweep
+is at `packs/coding/research/provenance.fragment.json`. That sweep
+confirmed no licence: 29 of the 40 ids this pack cites carry no
+licence evidence, which is a number to work down rather than a defect
+in the prose.

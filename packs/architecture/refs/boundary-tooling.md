@@ -89,9 +89,9 @@ second is worse, and it is the usual shape of this failure after a
 rename rather than a typo.
 
 That is the argument for step 4 of
-`packs/architecture/exemplars/billing-catalogue-boundary.md`: add the
-forbidden import on purpose and watch the run go red before you trust
-it. B1 binds the check, not the file, for exactly this reason.
+`packs/architecture/exemplars/EX-ARCH-001-billing-catalogue-boundary.md`:
+add the forbidden import on purpose and watch the run go red before you
+trust it. B1 binds the check, not the file, for exactly this reason.
 
 **Blind spots, stated by the project.** Static imports only. Runtime
 imports, plugin registries, dependency-injection containers and

@@ -148,6 +148,19 @@ def test_a4_unfilled_slot(tmp_path):
             "unfilled {{SLOT}} in compiled seed") in only(fs, "E008")
 
 
+def test_a4_unfilled_slot_carrying_a_digit(tmp_path):
+    """{{SUCCESS_90}} is a real kernel slot, in VENTURE_BRIEF.tpl.md, and
+    a slot pattern of [A-Z_]+ could not see it: rubric item A4 passed a
+    seed shipping an empty slot in the brief a stranger reads first. The
+    structural check was widened for this case and this one was left
+    behind."""
+    seed = make_seed(tmp_path, "S")
+    _append(seed, "docs/VENTURE_BRIEF.md", "\n{{SUCCESS_90}}\n")
+    fs = run_seed(seed, ctx())
+    assert ("error", "docs/VENTURE_BRIEF.md",
+            "unfilled {{SLOT}} in compiled seed") in only(fs, "E008")
+
+
 def test_a5_leftover_scale_fence(tmp_path):
     seed = make_seed(tmp_path, "S")
     _append(seed, "docs/EOS_FEEDBACK.md", "\n<!-- scale: M -->\n")
@@ -829,6 +842,81 @@ def test_d010_stays_quiet_when_the_matrix_predates_genesis(tmp_path):
     eos = _v2_eos(tmp_path)
     seed = _v2_seed(tmp_path, scale="ORG")
     assert only(run_seed(seed, _v2_ctx(eos)), "D010") == []
+
+
+def _live_matrix_seed(tmp_path, scale, spine_body=SPINE_BODY, missing=()):
+    """An ORG or S seed judged by this repository's own scale matrix.
+
+    The lock-book pins a commit that does not resolve, so the check
+    falls back to the working-tree matrix with a D003 warning. That is
+    what puts the live matrix, the live GENESIS_TEMPLATES tuple and the
+    live destinations under one test: the synthetic matrices elsewhere
+    in this file prove the logic, and this proves the wiring.
+    """
+    from tools.eos.checks.seed import (
+        GENESIS_TEMPLATES,
+        SPINE_TEMPLATE,
+        parse_matrix_sources,
+    )
+
+    text = (REPO_ROOT / "kernel" / "SCALE_MATRIX.md").read_text(encoding="utf-8")
+    destinations = {}
+    for line in text.splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) >= 2 and cells[1] in GENESIS_TEMPLATES:
+            destinations[cells[1]] = cells[0]
+    assert set(destinations) == set(GENESIS_TEMPLATES), sorted(destinations)
+    assert set(GENESIS_TEMPLATES) <= parse_matrix_sources(text, scale=scale)
+
+    seed = _v2_seed(tmp_path, scale=scale)
+    for source, dest in destinations.items():
+        if source in missing:
+            continue
+        body = spine_body if source == SPINE_TEMPLATE else "Body.\n"
+        _genesis_file(seed, dest, source, body)
+    return seed, destinations
+
+
+def test_d010_and_d011_engage_against_the_live_matrix(tmp_path):
+    """D010 and D011 had never run outside a synthetic matrix.
+
+    Both engage through the source column of kernel/SCALE_MATRIX.md, so
+    a renamed template path there switches both off with every other
+    test still green. Here the seed carries the whole Genesis set and a
+    spine that has lost its marking, and both checks have to speak.
+    """
+    seed, _dest = _live_matrix_seed(
+        tmp_path, "ORG", spine_body="No marking and no manifest here.\n")
+    fs = run_seed(seed, ctx())
+    assert only(fs, "D010") == []
+    messages = [m for _s, _p, m in only(fs, "D011")]
+    assert len(messages) == 2
+    assert any("never says expected-fail" in m for m in messages)
+    assert any("no manifest table with a state column" in m for m in messages)
+
+
+def test_d010_reports_the_live_genesis_set_a_seed_did_not_compile(tmp_path):
+    from tools.eos.checks.seed import GENESIS_TEMPLATES
+
+    seed, destinations = _live_matrix_seed(tmp_path, "ORG",
+                                           missing=GENESIS_TEMPLATES)
+    reported = [p for _s, p, _m in only(run_seed(seed, ctx()), "D010")]
+    assert reported == list(GENESIS_TEMPLATES)
+    assert set(destinations.values()) == {
+        "docs/PRODUCT_MAP.md", "docs/ACCEPTANCE_SPINE.md",
+        "docs/genesis/WORK_PACKAGE.md", "docs/genesis/RESEARCH_PACKET.md",
+        "docs/genesis/LENS.md"}
+
+
+def test_d011_engages_at_s_under_the_live_matrix(tmp_path):
+    """The scope question, settled against the matrix rather than a
+    scale list kept beside the check: the live matrix marks the Genesis
+    rows at S as well as ORG, so an S spine is checked too."""
+    seed, _dest = _live_matrix_seed(
+        tmp_path, "S", spine_body="Every check starts expected-fail.\n")
+    got = only(run_seed(seed, ctx()), "D011")
+    assert [p for _s, p, _m in got] == ["docs/ACCEPTANCE_SPINE.md"]
+    assert "no manifest table with a state column" in got[0][2]
 
 
 def test_the_shipped_matrix_still_names_every_genesis_template():

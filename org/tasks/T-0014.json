@@ -1,6 +1,6 @@
 {
   "id": "T-0014",
-  "intent": "Restore Genesis as a defined blueprint phase: author inception/GENESIS.md, wire it into Session 0 at both scales, fix the two known Session 0 defects (write-to-main exemption, ruling budget split) and complete the walk order for the twelve unplaced packs.",
+  "intent": "Restore Genesis as a defined blueprint phase: author inception/GENESIS.md, wire it into Session 0 at both scales, fix the two known Session 0 defects (write-to-main exemption, ruling budget split) and complete the walk order for the twelve unplaced packs. Closed: inception/GENESIS.md defines the phase, Session 0 hands off to it at both scales, the write-to-main exemption and the split ruling budget are recorded, and the walk order places all twenty-one packs.",
   "claims": [
     "inception/"
   ],
@@ -10,11 +10,12 @@
   },
   "mode": "standard",
   "tier_proposed": "R1",
-  "status": "active",
+  "status": "done",
   "owner_session": "eos-v21-L1",
   "timestamps": {
     "opened": "2026-08-10T18:00:00Z",
-    "updated": "2026-08-10T18:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "tier_ruled": "R0",
   "reasons": []

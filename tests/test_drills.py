@@ -23,6 +23,7 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
 from tools.eos import benchcli, drills  # noqa: E402
+from tools.eos.repo import content_sha256  # noqa: E402
 
 SPEC = """---
 summary: A synthetic drill used only by the tests
@@ -78,7 +79,7 @@ def drill_root(tmp_path):
     # raw bytes here made the fixture depend on the platform: _write
     # goes through text mode, so Windows puts CRLF on disk and the
     # digest stopped matching the moment the drill hasher normalised.
-    digest = drills.sha256_file(spec)
+    digest = content_sha256(spec)
     _write(root / drills.MANIFEST_REL, json.dumps({
         "version": 2,
         "drills": {

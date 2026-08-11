@@ -7,10 +7,14 @@ tags: [eos]
 # CLI_CONTRACTS
 
 Every command is invoked as `python -m tools.eos <cmd>` from the repo
-root. Machine output is JSON on stdout, validating the named schema in
-`kernel/schemas/`. Human-readable findings go to stderr.
+root. Machine output is JSON on stdout and human-readable findings go
+to stderr. Where a schema in `kernel/schemas/` governs the output, the
+command's own section below names it; the rest is JSON with the shape
+its section describes and no schema behind it.
 
-Exit codes, uniform across commands:
+Exit codes, uniform across commands, with one stated exception:
+`benchmark` hands back the exit code of the frozen script it invokes,
+so a missing task directory there reports 1 rather than 2.
 
 - **0**: clean, or warnings only.
 - **1**: findings (errors, refusals, blocking verdicts, failed criteria).
@@ -37,14 +41,22 @@ Exit codes, uniform across commands:
 
 Inputs: `--repo` (the default; passing it with `--seed` exits 2 because
 they are different runs), `--seed PATH`, `--write-index`, `--series E|S|F|B`
-to run one series, `--strict-semantic` and `--relax-semantic` to pin or
-drop the S-series severity, `--offline` to skip checks needing git remotes,
+to run one series, `--relax-semantic` to drop the S-series to warnings
+(error is the default, so `--strict-semantic` changes nothing except
+overriding `--relax-semantic` where both are passed),
+`--offline` to skip checks needing git remotes,
 and `--json`. Output: a findings list `[{check, path, message, severity}]`.
+`--series` filters on the id prefix, so `--series E` runs E001 upward
+and nothing else; the seed D-series is not in that registry and runs
+only under `--seed`.
+
 `--write-index` regenerates every derived index to a fixpoint and is the
-only sanctioned way to update them; the set is `INDEX.md`,
-`packs/INDEX.md`, `packs/GUIDE_INDEX.md`, `registry/CAPABILITIES.md` and,
-once `registry/lessons.json` exists, `registry/LESSONS.md`. Exit 1 on any
-error-severity finding.
+only sanctioned way to update them. Three are always written:
+`INDEX.md`, `packs/INDEX.md` and `packs/GUIDE_INDEX.md`. Two are
+written only where their source exists, because a view of a file that
+is not there is a file with no generator: `registry/CAPABILITIES.md`
+needs `registry/coverage.json` and `registry/LESSONS.md` needs
+`registry/lessons.json`. Exit 1 on any error-severity finding.
 
 `--seed PATH` exits 2 rather than 1 when the run could not happen at
 all: the seed path does not exist, or `kernel/SCALE_MATRIX.md` is
@@ -57,13 +69,16 @@ Everything else about a seed is a rubric failure and exits 1.
 
 Inputs: `--task T-####` or `--facts FILE` (declared facts JSON), plus
 optional `--diff RANGE` for gate-time recomputation and `--adr ADR-####`
-to acknowledge a protected-set touch. Output: `{tier, reasons,
-discrepancies}` where `reasons` rows follow `task-record.schema.json` and
-`discrepancies` lists derived facts the declaration missed. Deterministic
-given the same inputs and policy version. Gate-time recomputation only
-ever raises the ruling. Exit 1 when discrepancies are found at the gate.
-Exit 3 when a reason carries the factor `protected-set-contact` and no
-`--adr` was given; the message names the file that matched.
+to acknowledge a protected-set touch. An unknown task id exits 2. With
+neither `--task` nor `--facts` the command routes an empty fact set and
+rules a clean R0, which is the honest answer to a question with no
+facts in it. Output: `{tier, reasons, discrepancies}` where `reasons`
+rows follow `task-record.schema.json` and `discrepancies` lists derived
+facts the declaration missed. Deterministic given the same inputs and
+policy version. Gate-time recomputation only ever raises the ruling.
+Exit 1 when discrepancies are found at the gate. Exit 3 when a reason
+carries the factor `protected-set-contact` and no `--adr` was given;
+the message names the file that matched.
 
 ## guard eval
 
@@ -113,7 +128,8 @@ write-temp-then-rename. `--patch` is a JSON object shallow-merged into
 the record, except `timestamps`, which merges one level deeper. A record
 is closed by `update` setting its status; there is no separate `close`
 op. `new` routes the record as it writes it and prints the ruled tier
-and its reasons, so no session needs a second routing command.
+and its reasons, so no session needs a second routing command. An
+unknown id exits 2 on `show` and on `update`.
 
 Claim ops: `claims-verify --lane ID --paths ...` compares a lane's diff
 against its assigned claims and exits 1 on any file outside them.
@@ -134,38 +150,52 @@ Refusal semantics: `new` and `update` refuse with exit 1 and output
 `{refused: true, reason, claim_set_ref}` when the writing session is not
 named in the committed claim set, or when the lane holds no claim
 covering the record's path. The session is `--session ID`, else
-`EOS_SESSION_ID`, else the record's `owner_session`. A repository with no
-`org/claims.json` is not running the assigned-claims model and the
-control does not apply. Unscheduled work stays quarantined on its branch
+`EOS_SESSION_ID`, else the record's `owner_session`. Two shapes mean the
+assigned-claims model is not in force and the control does not apply: no
+`org/claims.json` at all, and one holding no lanes. The second is
+ADR-0008 decision 1, that a claim is required only where more than one
+session may write at once and a session working alone is implicitly
+claimed. A released claim set is committed with an empty lanes list
+rather than deleted, and a compiled ORG seed ships one that way, so the
+lone operator and a venture's first `task new` both pass. Where lanes are
+present nothing is loosened. Unscheduled work stays quarantined on its branch
 for the integrator to adopt or discard; it is never deleted without
 operator authority.
 
 ## migrate
 
 `migrate plan --seed PATH`: read-only against the seed; outputs
-`migration-state.schema.json`. `migrate apply --state FILE
-[--no-dry-run]`: dry run is the default, so `--dry-run` is accepted and
-changes nothing about the behaviour; without `--no-dry-run` it reports
-what it would do and writes nothing, and with it the steps execute and
-advance their statuses.
-This build runs on fixture seeds inside this repo only, and exits 2 if
-pointed at a sibling repo. Exit 1 when any step ends blocked.
+`migration-state.schema.json`.
+
+`migrate apply --seed PATH --state FILE [--no-dry-run]`: both flags are
+required. The state document cannot name its own seed, because
+`migration-state.schema.json` fixes the key set and has no seed path in
+it, so apply is told which seed to work on rather than guessing; without
+`--seed` it exits 2 and says so. Dry run is the default, so `--dry-run`
+is accepted and changes nothing about the behaviour; without
+`--no-dry-run` apply reports what it would do and writes nothing, and
+with it the steps execute and advance their statuses. This build runs on
+fixture seeds inside this repo only, and exits 2 if pointed at a sibling
+repo. Exit 1 when any step ends blocked.
 
 ## benchmark
 
-`benchmark prepare --task DIR --variant v1|v2 --run-id ID --dest DIR`:
-materialises the task's fixture, places that variant's process surface
-on it, writes the run metadata beside the scratch tree as
-`<dest>.run.json` rather than inside it, and prints the task
-prompt as JSON. It prepares a session; it does not run one. Running the
-session and capturing its transcript is the operator's or the
-orchestrator's job, and `benchmark/README.md` says so. This entry
-previously claimed the command "executes one session ... recording the
-transcript"; it did neither, and in fact could not run at all, because
-`--variant` was passed into the fixture slot.
+Both ops are subprocess wrappers over frozen scripts, and the frozen
+script's exit code is what the caller gets. Missing flags are caught
+here and exit 2; anything the script itself refuses carries the
+script's own code, which for a task directory that is not there is 1.
+
+`benchmark prepare --task DIR --variant v1|v2 --run-id ID --dest DIR`
+drives `benchmark/harness.py`: it materialises the task's fixture,
+places that variant's process surface on it, writes the run metadata
+beside the scratch tree as `<dest>.run.json` rather than inside it, and
+prints the task prompt as JSON. It prepares a session; it does not run
+one. Running the session and capturing its transcript is the operator's
+or the orchestrator's job, and `benchmark/README.md` says so.
+
 `benchmark score --task DIR --scratch DIR --transcript FILE --variant
-V --run-id ID`: runs the task's criteria scripts and appends exactly
-one row to `benchmark/results/ledger.json`
+V --run-id ID` drives `benchmark/score.py`: it runs the task's criteria
+scripts and appends exactly one row to `benchmark/results/ledger.json`
 (`benchmark-result.schema.json`). The ledger is append-only: a
 duplicate run_id is refused (exit 1) and nothing is ever rewritten.
 A failed criterion does not change the exit code. The row is written
@@ -178,21 +208,26 @@ Inputs: `--pack NAME` or `--all` to run, neither to list, plus optional
 `--attempt DIR`, `--scratch DIR` and `--record`.
 
 Listing outputs one row per drill: pack, spec path, recorded sha256,
-whether the file still matches it, the criteria count, how many graders
-exist, and `frozen_before_authoring`. That last flag is load-bearing. A
-drill frozen before its pack was authored could not have been written
-to; one frozen afterwards could, and a reader must be able to tell the
-two apart without reading commit history.
+whether the file still matches it, the drill title, the criteria count,
+how many graders exist, whether a scenario is on disk, whether the
+drill is runnable (hash intact, scenario present, a grader for every
+criterion), the freeze wave, and `frozen_before_authoring`. That last
+flag is load-bearing. A drill frozen before its pack was authored could
+not have been written to; one frozen afterwards could, and a reader
+must be able to tell the two apart without reading commit history.
+Listing exits 0, or 2 when any spec no longer matches its recorded
+hash.
 
 Running materialises the drill's frozen scenario
 (`benchmark/drills/scenarios/<pack>/`) into a scratch directory and
 runs one grader (`benchmark/drills/graders/<pack>/cN.py`) per numbered
-criterion. Both directories now exist, one per pack for all twenty-two
-drills, so a criterion with a grader reports `pass` or `fail` and
-`manual` is left for the criteria no grader covers. `--attempt DIR` grades the tree a cold agent delivered
-instead; without it the untouched fixture is graded, which proves the
-criteria discriminate and proves nothing about a pack. The command
-never runs the agent: that is the harness's job.
+criterion. Every pack has a scenario directory and a grader directory,
+but not every criterion has a grader: where one is missing the
+criterion reports `manual`, which is prose a human must judge and never
+a pass. `--attempt DIR` grades the tree a cold agent delivered instead;
+without it the untouched fixture is graded, which proves the criteria
+discriminate and proves nothing about a pack. The command never runs
+the agent: that is the harness's job.
 
 Output: `{pack, drill, pass, criteria}` with a `verdict` per criterion,
 one of `pass`, `fail` or `manual`. `manual` means no grader exists for
@@ -206,11 +241,11 @@ criteria are all manual reports `null`, never a green.
 `--record` appends one entry per drill to `benchmark/drills/RESULTS.json`,
 which is append-only: rows are never rewritten or removed.
 
-Exit 0 only when every requested drill passed outright. Exit 1 on any
-failed criterion and on any drill left without a verdict, because a
-drill that did not run is not a drill that passed. Exit 2 when the
-command cannot run: no manifest, unknown pack, missing spec, or a spec
-whose hash no longer matches the freeze.
+A run exits 0 only when every requested drill passed outright. Exit 1
+on any failed criterion and on any drill left without a verdict,
+because a drill that did not run is not a drill that passed. Exit 2
+when the command cannot run: no manifest, unknown pack, missing spec,
+or a spec whose hash no longer matches the freeze.
 
 A failed drill routes to fixing the pack and re-running; the spec
 itself never changes without an ADR amendment.
@@ -220,6 +255,6 @@ itself never changes without an ADR amendment.
 Commands never weaken, skip or delete a failing check. Commands that
 write state use write-temp-then-rename and never hold live mutable
 coordination files. The indexes and `registry/LESSONS.md` are
-regenerated by `check --write-index`, the views org/TASKS.md and
-org/STATE.md by `task views`, and by the release playbook; hand-edits
-are checker errors, caught by E001 and E011.
+regenerated by `check --write-index` and the views `org/TASKS.md` and
+`org/STATE.md` by `task views`; hand-edits to either set are checker
+errors, caught by E001 and E011.

@@ -9,8 +9,9 @@ tags: [delivery, testing, ci]
 
 # Flake and determinism, in practice
 
-Reference material for binding requirement 4. The argument is in
-WG-DEL-004; this is the mechanics.
+Reference material for binding requirement 4 in
+`packs/delivery-testing/PACK.md`. That rule says flake is a named state
+with an owner; this is how you hold it.
 
 ## Where flake comes from
 

@@ -265,7 +265,9 @@ targets carry lower stability grades (EV-0386).
 | How a fix reaches a user | Containment lever, calendar risk, OTA envelope | `packs/native-client/guides/GD-NAT-003-release-path.md` |
 | How much non-web accessibility assurance | What a passing build may claim, and against which instrument | `packs/native-client/guides/GD-NAT-004-a11y-profile.md` |
 
-Detail sits in `packs/native-client/refs/`, a worked example in
+Detail sits in `packs/native-client/refs/`: the write classes, the
+store release mechanics, and the non-web accessibility profile. A
+worked example is in
 `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`,
 and evaluation criteria in `packs/native-client/CHECKS.md`.
 
@@ -332,7 +334,9 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
 - **The evidence import is done.** The nineteen fragment rows are in
   `registry/evidence.json` as EV-0370 to EV-0388, and every citation in
   this pack uses the ledger id. The fragment file stays in the research
-  directory as the frozen batch the import was made from.
+  directory as the frozen batch the import was made from, and the
+  synthesis behind the pack is in
+  `packs/native-client/research/NOTES.md`.
 - **Refresh triggers.** Publication of EN 301 549 v4; a change to
   either store's staged release mechanics; the next annual Play target
   API deadline; a published coverage figure for a native audit; any

@@ -13,7 +13,7 @@ file. Frozen trees are not indexed.
 
 | path | type | tags | summary | review |
 | --- | --- | --- | --- | --- |
-| AGENTS.md | root | eos | The router, entry modes, graph builds, policy-routed mode entry and the never-list |  |
+| AGENTS.md | root | eos | The router: entry modes, how a tier is ruled, graph builds and the never-list |  |
 | benchmark/drills/agentic-development.md | example | eos | Cold-agent acceptance drill for the agentic development pack, topology selection under pressure |  |
 | benchmark/drills/ai-ml-llm.md | example | eos testing | Cold-agent acceptance drill for the AI, ML and LLM pack, build the gate before tuning the classifier |  |
 | benchmark/drills/api-integration.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
@@ -41,7 +41,7 @@ file. Frozen trees are not indexed.
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
 | benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
 | CHANGELOG.md | governance | eos | One entry per release tag, sectioned by area |  |
-| CLAUDE.md | root | eos | The router, entry modes, graph builds, policy-routed mode entry and the never-list |  |
+| CLAUDE.md | root | eos | The router: entry modes, how a tier is ruled, graph builds and the never-list |  |
 | estate/ESTATE_MAP.md | registry | eos | The estate narrative, how the repos relate, which are governed and what the seams between them are | 2026-11 |
 | examples/autowatt-seed.md | example | eos | Worked example, the AutoWatt reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
@@ -49,16 +49,16 @@ file. Frozen trees are not indexed.
 | examples/v2-worked-lean.md | example | eos | Worked example, an Express run end to end in an S venture, from request to commit |  |
 | GOVERNANCE.md | governance | eos | The law of the EOS, the graded change path, precedence, promotion, the protected set, claims and records, ids, budgets |  |
 | inception/briefs/BRIEF-S-brochure.md | kernel | eos | Canned drill brief, a sole-trader joinery brochure site, scripted operator answers |  |
-| inception/COMPILE.md | kernel | eos | The v2 seed compiler's rules, prune, fill, policy fill, distil, report, and the never-list |  |
+| inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill and the slot table, policy fill, distil, report, and the never-list |  |
 | inception/EXPRESS_INCEPTION.md | kernel | eos | The S-scale fast path for Session 0, six questions, inherited defaults, two human gate items |  |
 | inception/GENESIS.md | kernel | eos | The Genesis phase, run in the venture repo after the seed gate, and the development blueprint it produces |  |
-| inception/INCEPTION.md | kernel | eos | The Session 0 master playbook in v2, phases A to E, from idea to signed seed |  |
-| inception/INTERVIEW.md | kernel | eos | The v2 intake protocol, eighteen questions, the risk-surface set and the three challenge steps |  |
-| inception/README.md | kernel | eos | The Session 0 system in v2, the two paths and the files that run them |  |
+| inception/INCEPTION.md | kernel | eos | The Session 0 master playbook, phases A to E, from idea to signed seed |  |
+| inception/INTERVIEW.md | kernel | eos | The intake protocol, eighteen questions, the risk-surface set and the three challenge steps |  |
+| inception/README.md | kernel | eos | The Session 0 system, the two paths and the files that run them |  |
 | inception/WALK_ORDER.md | kernel | eos | How the pack activation walk is built, the always-walk set, the canonical order over every pack and the two ruling budgets |  |
 | inception/wargames/WG-EOS-001-venture-scale.md | wargame | eos wargame | What scale of organisational machinery does this venture compile, S or ORG? | 2027-07 |
 | inception/wargames/WG-EOS-002-repo-shape.md | wargame | eos wargame infra | One repo, several, or a corner of an existing one? | 2027-07 |
-| kernel/adapters/README.md | kernel | eos | What a host enforcement adapter must provide, how validation works, and why an unvalidated adapter means manual-only |  |
+| kernel/adapters/README.md | kernel | eos | The shape of a guard adapter mapping file, key by key, and where each rule about it is written |  |
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
 | kernel/METADATA_SPEC.md | kernel | eos | The nine metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
@@ -87,17 +87,16 @@ file. Frozen trees are not indexed.
 | kernel/templates/TASKS.tpl.md | template | eos | S-scale task list template, the single hand-kept work surface at the smallest scale |  |
 | kernel/templates/VENTURE_BRIEF.tpl.md | template | eos | Venture brief template, the business truth the interview produces, challenge steps recorded |  |
 | kernel/templates/WORK_PACKAGE.tpl.md | template | eos | Work package template, the objective, contracts, ownership boundary, context packet and acceptance conditions a build lane receives |  |
-| OPERATORS_GUIDE.md | guide | eos | The operator's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong | 2027-03 |
-| org/CADENCE.md | org | eos | Pointer, the EOS heartbeat is machine state in org/cadence.json |  |
+| OPERATORS_GUIDE.md | guide | eos | The operator's manual for running the EOS, launchers, approval duties, claims, the guard, the monthly pass, the release gate and what to do when something looks wrong | 2027-03 |
 | org/decisions/ADR-0001-eos-v1-architecture.md | decision | eos | The founding decision, PatterTech EOS v1.0 architecture and the argument for it |  |
 | org/decisions/ADR-0002-eos-v2-adaptive-agentic-development.md | decision | eos | EOS v2 architecture, adaptive agentic development, accepted with eight binding clarifications |  |
 | org/decisions/ADR-0003-lightness-and-honest-generation.md | decision | eos | Retained material that misleads an agent is a defect, the archive of record is a tag, and every derived file has a live generator |  |
 | org/decisions/ADR-0004-fewer-promises-all-of-them-kept.md | decision | eos | Two rungs not three, exceptions are ADRs, pack budgets measured where loading actually happens, and the two controls that were described but never ran |  |
-| org/decisions/ADR-0005-four-corrections-in-the-protected-set.md | decision | eos | Four false statements in protected files, the corrections proposed for them, and why they were not simply edited |  |
+| org/decisions/ADR-0005-four-corrections-in-the-protected-set.md | decision | eos | Four false statements in protected files, the corrections applied to them, and why they needed a record first |  |
 | org/decisions/ADR-0006-genesis-exemplar-learning-and-the-swarm-pack.md | decision | eos | EOS v2.1, the Genesis blueprint phase, the exemplar-learning workflow, the agentic-swarm pack, hands-off ventures and staged verification |  |
 | org/decisions/ADR-0007-one-release.md | decision | eos | Hold v2, fold v2.1 into it, release once, strike the two efficiency gates with reasons and retire the sealed suite unopened |  |
 | org/decisions/ADR-0008-less-law-better-kept.md | decision | eos | The de-restriction pass, what stops binding and what stays, and what catches each loosened failure instead |  |
-| org/deviations.md | org | eos | Append-only implementation-deviation log for the EOS v2 build, per ADR-0002 |  |
+| org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
 | org/logs/2026-07/S-0003.md | org | eos | Session S-0003, Phase B item B2, the operating model and org state templates extracted |  |
@@ -124,7 +123,6 @@ file. Frozen trees are not indexed.
 | org/migration/plans/PatterTech_Website.md | org | eos | PatterTech_Website's read-only plan, fresh v2 S inception whenever the operator wants it |  |
 | org/migration/PLAYBOOK.md | org | eos | The per-venture v1 to v2 migration procedure, three routes, what is preserved, and the consent rule |  |
 | org/PLAYBOOKS.md | org | eos | The EOS-side playbooks, PB-E01 to PB-E12, the mode procedures and the monthly pass |  |
-| org/QUEUE.md | org | eos | Pointer, the queue is now per-task records in org/tasks with a derived TASKS view |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | org/STATE.md | org | eos | Derived state view of claims, operator flags, cadence and machine facts |  |
 | org/TASKS.md | org | eos | Derived task table, one row per record under org/tasks/ |  |
@@ -166,8 +164,8 @@ file. Frozen trees are not indexed.
 | packs/ai-ml-llm/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the AI, ML and LLM pack, build the gate before tuning the classifier |  |
 | packs/ai-ml-llm/research/NOTES.md | example | eos testing | Research synthesis for the AI, ML and LLM pack, four philosophies of building on models, and what should bind |  |
 | packs/api-integration/CHECKS.md | guide | delivery ci testing | What a reviewer or checker can verify about API and integration work, split into what runs today and what needs judgement | 2028-02 |
-| packs/api-integration/exemplars/invoices-api-change.md | example | arch money security | A worked change to a live invoices API and its payment webhook, applying the pack end to end from activation to merge |  |
-| packs/api-integration/exemplars/stripe-versioning.md | example | arch money delivery | Stripe's pinned-date versioning read as an exemplar, what it actually costs, and the conditions under which copying it is right |  |
+| packs/api-integration/exemplars/EX-API-001-invoices-api-change.md | example | arch money security | A worked change to a live invoices API and its payment webhook, applying the pack end to end from activation to merge |  |
+| packs/api-integration/exemplars/EX-API-002-stripe-versioning.md | example | arch money delivery | Stripe's pinned-date versioning read as an exemplar, what it actually costs, and the conditions under which copying it is right |  |
 | packs/api-integration/guides/GD-API-001-contract-authoring.md | guide | arch tooling ci | Who writes the contract and when: by hand, in a definition language, generated from the handlers, or not at all? | on-change-of:EV-0023 |
 | packs/api-integration/guides/GD-API-002-versioning-and-breaking-change.md | guide | arch ci delivery | How is a boundary allowed to change: add only, declared tier plus gate, explicit version parameter, or pinned date with transformers? | on-change-of:EV-0129 |
 | packs/api-integration/guides/GD-API-003-webhook-trust.md | guide | security money arch | How is an inbound webhook trusted: bare-body HMAC, a signed triple, RFC 9421 message signatures, or an asymmetric or provider-native scheme? | on-change-of:EV-0125 |
@@ -181,7 +179,7 @@ file. Frozen trees are not indexed.
 | packs/api-integration/research/DRILL_PROPOSAL.md | example | eos | Single-run cold-agent acceptance drill for the API and integration pack, with deterministic machine-checkable criteria. |  |
 | packs/api-integration/research/NOTES.md | example | eos | Decision-relevant synthesis for the API and integration pack, covering contract style, versioning philosophy, webhook security, idempotency and pagination, with the disagreements between mature estates left visible. |  |
 | packs/architecture/CHECKS.md | example | arch ci tooling | What a reviewer or checker can verify about architecture work, split into what is executable today and what stays a judgement call |  |
-| packs/architecture/exemplars/billing-catalogue-boundary.md | example | arch tooling ci | The pack applied end to end to a two-module Python repo where billing may read the catalogue and the catalogue must never know about billing |  |
+| packs/architecture/exemplars/EX-ARCH-001-billing-catalogue-boundary.md | example | arch tooling ci | The pack applied end to end to a two-module Python repo where billing may read the catalogue and the catalogue must never know about billing |  |
 | packs/architecture/guides/GD-ARCH-001-deployment-shape.md | guide | arch infra | One deployable, several deployables, or contract-shaped seams inside one process | 2027-03 |
 | packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md | guide | arch tooling ci | Where module boundaries live, whether convention, a machine contract, the directory tree, or a runtime call graph | 2026-12 |
 | packs/architecture/guides/WG-ARCH-002-orm-or-raw-sql.md | guide | arch data | How the service reaches its data, whether an ORM, raw SQL behind a repository, a query builder, or SQL files compiled to typed access, and where the seam sits | 2027-07 |
@@ -349,7 +347,7 @@ file. Frozen trees are not indexed.
 | packs/product-discovery/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the product-discovery pack, frame a solution request back into a testable opportunity |  |
 | packs/product-discovery/research/NOTES.md | example | eos testing | Research synthesis for the product-discovery pack, four schools of discovery, what the evidence actually supports, and what should bind |  |
 | packs/security-privacy/CHECKS.md | guide | security testing tooling | What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement | 2027-08 |
-| packs/security-privacy/exemplars/poisoned-integration-guide.md | example | security tooling | The pack applied end to end to a feature task whose vendor guide carries planted instructions |  |
+| packs/security-privacy/exemplars/EX-SEC-001-poisoned-integration-guide.md | example | security tooling | The pack applied end to end to a feature task whose vendor guide carries planted instructions |  |
 | packs/security-privacy/guides/GD-SEC-001-injection-defence.md | guide | security tooling | In-band detection, a configuration rule, out-of-band enforcement, or OS containment? | 2027-03 |
 | packs/security-privacy/guides/GD-SEC-002-secret-protection.md | guide | security tooling ci | Ignore rules alone, a pre-commit scan, a push-path scan, or a managed store with short-lived credentials? | 2027-04 |
 | packs/security-privacy/guides/GD-SEC-003-assurance-grading.md | guide | security testing | No declared level, a flat entry bar, a graded catalogue by data sensitivity, or per-practice maturity? | 2027-06 |
@@ -375,7 +373,7 @@ file. Frozen trees are not indexed.
 | packs/support-operations/research/DRILL_PROPOSAL.md | example | eos testing | Single-run cold-agent acceptance drill for the support-operations pack, with deterministic machine-checkable criteria |  |
 | packs/support-operations/research/NOTES.md | example | eos testing | Research synthesis for the support-operations pack, covering triage and severity models, response measurement, self-service trade-offs, feedback synthesis and founder-scale realities |  |
 | packs/ui-ux/CHECKS.md | implementation | a11y testing tooling | What a reviewer or checker can verify about interface work, split into executable today and judgement | on-change-of:WCAG-2.2 |
-| packs/ui-ux/exemplars/two-surfaces-one-spine.md | example | web a11y layout | The pack applied end to end, a service task flow and an operations dashboard sharing one token source and one behaviour layer |  |
+| packs/ui-ux/exemplars/EX-UIUX-001-two-surfaces-one-spine.md | example | web a11y layout | The pack applied end to end, a service task flow and an operations dashboard sharing one token source and one behaviour layer |  |
 | packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md | guide | web density layout | Which design philosophy does this surface take? | 2027-10 |
 | packs/ui-ux/guides/GD-UIUX-002-component-sourcing.md | guide | web tooling a11y | Where do this surface's interactive components come from? | 2027-11 |
 | packs/ui-ux/guides/GD-UIUX-003-a11y-assurance.md | guide | a11y testing web | How much accessibility assurance does this surface buy? | on-change-of:WCAG-2.2 |
@@ -411,4 +409,4 @@ file. Frozen trees are not indexed.
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
 | registry/VENDORS.md | registry | eos infra hosting | Trusted third parties, what we trust each for and the exit route | 2027-01 |
 | tools/CLI_CONTRACTS.md | kernel | eos | Subcommand contracts for python -m tools.eos, inputs, JSON outputs, exit codes |  |
-| TOUR.md | guide | eos | The teaching surface for EOS v2.1, what changed from v1 and why, the modes, the risk layers, Genesis, study, graph builds, staged verification and where to look | 2027-08 |
+| TOUR.md | guide | eos | The teaching surface for EOS v2.1, the words it uses in a particular way, what changed from v1, the modes, the risk layers, Genesis, the swarm method, staged verification, the study workflow and its dispositions | 2027-08 |

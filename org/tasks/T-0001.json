@@ -1,9 +1,13 @@
 {
   "id": "T-0001",
-  "intent": "Execute the approved EOS v2 overhaul per ADR-0002: the adaptive kernel, the two-wave pack expansion, this repo's org dogfooded onto records and derived views, all benchmarked against frozen v1 before any release. Final acceptance is Daniel's release checkpoint over the sealed suite SEALED-BENCH-2026-08 (benchmark/SEALED.json).",
+  "intent": "Execute the approved EOS v2 overhaul per ADR-0002: the adaptive kernel, the two-wave pack expansion, this repo's org dogfooded onto records and derived views, all benchmarked against frozen v1 before any release. Final acceptance is Daniel's release checkpoint over the sealed suite SEALED-BENCH-2026-08 (benchmark/SEALED.json). Closed: the v2 overhaul shipped and merged to main on 2026-08-10, and ADR-0007 settled the final acceptance in place of the sealed suite, which is retired unopened. GUIDE.md, START.md, VISION.md and doctrine/ were retired to the archive/v1-final tag during the build and leave the claim list with it.",
   "declared": {
-    "capabilities": ["network"],
-    "side_effects": ["sends-external"]
+    "capabilities": [
+      "network"
+    ],
+    "side_effects": [
+      "sends-external"
+    ]
   },
   "mode": "high-assurance",
   "tier_proposed": "R3",
@@ -22,7 +26,7 @@
       "evidence": "declared side effect sends-external: branch and tag pushes to origin during the build"
     }
   ],
-  "status": "active",
+  "status": "done",
   "owner_session": "eos-v2-build",
   "claims": [
     ".github/",
@@ -31,15 +35,11 @@
     "CHANGELOG.md",
     "CLAUDE.md",
     "GOVERNANCE.md",
-    "GUIDE.md",
     "INDEX.md",
     "OPERATORS_GUIDE.md",
     "README.md",
-    "START.md",
-    "VISION.md",
     "archive/",
     "benchmark/",
-    "doctrine/",
     "estate/",
     "examples/",
     "inception/",
@@ -52,11 +52,14 @@
   ],
   "timestamps": {
     "opened": "2026-08-02T09:00:00Z",
-    "updated": "2026-08-03T12:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "hypothesis_ledger": [],
   "oracle_provenance": {
-    "files": ["benchmark/SEALED.json"],
+    "files": [
+      "benchmark/SEALED.json"
+    ],
     "hashes": {
       "benchmark/SEALED.json": "4718e4071d7d97978e6c45898fc04764c44a5c8b3f81c7865e26e73b1e46bfb0"
     },

@@ -7,7 +7,7 @@ type: example
 tags: [arch, money, security]
 ---
 
-# Worked example: changing a live invoices API
+# EX-API-001: changing a live invoices API
 
 A venture runs an invoices service with two external consumers and a
 payment provider pushing webhooks. Four changes land in one week: rename

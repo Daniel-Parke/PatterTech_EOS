@@ -37,12 +37,13 @@
         "capabilities": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "Capabilities the task needs, for example network, database, filesystem-outside-repo."
+          "description": "Free text, for example network, database, filesystem-outside-repo. The router does not read this list and no factor cites it; it is context for the reviewer. side_effects is what rules the tier."
         },
         "side_effects": {
           "type": "array",
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/sideEffect" }
+          "items": { "$ref": "#/$defs/sideEffect" },
+          "description": "The declared half of the factor table's input. Every value here reaches a factor in kernel/POLICY_SPEC.md."
         }
       }
     },

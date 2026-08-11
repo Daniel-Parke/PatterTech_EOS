@@ -32,9 +32,9 @@ def _ctx(args):
 def _emit(findings, as_json):
     errors = [f for f in findings if f.severity == "error"]
     if as_json:
-        print(json.dumps(
-            [{"check": f.check_id, "path": f.path, "message": f.message,
-              "severity": f.severity} for f in findings], indent=1))
+        # Finding.to_dict is the documented machine shape. Building it
+        # here as well is how the two spellings come to differ.
+        print(json.dumps([f.to_dict() for f in findings], indent=1))
     else:
         for f in findings:
             stream = sys.stderr
@@ -62,10 +62,10 @@ def cmd_check(args):
         findings = seed_checks.run_seed(Path(args.seed), ctx)
         found = list(findings)
         # A seed path that does not exist, or a missing scale matrix, is
-        # a run that could not happen, not a seed that failed. The test
-        # here used to look for the words "cannot run" in the message
-        # and neither message says them, so this branch never once ran
-        # and both cases exited 1. seed.cannot_run names them at source.
+        # a run that could not happen rather than a seed that failed.
+        # seed.cannot_run names those two findings beside the code that
+        # emits them, so the exit code follows the finding rather than a
+        # phrase in its message.
         if seed_checks.cannot_run(found):
             _emit(found, args.json)
             return 2
@@ -105,11 +105,10 @@ def cmd_route(args):
               f"{stored_tier}", file=sys.stderr)
         result["tier"] = stored_tier
     print(json.dumps(result, indent=1))
-    # The router's factor id is protected-set-contact (router.py
-    # FACTOR_TABLE). This filtered for "protected-set", which never
-    # matched, so the only return 3 in the codebase was unreachable and
-    # the enforcement AGENTS.md, POLICY_SPEC.md and CLI_CONTRACTS.md all
-    # describe never ran once.
+    # The factor id is protected-set-contact, spelled exactly as
+    # router.FACTOR_TABLE spells it. Exit 3 is the only enforcement of
+    # the protected set the tooling has, and a near-miss here would
+    # switch it off silently.
     protected = [r for r in result.get("reasons", [])
                  if r.get("factor") == "protected-set-contact"]
     if protected and not args.adr:
@@ -126,8 +125,8 @@ def cmd_route(args):
 def cmd_guard(args):
     from .guard import evaluate
 
-    # guard.evaluate takes action_class and payload_summary; the flag form
-    # must build that shape, not a shorthand the evaluator cannot read.
+    # guard.evaluate reads action_class and payload_summary, so the flag
+    # form builds that shape rather than a shorthand of its own.
     action = {"action_class": args.action_class,
               "payload_summary": args.payload or ""}
     if args.input:
@@ -141,9 +140,9 @@ def cmd_guard(args):
     try:
         verdict = evaluate(action, policy, adapter_validated=args.adapter_validated)
     except ValueError as exc:
-        # CLI_CONTRACTS promises exit 2 when evaluation cannot run. This
-        # raised an uncaught ValueError and exited 1, which a caller
-        # reads as "blocked" rather than "I could not judge this".
+        # Exit 2, not 1: a caller reads 1 as "blocked" and 2 as "I could
+        # not judge this", and the difference decides whether a human is
+        # asked to look.
         print(f"error: guard cannot evaluate this action: {exc}", file=sys.stderr)
         return 2
     print(json.dumps(verdict, indent=1))
@@ -153,9 +152,9 @@ def cmd_guard(args):
 def cmd_context(args):
     from .contextgen import build_packet
 
-    # --task was parsed and discarded. The record is where a task's
-    # declared predicates live, and predicates are the real activation
-    # gate, so ignoring it threw away the only input that can settle one.
+    # The record carries the declared predicates, and predicates are the
+    # real pack activation gate, so a packet built without them leaves
+    # every predicate unresolved.
     predicates = []
     if args.task:
         rec = REPO / "org" / "tasks" / f"{args.task}.json"
@@ -221,9 +220,8 @@ def cmd_task(args):
     try:
         return _cmd_task(args, taskops)
     except taskops.ClaimRefused as refusal:
-        # The documented shape, on stdout so a caller can parse it, with
-        # exit 1. Nothing emitted this before: the control was described
-        # in three files and implemented in none.
+        # The refusal shape CLI_CONTRACTS.md documents, on stdout so a
+        # caller can parse it, with exit 1.
         print(json.dumps(refusal.payload, indent=1))
         return 1
 
@@ -257,6 +255,7 @@ def _cmd_task(args, taskops):
     if args.op == "show":
         rec = REPO / "org" / "tasks" / f"{args.id}.json"
         if not rec.exists():
+            print(f"error: no task record {rec}", file=sys.stderr)
             return 2
         print(rec.read_text(encoding="utf-8"))
         return 0
@@ -294,11 +293,20 @@ def cmd_migrate(args):
         return 0
     if args.op == "apply":
         state = json.loads(Path(args.state).read_text(encoding="utf-8"))
-        seed_root = Path(state.get("seed_root", args.seed or ""))
-        if not str(seed_root).replace("\\", "/").startswith(
+        # The state document cannot name its own seed: the schema at
+        # kernel/schemas/migration-state.schema.json fixes the key set
+        # and has no seed_root in it. So apply is told which seed to
+        # work on, and refuses to guess.
+        if not args.seed:
+            print("error: migrate apply needs --seed as well as --state; "
+                  "the migration state does not record which seed it "
+                  "planned", file=sys.stderr)
+            return 2
+        seed_root = Path(args.seed)
+        if not str(seed_root.resolve()).replace("\\", "/").startswith(
                 str(REPO).replace("\\", "/")):
-            print("error: apply runs on fixture seeds inside this repo only "
-                  "this build", file=sys.stderr)
+            print("error: apply runs on fixture seeds inside this repo, and "
+                  "only in this build", file=sys.stderr)
             return 2
         result = migrate.apply(seed_root, state, dry_run=args.dry_run)
         print(json.dumps(result, indent=1))
@@ -312,11 +320,8 @@ def cmd_benchmark(args):
     from . import benchcli
 
     if args.op == "prepare":
-        # This used to pass --variant into runner.py's --fixture slot, so
-        # every invocation died with "fixture not found: .../fixtures/v2".
-        # No fixture is named v1 or v2, so the documented command had
-        # never once run. It now drives harness.py, which is the thing
-        # that actually knows what a variant is.
+        # harness.py is the frozen script that knows what a variant is;
+        # runner.py takes a fixture, which is a different argument.
         missing = [n for n in ("task", "variant", "dest", "run_id")
                    if not getattr(args, n, None)]
         if missing:
@@ -335,9 +340,6 @@ def cmd_benchmark(args):
             "--task", args.task, "--scratch", args.scratch,
             "--transcript", args.transcript, "--variant", args.variant,
             "--run-id", args.run_id])
-        # This returned the CompletedProcess itself where an int exit
-        # code was expected, so the shell saw a truthy object and the
-        # scorer's output never reached the caller.
         sys.stdout.write(proc.stdout)
         sys.stderr.write(proc.stderr)
         return proc.returncode
@@ -376,12 +378,12 @@ def build_parser():
     c.add_argument("--json", action="store_true")
     c.add_argument("--series")
     c.add_argument("--strict-semantic", action="store_true",
-                   help="force the S-series to error severity. It is already "
-                        "the default; this pins it against a future relaxation.")
+                   help="force the S-series to error severity. Error is "
+                        "already the default, so this only overrides "
+                        "--relax-semantic on a command line carrying both.")
     c.add_argument("--relax-semantic", action="store_true",
                    help="drop the S-series to warnings, for a caller who wants "
-                        "the work list rather than the gate. The module "
-                        "docstring promised this flag and it did not exist.")
+                        "the work list rather than the gate.")
     c.add_argument("--offline", action="store_true")
     c.set_defaults(fn=cmd_check)
 
@@ -456,9 +458,8 @@ def build_parser():
     m.add_argument("op", choices=["plan", "apply"])
     m.add_argument("--seed")
     m.add_argument("--state")
-    # store_true with default=True made --dry-run permanently on, with
-    # no way to turn it off, so migrate apply could never apply and 273
-    # lines of migrate.py had no reachable write path.
+    # Dry run is the default, so --dry-run is accepted and changes
+    # nothing; --no-dry-run is the switch that lets apply write.
     m.add_argument("--dry-run", dest="dry_run", action="store_true", default=True)
     m.add_argument("--no-dry-run", dest="dry_run", action="store_false",
                    help="actually write. Without this, apply reports what it "
@@ -499,12 +500,9 @@ def main(argv=None):
     try:
         return args.fn(args)
     except FileNotFoundError as exc:
+        # A file the caller named is not there: a run that could not
+        # happen, which is exit 2. A missing jsonschema is not one of
+        # these; every import of it is guarded at the point of use and
+        # degrades to an error-severity finding instead.
         print(f"error: {exc}", file=sys.stderr)
         return 2
-    except ModuleNotFoundError as exc:
-        if "jsonschema" in str(exc):
-            print("error: jsonschema missing; install with: python -m pip "
-                  "install --require-hashes -r tools/requirements.txt",
-                  file=sys.stderr)
-            return 2
-        raise

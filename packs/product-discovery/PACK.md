@@ -99,8 +99,10 @@ source's version, licence, access date, maintenance state and review
 trigger. The eighteen sources researched for this pack were imported as
 EV-0403 to EV-0420, and every citation here uses the ledger id. The
 frozen batch the import was made from stays at
-`packs/product-discovery/research/sources.fragment.json`. Nothing is
-cited that does not resolve in the ledger.
+`packs/product-discovery/research/sources.fragment.json`, and the
+synthesis behind the pack is in
+`packs/product-discovery/research/NOTES.md`. Nothing is cited that does
+not resolve in the ledger.
 
 **B6. Claims about people that a model produced are labelled
 unverified.** `cites_user_claim`. A persona, segment or quotation
@@ -294,9 +296,10 @@ asking.
 | How do you choose between candidate opportunities? | `packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md` | Sequence by reversibility, test cheaply, do not score |
 | When is the problem settled, and in what form do criteria go? | `packs/product-discovery/guides/GD-DISC-004-acceptance-criteria-form.md` | EARS clause order, after the problem is settled |
 
-Level-three material sits in `packs/product-discovery/refs/`, a worked
-run in `packs/product-discovery/exemplars/`, and the evaluation criteria
-in `packs/product-discovery/CHECKS.md`.
+Level-three material sits in `packs/product-discovery/refs/`: the
+discovery record shape and the sample-and-signal working rule. A worked
+run is in `packs/product-discovery/exemplars/`, and the evaluation
+criteria in `packs/product-discovery/CHECKS.md`.
 
 ## Failure modes and anti-patterns
 

@@ -40,12 +40,18 @@ record. No judgement.
 | C13 the abort path works | Rollout default | The rollout configuration declares a failure condition and automatic abort, and a dry run against an injected failing metric returns abort rather than promotion |
 | C14 no secrets in the diff | Guard | No secret-shaped string in the diff |
 | C15 the contract step is earned | Requirements 1, 3 | Every destructive migration declares itself the contract phase of a named sequence, names its expand and migrate migrations by id, and names the deploy that removed the last reader; the linter fails a destructive finding without that declaration, and fails one whose named predecessors are not both already deployed |
-| C15 the repo checker passes | Estate | `python -m tools.eos check --repo` gains no new errors |
 
-C1 to C14 are the pack's own criteria and are the same set the drill in
-`benchmark/drills/devops-reliability.md` scores, which is deliberate: a
-pack whose checks and whose acceptance drill disagree is testing itself
-against a different thing from the one it teaches.
+These rows and the acceptance drill in
+`benchmark/drills/devops-reliability.md` are held close on purpose: a
+pack whose checks and whose drill disagree is testing itself against a
+different thing from the one it teaches. The drill scores twelve
+criteria, and they cover thirteen of the rows above, C2 and C3 sharing
+its second. Two rows it does not score. C6 has no criterion of its own,
+and C15 came later, out of the drill finding recorded under requirement
+3. The drill's twelfth criterion also runs this repository's own
+checker, which is a fact about the drill harness rather than a
+criterion a venture applies to its production system, so no row here
+carries it.
 
 ## Judgement, not executable
 

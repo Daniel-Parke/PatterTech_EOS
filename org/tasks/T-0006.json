@@ -1,6 +1,6 @@
 {
   "id": "T-0006",
-  "intent": "Split the Session 0 ruling budget in inception/WALK_ORDER.md into interview-triggered and doctrine-triggered rulings. Guth's walk ran to 32 rulings against a 20-ruling budget note, and the cause is structural rather than a process failure: a venture whose master prompt fixes deep product doctrine engages wargame triggers the interview alone leaves silent. Budgeting both as one number makes a correct walk look like an overrun. Harvested 2026-08-08 under PB-E02.",
+  "intent": "Split the Session 0 ruling budget in inception/WALK_ORDER.md into interview-triggered and doctrine-triggered rulings. Guth's walk ran to 32 rulings against a 20-ruling budget note, and the cause is structural rather than a process failure: a venture whose master prompt fixes deep product doctrine engages wargame triggers the interview alone leaves silent. Budgeting both as one number makes a correct walk look like an overrun. Harvested 2026-08-08 under PB-E02. Closed: inception/WALK_ORDER.md budgets interview-triggered and doctrine-triggered rulings separately, delivered by the v2.1 Genesis lane under T-0014.",
   "declared": {
     "capabilities": [],
     "side_effects": []
@@ -9,14 +9,15 @@
   "tier_proposed": "R1",
   "tier_ruled": "R0",
   "reasons": [],
-  "status": "proposed",
+  "status": "done",
   "owner_session": "unassigned",
   "claims": [
     "inception/"
   ],
   "timestamps": {
     "opened": "2026-08-08T12:00:00Z",
-    "updated": "2026-08-08T12:00:00Z"
+    "updated": "2026-08-11T12:00:00Z",
+    "closed": "2026-08-11T12:00:00Z"
   },
   "hypothesis_ledger": []
 }

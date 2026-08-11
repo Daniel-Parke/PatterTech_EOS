@@ -22,7 +22,7 @@ any auto item does not reach the human.
 | A4 | E008 | zero unfilled `{{SLOT}}` markers and zero leftover scale fences anywhere |
 | A5 | E003 | CLAUDE.md is a byte-identical copy of AGENTS.md |
 | A6 | E007 | the compiled AGENTS.md is at most 40 lines |
-| A7 | D001 | compiled front-matter carries compiled_from; template and extracted_from keys are absent |
+| A7 | D001 | compiled front-matter carries summary, type, tags and compiled_from; template and extracted_from keys are absent |
 | A8 | D002 | every compiled_from target exists at the pinned eos_commit |
 | A9 | D003 | negative matrix: no file outside the matrix, the named add-ons and the report's authored, normalised or preserved rows |
 | A10 | D004 | every set-at-first-build deferral has an open task scheduling the lock-in |
@@ -30,8 +30,15 @@ any auto item does not reach the human.
 | A12 | D007 | the policy file parses and validates against kernel/schemas/policy.schema.json, with /risk and /approvals among its protected pointers |
 | A13 | D008 | the guard block names an adapter and mapping_ref, and either validated is true with the named mapping shipped in the seed, or validated is false and guarded actions are declared manual-only |
 | A14 | D009 | org/claims.json parses and validates against kernel/schemas/claims.schema.json; the seeded state is an empty lanes list (ORG only) |
-| A15 | D010 | one compiled file per Genesis template, matched on compiled_from and not on a destination path (ORG only; quiet against a seed pinned before the templates existed) |
-| A16 | D011 | the compiled acceptance spine still says expected-fail and still carries a manifest table with a state column. Form only: nothing here runs a suite, so this cannot say a spine fails (ORG only, on the same gate as A15, though the matrix ships the spine at S too, so an S spine that lost its marking is caught by a human or not at all) |
+| A15 | D010 | one compiled file per Genesis template the governing matrix marks at the ruled scale, matched on compiled_from and not on a destination path. Both scales, since the matrix marks all five at both; quiet against a seed pinned before the templates existed |
+| A16 | D011 | the compiled acceptance spine still says expected-fail and still carries a manifest table with a state column. Form only: nothing here runs a suite, so this cannot say a spine fails |
+| A17 | E008 | every file the governing matrix requires at the ruled scale is present |
+| A18 | E008 | every add-on the lock-book names is in the matrix and ships the files that matrix gives it |
+| A19 | E008 | the compile report carries an ancestry row for every required file and names no file the seed lacks |
+
+A17 to A19 are the positive half of A9's negative matrix and run on the
+same E008 id as A4. A number here is never reused or renumbered, which
+is why they sit at the foot rather than beside A4.
 
 ## Human items (signed, not delegated)
 

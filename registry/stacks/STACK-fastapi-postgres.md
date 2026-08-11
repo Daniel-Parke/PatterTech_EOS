@@ -60,18 +60,12 @@ implementation: WiseWattage (its `pyproject.toml`, `docker/` and
 
 ## When not to use this profile
 
-No server state: profile 01. Heavy telemetry: keep records and readings
-in separate stores behind a separate ingestion boundary; this profile
-is the records side.
+No server state: profile 01.
 
-**The telemetry split is marked for re-grading.** That last sentence is
-a v1 rule and it predates
-`packs/architecture/guides/WG-ARCH-008-database-topology.md`, which
-carries an option the v1 wargame did not: one database with private
-tables and distinct credentials. The live default is that option, and
-two stores only once a second real owner or a genuinely
-volume-asymmetric feed appears (D8 of `packs/architecture/PACK.md`).
-This profile still reads as a blanket answer for anything heavy. Which
-one governs this stack is a doctrine question and belongs to the
-architecture pack, so it goes to the monthly pass rather than being
-rewritten here.
+Where heavy telemetry goes is not this profile's question to answer.
+`packs/architecture/guides/WG-ARCH-008-database-topology.md` owns it and
+D8 of `packs/architecture/PACK.md` carries the live default, which is
+one database with private tables and distinct credentials, and two
+stores only once a second real owner or a genuinely volume-asymmetric
+feed appears. This profile used to answer it with a blanket separate
+stores, which was v1's answer and predates that guide.

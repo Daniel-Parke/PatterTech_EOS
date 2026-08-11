@@ -1,20 +1,16 @@
 """Semantic checks S001-S007 and S009-S019.
 
-S008 checked that a fact declared canonical in one file was not
-restated in another. No file ever declared canonical_facts, so it had
-no subscribers and never fired once; it was withdrawn in v2.1 with the
-rest of the dead weight (ADR-0006 decision 8). The id is not reused.
-Exact-string ownership over teaching prose was the reason nothing
-subscribed: it would flag every deliberate restatement in TOUR.md and
-OPERATORS_GUIDE.md.
+S008 asked that a fact declared canonical in one file was not restated
+in another. No file ever declared canonical_facts, so it had no
+subscribers and never fired once; it was withdrawn (ADR-0006 decision
+8). The id is not reused.
 
-Severity: the S-series lands as ERRORS. The repository is clean under
-the series, so the P4 flip has happened: a new semantic defect is a
-build failure, not an item on a list nobody reads. ctx["strict_semantic"]
-still forces strict, and ctx["relax_semantic"] = True drops the series
-back to warnings for a caller that wants the work list rather than the
-gate. The CLI exposes the relaxed form as `--relax-semantic`, and
-`--strict-semantic` pins the strict form against a future relaxation.
+Severity: the S-series lands as errors, so a new semantic defect is a
+build failure rather than an item on a list nobody reads.
+ctx["strict_semantic"] forces strict, and ctx["relax_semantic"] drops
+the series back to warnings for a caller who wants the work list rather
+than the gate. The CLI exposes those as `--strict-semantic` and
+`--relax-semantic`.
 
 Exemptions, applied uniformly unless a check says otherwise:
 
@@ -38,9 +34,9 @@ Exemptions, applied uniformly unless a check says otherwise:
 - template: true files document syntax (placeholder enums, slot
   values) and are exempt from value-level semantic checks.
 
-WG id references are checked by both E005 (the v1 parity port, which
-also covers fixtures) and S004 (the generalised scheme table), so an
-undefined WG reference reports twice by design until E005 retires.
+WG id references are checked by both E005, which also covers the frozen
+fixtures, and S004, which generalises to every id scheme, so an
+undefined WG reference in a live file reports twice.
 """
 
 from __future__ import annotations
@@ -100,19 +96,22 @@ ESTATE_ROW_ALLOWED = {
 ESTATE_TOP_REQUIRED = ("version", "updated", "root", "repos")
 
 
-STRICT_DEFAULT = True
-
 # Verbatim material and out-of-tree material: see the module docstring.
 EXEMPT_PREFIXES = ("benchmark/", "archive/", "org/logs/")
 RESEARCH_SEGMENT = re.compile(r"^packs/[^/]+/research/")
 
 
 def _sev(ctx: dict) -> str:
-    if ctx.get("strict_semantic"):
-        return "error"
-    if ctx.get("relax_semantic"):
+    """Error, unless the caller asked for the work list not the gate.
+
+    strict_semantic wins over relax_semantic, which is the whole of what
+    it does now that error is the default: a command line that carries
+    both flags, because a script built it out of parts, resolves to the
+    gate rather than to the softer of the two.
+    """
+    if ctx.get("relax_semantic") and not ctx.get("strict_semantic"):
         return "warn"
-    return "error" if STRICT_DEFAULT else "warn"
+    return "error"
 
 
 def _f(ctx, check, path, msg):
@@ -509,39 +508,40 @@ def check_s007_machine_facts(ctx: dict) -> list:
 # --- S009 cadence overdue ----------------------------------------------
 
 
-def _table_rows(text: str) -> list:
-    rows = []
-    for line in text.splitlines():
-        if line.startswith("|"):
-            cells = [c.strip() for c in line.strip().strip("|").split("|")]
-            rows.append(cells)
-    return rows
+def _overdue(value: str, today: date) -> bool:
+    """True when a next_due value has actually passed.
 
-
-def _parse_due(value: str):
+    A month-only value names a window, not a deadline: a cadence due
+    2026-08 is due some time in August and is late in September. Read
+    as the first of the month it reports overdue from the second day
+    onward, which is a false late on every monthly row for most of its
+    month. E006 and F001 already read a bare month this way.
+    """
     m = re.match(r"^(\d{4})-(\d{2})(?:-(\d{2}))?$", value.strip())
     if not m:
-        return None
+        return False
+    year, month, day = int(m.group(1)), int(m.group(2)), m.group(3)
+    if day is None:
+        return (year, month) < (today.year, today.month)
     try:
-        return date(int(m.group(1)), int(m.group(2)), int(m.group(3) or 1))
+        return date(year, month, int(day)) < today
     except ValueError:
-        return None
+        return False
 
 
 @register("S009")
 def check_s009_cadence_overdue(ctx: dict) -> list:
+    """Overdue cadence rows, read from org/cadence.json.
+
+    The check used to read a Markdown table out of org/CADENCE.md as
+    well. That file was cut at release, because all it said was that
+    the JSON was next door, so the branch could never fire again. The
+    JSON is the canonical surface and its finding is the better one: it
+    names the procedure to run, which the table never carried.
+    """
     model: RepoModel = ctx["model"]
     today = ctx["today"]
     out = []
-    cadence = model.read("org/CADENCE.md")
-    if cadence:
-        for cells in _table_rows(cadence):
-            if len(cells) >= 5 and cells[0] not in ("Cadence", "---") \
-                    and not cells[0].startswith("-"):
-                due = _parse_due(cells[4])
-                if due and due < today:
-                    out.append(_f(ctx, "S009", "org/CADENCE.md",
-                                  f"cadence '{cells[0]}' overdue: next_due {cells[4]}"))
     machine = model.read("org/cadence.json")
     if machine:
         try:
@@ -549,8 +549,7 @@ def check_s009_cadence_overdue(ctx: dict) -> list:
         except ValueError:
             return out + [Finding("S009", "error", "org/cadence.json", "malformed JSON")]
         for row in rows if isinstance(rows, list) else []:
-            due = _parse_due(str(row.get("next_due", "")))
-            if due and due < today:
+            if _overdue(str(row.get("next_due", "")), today):
                 out.append(_f(ctx, "S009", "org/cadence.json",
                               f"cadence '{row.get('id', '?')}' overdue: "
                               f"next_due {row.get('next_due')}, "
@@ -645,6 +644,20 @@ def _load_estate(model: RepoModel):
 
 
 PIN_SHA = re.compile(r"@\s*([0-9a-f]{7,40})\b")
+
+
+def _table_rows(text: str) -> list:
+    """Markdown table rows as cell lists. S010's reader, and only its.
+
+    It sat beside S009 while that check still read a cadence table out
+    of org/CADENCE.md. The file is gone and so is the branch.
+    """
+    rows = []
+    for line in text.splitlines():
+        if line.startswith("|"):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            rows.append(cells)
+    return rows
 
 
 @register("S010")

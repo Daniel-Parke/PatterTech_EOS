@@ -5,26 +5,5 @@
   "last_run": "2026-08-08",
   "next_due": "2026-09-08",
   "procedure": "org/PLAYBOOKS.md#the-monthly-pass"
- },
- {
-  "id": "inception-drill",
-  "frequency": "on-demand",
-  "last_run": null,
-  "next_due": null,
-  "procedure": "org/PLAYBOOKS.md#pb-e07-inception-drill"
- },
- {
-  "id": "projects-review",
-  "frequency": "on-demand",
-  "last_run": null,
-  "next_due": null,
-  "procedure": "org/PLAYBOOKS.md#pb-e06-venture-upgrade"
- },
- {
-  "id": "benchmark-freshness",
-  "frequency": "on-demand",
-  "last_run": null,
-  "next_due": null,
-  "procedure": "benchmark/PROTOCOL.md"
  }
 ]

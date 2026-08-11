@@ -16,8 +16,8 @@ WG-WEB-007). Reference implementation: PatterTech_Website.
 - Next.js App Router with `output: "export"`: `next build` writes plain
   HTML/CSS/JS; any static host serves it. Cheap, fast, cacheable, impossible
   to take down with a bad request.
-- Tailwind v4 with tokens in `@theme` (see TOKENS.md); a raw-value TypeScript
-  mirror for code that needs numbers.
+- Tailwind v4 with tokens in `@theme`, named in the venture's own token
+  file; a raw-value TypeScript mirror for code that needs numbers.
 - Fonts via `next/font` with `display: swap`.
 - Content: filesystem Markdown parsed at build (frontmatter + reading time),
   merged with a typed registry of bespoke pages; one loader, directory-

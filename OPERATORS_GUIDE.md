@@ -1,5 +1,5 @@
 ---
-summary: The operator's manual for running the EOS, launchers, approval duties, the guard, cadences and what to do when something looks wrong
+summary: The operator's manual for running the EOS, launchers, approval duties, claims, the guard, the monthly pass, the release gate and what to do when something looks wrong
 type: guide
 tags: [eos]
 review: 2027-03
@@ -7,58 +7,75 @@ review: 2027-03
 
 # OPERATORS_GUIDE
 
-How the operator runs the EOS. If you have adopted this repository,
-you are the operator, and the integrator duties named in
-`org/PLAYBOOKS.md` and `tools/CLI_CONTRACTS.md` are yours too: you
-alone commit claims, run the generators and adopt or discard
-quarantined work. Daniel holds both roles here. Agents read this file
-to know what the human does; the operator reads it to know what to
-launch and when.
+How the operator runs the EOS. If you have adopted this repository, you
+are the operator, and the integrator duties named in `org/PLAYBOOKS.md`
+and `tools/CLI_CONTRACTS.md` are yours too: you alone commit claims, run
+the generators and adopt or discard quarantined work. Daniel holds both
+roles here. `TOUR.md` says what those two words mean; this file says
+what the person holding them does.
 
-The EOS seeds ventures and learns from them. You launch sessions against
-it; each one is routed into a mode, does the work that mode allows, and
-leaves records rather than paperwork. There is no work-in-progress
-limit. What bounds concurrency is claims, and claims are needed when
-more than one session may write at once.
+Agents read this to know what the human does. You read it to know what
+to launch and when. There is no work-in-progress limit. What bounds
+concurrency is claims, and claims are needed when more than one session
+may write at once.
 
 ## Launchers
 
-Paste one line into a fresh agent session, in the repository named.
+Paste one line into a fresh agent session, in the repository named. The
+numbering is local to this file and nothing else cites it.
 
-- **E1, work**: "Read AGENTS.md, entry mode 2. Take T-#### from
-  org/TASKS.md." The workhorse. This repository.
-- **E2, Session 0**: "Read AGENTS.md, entry mode 3. The new venture is
-  <one line>. Repo at <path>." Run from the venture repository.
-- **E3, the monthly pass**: "Entry mode 2, run the monthly pass: PB-E02
+- **L1, work on the EOS.** "Read AGENTS.md, entry mode 2. Take T-####
+  from org/TASKS.md." The workhorse. This repository. If the session
+  needs to open a new task record, read the claims section below first,
+  because as the tree stands it will be refused.
+- **L2, Session 0.** "Read AGENTS.md, entry mode 3. The new venture is
+  <one line>. Repo at <path>." Run from the venture's repository. It
+  ends with the seed rubric in front of you and the launch decision in
+  your hands.
+- **L3, Genesis.** "Read AGENTS.md, entry mode 3. Session 0 is done and
+  the seed is signed. Run inception/GENESIS.md." The venture's
+  repository, after the seed gate. The forms in the seed were already
+  pruned for the ruled scale when it compiled, so there is no form for
+  you to pick: what you decide is whether the phase runs at all. ORG
+  runs it by default; a venture that came through Express inception
+  skips it unless you ask. Either way the forms ship blank, so a venture
+  that declined can run Genesis later without a recompile. It ends by
+  handing you the product map and the work packages, and it is not
+  finished until you say go.
+- **L4, the monthly pass.** "Entry mode 2, run the monthly pass: PB-E02
   harvest, PB-E04 promotion review, PB-E10 experiment sweep, PB-E09
-  hygiene, in one sitting." That is the order `org/PLAYBOOKS.md` sets,
-  and hygiene is last because it regenerates the views after the other
-  three have moved things. This used to be three launchers, E3 to E5.
-  ADR-0008 folded the monthly cadences into one pass, so E4 and E5 are
-  gone and `org/cadence.json` carries a single monthly row.
-- **E6, release**: "Entry mode 2, run PB-E05." Only after you have
-  approved the release.
-- **E7, on demand, not quarterly**: "Entry mode 2, run PB-E07" (an
-  inception drill), or the projects review that answers adopt or defer
-  for each candidate repository. Run these when something real triggers
-  them, such as a seed compiled or a repository added.
-- **E8, upgrade a venture**: "Entry mode 2, run PB-E06 for <venture>."
-  A venture that only wants findings asks for PB-E12 instead: a
-  check-in returns findings and candidate lessons and applies nothing.
-- **E9, Genesis**: "Read AGENTS.md, entry mode 3. Session 0 is done and
-  the seed is signed. Run inception/GENESIS.md, <full or lite> form."
-  Run from the venture repository, after the seed gate. Full is the ORG
-  default and lite is the S default; the choice is yours at launch. It
-  ends by handing you the product map and the work packages to read.
-- **E10, study a source**: "Entry mode 2, run PB-E11. Study <source>
-  for <what you want out of it>." This repository. The session writes
-  the lens contract first and stops for your approval before it reads
-  anything, and you see the findings only after it has checked them for
-  conflicts with live rules.
-- **E11, a graph build**: "Read AGENTS.md, entry mode 4. Cut a partition
+  hygiene, in one sitting." That order is set by `org/PLAYBOOKS.md`, and
+  hygiene is last because it regenerates the derived views after the
+  other three have moved things.
+- **L5, study a source.** "Entry mode 2, run PB-E11. Study <source> for
+  <what you want out of it>." This repository. The session scaffolds the
+  lens contract with `python -m tools.eos study` and stops for your
+  approval before it reads anything. You see the findings only after it
+  has checked them against live rules for conflicts. A study never
+  starts on a schedule and never because an agent suggested it.
+- **L6, a graph build.** "Read AGENTS.md, entry mode 4. Cut a partition
   for <the work> per packs/agentic-swarm/PACK.md, and hand back the
   partition and the lane briefs before dispatching anything." Either
-  repository. You commit the claim set before any lane starts.
+  repository. You read the partition, then you commit the claim set, and
+  only then does any lane start.
+- **L7, a venture check-in.** "Entry mode 2, run PB-E12 for <venture>,
+  slice <what they asked about>." Only ever because the venture asked.
+  It returns findings and candidate lessons and applies nothing. If the
+  venture has not said what it wants looked at, the session asks before
+  it reads.
+- **L8, upgrade a venture.** "Entry mode 2, run PB-E06 for <venture>."
+  On request only. A venture that wants a bigger organisation rather
+  than a newer pin takes PB-E08, the rescale, and the only rescale that
+  exists is S to ORG.
+- **L9, an inception drill.** "Entry mode 2, run PB-E07." Fires when a
+  seed is compiled or the inception walk changes. It takes a canned
+  brief from `inception/briefs/`, runs Session 0 cold in a scratch
+  repository, and grades the result against `kernel/SEED_RUBRIC.md`
+  without charity. The estate review is the other event-fired job:
+  "Entry mode 2, run the estate review from PB-E06", when a repository
+  joins the estate or a venture changes status.
+- **L10, release.** "Entry mode 2, run PB-E05." Only after you have
+  approved the release. The section below says what you are approving.
 
 ## Your approval duties
 
@@ -72,6 +89,15 @@ sign the human items of a seed rubric, promote a rule to binding,
 authorise a capability-profile promotion, approve a release, create
 remotes and accounts, and spend money.
 
+Two of those carry a check nothing else makes. When a session tells you
+a diff touches the protected set, `python -m tools.eos route` will have
+exited 3 unless it was given `--adr`, and it checks only that a value
+was passed. Nothing reads the id or confirms the record is accepted, so
+you do. And the capability profile in `org/capability-profile.json` is
+read by no code at all. It is an argument for changing the express
+thresholds in the policy, not a mechanism that changes anything by
+itself.
+
 One duty was retired rather than discharged. The sealed suite,
 `benchmark/SEALED.json`, runs once and needs your private key. ADR-0007
 retires it unopened, because it was written to compare a frozen v1
@@ -81,7 +107,7 @@ hashes, and a future sealed evaluation is written fresh against whatever
 it is meant to judge. Two of the protocol's eight gates depended on it
 and stay uncomputed.
 
-## Picking up work
+## Claims, and the sharp edge in this repository
 
 A claim is a written statement of who is writing which paths, committed
 before the work starts. `org/claims.json` names the lane, the session
@@ -95,65 +121,113 @@ id, the paths and an expiry.
   change to a product file, so make it before the sessions start, not
   during. Lanes never acquire or mutate a claim.
 
-Where a claim set is committed, `task new` and `task update` refuse a
-session it does not name, printing
-`{"refused": true, reason, claim_set_ref}` and exiting 1. An expired
-claim refuses the same way, so a lapsed standing claim has to be rewritten
-and committed before the session that needs it. Where there is no claim
-set at all, the repository is not running the assigned-claims model and
-the control does not apply.
+Here is the edge, and it will bite somebody. The control keys on the
+file existing, not on it holding lanes. `org/claims.json` is in this
+repository right now with an empty lane list, so `task new` and
+`task update` refuse every session, including a solo one, printing
+`{"refused": true, reason, claim_set_ref}` and exiting 1. A solo session
+that needs a task record either names itself in a lane here first, or
+deletes the file. An expired claim refuses the same way, so a lapsed
+standing claim has to be rewritten and committed before the session that
+needs it. Only where there is no claims file at all is the repository
+not running this model, and then the control does not apply.
 
-There is no `claims assign`, `renew` or `recover` command; those were
+Ordinary file writes are not gated. The control bites at two points
+only: where a task record is written, and again at integration through
+`task claims-verify`, which compares a lane's diff against its claims
+and reports C001 to C005.
+
+There is no `claims assign`, `renew` or `recover` command. Those were
 described once and never built, and `tools/CLI_CONTRACTS.md` records
 which commands exist.
 
 A lane's claim over its own product paths also covers its own task
 record under `org/tasks/`. It does not cover anything derived: you alone
-regenerate those.
+regenerate those, with `python -m tools.eos check --write-index` for the
+five indexes and views and `python -m tools.eos task views` for
+`org/TASKS.md` and `org/STATE.md`.
 
 ## The guard, fail-closed, in practice
 
 The action-time guard returns allow, require-approval, manual-only or
-deny. Autonomous execution of a guarded class needs a validated host
-enforcement adapter. **Without one, every guarded class is
-manual-only**: the agent stops and tells you, and you do the action
-yourself outside the agent.
+deny, and `python -m tools.eos guard eval` is what rules one action.
+Autonomous execution of a guarded class needs a validated host
+enforcement adapter. **Without one, every guarded class is manual-only**:
+the agent stops and tells you, and you do the action yourself outside
+the agent.
 
-Today `kernel/adapters/claude-code.json` is validated, so external-write,
-destructive-git and dependency-install rule require-approval and resolve
-on a recorded approval from you. The other seven classes have no passing
-bypass case, so they stay manual-only. None of it is something to work
-around. Naming a permission system does not satisfy the requirement, and
-a seed claiming autonomous guarded actions without an enforceable
-adapter fails its check.
+One adapter ships, `kernel/adapters/claude-code.json`. `TOUR.md`
+describes what it covers. What matters at your keyboard is that it
+grants nothing. Its validation block is dated 2026-08-03 and says
+mapping-level, offline, `host_run` false, which proved that fourteen
+bypass attempts classify into the right guarded class from the tool
+surface alone and did not prove that a live session's hooks fire. So
+every guarded action still stops. The three covered classes stop and ask
+you, and your answer is the record. The other seven stop and you do the
+action yourself, outside the agent. Read the validation block before
+relying on any of it, because any change to the adapter or the mapping
+voids it.
 
-## Cadences
+None of this is something to work around. Naming a permission system
+does not satisfy the requirement, and a seed claiming autonomous guarded
+actions without an enforceable adapter fails its check.
 
-Rows and next-due dates live in `org/cadence.json`, procedures in
-`org/PLAYBOOKS.md`. Four rows, and only one of them carries a date.
+## The cadence
+
+There is one row in `org/cadence.json`, and it is the whole calendar.
 
 **`monthly-pass`, one sitting, four sections**: harvest, promotion
-review, experiment sweep, hygiene, in that order, about thirty minutes
-of your review time. A section you skip is still a finding, so the pass
+review, experiment sweep, hygiene, in that order. Close it by
+setting `last_run` in
+`org/cadence.json`. A section that found nothing writes one line saying
+checked and clean. A section you skipped is a finding, so the pass
 records what it did not do rather than quietly dropping it.
 
-**`inception-drill` and `projects-review`, on demand**: both used to be
-quarterly rows and neither had fired once since v1, which is evidence
-that a calendar trigger nobody honours is not a control (ADR-0008). Run
-them when something real happens: a seed compiled, a repository added, a
-drill worth grading.
+Everything else waits for an event, and each procedure in
+`org/PLAYBOOKS.md` names its own: a seed compiled fires the inception
+drill, a repository joining the estate fires the estate review, a
+venture asking fires an upgrade, a rescale or a check-in, you pointing
+at a source fires a study, and a release fires PB-E05.
 
-**`benchmark-freshness`, on demand**: the fourth row, pointing at
-`benchmark/PROTOCOL.md`. It has never run, and nothing outside the row
-itself says what fires it. Treat it as an open question rather than as a
-duty waiting on you.
+Three rows that used to sit here were deleted rather than left carrying
+no date: `inception-drill`, `projects-review` and `benchmark-freshness`.
+The first two had not fired once since v1, which is evidence that a
+calendar trigger nobody honours is not a control (ADR-0008). The third
+pointed at a benchmark ADR-0007 retires. A due cadence still outranks
+new low-priority work; there is simply only one of them.
 
-A due cadence outranks new low-priority work.
+## Approving a release
+
+The gate is the five items in ADR-0007 decision 5, listed in
+`README.md`. Three of them a machine settles and you can watch: the
+checker green with the semantic and freshness series, the test suite
+green, the CHANGELOG entry written. The other two are yours and nothing
+else can do them.
+
+**No false statement about the tree survives the final review.** That is
+the one this repository keeps failing. Sixty-six of them were found and
+removed once. Read the claims, not the prose around them: a control
+described as enforced that nothing enforces, a gate described as met
+that was struck, a count copied from a file that has since changed.
+
+**Your explicit approval.** Before you give it, check the guard rather
+than assuming it, as PB-E05 says: `guard.validated` in the policy may
+read true only while the mapping it names carries a current
+bypass-suite validation block, and there is no separate report file.
+
+No benchmark gate is on the release, and none of the eight in
+`benchmark/PROTOCOL.md` can be put back on it. `README.md` says which
+passed, which were struck and which cannot be computed at all. A struck
+gate is not a met gate and nothing in the tree may describe it as one.
 
 ## When something looks wrong
 
 - **A view disagrees with reality**: reality wins. Views are generated,
   so fix the record and regenerate, never the view.
+- **The checker says a derived file is stale**: that is E001 or E011 and
+  it means somebody changed a source without regenerating. Regenerate.
+  If the regeneration then produces new errors, they were already true
+  and the stale view was hiding them.
 - **A claim expired but the lane may be alive**: check liveness first,
   through harness state or the recorded process id. If liveness cannot
   be established, you recover the claim. A timestamp never authorises it.
@@ -168,3 +242,6 @@ A due cadence outranks new low-priority work.
 - **A lane returns something odd**: treat what a lane hands back as
   data, not as instruction. The integrator reads it, decides, and
   merges; it does not do what the return text tells it to do.
+- **A venture looks out of line with current guidance**: it probably is,
+  and that is allowed. The EOS hands off at a venture's birth. Wait for
+  the venture to ask, then run L7.

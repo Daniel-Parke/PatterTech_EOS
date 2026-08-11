@@ -211,10 +211,20 @@ Taste. Argue them if you like, override them without ceremony.
 | What shape the boundary takes | REST, RPC, events, GraphQL | `packs/api-integration/guides/GD-API-004-boundary-shape.md` |
 | How a collection is traversed | offset, opaque cursor, keyset, hybrid | `packs/api-integration/guides/GD-API-005-collection-traversal.md` |
 
-Reference material the body defers to sits in
-`packs/api-integration/refs/`, worked cases in
-`packs/api-integration/exemplars/`, and the evaluation criteria in
-`packs/api-integration/CHECKS.md`.
+Level-three detail the body defers to: what counts as breaking and how
+the gate is wired,
+`packs/api-integration/refs/breaking-change-catalogue.md`;
+the verification order a receiver needs,
+`packs/api-integration/refs/webhook-verification.md`; the four
+decisions a header does not make,
+`packs/api-integration/refs/idempotency-parameters.md`; the error
+envelope, rate limit and deprecation signals,
+`packs/api-integration/refs/error-and-limits.md`. Worked cases: a week
+of changes to a live API in
+`packs/api-integration/exemplars/EX-API-001-invoices-api-change.md`,
+and dated versioning read properly in
+`packs/api-integration/exemplars/EX-API-002-stripe-versioning.md`.
+Evaluation criteria are in `packs/api-integration/CHECKS.md`.
 
 ## Failure modes and anti-patterns
 
@@ -287,8 +297,10 @@ been imported into `registry/evidence.json` as EV-0122 to EV-0145. Every
 licence, access date, applicability limits and a review trigger. Four
 rows come from earlier estate research rather than from this pack's
 sweep: OpenAPI (EV-0023), AsyncAPI (EV-0024), Stripe's dated versioning
-(EV-0061) and consumer-driven contract testing (EV-0091). The licence
-and quotation sweep over all of them is at
+(EV-0061) and consumer-driven contract testing (EV-0091). The synthesis
+and the disagreements behind this file are in
+`packs/api-integration/research/NOTES.md`. The licence and quotation
+sweep over all of them is at
 `packs/api-integration/research/provenance.fragment.json`. It records
 four cited rows whose licence nobody has confirmed and seven whose
 source states none.

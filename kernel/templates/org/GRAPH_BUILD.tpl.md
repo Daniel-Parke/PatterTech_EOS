@@ -27,15 +27,6 @@ The wide build entry in org/PLAYBOOKS.md is the caller: it says when a
 session comes here and what it journals at the end. This file is the
 method in between, and the procedure is written here and nowhere else.
 
-<!-- scale: S -->
-At S there is one writer by default. If a second is ever needed, the
-whole of this file reduces to three things: write down who owns which
-files, commit the claim, and merge one at a time in an order you chose.
-Everything below is the ORG form.
-<!-- scale: end -->
-
-<!-- scale: ORG -->
-
 ## 1. Cut the partition
 
 From the product map and the dependency graph, before any lane starts.
@@ -148,4 +139,3 @@ a single-agent control, median lane-done-to-merged time, and the share
 of lane-authored code rewritten within fourteen days. Felt speed is not
 a measurement. Any claim that one configuration beats another states
 how many runs it rests on and the spread across them.
-<!-- scale: end -->

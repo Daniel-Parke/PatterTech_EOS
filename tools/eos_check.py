@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Deprecation shim: forwards to python -m tools.eos.
 
-The v1 checker was the parity anchor for the v2 port and is kept at
-archive/v1-final:tools/eos_check.py as history. It cannot validate the v2
-tree: it looks for doctrine modules and a wargame index that the pack
-restructure retired. Every caller should move to the package.
+This path is the v1 checker's, and `org/decisions/ADR-0001` still names
+it as the single sanctioned executable. That record is accepted and
+append-only, so the path has to keep resolving. The shim is what makes
+it resolve, and it forwards rather than pretending: the v1 checker
+itself is at archive/v1-final:tools/eos_check.py and cannot validate a
+v2 tree, because it looks for doctrine modules and a wargame index the
+pack restructure retired.
 """
 
 import subprocess

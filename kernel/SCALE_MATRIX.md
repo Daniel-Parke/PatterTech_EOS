@@ -66,9 +66,10 @@ rescaling from S to ORG should not discover it never had a work package
 form. Running the phase stays the operator's launch decision.
 org/GRAPH_BUILD.md is ORG only, because it names org/claims.json as its
 mutex and S has no claims file; a compiled copy at S would point at a
-file that is not there. Nothing compiles from that template at S, so
-its S block is never reached, and an S venture that needs a second
-writer reads packs/agentic-swarm instead.
+file that is not there. Its template carries no scale fences for that
+reason: nothing compiles it at S, so an S form would be a block no
+compiler could ever reach. An S venture that needs a second writer
+reads packs/agentic-swarm and rescales.
 
 ## Directories and derived views
 
@@ -94,6 +95,6 @@ compile report as authored.
 
 | addon | file | source | trigger |
 | --- | --- | --- | --- |
-| compliance | org/COMPLIANCE.md | authored per the registry pattern the adopted compliance pack names | personal or regulated data present; at S, rescale to ORG first |
+| compliance | org/COMPLIANCE.md | authored per packs/legal-licensing, which routes regulatory duties to data | personal or regulated data present; at S, rescale to ORG first |
 | ops-runbook | ops/runbooks/deploy.md | authored per the stack profile | anything deployed with server state |
-| restore-test | org/cadence.json gains the restore-test row | authored per the backup and restore doctrine the trigger names | production data exists |
+| restore-test | org/cadence.json gains the restore-test row | authored per the restore-proof rules in packs/devops-reliability | production data exists |

@@ -53,6 +53,10 @@ None expected. Anything here blocks the gate until ruled.
 Paste the `python -m tools.eos check --seed` summary line and date. All auto items
 green before the human items are judged.
 
+- Walk counts, beside the summary line: the pair of ruling counts
+  inception/WALK_ORDER.md asks for, as N interview-triggered and M
+  doctrine-triggered.
+
 ## Sign-off (human rubric items)
 
 - [ ] H1 cold-start test · - [ ] H2 brief reads true · - [ ] H3

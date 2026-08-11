@@ -41,7 +41,7 @@ human input, unless a row says otherwise.
 | C-15 | External link checking does not block | Injecting a link to an unreachable host fails no step | D5 |
 | C-16 | The blocking steps run offline | The blocking documentation job runs with network access disabled and still passes | D5 |
 | C-17 | A running Unreleased section exists | Heading present in `CHANGELOG.md`, with at least one entry when the diff changes a user-visible surface | D3 |
-| C-18 | README question set present | Headings or content covering what, why, how, status and next are present | D2 |
+| C-18 | README question set present | Headings or content covering all five questions in `packs/docs-dx/refs/DOC_FORMS.md`: what, why, how, state and next | D2 |
 | C-19 | Prose rules are advisory | The prose linter's step reports without failing the build unless the rule is on the promoted list | D7 |
 
 C-01 through C-10 are the gate. C-11 and C-12 need a venture-specific

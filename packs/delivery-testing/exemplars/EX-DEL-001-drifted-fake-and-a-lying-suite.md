@@ -44,7 +44,7 @@ rules rather than from the current output.
 | Oracle | WG-DEL-006 | C, plus D: rounding has an invariant |
 | Timing | WG-DEL-007 | FIX cell, reproduction first |
 | Double for the supplier API | WG-DEL-005 | C, verified fake with a contract suite |
-| Flake response | WG-DEL-004 | Determinism first, no retries |
+| Flake response | Requirement 4 | Determinism first, no retries |
 
 ## The work, in order
 

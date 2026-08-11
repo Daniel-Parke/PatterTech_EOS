@@ -99,7 +99,9 @@ A mailing sent to somebody who never agreed to it has been sent.
 its version, licence, access date, maintenance state and review
 trigger, are in `registry/evidence.json` as EV-0353 to EV-0369, and
 every citation here uses the ledger id. The fragment file stays in the
-research directory as the batch the import was made from.
+research directory as the batch the import was made from, and the
+synthesis behind the pack is in
+`packs/marketing-growth/research/NOTES.md`.
 
 **B1. The lawful basis is stored with the address, not asserted about
 the list.** `collects_contact_details`. Every contact record carries a
@@ -267,7 +269,8 @@ Taste. Depart freely, no reason needed.
 | How is this channel's effect measured | What may be claimed, and what the claim costs | `packs/marketing-growth/guides/GD-MKTG-003-effect-measurement.md` |
 | Who owns a published page and why does it exist | Publishing rate, provenance and review | `packs/marketing-growth/guides/GD-MKTG-004-content-provenance.md` |
 
-Reference tables sit in `packs/marketing-growth/refs/`. The pack applied
+Reference tables sit in `packs/marketing-growth/refs/`: the consent
+record, the send preflight, and the discovery surface. The pack applied
 end to end is
 `packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
 Evaluation criteria are in `packs/marketing-growth/CHECKS.md`.

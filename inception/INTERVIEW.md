@@ -1,5 +1,5 @@
 ---
-summary: The v2 intake protocol, eighteen questions, the risk-surface set and the three challenge steps
+summary: The intake protocol, eighteen questions, the risk-surface set and the three challenge steps
 type: kernel
 tags: [eos]
 ---
@@ -36,8 +36,7 @@ answer would satisfy a stranger.
 
 Question 8 is the one that goes missing, because a venture with nothing
 to sell reads as a venture with nothing to spend. It carries real money
-either way, so ask it even when the venture looks free to run. The
-canned drill brief went without an answer to it until 2026-08-11.
+either way, so ask it even when the venture looks free to run.
 
 Answers to 4 through 11 become the trigger list for WG-EOS-001 and the
 pack walk. Vague answers on server state, money or personal data are
@@ -46,9 +45,10 @@ the policy.
 
 ## The risk-surface set
 
-Five more questions, asked once the venture set has landed. The first
-four become the path patterns in the venture's policy file at phase D,
-so they need paths and not adjectives. The fifth names the work.
+Five more questions, asked once the venture set has landed. Fourteen to
+sixteen become the path lists in the venture's policy file at phase D,
+so they need paths and not adjectives. Seventeen sets the guard block.
+Eighteen names the work.
 
 14. Where in the tree will each risky thing live: the money code, the
     auth code, the personal data, the deploy configuration? Directory
@@ -63,9 +63,9 @@ so they need paths and not adjectives. The fifth names the work.
     somebody has to sit down and build? A list, one line each, in the
     operator's own words. Not a plan and not an estimate.
 
-Question 17 sets the guard posture. Until a validated adapter mapping
-exists, the honest answer compiles as manual-only for every guarded
-class, per kernel/GUARD_SPEC.md.
+Until a validated adapter mapping exists, question 17's honest answer
+compiles as manual-only for every guarded class, per
+kernel/GUARD_SPEC.md.
 
 Question 18's list lands in the brief as its own short section, and it
 is what inception/GENESIS.md cuts its research packets and work packages
@@ -100,5 +100,8 @@ risk-surface map back as paths, then the workstreams back as a list and
 take a yes on each. Collect the concrete facts the compile
 prints: the venture name as it appears in public, contact details for
 any contact surface, the domain if one is owned, brand assets if any
-exist. Confirm the operator's availability for phase B now and phase E
-later. Then move to WG-EOS-001 with the triggers in hand.
+exist, and, if anyone outside the venture is owed an update, how often
+it goes out. That last one fills the cadence file at ORG, and phases C
+and D run without the operator. Confirm the operator's availability for
+phase B now and phase E later. Then move to WG-EOS-001 with the
+triggers in hand.

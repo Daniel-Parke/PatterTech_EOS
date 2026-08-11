@@ -21,8 +21,9 @@ data activate no factor.
 from __future__ import annotations
 
 import re
-import subprocess
 from pathlib import Path
+
+from .gitfacts import output as _git
 
 TIERS = ("R0", "R1", "R2", "R3")
 _TIER_RANK = {t: i for i, t in enumerate(TIERS)}
@@ -184,16 +185,6 @@ _INSTALL_SCRIPT_RE = re.compile(r'"(?:preinstall|postinstall|install|prepare|pre
 _PII_RE = re.compile(r"(?i)\b(?:ssn|social_security|national_insurance|date_of_birth|passport_number)\b")
 
 
-def _git(root, *args):
-    proc = subprocess.run(
-        ["git", "-C", str(root), *args],
-        capture_output=True, text=True, encoding="utf-8", errors="replace",
-    )
-    if proc.returncode != 0:
-        raise RuntimeError("git %s failed: %s" % (" ".join(args), proc.stderr.strip()))
-    return proc.stdout
-
-
 def _is_sqlish(path):
     parts = path.lower().split("/")
     return path.lower().endswith(".sql") or any(
@@ -258,8 +249,8 @@ def derive_signals(root, base_ref, declared, *, policy=None):
                 changed_paths.append(old)
 
     diff_text = _git(root, "diff", base_ref)
-    added_lines = [l[1:] for l in diff_text.splitlines()
-                   if l.startswith("+") and not l.startswith("+++")]
+    added_lines = [line[1:] for line in diff_text.splitlines()
+                   if line.startswith("+") and not line.startswith("+++")]
     added_text = "\n".join(added_lines)
 
     path_patterns = (policy.get("risk", {}) or {}).get("path_patterns", {})

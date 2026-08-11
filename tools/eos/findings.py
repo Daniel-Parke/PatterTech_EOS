@@ -1,15 +1,18 @@
 """Finding and Findings: the one result type every check returns.
 
-A Finding is one observation: check id, severity, path, message. The
-Findings collection aggregates them, renders text for humans and JSON
-for machines (per tools/CLI_CONTRACTS.md the JSON keys are check,
-severity, path, message), and rules the exit code: 0 for clean or
-warnings only, 1 when any error-severity finding exists. Stdlib only.
+A Finding is one observation: check id, severity, path, message.
+to_dict is the machine shape tools/CLI_CONTRACTS.md documents for the
+check command, and the CLI prints it rather than building the same
+dict a second time.
+
+The Findings collection aggregates them, splits them by severity and
+renders text for a human. It does not rule the exit code: that rule
+lives once, in the CLI, where the exit code is actually returned.
+Stdlib only.
 """
 
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from typing import Iterable, Iterator
 
@@ -28,11 +31,12 @@ class Finding:
             raise ValueError(f"severity must be one of {SEVERITIES}: {self.severity}")
 
     def to_dict(self) -> dict:
+        """The machine shape, in the order CLI_CONTRACTS.md prints it."""
         return {
             "check": self.check_id,
-            "severity": self.severity,
             "path": self.path,
             "message": self.message,
+            "severity": self.severity,
         }
 
 
@@ -44,9 +48,6 @@ class Findings:
 
     def add(self, finding: Finding) -> None:
         self._items.append(finding)
-
-    def extend(self, findings: Iterable[Finding]) -> None:
-        self._items.extend(findings)
 
     def __iter__(self) -> Iterator[Finding]:
         return iter(self._items)
@@ -62,11 +63,14 @@ class Findings:
     def warns(self) -> list[Finding]:
         return [f for f in self._items if f.severity == "warn"]
 
-    def to_json(self) -> str:
-        return json.dumps([f.to_dict() for f in self._items], indent=2)
-
     def to_text(self) -> str:
-        """Human lines in the v1 eos_check format plus the summary line."""
+        """Errors first, then warnings, then the summary line.
+
+        Used where a Findings collection has to become an exception
+        message. The check command orders its output by check id
+        instead, because a reader working down a list wants the ids in
+        the order the registry ran them.
+        """
         lines = []
         for f in self.errors:
             lines.append(f"ERROR {f.check_id} {f.path}: {f.message}")
@@ -74,6 +78,3 @@ class Findings:
             lines.append(f"warn  {f.check_id} {f.path}: {f.message}")
         lines.append(f"{len(self.errors)} errors, {len(self.warns)} warnings")
         return "\n".join(lines)
-
-    def exit_code(self) -> int:
-        return 1 if self.errors else 0

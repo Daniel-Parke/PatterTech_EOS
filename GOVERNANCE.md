@@ -62,11 +62,11 @@ section that was skipped is a finding and records why.
 
 Everything else fires on an event. The inception drill and the projects
 review used to hold quarterly rows and neither had fired once since v1
-(ADR-0008), so both are on-demand now with no next date. *Caught instead
-by*: the events each procedure names, a seed compiled or a repository
-added, which is a trigger somebody actually meets. A calendar trigger
-nobody honours is not a control, and leaving it on the calendar only
-teaches a reader that overdue rows are normal.
+(ADR-0008), so both are event-triggered now and hold no cadence row at
+all. *Caught instead by*: the events each procedure names, a seed
+compiled or a repository added, which is a trigger somebody actually
+meets. A calendar trigger nobody honours is not a control, and leaving
+it on the calendar only teaches a reader that overdue rows are normal.
 
 ## Claims and records
 
@@ -86,10 +86,11 @@ when there is only one writer.
 The claim set is read at two points, both in the `task` command family.
 `task new` and `task update` refuse a session that is not named in the
 committed set. `task claims-verify` compares a lane's diff against its
-claims and reports C001 to C005. Ordinary file writes are not gated, so
-the control bites where a record is written and again at integration. A lane's claim over its product paths also covers its own
-record under `org/tasks/`; the record still names its owner session, and
-the integrator still owns every derived view.
+claims and reports C001 to C005. Ordinary writes are not gated, so the
+control bites where a record is written and again at integration. A
+lane's claim over its product paths also covers its own record under
+`org/tasks/`; the record still names its owner session, and the
+integrator still owns every derived view.
 
 **Task records are required for gate-bearing work.** That means R2 and
 above, any diff touching the protected set, and anything a reviewer must
@@ -98,15 +99,12 @@ commit message, which is what Express already did. *Caught instead by*:
 git is the log, ruled in ADR-0002, and the close step of the standard
 path in `org/PLAYBOOKS.md`, which re-routes against the actual diff and
 opens a record when the work turns out to rule R2 or above. ADR-0008
-named a sampled review of commits as the second catcher. That one
-counts only where a section of `org/PLAYBOOKS.md` says how many commits
-it reads, chosen how, and against what, because a pool nothing drains
-is a name rather than a control. Until a section says so, the two
-named above are the ones that actually run. The failure this leaves
-open is a
-change whose reasoning nobody can reconstruct. If a monthly pass finds
-one, ADR-0008 is the suspect, and the fix is to raise the bar for what
-counts as gate-bearing rather than to reinstate records everywhere.
+named a sampled review of commits as the second catcher, and PB-E09 in
+`org/PLAYBOOKS.md` is where it runs: one commit in five, in commit
+order, against three questions. The failure this leaves open is a change
+whose reasoning nobody can reconstruct. If a monthly pass finds one,
+ADR-0008 is the suspect, and the fix is to raise the bar for what counts
+as gate-bearing rather than to reinstate records everywhere.
 
 ## Precedence
 
@@ -235,8 +233,11 @@ now follows ADR-0008 decision 7.
   it opens a source. A lesson row cites the lens it came from.
 - `T-NNNN`: task records under `org/tasks/`.
 - `PB-ENN`: EOS playbooks in `org/PLAYBOOKS.md`.
-- Venture artefacts keep the kernel's schemes: WO, SUGG, ADR, RN, GD,
-  STD, REG, PB and session logs `S-NNNN`.
+- Venture artefacts keep the kernel's schemes: `T-NNNN` for task
+  records, `ADR-NNNN` for the venture's own decisions and `LENS-NNNN`
+  for lens contracts. A venture cites `WG-` and `GD-` ids from the EOS
+  and mints neither. The v1 venture schemes, work orders and the rest,
+  went with the artefacts that carried them.
 
 `kernel/schemas/lesson.schema.json` is where the LES and LENS forms are
 enforced, both as four digits.
@@ -318,15 +319,18 @@ Triggers and topics:
 Every budget but the router cap is a warning (ADR-0008), on the
 argument that length is caught by the pruning test in
 `packs/PACK_SHAPE.md` and by the review passes. Check E007 warns on the
-six types listed above and on nothing else: a `PACK.md` body is
-`type: playbook` and a guide is `type: guide`, so no check warns on
-either of those two budgets and both are kept by review alone. Know
-that before quoting one at somebody. Where E007 does reach, a
-budgeted type over one hundred and fifty lines warns, and a
-`length_waiver` no longer changes the severity, only the wording. With
-one, the finding names the reason the file is long. Without one, it
-says to prune the file or record a reason. That is the distinction a
-review pass reads, an argued length against one nobody has examined.
+six types listed above and on nothing else. A `PACK.md` body is typed
+`playbook` or `guide` and neither sits in that set, so the five-hundred
+line pack budget is kept by review alone. Nearly every guide is typed
+`guide` and sits outside it too; the few carried over as `wargame` are
+inside it, and there the guide budget and E007's own number are the
+same one hundred and fifty. Know that before quoting a budget at
+somebody. Where E007 does reach, a budgeted type over one hundred and
+fifty lines warns, and a `length_waiver` no longer changes the
+severity, only the wording. With one, the finding names the reason the
+file is long. Without one, it says to prune the file or record a
+reason. That is the distinction a review pass reads, an argued length
+against one nobody has examined.
 
 ## Derived files
 

@@ -32,13 +32,16 @@ any specific situation. The pack makes the facts of a licensing or
 data-protection position visible and checkable, and routes the questions
 it cannot answer to a qualified human. B7 is that boundary, and it binds.
 
-The evidence import is done. The sixteen rows frozen in
+The evidence import is done. The twenty-five rows frozen in
 `packs/legal-licensing/research/sources.fragment.json`, each carrying a
 version, licence, access date, maintenance state and review trigger, are
-in `registry/evidence.json` as EV-0337 to EV-0352, and every citation
-below uses the ledger id. The fragment file stays in the research
-directory as the batch the import was made from. This pack cites ids,
-never restates the versioned facts, and never copies source prose, since
+in `registry/evidence.json` as EV-0337 to EV-0352 for the licensing
+batch and EV-0496 to EV-0504 for the extraction cases, and every
+citation below uses the ledger id. The fragment file stays in the
+research directory as the batch the import was made from, and the
+synthesis behind the pack is in
+`packs/legal-licensing/research/NOTES.md`. This pack cites ids, never
+restates the versioned facts, and never copies source prose, since
 several of these sources are readable and not reusable.
 
 ## Activation
@@ -341,8 +344,10 @@ Taste. Depart freely, no reason needed.
 | How do inbound rights arrive | Sign-off, agreement, employment, or nothing | `packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md` |
 | What may a study carry away from a source we do not own | Black box, filtered reading, licensed carriage, or nothing | `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md` |
 
-Reference material sits in `packs/legal-licensing/refs/`, and a worked
-run in `packs/legal-licensing/exemplars/`.
+Level-three detail sits in `packs/legal-licensing/refs/`: the licence
+classes and their buckets, the escalation triggers and the handover,
+and UK data routing. A worked run is in
+`packs/legal-licensing/exemplars/`.
 
 ## Failure modes and anti-patterns
 

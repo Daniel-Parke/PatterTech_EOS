@@ -118,7 +118,7 @@ is the log in v2. No derived view moved, because no record changed.
 
 ## What it cost
 
-Forty-four lines of boot reading, one commit, two checks. Under v1 the
+Forty-nine lines of boot reading, one commit, two checks. Under v1 the
 same change would have opened a work order, claimed the session in
 STATE, written a session log with a Resume Packet at close, and run the
 full gate ladder from G1. That gap is the whole argument for the

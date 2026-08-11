@@ -2,7 +2,7 @@
 summary: Fifteen risks a graph build carries, with mechanism, evidence, detection signal and control
 kind: recipe
 scope: estate
-sources: [EV-0010, EV-0013, EV-0107, EV-0108, EV-0112, EV-0219, EV-0244, EV-0473, EV-0474]
+sources: [EV-0010, EV-0013, EV-0107, EV-0108, EV-0112, EV-0219, EV-0244, EV-0473, EV-0474, EV-0475, EV-0476]
 type: guide
 tags: [eos, security, arch, ops]
 review: on-change-of:agent-harness-major-release
@@ -97,8 +97,10 @@ the server into an exfiltration proxy (EV-0474).
 inherited; teardown revokes them.
 
 **R12. The checkpoint store as an execution surface.** Deserialisation
-reconstructs arbitrary callables, and injection in the metadata filter
-supplies the write path, which removes the need for prior store access.
+reconstructs arbitrary callables, so write access to the store is code
+execution in the application runtime (EV-0475), and injection in the
+metadata filter supplies that write access, which removes the need for
+any prior hold on the store (EV-0476).
 This is distinct from the neighbour pack's checkpoint-trust rule: that
 governs believing a checkpoint's contents, this governs the store as a
 place code runs. *Detect*: user-controlled filters reaching state
@@ -126,7 +128,8 @@ D11, plus a teardown step that stops every worker and revokes every
 issued credential, with the run incomplete until it passes.
 
 **R15. The run cannot be traced across the delegation chain.** Tracing
-itself is already binding in `packs/agentic-development/PACK.md` B6.
+itself is B6 of `packs/agentic-development/PACK.md`, a default since the
+2026-08 authority audit, so a run that skips it says so in writing.
 What a graph adds is that the standard span vocabulary defines agent
 identity and token usage but no parent node, no graph edge a node
 satisfies and no granted write set, so the harness carries those

@@ -82,8 +82,8 @@ on compaction alone for a multi-window run is the anti-pattern.
 - **PatterTech_EOS (2026-08, argued)**: the pack format itself is B.
   Level one is the first paragraph of the pack body, level two is the
   body, level three is `refs/`, fetched only when the decision needs
-  it. Chosen because the estate will hold twenty packs and no run
-  should pay for nineteen it does not touch.
+  it. Chosen because the estate holds twenty-one packs and no run
+  should pay for the twenty it does not touch.
 - **PatterTech_EOS (2026-08, argued)**: D for lane continuity. Each
   pack lane writes its own files under its claimed path and the
   integrator reads them, rather than passing state through a shared

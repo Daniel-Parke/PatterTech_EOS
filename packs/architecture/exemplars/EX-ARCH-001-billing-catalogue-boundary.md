@@ -6,7 +6,7 @@ type: example
 tags: [arch, tooling, ci]
 ---
 
-# Worked example: billing reads the catalogue, never the reverse
+# EX-ARCH-001: billing reads the catalogue, never the reverse
 
 The situation. An empty Python repository with two modules, billing
 and catalogue, plus a shared package. One instruction: stand up the
