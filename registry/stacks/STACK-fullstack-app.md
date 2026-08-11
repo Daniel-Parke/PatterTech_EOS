@@ -10,7 +10,7 @@ review: 2027-01
 
 The default stack for product apps: profile 02 underneath, a Next.js
 front on top, one typed seam between them. Reference implementation:
-WiseWattage; AutoWatt builds on it per its ADR-0002 (AWS variant).
+Venture B; Venture A builds on it per its ADR-0002 (AWS variant).
 
 ## Shape
 
@@ -53,7 +53,7 @@ WiseWattage; AutoWatt builds on it per its ADR-0002 (AWS variant).
   Next via `node ./node_modules/next`, and dockerignore
   `**/node_modules` or symlinks break Docker builds.
 - Vocabulary: the API's nouns match the product's nouns; a renamed
-  domain concept is a migration, not a UI alias (WiseWattage ADR-004
+  domain concept is a migration, not a UI alias (Venture B ADR-004
   learned this the expensive way).
 
 ## When not to use this profile

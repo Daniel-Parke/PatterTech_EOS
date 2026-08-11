@@ -154,7 +154,7 @@ does, not what it achieves.
   is law here and unenforced.
 - **inception**: Genesis returns as a defined phase in
   `inception/GENESIS.md`, and the word is glossed there because in v1 it
-  named the AutoWatt origin story and a reader meeting both senses
+  named the Venture A origin story and a reader meeting both senses
   cannot tell which is meant. The launch decision sits at the gate:
   either Genesis runs, or the sign-off block carries one line saying why
   not. The templates ship in the seed either way, so a venture that
@@ -376,7 +376,7 @@ produced it fifty times. See org/reports/V2_FINAL_REPORT.md.
 ## Superseded, towards v1.1.0 (never released)
 
 - **roots**: GUIDE.md added, the all-in-one field guide. A teaching
-  layer over the whole system (framework, the AutoWatt genesis, the
+  layer over the whole system (framework, the Venture A genesis, the
   development lifecycle) that cross-links to the canonical files rather
   than duplicating them, so it stays honest under the one-writer-per-fact
   rule. Session S-0020. Additive; the pointer lives in README.md.
@@ -414,7 +414,7 @@ the commands).
   D2's harvest amended two templates from reseed feedback: the
   constitution footer's AMENDMENT_HISTORY slot and the compile report's
   normalised and preserved ancestry row kinds.
-  B1 landed the org templates from AutoWatt@d2e3250: the constitution
+  B1 landed the org templates from Venture A@d2e3250: the constitution
   (product-doctrine slot, Parts II and III renumbered per part), START
   and the three role charters, the three-strikes rule woven through,
   scale fences specified with a closing marker in kernel/README.md.
@@ -437,7 +437,7 @@ the commands).
   module order, the draft-wargame escape, the twenty-ruling budget
   alarm). E1 completed the system: INCEPTION.md (phases A to E),
   INTERVIEW.md (twelve questions, three challenge steps), WG-EOS-001
-  (venture scale, six triggers, argued rulings from AutoWatt and the
+  (venture scale, six triggers, argued rulings from Venture A and the
   website) and WG-EOS-002 (repo shape, default monorepo, estate
   rulings). E2 ran the S-scale drill cold and passed it: seed check
   green first run, the cold-start test passed live, and the findings
@@ -446,7 +446,7 @@ the commands).
   default assumptions queued as E3 and E4. The canned brief lives at
   inception/briefs/BRIEF-S-brochure.md.
 - **registry**: created; projects, vendors, lessons and the static web
-  stack profile seeded. D1 updated the AutoWatt row: reseed compiled to
+  stack profile seeded. D1 updated the Venture A row: reseed compiled to
   a green seed check on branch reseed/eos-v1, awaiting the rubric
   signature.
 - **tools**: eos_check.py added (checks E001 to E010, --repo and --seed

@@ -127,7 +127,7 @@ simple: revert the fix, and the test must go red.
 
 ## Worked rulings
 
-- **AutoWatt (2026, argued)**: C. The acceptance walk-through in the
+- **Venture A (2026, argued)**: C. The acceptance walk-through in the
   signed agreement, its §A5, was written as a failing suite at Genesis,
   before any implementation, and the acceptance skips were lifted only
   when the journeys went green end to end. The agreement, not the code,

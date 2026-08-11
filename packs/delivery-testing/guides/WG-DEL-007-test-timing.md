@@ -143,7 +143,7 @@ up (EV-0192).
   verifier rule first, then B, with personal data and irreversible
   operations added to the risk row. The ablation is no longer a future
   event and its result is that timing ranks on cost.
-- **AutoWatt (2026, inherited)**: FIX starts from the failing
+- **Venture A (2026, inherited)**: FIX starts from the failing
   reproduction and keeps it forever; a FEAT starts from its test
   specification, with acceptance skips lifted only when green end to
   end. Inherited from the v1 delivery doctrine, and consistent with

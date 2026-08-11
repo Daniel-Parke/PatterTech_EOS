@@ -120,11 +120,11 @@ never validated is an anecdote.
   `packs/devops-reliability/refs/RESTORE_DRILL_EVIDENCE.md` so a checker
   can read it, and the pack drill treats a passing record with a
   measured elapsed time inside the RTO as a fatal criterion.
-- **AutoWatt (2026-07, argued)**: B as a seeded cadence row, monthly
+- **Venture A (2026-07, argued)**: B as a seeded cadence row, monthly
   from first production deploy, with managed automated backups and
   point-in-time recovery beneath it, and audit trail integrity raising
   the evidential bar. Under this re-grade that ruling moves to C, and
   the cadence row now owes an evidence record.
-- **WiseWattage (2026, inherited)**: A in practice, managed backups
+- **Venture B (2026, inherited)**: A in practice, managed backups
   unexercised. Counted as the gap that argued this wargame into
   existence, not as evidence for A.

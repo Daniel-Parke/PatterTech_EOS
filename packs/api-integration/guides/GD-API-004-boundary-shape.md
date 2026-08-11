@@ -99,8 +99,8 @@ stop caring who listens. B and D require an argued case.
 
 ## Worked rulings
 
-- **WiseWattage and PatterTech_Business (2026, inherited)**: A, with
-  the generated contract seam from
+- **Venture B and Venture D (2026, inherited)**: A, with the generated
+  contract seam from
   `packs/architecture/guides/WG-ARCH-005-contract-seam.md`.
 - **No venture runs B, C or D in production.** The fit conditions above
   are read from the sources rather than from our own operating

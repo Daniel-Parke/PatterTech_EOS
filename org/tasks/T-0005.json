@@ -1,6 +1,6 @@
 {
   "id": "T-0005",
-  "intent": "Record the Session 0 write-to-main exemption in inception/INCEPTION.md. Inception necessarily writes to main because the org that mandates branches is being compiled during the writes, and without a stated exemption the first review session reads Session 0's history as a violation. Harvested from Guth's EOS_FEEDBACK on 2026-08-08 under PB-E02. Closed: inception/INCEPTION.md carries the Session 0 write-to-main exemption, delivered by the v2.1 Genesis lane under T-0014.",
+  "intent": "Record the Session 0 write-to-main exemption in inception/INCEPTION.md. Inception necessarily writes to main because the org that mandates branches is being compiled during the writes, and without a stated exemption the first review session reads Session 0's history as a violation. Harvested from Venture C's EOS_FEEDBACK on 2026-08-08 under PB-E02. Closed: inception/INCEPTION.md carries the Session 0 write-to-main exemption, delivered by the v2.1 Genesis lane under T-0014.",
   "declared": {
     "capabilities": [],
     "side_effects": []

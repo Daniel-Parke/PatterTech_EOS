@@ -1,6 +1,6 @@
 {
   "id": "T-0003",
-  "intent": "Add the hexagonal boundary statement to the architecture pack (v1 queue item G2): ports at every vendor and IO seam, the domain never imports adapters, the config-only against code-port boundary distinction, with AutoWatt's ADR-0003 as the worked material. Held pending AutoWatt W1 per Daniel, 2026-07-07; ADR-0002 lifted the hold only for WG-DEL-005, so this item stays held. Discarded: packs/architecture settles this decision already, through B1, D7, WG-ARCH-001 and WG-ARCH-007, the fork has occurred once so GOVERNANCE forbids a guide for it, and the AutoWatt hold cannot lift because under ADR-0006 the EOS no longer observes the venture.",
+  "intent": "Add the hexagonal boundary statement to the architecture pack (v1 queue item G2): ports at every vendor and IO seam, the domain never imports adapters, the config-only against code-port boundary distinction, with Venture A's ADR-0003 as the worked material. Held pending Venture A W1 per Daniel, 2026-07-07; ADR-0002 lifted the hold only for WG-DEL-005, so this item stays held. Discarded: packs/architecture settles this decision already, through B1, D7, WG-ARCH-001 and WG-ARCH-007, the fork has occurred once so GOVERNANCE forbids a guide for it, and the Venture A hold cannot lift because under ADR-0006 the EOS no longer observes the venture.",
   "declared": {
     "capabilities": [],
     "side_effects": []

@@ -1,25 +1,25 @@
 ---
-summary: Worked example, the AutoWatt reseed, the first L-scale compile from the kernel
+summary: Worked example, the Venture A reseed, the first L-scale compile from the kernel
 type: example
 tags: [eos]
 ---
 
-# Worked example: the AutoWatt reseed (2026-07)
+# Worked example: the Venture A reseed (2026-07)
 
 The first real compile from the v1.0 kernel, run as EOS queue item D1
-two days into AutoWatt's contracted six-week sprint. AutoWatt's
+two days into Venture A's contracted six-week sprint. Venture A's
 original seed pack (its commit d2e3250) is the kernel's ancestor, so
 this reseed is the round trip: the material that taught the kernel came
-home through it. Branch `reseed/eos-v1` in the AutoWatt repo holds the
+home through it. Branch `reseed/eos-v1` in the Venture A repo holds the
 result; `docs/COMPILE_REPORT.md` there is the ancestry proof.
 
 ## The inputs
 
 A ruled lock-book did not exist yet; the walk produced it. Everything
-else was already on disk in AutoWatt: the product brief (v2,
-HoT-aligned), the constitution's Part I product doctrine (adopted
-2026-07-06, one amendment), the UK compliance registry with a live
-legal duty, two ADRs, two human session logs, ten open questions.
+else was already on disk in Venture A: the product brief (v2, aligned
+to the venture's agreement), the constitution's Part I product doctrine
+(adopted 2026-07-06, one amendment), the UK compliance registry with a
+live legal duty, two ADRs, two human session logs, ten open questions.
 
 ## The walk, and what it proved
 
@@ -31,7 +31,7 @@ brands take B) carried the argument, which is the system working: the
 default holds until a trigger names the venture, and the deviation is
 now promotion evidence on the wargame, not a private taste call.
 WG-EOS-002 was ruled ahead of its wargame (monorepo; the wargame lands
-at E1 and inherits AutoWatt as a worked ruling).
+at E1 and inherits Venture A as a worked ruling).
 
 ## The compile, by the numbers
 
@@ -54,7 +54,7 @@ compile and were harvested the same day (D2): the constitution
 template's hardcoded amendment-history line became a slot, and the
 WG-WEB-001 ruling report was appended to the wargame. A reseed that
 changes the kernel before Genesis even runs is the compounding loop the
-EOS exists for. Genesis there is v1's PB-001, the playbook AutoWatt's
+EOS exists for. Genesis there is v1's PB-001, the playbook Venture A's
 own organisation was about to run; it is history, at the
 archive/v1-final tag. `inception/GENESIS.md` defines what the word
 means now.

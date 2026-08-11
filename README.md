@@ -28,6 +28,13 @@ something looks wrong. To see one task run start to finish, read
 `examples/v2-worked-lean.md`. To start a venture, the ordered path is
 under "Installing and running the checks" below.
 
+Most ventures cited here appear under a stable placeholder rather than
+their own name: Venture A, Venture B and so on, one placeholder per
+repository and never two ventures folded into one. This repository and
+the public website keep their real names. A worked ruling therefore
+still claims what it always claimed, that a real venture argued a real
+fork on a real date, and `registry/PROJECTS.md` carries the fuller note.
+
 Licensed under Apache-2.0. `LICENSE` at the root carries the terms and
 `NOTICE` carries the attributions. `registry/LICENCE_RESIDUALS.md` is
 the honest gap list behind that choice.
@@ -162,7 +169,7 @@ not this one.
 | `packs/PACK_SHAPE.md` | The contract a pack keeps, including the eleven-point definition of done |
 | `kernel/` | Policy, guard and metadata law, the scale matrix, the seed rubric, eleven schemas, and the templates a seed compiles from |
 | `inception/` | Session 0 and Genesis: interview, scale, walk order, compile, blueprint |
-| `examples/` | Two worked task runs, lean and high-assurance, plus the AutoWatt reseed and the website redesign |
+| `examples/` | Two worked task runs, lean and high-assurance, plus the Venture A reseed and the website redesign |
 | `org/` | The EOS's own state: task records, claims, cadence, eight decision records, playbooks, v1 logs |
 | `registry/` | Projects, capabilities, evidence, lessons, vendors, stack profiles |
 | `registry/evidence.json` | The canonical ledger, 504 rows, one per source, nothing uncited |

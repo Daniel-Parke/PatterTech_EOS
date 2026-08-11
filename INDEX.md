@@ -47,10 +47,10 @@ file. Frozen trees are not indexed.
 | benchmark/drills/ui-ux.md | example | eos | Cold-agent acceptance drill for the ui-ux pack, two philosophies, one behaviour core, machine-checked |  |
 | benchmark/drills/writing-content.md | example | eos testing | Cold-agent acceptance drill for the writing-content pack, make a concatenated error string survive a second locale |  |
 | estate/ESTATE_MAP.md | registry | eos | The estate narrative, how the repos relate, which are governed and what the seams between them are | 2026-11 |
-| examples/autowatt-seed.md | example | eos | Worked example, the AutoWatt reseed, the first L-scale compile from the kernel |  |
 | examples/pattertech-website.md | example | web brand | Worked example, the PatterTech website redesign v1 to v4 |  |
 | examples/v2-worked-high-assurance.md | example | eos | Worked example, an auth change routed R3 end to end, oracle first, reviewer and operator at the gate |  |
 | examples/v2-worked-lean.md | example | eos | Worked example, an Express run end to end in an S venture, from request to commit |  |
+| examples/venture-a-seed.md | example | eos | Worked example, the Venture A reseed, the first L-scale compile from the kernel |  |
 | inception/COMPILE.md | kernel | eos | The seed compiler's rules, prune, fill and the slot table, policy fill, distil, report, and the never-list |  |
 | inception/EXPRESS_INCEPTION.md | kernel | eos | The S-scale fast path for Session 0, six questions, inherited defaults, two human gate items |  |
 | inception/GENESIS.md | kernel | eos | The Genesis phase, run in the venture repo after the seed gate, and the development blueprint it produces |  |
@@ -109,11 +109,11 @@ file. Frozen trees are not indexed.
 | org/logs/2026-07/S-0005.md | org | eos | Session S-0005, Phase B item B4, the scale matrix, seed rubric and live seed gate |  |
 | org/logs/2026-07/S-0006.md | org | eos | Session S-0006, Phase C item C1, the compile rules and walk order, dry run recorded |  |
 | org/logs/2026-07/S-0007.md | org | eos | Session S-0007, Phase C item C2, the voice module populated |  |
-| org/logs/2026-07/S-0008.md | org | eos | Session S-0008, Phase D item D1, the AutoWatt reseed compiled to green, signature pending |  |
+| org/logs/2026-07/S-0008.md | org | eos | Session S-0008, Phase D item D1, the Venture A reseed compiled to green, signature pending |  |
 | org/logs/2026-07/S-0009.md | org | eos | Session S-0009, Phase D item D2, the worked example and the first live harvest |  |
 | org/logs/2026-07/S-0010.md | org | eos | Session S-0010, Phase E item E1, the inception system completed |  |
 | org/logs/2026-07/S-0011.md | org | eos | Session S-0011, Phase E item E2, the S-scale drill report, pass with eight findings |  |
-| org/logs/2026-07/S-0012.md | org | eos | Session S-0012, item R1, the FastAPI and full-stack profiles extracted from WiseWattage |  |
+| org/logs/2026-07/S-0012.md | org | eos | Session S-0012, item R1, the FastAPI and full-stack profiles extracted from Venture B |  |
 | org/logs/2026-07/S-0013.md | org | eos | Session S-0013, Phase F item F1, the architecture module populated |  |
 | org/logs/2026-07/S-0014.md | org | eos | Session S-0014, Phase F item F2, the delivery module populated |  |
 | org/logs/2026-07/S-0015.md | org | eos | Session S-0015, Phase F item F3, the devops module populated, Phase F complete |  |
@@ -124,9 +124,9 @@ file. Frozen trees are not indexed.
 | org/logs/2026-07/S-0020.md | org | eos | Session S-0020, the all-in-one field guide GUIDE.md authored and registered |  |
 | org/migration/MIGRATION_MAP.md | org | eos | Every v1 concept and its v2 fate, with the load-bearing rule's new home for anything retired |  |
 | org/migration/PLAYBOOK.md | org | eos | The per-venture v1 to v2 migration procedure, three routes, what is preserved, and the consent rule |  |
-| org/migration/plans/AutoWatt.md | org | eos | AutoWatt's read-only v2 migration plan, the recompile route and what the engine does not yet cover |  |
-| org/migration/plans/Guth.md | org | eos | Guth's read-only v2 migration plan, the pin normalisation and the nineteen queue rows |  |
 | org/migration/plans/PatterTech_Website.md | org | eos | PatterTech_Website's read-only plan, fresh v2 S inception whenever the operator wants it |  |
+| org/migration/plans/Venture-A.md | org | eos | Venture A's read-only v2 migration plan, the recompile route and what the engine does not yet cover |  |
+| org/migration/plans/Venture-C.md | org | eos | Venture C's read-only v2 migration plan, the pin normalisation and the nineteen queue rows |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |
 | packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |
@@ -407,6 +407,6 @@ file. Frozen trees are not indexed.
 | registry/stacks/README.md | registry | eos infra hosting | Stack profiles, what each is for and when to reach for it | 2027-01 |
 | registry/stacks/STACK-fastapi-postgres.md | stack | infra hosting data testing | Profile 02, FastAPI on Postgres, shape, caps and hard-won constraints | 2027-01 |
 | registry/stacks/STACK-fullstack-app.md | stack | web infra hosting testing ci | Profile 03, Next.js front on FastAPI back, the contract seam and the gate set | 2027-01 |
-| registry/stacks/STACK-local-first-pwa.md | stack | web infra perf testing | Profile 04, local-first PWA with a WASM compute core, shape, constraints and the sharp edges Guth paid for | 2027-02 |
+| registry/stacks/STACK-local-first-pwa.md | stack | web infra perf testing | Profile 04, local-first PWA with a WASM compute core, shape, constraints and the sharp edges Venture C paid for | 2027-02 |
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
 | tools/CLI_CONTRACTS.md | kernel | eos | Subcommand contracts for python -m tools.eos, inputs, JSON outputs, exit codes |  |

@@ -113,5 +113,5 @@ dashboard, and a freeze nobody agreed to is an argument.
   the bar for a binding requirement. What binds is that an SLO exists
   and is machine-readable (EV-0020), because that is what the dial needs
   to read.
-- **AutoWatt (2026-07, inherited)**: no error budget, reliability
+- **Venture A (2026-07, inherited)**: no error budget, reliability
   handled by attention. Recorded here as the gap this guide addresses.

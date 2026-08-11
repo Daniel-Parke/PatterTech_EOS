@@ -19,7 +19,7 @@ here.
 
 ## Context
 
-v1 imported the AutoWatt machinery unchanged: universal role separation,
+v1 imported the Venture A machinery unchanged: universal role separation,
 session logs and Resume Packets at every close, WIP of one, blanket test-first,
 wargame-first for every doctrine change, and a metadata-only checker. Audit of
 all twenty v1 sessions measured 20.1 percent of every line written as ceremony,
@@ -136,7 +136,7 @@ Adopt EOS v2 as specified in the approved consolidated plan:
 
 The 2026-07-07 hold on WG-DEL-005 is lifted for the EOS v2 build only.
 WG-DEL-005 may be argued and authored in Wave A before any dependent delivery
-doctrine is written. This does not authorise writes to AutoWatt.
+doctrine is written. This does not authorise writes to Venture A.
 
 ## Protected set changes authorised
 

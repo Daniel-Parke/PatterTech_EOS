@@ -210,14 +210,14 @@ def test_s004_undefined_adr_reference(tmp_path):
 def test_s004_venture_owned_id_is_not_ours(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
-         "AutoWatt's ADR-0003 rules local-first, and its ADR-0011 the shape.")
+         "Venture A's ADR-0003 rules local-first, and its ADR-0011 the shape.")
     assert only(run_s(root), "S004") == []
 
 
 def test_s004_same_id_unqualified_elsewhere_is_still_checked(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "org/STATE.md", "The fixture repo is at rest.",
-         "AutoWatt's ADR-0003 rules local-first. We follow ADR-0003 too.")
+         "Venture A's ADR-0003 rules local-first. We follow ADR-0003 too.")
     assert only(run_s(root), "S004") == [
         ("error", "org/STATE.md", "reference to undefined id ADR-0003")]
 
@@ -991,7 +991,7 @@ def lessons(root, rows, **top):
 # schema, or none at all, S018 will happily accept shapes S019 rejects,
 # which is exactly how the two drifted apart.
 VALID_LESSON_ROW = {
-    "id": "LES-0001", "origin": "harvest", "venture": "Guth",
+    "id": "LES-0001", "origin": "harvest", "venture": "Venture C",
     "title": "A short scannable label",
     "lesson": "The lesson itself, one paragraph.",
     "evidence_class": "observational", "disposition": "estate-default",
@@ -1159,7 +1159,7 @@ def test_s019_runs_against_the_real_kernel_schema(tmp_path):
     shutil.copy(REPO_ROOT / "kernel" / "schemas" / "lesson.schema.json",
                 root / "kernel" / "schemas" / "lesson.schema.json")
     row = {
-        "id": "LES-0001", "origin": "harvest", "venture": "Guth",
+        "id": "LES-0001", "origin": "harvest", "venture": "Venture C",
         "title": "A short scannable label",
         "lesson": "The lesson itself, one paragraph.",
         "evidence_class": "observational", "disposition": "estate-default",

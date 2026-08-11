@@ -109,17 +109,17 @@ documented departure plans.
 
 ## Worked rulings
 
-- **AutoWatt (2026-07, argued)**: B across an explicit estate of
+- **Venture A (2026-07, argued)**: B across an explicit estate of
   exceptions, forced explicit by contract. Each non-AWS service
   carries a reason, a trade-off and a migration route, and Clerk sits
   behind an adapter with the venture database as the authorisation
   truth.
-- **WiseWattage (2026, argued)**: C for webhooks, using stdlib
+- **Venture B (2026, argued)**: C for webhooks, using stdlib
   HMAC-SHA256 with idempotency keys and no provider SDKs, and B for
   identity.
-- **PatterTech_Business (2026-07, inherited)**: B taken from the
-  estate default, with payment vendor version pinning recorded when
-  Stripe's version policy (EV-0061) forced the question.
+- **Venture D (2026-07, inherited)**: B taken from the estate default,
+  with payment vendor version pinning recorded when Stripe's version
+  policy (EV-0061) forced the question.
 
 ## Counter-evidence
 

@@ -180,7 +180,7 @@ and both are struck.*
   payload inside any class resolves to manual-only whatever the adapter
   says. v2's autonomy claim is bounded accordingly: consequential actions
   still need a human hand.
-- AutoWatt's migration is a recompile carrying 48 work orders. The plan
+- Venture A's migration is a recompile carrying 48 work orders. The plan
   reports it; nobody has run it.
 - Two v1 seed fixtures carry a real D004 finding (deferrals with no
   scheduled lock-in). They are frozen v1 artefacts and were left as found,

@@ -3,7 +3,7 @@ summary: Venture lock-book template, the machine rulings header and the module c
 type: template
 tags: [eos]
 template: true
-extracted_from: AutoWatt@d2e3250
+extracted_from: Venture A@d2e3250
 eos_root: {{EOS_ROOT}}
 eos_version: {{EOS_VERSION}}
 eos_commit: {{EOS_COMMIT}}

@@ -41,14 +41,14 @@ the same rule, and one of the two homes would go stale. Rows that
 record what changed and why are provenance, and those stay.
 
 The first PB-E02 harvest ran on 2026-08-08 against the three governed
-ventures. AutoWatt's two entries had both already been folded during
-the v1 build and are recorded as such below. Guth's feedback file
+ventures. Venture A's two entries had both already been folded during
+the v1 build and are recorded as such below. Venture C's feedback file
 carried fifteen entries and a matured stack profile, and is the
 substance of this harvest. PatterTech_Website ships no feedback file:
 it predates the template, which is itself a finding and is queued.
 
 Earlier rows came from the estate survey at EOS creation and from the
-AutoWatt reseed feedback.
+Venture A reseed feedback.
 
 The PB-E04 promotion review ran the same day and promoted nothing. The
 sample: zero live `lifecycle: experimental` items, so nothing expired
@@ -58,8 +58,8 @@ ledger to sample, because ADR-0004 withdrew `org/exceptions.jsonl` and
 moved a one-off exception onto the task record it applies to. Of the
 harvest's three promotion candidates, each carries one argued ruling
 from one venture, which under the ladder in `GOVERNANCE.md` is short
-of binding-candidate. Guth's five draft wargames stay candidates for
-the same reason: a fork that happened once is not a recurring fork,
+of binding-candidate. Venture C's five draft wargames stay candidates
+for the same reason: a fork that happened once is not a recurring fork,
 and a guide written for it would be speculation with a filename.
 
 ## Live
@@ -68,8 +68,8 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: Plan and build decouple: agent-driven planning, a deterministic byte-stable build, nothing generative in the build step.
 - **Origin**: harvest
-- **Venture**: PatterStudio
-- **Source note**: Recorded at EOS creation against PatterTech_Business and corrected to PatterStudio in the v2 pass on 2026-08-03.
+- **Venture**: Venture D
+- **Source note**: Recorded at EOS creation against Venture D under the repository name it carried then, and corrected to its current name in the v2 pass on 2026-08-03.
 - **Evidence class**: observational
 - **Disposition**: estate-default
 - **Outcome**: Became an EOS principle, "compiled, never composed", in `README.md`, and the compile contract in `kernel/README.md`.
@@ -82,7 +82,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: Stale docs are a bug: delete them, ban-list the old path in a test, never archive in place.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Evidence class**: observational
 - **Disposition**: estate-default
 - **Outcome**: Absorbed into the supersession rules in `GOVERNANCE.md`.
@@ -123,7 +123,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: Template boilerplate that states venture history must be a slot; a reseed with real history should fill it, not overwrite it.
 - **Origin**: harvest
-- **Venture**: AutoWatt
+- **Venture**: Venture A
 - **Source note**: Reseed feedback.
 - **Evidence class**: observational
 - **Disposition**: estate-default
@@ -137,7 +137,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: The dark-first surface register loses to print-native institutional brands; the ink-like clause carried a real venture.
 - **Origin**: harvest
-- **Venture**: AutoWatt
+- **Venture**: Venture A
 - **Source note**: Reseed feedback.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
@@ -151,7 +151,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: Reseeds meet pre-EOS files; the ancestry table needs normalised and preserved row kinds beyond compiled and authored.
 - **Origin**: harvest
-- **Venture**: AutoWatt
+- **Venture**: Venture A
 - **Source note**: Reseed feedback.
 - **Evidence class**: observational
 - **Disposition**: estate-default
@@ -165,7 +165,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: A slot pattern that excludes digits lets a digit-bearing slot ship unfilled through a green seed check.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: Cold-start probe.
 - **Evidence class**: observational
 - **Disposition**: implementation-reference
@@ -179,7 +179,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: A checker that walks every markdown file under the seed path fails on vendored dependency trees.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: S1.
 - **Evidence class**: observational
 - **Disposition**: implementation-reference
@@ -193,7 +193,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: A claim protocol where the queue row and the claim are two edits lets two launchers collide on one item.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: S1.
 - **Evidence class**: observational
 - **Disposition**: implementation-reference
@@ -207,7 +207,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: A cold-start probe run before the human rubric is signed surfaces real defects a warm session cannot see.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: S1.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
@@ -221,7 +221,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: A local-first browser product with a WASM compute core is a distinct proven shape, not a bend of the fullstack profile.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: S1.
 - **Evidence class**: observational
 - **Disposition**: dated-registry-fact
@@ -236,7 +236,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: Platform-native deployment beats the container default on a sovereign LAN with no parity or handover trigger.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: WG-OPS-002 ruled contrary.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
@@ -252,7 +252,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: A split voice register, warm-guide for in-app coaching and peer-expert for docs, reads cleanly in practice.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: WG-VOX-001 ruled split.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
@@ -285,7 +285,7 @@ and a guide written for it would be speculation with a filename.
 
 - **Lesson**: Hydration warnings are often browser-extension noise; verify in a clean profile before treating one as a bug.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Recorded at EOS creation as "Lesson row only, declined as doctrine (too narrow)".
 - **Evidence class**: anecdotal
 - **Disposition**: rejected
@@ -305,7 +305,7 @@ No deferred rows.
 
 - **Lesson**: Inception necessarily writes to main, because the org that mandates branches is being compiled during the writes.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: S1.
 - **Evidence class**: observational
 - **Disposition**: implementation-reference
@@ -320,7 +320,7 @@ No deferred rows.
 
 - **Lesson**: A venture whose master prompt fixes deep product doctrine walks long at Session 0, because doctrine engages triggers the interview leaves silent.
 - **Origin**: harvest
-- **Venture**: Guth
+- **Venture**: Venture C
 - **Source note**: S1, 32 rulings against a 20 budget.
 - **Evidence class**: observational
 - **Disposition**: implementation-reference
@@ -335,7 +335,7 @@ No deferred rows.
 
 - **Lesson**: urllib3 2.5 and above breaks Railway startup; cap it below 2.5.0 until a deploy proves otherwise.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: dated-registry-fact
@@ -351,7 +351,7 @@ No deferred rows.
 
 - **Lesson**: Docker builds on Windows fail on pnpm symlinks unless every node_modules directory is dockerignored.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: dated-registry-fact
@@ -367,7 +367,7 @@ No deferred rows.
 
 - **Lesson**: Generated artefacts, OpenAPI types and schemas among them, must be committed with a CI drift check, or they rot silently.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: estate-default
@@ -382,7 +382,7 @@ No deferred rows.
 
 - **Lesson**: Visual regression needs a Docker-pinned image or fonts diverge across machines.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: estate-default
@@ -397,7 +397,7 @@ No deferred rows.
 
 - **Lesson**: Migrations: forward-only, idempotent, advisory-locked, run before app start, fail closed.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: decision-guide
@@ -412,7 +412,7 @@ No deferred rows.
 
 - **Lesson**: Ratcheting gates, a mypy allowlist and coverage floors among them, beat big-bang strictness.
 - **Origin**: harvest
-- **Venture**: WiseWattage
+- **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: estate-default
@@ -427,7 +427,7 @@ No deferred rows.
 
 - **Lesson**: The prune-and-fill compile is mechanical enough to script; twenty lines compiled the two largest files with zero manual fixes.
 - **Origin**: harvest
-- **Venture**: AutoWatt
+- **Venture**: Venture A
 - **Source note**: Reseed feedback.
 - **Evidence class**: observational
 - **Disposition**: implementation-reference

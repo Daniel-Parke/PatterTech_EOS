@@ -11,6 +11,16 @@ review: 2026-11
 Every venture the EOS has seeded or adopted. One row appended at each
 Session 0 close, the one sanctioned cross-repo write.
 
+**The venture names here are placeholders.** Every venture below is
+real, and so are its dates, its pins and its rulings. Where a venture
+is not already public its name is replaced by a stable placeholder,
+Venture A and so on, and the mapping back to the real name is held
+privately. Stable means one placeholder per venture, always the same
+one and never shared with another: so when `GOVERNANCE.md` asks for two
+argued rulings from two different ventures, two placeholders still mean
+two ventures. The path column holds the directory name alone, without
+the machine path around it, which is all any check reads from it.
+
 **This is a directory of what was seeded, not a compliance register.**
 Under ADR-0006 the EOS compiles a seed and a blueprint and then stops.
 A venture diverges freely and owes the EOS nothing, and the EOS never
@@ -35,20 +45,20 @@ run it.
 
 | Venture | Path | Scale | EOS pin | Pin resolves | Packs adopted | Status | Last verified | Last harvest |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| AutoWatt | `C:\Users\Daniel\Documents\Coding\Github\AutoWatt` | L | pre-1.0.0 @ 0a2a044 | Yes. 0a2a044 is an EOS commit of 2026-07-07 and an ancestor of both pushed tags, v1.0.0 and archive/v1-final | None. The pin predates the pack system, so the venture carries v1 doctrine only | v1 Genesis was in progress on 2026-07-07, the day the rubric was signed, and nothing has observed the venture's progress since. Read that as an observation over a month old, not as a current status. Seed merged to AutoWatt main at bc34018 | 2026-07-07 for venture progress. The 2026-08-03 pass re-read git state only | 2026-08-08. Nothing new: both entries had already been folded during the v1 build |
-| Guth | `C:\Users\Daniel\Documents\Coding\Github\Project_Guth` | M | recorded in the venture as "v1.0.0 @ 3807eb1", and the version label is wrong: v1.0.0 is 85b31f4 | The commit resolves; the label does not. 3807eb1 is a 2026-07-08 branch commit, reachable from the pushed tag archive/v1-final. The v1.0.0 tag is 85b31f4 of 2026-07-07, an earlier commit, so the venture is pinned past v1.0.0 and calls it v1.0.0. Treat the pin as the commit and ignore the label. It normalises to archive/v1-final at the next upgrade, which has not happened | None. Same reason as AutoWatt | v1 Genesis was recorded complete on 2026-07-15, the day the rubric was signed and the S0 gate passed, with S1 next. Nothing has observed the venture since | 2026-07-15 for venture progress. The 2026-08-03 pass re-read git state only | 2026-08-08. Fifteen entries and a matured stack profile, the substance of the harvest |
-| PatterTech_Website | `C:\Users\Daniel\Documents\Coding\Github\PatterTech_Website` | S | pre-EOS, no pin | Not applicable. The venture predates the EOS and was never compiled from it | None | Live. The v4 pass shipped; current work sits on branch feat/foundations-pass. It aligns to a compiled S seed when that work settles, no earlier | 2026-08-03 | 2026-08-08. No feedback file: the venture predates the template, which is itself a finding |
+| Venture A | `Venture A` | L | pre-1.0.0 @ 0a2a044 | Yes. 0a2a044 is an EOS commit of 2026-07-07 and an ancestor of both pushed tags, v1.0.0 and archive/v1-final | None. The pin predates the pack system, so the venture carries v1 doctrine only | v1 Genesis was in progress on 2026-07-07, the day the rubric was signed, and nothing has observed the venture's progress since. Read that as an observation over a month old, not as a current status. Seed merged to Venture A main at bc34018 | 2026-07-07 for venture progress. The 2026-08-03 pass re-read git state only | 2026-08-08. Nothing new: both entries had already been folded during the v1 build |
+| Venture C | `Venture C` | M | recorded in the venture as "v1.0.0 @ 3807eb1", and the version label is wrong: v1.0.0 is 85b31f4 | The commit resolves; the label does not. 3807eb1 is a 2026-07-08 branch commit, reachable from the pushed tag archive/v1-final. The v1.0.0 tag is 85b31f4 of 2026-07-07, an earlier commit, so the venture is pinned past v1.0.0 and calls it v1.0.0. Treat the pin as the commit and ignore the label. It normalises to archive/v1-final at the next upgrade, which has not happened | None. Same reason as Venture A | v1 Genesis was recorded complete on 2026-07-15, the day the rubric was signed and the S0 gate passed, with S1 next. Nothing has observed the venture since | 2026-07-15 for venture progress. The 2026-08-03 pass re-read git state only | 2026-08-08. Fifteen entries and a matured stack profile, the substance of the harvest |
+| PatterTech_Website | `PatterTech_Website` | S | pre-EOS, no pin | Not applicable. The venture predates the EOS and was never compiled from it | None | Live. The v4 pass shipped; current work sits on branch feat/foundations-pass. It aligns to a compiled S seed when that work settles, no earlier | 2026-08-03 | 2026-08-08. No feedback file: the venture predates the template, which is itself a finding |
 
 Notes:
 
 - **What the 2026-08-03 pass checked.** A read-only look at each repo's
   git state, nothing written. It established branch tips and confirmed
-  the pin facts above. It did not re-verify venture progress in AutoWatt
-  or Guth, so those rows keep their earlier verification dates and both
-  status lines are older than a month. Neither venture owes the EOS an
-  update. Under ADR-0006 a check-in is the venture's to start, and the
-  EOS applies nothing from it.
-- AutoWatt's seed pack is the extraction source for `kernel/templates/`.
+  the pin facts above. It did not re-verify venture progress in
+  Venture A or Venture C, so those rows keep their earlier verification
+  dates and both status lines are older than a month. Neither venture
+  owes the EOS an update. Under ADR-0006 a check-in is the venture's to
+  start, and the EOS applies nothing from it.
+- Venture A's seed pack is the extraction source for `kernel/templates/`.
   Its pin predates the v2 kernel freeze, so its route is recompile
   rather than upgrade (Daniel's ruling, ADR-0001 section 12). No v2
   reseed has run, and the EOS will not push one: under ADR-0006 the

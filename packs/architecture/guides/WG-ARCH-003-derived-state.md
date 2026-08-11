@@ -112,15 +112,15 @@ none of the three: it has no owner, no expiry and no check.
 
 ## Worked rulings
 
-- **AutoWatt (2026-07, argued)**: A with the C exception, in its
+- **Venture A (2026-07, argued)**: A with the C exception, in its
   constitution Part I Article 3. Everything derived is computed, and
   the sole sanctioned store is the attestation snapshot a Verification
   issues, carrying score, grade, inputs digest and profile versions.
-- **WiseWattage (2026, argued)**: B for the weather grid and the SAT
+- **Venture B (2026, argued)**: B for the weather grid and the SAT
   results, in its ADR-002. Shared Postgres grid plus Redis cache-aside,
   invalidation owned by the grid keys, after per-process SQLite proved
   unshareable across replicas.
-- **Guth (2026-07, argued)**: C for stored feature tracks and A for
+- **Venture C (2026-07, argued)**: C for stored feature tracks and A for
   live analysis, in its lock-book. Kept-take features are immutable
   snapshots stamped with an inputs digest, the analyser version and the
   capturing device's calibration fingerprint; an analyser upgrade

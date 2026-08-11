@@ -72,7 +72,7 @@ so this is the definition.
 
 ## What changed from v1, and why
 
-v1 imported the AutoWatt machinery unchanged: PLAN, WORK and VERIFY
+v1 imported the Venture A machinery unchanged: PLAN, WORK and VERIFY
 separated on every task, a session log and a Resume Packet at every
 close, one item in flight, test-first everywhere, a wargame before any
 doctrine change, and a checker that validated metadata but no meaning.

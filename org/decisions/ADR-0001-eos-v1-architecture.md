@@ -46,7 +46,7 @@ What failed or was missing:
 
 - **No execution half.** The framework said what to decide and never how
   work happens. Roles, work orders, gates, cadences and session discipline
-  lived in AutoWatt's org kernel, a separate repo, unconnected.
+  lived in Venture A's org kernel, a separate repo, unconnected.
 - **No meta-layer.** No promotion criteria, no staleness or supersession
   rules, no doctrine-exception mechanism, no module-shape rules for
   non-design domains, no versioning, no release model.
@@ -77,7 +77,7 @@ External survey, July 2026. Sources at the end of this section.
   published harness uses an initialiser agent, then a coding agent per
   session, a granular pass/fail feature list, a progress file, git as the
   state spine, one feature per session, and verification before building.
-  AutoWatt's kernel arrived at the same shape independently: work orders
+  Venture A's kernel arrived at the same shape independently: work orders
   with acceptance boxes, STATE.md, session logs, one WO per session.
 - **Context is the binding constraint.** Performance degrades as the
   window fills. Progressive disclosure (a name and one line always
@@ -87,7 +87,7 @@ External survey, July 2026. Sources at the end of this section.
   drift, spec drift, sycophantic confirmation, silent failure, premature
   completion, degeneration loops on a failing check.
 - **Roles as personas add ceremony without value.** BMAD-style agent
-  casts are criticised for role-play overhead. AutoWatt's practices are
+  casts are criticised for role-play overhead. Venture A's practices are
   bodies of knowledge in files, loadable by any model. That is the better
   call and the kernel keeps it.
 - **ADRs matter more for agents than for people**, because agents have no
@@ -169,7 +169,7 @@ routers are hard-capped at 40 lines.
 Idea, then Session 0, then Genesis where scale demands it, then the
 delivery loop, then operations, then evolution.
 
-The delivery loop is the AutoWatt machinery, adopted unchanged: PLAN,
+The delivery loop is the Venture A machinery, adopted unchanged: PLAN,
 WORK and VERIFY roles with separation of duties; four intake doors
 (human intent, cadence findings, verification failures, suggestions);
 typed work orders whose risk tier decides the gate ladder; worktrees and
@@ -215,7 +215,7 @@ gate. Five phases:
 Scales: S is roughly six files (thin routers, brief, lock-book, worklog,
 feedback; no org). M is roughly fifteen (adds a lite org: constitution
 with the product-doctrine slot filled, collapsed tiers, a single-file
-queue, three cadences). L is roughly twenty-five, the full AutoWatt
+queue, three cadences). L is roughly twenty-five, the full Venture A
 shape. Add-ons attach by trigger regardless of scale: a compliance
 registry when personal data appears, ops runbooks when anything deploys.
 The lock-book header is machine-readable YAML: eos_root, eos_version and
@@ -226,7 +226,7 @@ EOS version and never auto-upgrade.
 
 One pipeline, two scopes. Inside a venture: L0 research, L1 guidance, L2
 standard, L3 automated check, with review_by expiry, exactly as the
-AutoWatt kernel defines. Across ventures: worked rulings accumulate on
+Venture A kernel defines. Across ventures: worked rulings accumulate on
 wargames, harden into defaults, and defaults harden into doctrine, with
 the numbers in GOVERNANCE.md. Harvest is pull-based and monthly; a
 silent month still records checked, clean. Lessons land in the registry
@@ -280,11 +280,11 @@ references in PatterTech_Website are updated at the same time.
 ## 12. Roadmap
 
 Phase A (this session): migration, roots, governance, registries, org
-instance, check tool. Phase B: kernel extraction from the AutoWatt seed
+instance, check tool. Phase B: kernel extraction from the Venture A seed
 at commit d2e3250, scale matrix, seed rubric; four to five sessions and
 the highest-value writing in the plan. Phase C: compile rules and the
-voice module. Phase D: the AutoWatt reseed, which doubles as the L-scale
-drill; Daniel ruled that AutoWatt reseeds from the new kernel before
+voice module. Phase D: the Venture A reseed, which doubles as the L-scale
+drill; Daniel ruled that Venture A reseeds from the new kernel before
 Genesis runs, so phases B to D are front-loaded to keep sprint delay
 small. Phase E: the full inception system and an S-scale drill. Phase F:
 architecture, delivery and devops doctrine modules, then the v1.0.0 tag.
@@ -301,7 +301,7 @@ upgrades). Over-ceremony for small ventures (S capped near six files,
 smallest-fitting default, ceremony complaints are harvest input).
 Sycophantic inception (mandated challenge steps, human gate).
 Harvest starvation (a due cadence outranks new low-priority work).
-Sprint pressure from the early AutoWatt reseed (front-loaded phases,
+Sprint pressure from the early Venture A reseed (front-loaded phases,
 slotting its existing content rather than rewriting it). Single-machine
 bus factor (GitHub push at the tag, stranger rule applied to the EOS
 itself). Accepted impurities: one Python script in a docs repo, a
@@ -342,5 +342,5 @@ org/, the price of dogfooding.
 
 Adopt the architecture above as PatterTech EOS v1.0. Accepted by Daniel
 on 2026-07-07 after plan review, three scope rulings (staged build,
-AutoWatt reseed before Genesis, rename to PatterTech_EOS) and the
+Venture A reseed before Genesis, rename to PatterTech_EOS) and the
 guardrail amendment round.

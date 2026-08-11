@@ -101,7 +101,7 @@ in DECISIONS.md or an ADR, in a form a checker can parse.
 
 ## Worked rulings
 
-- **WiseWattage (2026, inherited)**: B in effect. The committed,
+- **Venture B (2026, inherited)**: B in effect. The committed,
   drift-checked contract from
   `packs/architecture/guides/WG-ARCH-005-contract-seam.md` gives
   the baseline a gate needs; the tier itself was never written down,

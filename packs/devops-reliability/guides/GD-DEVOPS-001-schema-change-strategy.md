@@ -122,10 +122,10 @@ filename.
   strength of EV-0207 and the drill in
   `benchmark/drills/devops-reliability.md` scoring forward-only recovery
   as a fatal criterion.
-- **AutoWatt (2026-07, inherited)**: forward-only migrations were
+- **Venture A (2026-07, inherited)**: forward-only migrations were
   already the v1 devops doctrine position, applied before app start,
   idempotent and advisory-locked. The re-grade adds the explicit expand,
   migrate, contract split and the CI gate, which v1 left implicit.
-- **WiseWattage (2026, inherited)**: single-deploy schema changes with
+- **Venture B (2026, inherited)**: single-deploy schema changes with
   no linter, counted as the gap that argued this guide into existence
   rather than as evidence for D.

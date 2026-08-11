@@ -119,6 +119,6 @@ meant to watch.
   single-instance or serverless topologies and binding a requirement to
   a platform the estate has not standardised on would be asserted taste
   wearing a citation.
-- **AutoWatt (2026-07, inherited)**: D in practice through configuration
+- **Venture A (2026-07, inherited)**: D in practice through configuration
   rather than a flag SDK, with no expiry field. The re-grade adds owner
   and expiry as binding, which is the part v1 never had.

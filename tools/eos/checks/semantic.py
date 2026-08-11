@@ -343,7 +343,7 @@ def check_s004_id_references(ctx: dict) -> list:
     Two references are not claims about this repository's id space. An
     all-zero id (WG-MOD-000, S-0000, ADR-0000) is the documented
     placeholder for the shape of an id. And an id carrying a possessive
-    ("AutoWatt's ADR-0003", "its ADR-0011") belongs to the venture named
+    ("Venture A's ADR-0003", "its ADR-0011") belongs to the venture named
     beside it: ADR numbering is per repository, and the estate cites
     venture rulings by owner. An id that also appears unqualified
     somewhere is still checked.

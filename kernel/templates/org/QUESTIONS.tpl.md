@@ -3,7 +3,7 @@ summary: Questions template, the human decision queue and its folding rule
 type: template
 tags: [eos]
 template: true
-extracted_from: AutoWatt@d2e3250
+extracted_from: Venture A@d2e3250
 ---
 
 # QUESTIONS · Human decision queue

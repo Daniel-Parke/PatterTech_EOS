@@ -96,7 +96,7 @@ made in passing.
   ladder and interlude bands rather than a second register. D was
   considered and declined on review cost, with a note to revisit if the
   journal grows past roughly twenty long reads.
-- **AutoWatt (2026-07, argued)**: B, against the house default. An
+- **Venture A (2026-07, argued)**: B, against the house default. An
   insurer-facing registry brand whose one physical object is an etched
   plate is print-native, and the ink-like clause carried it. Recorded in
   that venture's lock-book, not here.

@@ -1,21 +1,21 @@
 ---
-summary: AutoWatt's read-only v2 migration plan, the recompile route and what the engine does not yet cover
+summary: Venture A's read-only v2 migration plan, the recompile route and what the engine does not yet cover
 type: org
 tags: [eos]
 ---
 
-# Migration plan · AutoWatt
+# Migration plan · Venture A
 
 Read-only. Produced on 2026-08-03 by running, from the EOS repo:
 
-`python -m tools.eos migrate plan --seed C:/Users/Daniel/Documents/Coding/Github/AutoWatt`
+`python -m tools.eos migrate plan --seed "Venture A"`
 
-Nothing was written to AutoWatt. ADR-0002 reserves every sibling-repo
+Nothing was written to Venture A. ADR-0002 reserves every sibling-repo
 write for a later decision, so this file is a report and not a change.
 
 ## What the command reported
 
-- venture: AutoWatt
+- venture: Venture A
 - pin_current: pre-1.0.0@0a2a044
 - route: recompile
 - steps: pin-policy (the lock-book header gains the v2 policy pin);
@@ -23,7 +23,7 @@ write for a later decision, so this file is a report and not a change.
   inventory, which came back "inventory complete"
 - provenance_preserved: the lock-book rulings, the decisions directory,
   the logs directory
-- report_path: org/reports/migration-AutoWatt.md
+- report_path: org/reports/migration-Venture A.md
 
 "inventory complete" means every file the v1 matrix requires at scale L
 is present in the seed, so nothing is missing before the migration
@@ -46,7 +46,7 @@ it is right is worth knowing before anyone tunes the heuristic.
 
 ## Scale and rulings
 
-AutoWatt is the estate's only L venture, so it recompiles as ORG. The
+Venture A is the estate's only L venture, so it recompiles as ORG. The
 scale ruling itself does not change: all six WG-EOS-001 triggers fire,
 and ORG is where L now lands.
 
@@ -59,7 +59,7 @@ the pack that owns its decision, keeping its WG- id.
 
 ## What the plan does not yet cover
 
-The engine's queue transform looks for a single queue file. AutoWatt
+The engine's queue transform looks for a single queue file. Venture A
 runs the L work-order shape instead: forty-eight order files under
 org/work/items/, three suggestions, and a next file. No step in the
 plan mentions them, so the recompile has to convert them to task

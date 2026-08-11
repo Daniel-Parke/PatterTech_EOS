@@ -112,14 +112,13 @@ volume-asymmetric feed appears, with the migration written down.
 
 ## Worked rulings
 
-- **AutoWatt (2026-07, argued)**: D as constitutional law, records
+- **Venture A (2026-07, argued)**: D as constitutional law, records
   never mingling with readings, with a single core serving until
   telemetry existed.
-- **PatterTech_Business (2026-07, argued)**: C as the target, one
-  database per service with a shared database library and pgvector as
-  the only mandatory extension, reached from a single store
-  deliberately.
-- **WiseWattage (2026, argued)**: one Postgres with D's seam in mind.
+- **Venture D (2026-07, argued)**: C as the target, one database per
+  service with a shared database library and pgvector as the only
+  mandatory extension, reached from a single store deliberately.
+- **Venture B (2026, argued)**: one Postgres with D's seam in mind.
   A dropped audit hypertable taught the consumer-and-retention rule
   that is now D9.
 

@@ -122,7 +122,7 @@ command refuses a seed path outside this repo.
 The per-venture files under `org/migration/plans/` are read-only plan
 reports, produced by running step 1 on 2026-08-03 and recording what it
 actually said. Read them as dated: they carry judgement a fresh run will
-not repeat, such as AutoWatt's forty-eight work orders that the engine's
+not repeat, such as Venture A's forty-eight work orders that the engine's
 queue transform does not see, and they carry facts that go stale. When a
 venture asks for an upgrade, PB-E06 runs step 1 again and this report is
 context, not the plan. The `report_path` line in each names the file the

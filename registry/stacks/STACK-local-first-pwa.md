@@ -1,5 +1,5 @@
 ---
-summary: Profile 04, local-first PWA with a WASM compute core, shape, constraints and the sharp edges Guth paid for
+summary: Profile 04, local-first PWA with a WASM compute core, shape, constraints and the sharp edges Venture C paid for
 type: stack
 tags: [web, infra, perf, testing]
 status: active
@@ -11,12 +11,11 @@ review: 2027-02
 For a browser-delivered product whose data never leaves the operator's
 machines, with real-time or otherwise latency-sensitive local
 processing, and optionally a LAN companion for heavier compute.
-Reference implementation: Guth, S1, whose directory on disk is
-Project_Guth.
+Reference implementation: Venture C, S1.
 
-Harvested 2026-08-08 from Guth's `docs/EOS_FEEDBACK.md`, where it was
-filed as the venture's fifth draft wargame at Session 0 and matured
-through S1. That id is Guth's own and is not an EOS wargame id. It
+Harvested 2026-08-08 from Venture C's `docs/EOS_FEEDBACK.md`, where it
+was filed as the venture's fifth draft wargame at Session 0 and matured
+through S1. That id is Venture C's own and is not an EOS wargame id. It
 carries worked evidence rather than intent: every sharp edge below cost
 the venture time before it was written down.
 
@@ -39,8 +38,8 @@ the venture time before it was written down.
 - **Storage**: OPFS for blobs, IndexedDB through Dexie for records,
   with the boundary in the schema layer. JSON Schemas are the
   cross-language contract, with a generated-types drift gate.
-- **Serving**: any static server that sets the isolation pair. Guth's
-  reference implementation is loopback-bound.
+- **Serving**: any static server that sets the isolation pair.
+  Venture C's reference implementation is loopback-bound.
 
 ## Constraints to design around
 
@@ -55,13 +54,13 @@ the venture time before it was written down.
 - **Worker failures arrive as bare error Events with no message.** Ship
   worker error plumbing, meaning `onerror` plus an error postMessage
   protocol, from the first commit. The silent form costs real diagnosis
-  time; this is the sharp edge Guth reported most strongly.
+  time; this is the sharp edge Venture C reported most strongly.
 - **Vite refuses a literal dynamic import of a module inside `static/`.**
   The Emscripten MODULARIZE output lives there, so the worker builds
   the specifier at runtime.
-- **PowerShell 5.1 default-encoding reads corrupt UTF-8.** Guth lost an
-  operator-verbatim document to mojibake this way. Read with an explicit
-  encoding on Windows hosts.
+- **PowerShell 5.1 default-encoding reads corrupt UTF-8.** Venture C
+  lost an operator-verbatim document to mojibake this way. Read with an
+  explicit encoding on Windows hosts.
 
 ## Quality floor
 

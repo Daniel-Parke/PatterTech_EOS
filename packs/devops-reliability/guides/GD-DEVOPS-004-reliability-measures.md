@@ -111,6 +111,6 @@ C, with B added once the deploy history supports it.
   resolved. Recovery time is kept per event. The fleet-wide mean is
   refused, which is a departure from the plain DORA reading and is
   argued on EV-0211.
-- **AutoWatt (2026-07, inherited)**: no formal set. Deployment frequency
+- **Venture A (2026-07, inherited)**: no formal set. Deployment frequency
   was visible from the git history and read informally, which is B by
   accident and not by design.
