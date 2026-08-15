@@ -13,10 +13,55 @@ inception, registry, org, tools, benchmark.
 ## Unreleased
 
 ADR-0007 holds v2 unreleased and folds v2.1 into the same line, so
-everything in this section ships as one release. All three entries stay,
+everything in this section ships as one release. All entries stay,
 newest first. Nothing in v2.1 supersedes the v2 record of how the
 benchmark instrument was rebuilt, and that record is the reason the
 gate table below reads the way it does.
+
+ADR-0009 renumbers that line. What the entries below call v2 reads as
+0.2.0 and what they call v2.1 reads as 0.3.0, and the tooling now
+declares 0.4.0. The words are left as they were written, because a
+changelog is a record of what happened and renaming a build after the
+fact is how a history stops being one. The `v1.0.0` tag is untouched and
+belongs to the architecture this line replaced, archived at
+`archive/v1-final`. 1.0 is reserved for the eight-item gate in ADR-0009.
+No tag is cut here, so this section keeps no version heading.
+
+### The audit and expansion pass, 0.4.0
+
+Behaviour changes. `task new` distinguishes a tier ruled from an empty
+fact set from one ruled by facts that fired nothing, and surfaces a
+proposed tier the declared facts do not carry. The first 25 task records
+show why: 21 ruled R0 with no reasons and 22 came out below the tier
+their author proposed.
+
+New capability. `python -m tools.eos activate --facts` computes the
+Session 0 pack walk from a venture's declared facts, names the packs it
+did not activate and what would have pulled each one in, and exits 1 on
+a predicate no pack owns. It found the first collision in the estate's
+predicate vocabulary: `handles_personal_data` and
+`processes_personal_data` are one interview answer spelled two ways in
+two packs.
+
+New checks. S020 reports a derived view recording that git facts were
+unavailable in a working copy where git resolves HEAD, which neither
+E011 nor S007 could see.
+
+Fixes. The dependency lock carried one hash per package, so the
+`--require-hashes` install README documents failed on three of the four
+platforms CI builds, and CI installed unpinned instead. `gen_lock.py`
+now downloads per declared target and carries every hash, with a guard
+that refuses a package resolving to different versions across the
+matrix. All twenty-two pack drills have recorded verdicts where they
+previously held nulls whose stored reasons had become false. The seed
+series runs over `seed-v2-S`, which nothing checked.
+
+Reports. `org/reports/CONTROL_ENFORCEMENT.md` classifies every control
+by what enforces it. `org/reports/DEFECT_REGISTER_2026-08.md` tracks the
+findings, including four that did not survive checking.
+
+Not measured. No benchmark run was made, so nothing here is measured
+against the previous tree. What is claimed is what the tree now does.
 
 ### The release tidy
 

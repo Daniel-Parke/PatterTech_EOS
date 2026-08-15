@@ -41,8 +41,14 @@ the honest gap list behind that choice.
 
 ## Where this stands
 
-v2 was merged and never released. v2.1 folded into it, and the two ship
-as one release (ADR-0007). Read this before trusting a number.
+Nothing has been released from this line. v2 was merged and never
+released and v2.1 folded into it (ADR-0007), and ADR-0009 renumbers the
+result: the v2 overhaul reads as 0.2.0, v2.1 as 0.3.0, and the tree you
+are reading as 0.4.0. The `v1.0.0` tag stays where it is, because it
+released the architecture this one replaced, archived at
+`archive/v1-final`. 1.0 is reserved for the eight-item gate in ADR-0009,
+which is what walking away from this safely would take. Read this
+before trusting a number.
 
 **The release gate is now this**, and nothing else: the checker green
 with the semantic and freshness series, the full test suite green, the
@@ -91,12 +97,15 @@ is offered as unmeasured, and here is exactly what that means:
   gates depended on it and are therefore uncomputed. That is a real
   reduction in assurance against the plan ADR-0002 approved, accepted
   knowingly.
-- **No drill has ever returned a verdict.** All twenty-two pack drills
-  carry a scenario and graders, and fifteen have a grader for every
-  criterion, which makes a verdict possible without being one. The
-  append-only ledger `benchmark/drills/RESULTS.json` holds twenty-two
-  entries and every one records a null verdict. Running them properly is
-  a spend decision, deferred, and not a release blocker.
+- **No drill has returned a pack verdict.** All twenty-two carry a
+  scenario and graders, and fifteen have a grader for every criterion,
+  which makes a verdict possible without being one. On 2026-08-15 all
+  twenty-two ran against their untouched fixtures and every one failed,
+  so the append-only ledger no longer holds only nulls. Those rows are
+  marked `graded: scenario-baseline`, which says they are the criteria
+  proving they discriminate and not a judgement on any pack. The fourth
+  ingredient, a cold-agent session, is still a spend decision, deferred,
+  and not a release blocker.
 - **The graders live in the tree a drill drops an agent into**, with no
   holdout exclusion of the kind `benchmark/fixtures` has. A harness
   decision, deliberately left open rather than settled quietly.
@@ -145,7 +154,7 @@ python -m tools.eos check --repo
 python -m pytest -q
 ```
 
-The suite is 513 tests and they pass, verified 2026-08-11. The checker
+The suite is 540 tests and they pass, verified 2026-08-15. The checker
 should report no errors; a warning does not fail it. If yours reports
 errors, that is the finding, not the code you were about to read, and
 the common one is a derived file left stale by an edit to its source,
@@ -184,7 +193,7 @@ not this one.
 | `registry/lessons.json` | What we studied, what was decided, and what was rejected and why |
 | `estate/` | Which repos exist, which the EOS governs, and which were left out on whose ruling |
 | `benchmark/` | The frozen v1-against-v2 protocol, fixtures, drills and results |
-| `tools/` | The one executable, `python -m tools.eos`, version 2.1.0 |
+| `tools/` | The one executable, `python -m tools.eos`, version 0.4.0 |
 | `archive/` | A pointer to the `archive/v1-final` tag, where the whole v1 tree lives |
 | `LICENSE`, `NOTICE` | Apache-2.0, and the attributions behind it |
 | `INDEX.md` | Derived index of every live file, 397 rows, grep the tag column |

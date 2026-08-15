@@ -19,7 +19,7 @@ file. Frozen trees are not indexed.
 | GOVERNANCE.md | governance | eos | The law of the EOS, the graded change path, precedence, promotion, the protected set, claims and records, ids, budgets |  |
 | OPERATORS_GUIDE.md | guide | eos | The operator's manual for running the EOS, launchers, approval duties, claims, the guard, the monthly pass, the release gate and what to do when something looks wrong | 2027-03 |
 | README.md | root | eos | What the PatterTech EOS is, where it stands against its own gates, how the repo is laid out, how a venture consumes it, and the principles that hold |  |
-| TOUR.md | guide | eos | The teaching surface for EOS v2.1, the words it uses in a particular way, what changed from v1, the modes, the risk layers, Genesis, the swarm method, staged verification, the study workflow and its dispositions | 2027-08 |
+| TOUR.md | guide | eos | The teaching surface for EOS 0.4.0, the words it uses in a particular way, what changed from v1, the modes, the risk layers, Genesis, the swarm method, staged verification, the study workflow and its dispositions | 2027-08 |
 | benchmark/PROTOCOL.md | example | eos testing | Frozen benchmark protocol for the EOS v1 versus v2 comparison, session counts, gates, custody and budget |  |
 | benchmark/README.md | example | eos testing | How to run and score one benchmark session, the run_meta.json contract, and the honesty rules |  |
 | benchmark/drills/README.md | example | eos testing | What a pack acceptance drill is, how the runner grades one, and what is still missing before any of them can return a verdict |  |
