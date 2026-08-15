@@ -5,5 +5,6 @@
     "router": "disabled",
     "default_tier": "fixed"
   },
-  "status": "declared; wired to the policy engine in P2"
+  "status": "declared; wired to the policy engine in P2",
+  "ledger_rows_carrying_this_label": "Eight rows in benchmark/results/ledger.json carry variant v2-no-router, all dated 2026-08-03. They do not contradict the status above. The variant was a label score.py wrote onto a row and nothing upstream read, so no overlay drove them, and they sit inside the 172 rows of that date the changelog keeps as history rather than as the basis of any claim."
 }
