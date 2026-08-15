@@ -41,6 +41,11 @@ INVENTORY = json.loads((
 LEDGER = json.loads((
     REPO / "org" / "migration" / "DOCTRINE_MIGRATION.json"
 ).read_text(encoding="utf-8"))
+ALIASES = json.loads((
+    REPO / "registry" / "identifier-aliases.json"
+).read_text(encoding="utf-8")) if (
+    REPO / "registry" / "identifier-aliases.json"
+).is_file() else {"version": 1, "aliases": {}}
 DOC_PATHS = sorted(REPO.glob("packs/*/doctrines/DOC-*.md"))
 DOCS = {
     parse_frontmatter(path.read_text(encoding="utf-8")).data["id"]:
@@ -234,10 +239,32 @@ def test_dependency_order_is_acyclic_deterministic_and_prerequisite_first():
             assert positions[prerequisite] < positions[pack]
 
 
+def test_every_legacy_anchor_has_a_resolving_full_and_short_alias():
+    aliases = ALIASES["aliases"]
+    anchored = [
+        row for row in LEDGER["rows"]
+        if row.get("legacy_anchor") and row.get("targets")
+    ]
+    assert len(anchored) == 270
+    assert len(aliases) == 540
+    resolver = KnowledgeResolver.open(REPO)
+    assert resolver.problems == ()
+    for row in anchored:
+        pack = Path(row["path"]).parent.name
+        primary = row["targets"][0]
+        for alias in (
+            f'{row["path"]}#{row["legacy_anchor"]}',
+            f'{pack}#{row["legacy_anchor"]}',
+        ):
+            assert aliases[alias] == primary
+            resolved = resolver.resolve(alias)
+            assert resolved is not None
+            assert resolved.canonical_id == primary
+
+
 def test_applied_generation_is_a_fixpoint():
     assert check_fixpoint(REPO) == []
     outputs = build_migration(REPO)
-    assert len(outputs) == 539
+    assert len(outputs) == 540
     assert all((REPO / path).read_text(encoding="utf-8") == content
                for path, content in outputs.items())
-

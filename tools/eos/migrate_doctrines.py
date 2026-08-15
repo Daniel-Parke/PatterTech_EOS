@@ -30,6 +30,7 @@ from tools.eos.knowledge_migration import (
 
 INVENTORY_PATH = "org/migration/DOCTRINE_SOURCE_INVENTORY.json"
 LEDGER_PATH = "org/migration/DOCTRINE_MIGRATION.json"
+ALIASES_PATH = "registry/identifier-aliases.json"
 GENERATOR_MARKER = "generated_by: tools.eos.migrate_doctrines"
 CHALLENGE_TRIGGER = "operator_requests_doctrine_review"
 
@@ -851,6 +852,29 @@ def _build_ledger(
     }
 
 
+def _build_alias_registry(ledger: dict) -> dict:
+    """Map every stable pack anchor to one primary canonical Doctrine.
+
+    Five legacy labels were compound rules and now point at several atomic
+    Doctrine records. The HTML anchor remains the complete compatibility
+    surface in PACK.md; the resolver returns the first atom as the stable
+    primary identity and the pack map exposes the remaining atoms.
+    """
+
+    aliases: dict[str, str] = {}
+    for row in ledger["rows"]:
+        anchor = row.get("legacy_anchor")
+        targets = row.get("targets") or []
+        if not anchor or not targets:
+            continue
+        path = str(row["path"])
+        pack = PurePosixPath(path).parent.name
+        primary = str(targets[0])
+        aliases[f"{path}#{anchor}"] = primary
+        aliases[f"{pack}#{anchor}"] = primary
+    return {"version": 1, "aliases": dict(sorted(aliases.items()))}
+
+
 def _synthetic_anchor(block: SourceBlock, inventory_row: dict) -> str | None:
     legacy = inventory_row.get("legacy_anchor")
     if legacy:
@@ -1005,6 +1029,9 @@ def build_migration(root: Path) -> dict[str, str]:
         )
     outputs[LEDGER_PATH] = json.dumps(
         ledger, indent=2, ensure_ascii=False,
+    ) + "\n"
+    outputs[ALIASES_PATH] = json.dumps(
+        _build_alias_registry(ledger), indent=2, ensure_ascii=False,
     ) + "\n"
     return dict(sorted(outputs.items()))
 
