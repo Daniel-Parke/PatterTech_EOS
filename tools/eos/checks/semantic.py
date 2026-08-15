@@ -1408,6 +1408,10 @@ KNOWLEDGE_JSON_SCHEMAS = {
         "kernel/schemas/identifier-aliases.schema.json",
     "registry/hypotheses/creative-os.json":
         "kernel/schemas/hypothesis-registry.schema.json",
+    "registry/stacks/probes/STACK-data-compute-2026-08-15.json":
+        "kernel/schemas/stack-probe.schema.json",
+    "registry/pressure-dispositions.json":
+        "kernel/schemas/pressure-dispositions.schema.json",
 }
 WARGAME_HEADINGS = (
     "Decision question and stakes",

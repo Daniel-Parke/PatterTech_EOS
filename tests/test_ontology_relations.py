@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from tools.eos.ontology import KnowledgeResolver
+from tools.eos.ontology import KnowledgeResolver, match_knowledge
 
 
 def _write(path, text):
@@ -85,4 +85,62 @@ def test_covers_gap_rejects_a_mismatched_gap_target(tmp_path):
     resolver = KnowledgeResolver.open(_fixture(tmp_path, "another-gap"))
     assert [(problem.code, problem.identifier) for problem in resolver.problems] == [
         ("relation-gap", "DREL-TEST-001")
+    ]
+
+
+def _write_pressure_registry(root, *, wargames=None, relations=None):
+    document = {
+        "version": 1,
+        "kind": "pressure-dispositions",
+        "source": "test",
+        "accepted_by": "ADR-TEST",
+        "review": "2030-01",
+        "rows": [{
+            "case": 1,
+            "name": "Missing capability",
+            "pressure": "missing_pressure",
+            "disposition": "relation-only",
+            "consequence": "high",
+            "wargames": list(wargames or []),
+            "relations": list(relations or ["DREL-TEST-001"]),
+            "fallback": "Keep the current default.",
+        }],
+    }
+    _write(
+        root / "registry" / "pressure-dispositions.json",
+        json.dumps(document, indent=2) + "\n",
+    )
+
+
+def test_pressure_registry_resolves_relations_and_drives_tri_state_match(tmp_path):
+    root = _fixture(tmp_path)
+    _write_pressure_registry(root)
+    resolver = KnowledgeResolver.open(root)
+
+    assert resolver.problems == ()
+    result = match_knowledge(resolver, {
+        "has_test": "true",
+        "missing_pressure": "true",
+    })
+    assert result["pressure_dispositions"] == [{
+        "case": 1,
+        "pressure": "missing_pressure",
+        "disposition": "relation-only",
+        "state": "fallback-required",
+        "wargames": [],
+        "relations": ["DREL-TEST-001"],
+        "fallback": "Keep the current default.",
+        "reopen_trigger": None,
+        "reason": "relation fallback covers this pressure without a Wargame",
+    }]
+    assert result["uncovered_pressures"] == []
+
+
+def test_pressure_registry_rejects_a_non_live_reference(tmp_path):
+    root = _fixture(tmp_path)
+    _write_pressure_registry(root, wargames=["WG-TEST-999"], relations=[])
+    resolver = KnowledgeResolver.open(root)
+
+    assert [(problem.code, problem.identifier) for problem in resolver.problems] == [
+        ("pressure-wargame", "missing_pressure")
     ]

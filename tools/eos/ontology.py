@@ -153,7 +153,8 @@ class TreeView:
             for pattern in patterns:
                 candidates.extend(self.root.glob(pattern))
             for rel in ("archive/RETIRED_IDS.json",
-                        "registry/identifier-aliases.json"):
+                        "registry/identifier-aliases.json",
+                        "registry/pressure-dispositions.json"):
                 path = self.root / rel
                 if path.is_file():
                     candidates.append(path)
@@ -166,6 +167,7 @@ class TreeView:
             _is_relation(path) or path in {
                 "archive/RETIRED_IDS.json",
                 "registry/identifier-aliases.json",
+                "registry/pressure-dispositions.json",
             }
         ))
 
@@ -249,6 +251,7 @@ class KnowledgeResolver:
         self._aliases: dict[str, str] = {}
         self._problems: list[KnowledgeProblem] = []
         self._relations: list[dict] = []
+        self._pressure_dispositions: list[dict] = []
         self._packs: dict[str, dict] = {}
         self._bodies: dict[str, str] = {}
         self._load()
@@ -268,6 +271,10 @@ class KnowledgeResolver:
     @property
     def packs(self) -> Mapping[str, dict]:
         return self._packs
+
+    @property
+    def pressure_dispositions(self) -> tuple[dict, ...]:
+        return tuple(self._pressure_dispositions)
 
     def _problem(self, code: str, path: str, identifier: str,
                  message: str) -> None:
@@ -482,6 +489,49 @@ class KnowledgeResolver:
             self._problem("pack-cycle", "packs", cycle[0],
                           f"pack dependency cycle: {' -> '.join(cycle)}")
 
+    def _load_pressure_dispositions(self) -> None:
+        path = "registry/pressure-dispositions.json"
+        raw = self.view.read_text(path)
+        if raw is None:
+            return
+        try:
+            document = json.loads(raw)
+        except ValueError as exc:
+            self._problem("pressure-json", path, "", f"invalid JSON: {exc}")
+            return
+        rows = document.get("rows") if isinstance(document, dict) else None
+        if not isinstance(rows, list):
+            self._problem("pressure-shape", path, "", "rows must be an array")
+            return
+        seen_cases: set[int] = set()
+        seen_pressures: set[str] = set()
+        for row in rows:
+            if not isinstance(row, dict):
+                self._problem("pressure-shape", path, "", "row must be an object")
+                continue
+            case = row.get("case")
+            pressure = str(row.get("pressure") or "")
+            if case in seen_cases:
+                self._problem("pressure-case", path, pressure,
+                              f"duplicate pressure case {case}")
+            if pressure in seen_pressures:
+                self._problem("pressure-name", path, pressure,
+                              f"duplicate pressure {pressure}")
+            if isinstance(case, int):
+                seen_cases.add(case)
+            seen_pressures.add(pressure)
+            for identifier in _values(row.get("wargames")):
+                target = self.resolve(identifier)
+                if target is None or target.state != "live" or target.kind != "wargame":
+                    self._problem("pressure-wargame", path, pressure,
+                                  f"Wargame {identifier} does not resolve live")
+            for identifier in _values(row.get("relations")):
+                target = self.resolve(identifier)
+                if target is None or target.state != "live" or target.kind != "relation":
+                    self._problem("pressure-relation", path, pressure,
+                                  f"relation {identifier} does not resolve live")
+            self._pressure_dispositions.append(dict(row))
+
     def _load(self) -> None:
         paths = self.view.knowledge_paths()
         for path in paths:
@@ -499,6 +549,7 @@ class KnowledgeResolver:
         self._load_aliases()
         self._validate_relations()
         self._validate_packs()
+        self._load_pressure_dispositions()
 
     def resolve(self, identifier: str) -> Resolution | None:
         requested = str(identifier).strip()
@@ -715,6 +766,48 @@ def match_knowledge(
         if applies != "false" and len(parts) > 1 and parts[0] == "packs":
             active_packs.add(parts[1])
 
+    dispositions = {
+        str(row.get("pressure")): row
+        for row in resolver.pressure_dispositions
+        if row.get("pressure")
+    }
+    covered_pressures.update(dispositions)
+    pressure_rows = []
+    for pressure_name in sorted(set(normalised) & set(dispositions)):
+        row = dispositions[pressure_name]
+        truth = normalised[pressure_name]
+        disposition = str(row.get("disposition"))
+        consequence = str(row.get("consequence") or "routine")
+        if truth == "false":
+            state = "omitted"
+            reason = "pressure is false"
+        elif disposition == "rejected":
+            state = "deferred"
+            reason = "admission is rejected until the recorded reopen trigger"
+        elif truth == "true" and disposition == "relation-only":
+            state = "fallback-required"
+            reason = "relation fallback covers this pressure without a Wargame"
+        elif truth == "true":
+            state = "engaged"
+            reason = "pressure is true"
+        elif consequence == "high":
+            state = "ask-or-fallback"
+            reason = "high-consequence pressure is unknown"
+        else:
+            state = "candidate"
+            reason = "routine pressure is unknown"
+        pressure_rows.append({
+            "case": row.get("case"),
+            "pressure": pressure_name,
+            "disposition": disposition,
+            "state": state,
+            "wargames": list(row.get("wargames") or []),
+            "relations": list(row.get("relations") or []),
+            "fallback": row.get("fallback"),
+            "reopen_trigger": row.get("reopen_trigger"),
+            "reason": reason,
+        })
+
     for identifier, reason in include.items():
         row = resolver.require_live(identifier, {"wargame"})
         required[identifier] = _summary(row)
@@ -746,6 +839,7 @@ def match_knowledge(
         "omitted_wargames": [omitted_rows[k] for k in sorted(omitted_rows)],
         "unresolved_facts": sorted(unresolved),
         "uncovered_pressures": uncovered,
+        "pressure_dispositions": pressure_rows,
         "selection_reasons": {k: reasons[k] for k in sorted(reasons)},
         "pack_order": resolver.pack_order(active_packs or None),
     }
