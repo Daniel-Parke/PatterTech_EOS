@@ -128,6 +128,8 @@ file. Frozen trees are not indexed.
 | org/migration/plans/Venture-A.md | org | eos | Venture A's read-only v2 migration plan, the recompile route and what the engine does not yet cover |  |
 | org/migration/plans/Venture-C.md | org | eos | Venture C's read-only v2 migration plan, the pin normalisation and the nineteen queue rows |  |
 | org/reports/BASELINE_2026-08-15.md | org | eos | The measured state of the tree before the audit, research and expansion mission, as the before half of every later comparison |  |
+| org/reports/CONTROL_ENFORCEMENT.md | org | eos | Every material control in the EOS, classified by what actually enforces it, with the file and the test behind each classification |  |
+| org/reports/DEFECT_REGISTER_2026-08.md | org | eos | Every defect and contradiction the audit raised, what it turned out to be, and where each one now stands |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |
 | packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |
