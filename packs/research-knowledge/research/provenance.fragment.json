@@ -1,0 +1,269 @@
+{
+  "pack": "research-knowledge",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "research-knowledge pack lane",
+  "swept": "2026-08-15",
+  "method": "Every source the pack cites was resolved: the seventeen fetched for this pack were read at source on 2026-08-15 and their licence taken off the page or the repository as fetched, and the fourteen already in registry/evidence.json were read back from the ledger without re-fetching, so their licence_state is the ledger's own recorded value. Carried expression was checked by reading the whole read surface (PACK.md, CHECKS.md, four guides, two references, one exemplar) and scanning every span that could have come from a source. licence_state takes five values here: verified means the licence line was read off the source page or repository on the access date; stated-unverified means the source reports a licence but the exact statement was not read directly; not-stated means the source publishes a copyright line or nothing and no reuse licence at all; not-read-at-source means the recorded licence rests on the publisher's class rather than on anything read on the page, which this pack's own B1 forbids and which is recorded rather than hidden; ledger-recorded means the value was carried from registry/evidence.json unchanged.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 4,
+    "note": "No quoted span of five words or more anywhere in the read surface. No PRISMA checklist text, no GRADE domain wording, no Cochrane handbook sentence, no W3C or IETF specification text, no FAIR principle wording and no Wikipedia policy sentence is reproduced. Property names from PROV-O and field names from the Citation File Format appear as identifiers, which are facts rather than expression. Where a figure appears it is cited to its source. Every finding in sources.fragment.json is a functional description written so that a reader who had never seen the source could reach the wording from the description."
+  },
+  "counts": {
+    "sources_cited": 31,
+    "fetched_for_this_pack": 17,
+    "reused_from_the_ledger": 14,
+    "by_licence_state": {
+      "verified": 9,
+      "stated-unverified": 1,
+      "not-stated": 6,
+      "not-read-at-source": 1,
+      "ledger-recorded": 14
+    },
+    "residual_no_reuse_licence": 7,
+    "sources_refused_access": 3,
+    "sources_addressing_the_reader": 2
+  },
+  "access_refusals": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8005924/",
+      "wanted_for": "the PRISMA 2020 statement",
+      "refusal": "bot check served in place of the article",
+      "resolution": "not worked around; the PLOS Medicine open-access copy of the same document was read instead and is what FRAG-RESEARCH-KNOWLEDGE-01 cites"
+    },
+    {
+      "url": "https://www.bmj.com/content/372/bmj.n71",
+      "wanted_for": "the PRISMA 2020 statement",
+      "refusal": "HTTP 403",
+      "resolution": "not worked around; superseded by the PLOS Medicine copy"
+    },
+    {
+      "url": "https://www.bmj.com/content/384/bmj-2023-076335",
+      "wanted_for": "the 2024 Cochrane rapid review methods recommendations",
+      "refusal": "HTTP 403",
+      "resolution": "not worked around and no substitute found; no record exists, and packs/research-knowledge/PACK.md and GD-RESEARCH-001 both state which conclusion is weaker because of it"
+    }
+  ],
+  "reader_addressed_by_source": [
+    {
+      "url": "https://llmstxt.org/",
+      "what": "the page tells whoever reads it that a machine reader should take the file first and then go to whichever of its links suit the question",
+      "acted_on": false,
+      "recorded_as": "FRAG-RESEARCH-KNOWLEDGE-16, and the worked example at packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md"
+    },
+    {
+      "url": "https://llmstxt.org/llms.txt",
+      "what": "the file itself is a source's own list of which of its pages a machine reader should take",
+      "acted_on": false,
+      "recorded_as": "read as part of FRAG-RESEARCH-KNOWLEDGE-16; the three links it names were not fetched on its say-so"
+    }
+  ],
+  "sources": [
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-01",
+      "source": "PRISMA 2020 statement (PLOS Medicine)",
+      "url": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1003583",
+      "licence": "CC BY 4.0",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-02",
+      "source": "GRADE Working Group",
+      "url": "https://www.gradeworkinggroup.org/",
+      "licence": "not stated",
+      "licence_state": "not-stated"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-03",
+      "source": "OCEBM Levels of Evidence",
+      "url": "https://www.cebm.ox.ac.uk/resources/levels-of-evidence/ocebm-levels-of-evidence",
+      "licence": "CC BY 4.0",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-04",
+      "source": "Cochrane Handbook chapter 4",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-04",
+      "licence": "not stated",
+      "licence_state": "not-stated"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-05",
+      "source": "Cochrane Handbook chapter 22",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-22",
+      "licence": "not stated",
+      "licence_state": "not-stated"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-06",
+      "source": "Cochrane Handbook chapter 13",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-13",
+      "licence": "not stated",
+      "licence_state": "not-stated"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-07",
+      "source": "W3C PROV-O",
+      "url": "https://www.w3.org/TR/prov-o/",
+      "licence": "W3C Document Licence",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-08",
+      "source": "GO FAIR, the FAIR guiding principles",
+      "url": "https://www.go-fair.org/fair-principles/",
+      "licence": "CC BY 4.0",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-09",
+      "source": "Citation File Format",
+      "url": "https://github.com/citation-file-format/citation-file-format",
+      "licence": "CC-BY-4.0",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-10",
+      "source": "Klein and others, reference rot (PLOS ONE)",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0115253",
+      "licence": "CC BY 4.0",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-11",
+      "source": "RFC 7089, Memento",
+      "url": "https://www.rfc-editor.org/rfc/rfc7089.html",
+      "licence": "IETF Trust Legal Provisions, BSD-style on code components",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-12",
+      "source": "NIST AI 100-2 E2025",
+      "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final",
+      "licence": "United States Government work, not subject to copyright in the United States",
+      "licence_state": "not-read-at-source",
+      "note": "The publication page carried no copyright or public-domain statement in what was fetched. The recorded value rests on the publisher's class, which this pack's own B1 forbids. It is recorded as a residual rather than upgraded, and it is the one row here that fails the pack's own rule."
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-13",
+      "source": "Greshake and others, indirect prompt injection",
+      "url": "https://arxiv.org/abs/2302.12173",
+      "licence": "arXiv.org perpetual non-exclusive distribution licence",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-14",
+      "source": "Wikipedia, No original research",
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:No_original_research",
+      "licence": "CC BY-SA 4.0",
+      "licence_state": "verified"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-15",
+      "source": "Wikipedia, Verifiability",
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Verifiability",
+      "licence": "CC BY-SA 4.0",
+      "licence_state": "stated-unverified",
+      "note": "The site-wide licence is well established and the exact footer line was not read on this page, so the row is not marked verified."
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-16",
+      "source": "the llms.txt proposal",
+      "url": "https://llmstxt.org/",
+      "licence": "not stated",
+      "licence_state": "not-stated"
+    },
+    {
+      "id": "FRAG-RESEARCH-KNOWLEDGE-17",
+      "source": "AgentPatterns, llms.txt standard page",
+      "url": "https://www.agentpatterns.ai/standards/llms-txt/",
+      "licence": "not stated",
+      "licence_state": "not-stated"
+    },
+    {
+      "id": "EV-0055",
+      "source": "GitLab Handbook",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0097",
+      "source": "MADR",
+      "licence": "MIT OR CC0-1.0 (dual)",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0124",
+      "source": "RFC 9745, the Deprecation HTTP response header field",
+      "licence": "IETF Trust Legal Provisions",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0171",
+      "source": "Semantic Versioning specification",
+      "licence": "CC BY 3.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0212",
+      "source": "OWASP Top 10 for LLM Applications",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0213",
+      "source": "OWASP Top 10 for Agentic Applications 2026",
+      "licence": "CC-BY-SA-4.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0219",
+      "source": "The lethal trifecta for AI agents",
+      "licence": "not-stated",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0242",
+      "source": "Seven Failure Points When Engineering a Retrieval Augmented Generation System",
+      "licence": "CC-BY-4.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0247",
+      "source": "RAGTruth",
+      "licence": "CC-BY-4.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0259",
+      "source": "How Is ChatGPT's Behavior Changing over Time?",
+      "licence": "CC-BY-4.0",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0260",
+      "source": "Anthropic, model deprecations",
+      "licence": "proprietary vendor documentation, no open licence stated",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0331",
+      "source": "lychee link checker",
+      "licence": "Apache-2.0 or MIT (dual)",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0358",
+      "source": "RFC 9309, Robots Exclusion Protocol",
+      "licence": "IETF Trust Legal Provisions",
+      "licence_state": "ledger-recorded"
+    },
+    {
+      "id": "EV-0473",
+      "source": "Design Patterns for Securing LLM Agents against Prompt Injections",
+      "licence": "CC BY 4.0",
+      "licence_state": "ledger-recorded"
+    }
+  ]
+}

@@ -77,13 +77,13 @@ finished work is worse than one that leaves it in the queue.
 
 The three role charters swap for the tier policy note. A policy file
 appears, filled from a risk surface the v1 interview never produced, so
-the operator supplies it: which paths hold the recordings, which hold
+The operator supplies it: which paths hold the recordings, which hold
 the rig service, which are protected. Guard validated stays false, so
 every guarded class is manual-only until a bypass-suite report exists.
 
 ## Gate
 
-The recompiled seed passes the seed check with zero errors, then Daniel
+The recompiled seed passes the seed check with zero errors, then the operator
 signs the human rubric items again, headed by the cold-start test. The
 registry row then takes the normalised pin, the ORG scale and the packs
 adopted.

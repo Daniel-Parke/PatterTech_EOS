@@ -137,7 +137,7 @@ Per the ADR-0002 plan, all eight gates must pass:
 ## Sealed custody
 
 - A separate evaluator-author session writes the sealed suite.
-- The suite is encrypted with public-key encryption. Daniel holds the
+- The suite is encrypted with public-key encryption. the operator holds the
   private key and provides it only to the final evaluator, after
   implementation and diagnostic correction are complete.
 - Only the ciphertext hash and an opaque handle are committed.

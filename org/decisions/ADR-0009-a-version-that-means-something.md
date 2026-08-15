@@ -9,19 +9,19 @@ date: 2026-08-15
 
 # ADR-0009: a version that means something
 
-Daniel, 2026-08-15: "If we have previously tagged this as v2.1 I am not
+The operator, 2026-08-15: "If we have previously tagged this as v2.1 I am not
 sure that was wise, as I am not 100% happy even with this release. We
 are happy for it to be used, but to me V1.0 is when we can walk away
 from it if we so choose and it is OK. I don't feel like we are there yet
 until we have a much more expanded knowledge base to draw from to seed a
 wider range of project types."
 
-Daniel accepted this on 2026-08-15, in the session that raised it, and
+The operator accepted this on 2026-08-15, in the session that raised it, and
 the renumber is applied: `tools/pyproject.toml`,
 `tools/eos/__init__.py`, `README.md` and `TOUR.md` now read 0.4.0.
 No tag is cut, so nothing is released and `CHANGELOG.md` gains no new
 heading, which is what keeps check S011 quiet. Whether to cut a tag at
-all remains PB-E05 and Daniel's.
+all remains PB-E05 and the operator's.
 
 ## Context
 
@@ -131,9 +131,9 @@ record will find it.
 
 **A gate with eight items may never be met.** Items 3 and 4 need a real
 venture and a real cold agent, which are not things a repository can do
-to itself. That is the honest cost of the definition Daniel gave: if
+to itself. That is the honest cost of the definition the operator gave: if
 walking away has to be safe, something has to have walked.
 
 ## What this does not decide
 
-Whether to cut a tag at all, and when. That is PB-E05 and Daniel's.
+Whether to cut a tag at all, and when. That is PB-E05 and the operator's.

@@ -39,7 +39,7 @@ a documented page is not knowable at Session 0 and is not stable
 afterwards. Those are settled per task, from the record or the diff,
 which is what `eos context` reads.
 
-Of the 87 predicates here, 59 are venture facts, 27 are task facts and
+Of the 101 predicates here, 67 are venture facts, 33 are task facts and
 one is always true. That split is worth knowing before anyone builds a
 Session 0 flow expecting to settle all of them: it cannot, and a flow
 that pretends otherwise asks the operator questions that have no answer
@@ -89,6 +89,15 @@ spelling silently activates nothing, which is the expensive direction.
 | `has_vendor_holding_identity_or_money` | architecture | 17 | a third party holds the venture's identities or its money |
 | `studies_external_source` | legal-licensing | task | work reads a product, repository, game or document we do not own, to learn from it |
 
+## Who may do what
+
+| predicate | packs | settled by | true when |
+| --- | --- | --- | --- |
+| `authenticates_people` | identity-access | 6 | a person proves who they are before the venture acts for them, whether it checks the credential itself or delegates it |
+| `serves_multiple_tenants` | identity-access | 2 | one running system holds data for more than one customer organisation, and one must not see another's |
+| `has_privileged_access_path` | identity-access | 11 | an account or route can reach data or actions it does not own: administrator, support impersonation, break-glass |
+| `changes_authorisation_rule` | identity-access | task | the work adds or changes a permission, a role, a policy or a tenant scope |
+
 ## Code and how it changes
 
 | predicate | packs | settled by | true when |
@@ -102,6 +111,8 @@ spelling silently activates nothing, which is the expensive direction.
 | `vendors_code` | legal-licensing | task | third-party code is copied into the tree |
 | `publishes_code` | legal-licensing | 5 | the venture's code is made available to others |
 | `accepts_contribution` | legal-licensing | 11 | code arrives from someone outside the venture |
+| `builds_release_artefact` | supply-chain-integrity | task | the work produces something meant to be installed or run off the machine that built it: a package, an image, an installer, a signed bundle |
+| `consumes_prebuilt_artefact` | supply-chain-integrity | task | the work brings in a binary, image, archive or model file nobody here built from source they can read. `adds_dependency` is about code a reader can open; this is about what they cannot |
 
 ## Shape of the system
 
@@ -124,6 +135,15 @@ spelling silently activates nothing, which is the expensive direction.
 | `stores_persistent_data` | devops-reliability | 6 | state outlives a single run and matters if lost |
 | `runs_schema_migrations` | devops-reliability | task | the shape of stored data changes over time |
 | `hosts_service` | legal-licensing | 5 | people reach the software over a network |
+
+## Moving and reprocessing data
+
+| predicate | packs | settled by | true when |
+| --- | --- | --- | --- |
+| `ingests_external_data` | data-engineering | 17 | the venture takes data in from a system it does not own and lands it somewhere of its own. `consumes_external_api` is calling somebody's service; this is keeping what comes back |
+| `runs_scheduled_pipeline` | data-engineering | 18 | data processing runs on a schedule or a trigger rather than in response to a user request |
+| `processes_event_time_data` | data-engineering | 18 | records carry a time at which the thing happened, distinct from the time they arrived |
+| `reprocesses_data` | data-engineering | task | the work reruns a period already processed: a retry, a correction or a backfill |
 
 ## Agents, models and lanes
 
@@ -205,6 +225,10 @@ spelling silently activates nothing, which is the expensive direction.
 | `prioritises_work` | product-discovery | task | somebody decides what comes first |
 | `cites_user_claim` | product-discovery | task | a claim about users is used as evidence |
 | `writes_acceptance_criteria` | product-discovery | task | somebody writes down what done means |
+| `researches_before_building` | research-knowledge | 18 | facts about something outside the venture's control have to be established before it can build on them, so research is a material workstream |
+| `keeps_a_knowledge_base` | research-knowledge | 18 | the venture maintains written findings that somebody other than their author reads in order to decide something |
+| `records_external_claim` | research-knowledge | task | the work writes a claim taken from outside the venture somewhere durable that others will read |
+| `supersedes_a_source` | research-knowledge | task | a source something already rests on has changed version, moved, or stopped resolving |
 
 ## Customers and incidents
 

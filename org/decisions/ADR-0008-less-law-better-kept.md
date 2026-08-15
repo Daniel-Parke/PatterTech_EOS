@@ -9,7 +9,7 @@ date: 2026-08-10
 
 # ADR-0008: less law, better kept
 
-Daniel, 2026-08-10: "We really need to update this governance and in
+The operator, 2026-08-10: "We really need to update this governance and in
 general all the files to be way less restrictive." This record is that
 change. It is separate from ADR-0006 because it is a distinct decision
 and bundling unrelated architecture into one record is how a decision
@@ -125,7 +125,7 @@ Stated so the loosening cannot be read as general:
 - `org/decisions/` stays append-only with the one sanctioned amendment.
 - Supersession stays explicit and bidirectional.
 - The promotion ladder. Authority is still earned, binding still needs an
-  accepted ADR and Daniel, and an argued ruling still counts for more
+  accepted ADR and the operator, and an argued ruling still counts for more
   than an inherited one.
 - The decision budget bands, and the escalation band in particular.
 

@@ -60,7 +60,7 @@ Notes:
   start, and the EOS applies nothing from it.
 - Venture A's seed pack is the extraction source for `kernel/templates/`.
   Its pin predates the v2 kernel freeze, so its route is recompile
-  rather than upgrade (Daniel's ruling, ADR-0001 section 12). No v2
+  rather than upgrade (the operator's ruling, ADR-0001 section 12). No v2
   reseed has run, and the EOS will not push one: under ADR-0006 the
   venture reseeds if and when the venture wants to.
 - The three rows above are the seeded and adopted ventures. Governed is

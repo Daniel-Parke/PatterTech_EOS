@@ -10,7 +10,7 @@ review: 2027-03
 If you have adopted this repository, you are the operator. The
 integrator duties named in `org/PLAYBOOKS.md` and
 `tools/CLI_CONTRACTS.md` are yours too: you alone commit claims, run the
-generators, and adopt or discard quarantined work. Daniel holds both
+generators, and adopt or discard quarantined work. The operator holds both
 roles here.
 
 `TOUR.md` says what those two words mean. This file says what the person

@@ -1051,7 +1051,7 @@ LESSON_SCHEMA = "kernel/schemas/lesson.schema.json"
 
 # How a lesson row may record that it has settled a contradiction it
 # names. GOVERNANCE's five precedence rules decide which of the first
-# three applies; the fourth is Daniel ruling in the room, which is
+# three applies; the fourth is the operator ruling in the room, which is
 # authority rather than derivation and therefore has to say what he
 # ruled.
 CONFLICT_RESOLUTIONS = ("stricter-applies", "scoped-differently",
@@ -1119,7 +1119,7 @@ def _conflict_entries(row: dict):
 def check_s018_lesson_conflicts(ctx: dict) -> list:
     """A lesson naming a contradiction must say how it was settled.
 
-    ADR-0006 decision 2: the conflict pass runs before Daniel sees a
+    ADR-0006 decision 2: the conflict pass runs before the operator sees a
     finding, and the resolution is recorded on the row it belongs to.
     Without this check the contradiction is caught later, by whoever
     next reads two rules that disagree, which is how a ledger of
@@ -1130,7 +1130,7 @@ def check_s018_lesson_conflicts(ctx: dict) -> list:
     operator-ruling, and every resolution carries a note saying what
     settled it. The note rule is the schema's rule, not a stricter one
     invented here: a resolution nobody can read cannot be reviewed, and
-    a row that says Daniel decided without saying what cannot be argued
+    a row that says the operator decided without saying what cannot be argued
     with later.
 
     What this does not do: it does not check that the thing a row

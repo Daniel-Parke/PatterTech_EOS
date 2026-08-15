@@ -7,7 +7,7 @@ tags: [eos]
 # DEVIATIONS
 
 Where the v2 build departed from the plan ADR-0002 approved, and why.
-Minor departures were logged with reasons; a material one needed Daniel
+Minor departures were logged with reasons; a material one needed the operator
 before it proceeded, and the two that happened say so.
 
 **This log is closed.** Its last entry is 2026-08-03 and the v2 build
@@ -96,7 +96,7 @@ and the amendment reference where one exists.
   aggregate pass 100 per cent against v1's 96, and v2 left zero human gates
   pending where v1 left twelve. Per the approved plan this is presented
   honestly and does NOT release. No threshold was amended and no v2 content
-  was tuned to the test. The decision is Daniel's: amend thresholds by ADR
+  was tuned to the test. The decision is the operator's: amend thresholds by ADR
   with reasons, adopt partially, or halt with the branch preserved.
 - 2026-08-03 · P7 · minor · Routing ablation run (eight sessions, four
   tasks, two trials) to separate v2's design cost from the benchmark's own
@@ -106,7 +106,7 @@ and the amendment reference where one exists.
   held. The probes were not run under the ablation, so it bounds the cost
   question only and makes no safety claim. Recorded as evidence for the
   release decision, not as grounds to amend a threshold.
-- 2026-08-03 · C1 · MATERIAL · Corrective iteration taken with Daniel's
+- 2026-08-03 · C1 · MATERIAL · Corrective iteration taken with the operator's
   explicit approval after the gate misses, per the plan's allowance of up to
   two. Routing is now paid once at task-record creation and stored on the
   record with its reasons; sessions read the ruling rather than invoking the

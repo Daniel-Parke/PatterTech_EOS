@@ -10,7 +10,7 @@ date: 2026-08-02
 
 # ADR-0002: EOS v2, adaptive agentic development
 
-Daniel approved the consolidated v2 plan for implementation on 2026-08-02,
+The operator approved the consolidated v2 plan for implementation on 2026-08-02,
 subject to the binding clarifications recorded below. This record is the
 authorisation for every protected-set change the build makes. ADR-0001 remains
 the founding record of v1; this decision supersedes it as the operative
@@ -86,17 +86,17 @@ Adopt EOS v2 as specified in the approved consolidated plan:
 10. **Benchmark before release.** Frozen kernel comparison (v1 against v2),
     policy ablations, the test-timing ablation, and one frozen acceptance
     drill per built pack, under the release gates of the plan. The sealed
-    final suite is encrypted; Daniel retains the private key.
+    final suite is encrypted; the operator retains the private key.
 11. **Migration and consolidation.** Deterministic migration path for pinned
     ventures with read-only plans this build; all work on one integration
     branch, feat/eos-v2-agentic-development; main untouched until the release
     approval; no force-push; every v1 commit reachable through the
     archive/v1-final tag.
 
-## Binding clarifications (Daniel, 2026-08-02)
+## Binding clarifications (the operator, 2026-08-02)
 
 1. This plan does not approve itself. Its proposed decisions became accepted
-   through Daniel's explicit approval and are recorded here before any
+   through the operator's explicit approval and are recorded here before any
    protected-set edit.
 2. The test-timing ablation uses an independent diagnostic holdout, never the
    sealed suite. The sealed suite serves only the one final frozen-v1 against
@@ -113,7 +113,7 @@ Adopt EOS v2 as specified in the approved consolidated plan:
 5. Sealed-suite custody: a separate evaluator-author session creates the
    suite; public-key encryption, or demonstrably isolated ACL storage; no
    implementation or coordinator session receives plaintext or the private
-   key; Daniel retains the private key and provides it only to the final
+   key; the operator retains the private key and provides it only to the final
    evaluator after implementation and diagnostic correction are complete.
 6. Python support is tested on 3.11 and 3.14, or the support claim is
    narrowed to what was tested. The pip-tools version used to generate
@@ -158,9 +158,9 @@ feat/estate-manifest tip and tags v1.0.0 and archive/v1-final pushed,
 feat/eos-v2-agentic-development created and pushed, containment verified,
 feat/estate-manifest deleted locally and remotely); the twenty-pack two-wave
 scope; the 65M-token benchmark cap; the sealed evaluation design requiring
-Daniel's key participation; the root and estate changes including GUIDE.md
+The operator's key participation; the root and estate changes including GUIDE.md
 archived, START.md retired, VISION.md merged into README.md, and
-estate/repos.yaml converted to repos.json with membership per Daniel's estate
+estate/repos.yaml converted to repos.json with membership per the operator's estate
 rulings; and the voice law re-scoped to EOS-internal law, venture default and
 brand preference.
 

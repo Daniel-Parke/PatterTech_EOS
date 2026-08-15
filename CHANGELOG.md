@@ -163,7 +163,7 @@ green at 513, this section is the CHANGELOG, and the checker reports no
 errors and one warning, which is E004 on an evidence row in
 `registry/LICENCE_RESIDUALS.md` carrying a conference name that has an
 exclamation mark in it, quoted as it was published. The other two, that
-no false statement about the tree survives the final review and Daniel's
+no false statement about the tree survives the final review and the operator's
 approval under PB-E05, are his alone.
 
 ### v2.1 · Genesis, the swarm pack and the de-restriction pass
@@ -308,7 +308,7 @@ does, not what it achieves.
   met gate. Moving the thresholds to match the figures already achieved
   would be tuning the target to the result, which is the dishonesty the
   pre-release review removed. `SEALED-BENCH-2026-08` is retired
-  unopened: it runs once, it needs Daniel's key, and it was authored for
+  unopened: it runs once, it needs the operator's key, and it was authored for
   a frozen-v1 against final-v2 comparison this decision supersedes. It
   stays in the tree with its hashes, so the record of what was and was
   not measured survives. The pack-drill gate is not a release blocker

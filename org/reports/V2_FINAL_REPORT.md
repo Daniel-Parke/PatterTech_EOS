@@ -1,5 +1,5 @@
 ---
-summary: The v2 build's final report, measured results, residual risks and the release decision Daniel owns
+summary: The v2 build's final report, measured results, residual risks and the release decision the operator owns
 type: org
 tags: [eos]
 ---
@@ -34,7 +34,7 @@ unwritten convention.
 ## The decision this report was for
 
 v2 passed three of the six numeric gates and missed three. Under the
-approved plan a missed gate did not release, and the choice was Daniel's:
+approved plan a missed gate did not release, and the choice was the operator's:
 amend the thresholds by ADR with reasons, adopt partially, or halt with the
 branch preserved. Both corrective iterations the plan allowed were spent,
 so there was no third attempt on the table. He took none of the three as
@@ -143,7 +143,7 @@ most valuable output of the drills.
 *This list and the residual risks below are the 2026-08-04 state. Three
 items have moved since. All twenty-two drills now carry scenarios and
 graders, so what is outstanding there is the cold-agent verdicts and
-that is a spend decision Daniel has deferred (ADR-0007, decision 4). The
+that is a spend decision the operator has deferred (ADR-0007, decision 4). The
 sealed suite is retired unopened rather than waiting on a decision, and
 the key stays with him. And ceremony passes at 77.3 per cent on the
 rebuilt instrument, so two efficiency gates are unmet rather than three,
@@ -163,7 +163,7 @@ and both are struck.*
   under T-0019, T-0023 and T-0024, and this report does not track what
   they closed.
 - The sealed final suite has not been opened. It requires the private key
-  Daniel holds, and by protocol it runs once, against frozen v1 and final
+  the operator holds, and by protocol it runs once, against frozen v1 and final
   v2 together, after corrective iteration. Opening it now would spend the
   one shot before the corrective decision is made.
 
@@ -203,7 +203,7 @@ The pre-release review corrected three statements in this report and found
 one problem with the gate table.
 
 **The routing correction was taken.** An earlier version of this section
-said "I have not taken it" and left the call with Daniel. That was written
+said "I have not taken it" and left the call with the operator. That was written
 before the correction and never deleted when the report was revised. The
 correction was made, measured, and is reported in the gate table's "after
 corrections" column. The section is gone.

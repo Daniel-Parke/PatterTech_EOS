@@ -1,0 +1,151 @@
+{
+ "pack": "supply-chain-integrity",
+ "fragment": "provenance",
+ "authority": "ADR-0006 decision 7",
+ "swept": "2026-08-15",
+ "state": "pre-import",
+ "method": "Every source this pack rests on was fetched once on 2026-08-15 and its licence read off the source itself or off the project's own repository. Nothing was inferred from the kind of project it is: where a page states no licence, this file says so rather than assuming the usual one for that ecosystem. licence_state verified means a licence file or a governing specification of licensing was read directly; stated-unverified means the project states the licence somewhere authoritative but the licence file itself was not opened; not-stated means the source page carries no licence statement; no-reuse-licence means the terms shown grant the distributor rights and grant a reader none. Carried expression was checked by reading the whole read surface of the pack and scanning it for quoted spans.",
+ "carried_expression": {
+  "verdict": "clean",
+  "longest_quoted_span_words": 0,
+  "note": "No text from any source is reproduced anywhere in the read surface. Terms of art are named and then explained in our own words: the four repository roles, the release-age setting, the statement and predicate layers, the level numbers. No specification requirement text, no documentation sentence and no paper abstract is carried."
+ },
+ "study_conduct": {
+  "read_only": true,
+  "note": "Nothing was installed, downloaded for execution or run. Every source was read as a web page. No page encountered during this research contained text addressed to an agent, and no page asked the reader to perform any action; if one had, it would be recorded here and in NOTES.md and would not have been acted on."
+ },
+ "counts": {
+  "new_records": 14,
+  "ledgered_records_cited_without_re_recording": 5,
+  "by_licence_state": {
+   "verified": 3,
+   "stated-unverified": 9,
+   "no-reuse-licence": 1,
+   "unknown": 0,
+   "not-stated": 1
+  },
+  "sources_that_refused_access": 1
+ },
+ "sources": [
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-01",
+   "source": "SLSA specification, supply chain threats",
+   "url": "https://slsa.dev/spec/v1.2/threats",
+   "licence": "Community Specification License 1.0",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-02",
+   "source": "in-toto Attestation Framework, Statement layer specification",
+   "url": "https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md",
+   "licence": "Apache-2.0",
+   "licence_state": "verified",
+   "licence_evidence_recorded": true
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-03",
+   "source": "PEP 740, Index support for digital attestations",
+   "url": "https://peps.python.org/pep-0740/",
+   "licence": "Public domain and CC0-1.0-Universal",
+   "licence_state": "verified",
+   "licence_evidence_recorded": true
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-04",
+   "source": "CycloneDX specification overview, OWASP and Ecma TC54",
+   "url": "https://cyclonedx.org/specification/overview/",
+   "licence": "Apache-2.0 on the specification repository; the overview page states none",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-05",
+   "source": "The Update Framework specification",
+   "url": "https://theupdateframework.github.io/specification/latest/",
+   "licence": "Community Specification License",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-06",
+   "source": "Sigstore documentation, certificate authority overview",
+   "url": "https://docs.sigstore.dev/certificate_authority/overview/",
+   "licence": "MIT on the sigstore/docs repository",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-07",
+   "source": "npm documentation, generating provenance statements",
+   "url": "https://docs.npmjs.com/generating-provenance-statements/",
+   "licence": "CC BY 4.0 for content, MIT for code",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-08",
+   "source": "npm CLI configuration reference, min-release-age",
+   "url": "https://docs.npmjs.com/cli/v11/using-npm/config",
+   "licence": "CC BY 4.0 for content, MIT for code",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-09",
+   "source": "Renovate documentation, minimum release age",
+   "url": "https://docs.renovatebot.com/key-concepts/minimum-release-age/",
+   "licence": "AGPL-3.0",
+   "licence_state": "verified",
+   "licence_evidence_recorded": true
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-10",
+   "source": "Go modules reference, checksum database and vendoring",
+   "url": "https://go.dev/ref/mod",
+   "licence": "not stated on the page",
+   "licence_state": "not-stated",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-11",
+   "source": "GitHub Actions documentation, security hardening for workflows",
+   "url": "https://docs.github.com/en/actions/reference/security/secure-use",
+   "licence": "CC BY 4.0 for content, MIT for code",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-12",
+   "source": "Schorlemmer et al., Signing in Four Public Software Package Registries",
+   "url": "https://arxiv.org/abs/2401.14635",
+   "licence": "arXiv non-exclusive distribution licence, which grants a reader no reuse right",
+   "licence_state": "no-reuse-licence",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-13",
+   "source": "Zhou et al., A Reality Check on SBOM-based Vulnerability Management",
+   "url": "https://arxiv.org/abs/2511.20313",
+   "licence": "CC BY 4.0",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  },
+  {
+   "id": "FRAG-SUPPLY-CHAIN-INTEGRITY-14",
+   "source": "Santos-Grueiro, On Good Authority",
+   "url": "https://arxiv.org/abs/2606.22593",
+   "licence": "CC BY 4.0",
+   "licence_state": "stated-unverified",
+   "licence_evidence_recorded": false
+  }
+ ],
+ "refused_access": [
+  {
+   "source": "CISA, 2025 minimum elements for a software bill of materials",
+   "url": "https://www.cisa.gov/resources-tools/resources/2025-minimum-elements-software-bill-materials-sbom",
+   "result": "HTTP 403 at 2026-08-15",
+   "consequence": "The pack's position on what a bill of materials must carry rests on the CycloneDX specification and on the empirical study of generation quality, not on a government minimum-elements list. Nothing in the pack cites the list, and no claim about it is made."
+  }
+ ]
+}

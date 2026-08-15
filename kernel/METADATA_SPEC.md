@@ -47,7 +47,7 @@ same set at two moments rather than disagreeing.
   nothing. Naming a conflict obliges settling it, with one of
   `stricter-applies`, `scoped-differently`, `superseded` or
   `operator-ruling`; an operator ruling also records what was ruled,
-  because a row that says Daniel decided without saying what cannot be
+  because a row that says the operator decided without saying what cannot be
   reviewed and cannot be argued with later. The row shape for lessons
   is fixed by `kernel/schemas/lesson.schema.json`. What is checked and
   what is not is under Enforcement.

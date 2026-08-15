@@ -1107,7 +1107,7 @@ def test_s018_wants_a_note_on_every_resolution(tmp_path):
     lessons(root, [dict(VALID_LESSON_ROW, conflicts_with=["LES-0000"],
                         conflict_resolutions={"LES-0000": {
                             "resolution": "operator-ruling",
-                            "note": "Daniel kept the older rule"}})])
+                            "note": "the operator kept the older rule"}})])
     assert only(run_s(root), "S018") == []
     assert only(run_s(root), "S019") == []
 

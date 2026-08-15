@@ -1,0 +1,62 @@
+{
+ "pack": "data-engineering",
+ "checked": "2026-08-15",
+ "checked_by": "The authoring lane, at the time of writing, under the pack contract in packs/PACK_SHAPE.md",
+ "method": "This pack has not been imported into registry/evidence.json, so there are no EV ids to resolve and this is not the post-import sweep the other packs carry. What was done instead: every one of the twelve sources was fetched on 2026-08-15 and read as a document; each record's licence was established at source on the same day and the licence_evidence field says what established it; the whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/) was then read against the twelve findings, listing every quotation-marked span and checking it, and re-reading the prose that cites the one record whose licence restricts reuse of wording. What this method cannot do is prove the absence of an unmarked sentence carried from a source, and no claim of completeness is made on that. The sweep must be run again after import, against the assigned EV ids.",
+ "ev_ids_checked": [],
+ "fragment_ids_checked": [
+  "FRAG-DATA-ENGINEERING-01",
+  "FRAG-DATA-ENGINEERING-02",
+  "FRAG-DATA-ENGINEERING-03",
+  "FRAG-DATA-ENGINEERING-04",
+  "FRAG-DATA-ENGINEERING-05",
+  "FRAG-DATA-ENGINEERING-06",
+  "FRAG-DATA-ENGINEERING-07",
+  "FRAG-DATA-ENGINEERING-08",
+  "FRAG-DATA-ENGINEERING-09",
+  "FRAG-DATA-ENGINEERING-10",
+  "FRAG-DATA-ENGINEERING-11",
+  "FRAG-DATA-ENGINEERING-12"
+ ],
+ "licence_unknown": [
+  {
+   "fragment": "FRAG-DATA-ENGINEERING-10",
+   "licence_recorded": "Apache-2.0 for the documentation repository; the rendered site's own terms were not read",
+   "state": "partly-confirmed",
+   "inspected": true,
+   "licence_checked": "2026-08-15",
+   "cited_for": "D2 and GD-DATAENG-002, the per-batch atomic replacement and the backfill path"
+  },
+  {
+   "fragment": "FRAG-DATA-ENGINEERING-11",
+   "licence_recorded": "Apache-2.0 for the documentation repository; the rendered site's own terms were not read",
+   "state": "partly-confirmed",
+   "inspected": true,
+   "licence_checked": "2026-08-15",
+   "cited_for": "B2 and GD-DATAENG-002, the three reprocessing mechanisms and their costs"
+  },
+  {
+   "fragment": "FRAG-DATA-ENGINEERING-12",
+   "licence_recorded": "Apache-2.0 for the project; the documentation site's own terms were not read",
+   "state": "partly-confirmed",
+   "inspected": true,
+   "licence_checked": "2026-08-15",
+   "cited_for": "GD-DATAENG-002, the idempotent write token for payloads with no natural key"
+  }
+ ],
+ "quotation_concerns": [
+  {
+   "file": "packs/data-engineering/research/sources.fragment.json",
+   "line": 0,
+   "concern": "The streaming model paper is CC BY-NC-ND 3.0 Unported, which is the most restrictive licence in this pack's set, and its two named watermark failure directions are carried as terminology through the pack body, the guides and the exemplar.",
+   "resolution": "Not a concern. The two labels are identifiers a reader has to recognise, in the same way the SPACE dimension names are carried in packs/devops-reliability, and the argument around them is stated in our own words. No sentence of the paper appears anywhere in the read surface, and the record says paraphrase only."
+  },
+  {
+   "file": "packs/data-engineering/research/sources.fragment.json",
+   "line": 0,
+   "concern": "Three findings were first drafted with wording that tracked the source too closely: the orchestrator's rule about the current-time call, the change-capture project's statement about correctness, and the microbatch claim about rerunning a batch over a period that already holds rows.",
+   "resolution": "Fixed before the pack was written. All three were rewritten so the sentence structure as well as the words are ours, and the pack body and guides were written from the rewritten findings."
+  }
+ ],
+ "notes": "Twelve of twelve sources are Apache-2.0 or, in the one peer-reviewed case, carry a licence notice printed on the document itself, so no record in this pack reads 'unknown'. Three records qualify their licence in one direction only: the project or documentation repository is Apache-2.0 and the rendered site was not separately checked for its own terms of use, which is a smaller gap than an unknown licence and is recorded rather than rounded off. Only one record restricts reuse of wording and the pack paraphrases it throughout. Every code block and quoted string in the read surface is our own JSON, SQL or configuration."
+}

@@ -63,7 +63,7 @@ so this is the definition.
 
 | Word | What it means here |
 | --- | --- |
-| **Operator** | The person who has adopted a repository and holds its human gates: accepting a decision record, signing a seed rubric, approving a release, spending money. In this repository the operator is Daniel. In a venture it is whoever launches sessions there. `OPERATORS_GUIDE.md` is written to that person. |
+| **Operator** | The person who has adopted a repository and holds its human gates: accepting a decision record, signing a seed rubric, approving a release, spending money. In this repository it is the person who owns it. In a venture it is whoever launches sessions there. `OPERATORS_GUIDE.md` is written to that person. |
 | **Integrator** | A role, not a job title: the single session that holds the plan while work is fanned across lanes. It commits the claim set before any lane is dispatched, owns the hub files and every derived view, adopts or discards what the lanes hand back, and runs the generators. Nothing else may run `python -m tools.eos task views`. |
 | **Lane** | One writing session with a closed brief and a write set no other lane touches. A lane is given its claim; it never takes one. |
 | **Hub file** | A file that many lanes would otherwise want to write: an index, a shared type file, a manifest, any generated view. Hub files are integrator-owned and never delegated. |
@@ -74,11 +74,11 @@ so this is the definition.
 | **Pack** | One domain's argued knowledge, disclosed in three levels. `packs/PACK_SHAPE.md` is the contract every pack keeps. |
 | **Predicate** | A yes-or-no fact about a venture or a task that activates a pack. `kernel/PREDICATES.md` is the controlled list of names. |
 | **Claim** | An exclusive right to write a set of paths, committed by the integrator before any lane opens. |
-| **Protected set** | The files and subjects that need an accepted decision record and Daniel before they change. `GOVERNANCE.md` lists them. |
+| **Protected set** | The files and subjects that need an accepted decision record and the operator before they change. `GOVERNANCE.md` lists them. |
 | **Derived view** | A file generated from a canonical record. Never hand-edited: fix the source and regenerate. |
 
 **Where the integrator sits.** Here the operator holds the role, so
-Daniel is both. In a venture at ORG scale it is whoever runs the wide
+The operator is both. In a venture at ORG scale it is whoever runs the wide
 build. At S scale there is nothing for the role to hold: no claims file
 and no derived views, and an S venture that needs a second writer
 rescales first.
@@ -537,7 +537,7 @@ now be pointed at a product, a repository, a game, a design system or a
 postmortem.
 
 The procedure is PB-E11 in `org/PLAYBOOKS.md`. It only ever starts
-because Daniel points at something. It is never scheduled.
+because the operator points at something. It is never scheduled.
 
 ### The five steps
 
@@ -545,7 +545,7 @@ because Daniel points at something. It is never scheduled.
    version, how it was lawfully obtained, its licence and the
    jurisdiction that matters, the aspects being studied, the aspects
    deliberately excluded, how far the study may escalate (observe, docs,
-   tests, source), and where the findings land. Daniel approves it in
+   tests, source), and where the findings land. The operator approves it in
    the room. `python -m tools.eos study --out DIR` scaffolds it and
    fetches nothing. Never carried away: verbatim code, assets,
    expressive text, or anything that would make the result look like the
@@ -557,7 +557,7 @@ because Daniel points at something. It is never scheduled.
    fact, interpretation, inference, recommendation. Each is marked as
    something the source does well, does badly, or merely does
    differently, or as unknown, with the conditions that made it work.
-4. **Conflicts are found before Daniel sees anything.** The findings are
+4. **Conflicts are found before the operator sees anything.** The findings are
    mapped against the packs, the registries, the policies, governance
    and prior lessons, and anything that contradicts a live rule names
    that rule.
@@ -569,7 +569,7 @@ because Daniel points at something. It is never scheduled.
 
 A lesson row carries where it came from, the lesson itself, its evidence
 class, its disposition, its scope, when it applies, what it informs,
-what it contradicts and what it replaces, the decision date and Daniel's
+what it contradicts and what it replaces, the decision date and the operator's
 reasoning in a line.
 
 ### The eleven dispositions
@@ -602,7 +602,7 @@ list and carry no row yet.
 
 Nothing here can make a rule binding. The workflow can propose it; the
 promotion ladder in `GOVERNANCE.md` is unchanged and binding still needs
-an accepted ADR and Daniel.
+an accepted ADR and the operator.
 
 ## Claims and derived views
 

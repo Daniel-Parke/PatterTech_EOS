@@ -8,7 +8,7 @@ tags: [eos]
 
 This file is in the protected set, together with every policy's `risk`
 and `approvals` blocks. Changing any of them requires an accepted ADR
-and Daniel. One command enforces that: `python -m tools.eos route` exits
+and the operator. One command enforces that: `python -m tools.eos route` exits
 3 when the diff matches a protected path pattern and no `--adr` was
 given. No other command reads the protected set, so an unacknowledged
 touch that never runs `route` is caught by review (`tools/CLI_CONTRACTS.md`).

@@ -109,6 +109,7 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0008-less-law-better-kept.md | decision | eos | The de-restriction pass, what stops binding and what stays, and what catches each loosened failure instead |  |
 | org/decisions/ADR-0009-a-version-that-means-something.md | decision | eos | Re-designate the current line to 0.x, and define the checkable gate that 1.0 has to pass |  |
 | org/decisions/ADR-0010-one-name-per-fact.md | decision | eos | A controlled vocabulary for pack activation predicates, grouped by subject, with the first duplicate merged |  |
+| org/decisions/ADR-0011-a-role-not-a-name.md | decision | eos | The repository refers to the operator by role rather than by name, with attribution and the record of who ruled as the two exceptions |  |
 | org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
@@ -127,7 +128,7 @@ file. Frozen trees are not indexed.
 | org/logs/2026-07/S-0015.md | org | eos | Session S-0015, Phase F item F3, the devops module populated, Phase F complete |  |
 | org/logs/2026-07/S-0016.md | org | eos | Session S-0016, item E3, the S-scale ergonomics from the drill findings |  |
 | org/logs/2026-07/S-0017.md | org | eos | Session S-0017, item E4, four web decision rules sharpened for non-house brands |  |
-| org/logs/2026-07/S-0018.md | org | eos | Session S-0018, REL, v1.0.0 tagged locally, manual close handed to Daniel |  |
+| org/logs/2026-07/S-0018.md | org | eos | Session S-0018, REL, v1.0.0 tagged locally, manual close handed to the operator |  |
 | org/logs/2026-07/S-0019.md | org | eos | Session S-0019, the D1 gate closed, G1 and G2 queued, Genesis commissioned |  |
 | org/logs/2026-07/S-0020.md | org | eos | Session S-0020, the all-in-one field guide GUIDE.md authored and registered |  |
 | org/migration/MIGRATION_MAP.md | org | eos | Every v1 concept and its v2 fate, with the load-bearing rule's new home for anything retired |  |
@@ -139,7 +140,7 @@ file. Frozen trees are not indexed.
 | org/reports/CONTROL_ENFORCEMENT.md | org | eos | Every material control in the EOS, classified by what actually enforces it, with the file and the test behind each classification |  |
 | org/reports/DEFECT_REGISTER_2026-08.md | org | eos | Every defect and contradiction the audit raised, what it turned out to be, and where each one now stands |  |
 | org/reports/NEXT_TRANCHE.md | org | eos | What the audit and expansion mission completed, what it deliberately did not, and the dependency-ordered work that follows |  |
-| org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
+| org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision the operator owns |  |
 | packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |
 | packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |
 | packs/agentic-development/PACK.md | guide | eos arch tooling | Which agent topology to run, the invariants that bind every one of them, and how to bound, verify and trace a run | on-change-of:agent-sdk-major-release |
@@ -262,6 +263,17 @@ file. Frozen trees are not indexed.
 | packs/data-analytics/refs/PRIVACY_IN_ANALYTICS.md | foundation | data pii security | What the analytics layer may hold about a person, the identifier ladder behind B3, UK duties, and how to read a differential privacy claim | on-change-of:EV-0225 |
 | packs/data-analytics/research/DRILL_PROPOSAL.md | example | eos testing | Single-run cold-agent acceptance drill for the data-analytics pack, with deterministic machine-checkable criteria |  |
 | packs/data-analytics/research/NOTES.md | example | eos testing | Research synthesis for the data, analytics and experimentation pack, covering quality gates, modelling shape, experiment statistics, event design, storage fit and privacy, with the disagreements left visible |  |
+| packs/data-engineering/CHECKS.md | guide | data ops ci | What a reviewer or a script can verify about a pipeline in this domain, split into executable today, judgement, and what no check reaches | 2027-11 |
+| packs/data-engineering/PACK.md | playbook | data ops state realtime | How data arrives and is reprocessed, delivery guarantees per hop, idempotent reruns, the processing window, backfill, late and duplicate records and partitioning | 2028-04 |
+| packs/data-engineering/exemplars/EX-DATAENG-001-orders-backfill.md | example | data ops state | Worked example, a nightly orders pipeline from a third-party system, repaired over six weeks of history after a time-zone bug |  |
+| packs/data-engineering/guides/GD-DATAENG-001-ingestion-shape.md | guide | data ops state | Scheduled batch extract, a subscribed stream, log-based change capture, or polling a modified-at column? | 2027-12 |
+| packs/data-engineering/guides/GD-DATAENG-002-idempotent-reprocess.md | guide | data ops state | Overwrite the partition, merge on a key, append-only with a view that picks the winner, or an idempotent write token? | 2028-01 |
+| packs/data-engineering/guides/GD-DATAENG-003-processing-window.md | guide | data ops state | The run's own clock, the scheduler's interval, a high-water mark read from the target, or the event time carried in the record? | 2028-02 |
+| packs/data-engineering/guides/GD-DATAENG-004-late-arrivals.md | guide | data ops realtime | Drop at the watermark, hold the window open and restate, reprocess a fixed lookback every run, or recompute everything? | 2028-03 |
+| packs/data-engineering/refs/DELIVERY_GUARANTEES.md | implementation | data ops state | What a hop is, the three guarantees, what each sink type can actually promise, and the fields that record a hop | 2028-05 |
+| packs/data-engineering/refs/PARTITIONING.md | implementation | data ops state | Choosing the partition column and width, deriving the value safely, evolving the layout, and the two failure directions | 2028-06 |
+| packs/data-engineering/refs/RUN_LEDGER.md | implementation | data ops tooling | The fields a pipeline run records, what each one is for, and the two comparisons that make the ledger worth keeping | 2028-07 |
+| packs/data-engineering/research/NOTES.md | example | eos | Research synthesis for the data-engineering pack, covering ingestion shape, delivery guarantees, idempotent reprocessing, the processing window, late arrivals and partitioning |  |
 | packs/delivery-testing/CHECKS.md | guide | delivery testing ci | What a reviewer or a checker can verify about delivery and testing work, and which checks run today | 2027-08 |
 | packs/delivery-testing/PACK.md | guide | delivery testing ci | Delivery, testing and quality: what binds, what defaults, and which fork routes to which guide | 2028-02 |
 | packs/delivery-testing/exemplars/EX-DEL-001-drifted-fake-and-a-lying-suite.md | example | delivery testing ci | A worked run of the pack: a rounding defect, a drifted fake and a clock-dependent test, fixed in order |  |
@@ -300,6 +312,17 @@ file. Frozen trees are not indexed.
 | packs/docs-dx/refs/DOC_GATE.md | foundation | content delivery ci tooling | The documentation gate reference, what runs, in what order, blocking or advisory, and how to prove each step works | on-change-of:lychee-exit-codes-or-fragment-checking |
 | packs/docs-dx/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the docs-dx pack, make a stale documented flag fail the build |  |
 | packs/docs-dx/research/NOTES.md | example | eos testing | Research synthesis for the docs-dx pack, four documentation philosophies, what is checkable, and what should bind |  |
+| packs/identity-access/CHECKS.md | guide | auth testing data | What a reviewer or a script can verify about identity, authorisation and tenancy work, executable today versus judgement | 2028-09 |
+| packs/identity-access/PACK.md | guide | auth security arch state | Authenticating people, deciding what each may do, and keeping one tenant out of another's data | 2029-02 |
+| packs/identity-access/exemplars/EX-IDENT-001-cross-tenant-share.md | example | auth arch data | The pack applied end to end to one feature, sharing a report outside the ownership tree, on a system with two tenants |  |
+| packs/identity-access/guides/GD-IDENT-001-authorisation-model.md | guide | auth arch security | Ownership checks, roles, attributes or relationships? The fork the coverage matrix recorded as missing | 2028-10 |
+| packs/identity-access/guides/GD-IDENT-002-session-or-token.md | guide | auth security state | Server-side session in a cookie, bearer token, token in a cookie behind a front end, or a sender-constrained token? | 2028-11 |
+| packs/identity-access/guides/GD-IDENT-003-provider-or-self-hosted.md | guide | auth arch security | Hosted identity provider, self-hosted identity server, passwords of your own, or federation to the customer's provider? | 2028-12 |
+| packs/identity-access/guides/GD-IDENT-004-tenant-isolation.md | guide | auth data arch | Tenant isolation by application filter, by database row policy, by schema, or by a store per tenant? | 2029-01 |
+| packs/identity-access/refs/break-glass.md | guide | auth security ops | The emergency access path, why it exists, the eight properties that make it work, and the trade it makes | 2029-03 |
+| packs/identity-access/refs/decision-point-placement.md | guide | auth arch | The four points a decision needs, where each can sit, the four outcomes a decision has, and what happens when the decider is unreachable | 2029-04 |
+| packs/identity-access/refs/tenant-isolation-mechanics.md | guide | auth data migrations | How a database row policy actually behaves, what walks past it, and the checklist for making a tenant boundary real | 2029-05 |
+| packs/identity-access/research/NOTES.md | example | eos | Research synthesis for the identity, authorisation and tenancy pack, the model fork, what should bind, and the predicates proposed |  |
 | packs/legal-licensing/CHECKS.md | guide | security pii delivery | What a reviewer or a checker can verify about licensing and data-protection routing, split into executable today and judgement | 2026-12 |
 | packs/legal-licensing/PACK.md | playbook | security pii delivery | Licensing, inbound provenance and UK data-protection routing for a venture, and the four situations that stop and go to a lawyer | 2027-04 |
 | packs/legal-licensing/exemplars/EX-LEGAL-001-waitlist-with-a-poisoned-tree.md | example | security pii delivery | The pack applied end to end to a small hosted feature whose dependency tree hides a network copyleft term, an unlicensed vendored directory and an unmade choice |  |
@@ -360,6 +383,16 @@ file. Frozen trees are not indexed.
 | packs/product-discovery/refs/SAMPLE_AND_SIGNAL.md | foundation | product testing | How many people to talk to, when an experiment can be powered, and what to do below the power floor | 2028-07 |
 | packs/product-discovery/research/DRILL_PROPOSAL.md | example | eos testing | Cold-agent acceptance drill for the product-discovery pack, frame a solution request back into a testable opportunity |  |
 | packs/product-discovery/research/NOTES.md | example | eos testing | Research synthesis for the product-discovery pack, four schools of discovery, what the evidence actually supports, and what should bind |  |
+| packs/research-knowledge/CHECKS.md | guide | data content testing tooling | What a reviewer or checker can verify about research and knowledge-base work, executable today versus judgement | 2029-03 |
+| packs/research-knowledge/PACK.md | playbook | data content security tooling | Evidence discipline for a venture that researches before it builds or keeps a knowledge base others read, traceability, counter-evidence, supersession and source text as data | 2029-08 |
+| packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md | example | security content data | A live source addressed its AI reader in the imperative during this pack's own source sweep, and what the record did with it |  |
+| packs/research-knowledge/guides/GD-RESEARCH-001-when-to-stop.md | guide | data content product | One authoritative source, a fixed budget, agreement from independent routes, or an exhaustive sweep? | 2029-04 |
+| packs/research-knowledge/guides/GD-RESEARCH-002-where-the-base-lives.md | guide | data content delivery | In the repository under the code gate, an open wiki with a policy, a curated store with one editor, or no separate base at all? | 2029-05 |
+| packs/research-knowledge/guides/GD-RESEARCH-003-superseding-a-source.md | guide | data content migrations | Wait for something to break, sweep on a calendar, supersede on a named event, or keep the answer continuously live? | 2029-06 |
+| packs/research-knowledge/guides/GD-RESEARCH-004-a-source-that-speaks-to-you.md | guide | security content data | Follow it when it looks helpful, ignore it quietly, record and report it, or refuse to read the class at all? | 2027-06 |
+| packs/research-knowledge/refs/record-shape.md | guide | data content tooling | The fields a source record and a claim record carry, what each one prevents, and where the shape comes from | 2029-09 |
+| packs/research-knowledge/refs/source-classes.md | guide | data content product | What counts as a primary source for a software venture, the ladder for common source types, and where the borrowed hierarchy inverts | 2029-10 |
+| packs/research-knowledge/research/NOTES.md | guide | eos data content | How the research-knowledge pack was assembled, the predicates it proposes, what the corpus disagrees about and what it could not close | on-change-of:packs/research-knowledge |
 | packs/security-privacy/CHECKS.md | guide | security testing tooling | What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement | 2027-08 |
 | packs/security-privacy/PACK.md | guide | security pii tooling | Security, privacy and safety for agent-run work, injection resistance, secrets, data protection and approval | on-change-of:EV-0213 |
 | packs/security-privacy/exemplars/EX-SEC-001-poisoned-integration-guide.md | example | security tooling | The pack applied end to end to a feature task whose vendor guide carries planted instructions |  |
@@ -373,6 +406,16 @@ file. Frozen trees are not indexed.
 | packs/security-privacy/refs/threat-catalogue.md | guide | security arch | STRIDE for the system, the agentic catalogue for the agent, and how both map onto the ten guarded classes | on-change-of:EV-0213 |
 | packs/security-privacy/research/DRILL_PROPOSAL.md | example | eos | Proposed cold-agent acceptance drill for the security, privacy and safety pack |  |
 | packs/security-privacy/research/NOTES.md | example | eos | Research synthesis for the security, privacy and safety pack, patterns, trade-offs and what should bind |  |
+| packs/supply-chain-integrity/CHECKS.md | guide | security delivery testing ci | What a reviewer or a checker can verify about supply chain and release integrity work, executable today versus judgement | 2027-03 |
+| packs/supply-chain-integrity/PACK.md | guide | security delivery ci tooling | Whether an artefact is what it claims to be, covering provenance, signing identity, bill-of-materials shape, pinning cadence and the reach of a compromised build system | 2027-06 |
+| packs/supply-chain-integrity/exemplars/EX-SUPPLY-001-first-published-release.md | example | security delivery ci tooling | The pack applied end to end to a venture cutting its first public release of a CLI that also consumes a prebuilt binary |  |
+| packs/supply-chain-integrity/guides/GD-SUPPLY-001-provenance-and-verification.md | guide | security delivery ci tooling | A checksums file, build-platform provenance, a self-hosted attestation chain, or an independently reproduced build? | 2027-04 |
+| packs/supply-chain-integrity/guides/GD-SUPPLY-002-signing-identity.md | guide | security delivery ci tooling | No signature, a personal key, a custodied key, a short-lived identity certificate, or the platform's own signing? | on-change-of:EV-0068 |
+| packs/supply-chain-integrity/guides/GD-SUPPLY-003-pinning-cadence.md | guide | security delivery ci tooling | Floating ranges, continuous auto-merge, a cooldown window with batched moves, digest pins everywhere, or frozen? | 2027-05 |
+| packs/supply-chain-integrity/guides/GD-SUPPLY-004-vendor-or-depend.md | guide | security delivery arch tooling | Depend with a pin, vendor the source, fork and maintain, reimplement the slice you need, or use the platform? | on-change-of:EV-0069 |
+| packs/supply-chain-integrity/refs/admission-checklist.md | guide | security delivery ci tooling | What a verification step actually consists of per ecosystem, and what each check does and does not establish | on-change-of:EV-0038 |
+| packs/supply-chain-integrity/refs/build-system-reach.md | guide | security delivery ci ops | What a compromised build can touch, how it gets in, and the containment that is configuration rather than cryptography | on-change-of:EV-0069 |
+| packs/supply-chain-integrity/research/NOTES.md | example | eos | Research synthesis for supply chain and release integrity, the three philosophies, what should bind, and the predicates proposed |  |
 | packs/support-operations/CHECKS.md | implementation | ops product testing tooling | What a reviewer or a script can verify about support work, split into executable today and judgement | on-change-of:ISO-10002-revision |
 | packs/support-operations/PACK.md | playbook | eos ops product pii | Customer support as an operating function, triage before backlog, honest incident communication, and the loop from inbox back into the product | on-change-of:ISO-10002-revision |
 | packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md | example | ops product pii money | The pack applied end to end over one week of forty inbound items for a paid product with sixty customers, including one customer-visible outage |  |

@@ -9,7 +9,7 @@ date: 2026-08-10
 
 # ADR-0007: one release
 
-Daniel decided on 2026-08-10 that v2 is not released on its own. The
+The operator decided on 2026-08-10 that v2 is not released on its own. The
 v2.1 work folds into the unreleased line and the two versions ship as
 one. This record settles what the release gate is, because the gate set
 ADR-0002 approved can no longer be computed.
@@ -35,7 +35,7 @@ The result that is not on the gate list is the one that matters: 53 v1
 runs produced fully passing work 39 times, and 50 v2 runs produced it 50
 times.
 
-Daniel has also decided that no further benchmark runs are made as part
+The operator has also decided that no further benchmark runs are made as part
 of this work. That decision is deliberate and it has a consequence this
 record must state plainly: **no measurement of the evolved system will
 exist.** The two efficiency gates cannot be re-tested against v2.1, and
@@ -55,22 +55,22 @@ repository spent its pre-release review removing.
    gate is not a met gate and no document may describe it as one.
 
 3. **The sealed suite `SEALED-BENCH-2026-08` is retired unopened.** It
-   runs once, it needs Daniel's private key, and it was authored for a
+   runs once, it needs the operator's private key, and it was authored for a
    frozen-v1 against final-v2 comparison that this decision supersedes.
    Spending it now would answer a question nobody is asking. The key
-   stays with Daniel; the suite is not deleted; a future sealed
+   stays with the operator; the suite is not deleted; a future sealed
    evaluation is authored fresh against whatever it is meant to judge.
 
 4. **The pack-drill gate is not a release blocker.** Twenty-two drills
    have scenarios and graders and no cold-agent verdicts. Running them is
-   a spend decision Daniel has deferred, and it moves to the optional
+   a spend decision the operator has deferred, and it moves to the optional
    post-release list along with the three designed-but-never-run policy
    comparison runs.
 
 5. **The release gate for this line is therefore:** the checker green
    with the semantic and freshness series, the full test suite green, the
    CHANGELOG written, no false statement about the tree surviving the
-   final review, and Daniel's explicit approval under PB-E05. Delivery
+   final review, and the operator's explicit approval under PB-E05. Delivery
    quality, measured at 50 of 50 against 39 of 53, is the evidence
    offered for the release; efficiency is offered as unmeasured.
 
@@ -86,7 +86,7 @@ the review passes at the end of the v2.1 build.
 
 ## Reversal
 
-If Daniel later wants the comparison, nothing here prevents authoring a
+If the operator later wants the comparison, nothing here prevents authoring a
 new sealed suite against the released line and running it once. The
 retired suite stays in the tree with its hashes, so the decision is
 auditable and reversible in the only sense that matters: the evidence

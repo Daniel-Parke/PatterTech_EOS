@@ -9,7 +9,7 @@ date: 2026-08-04
 
 # ADR-0003: lightness, and honest generation
 
-Daniel ruled on 2026-08-04, during the pre-release review of
+The operator ruled on 2026-08-04, during the pre-release review of
 `feat/eos-v2-agentic-development`. Two changes to `GOVERNANCE.md`, which is
 protected, plus the principle that governs both. This decision does not
 supersede ADR-0002; it amends two clauses of the governance ADR-0002 put in

@@ -1,0 +1,159 @@
+{
+  "pack": "identity-access",
+  "fragment": "provenance",
+  "authority": "ADR-0006 decision 7",
+  "task": "not yet recorded in org/TASKS.md; this pack was authored as a lane before its task row existed, and the integrator owns the row",
+  "swept": "2026-08-15",
+  "method": "Every source cited anywhere in packs/identity-access/ was fetched on 2026-08-15 by this lane and its licence read off the page or the repository at that fetch. Nothing was read back from registry/evidence.json, because none of these records is in the ledger yet: the fragment import assigns EV ids and this sweep therefore records fragment ids. Licence state is derived from what the source itself states at that access; no licence was inferred from the publisher's other documents, which is why two OWASP rows carry different Creative Commons versions rather than one class rule. Carried expression was checked by reading the whole pack read surface (PACK.md, CHECKS.md, four guides, three refs, one exemplar) and listing every span that echoes a source's wording, quoted or not. research/ is working notes and is excluded from the read surface.",
+  "carried_expression": {
+    "verdict": "clean",
+    "longest_quoted_span_words": 2,
+    "note": "No quotation marks around source text anywhere in the read surface, and no block quotation. The longest echo is the pair of words potentially unrecoverable, used twice without quotation marks to report how FRAG-IDENTITY-ACCESS-14 characterises a cross-tenant leak. Two-word technical characterisations are not authored expression and both uses attribute the source. Everything else is restated: the four points of the access control model are named as identifiers a reader has to recognise, the eight break-glass properties are our own numbering and wording over a source checklist, and the row-security bypass list is a list of facts about a database with no room for authored form."
+  },
+  "counts": {
+    "sources_cited": 15,
+    "rows_carrying_licence_evidence": 0,
+    "by_licence_state": {
+      "verified": 0,
+      "stated-unverified": 10,
+      "no-reuse-licence": 3,
+      "unknown": 1,
+      "not-stated": 1
+    },
+    "residual_unknown_or_not_stated": 2
+  },
+  "sources": [
+    {
+      "id": "FRAG-IDENTITY-ACCESS-01",
+      "source": "OWASP Top 10:2025, A01 Broken Access Control",
+      "url": "https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/",
+      "licence": "Creative Commons Attribution 3.0 Unported",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false,
+      "note": "The 2025 introduction page states CC BY 3.0 while other OWASP surfaces state CC BY-SA 4.0. Recorded per document rather than per publisher."
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-02",
+      "source": "OWASP Authorization Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+      "licence": "CC BY-SA 4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-03",
+      "source": "NIST Role Based Access Control project, and ANSI/INCITS 359",
+      "url": "https://csrc.nist.gov/projects/role-based-access-control",
+      "licence": "US Government work, public domain, for the NIST page only",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false,
+      "note": "Two licences in one row and they must not be merged. The NIST project page is public domain; INCITS 359-2012 itself is a paid INCITS publication under its own copyright and was not read. Everything this pack says about the standard comes from the public page."
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-04",
+      "source": "NIST SP 800-162, Guide to ABAC Definition and Considerations, Update 2",
+      "url": "https://csrc.nist.gov/pubs/sp/800/162/upd2/final",
+      "licence": "US Government work, public domain",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-05",
+      "source": "Zanzibar: Google's Consistent, Global Authorization System",
+      "url": "https://www.usenix.org/system/files/atc19-pang.pdf",
+      "licence": "none stated on the paper",
+      "licence_state": "not-stated",
+      "licence_evidence_recorded": false,
+      "note": "The paper text carries no copyright or licence line. The USENIX presentation page returned 403 to automated access at this reading, so the proceedings terms were not read and the paper was fetched from the open-access PDF instead. Facts only are carried; no wording."
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-06",
+      "source": "OpenFGA",
+      "url": "https://github.com/openfga/openfga",
+      "licence": "Apache-2.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-07",
+      "source": "OASIS XACML Version 3.0",
+      "url": "http://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html",
+      "licence": "OASIS Open copyright under the OASIS IPR Policy, which permits copying and derivative works while notices are retained",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-08",
+      "source": "RFC 9700, BCP 240",
+      "url": "https://www.rfc-editor.org/rfc/rfc9700.html",
+      "licence": "IETF Trust copyright under BCP 78 and the IETF Trust Legal Provisions",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-09",
+      "source": "OpenID Connect Core 1.0 incorporating errata set 2",
+      "url": "https://openid.net/specs/openid-connect-core-1_0.html",
+      "licence": "OpenID Foundation copyright under the foundation's IPR policy",
+      "licence_state": "unknown",
+      "licence_evidence_recorded": false,
+      "note": "The notices appendix was requested and did not render at this access, so the exact reuse permission was not read. This is a looked-at gap rather than an unlooked-at one, and it is the row to close first if anyone re-runs this sweep."
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-10",
+      "source": "NIST SP 800-63B-4",
+      "url": "https://pages.nist.gov/800-63-4/sp800-63b.html",
+      "licence": "US Government work, public domain",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-11",
+      "source": "OWASP Session Management Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+      "licence": "CC BY-SA 4.0",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-12",
+      "source": "PostgreSQL documentation, Row Security Policies",
+      "url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+      "licence": "The PostgreSQL Licence",
+      "licence_state": "stated-unverified",
+      "licence_evidence_recorded": false,
+      "note": "The current documentation tracks the newest release, so the URL will describe a later version over time. Version 18 was what it described at this access, and the version is recorded in the source row for that reason."
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-13",
+      "source": "Azure Architecture Center, storage and data in multitenant solutions",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/approaches/storage-data",
+      "licence": "Microsoft Learn terms of use, no open reuse licence read",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-14",
+      "source": "AWS Well-Architected SaaS Lens, silo, pool and bridge models",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/saas-lens/silo-pool-and-bridge-models.html",
+      "licence": "AWS documentation terms, no open reuse licence",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false,
+      "note": "The companion 2020 whitepaper carries a publisher notice that it is retained for historical reference. That fact is reported in the pack; none of its wording is carried."
+    },
+    {
+      "id": "FRAG-IDENTITY-ACCESS-15",
+      "source": "Microsoft Entra ID, Manage emergency access admin accounts",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/security-emergency-access",
+      "licence": "Microsoft Learn terms of use, no open reuse licence read",
+      "licence_state": "no-reuse-licence",
+      "licence_evidence_recorded": false,
+      "note": "The article declares itself AI-assisted in its own metadata. Recorded in the source row's applicability limits, because a vendor page written with model assistance is weaker evidence than a standard and the pack should not borrow confidence from it."
+    }
+  ],
+  "agent_addressed_text": {
+    "found": false,
+    "note": "No page fetched for this pack contained text addressed to an automated agent, and none carried instructions of any kind aimed at the reader as an operator of tools. Two fetches were refused rather than answered: the USENIX presentation page and one NIST publication URL returned 403 and 404 respectively, which is access control rather than content. Recorded because an absence somebody checked for is a different fact from an absence nobody looked for."
+  },
+  "notes": "Fifteen sources, none of them in registry/evidence.json yet. Four are United States Government work and are the only rows here that are unambiguously free to reuse in wording as well as in fact. Three are Creative Commons and two of those are the same publisher under different versions, which is exactly the blanket-assumption trap. Three are vendor terms with no open reuse and all three are load-bearing for the tenancy and break-glass material, so those sections were written to carry facts and structure rather than form. One carries no licence statement at all, and it is the single most cited source in the pack, which is worth knowing before anybody quotes it. The residual gap is one row: the OpenID Connect notices appendix did not render and nobody has read it. Nothing here asks for a change to the pack."
+}

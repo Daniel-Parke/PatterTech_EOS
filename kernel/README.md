@@ -74,7 +74,7 @@ discard.
 
 ## Status
 
-This content is unreleased law until Daniel approves the release.
+This content is unreleased law until the operator approves the release.
 ADR-0002 records what was approved for implementation. ADR-0007 settles
 what the release gate now is, and strikes the two benchmark gates that
 can no longer be computed. The v1 template set this replaces is

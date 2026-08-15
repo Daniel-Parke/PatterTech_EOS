@@ -269,7 +269,7 @@ def cmd_study(args):
     lawfully acquired, what is in the lens and what is deliberately out.
     This command only puts the skeleton where the study session can fill
     it. It reads nothing else, fetches nothing and fills no slot: what
-    goes in the contract is Daniel's to approve, not a tool's to guess.
+    goes in the contract is the operator's to approve, not a tool's to guess.
     """
     import re
 
@@ -554,7 +554,7 @@ def build_parser():
         "study",
         description="Scaffold a lens contract for the Study workflow "
                     "(PB-E11) into a directory. It copies the kernel "
-                    "template and fills nothing: the lens is Daniel's to "
+                    "template and fills nothing: the lens is the operator's to "
                     "approve before the source is read.")
     st.add_argument("--out", required=True,
                     help="directory to write the contract into; created if "

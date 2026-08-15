@@ -108,7 +108,7 @@ own. Nothing but the monthly pass holds a row in `org/cadence.json`
 ## PB-E01 · Inception (Session 0)
 
 Run a new venture's Session 0 end to end per `inception/INCEPTION.md`,
-phases A to E. Gate: seed checks green, then Daniel signs the human
+phases A to E. Gate: seed checks green, then the operator signs the human
 rubric items. Close: one row in `registry/PROJECTS.md`, then the launch
 decision, which is his. Either Genesis runs per `inception/GENESIS.md`
 or the sign-off block carries one line saying why not.
@@ -156,7 +156,7 @@ is an accepted ADR carrying an expiry date (ADR-0004), and no check
 reads that date, so this sample is the only thing that catches one that
 has run out. Promotion: default to binding candidate on two argued
 rulings from two ventures, or one plus a source with basis standard or
-evidence grade controlled; binding requires an ADR and Daniel. Contrary
+evidence grade controlled; binding requires an ADR and the operator. Contrary
 rulings against binding rules trigger review, never automatic demotion;
 law and standard based rules change only through an ADR citing the
 changed source.
@@ -167,11 +167,11 @@ The gate is ADR-0007, decision 5, and it is five things:
 `python -m tools.eos check --repo` green with the semantic and
 freshness series, `python -m pytest` green, the CHANGELOG entry
 written, no false statement about the tree surviving the final review,
-and Daniel's explicit approval. Benchmark gates are not on it. Of the
+and the operator's explicit approval. Benchmark gates are not on it. Of the
 eight in `benchmark/PROTOCOL.md`, three passed on the 2026-08-08 batch,
 two were struck with reasons, two cannot be computed without the sealed
 suite, which is retired unopened, and the pack drills report no verdict
-because running them is a spend decision Daniel deferred. A struck gate
+because running them is a spend decision the operator deferred. A struck gate
 is not a met gate and nothing may describe it as one.
 
 Then: superseded files archived once nothing live refers to them, tag
@@ -247,7 +247,7 @@ one new deliberate experiment.
 
 ## PB-E11 · Study an exemplar
 
-Daniel points at a source and says what to study it for. Nothing else
+The operator points at a source and says what to study it for. Nothing else
 starts this, and nothing schedules it. The whole procedure runs in one
 session, which is the only session that sees the raw source.
 
@@ -262,7 +262,7 @@ aspect; the lenses out, always including no verbatim code or assets, no
 expressive text, no source-identifying look and no tainted material; the
 escalation order, which is observe, then docs, then tests, then source,
 and never decompile without a recorded lawful basis; and where the
-findings land. Daniel approves the contract in the room. Without an
+findings land. The operator approves the contract in the room. Without an
 approved contract there is no study, because the contract is the record
 that makes the study defensible afterwards.
 
@@ -290,7 +290,7 @@ The retention threshold: an artefact is kept only if its absence would
 change a decision. A study that changes nothing says so in one line and
 stops there.
 
-**4. Run the conflict pass, before Daniel sees anything.** Map the
+**4. Run the conflict pass, before the operator sees anything.** Map the
 findings against the packs and everything inside them, guides, wargames,
 refs and exemplars alike; the registries; `org/policy.json` and
 `GOVERNANCE.md`; the inception and seed process; and the lessons already
@@ -308,7 +308,7 @@ and the assumption the study will use if the question is deferred.
 `registry/lessons.json`, origin study, citing the evidence id from step
 two and the lens contract from step one. The row shape is fixed by that
 ledger's schema and is not restated here. A rejection is a row too, with
-Daniel's reason, so the same idea cannot come back later as though it
+The operator's reason, so the same idea cannot come back later as though it
 were new. Binding is never a disposition this workflow assigns; the most
 it can do is propose a binding candidate, and the ladder in
 `GOVERNANCE.md` is unchanged.
@@ -348,7 +348,7 @@ venture.
    not. Do not start it here.
 6. Return candidate lessons the other way: anything this venture is
    doing that the estate should learn from goes back in the harvest
-   shape, naming the venture. Daniel rules on those through the monthly
+   shape, naming the venture. The operator rules on those through the monthly
    pass. A check-in promotes nothing by itself.
 7. Change nothing in the venture repo. The venture decides what to do
    with the findings and is free to do nothing at all.

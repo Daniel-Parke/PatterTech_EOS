@@ -126,7 +126,7 @@ has no frozen drill.
 
 ## The honest headline on scale
 
-Daniel asked to massively expand the packs so an agent has more to draw
+The operator asked to massively expand the packs so an agent has more to draw
 from. The first wave is 21 packs to 25, with substantially more depth
 inside the existing ones. Going straight to 45 means inventing decision
 surfaces that do not exist, which fails the admission gate the estate

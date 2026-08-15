@@ -1,6 +1,6 @@
 {
  "version": 1,
- "note": "Venture profiles for measuring pack activation. Each row carries the venture facts a Session 0 interview would settle, and the packs a reader of the archetype expects to load. The expected lists were authored by hand from the archetype, not read off the tool, but they were authored in the same commit as the measurement, which is the weaker guarantee the drill manifest records for its Wave B specs. Nothing here is a complete venture brief: these are facts blocks, not Session 0 transcripts, and no venture in registry/PROJECTS.md corresponds to any of them.",
+ "note": "Venture profiles for measuring pack activation. Each row carries the venture facts a Session 0 interview would settle, and the packs a reader of the archetype expects to load. The expected lists were authored by hand from the archetype, not read off the tool, but they were authored in the same commit as the measurement, which is the weaker guarantee the drill manifest records for its Wave B specs. Nothing here is a complete venture brief: these are facts blocks, not Session 0 transcripts, and no venture in registry/PROJECTS.md corresponds to any of them. Extended 2026-08-15 when four packs were admitted, which is also when the corpus earned its keep: data-engineering declared stores_persistent_data and fired for the SaaS and the public API, neither of which is a data-engineering venture, and the predicate was dropped.",
  "profiles": [
   {
    "id": "disposable-script",
@@ -35,10 +35,12 @@
    "id": "internal-staff-analytics",
    "what": "An internal dashboard over employment data, role-gated, whose outputs may inform management decisions.",
    "facts": [
+    "authenticates_people",
     "deploys_to_environment",
     "handles_analytics_identifier",
     "handles_personal_data",
     "has_database",
+    "has_privileged_access_path",
     "has_server_code",
     "has_test_suite",
     "has_user_interface",
@@ -52,6 +54,7 @@
     "data-analytics",
     "delivery-testing",
     "devops-reliability",
+    "identity-access",
     "legal-licensing",
     "security-privacy",
     "ui-ux"
@@ -68,15 +71,19 @@
     "has_database",
     "has_server_code",
     "has_test_suite",
+    "ingests_external_data",
     "models_time",
+    "processes_event_time_data",
     "publishes_analytics_table",
     "runs_agents",
+    "runs_scheduled_pipeline",
     "stores_persistent_data"
    ],
    "expected_packs": [
     "architecture",
     "business-logic-modelling",
     "data-analytics",
+    "data-engineering",
     "delivery-testing",
     "devops-reliability",
     "security-privacy",
@@ -88,6 +95,7 @@
    "id": "saas-web-app",
    "what": "A small multi-tenant SaaS with accounts, subscriptions and a public sign-up.",
    "facts": [
+    "authenticates_people",
     "deploys_to_environment",
     "handles_personal_data",
     "has_customer_inbound",
@@ -95,6 +103,7 @@
     "has_external_egress",
     "has_forms",
     "has_paying_customers",
+    "has_privileged_access_path",
     "has_server_code",
     "has_test_suite",
     "has_user_interface",
@@ -102,9 +111,11 @@
     "hosts_service",
     "models_money",
     "publishes_a_price",
+    "publishes_code",
     "runs_agents",
     "sells_by_subscription",
     "sells_to_consumers",
+    "serves_multiple_tenants",
     "sets_a_price",
     "stores_persistent_data"
    ],
@@ -114,8 +125,10 @@
     "business-model-pricing",
     "delivery-testing",
     "devops-reliability",
+    "identity-access",
     "legal-licensing",
     "security-privacy",
+    "supply-chain-integrity",
     "support-operations",
     "ui-ux",
     "writing-content"
@@ -126,6 +139,7 @@
    "id": "public-api",
    "what": "A versioned public API with webhooks, SDK consumers and a compatibility promise.",
    "facts": [
+    "authenticates_people",
     "consumes_external_api",
     "deploys_to_environment",
     "exposes_service_boundary",
@@ -134,6 +148,7 @@
     "has_server_code",
     "has_test_suite",
     "hosts_service",
+    "publishes_code",
     "publishes_docs",
     "publishes_events",
     "receives_webhooks",
@@ -146,8 +161,10 @@
     "delivery-testing",
     "devops-reliability",
     "docs-dx",
+    "identity-access",
     "legal-licensing",
-    "security-privacy"
+    "security-privacy",
+    "supply-chain-integrity"
    ],
    "why": "No user interface at all, so ui-ux must stay out even though the venture is public facing."
   },
@@ -156,6 +173,7 @@
    "what": "An internal PatterTech assistant retrieving from company documents, calling tools, with a person approving anything consequential.",
    "facts": [
     "adopts_pattertech_house",
+    "authenticates_people",
     "builds_agent_workflow",
     "builds_retrieval",
     "calls_a_model",
@@ -167,6 +185,8 @@
     "has_test_suite",
     "has_user_interface",
     "holds_credentials",
+    "keeps_a_knowledge_base",
+    "researches_before_building",
     "runs_agents",
     "ships_model_output"
    ],
@@ -176,8 +196,10 @@
     "architecture",
     "delivery-testing",
     "devops-reliability",
+    "identity-access",
     "legal-licensing",
     "pattertech-house",
+    "research-knowledge",
     "security-privacy",
     "ui-ux"
    ],
@@ -199,6 +221,7 @@
     "legal-licensing",
     "native-client",
     "security-privacy",
+    "supply-chain-integrity",
     "ui-ux"
    ],
    "why": "No server, so architecture and devops-reliability must stay out. Personal data is still personal when it never leaves the device."

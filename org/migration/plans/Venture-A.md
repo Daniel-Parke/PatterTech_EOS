@@ -87,6 +87,6 @@ as preserved.
 
 ## Gate
 
-The recompiled seed passes the seed check with zero errors, then Daniel
+The recompiled seed passes the seed check with zero errors, then the operator
 signs the human rubric items again, headed by the cold-start test.
 Only then does the row in registry/PROJECTS.md take the new pin.

@@ -12,19 +12,10 @@ derived: true
 Derived from `registry/coverage.json` by
 `python -m tools.eos check --write-index`. Do not hand-edit.
 
-**Built: 21. Registry-only: 8.** A registry-only
+**Built: 25. Registry-only: 4.** A registry-only
 row is not coverage, and this view says so first.
 
 ## Not built
-
-### data-engineering
-
-- **Why not**: Admitted for the next content wave and not yet built. data-analytics owns what a number means; nothing owns how the bytes arrive and are reprocessed. Distinct decision surface: batch against stream, idempotent reprocessing, backfill, late and duplicate records. Recorded here rather than silently deferred, per ADR-0002.
-- **Would activate on**: Running a pipeline that ingests from somewhere else on a schedule, with reprocessing.
-- **Estate relevance**: The batch-pipeline archetype in tests/fixtures/activation/profiles.json activates data-analytics and devops-reliability today, and neither answers a backfill question.
-- **Evaluation**: None yet. Admission gate, then a frozen drill.
-- **Owner**: EOS integrator
-- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
 
 ### document-design
 
@@ -44,15 +35,6 @@ row is not coverage, and this view says so first.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:venture-requiring-hardware-doctrine
 
-### identity-authorisation-and-tenancy
-
-- **Why not**: Admitted for the next content wave and not yet built. Verified gap: no guide anywhere in packs/ argues role-based against attribute-based against relationship-based authorisation. security-privacy owns secrets, injection, personal data and approval before external action, none of which is authorisation. Recorded here rather than silently deferred, per ADR-0002.
-- **Would activate on**: Authenticating people, or serving more than one tenant from one system.
-- **Estate relevance**: The saas-web-app archetype needs it and gets architecture and security-privacy, which answer a different question.
-- **Evaluation**: None yet. Admission gate, then a frozen drill.
-- **Owner**: EOS integrator
-- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
-
 ### platform-engineering-and-golden-paths
 
 - **Why not**: Fails the admission gate in reverse: it serves many internal teams and the estate is one operator, so it would never activate. Recording the reason is more honest than building a pack that no venture can trigger. Recorded here rather than silently deferred, per ADR-0002.
@@ -62,15 +44,6 @@ row is not coverage, and this view says so first.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:estate-gaining-a-second-team
 
-### research-and-knowledge-base
-
-- **Why not**: Admitted for the next content wave and not yet built, and the strongest case of the four because the practice already exists here unpacked: kernel/templates/LENS.tpl.md, the LENS-NNNN id form, a 504-record evidence ledger with a schema, and registry/lessons.json. All of it governs the EOS's own research and none of it is something a venture inherits. ai-ml-llm owns retrieval for a model and legal-licensing owns what may be carried away from a source; neither owns evidence discipline. Recorded here rather than silently deferred, per ADR-0002.
-- **Would activate on**: A venture that has to research before it builds, or that keeps a knowledge base others read for decisions.
-- **Estate relevance**: The EOS itself is the worked example, which is an argument for the pack and a warning: a pack written only from our own practice has one source.
-- **Evaluation**: None yet. Admission gate, then a frozen drill.
-- **Owner**: EOS integrator
-- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
-
 ### scientific-and-reproducible-computing
 
 - **Why not**: No venture in registry/PROJECTS.md is a scientific one, so a pack would be written from nothing, reviewed by nobody and drilled against no scenario. That is the shallow completeness packs/PACK_SHAPE.md rules out. Recorded here rather than silently deferred, per ADR-0002.
@@ -79,15 +52,6 @@ row is not coverage, and this view says so first.
 - **Evaluation**: None. It earns a pack when a venture demands one.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:venture-requiring-reproducible-computing
-
-### supply-chain-and-release-integrity
-
-- **Why not**: Admitted for the next content wave and not yet built. The gap is measured rather than asserted: registry/evidence.json holds one SLSA record and one sigstore record, and zero for in-toto, SBOM, CycloneDX and The Update Framework. legal-licensing owns what a licence permits and devops-reliability owns rollout; neither owns whether an artefact is what it claims to be. Recorded here rather than silently deferred, per ADR-0002.
-- **Would activate on**: Publishing an artefact anyone installs, or consuming a third-party binary. Provenance, signing, SBOM shape, pinning cadence and what a compromised build system can reach.
-- **Estate relevance**: This repository publishes no artefact today, and its own dependency lock was single-platform until 2026-08-15, which is the class of defect this capability would own.
-- **Evaluation**: None yet. It earns a pack by passing the admission gate in packs/PACK_SHAPE.md with a drill frozen before the pack is authored.
-- **Owner**: EOS integrator
-- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
 
 ## Built
 
@@ -223,6 +187,17 @@ row is not coverage, and this view says so first.
 - **Review trigger**: 2027-11
 - **Evidence**: 16 rows, EV-0305, EV-0306, EV-0307, EV-0308, EV-0309, EV-0310, EV-0311, EV-0312, EV-0313, EV-0315, EV-0316, EV-0317, EV-0318, EV-0319, EV-0320, EV-0321
 
+### data-engineering
+
+- **Pack**: `packs/data-engineering/`
+- **Activation**: A pipeline that ingests from elsewhere on a schedule, with reprocessing. Ingestion shape, idempotent reprocessing, where the processing date comes from, and late or out-of-order arrivals. Predicates: ingests_external_data, runs_scheduled_pipeline, reprocesses_data, processes_event_time_data.
+- **Worked example**: `packs/data-engineering/exemplars/EX-DATAENG-001-orders-backfill.md`
+- **Evaluation**: The pack's four guides, its CHECKS.md, and the frozen drill benchmark/drills/data-engineering.md, which was written before the pack existed.
+- **Estate relevance**: The batch-pipeline archetype in tests/fixtures/activation/profiles.json activates data-analytics and devops-reliability today, and neither answers a backfill question.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:packs/data-engineering/PACK.md
+- **Evidence**: 12 rows, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0513, EV-0514, EV-0515, EV-0516
+
 ### delivery-testing-and-quality
 
 - **Pack**: `packs/delivery-testing/`
@@ -255,6 +230,17 @@ row is not coverage, and this view says so first.
 - **Owner**: EOS integrator
 - **Review trigger**: 2028-04
 - **Evidence**: 16 rows, EV-0044, EV-0322, EV-0323, EV-0324, EV-0325, EV-0326, EV-0327, EV-0328, EV-0329, EV-0330, EV-0331, EV-0332, EV-0333, EV-0334, EV-0335, EV-0336
+
+### identity-authorisation-and-tenancy
+
+- **Pack**: `packs/identity-access/`
+- **Activation**: Authenticating people, and serving more than one tenant from one system. The authorisation model, where the decision point sits, tenant isolation and privileged access. Predicates: authenticates_people, serves_multiple_tenants, has_privileged_access_path, changes_authorisation_rule.
+- **Worked example**: `packs/identity-access/exemplars/EX-IDENT-001-cross-tenant-share.md`
+- **Evaluation**: The pack's four guides, its CHECKS.md, and the frozen drill benchmark/drills/identity-access.md, which was written before the pack existed.
+- **Estate relevance**: The saas-web-app archetype needs it and gets architecture and security-privacy, which answer a different question.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:packs/identity-access/PACK.md
+- **Evidence**: 15 rows, EV-0517, EV-0518, EV-0519, EV-0520, EV-0521, EV-0522, EV-0523, EV-0524, EV-0525, EV-0526, EV-0527, EV-0528, EV-0529, EV-0530, EV-0531
 
 ### legal-licensing-and-compliance-routing
 
@@ -300,6 +286,17 @@ row is not coverage, and this view says so first.
 - **Review trigger**: 2028-06
 - **Evidence**: 18 rows, EV-0403, EV-0404, EV-0405, EV-0406, EV-0407, EV-0408, EV-0409, EV-0410, EV-0411, EV-0412, EV-0413, EV-0414, EV-0415, EV-0416, EV-0417, EV-0418, EV-0419, EV-0420
 
+### research-and-knowledge-base
+
+- **Pack**: `packs/research-knowledge/`
+- **Activation**: A venture that has to establish facts outside its control before building on them, or that keeps written findings others read to decide. Evidence discipline, traceability, supersession, and treating source text as data. Predicates: researches_before_building, keeps_a_knowledge_base, records_external_claim, supersedes_a_source, studies_external_source, reads_for_decision.
+- **Worked example**: `packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md`
+- **Evaluation**: The pack's four guides, its CHECKS.md, and the frozen drill benchmark/drills/research-knowledge.md, which was written before the pack existed.
+- **Estate relevance**: The EOS itself is the worked example, which is an argument for the pack and a warning: a pack written only from our own practice has one source.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:packs/research-knowledge/PACK.md
+- **Evidence**: 31 rows, EV-0055, EV-0097, EV-0124, EV-0171, EV-0212, EV-0213, EV-0219, EV-0242, EV-0247, EV-0259, EV-0260, EV-0331, EV-0358, EV-0473, EV-0532, EV-0533, EV-0534, EV-0535, EV-0536, EV-0537, EV-0538, EV-0539, EV-0540, EV-0541, EV-0542, EV-0543, EV-0544, EV-0545, EV-0546, EV-0547, EV-0548
+
 ### security-privacy-and-safety
 
 - **Pack**: `packs/security-privacy/`
@@ -310,6 +307,17 @@ row is not coverage, and this view says so first.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:EV-0213
 - **Evidence**: 15 rows, EV-0212, EV-0213, EV-0214, EV-0215, EV-0216, EV-0217, EV-0218, EV-0219, EV-0220, EV-0221, EV-0222, EV-0223, EV-0224, EV-0225, EV-0226
+
+### supply-chain-and-release-integrity
+
+- **Pack**: `packs/supply-chain-integrity/`
+- **Activation**: Publishing an artefact anyone installs, or consuming a third-party binary. Provenance, signing identity, SBOM shape, pinning cadence, and what a compromised build system can reach. Predicates: publishes_code, ships_a_binary, builds_release_artefact, consumes_prebuilt_artefact, adds_dependency, vendors_code.
+- **Worked example**: `packs/supply-chain-integrity/exemplars/EX-SUPPLY-001-first-published-release.md`
+- **Evaluation**: The pack's four guides, its CHECKS.md, and the frozen drill benchmark/drills/supply-chain-integrity.md, which was written before the pack existed.
+- **Estate relevance**: This repository publishes no artefact today, and its own dependency lock was single-platform until 2026-08-15, which is the class of defect this capability would own.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:packs/supply-chain-integrity/PACK.md
+- **Evidence**: 19 rows, EV-0038, EV-0068, EV-0069, EV-0155, EV-0156, EV-0549, EV-0550, EV-0551, EV-0552, EV-0553, EV-0554, EV-0555, EV-0556, EV-0557, EV-0558, EV-0559, EV-0560, EV-0561, EV-0562
 
 ### writing-and-content-design
 

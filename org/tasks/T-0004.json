@@ -1,6 +1,6 @@
 {
   "id": "T-0004",
-  "intent": "Pre-release review of feat/eos-v2-agentic-development, ruled by Daniel on 2026-08-04. Three antagonistic audits found the repository misdescribes itself in its machine-readable artefacts while its prose stays roughly honest. Fix what lies, cut what misleads, build the two safety controls that were documented and never implemented, wire pack activation so progressive disclosure actually happens, then rebuild the benchmark instrument and re-run it clean. The merge to main is halted until the gates are re-measured. Governed by ADR-0003. Closed: the pre-release review landed and merged to main. Its findings became T-0008 to T-0012 and ADR-0003, ADR-0004 and ADR-0005.",
+  "intent": "Pre-release review of feat/eos-v2-agentic-development, ruled by the operator on 2026-08-04. Three antagonistic audits found the repository misdescribes itself in its machine-readable artefacts while its prose stays roughly honest. Fix what lies, cut what misleads, build the two safety controls that were documented and never implemented, wire pack activation so progressive disclosure actually happens, then rebuild the benchmark instrument and re-run it clean. The merge to main is halted until the gates are re-measured. Governed by ADR-0003. Closed: the pre-release review landed and merged to main. Its findings became T-0008 to T-0012 and ADR-0003, ADR-0004 and ADR-0005.",
   "declared": {
     "capabilities": [
       "network"

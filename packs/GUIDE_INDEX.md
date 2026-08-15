@@ -60,6 +60,10 @@ Derived file. Edit guide front-matter, then run
 | GD-DATA-003 | How is an experiment allowed to end, a locked fixed horizon, an always-valid sequential test, an asymmetric gate, or no experiment at all? | data-analytics | default | 2028-01 |
 | GD-DATA-004 | Where does the analytics data sit, a single managed warehouse, a warehouse over an open table format, a lakehouse, or files and a single-node engine? | data-analytics | default | 2028-01 |
 | GD-DATA-005 | How are product events named and validated, hosted SDK defaults, a written convention, a reviewed tracking plan, or a registry that quarantines invalid events? | data-analytics | default | 2028-02 |
+| GD-DATAENG-001 | Scheduled batch extract, a subscribed stream, log-based change capture, or polling a modified-at column? | data-engineering | default | 2027-12 |
+| GD-DATAENG-002 | Overwrite the partition, merge on a key, append-only with a view that picks the winner, or an idempotent write token? | data-engineering | default | 2028-01 |
+| GD-DATAENG-003 | The run's own clock, the scheduler's interval, a high-water mark read from the target, or the event time carried in the record? | data-engineering | default | 2028-02 |
+| GD-DATAENG-004 | Drop at the watermark, hold the window open and restate, reprocess a fixed lookback every run, or recompute everything? | data-engineering | default | 2028-03 |
 | WG-DEL-005 | Which double stands in for this port: real, container, verified fake, or mock? | delivery-testing | default | 2028-02 |
 | WG-DEL-006 | How independent must the oracle be from the code it judges, and who authors it? | delivery-testing | binding | 2028-03 |
 | WG-DEL-007 | What has to exist before work fans out, and when checks get written relative to the code | delivery-testing | default | 2028-03 |
@@ -73,6 +77,10 @@ Derived file. Edit guide front-matter, then run
 | GD-DOCS-003 | Who writes the changelog, and whether release notes can be derived from history at all | docs-dx | default | on-change-of:keep-a-changelog-beyond-1.1.0 |
 | GD-DOCS-004 | What a user-visible failure owes its reader, and how much structure to spend on it | docs-dx | default | on-change-of:rustc-diagnostic-style-guide |
 | GD-DOCS-005 | Which documentation checks are allowed to fail a build, and which stay advisory | docs-dx | default | 2028-04 |
+| GD-IDENT-001 | Ownership checks, roles, attributes or relationships? The fork the coverage matrix recorded as missing | identity-access | default | 2028-10 |
+| GD-IDENT-002 | Server-side session in a cookie, bearer token, token in a cookie behind a front end, or a sender-constrained token? | identity-access | default | 2028-11 |
+| GD-IDENT-003 | Hosted identity provider, self-hosted identity server, passwords of your own, or federation to the customer's provider? | identity-access | default | 2028-12 |
+| GD-IDENT-004 | Tenant isolation by application filter, by database row policy, by schema, or by a store per tenant? | identity-access | default | 2029-01 |
 | GD-LEGAL-001 | Can we use this copyleft dependency for what we actually ship, and what fires the obligation | legal-licensing | default | on-change-of:https://opensource.org/license/agpl-v3 |
 | GD-LEGAL-002 | How a venture decides licence questions at all, standing verdict against per-file declaration against certified process against scan and review | legal-licensing | default | on-change-of:https://www.apache.org/legal/resolved.html |
 | GD-LEGAL-003 | What licence a repository carries outbound, and which promise that makes to the people downstream | legal-licensing | default | on-change-of:https://blueoakcouncil.org/list |
@@ -94,10 +102,18 @@ Derived file. Edit guide front-matter, then run
 | GD-DISC-002 | Where does the evidence about users come from, existing behaviour, talking to people, a controlled experiment, or a model standing in for them? | product-discovery | default | 2028-06 |
 | GD-DISC-003 | How do you choose between candidate opportunities, score them, rank by outcome contribution, test them all, or sequence by reversibility? | product-discovery | default | 2028-07 |
 | GD-DISC-004 | Once the problem is settled, in what form do the acceptance criteria go, a user story, EARS clause order, an executable test, or a full specification chain? | product-discovery | default | 2028-07 |
+| GD-RESEARCH-001 | One authoritative source, a fixed budget, agreement from independent routes, or an exhaustive sweep? | research-knowledge | default | 2029-04 |
+| GD-RESEARCH-002 | In the repository under the code gate, an open wiki with a policy, a curated store with one editor, or no separate base at all? | research-knowledge | default | 2029-05 |
+| GD-RESEARCH-003 | Wait for something to break, sweep on a calendar, supersede on a named event, or keep the answer continuously live? | research-knowledge | default | 2029-06 |
+| GD-RESEARCH-004 | Follow it when it looks helpful, ignore it quietly, record and report it, or refuse to read the class at all? | research-knowledge | default | 2027-06 |
 | GD-SEC-001 | In-band detection, a configuration rule, out-of-band enforcement, or OS containment? | security-privacy | default | 2027-03 |
 | GD-SEC-002 | Ignore rules alone, a pre-commit scan, a push-path scan, or a managed store with short-lived credentials? | security-privacy | default | 2027-04 |
 | GD-SEC-003 | No declared level, a flat entry bar, a graded catalogue by data sensitivity, or per-practice maturity? | security-privacy | default | 2027-06 |
 | GD-SEC-004 | Model judgement, a static allowlist, guard-classified verdicts with recorded approval, or manual only? | security-privacy | default | 2027-05 |
+| GD-SUPPLY-001 | A checksums file, build-platform provenance, a self-hosted attestation chain, or an independently reproduced build? | supply-chain-integrity | default | 2027-04 |
+| GD-SUPPLY-002 | No signature, a personal key, a custodied key, a short-lived identity certificate, or the platform's own signing? | supply-chain-integrity | default | on-change-of:EV-0068 |
+| GD-SUPPLY-003 | Floating ranges, continuous auto-merge, a cooldown window with batched moves, digest pins everywhere, or frozen? | supply-chain-integrity | default | 2027-05 |
+| GD-SUPPLY-004 | Depend with a pin, vendor the source, fork and maintain, reimplement the slice you need, or use the platform? | supply-chain-integrity | default | on-change-of:EV-0069 |
 | GD-SUPPORT-001 | How does inbound get classified, and what keeps the queue finite? | support-operations | default | on-change-of:ISO-10002-revision |
 | GD-SUPPORT-002 | May an item close without an answer, and on whose clock? | support-operations | default | on-change-of:ISO-10002-revision |
 | GD-SUPPORT-003 | Who declares a customer-visible incident, and on what signal? | support-operations | default | 2028-08 |

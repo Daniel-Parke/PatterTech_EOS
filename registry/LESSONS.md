@@ -32,7 +32,7 @@ eleven dispositions" defines all eleven. Each value names the kind
 of home a decision found; the row's own `outcome` and `informs`
 name the file that holds it now. The value `binding` is absent on
 purpose: this ledger can propose a binding candidate and nothing
-more, because binding needs an accepted ADR and Daniel under the
+more, because binding needs an accepted ADR and the operator under the
 ladder in `GOVERNANCE.md`.
 
 **A lesson leaves this ledger once its content is stated as a rule
@@ -99,7 +99,7 @@ and a guide written for it would be speculation with a filename.
 - **Source note**: The v4 pass.
 - **Evidence class**: observational
 - **Disposition**: decision-guide
-- **Outcome**: WG-WEB-013 filed by Daniel, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/guides/GD-UIUX-004-token-source.md`.
+- **Outcome**: WG-WEB-013 filed by the operator, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/guides/GD-UIUX-004-token-source.md`.
 - **Scope**: estate
 - **Applies when**: Products with a design system whose tokens are enforced somewhere other than the code that consumes them.
 - **Informs**: WG-WEB-013, packs/ui-ux/guides/GD-UIUX-004-token-source.md
@@ -268,7 +268,7 @@ and a guide written for it would be speculation with a filename.
 - **Origin**: study
 - **Evidence**: EV-0378, EV-0382
 - **Lens**: LENS-0001
-- **Source note**: First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not Daniel's. LENS-0001 is the id reserved for the contract file, and on the day this row was decided no such file existed in this repository: the estate names no path for an EOS-side lens contract, and `kernel/templates/LENS.tpl.md` sends a venture's to `docs/lenses/`.
+- **Source note**: First worked instance of the Study workflow, written on 2026-08-10 during the v2.1 build over material already in the tree: the lens was recorded over the 2026-08-08 harvest and no new source was read. The reasoning line is this build's, not the operator's. LENS-0001 is the id reserved for the contract file, and on the day this row was decided no such file existed in this repository: the estate names no path for an EOS-side lens contract, and `kernel/templates/LENS.tpl.md` sends a venture's to `docs/lenses/`.
 - **Evidence class**: observational
 - **Disposition**: reference-only
 - **Outcome**: Nothing changed. The row records the argument behind the shape already in `registry/stacks/STACK-local-first-pwa.md`, which was harvested at LES-0015 and states the shape without stating which ideals it buys.

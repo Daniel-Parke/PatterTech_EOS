@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.pattertech.eos/policy.schema.json",
   "title": "EOS venture policy",
-  "description": "Per-venture routing and control policy. Path pattern lists are signal sources that activate named factors; no rule maps a path alone to a tier. Content under the pointers named in protected_pointers is part of the protected set: changing it requires an accepted ADR and Daniel. See kernel/POLICY_SPEC.md for the law this file instantiates.",
+  "description": "Per-venture routing and control policy. Path pattern lists are signal sources that activate named factors; no rule maps a path alone to a tier. Content under the pointers named in protected_pointers is part of the protected set: changing it requires an accepted ADR and the operator. See kernel/POLICY_SPEC.md for the law this file instantiates.",
   "type": "object",
   "additionalProperties": false,
   "required": [

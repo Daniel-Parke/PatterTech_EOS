@@ -19,7 +19,7 @@ reader scanning that index would otherwise read these four corrections
 as still pending.
 
 Proposed on 2026-08-10 by the post-merge documentation pass. Not
-accepted. `GOVERNANCE.md` requires an accepted ADR and Daniel before
+accepted. `GOVERNANCE.md` requires an accepted ADR and the operator before
 anything in the protected set changes, so these four are written down
 rather than fixed. Every other finding from the same pass was corrected
 in place, because nothing else it found was protected.
@@ -96,7 +96,7 @@ version alone, and that is the argument for taking it.
 
 ## Decision
 
-Accepted by Daniel on 2026-08-10, at the start of the v2.1 build. The
+Accepted by the operator on 2026-08-10, at the start of the v2.1 build. The
 four replacements above are applied and nothing else. No rule changes,
 no threshold moves, and no behaviour is added: each edit makes a
 description match what the code already does.

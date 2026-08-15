@@ -38,7 +38,7 @@ that names a personal-data field.
 or customer data; changing authentication; installing dependencies;
 editing what an agent is allowed to do; publishing to a destination
 outside the repository; reading a document, dataset or web page that
-the operator did not write.
+The operator did not write.
 
 **Keyword fallback**, used only when paths and task type miss: secret,
 token, credential, key, PII, personal data, GDPR, DUAA, allowlist,
@@ -97,7 +97,7 @@ documentation and this estate's own ruling. None is taste.
 The 2026-08 authority audit under ADR-0008 did not run over this
 section, and ADR-0008 says so by name. All six are protected-set safety
 floors under `GOVERNANCE.md`, so they stay binding whatever their basis
-says, and changing one still needs an accepted ADR and Daniel. That is
+says, and changing one still needs an accepted ADR and the operator. That is
 why four of them bind on a decision basis that would not carry a rule
 anywhere else in the packs.
 

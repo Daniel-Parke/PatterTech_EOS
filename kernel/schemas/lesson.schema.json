@@ -130,7 +130,7 @@
             "rejected",
             "deferred"
           ],
-          "description": "What was decided, and therefore which file now owns the decision. binding is absent on purpose: the workflow may propose a binding candidate, and only an accepted ADR with Daniel's approval binds, under the ladder in GOVERNANCE.md."
+          "description": "What was decided, and therefore which file now owns the decision. binding is absent on purpose: the workflow may propose a binding candidate, and only an accepted ADR with the operator's approval binds, under the ladder in GOVERNANCE.md."
         },
         "outcome": {
           "type": "string",
@@ -186,7 +186,7 @@
                   "superseded",
                   "operator-ruling"
                 ],
-                "description": "The first three come from the precedence rules in GOVERNANCE.md. The fourth is Daniel ruling in the room, which is authority rather than derivation."
+                "description": "The first three come from the precedence rules in GOVERNANCE.md. The fourth is the operator ruling in the room, which is authority rather than derivation."
               },
               "note": {
                 "type": "string",
@@ -219,7 +219,7 @@
         "reasoning": {
           "type": "string",
           "minLength": 1,
-          "description": "One line on why this disposition and not another. In the Study workflow it is Daniel's own line from the interview; a row carrying anyone else's line says so in source_note. Rows migrated from the prose ledger mostly have none, because that ledger had no such column."
+          "description": "One line on why this disposition and not another. In the Study workflow it is the operator's own line from the interview; a row carrying anyone else's line says so in source_note. Rows migrated from the prose ledger mostly have none, because that ledger had no such column."
         },
         "review": {
           "type": "string",

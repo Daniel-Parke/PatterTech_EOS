@@ -8,7 +8,7 @@ tags: [eos]
 
 How the EOS is allowed to change, and the contracts every file obeys.
 This file is in the protected set: changing it needs an accepted ADR in
-`org/decisions/` with Daniel's approval recorded. The architecture it
+`org/decisions/` with the operator's approval recorded. The architecture it
 governs is ADR-0002.
 
 ADR-0008 is the de-restriction pass, and its test governs everything
@@ -134,7 +134,7 @@ earned, and the evidence for each step is named.
 - **To binding candidate**: two argued rulings from two different
   ventures, or one argued ruling plus a source with `basis: standard`
   or `evidence_grade: controlled`.
-- **To binding**: an accepted ADR and Daniel's approval. Binding also
+- **To binding**: an accepted ADR and the operator's approval. Binding also
   requires a basis of decision, law, standard or empirical evidence,
   named sources, and `applies_when` predicates. Asserted-only material
   never binds.
@@ -145,7 +145,7 @@ nothing.
 
 ## The protected set
 
-Changing any of these needs an accepted ADR and Daniel (ADR-0002):
+Changing any of these needs an accepted ADR and the operator (ADR-0002):
 
 - `GOVERNANCE.md`, this file.
 - Prompt-injection resistance.
@@ -190,7 +190,7 @@ Stated here so the loosening above cannot be read as general.
 - Supersession stays explicit and bidirectional, and the checker still
   enforces the pair.
 - The promotion ladder. Authority is still earned, binding still needs an
-  accepted ADR and Daniel, and an argued ruling still counts for more
+  accepted ADR and the operator, and an argued ruling still counts for more
   than an inherited one.
 - The decision budget in `org/policy.json`, and its escalation band in
   particular: money, legal, personal-data ambiguity, the protected set,
@@ -388,4 +388,4 @@ Semver tags on this repo: patch for wording, minor for additive change,
 major for a broken contract. Ventures pin the EOS commit they compiled
 from and never auto-upgrade. A pin must resolve to a pushed tag or a
 commit reachable from origin, and the checker enforces it. Release runs
-through playbook PB-E05 and needs Daniel's explicit approval.
+through playbook PB-E05 and needs the operator's explicit approval.

@@ -9,7 +9,7 @@ date: 2026-08-10
 
 # ADR-0006: Genesis, exemplar learning and the swarm pack
 
-Daniel approved the v2.1 plan on 2026-08-10 and accepted this record in
+The operator approved the v2.1 plan on 2026-08-10 and accepted this record in
 principle before it was drafted, on the terms set out in that plan's
 interview. This record is the authorisation for every protected-set
 change the v2.1 build makes. ADR-0002 stands as the operative
@@ -61,7 +61,7 @@ finding is that structure pays and parallelism alone does not.
    principles, patterns, techniques, failure modes, decision forks and
    reference material; a conflict pass against packs, registries,
    policies, governance, the inception process and prior lessons runs
-   before Daniel sees anything; his decisions become lesson rows.
+   before the operator sees anything; his decisions become lesson rows.
 
 3. **`registry/lessons.json` becomes canonical**, with
    `registry/LESSONS.md` derived. Rows carry an origin discriminator
@@ -69,7 +69,7 @@ finding is that structure pays and parallelism alone does not.
    venture), the lesson, evidence class, disposition, scope,
    applicability conditions, machine-readable links (`informs`,
    `conflicts_with`, `supersedes`, `superseded_by`), the decision date
-   and Daniel's reasoning. Rejections are retained with their reason.
+   and the operator's reasoning. Rejections are retained with their reason.
    Dispositions: reference-only, dated-registry-fact, venture-ruling,
    worked-exemplar, implementation-reference, experimental-guidance,
    decision-guide, estate-default, binding-candidate, rejected,

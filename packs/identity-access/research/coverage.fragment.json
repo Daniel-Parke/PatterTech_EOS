@@ -1,0 +1,20 @@
+{
+  "pack": "identity-access",
+  "fragment": "coverage",
+  "note": "The row this lane claims in registry/coverage.json, written here because the matrix is integrator-owned and the pack lane must not edit it. The existing row for this capability has status registry-only and no pack key; importing this fragment replaces it. Until that happens, check S013 reports packs/identity-access/ as a built pack with no coverage row, which is correct and is the integrator's to clear. evidence_sources is empty for the same reason the pack front matter says pending-fragment-import: the evidence ids do not exist until tools/import_fragments.py assigns them, and a prose placeholder in an id array is the defect that field already had once.",
+  "replaces_row": "identity-authorisation-and-tenancy",
+  "row": {
+    "capability": "identity-authorisation-and-tenancy",
+    "status": "built",
+    "pack": "packs/identity-access/",
+    "activation": "Authenticating people, deciding what each may do, and serving more than one tenant from one system. Predicates: authenticates_people, serves_multiple_tenants, has_privileged_access_path, changes_authorisation_rule.",
+    "evidence_sources": [],
+    "worked_example": [
+      "packs/identity-access/exemplars/EX-IDENT-001-cross-tenant-share.md"
+    ],
+    "evaluation_method": "packs/identity-access/CHECKS.md, fourteen executable criteria and twelve judgement criteria. None of the executable set runs in this repository, which has no runtime, no users and no tenants; they are criteria for a venture's pipeline and the file says so. A frozen acceptance drill exists at benchmark/drills/identity-access.md and this lane did not read or write it, so it remains an independent oracle and carries no verdict.",
+    "estate_relevance": "The hosted web application archetype needs this and previously got architecture and security-privacy, which answer a different question. Any venture with a second kind of user meets GD-IDENT-001, and any venture with a second customer meets GD-IDENT-004.",
+    "owner": "EOS integrator",
+    "review_trigger": "2027-08"
+  }
+}

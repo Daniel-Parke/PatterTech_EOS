@@ -9,7 +9,7 @@ date: 2026-08-15
 
 # ADR-0010: one name per fact
 
-Daniel authorised this on 2026-08-15 as part of the audit and expansion
+The operator authorised this on 2026-08-15 as part of the audit and expansion
 mission, having asked that the estate expand so an agent has more to
 draw from, and that the AI bring only the packs a venture needs. This
 record is the second of those, because the first breaks it.

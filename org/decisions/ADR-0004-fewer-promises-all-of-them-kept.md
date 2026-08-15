@@ -9,7 +9,7 @@ date: 2026-08-08
 
 # ADR-0004: fewer promises, all of them kept
 
-Daniel ruled on 2026-08-08, during the pre-release review of
+The operator ruled on 2026-08-08, during the pre-release review of
 `feat/eos-v2-agentic-development`, when the audits showed the repository
 describing more control than it implements. The ruling: build the controls
 that protect something, delete the ones that only exist on paper, and set

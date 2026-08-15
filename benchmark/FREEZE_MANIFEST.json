@@ -3,7 +3,7 @@
  "frozen": "2026-08-03",
  "note": "SHA-256 of every frozen benchmark file. Changes after freeze require an ADR-0002 amendment. results/ is excluded (mutable ledger). Paths use forward slashes. Check B001 verifies this manifest.",
  "files": {
-  "benchmark/PROTOCOL.md": "e588b9a63c3c871be895f79c9f71997abe841937db4a94ab84b8fbffa123cc51",
+  "benchmark/PROTOCOL.md": "7d9462931e181983b92a2c38733342522ea1ccb35795776cacaed2ca90981b90",
   "benchmark/README.md": "69b95ffc9e0a92032ac239351de207c3bd2c2a07bb15c3206cca7a07bd569aaa",
   "benchmark/ablations/v2-mandatory-logs.json": "0d0b7124041784fb27e8bd13119b9950edbe9884ca4e011a07420b5f8f379957",
   "benchmark/ablations/v2-no-router.json": "73595e614ab6d85f785a4aa7b4c66603f4103b7809260608b612f3c54364e213",
@@ -281,6 +281,15 @@
    "reference": "org/decisions/ADR-0002, audit and expansion pass",
    "class": "factual correction to prose, no threshold, gate or scoring rule changed",
    "note": "Eight rows in benchmark/results/ledger.json carry variant v2-no-router while this file's status says the overlay is declared and not wired, and nothing said how both could be true. A reader finding the eight rows would reasonably read the status as stale. They are all dated 2026-08-03 and sit inside the 172 rows of that date the changelog already keeps as history rather than as the basis of any claim, because --variant was a label score.py wrote onto a row and nothing upstream read it, so no overlay drove them. A key recording that is added and nothing else changes. The overlay, the status and every other ablation file are untouched."
+  },
+  {
+   "date": "2026-08-15",
+   "files": [
+    "benchmark/PROTOCOL.md"
+   ],
+   "reference": "org/decisions/ADR-0002, de-identification pass",
+   "class": "names a role where it named a person, no threshold, gate or scoring rule changed",
+   "note": "The repository is public and the owner asked that it stop referring to him by name, in the third person throughout. This file said the private key for the sealed suite is held by a named person; it now says the operator. The custody claim is unchanged, and so is every threshold, session count, gate and scoring rule. The copyright holder in LICENSE and NOTICE and the decided_by field on the decision records keep the name, because attribution and the record of who ruled are the two places where a role would be a worse answer."
   }
  ]
 }

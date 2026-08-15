@@ -145,7 +145,7 @@ compliance.
 What was argued for it at dispatch: the artefacts are prose in disjoint
 directories, and a wrong merge is cheap to see and cheap to revert. The
 other half of B7's fallback did hold, because the merge gate in this
-repository belongs to the operator and the operator is a person, who
+repository belongs to one operator, who is a person and
 alone commits claims and adopts or discards what a lane returns
 (`OPERATORS_GUIDE.md`). What the argument is not is a rule.
 Reversibility appears in neither B7, nor check C11, nor the compiled

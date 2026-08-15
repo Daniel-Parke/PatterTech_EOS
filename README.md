@@ -11,7 +11,7 @@ repository, no build, that seeds our ventures and learns from them.
 
 The point of it is that a capable agent can take a project from idea to
 operated software to the standard of an experienced senior engineer,
-with Daniel supplying judgement at a few named gates rather than
+with the operator supplying judgement at a few named gates rather than
 repeating himself venture after venture.
 
 It does that by putting engineering judgement in files: packs of argued
@@ -84,7 +84,7 @@ The release gate is now this, and nothing else:
 - the full test suite green
 - the CHANGELOG written
 - no false statement about the tree surviving the final review
-- Daniel's explicit approval under PB-E05
+- The operator's explicit approval under PB-E05
 
 No benchmark gate is on it.
 
@@ -135,9 +135,9 @@ Amending the thresholds to match the figures already achieved would be
 tuning the target to the result, so it was not done.
 
 **The sealed suite is retired unopened.** `SEALED-BENCH-2026-08` runs
-once, needs Daniel's private key, and was authored for a comparison this
+once, needs the operator's private key, and was authored for a comparison this
 release supersedes. It stays in the tree with its hashes, the key stays
-with Daniel, and a future sealed evaluation is written fresh against
+with the operator, and a future sealed evaluation is written fresh against
 whatever it is meant to judge. Two of the protocol's eight gates
 depended on it and are therefore uncomputed. That is a real reduction in
 assurance against the plan ADR-0002 approved, accepted knowingly.

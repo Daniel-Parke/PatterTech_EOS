@@ -1,6 +1,6 @@
 {
   "id": "T-0001",
-  "intent": "Execute the approved EOS v2 overhaul per ADR-0002: the adaptive kernel, the two-wave pack expansion, this repo's org dogfooded onto records and derived views, all benchmarked against frozen v1 before any release. Final acceptance is Daniel's release checkpoint over the sealed suite SEALED-BENCH-2026-08 (benchmark/SEALED.json). Closed: the v2 overhaul shipped and merged to main on 2026-08-10, and ADR-0007 settled the final acceptance in place of the sealed suite, which is retired unopened. GUIDE.md, START.md, VISION.md and doctrine/ were retired to the archive/v1-final tag during the build and leave the claim list with it.",
+  "intent": "Execute the approved EOS v2 overhaul per ADR-0002: the adaptive kernel, the two-wave pack expansion, this repo's org dogfooded onto records and derived views, all benchmarked against frozen v1 before any release. Final acceptance is the operator's release checkpoint over the sealed suite SEALED-BENCH-2026-08 (benchmark/SEALED.json). Closed: the v2 overhaul shipped and merged to main on 2026-08-10, and ADR-0007 settled the final acceptance in place of the sealed suite, which is retired unopened. GUIDE.md, START.md, VISION.md and doctrine/ were retired to the archive/v1-final tag during the build and leave the claim list with it.",
   "declared": {
     "capabilities": [
       "network"

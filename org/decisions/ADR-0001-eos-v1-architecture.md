@@ -18,7 +18,7 @@ the argument is written down before the rules changed.
 ## Context
 
 PatterTech_Framework v0.1 held one populated module (web-design) and a
-standing mandate to grow into a kernel that can run any project. Daniel
+standing mandate to grow into a kernel that can run any project. The operator
 commissioned the full generalisation: an AI-native Engineering Operating
 System, the single source from which a capable agent, given only a
 high-level venture description, can plan, architect, implement, test,
@@ -273,7 +273,7 @@ hardware stubs retired to roadmap rows; fourteen wargames renamed to
 WG-WEB IDs with every reference updated; root files rewritten; the
 governance layer, registries, org instance, check tool and indexes
 created. The folder rename to PatterTech_EOS is deliberately last, run
-by Daniel after closing sessions rooted in the repo, followed by fresh
+by the operator after closing sessions rooted in the repo, followed by fresh
 creation of the private GitHub remote and the first push. Two external
 references in PatterTech_Website are updated at the same time.
 
@@ -284,7 +284,7 @@ instance, check tool. Phase B: kernel extraction from the Venture A seed
 at commit d2e3250, scale matrix, seed rubric; four to five sessions and
 the highest-value writing in the plan. Phase C: compile rules and the
 voice module. Phase D: the Venture A reseed, which doubles as the L-scale
-drill; Daniel ruled that Venture A reseeds from the new kernel before
+drill; the operator ruled that Venture A reseeds from the new kernel before
 Genesis runs, so phases B to D are front-loaded to keep sprint delay
 small. Phase E: the full inception system and an S-scale drill. Phase F:
 architecture, delivery and devops doctrine modules, then the v1.0.0 tag.
@@ -340,7 +340,7 @@ org/, the price of dogfooding.
 
 ## Decision
 
-Adopt the architecture above as PatterTech EOS v1.0. Accepted by Daniel
+Adopt the architecture above as PatterTech EOS v1.0. Accepted by the operator
 on 2026-07-07 after plan review, three scope rulings (staged build,
 Venture A reseed before Genesis, rename to PatterTech_EOS) and the
 guardrail amendment round.

@@ -34,7 +34,7 @@ docs tree it wrote itself, and no org directory at all.
 The site is live and shipping. It has no pin, so it reads nothing from
 this repository at runtime and a v2 release changes nothing about it.
 The consent rule in org/migration/PLAYBOOK.md applies with full force
-here: this venture moves when Daniel wants it to and not before.
+here: this venture moves when the operator wants it to and not before.
 
 The sensible moment is when the current foundations work settles. A
 Session 0 run mid-pass would compile a lock-book against a tree that is
@@ -76,6 +76,6 @@ explicitly.
 
 ## Gate
 
-The compiled seed passes the seed check with zero errors, then Daniel
+The compiled seed passes the seed check with zero errors, then the operator
 signs H1 and H4 per the Express path, with the sign-off block recording
 that Express was used and which items were judged.
