@@ -546,9 +546,15 @@ is `packs/PACK_SHAPE.md`, including the eleven-point definition of done
 and the pruning test that asks of every line whether removing it would
 cause an agent to make a mistake. A domain that cannot meet that bar
 stays a row in `registry/coverage.json` and is never described as
-implemented. That is why the coverage matrix has twenty-two rows against
-twenty-one packs: `hardware` is a row saying in as many words why no
-pack exists.
+implemented. That is why the coverage matrix has twenty-nine rows against
+twenty-one packs. Eight say in as many words why no pack exists, and
+they divide into two kinds. Four are admitted for the next content
+wave and not yet built: supply-chain integrity, data engineering,
+identity and authorisation, and research and knowledge base. Four
+have no activation case at all, which is a different and more
+durable answer: `hardware`, scientific computing, platform
+engineering and document design. A row of the second kind is not a
+backlog item, it is a decision.
 
 Every pack carries reviewable criteria in its `CHECKS.md`. Most also
 have a frozen acceptance drill under `benchmark/drills/`: twenty-two

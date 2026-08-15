@@ -12,10 +12,28 @@ derived: true
 Derived from `registry/coverage.json` by
 `python -m tools.eos check --write-index`. Do not hand-edit.
 
-**Built: 21. Registry-only: 1.** A registry-only
+**Built: 21. Registry-only: 8.** A registry-only
 row is not coverage, and this view says so first.
 
 ## Not built
+
+### data-engineering
+
+- **Why not**: Admitted for the next content wave and not yet built. data-analytics owns what a number means; nothing owns how the bytes arrive and are reprocessed. Distinct decision surface: batch against stream, idempotent reprocessing, backfill, late and duplicate records. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: Running a pipeline that ingests from somewhere else on a schedule, with reprocessing.
+- **Estate relevance**: The batch-pipeline archetype in tests/fixtures/activation/profiles.json activates data-analytics and devops-reliability today, and neither answers a backfill question.
+- **Evaluation**: None yet. Admission gate, then a frozen drill.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
+
+### document-design
+
+- **Why not**: A genuine surface that writing-content, ui-ux and docs-dx all miss: templating, pagination, print typography, accessible PDF and a deterministic render that can be diffed. No venture in registry/PROJECTS.md produces documents, so it has no activation case yet. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: Producing documents as a deliverable, rather than pages to read on a screen.
+- **Estate relevance**: None today. It is named because the three packs a reader would look in each answer a different question, so the gap is invisible without this row.
+- **Evaluation**: None. It earns a pack when a venture ships documents.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:venture-shipping-documents
 
 ### hardware
 
@@ -25,6 +43,51 @@ row is not coverage, and this view says so first.
 - **Evaluation**: None. The domain is not built, so there is nothing to evaluate. It earns a pack when a venture demands one.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:venture-requiring-hardware-doctrine
+
+### identity-authorisation-and-tenancy
+
+- **Why not**: Admitted for the next content wave and not yet built. Verified gap: no guide anywhere in packs/ argues role-based against attribute-based against relationship-based authorisation. security-privacy owns secrets, injection, personal data and approval before external action, none of which is authorisation. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: Authenticating people, or serving more than one tenant from one system.
+- **Estate relevance**: The saas-web-app archetype needs it and gets architecture and security-privacy, which answer a different question.
+- **Evaluation**: None yet. Admission gate, then a frozen drill.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
+
+### platform-engineering-and-golden-paths
+
+- **Why not**: Fails the admission gate in reverse: it serves many internal teams and the estate is one operator, so it would never activate. Recording the reason is more honest than building a pack that no venture can trigger. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: Running a platform other teams build on, with templates and paved routes they are meant to follow.
+- **Estate relevance**: The EOS is itself a golden path, which is the closest the estate comes, and it is governed by GOVERNANCE.md rather than by a pack.
+- **Evaluation**: None. It earns a pack when the estate has teams to serve.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:estate-gaining-a-second-team
+
+### research-and-knowledge-base
+
+- **Why not**: Admitted for the next content wave and not yet built, and the strongest case of the four because the practice already exists here unpacked: kernel/templates/LENS.tpl.md, the LENS-NNNN id form, a 504-record evidence ledger with a schema, and registry/lessons.json. All of it governs the EOS's own research and none of it is something a venture inherits. ai-ml-llm owns retrieval for a model and legal-licensing owns what may be carried away from a source; neither owns evidence discipline. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: A venture that has to research before it builds, or that keeps a knowledge base others read for decisions.
+- **Estate relevance**: The EOS itself is the worked example, which is an argument for the pack and a warning: a pack written only from our own practice has one source.
+- **Evaluation**: None yet. Admission gate, then a frozen drill.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
+
+### scientific-and-reproducible-computing
+
+- **Why not**: No venture in registry/PROJECTS.md is a scientific one, so a pack would be written from nothing, reviewed by nobody and drilled against no scenario. That is the shallow completeness packs/PACK_SHAPE.md rules out. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: Numerical models, experiment tracking, and results that have to be reproducible by somebody else.
+- **Estate relevance**: None today.
+- **Evaluation**: None. It earns a pack when a venture demands one.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:venture-requiring-reproducible-computing
+
+### supply-chain-and-release-integrity
+
+- **Why not**: Admitted for the next content wave and not yet built. The gap is measured rather than asserted: registry/evidence.json holds one SLSA record and one sigstore record, and zero for in-toto, SBOM, CycloneDX and The Update Framework. legal-licensing owns what a licence permits and devops-reliability owns rollout; neither owns whether an artefact is what it claims to be. Recorded here rather than silently deferred, per ADR-0002.
+- **Would activate on**: Publishing an artefact anyone installs, or consuming a third-party binary. Provenance, signing, SBOM shape, pinning cadence and what a compromised build system can reach.
+- **Estate relevance**: This repository publishes no artefact today, and its own dependency lock was single-platform until 2026-08-15, which is the class of defect this capability would own.
+- **Evaluation**: None yet. It earns a pack by passing the admission gate in packs/PACK_SHAPE.md with a drill frozen before the pack is authored.
+- **Owner**: EOS integrator
+- **Review trigger**: on-change-of:org/reports/NEXT_TRANCHE.md
 
 ## Built
 
