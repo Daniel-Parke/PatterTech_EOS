@@ -21,6 +21,7 @@
     "tests/test_checks_seed.py",
     "tests/test_migrate.py",
     "tests/test_ontology_oracle.py",
+    "tests/test_ontology_relations.py",
     "tests/fixtures/minirepo/packs/GUIDE_INDEX.mdt",
     "tools/eos/migrate.py",
     "kernel/templates/LOCKBOOK.tpl.md",
