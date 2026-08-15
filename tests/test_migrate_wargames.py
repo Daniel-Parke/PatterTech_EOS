@@ -128,6 +128,14 @@ def test_inception_and_security_floors_are_always_walk_high_consequence(migratio
         assert metadata["gap_domain"] == "inception"
 
 
+def test_scale_wargame_takes_seed_accounting_from_the_live_matrix(migration):
+    rendered, _ledger = migration
+    text = rendered[FROZEN_PROCEDURES["WG-EOS-001"]]
+    assert "kernel/SCALE_MATRIX.md" in text
+    assert "Fourteen files" not in text
+    assert "Twenty-five files" not in text
+
+
 def test_retired_ids_are_reserved_and_absent_from_live_migrated_content(migration):
     rendered, ledger = migration
     manifest = json.loads(

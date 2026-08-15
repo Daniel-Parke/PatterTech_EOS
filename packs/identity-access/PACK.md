@@ -24,7 +24,7 @@ may touch. It activates when a venture authenticates people, serves more
 than one customer from one system, holds a privileged access path, or
 changes an authorisation rule. It carries five binding requirements, a
 short set of defaults you may override with a recorded reason, and four
-decision guides. Secrets, injection, personal data and approval before
+Wargames. Secrets, injection, personal data and approval before
 external action stay with the security and privacy pack.
 
 ## Activation

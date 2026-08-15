@@ -1017,7 +1017,15 @@ def _render_pack(
     front.extend(["---", ""])
 
     ledger_rows = {row["source_key"]: row for row in ledger["rows"]}
-    body_lines = parsed.body.splitlines()
+    body = re.sub(
+        r"\bdecision guides\b", "Wargames", parsed.body,
+        flags=re.IGNORECASE,
+    )
+    body = re.sub(
+        r"\bdecision guide\b", "Wargame", body,
+        flags=re.IGNORECASE,
+    )
+    body_lines = body.splitlines()
     sections: list[tuple[int, int, str]] = []
     h2 = [
         (index, line[3:].strip())

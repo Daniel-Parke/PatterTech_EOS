@@ -50,32 +50,31 @@ Applicability is `runs_agents`. Engagement is `operator_requests_wargame`. This 
 
 ## Options
 
-### S. Fourteen files, no org
-Routers, operators guide, brief, lock-book, feedback, compile report,
-policy and task list, plus the five blank Genesis forms. Seven of the
-fourteen are operating surface; kernel/SCALE_MATRIX.md holds the list
-and the accounting. One human, one task surface, no charters, no
-integrator tooling. Costs nothing to run; offers no separation of
-duties and no compliance machinery.
+### S. Small venture shape
 
-### ORG. The full shape
-Twenty-five files. Adds the constitution, the boot file, the testing
-law, the artefact shapes, the questions file, the playbooks, the
-wide-build file, the three situational charters (EXECUTOR, ORACLE,
-REVIEWER), the cadence file and the claims file. Work becomes task
-records with derived views; separation of duties exists where the
-router asks for it. Verification bandwidth becomes the limiting
-resource.
+The S column in `kernel/SCALE_MATRIX.md` defines the seed and operating
+surface. It carries one human and one task surface without organisational
+charters or integrator tooling. It costs little to run, but offers no
+separation of duties or compliance machinery.
+
+### ORG. Organisational shape
+
+The ORG column in `kernel/SCALE_MATRIX.md` defines the larger seed and
+operating surface. It adds the constitution, boot and testing law,
+artefact shapes, questions, playbooks, graph build, situational roles,
+cadence and claims. Work becomes task records with derived views and can
+separate duties where the router requires it. Verification bandwidth
+becomes the limiting resource.
 
 ## Failure premises
 
-### Premortem for S. Fourteen files, no org
+### Premortem for S. Small venture shape
 
-Assume `S. Fourteen files, no org` was selected and the outcome failed. Test this option's stated failure mechanism first: nothing to run; offers no separation of duties and no compliance machinery.
+Assume `S. Small venture shape` was selected and the outcome failed. Test this option's stated failure mechanism first: little to run, but offers no separation of duties or compliance machinery.
 
-### Premortem for ORG. The full shape
+### Premortem for ORG. Organisational shape
 
-Assume `ORG. The full shape` was selected and the outcome failed. Test this option's stated failure mechanism first: Twenty-five files. Adds the constitution, the boot file, the testing law, the artefact shapes, the questions file, the playbooks, the wide-build file, the three situational charters (EXECUTOR, ORACLE, REVIEWER), the cadence file and the claims file. Work becomes task records with derived views; separation of duties exists where the router asks for it. Verification bandwidth becomes the limiting resource.
+Assume `ORG. Organisational shape` was selected and the outcome failed. Test this option's stated failure mechanism first: The ORG column in `kernel/SCALE_MATRIX.md` defines the larger seed and operating surface. It adds the constitution, boot and testing law, artefact shapes, questions, playbooks, graph build, situational roles, cadence and claims. Work becomes task records with derived views and can separate duties where the router requires it. Verification bandwidth becomes the limiting resource.
 
 ## Decision rule
 
@@ -103,7 +102,7 @@ Settle this question with the smallest representative probe: **Lifespan: a weeke
 
 **Fallback `safe-default`:** The smallest scale the triggers allow. Ceremony must be earned by risk, never by ambition.
 
-**Exit condition:** Stop or roll back the selected branch when nothing to run; offers no separation of duties and no compliance machinery, or when its stated preconditions cease to hold.
+**Exit condition:** Stop or roll back the selected branch when little to run, but offers no separation of duties or compliance machinery, or when its stated preconditions cease to hold.
 
 **Revisit trigger:** Run this Wargame again when the answer to this question changes: Lifespan: a weekend artefact or a going concern?
 

@@ -14,20 +14,25 @@ file changes through the ADR path (ADR-0004).
 
 ## Invariant organs
 
-Every built pack has all three:
+Every built pack has all four:
 
 - `PACK.md`. The pack itself. Its **first paragraph is level-one
   metadata**: under eighty words, saying what the pack covers and when
   it activates, because that is the paragraph `packs/INDEX.md` carries
   and the only one an agent reads before deciding to load anything. The
-  body carries activation, outcomes and non-goals, binding
-  requirements, defaults, preferences, a decision map, failure modes,
-  counter-evidence and the evidence pointer, inside the line budget
-  `GOVERNANCE.md` sets.
-- `guides/`. The arguments of record, one fork per guide, ids
-  `GD-<PACK>-NNN`. Wargames inherited from v1 keep their `WG-` ids and
-  live here; several were re-argued against the 2026 evidence sweep
-  when they were carried across, and the guide says so where it was.
+  body carries activation, outcomes, non-goals, failure modes,
+  counter-evidence and maps to Doctrine and Wargames, inside the line
+  budget `GOVERNANCE.md` sets. Compatibility anchors preserve old B, D,
+  BR and H links without restating the proposition.
+- `doctrines/`. One atomic `DOC-<PACK>-NNN` file per standing
+  proposition. Its metadata owns statement, authority, basis, evidence
+  grade, scope, applicability, challenge triggers, sources, review,
+  lifecycle and verification references. Normative truth lives here,
+  not in a duplicate PACK paragraph.
+- `guides/`. Compatibility storage name for Wargames, one fork per
+  procedure. Existing `GD-*` and `WG-*` identities stay immutable and
+  both carry `kind: wargame` and `type: wargame`; new identities use
+  `WG-*`.
 - `CHECKS.md`. What a reviewer or a script can verify about work in
   this domain, split into executable today and judgement today. A check
   that needs a person is still a check.
@@ -43,7 +48,7 @@ Add only what the domain earns:
 - `research/`. The synthesis notes and the drill proposal behind the
   pack.
 
-A pack with three organs and no optional ones is a legitimate pack.
+A pack with four organs and no optional ones is a legitimate pack.
 
 ## Definition of done
 
@@ -51,10 +56,11 @@ A pack is "implemented" only when it contains all of:
 
 1. Activation triggers and applicability predicates.
 2. Desired outcomes and non-goals.
-3. Binding requirements separated from defaults and preferences.
+3. Atomic Doctrine with binding, default, advisory or preference
+   authority, linked from the pack without duplicate normative text.
 4. At least three materially different patterns or philosophies where
    genuine alternatives exist.
-5. A decision guide stating when each pattern fits.
+5. A Wargame stating when each pattern fits.
 6. Trade-offs, failure modes and anti-patterns.
 7. At least one worked example.
 8. Evaluation criteria or executable checks where appropriate.
@@ -70,8 +76,8 @@ A pack is "implemented" only when it contains all of:
 For every line ask: would removing this cause an agent to make a
 mistake? If not, cut it. Restating common knowledge is bloat, and bloat
 is how instructions get ignored. Versioned facts belong in `registry/`
-and are cited, never inlined. One fork per guide: a second independent
-question is a new guide with a cross-link, never a sub-number.
+and are cited, never inlined. One fork per Wargame: a second independent
+question is a new Wargame with a cross-link, never a sub-number.
 
 ## Activation triggers
 

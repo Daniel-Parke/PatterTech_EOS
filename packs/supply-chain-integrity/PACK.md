@@ -25,7 +25,7 @@ compromised build system can reach. It activates when the venture
 publishes something anyone installs, or when a change pulls in a
 third-party binary, image or dependency. Licensing belongs to
 `legal-licensing`, rollout to `devops-reliability`. Four binding
-requirements, a short set of defaults, and four decision guides.
+requirements, a short set of defaults, and four Wargames.
 
 ## Activation
 

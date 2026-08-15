@@ -50,9 +50,9 @@ Four things live in it.
 
 | Part | What it holds | Start here |
 | --- | --- | --- |
-| **Packs** | Argued knowledge, one per domain, with sources. Twenty-one are built, carrying ninety-eight decision guides between them. | `packs/INDEX.md` |
+| **Packs** | Argued knowledge, one domain at a time. Atomic Doctrine carries standing rules; Wargames carry the forks that need argument. | `packs/INDEX.md` |
 | **The kernel** | How much ceremony a piece of work deserves, what a consequential action may do, and the templates a venture is compiled from. | `kernel/README.md` |
-| **Registries** | What is true today, with dates on it. The evidence ledger is 504 rows, one per source. | `registry/CAPABILITIES.md` |
+| **Registries** | What is true today, with dates on it: evidence, lessons, stack profiles, coverage and pressure dispositions. | `registry/CAPABILITIES.md` |
 | **Governance** | How all of the above changes without rotting, settled across ten decision records. | `GOVERNANCE.md` |
 
 ## The vocabulary
@@ -69,9 +69,14 @@ so this is the definition.
 | **Hub file** | A file that many lanes would otherwise want to write: an index, a shared type file, a manifest, any generated view. Hub files are integrator-owned and never delegated. |
 | **Oracle** | The artefact that decides whether a change is correct. Usually a test or an acceptance condition. Who wrote it matters more than when, and the section on verification says why. |
 | **Seed** | The set of files Session 0 compiles into a new venture's repository. `kernel/SCALE_MATRIX.md` is the law of what it contains. |
-| **Lock-book** | The venture's own record of its rulings, compiled into the seed. An agent working on a venture reads it before anything here. |
+| **Lock-book** | The venture's pinned contract with the EOS. It names adopted packs and points at `docs/RULINGS.json`; an agent working on a venture reads it before anything here. |
 | **Tier** | R0 to R3, the risk ruling on one task. It is ruled once, when the task record is written, and read back from the record after that. |
-| **Pack** | One domain's argued knowledge, disclosed in three levels. `packs/PACK_SHAPE.md` is the contract every pack keeps. |
+| **Pack** | One domain's activation, outcomes, limits and decision map, disclosed in three levels. `packs/PACK_SHAPE.md` is the contract every pack keeps. |
+| **Doctrine** | One atomic standing proposition with an authority grade. Binding applies whenever its scope holds; default is inherited unless pressure and an argued Ruling justify departure; advisory informs judgement; preference is optional taste or convenience. |
+| **Wargame** | One advanced decision procedure for a selection, Doctrine pressure, exception or uncovered gap. `GD-*` and `WG-*` are immutable identities of the same type; only new records use `WG-*`. |
+| **Doctrine relation** | A typed, conditional edge such as `depends_on`, `supports` or `tensions_with`, owned beside its Doctrine and shown estate-wide in the generated pressure matrix. |
+| **Ruling** | One venture executing one Wargame. Raw Rulings stay with the venture; EOS receives only a privacy-reviewed summary when the venture chooses to share one. |
+| **Stack profile** | A dated record of named tools, tested versions and interoperability limits. It is useful evidence, not timeless Doctrine. |
 | **Predicate** | A yes-or-no fact about a venture or a task that activates a pack. `kernel/PREDICATES.md` is the controlled list of names. |
 | **Claim** | An exclusive right to write a set of paths, committed by the integrator before any lane opens. |
 | **Protected set** | The files and subjects that need an accepted decision record and the operator before they change. `GOVERNANCE.md` lists them. |
@@ -306,15 +311,26 @@ Then three challenge steps that are not optional:
 
 All three land in the brief in the operator's words.
 
-Then three rulings: the scale, S or ORG, by WG-EOS-001; the repo shape
-by WG-EOS-002; and the risk surface, which turns the prose answers into
-the directory patterns the venture's policy file uses.
+Then the always-walk decisions: scale by WG-EOS-001, repository shape by
+WG-EOS-002, the risk surface, and the live security Wargames. The risk
+surface turns the prose answers into the directory patterns the venture's
+policy file uses.
 
-Then the agent walks the packs alone, matching the venture's answers
-against each pack's own activation conditions, and compiles the seed by
-slot-filling templates at the pinned EOS commit. A slot with no truthful
-answer stops the compile and goes back to the operator. Nothing is
-composed and nothing is invented.
+The agent activates packs from the declared facts. Applicable Doctrine
+summaries load automatically. Full atoms load only when needed, and a
+Wargame runs only when pressure, conflict, a gap or the operator engages
+it. Matching is tri-state: true requires it, false records why it stayed
+out, and an unknown high-consequence fact is asked or included. An unknown
+routine fact remains a visible candidate.
+
+Every candidate is recorded as selected, omitted or still a candidate,
+with a reason. Executed Wargames receive a structured Ruling in
+`docs/RULINGS.json`; inherited defaults stay implicit through the pin and
+adopted packs. The matcher selects procedures, never their outcome.
+
+The agent then compiles the seed by slot-filling templates at the pinned
+EOS commit. A slot with no truthful answer stops the compile and goes back
+to the operator. Nothing is composed and nothing is invented.
 
 ### The seed gate
 
@@ -328,19 +344,10 @@ walk at all, and it says so.
 
 ### What the venture walks away with
 
-`kernel/SCALE_MATRIX.md` sets it. Read the file counts with the matrix's
-own qualifier.
-
-| Scale | Files in the seed | Operating surface |
-| --- | --- | --- |
-| S | 14 | 7 |
-| ORG | 25 | 18 |
-
-The gap between the two columns is accounting rather than omission.
-CLAUDE.md is a byte copy of AGENTS.md, the compile report is meta, and
-five are blank Genesis forms nobody opens until the venture chooses to
-run the phase. A blank form is a correct result rather than an
-unfinished one.
+`kernel/SCALE_MATRIX.md` sets it and owns the current file counts. They are
+not copied here. CLAUDE.md is a byte copy of AGENTS.md, the compile report
+is meta, and the Genesis forms stay blank until the venture chooses to run
+the phase. A blank form is a correct result rather than an unfinished one.
 
 ### Genesis
 
@@ -409,8 +416,8 @@ candidate lessons and applies nothing.
 
 ## Building wide: graphs, lanes and one integrator
 
-`packs/agentic-swarm/PACK.md` was added as the twenty-first pack and it
-describes how we build substantial work: fan out over a measured
+`packs/agentic-swarm/PACK.md` describes how we build substantial work:
+fan out over a measured
 dependency graph, with one integrator and a verifier that predates the
 lanes. Anything else is either a single agent or an expensive mistake.
 
@@ -490,11 +497,11 @@ whole staging is a default and never measured. No controlled comparison
 of building the broad harness early against building it on stability
 signals was found.
 
-### Test-first is no longer doctrine
+### Test-first is default Doctrine, not binding Doctrine
 
-The rule in `packs/coding/PACK.md` that required the oracle to be
-committed before the implementation was accepted is now a default: do it
-unless you record why not.
+The rule that required the oracle to be committed before the
+implementation was accepted is now a default-grade Doctrine: inherit it
+unless pressure and an argued Ruling justify departure.
 
 Two measurements moved it, and neither of them tests ordering head to
 head.
@@ -565,7 +572,7 @@ because the operator points at something. It is never scheduled.
    `registry/lessons.json`. `registry/LESSONS.md` is the derived view of
    that file and is never hand-edited. The same ledger takes the monthly
    harvest of a venture's feedback file, so both intakes land in one
-   place. It holds twenty-five rows today.
+   place.
 
 A lesson row carries where it came from, the lesson itself, its evidence
 class, its disposition, its scope, when it applies, what it informs,
@@ -590,15 +597,11 @@ definition anywhere are eleven words doing no work.
 | `worked-exemplar` | The lesson travels better as a worked example than as a rule, so it becomes an exemplar file in a pack. |
 | `implementation-reference` | The lesson is about how something here is built, so the code, schema or template changes and the row is the provenance. |
 | `experimental-guidance` | Adopted as a reversible default carrying its hypothesis and an expiry no more than ninety days out. The experiment sweep closes or promotes it. |
-| `decision-guide` | The lesson is a recurring fork, so it becomes a decision guide with the fork stated and the options argued. |
+| `decision-guide` | Historical ledger name for a recurring fork. Its admitted destination is now a Wargame with the options and decision rule argued; the value stays for schema compatibility. |
 | `estate-default` | Adopted across the estate as a default: do it unless you record why not. |
 | `binding-candidate` | Proposed for binding and not binding yet. This ledger can propose and nothing more. |
 | `rejected` | Argued and declined. The row stays with its reason, so the same proposal cannot return as though it had never been argued. |
 | `deferred` | Not decided yet. The row must name the condition that reopens it, and the schema rejects a bare date, because a date tells the next reader nothing about what they are waiting for. |
-
-Seven of the eleven have been used. `worked-exemplar`,
-`experimental-guidance`, `binding-candidate` and `deferred` are on the
-list and carry no row yet.
 
 Nothing here can make a rule binding. The workflow can propose it; the
 promotion ladder in `GOVERNANCE.md` is unchanged and binding still needs
@@ -632,7 +635,10 @@ Nobody hand-edits a view. Both generators are the integrator's alone.
 | Canonical record | Its view | Regenerated by |
 | --- | --- | --- |
 | Task records under `org/tasks/` | `org/TASKS.md`, `org/STATE.md` | `python -m tools.eos task views` |
-| Front-matter across the tree | `INDEX.md`, `packs/INDEX.md`, `packs/GUIDE_INDEX.md` | `python -m tools.eos check --write-index` |
+| Front-matter across the tree | `INDEX.md`, `packs/INDEX.md` | `python -m tools.eos check --write-index` |
+| Atomic Doctrine and Wargame metadata | `packs/DOCTRINE_INDEX.md`, `packs/WARGAME_INDEX.md`; `packs/GUIDE_INDEX.md` is a compatibility pointer | `python -m tools.eos check --write-index` |
+| Doctrine relations and `registry/pressure-dispositions.json` | `registry/DOCTRINE_PRESSURE_MATRIX.md` | `python -m tools.eos check --write-index` |
+| `registry/identifier-aliases.json` | `registry/ID_ALIASES.md` | `python -m tools.eos check --write-index` |
 | `registry/coverage.json` | `registry/CAPABILITIES.md` | `python -m tools.eos check --write-index` |
 | `registry/lessons.json` | `registry/LESSONS.md` | `python -m tools.eos check --write-index` |
 
@@ -641,13 +647,22 @@ no generator writes a view of either.
 
 ## Less law, better kept
 
-ADR-0008 went through the rules and asked one question of each: does it
-prevent a real failure that is serious or hard to undo, and is it based
-on law, on a standard, on measurement, or is it a safety floor?
+Doctrine is the public umbrella for standing propositions. Each atom has
+one authority grade, because calling everything a rule hides the difference
+between a safety floor and taste.
 
-A rule that answers yes stays **binding**. Everything else becomes a
-**default**, which means do it unless you record why not. A default is
-not a suggestion, and the monthly pass samples the recorded reasons.
+| Authority | What it means |
+| --- | --- |
+| **Binding** | Holds whenever its applicability is true. A Wargame cannot waive it; contrary evidence opens Doctrine review or an ADR. |
+| **Default** | Inherited unless pressure and an argued Ruling justify departure. |
+| **Advisory** | Informs judgement without requiring a departure record. |
+| **Preference** | Optional taste or convenience, including brand-scoped house style. |
+
+ADR-0008 first asked which old rules genuinely prevented a serious or
+hard-to-undo failure. ADR-0012 and ADR-0014 then made the result atomic and
+machine-readable. A Doctrine keeps its ID when evidence or authority changes
+without changing the proposition. A material prescription or scope change
+creates a new ID and names what it supersedes.
 
 ### What loosened
 
@@ -671,6 +686,24 @@ The honest counter-argument is recorded too, because loose governance is
 how sixty-six false statements got into this tree in the first place. So
 every loosened rule names what catches the failure instead.
 
+### Wargaming only where pressure exists
+
+A Wargame is one semantic type even though its immutable identity may begin
+`GD-*` or `WG-*`. The historical `guides/` directory is a storage name, not
+a second kind. New identities use `WG-*`.
+
+Every Wargame states the stakes, Doctrine or gap under pressure,
+preconditions, materially different options, a premortem for each credible
+option, the decision rule, safe default, cheapest discriminating test,
+fallback, exit and revisit conditions, counter-evidence and transfer limits.
+Worked outcomes do not grow inside that file. One venture execution is a
+`RUL-*` record in the venture's `docs/RULINGS.json`.
+
+Doctrine edges live as typed `DREL-*` records beside the Doctrine that owns
+the decision. The generated `registry/DOCTRINE_PRESSURE_MATRIX.md` shows the
+estate-wide graph and the accepted pressure backlog without becoming a
+second registry.
+
 ## The pack system
 
 ### Three levels of disclosure
@@ -679,8 +712,9 @@ Knowledge is packs, and a pack discloses itself in three levels.
 
 1. A first paragraph always in context through `packs/INDEX.md`.
 2. A `PACK.md` body on activation.
-3. Guides, refs, exemplars and recipes on demand from the body, which
-   names what each one holds so you never have to list a directory.
+3. Full Doctrine atoms, Wargames, refs, exemplars and recipes on demand
+   from the body, which names what each one holds so you never have to
+   list a directory.
 
 The contract is `packs/PACK_SHAPE.md`, including the eleven-point
 definition of done and the pruning test that asks of every line whether
@@ -689,16 +723,10 @@ removing it would cause an agent to make a mistake.
 ### Coverage: what is built, and what is not
 
 A domain that cannot meet that bar stays a row in
-`registry/coverage.json` and is never described as implemented. That is
-why the coverage matrix has twenty-nine rows against twenty-one packs.
-
-The eight rows with no pack say in as many words why, and they divide
-into two kinds.
-
-| Kind | The domains | What the row is |
-| --- | --- | --- |
-| Admitted for the next content wave | Supply-chain integrity, data engineering, identity and authorisation, research and knowledge base | A backlog item, not yet built |
-| No activation case at all | Hardware, scientific computing, platform engineering, document design | A decision, and a more durable answer |
+`registry/coverage.json` and is never described as implemented. The
+generated `registry/CAPABILITIES.md` is the current answer: built packs and
+registry-only domains appear in the same view, each with its admission reason
+or reopening trigger. A backlog row is not coverage.
 
 ### Which packs a venture loads
 
@@ -712,21 +740,16 @@ somebody adding a third will see them. Sharing a predicate across packs
 is normal, and two packs naming one fact is two packs agreeing about the
 world.
 
-| Kind of predicate | How many | What settles it |
-| --- | --- | --- |
-| Venture fact | 59 | An interview question in `inception/INTERVIEW.md`, answered once at Session 0 and the same tomorrow |
-| Task fact | 27 | The task record or the diff, settled per piece of work |
-| Always true | 1 | Nothing settles it; it holds of every governed venture by construction |
+Venture facts come from the Session 0 interview. Task facts come from the
+task record or diff. Always-true facts hold of every governed venture by
+construction. `kernel/PREDICATES.md` owns the current vocabulary and count;
+this teaching file does not copy either.
 
-That is 87 predicates, and the split is worth knowing before anyone
-builds a Session 0 flow expecting to settle all of them. It cannot.
-
-`python -m tools.eos activate` computes the Session 0 pack walk from a
-venture's declared facts, names the packs it did not activate and what
-would have pulled each one in, and exits 1 on a predicate no pack owns.
-A misspelled fact activates nothing and reads exactly like a fact that
-is false, so the pack it should have loaded stays out and the seed ships
-without the ruling.
+`python -m tools.eos activate` computes pack activation from declared facts
+and names what stayed out. `doctrine match` and `wargame match` share the
+knowledge matcher: they return applicable Doctrine, required and candidate
+Wargames, unresolved facts, uncovered pressures and selection reasons. A
+misspelled predicate is refused rather than quietly acting false.
 
 ### Drills, and what they have not proved
 
@@ -779,6 +802,9 @@ loads.
 | How do I run a wide build? | `packs/agentic-swarm/PACK.md` |
 | What does one task look like end to end? | `examples/v2-worked-lean.md`, `examples/v2-worked-high-assurance.md` |
 | Which knowledge applies to this task? | `packs/INDEX.md` |
+| Which standing Doctrine exists, and at what authority? | `packs/DOCTRINE_INDEX.md` |
+| Which Wargame covers this pressure? | `packs/WARGAME_INDEX.md`, then `registry/DOCTRINE_PRESSURE_MATRIX.md` |
+| Where does this old or pinned identity resolve? | `python -m tools.eos id resolve ID --commit REF` |
 | Which facts pull in which pack? | `kernel/PREDICATES.md` |
 | What does the EOS know, and what does it not? | `registry/CAPABILITIES.md` |
 | How is risk decided? | `kernel/POLICY_SPEC.md`, `kernel/GUARD_SPEC.md` |

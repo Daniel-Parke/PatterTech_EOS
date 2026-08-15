@@ -259,7 +259,7 @@ likely to move next.
 
 ## Where the rest lives
 
-- Decision guides: `packs/architecture/guides/`
+- Wargames: `packs/architecture/guides/`
 - Reference material: what each boundary tool cannot see,
   `packs/architecture/refs/boundary-tooling.md`; how much description a
   system earns and in what form,

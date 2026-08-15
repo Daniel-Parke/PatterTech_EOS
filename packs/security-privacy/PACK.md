@@ -24,7 +24,7 @@ protects personal data, and gets approval before consequential external
 actions. It activates whenever an agent runs tools, a repository holds
 credentials, a system handles personal data, or code can reach the
 network. It carries six binding requirements, a short set of defaults
-you may override with a recorded reason, and four decision guides for
+you may override with a recorded reason, and four Wargames for
 the forks that are genuinely open.
 
 ## Activation

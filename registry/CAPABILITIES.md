@@ -19,37 +19,37 @@ row is not coverage, and this view says so first.
 
 ### document-design
 
-- **Why not**: A genuine surface that writing-content, ui-ux and docs-dx all miss: templating, pagination, print typography, accessible PDF and a deterministic render that can be diffed. No venture in registry/PROJECTS.md produces documents, so it has no activation case yet. Recorded here rather than silently deferred, per ADR-0002.
+- **Why not**: Admission was rechecked for T-0026. The surface remains distinct from writing-content, ui-ux and docs-dx, but no governed venture currently ships documents as a product deliverable, so there is no worked exemplar, drill or repeated activation case from which to author a pack.
 - **Would activate on**: Producing documents as a deliverable, rather than pages to read on a screen.
 - **Estate relevance**: None today. It is named because the three packs a reader would look in each answer a different question, so the gap is invisible without this row.
-- **Evaluation**: None. It earns a pack when a venture ships documents.
+- **Evaluation**: Registry review only. Reopen when a governed venture ships documents and can supply a sanitised render, accessibility check and deterministic-diff drill.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:venture-shipping-documents
 
 ### hardware
 
-- **Why not**: No venture currently demands hardware doctrine. Venture F is pre-EOS and dormant, with its last commit on 2026-06-18, so a hardware pack would be written from nothing and reviewed by nobody. Recorded here rather than silently deferred, per ADR-0002.
+- **Why not**: Admission was rechecked for T-0026. No governed venture currently demands hardware Doctrine, and the programme produced no maintained-source packet, executable hardware example, sanitised exemplar or reviewable drill. A pack would still be authored from an unactivated surface.
 - **Would activate on**: Selecting, sizing or provisioning physical kit, and the firmware or driver work that follows it.
-- **Estate relevance**: Venture F is the only hardware-adjacent repo in the estate and it is dormant. No governed venture touches hardware.
-- **Evaluation**: None. The domain is not built, so there is nothing to evaluate. It earns a pack when a venture demands one.
+- **Estate relevance**: No governed venture currently activates the capability.
+- **Evaluation**: Registry review only. It earns a pack when a governed venture demands physical design, firmware or driver work and supplies an executable acceptance surface.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:venture-requiring-hardware-doctrine
 
 ### platform-engineering-and-golden-paths
 
-- **Why not**: Fails the admission gate in reverse: it serves many internal teams and the estate is one operator, so it would never activate. Recording the reason is more honest than building a pack that no venture can trigger. Recorded here rather than silently deferred, per ADR-0002.
+- **Why not**: Admission was rechecked for T-0026 and pressure case 24 was rejected. A platform serves several internal consumers; this estate still has one operator and no second team consuming a shared platform. Existing stacks and domain Wargames provide local defaults and escape routes without manufacturing a platform pack.
 - **Would activate on**: Running a platform other teams build on, with templates and paved routes they are meant to follow.
 - **Estate relevance**: The EOS is itself a golden path, which is the closest the estate comes, and it is governed by GOVERNANCE.md rather than by a pack.
-- **Evaluation**: None. It earns a pack when the estate has teams to serve.
+- **Evaluation**: Registry review only. Reopen on the second-team trigger, then measure completion, failure recovery and escape-route cost for one real consumer task.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:estate-gaining-a-second-team
 
 ### scientific-and-reproducible-computing
 
-- **Why not**: No venture in registry/PROJECTS.md is a scientific one, so a pack would be written from nothing, reviewed by nobody and drilled against no scenario. That is the shallow completeness packs/PACK_SHAPE.md rules out. Recorded here rather than silently deferred, per ADR-0002.
+- **Why not**: The T-0026 admission rerun found maintained primary sources, two executable local probes and materially different implementation choices. It still lacks a sanitised scientific worked exemplar and a reviewable end-to-end drill, and no governed venture currently activates the surface. Named tools therefore remain a dated stack profile and the pressure cases stay under data-analytics rather than forming a shallow new pack.
 - **Would activate on**: Numerical models, experiment tracking, and results that have to be reproducible by somebody else.
-- **Estate relevance**: None today.
-- **Evaluation**: None. It earns a pack when a venture demands one.
+- **Estate relevance**: General local data work can use the dated stack profile. No governed venture currently needs a separate scientific operating surface.
+- **Evaluation**: The dated compatibility probes are registry/stacks/probes/probe_tabular_boundary.py and probe_array_acceleration.py, with a machine receipt at registry/stacks/probes/STACK-data-compute-2026-08-15.json. They do not replace the missing scientific exemplar and drill.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:venture-requiring-reproducible-computing
 

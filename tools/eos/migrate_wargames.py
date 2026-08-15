@@ -359,6 +359,29 @@ RETIRED_PROSE = {
 }
 
 
+# The frozen inception source predates the structured RULINGS file and its
+# resulting scale-matrix growth. Keep the decision semantics while referring to
+# the matrix as the canonical file-count surface, so another template addition
+# cannot make this generated Wargame stale.
+OPTION_REFRESHES: dict[str, str] = {
+    "WG-EOS-001": """### S. Small venture shape
+
+The S column in `kernel/SCALE_MATRIX.md` defines the seed and operating
+surface. It carries one human and one task surface without organisational
+charters or integrator tooling. It costs little to run, but offers no
+separation of duties or compliance machinery.
+
+### ORG. Organisational shape
+
+The ORG column in `kernel/SCALE_MATRIX.md` defines the larger seed and
+operating surface. It adds the constitution, boot and testing law,
+artefact shapes, questions, playbooks, graph build, situational roles,
+cadence and claims. Work becomes task records with derived views and can
+separate duties where the router requires it. Verification bandwidth
+becomes the limiting resource.""",
+}
+
+
 def _git(root: Path, *args: str) -> str:
     process = subprocess.run(
         ["git", "-C", str(root), *args],
@@ -763,6 +786,7 @@ def _render_body(
         rows, "It depends on", "Preconditions and engagement triggers"
     )
     options = _normalise_options(_section(rows, "Options", "Timing options"))
+    options = OPTION_REFRESHES.get(procedure.identifier, options)
     decision = _section(rows, "Decision rule")
     default = _section(rows, "Default", "Safe default")
     worked = _section(rows, "Worked rulings")

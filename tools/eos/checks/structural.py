@@ -12,14 +12,17 @@ and exempt from the v2 semantics, not from structure.
 The derived indexes are scoped to live material. Frozen trees are
 checked but never indexed: a benchmark fixture's wargames are not EOS
 guidance, and an index that mixes them with the real thing teaches an
-agent the wrong law. The three indexes and their sources:
+agent the wrong law. The main indexes and their sources:
 
 - INDEX.md, every live file with front-matter.
 - packs/INDEX.md, the always-loaded activation surface, one row per
   built pack, sourced from PACK.md front-matter and its first
   paragraph.
-- packs/GUIDE_INDEX.md, every decision guide under a pack, plus any
-  remaining type: wargame file outside one.
+- packs/DOCTRINE_INDEX.md, every atomic Doctrine.
+- packs/WARGAME_INDEX.md, every unified Wargame. GUIDE_INDEX is its
+  compatibility pointer.
+- registry/DOCTRINE_PRESSURE_MATRIX.md, typed Doctrine relations and
+  accepted pressure dispositions.
 """
 
 from __future__ import annotations
@@ -117,8 +120,7 @@ def _first_paragraph(body: str) -> str:
 
 
 def is_guide(rec) -> bool:
-    """A decision guide: anything under a pack's guides/, plus any
-    remaining type: wargame file that lives outside one."""
+    """Compatibility locator for Wargames in guides/ or outside a pack."""
     p = PurePosixPath(rec.path)
     under_pack = (len(p.parts) == 4 and p.parts[0] == "packs"
                   and p.parts[2] == "guides")
