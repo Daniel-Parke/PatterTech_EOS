@@ -1398,6 +1398,8 @@ KNOWLEDGE_SCHEMAS = {
 }
 KNOWLEDGE_JSON_SCHEMAS = {
     "org/migration/DOCTRINE_SOURCE_INVENTORY.json":
+        "kernel/schemas/doctrine-source-inventory.schema.json",
+    "org/migration/DOCTRINE_MIGRATION.json":
         "kernel/schemas/knowledge-migration.schema.json",
     "registry/identifier-aliases.json":
         "kernel/schemas/identifier-aliases.schema.json",
