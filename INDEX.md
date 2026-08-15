@@ -110,6 +110,9 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0009-a-version-that-means-something.md | decision | eos | Re-designate the current line to 0.x, and define the checkable gate that 1.0 has to pass |  |
 | org/decisions/ADR-0010-one-name-per-fact.md | decision | eos | A controlled vocabulary for pack activation predicates, grouped by subject, with the first duplicate merged |  |
 | org/decisions/ADR-0011-a-role-not-a-name.md | decision | eos | The repository refers to the operator by role rather than by name, with attribution and the record of who ruled as the two exceptions |  |
+| org/decisions/ADR-0012-doctrine-and-wargame-ontology.md | decision | eos wargame | First-class graded Doctrine and one semantic Wargame model over stable procedure identities |  |
+| org/decisions/ADR-0013-knowledge-compatibility-and-venture-rulings.md | decision | eos wargame | One commit-aware resolver, pressure-selected Wargaming and structured venture-owned Rulings |  |
+| org/decisions/ADR-0014-pressure-led-content-admission.md | decision | eos wargame | Evidence-led admission for new Doctrine, Wargames, relations and candidate packs |  |
 | org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
@@ -139,6 +142,8 @@ file. Frozen trees are not indexed.
 | org/reports/BASELINE_2026-08-15.md | org | eos | The measured state of the tree before the audit, research and expansion mission, as the before half of every later comparison |  |
 | org/reports/CONTROL_ENFORCEMENT.md | org | eos | Every material control in the EOS, classified by what actually enforces it, with the file and the test behind each classification |  |
 | org/reports/DEFECT_REGISTER_2026-08.md | org | eos | Every defect and contradiction the audit raised, what it turned out to be, and where each one now stands |  |
+| org/reports/DOCTRINE_WARGAME_BASELINE_2026-08-15.md | org | eos wargame | Frozen inventory and performance baseline before the Doctrine and Wargaming rebuild |  |
+| org/reports/DOCTRINE_WARGAME_SPIKE_2026-08-15.md | org | eos wargame arch data | Non-merging architecture and data-analytics spike for the Doctrine and Wargaming ontology |  |
 | org/reports/NEXT_TRANCHE.md | org | eos | What the audit and expansion mission completed, what it deliberately did not, and the dependency-ordered work that follows |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision the operator owns |  |
 | packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |

@@ -13,8 +13,14 @@
   },
   "mode": "high-assurance",
   "tier_proposed": "R3",
-  "tier_ruled": "R2",
+  "tier_ruled": "R3",
   "reasons": [
+    {
+      "factor": "protected-set-contact",
+      "tier_floor": "R3",
+      "source": "derived",
+      "evidence": "org/decisions/ADR-0012-doctrine-and-wargame-ontology.md matches protected pattern org/decisions/"
+    },
     {
       "factor": "schema-change",
       "tier_floor": "R2",
@@ -26,6 +32,12 @@
       "tier_floor": "R1",
       "source": "declared",
       "evidence": "declared side effect: sends-external"
+    },
+    {
+      "factor": "size-threshold",
+      "tier_floor": "R1",
+      "source": "derived",
+      "evidence": "diff size 270 lines across 3 files exceeds express limits 150/8"
     }
   ],
   "status": "active",
@@ -51,7 +63,7 @@
   ],
   "timestamps": {
     "opened": "2026-08-15T19:35:02Z",
-    "updated": "2026-08-15T19:49:00Z"
+    "updated": "2026-08-15T19:53:00Z"
   },
   "hypothesis_ledger": [],
   "oracle_provenance": {
