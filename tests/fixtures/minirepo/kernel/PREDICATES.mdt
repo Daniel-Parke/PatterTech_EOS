@@ -12,9 +12,9 @@ enough that a single group carries it.
 
 ## Fixture facts
 
-| predicate | packs | true when |
-| --- | --- | --- |
-| `does_a_fixture_thing` | testmod | the fixture pack's trigger, which exists so S021 has something to resolve |
+| predicate | packs | settled by | true when |
+| --- | --- | --- | --- |
+| `does_a_fixture_thing` | testmod | task | the fixture pack's trigger, which exists so S021 has something to resolve |
 
 ## Retired
 

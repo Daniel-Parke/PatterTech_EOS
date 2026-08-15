@@ -1293,7 +1293,11 @@ def check_s020_machine_facts_absent(ctx: dict) -> list:
 
 
 PREDICATES_PATH = "kernel/PREDICATES.md"
-_VOCAB_ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|", re.M)
+# A live row is: name | packs | settled by | true when. The settler cell
+# is what stops a predicate nobody can answer being added, which would
+# activate nothing and could not be tested.
+_VOCAB_ROW = re.compile(
+    r"^\|\s*`([a-z0-9_]+)`\s*\|([^|]*)\|([^|]*)\|([^|]*)\|", re.M)
 _RETIRED_ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|\s*`([a-z0-9_]+)`\s*\|", re.M)
 
 
@@ -1308,9 +1312,13 @@ def _predicate_vocabulary(model) -> tuple:
     if text is None:
         return None, {}
     head, _, tail = text.partition("## Retired")
-    live = set(_VOCAB_ROW.findall(head))
+    live = {}
+    for name, packs, settled, meaning in _VOCAB_ROW.findall(head):
+        live[name] = (packs.strip(), settled.strip(), meaning.strip())
     retired = dict(_RETIRED_ROW.findall(tail))
-    return live - set(retired), retired
+    for name in retired:
+        live.pop(name, None)
+    return live, retired
 
 
 @register("S021")
@@ -1342,6 +1350,18 @@ def check_s021_predicate_vocabulary(ctx: dict) -> list:
                    "the predicate vocabulary is missing, so no pack's "
                    "applies_when can be resolved")]
     out = []
+    for name in sorted(live):
+        _packs, settled, meaning = live[name]
+        if not settled:
+            # A predicate nobody can settle activates nothing and cannot
+            # be tested. The cell takes an interview question number, or
+            # `task` where the fact is about a piece of work rather than
+            # about the venture, or `always`.
+            out.append(_f(ctx, "S021", PREDICATES_PATH,
+                          "%s does not say what settles it" % name))
+        if not meaning:
+            out.append(_f(ctx, "S021", PREDICATES_PATH,
+                          "%s does not say when it is true" % name))
     for rec in model.files:
         if not (rec.path.startswith("packs/")
                 and rec.path.endswith("/PACK.md")):
