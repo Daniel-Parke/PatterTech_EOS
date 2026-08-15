@@ -1228,3 +1228,72 @@ def test_s019_reports_a_malformed_ledger(tmp_path):
     write(root, "registry/lessons.json", "{not json")
     msgs = [m for _, _, m in only(run_s(root), "S019")]
     assert any("not valid JSON" in m for m in msgs)
+
+
+# --- S020 ---------------------------------------------------------------
+
+
+ABSENT = "Git facts unavailable in this working copy."
+
+
+def test_s020_reports_a_view_claiming_git_was_unavailable(tmp_path):
+    """The defect that shipped: the sentence, committed from a git tree."""
+    root = make_repo(tmp_path)
+    _gitify(root)
+    edit(root, "org/STATE.md",
+         "Nothing is in flight. The fixture repo is at rest.",
+         ABSENT + "\n")
+    assert only(run_s(root), "S020") == [
+        ("error", "org/STATE.md",
+         "records that git facts were unavailable, but git resolves HEAD "
+         "in this working copy: regenerate with "
+         "python -m tools.eos task views")]
+
+
+def test_s020_is_silent_where_git_resolves_nothing(tmp_path):
+    """No git here, so the sentence agrees with the environment.
+
+    An export from a tarball is the case. The check has no way to call
+    the claim wrong and does not guess.
+    """
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md",
+         "Nothing is in flight. The fixture repo is at rest.",
+         ABSENT + "\n")
+    assert only(run_s(root), "S020") == []
+
+
+def test_s020_is_silent_on_a_recorded_commit(tmp_path):
+    root = make_repo(tmp_path)
+    _gitify(root)
+    edit(root, "org/STATE.md",
+         "Nothing is in flight. The fixture repo is at rest.",
+         "```facts\ncommit: 0000000\n```\n")
+    assert only(run_s(root), "S020") == []
+
+
+def test_s020_ignores_the_sentence_outside_a_derived_view(tmp_path):
+    """Only the derived views are generated output, so only they can lie.
+
+    Prose elsewhere may quote the sentence, and this file does.
+    """
+    root = make_repo(tmp_path)
+    _gitify(root)
+    (root / "packs/testmod/README.md").write_text(
+        "# notes\n\n" + ABSENT + "\n", encoding="utf-8", newline="\n")
+    assert only(run_s(root), "S020") == []
+
+
+def test_e011_alone_cannot_see_it(tmp_path):
+    """Why S020 exists: the drift check is blind to this by construction.
+
+    strip_machine_facts maps the facts block and the absent sentence to
+    one token, so a view carrying either compares equal to a view
+    carrying the other.
+    """
+    from tools.eos import taskops
+
+    with_block = "## Machine facts\n\n```facts\ncommit: abc1234\n```\n"
+    with_absent = "## Machine facts\n\n" + ABSENT + "\n"
+    assert (taskops.strip_machine_facts(with_block)
+            == taskops.strip_machine_facts(with_absent))

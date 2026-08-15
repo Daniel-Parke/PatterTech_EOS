@@ -156,7 +156,11 @@ cadence rows and git facts; hand-edits to those views are checker
 errors. Check E011 is what makes that true: it rebuilds both views and
 compares, byte for byte up to the state view's machine-facts block. The
 block itself is S007's, which tests the recorded commit by ancestry
-because a generated view always names a commit behind HEAD.
+because a generated view always names a commit behind HEAD. S020 covers
+the case where there is no block at all: the generator writes a sentence
+saying git facts were unavailable, and a view carrying that sentence in
+a working copy where git resolves HEAD is stale output that E011 cannot
+see, because it blanks the block and the sentence to the same token.
 
 Refusal semantics: `new` and `update` refuse with exit 1 and output
 `{refused: true, reason, claim_set_ref}` when the writing session is not
