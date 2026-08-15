@@ -13,6 +13,7 @@
     "tools/eos/migrate_doctrines.py",
     "tools/eos/checks/",
     "tests/test_checks_freshness.py",
+    "tests/test_cli.py",
     "tests/test_migrate_doctrines.py",
     "kernel/schemas/",
     "tests/test_checks_structural.py",
