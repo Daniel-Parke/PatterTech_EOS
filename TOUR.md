@@ -1,5 +1,5 @@
 ---
-summary: The teaching surface for EOS v2.1, the words it uses in a particular way, what changed from v1, the modes, the risk layers, Genesis, the swarm method, staged verification, the study workflow and its dispositions
+summary: The teaching surface for EOS 0.4.0, the words it uses in a particular way, what changed from v1, the modes, the risk layers, Genesis, the swarm method, staged verification, the study workflow and its dispositions
 type: guide
 tags: [eos]
 review: 2027-08
@@ -104,7 +104,8 @@ proportional. It also filled the knowledge gaps: v1 had one deep web
 aesthetic and four thin modules, with nothing on product, coding, data,
 agents, security or delivery.
 
-v2.1, this release, adds back the one step v2 dropped (Genesis), gives
+v2.1, which ADR-0009 renumbers as 0.3.0, adds back the one step v2
+dropped (Genesis), gives
 the system a way to learn from things that are not documents (the study
 workflow), writes down how we actually build (the swarm pack), stages
 verification by risk instead of by ordering, and takes a pass at the
@@ -555,10 +556,15 @@ drills over twenty packs, because `ui-ux` and `marketing-growth` have
 two each and `agentic-swarm` has none. Only eight of the twenty-two were
 frozen before the pack they judge was authored, and the manifest marks
 the rest as the weaker evidence they are, because a spec written after
-the pack could have been written to it. Not one has produced a verdict:
-`benchmark/drills/RESULTS.json` holds twenty-two entries and every one
-is null. So nothing in this repository has been graded by a cold agent.
-ADR-0007 defers that spend and says so.
+the pack could have been written to it. Not one has produced a pack verdict.
+On 2026-08-15 all twenty-two ran against their untouched fixtures and
+every one failed, which is the criteria proving they discriminate and
+not a judgement on any pack; those rows carry
+`graded: scenario-baseline` to say so. The twenty-two rows written
+before any scenario or grader existed are still null and stand as
+history, because the ledger is append-only. So nothing in this
+repository has been graded by a cold agent. ADR-0007 defers that spend
+and says so.
 
 `START.md` is retired and archived at `archive/v1-final:START.md`. Its
 job, telling you what to read for your entry mode, is done by two things

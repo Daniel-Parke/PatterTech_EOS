@@ -9,11 +9,14 @@
 
 [project]
 name = "eos-tools"
-version = "2.1.0"
-# ADR-0007 holds v2 unreleased and folds v2.1 into the same line, so this
-# is the first released version and it carries the v2.1 number. The
-# CHANGELOG's newest heading and the release tag say the same thing, and
-# check S011 holds the three to each other.
+version = "0.4.0"
+# ADR-0009 re-designates this line as 0.x. ADR-0007 held v2 unreleased
+# and folded v2.1 into it, and that still stands; what changes is the
+# number it carries. The v2 overhaul reads as 0.2.0 and v2.1 as 0.3.0,
+# so this is 0.4.0. The v1.0.0 tag stays where it is: it released the
+# architecture this tree replaced, archived at archive/v1-final. 1.0 is
+# reserved for the gate in ADR-0009, and no tag is cut here, so the
+# CHANGELOG has no new heading and check S011 stays quiet.
 description = "PatterTech EOS tooling: the repository checker, the task router, the action-time guard, context packets, task records, seed migration and the benchmark wrappers"
 # ADR-0006 decision 7 puts the repository under Apache-2.0. The terms are
 # in LICENSE at the repository root and the attributions in NOTICE, one

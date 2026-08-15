@@ -2,7 +2,7 @@
 summary: Re-designate the current line to 0.x, and define the checkable gate that 1.0 has to pass
 type: decision
 tags: [eos]
-status: proposed
+status: accepted
 decided_by: Daniel Parke
 date: 2026-08-15
 ---
@@ -16,11 +16,12 @@ from it if we so choose and it is OK. I don't feel like we are there yet
 until we have a much more expanded knowledge base to draw from to seed a
 wider range of project types."
 
-This record proposes what follows from that. It is `proposed` rather
-than `accepted` because it changes the versioning section of
-`GOVERNANCE.md`, which is in the protected set, and because cutting or
-not cutting a tag runs through PB-E05 with Daniel's approval. Nothing in
-this record has been applied to the tree.
+Daniel accepted this on 2026-08-15, in the session that raised it, and
+the renumber is applied: `tools/pyproject.toml`,
+`tools/eos/__init__.py`, `README.md` and `TOUR.md` now read 0.4.0.
+No tag is cut, so nothing is released and `CHANGELOG.md` gains no new
+heading, which is what keeps check S011 quiet. Whether to cut a tag at
+all remains PB-E05 and Daniel's.
 
 ## Context
 
@@ -119,10 +120,14 @@ it anyway is that the number is read by people deciding whether to
 depend on this, and it currently overstates. The changelog keeps every
 word of what was built.
 
-**ADR-0007 said one release, carrying the v2.1 number.** This supersedes
-that part of it and nothing else. If this record is accepted it should
-carry a `superseded_by` stamp on the relevant clause rather than leaving
-two accepted ADRs disagreeing, which S002 exists to prevent.
+**ADR-0007 said one release, carrying the v2.1 number.** This changes
+that clause and nothing else in it. No `supersedes` pair is declared,
+deliberately: ADR-0007 also strikes two benchmark gates, retires the
+sealed suite unopened and defers the drill spend, and all of that still
+stands. A `superseded_by` stamp says the whole record is done, which
+would be a larger and false claim, and S002 would then hold the tree to
+it. The narrower truth is in this paragraph, where a reader of either
+record will find it.
 
 **A gate with eight items may never be met.** Items 3 and 4 need a real
 venture and a real cold agent, which are not things a repository can do
