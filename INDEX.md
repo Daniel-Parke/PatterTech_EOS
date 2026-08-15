@@ -64,6 +64,7 @@ file. Frozen trees are not indexed.
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
 | kernel/METADATA_SPEC.md | kernel | eos | The nine metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
+| kernel/PREDICATES.md | kernel | eos | The controlled vocabulary of pack activation predicates, grouped by subject so two names for one fact sit next to each other |  |
 | kernel/README.md | kernel | eos | The kernel in v2, the law files and the compile contract |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The v2 seed law, the S and ORG file lists, first-use directories, trigger add-ons |  |
 | kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to v2 checker ids, human items headed by cold-start |  |
@@ -102,6 +103,7 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0007-one-release.md | decision | eos | Hold v2, fold v2.1 into it, release once, strike the two efficiency gates with reasons and retire the sealed suite unopened |  |
 | org/decisions/ADR-0008-less-law-better-kept.md | decision | eos | The de-restriction pass, what stops binding and what stays, and what catches each loosened failure instead |  |
 | org/decisions/ADR-0009-a-version-that-means-something.md | decision | eos | Re-designate the current line to 0.x, and define the checkable gate that 1.0 has to pass |  |
+| org/decisions/ADR-0010-one-name-per-fact.md | decision | eos | A controlled vocabulary for pack activation predicates, grouped by subject, with the first duplicate merged |  |
 | org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |

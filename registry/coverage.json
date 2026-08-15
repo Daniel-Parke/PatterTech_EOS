@@ -587,7 +587,7 @@
    "capability": "legal-licensing-and-compliance-routing",
    "status": "built",
    "pack": "packs/legal-licensing/",
-   "activation": "Licence choice, third-party licence compatibility, regulatory routing, and which duties attach to which data. Predicates: adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data.",
+   "activation": "Licence choice, third-party licence compatibility, regulatory routing, and which duties attach to which data. Predicates: adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, handles_personal_data.",
    "evidence_sources": [
     "EV-0337",
     "EV-0338",

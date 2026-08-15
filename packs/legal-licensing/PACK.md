@@ -8,7 +8,7 @@ lifecycle: active
 basis: standard
 evidence_grade: observational
 scope: estate
-applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data, studies_external_source]
+applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, handles_personal_data, studies_external_source]
 activation_paths: [**/LICENCE*, **/LICENSE*, **/NOTICE*, **/requirements*.txt, **/package-lock.json, **/uv.lock, **/Cargo.lock, **/pyproject.toml, **/*privacy*, **/*terms*]
 volatility: slow
 review: 2027-04
@@ -74,7 +74,7 @@ Keywords are the weakest signal and never override the predicates.
 | publishes_code | an artefact leaves the venture as a repository, package or binary |
 | hosts_service | people reach the software over a network |
 | accepts_contribution | code arrives from someone outside the venture |
-| processes_personal_data | the system collects, stores or transmits data about identifiable people |
+| handles_personal_data | the system collects, stores or transmits data about identifiable people. Shared with the security-privacy pack, which attaches its own duties to the same fact |
 | places_on_eu_market | the product is made available in the EU in the course of a commercial activity |
 | studies_external_source | work reads a product, repository, game or document we do not own, to learn from it |
 
@@ -192,7 +192,7 @@ ventures ship (EV-0342, scoped to one foundation's
 promise about its own releases). Authority: binding. Basis: standard.
 
 **B5. Before any personal data is processed, the notice and the
-registration are both done.** `processes_personal_data`. The privacy
+registration are both done.** `handles_personal_data`. The privacy
 notice file exists before the collecting surface ships, and carries
 every Article 13 item, including both statutory complaint routes, to
 the controller and to the Commissioner

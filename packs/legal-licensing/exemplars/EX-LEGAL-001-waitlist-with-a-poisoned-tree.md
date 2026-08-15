@@ -27,7 +27,7 @@ Nothing about licences or data protection appears in the task.
 
 Three predicates are true, and none of them needed a keyword.
 `adds_dependency`, because the task adds a library.
-`processes_personal_data`, because an email address is data about an
+`handles_personal_data`, because an email address is data about an
 identifiable person. `hosts_service`, because the venture's shape says
 so and the pack reads that from the deployment shape rather than from
 the task text.

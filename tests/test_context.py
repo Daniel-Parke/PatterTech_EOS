@@ -284,9 +284,20 @@ def test_one_venture_fact_spelled_two_ways_splits_the_estate(tmp_path):
                                                       "security-privacy"]
 
 
-def test_the_live_estate_has_the_synonym_pair_this_guards(tmp_path):
-    """Holds the finding against the real tree, so a fix retires the test."""
+def test_the_live_estate_no_longer_splits_on_personal_data(tmp_path):
+    """The synonym this file used to guard is merged (ADR-0010).
+
+    The earlier version of this test asserted the split and said a fix
+    would retire it. This is that retirement, inverted rather than
+    deleted, because the failure it describes is the kind that comes
+    back: one answer to interview question 9 spelled two ways, so a
+    venture recording either loaded one pack and missed the other.
+    """
     triggers = contextgen.pack_triggers(REPO)
-    owner = {p: t["pack"] for t in triggers for p in t["predicates"]}
-    assert owner.get("handles_personal_data") == "security-privacy"
-    assert owner.get("processes_personal_data") == "legal-licensing"
+    owners = {}
+    for t in triggers:
+        for p in t["predicates"]:
+            owners.setdefault(p, []).append(t["pack"])
+    assert sorted(owners.get("handles_personal_data", [])) == [
+        "legal-licensing", "security-privacy"]
+    assert "processes_personal_data" not in owners

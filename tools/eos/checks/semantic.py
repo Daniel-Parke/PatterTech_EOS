@@ -1,4 +1,4 @@
-"""Semantic checks S001-S007 and S009-S020.
+"""Semantic checks S001-S007 and S009-S021.
 
 S008 asked that a fact declared canonical in one file was not restated
 in another. No file ever declared canonical_facts, so it had no
@@ -1286,4 +1286,76 @@ def check_s020_machine_facts_absent(ctx: dict) -> list:
                       "records that git facts were unavailable, but git "
                       "resolves HEAD in this working copy: regenerate with "
                       "python -m tools.eos task views"))
+    return out
+
+
+# --- S021 predicates resolve in the controlled vocabulary ---------------
+
+
+PREDICATES_PATH = "kernel/PREDICATES.md"
+_VOCAB_ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|", re.M)
+_RETIRED_ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|\s*`([a-z0-9_]+)`\s*\|", re.M)
+
+
+def _predicate_vocabulary(model) -> tuple:
+    """(live names, retired name -> replacement), read from the kernel file.
+
+    The retired table is the only one whose second cell is also a
+    backticked name, which is what separates the two shapes without
+    needing a parser for the whole document.
+    """
+    text = model.read(PREDICATES_PATH)
+    if text is None:
+        return None, {}
+    head, _, tail = text.partition("## Retired")
+    live = set(_VOCAB_ROW.findall(head))
+    retired = dict(_RETIRED_ROW.findall(tail))
+    return live - set(retired), retired
+
+
+@register("S021")
+def check_s021_predicate_vocabulary(ctx: dict) -> list:
+    """A pack's applies_when against kernel/PREDICATES.md.
+
+    Predicates are the real activation gate. A pack naming a predicate no
+    other pack knows is not a problem while one person writes every pack;
+    it becomes one the moment two names mean the same fact, because a
+    venture recording one of them loads one pack and silently misses the
+    other. That is the expensive direction: the seed ships without the
+    ruling and nothing in it says so.
+
+    It had already happened once. security-privacy declared
+    handles_personal_data and legal-licensing declared
+    processes_personal_data, both defined in almost the same words, and
+    both were correct in isolation. ADR-0010 merged them and this check
+    is what stops the third one.
+
+    A retired name is reported separately from an unknown one, because
+    the fix differs: an unknown name is a new fact somebody has to add to
+    the vocabulary, and a retired name is a fact that already has a
+    spelling.
+    """
+    model: RepoModel = ctx["model"]
+    live, retired = _predicate_vocabulary(model)
+    if live is None:
+        return [_f(ctx, "S021", PREDICATES_PATH,
+                   "the predicate vocabulary is missing, so no pack's "
+                   "applies_when can be resolved")]
+    out = []
+    for rec in model.files:
+        if not (rec.path.startswith("packs/")
+                and rec.path.endswith("/PACK.md")):
+            continue
+        for name in (rec.fm.data or {}).get("applies_when") or []:
+            if name in retired:
+                out.append(_f(ctx, "S021", rec.path,
+                              "applies_when carries the retired predicate "
+                              "%s; use %s" % (name, retired[name])))
+            elif name not in live:
+                out.append(_f(ctx, "S021", rec.path,
+                              "applies_when carries %s, which is not in %s: "
+                              "add it to the group its subject belongs to, "
+                              "after checking no existing predicate is "
+                              "already true in the same circumstances"
+                              % (name, PREDICATES_PATH)))
     return out
