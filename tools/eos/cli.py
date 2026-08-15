@@ -253,6 +253,28 @@ def _resolution_document(row, resolver, *, include_body=False):
     return result
 
 
+def _resolution_summary(row):
+    """The progressive-disclosure shape used by knowledge list commands."""
+
+    result = {
+        "id": row.canonical_id,
+        "kind": row.kind,
+        "state": row.state,
+        "path": row.path,
+        "summary": row.summary,
+    }
+    metadata = row.metadata
+    if row.kind == "doctrine":
+        for key in ("authority", "applies_when", "challenge_triggers", "review"):
+            if key in metadata:
+                result[key] = metadata[key]
+    elif row.kind == "wargame":
+        for key in ("scenario_modes", "engages_when", "consequence", "review"):
+            if key in metadata:
+                result[key] = metadata[key]
+    return result
+
+
 def _parse_assignments(values, what):
     result = {}
     for raw in values or []:
@@ -286,7 +308,7 @@ def cmd_knowledge(args):
 
     resolver = KnowledgeResolver.open(REPO, args.commit)
     if args.op == "list":
-        rows = [_resolution_document(row, resolver)
+        rows = [_resolution_summary(row)
                 for row in resolver.list(args.entity)]
         print(json.dumps({"kind": args.entity, "count": len(rows), "records": rows}, indent=1))
         return 1 if resolver.problems else 0
@@ -746,6 +768,11 @@ def main(argv=None):
     args = build_parser().parse_args(argv)
     try:
         return args.fn(args)
+    except BrokenPipeError:
+        # A caller piping a long catalogue through `head` has consumed the
+        # output it asked for. That is a successful short read, not a broken
+        # knowledge query and not a reason to print a traceback.
+        return 0
     except (CannotRun, FileNotFoundError, RuntimeError, ValueError) as exc:
         # A run that could not happen, which is exit 2: a file the
         # caller named is not there, a --diff ref git cannot resolve

@@ -212,6 +212,29 @@ def test_the_package_and_its_metadata_report_one_version():
     assert tools.eos.__version__ == declared
 
 
+def test_knowledge_list_is_a_summary_and_show_is_full(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "REPO", REPO)
+    assert cli.main(["doctrine", "list"]) == 0
+    listed = json.loads(capsys.readouterr().out)
+    assert listed["count"] >= 513
+    assert "metadata" not in listed["records"][0]
+    assert "body" not in listed["records"][0]
+    identifier = listed["records"][0]["id"]
+
+    assert cli.main(["doctrine", "show", identifier]) == 0
+    shown = json.loads(capsys.readouterr().out)
+    assert shown["metadata"]["id"] == identifier
+    assert shown["body"]
+
+
+def test_a_closed_output_pipe_is_a_successful_short_read(monkeypatch):
+    def closed_pipe(_args):
+        raise BrokenPipeError
+
+    monkeypatch.setattr(cli, "cmd_knowledge", closed_pipe)
+    assert cli.main(["doctrine", "list"]) == 0
+
+
 def _subcommands(parser):
     import argparse
 
