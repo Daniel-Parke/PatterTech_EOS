@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "venture": "Current-HEAD seed",
+  "capability_profile": "STACK-fullstack-app",
+  "risk": {
+    "factors": [
+      {
+        "id": "protected-set-contact",
+        "summary": "The change touches protected policy.",
+        "tier_floor": "R3",
+        "sources": ["paths:protected"]
+      }
+    ],
+    "path_patterns": {
+      "reversible": ["docs/**"],
+      "sensitive": [],
+      "protected": ["docs/policy.json"]
+    }
+  },
+  "express": {
+    "max_diff_lines": 100,
+    "max_files": 5,
+    "denied_by_factors": []
+  },
+  "modes": {
+    "express": {
+      "context_pack": {"max_lines": 60},
+      "artefacts": ["commit-message"],
+      "test_timing": "alongside",
+      "verification": "targeted-checks",
+      "budgets": {},
+      "stop_conditions": []
+    },
+    "standard": {
+      "context_pack": {"max_lines": 300},
+      "artefacts": ["task-record"],
+      "test_timing": "alongside",
+      "verification": "sampled-review",
+      "budgets": {},
+      "stop_conditions": []
+    },
+    "exploration": {
+      "context_pack": {"max_lines": 150},
+      "artefacts": ["task-record"],
+      "test_timing": "hardening-gate",
+      "verification": "targeted-checks",
+      "budgets": {},
+      "stop_conditions": []
+    },
+    "high-assurance": {
+      "context_pack": {"max_lines": 300},
+      "artefacts": ["task-record", "review-verdict"],
+      "test_timing": "acceptance-first",
+      "verification": "independent-review",
+      "budgets": {},
+      "stop_conditions": []
+    },
+    "parallel": {
+      "context_pack": {"max_lines": 300},
+      "artefacts": ["task-record"],
+      "test_timing": "alongside",
+      "verification": "rolling-integration",
+      "budgets": {},
+      "stop_conditions": []
+    }
+  },
+  "parallelism": {"max_lanes": 1},
+  "decision_budget": {
+    "free": [],
+    "durable": [],
+    "escalation": []
+  },
+  "approvals": {"always_human": []},
+  "guard": {
+    "adapter": "manual",
+    "mapping_ref": "docs/guard-mapping.json",
+    "validated": false
+  },
+  "protected_pointers": ["/risk", "/approvals"]
+}

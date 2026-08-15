@@ -77,6 +77,18 @@ def test_seed_v2_s_fixture_is_clean():
     assert [(f.severity, f.check_id, f.path) for f in fs] == []
 
 
+def test_current_head_seed_exercises_structured_pressure_ruling():
+    seed = REPO_ROOT / "examples" / "current-head-seed"
+    fs = run_seed(seed, ctx())
+
+    assert [(f.severity, f.check_id, f.path) for f in fs] == []
+    rulings = json.loads(
+        (seed / "docs" / "RULINGS.json").read_text(encoding="utf-8")
+    )
+    assert rulings["selection_log"][1]["wargame"] == "GD-ARCH-001"
+    assert rulings["rulings"][1]["doctrines"] == ["DOC-ARCH-004"]
+
+
 def test_matrix_parses():
     """The live matrix is v2 (S and ORG); v1's is at the archive tag.
 

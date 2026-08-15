@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "venture": "Current-HEAD seed",
+  "eos_commit": "72824e6378982ba5d656d9252d4f7e8c771a18b4",
+  "selection_log": [
+    {
+      "wargame": "WG-EOS-001",
+      "disposition": "selected",
+      "reason": "Scale is always walked at Session 0.",
+      "ruling": "RUL-EOS-001",
+      "facts": ["runs_agents=true"]
+    },
+    {
+      "wargame": "GD-ARCH-001",
+      "disposition": "selected",
+      "reason": "requires_independent_deployability is true for one owned boundary.",
+      "ruling": "RUL-ARCH-001",
+      "facts": [
+        "has_server_code=true",
+        "requires_independent_deployability=true"
+      ]
+    }
+  ],
+  "rulings": [
+    {
+      "id": "RUL-EOS-001",
+      "wargame": "WG-EOS-001",
+      "doctrines": [],
+      "decision": "Compile the S seed.",
+      "execution": "argued",
+      "reason": "One operator and one small venture do not require ORG machinery.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:venture-scale",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-ARCH-001",
+      "wargame": "GD-ARCH-001",
+      "doctrines": ["DOC-ARCH-004"],
+      "decision": "Split only the independently owned boundary and retain the remaining system as one deployable.",
+      "execution": "argued",
+      "reason": "The named boundary must release independently; no other boundary has earned distribution.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:deployment-ownership",
+      "departures": [
+        {
+          "doctrine": "DOC-ARCH-004",
+          "reason": "Independent release ownership requires one scoped exception to the one-deployable default."
+        }
+      ],
+      "binding_scope_changes": []
+    }
+  ]
+}
