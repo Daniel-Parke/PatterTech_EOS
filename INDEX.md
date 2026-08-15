@@ -416,4 +416,5 @@ file. Frozen trees are not indexed.
 | registry/stacks/STACK-fullstack-app.md | stack | web infra hosting testing ci | Profile 03, Next.js front on FastAPI back, the contract seam and the gate set | 2027-01 |
 | registry/stacks/STACK-local-first-pwa.md | stack | web infra perf testing | Profile 04, local-first PWA with a WASM compute core, shape, constraints and the sharp edges Venture C paid for | 2027-02 |
 | registry/stacks/STACK-web-static.md | stack | web hosting infra | Profile 01, Next.js static export, shape and constraints | 2027-01 |
+| tests/fixtures/activation/BRIEF-example.md | example | eos | A venture brief fragment carrying a facts block, for exercising activate --brief |  |
 | tools/CLI_CONTRACTS.md | kernel | eos | Subcommand contracts for python -m tools.eos, inputs, JSON outputs, exit codes |  |

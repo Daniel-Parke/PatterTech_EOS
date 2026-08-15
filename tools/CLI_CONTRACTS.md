@@ -111,9 +111,12 @@ re-supplied within a run.
 
 ## activate
 
-Inputs: `--facts FILE`, a JSON list of predicates or an object with a
-`predicates` key, and `--predicate NAME`, repeatable, which may be given
-together. Neither exits 2, and so does a facts file that is not a list.
+Inputs: `--brief PATH`, a venture brief whose ```facts block carries the
+declared venture facts; `--facts FILE`, a JSON list of predicates or an
+object with a `predicates` key; and `--predicate NAME`, repeatable. Any
+of the three may be given together and they union. None of them exits 2,
+and so does a missing brief, a brief declaring no facts, or a facts file
+that is not a list.
 
 Output on stdout: `{declared, unknown_predicates, activated,
 not_activated}`. An `activated` row carries the pack, its body path, the

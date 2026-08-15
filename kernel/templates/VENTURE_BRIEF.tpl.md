@@ -34,6 +34,25 @@ Session 0: {{TRIGGERS}}. The rescale conditions to watch: money
 arriving, personal data appearing, a second human joining, ops burden
 growing.
 
+## Venture facts
+
+The same answers again, as the names `kernel/PREDICATES.md` gives them,
+one per line. Prose above is for the operator; this block is what
+`python -m tools.eos activate --brief` reads to work out which packs a
+venture loads, so the walk is computed rather than matched by eye.
+
+Only venture facts belong here: the ones `kernel/PREDICATES.md` settles
+with an interview question number. A task fact like `edits_source` is
+about a piece of work and is not knowable yet, so it is settled per task
+from the record and the diff, not here.
+
+Nothing is inferred. A fact goes in because an answer put it there, and
+a fact nobody asked about is left out rather than guessed.
+
+```facts
+{{VENTURE_FACTS}}
+```
+
 ## Material workstreams
 
 The parts of this venture somebody has to sit down and build, one line
