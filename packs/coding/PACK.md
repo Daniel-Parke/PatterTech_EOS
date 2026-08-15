@@ -1,19 +1,21 @@
 ---
-summary: How code is written and accepted in a venture repo, oracles, pinning, error paths and the merge gate
+summary: Activation, outcomes and decision map for the coding Doctrine and Wargames
 type: playbook
 tags: [eos, delivery, testing]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: empirical-evidence
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [edits_source, reviews_change, decides_merge]
 activation_paths: [**/*.py, **/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.go, **/*.rs, **/*.java, **/*.rb, **/*.c, **/*.cpp, **/*.h, **/pyproject.toml, **/package.json, **/Cargo.toml]
 volatility: slow
-review: 2027-02
+review: none
 sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0105, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183, EV-0191, EV-0192, EV-0480]
+depends_on: [architecture]
 ---
+
 
 # Coding pack
 
@@ -73,96 +75,43 @@ does not set a house style: style questions are settled by the
 project's style guide and its formatter, never by reviewer taste
 (EV-0164).
 
-## Binding requirements
+## Doctrine
 
-Five requirements bind. A run that breaks one fails, whatever else it
-achieved. Each was re-tested on 2026-08-10 against ADR-0008: a rule
-binds only where it prevents a serious or hard-to-reverse failure and
-its basis is law, a standard or measured evidence. What did not pass is
-in the defaults below with its reason.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-**B1. The oracle is independent of the code it judges, and it has been
-seen to fail.** Two clauses, and neither of them is about ordering.
-
-*Independent.* The artefact that decides whether a change is correct is
-not authored by the agent holding that implementation in its context.
-That authoring context may hold the specification, the interface, the
-reproduction and prior art. It may not hold the candidate code.
-
-*Seen to fail.* Before an oracle counts at the gate, it has been
-observed red: against the parent commit, against the change reverted, or
-against a seeded fault. Diff-scoped mutation is the general mechanism
-where a single revert will not do.
-
-Prevents two failures. Mutual consistency, where a check written from
-the code agrees with the fault it should catch: tests generated after
-faulty code detected roughly half the faults of independently generated
-tests, 14 per cent against 25 per cent (EV-0007), and surfacing the
-right test context cut regressions from 6.08 to 1.82 per cent (EV-0003).
-And the vacuous check, a green suite nobody has ever seen go red: agent
-test-writing frequency is about the same in runs that resolve and runs
-that do not, because what gets written is mostly observational prints
-(EV-0006). Mutants couple to real faults often enough to serve as the
-proof, 73 per cent of real faults coupled to at least one (EV-0191), and
-diff-scoped, mutation-guided generation is what makes the proof
-affordable (EV-0192, EV-0105).
-
-Scope note: EV-0007, EV-0006 and EV-0003 are agent runs on curated
-benchmarks and EV-0191 is five Java projects. The direction transfers,
-the magnitudes are theirs. Ordering is free: see D7. See
-`packs/coding/guides/GD-COD-001-oracle-strategy.md`.
-
-**B2. Behaviour is pinned before structure moves.** No refactor of code
-whose specification is missing or untrusted begins until a
-characterisation or approval test captures current behaviour. Prevents
-the silent behaviour change sold as a tidy-up, which is the failure
-mode inherited and agent-written code both carry, because nobody can
-say what the code was supposed to do (EV-0180, EV-0177). See
-`packs/coding/guides/GD-COD-004-pin-then-change.md`.
-
-**B3. The error path is handled, never discarded.** A bare catch-all, a
-catch that swallows and continues, or a handler that logs and drops a
-signalled failure is rejected. Every caught error is either handled,
-translated into a declared failure, or re-raised. Prevents the failure
-class that dominates production catastrophe: 92 per cent of the
-catastrophic failures studied came from mishandling errors the software
-had already signalled, and about a third were visible to plain
-inspection (EV-0174). Scope note: that corpus was Java-heavy
-distributed data systems in 2014, so the direction of attention
-transfers and the exact proportion does not. See
-`packs/coding/refs/ERROR_PATH.md`.
-
-**B4. On a published interface, distinguishable failures are declared
-and versioned.** Published means an interface with a consumer the
-venture does not control: another venture, another release train, a
-paying customer. The set of failures such a caller may tell apart is
-named in the interface documentation, and it changes only with a version
-bump. Wrapping an error makes that error part of the contract (EV-0175);
-version numbers mean nothing until the public surface is declared
-precisely (EV-0171). Prevents callers writing recovery against a failure
-mode that quietly disappears in a patch release, which they cannot see
-coming and cannot undo once shipped. Inside the venture this is D9 and
-not a rule, because the pack's own anti-pattern list already says
-contract ceremony on a module with one caller buys rigidity and no
-coordination. See `packs/coding/guides/GD-COD-003-failure-mode-contract.md`.
-
-**B5. A diff-aware machine gate runs before every merge.** Security and
-policy rules run against the diff, not the whole repository, and
-blocking findings are separated from monitoring findings (EV-0070).
-Repository health checks read the repo's actual state (EV-0069).
-Prevents shipping generated code on trust: roughly 40 per cent of
-generated programs in security-relevant scenarios contained a
-vulnerability, and the rate varied with prompt and domain in ways the
-author cannot see (EV-0181). Scope note: that was a 2021 model on
-deliberately security-loaded prompts. The finding that survives is the
-necessity of a gate, not the size of the number. Whole-repo-only gates
-are themselves an anti-pattern: they produce alert fatigue and then get
-turned off. See `packs/coding/refs/REVIEW_GATE.md`.
-
-Guarded actions are outside review entirely. Deployment, deletion,
-force-push, secret access, money movement and the rest are ruled by
-`kernel/GUARD_SPEC.md` and its non-waivable floors. No review verdict,
-machine or human, changes a guard verdict.
+<a id="B1"></a>
+- `B1` to [DOC-COD-001](doctrines/DOC-COD-001-the-oracle-that-judges-a-change-is-authored-independently-of-the.md) (binding), [DOC-COD-002](doctrines/DOC-COD-002-a-gate-oracle-is-observed-failing-before-its-green-result-counts.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-COD-003](doctrines/DOC-COD-003-behaviour-is-pinned-before-structure-moves.md) (binding)
+<a id="B3"></a>
+- `B3` to [DOC-COD-004](doctrines/DOC-COD-004-the-error-path-is-handled-never-discarded.md) (binding)
+<a id="B4"></a>
+- `B4` to [DOC-COD-005](doctrines/DOC-COD-005-on-a-published-interface-distinguishable-failures-are-declared-a.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-COD-006](doctrines/DOC-COD-006-a-diff-aware-machine-gate-runs-before-every-merge.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-COD-007](doctrines/DOC-COD-007-human-review-is-scoped-by-risk-not-applied-as-a-blanket.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-COD-008](doctrines/DOC-COD-008-review-approves-on-the-health-gradient.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-COD-009](doctrines/DOC-COD-009-trunk-based-flow.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-COD-010](doctrines/DOC-COD-010-monorepo-per-venture-until-tooling-cost-forces-otherwise.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-COD-011](doctrines/DOC-COD-011-refactor-when-a-pending-change-demands-it.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-COD-012](doctrines/DOC-COD-012-a-dumb-pipeline-before-a-clever-one.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-COD-013](doctrines/DOC-COD-013-write-the-oracle-before-the-implementation-wherever-the-conditio.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-COD-014](doctrines/DOC-COD-014-cap-the-size-of-a-work-package-and-keep-packages-of-a-similar-si.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-COD-015](doctrines/DOC-COD-015-declare-distinguishable-failures-on-internal-interfaces-too-wher.md) (default)
+- source `preferences:001` to [DOC-COD-016](doctrines/DOC-COD-016-conventional-commits.md) (preference)
+- source `preferences:002` to [DOC-COD-017](doctrines/DOC-COD-017-naming-beyond-concept-selection.md) (preference)
+- source `preferences:003` to [DOC-COD-018](doctrines/DOC-COD-018-duplication-thresholds.md) (preference)
+- source `preferences:004` to [DOC-COD-019](doctrines/DOC-COD-019-test-volume.md) (preference)
 
 ## What the ordering demotion costs
 
@@ -183,111 +132,6 @@ sequencing, is what carried the measured benefit in the human literature
 (EV-0178). A red-green cycle enforced it automatically; a queue of work
 packages does not. D8 replaces it with a stated cap, which somebody has
 to police.
-
-## Defaults
-
-Each default applies unless the venture's lock-book overrides it with a
-recorded reason.
-
-**D1. Human review is scoped by risk, not applied as a blanket.** The
-machine gate in B5 runs on everything. Human review is routed by the
-tier that `kernel/POLICY_SPEC.md` rules for the task: R0 and R1 take
-agent review plus sampled human review, R2 takes independent review at
-acceptance, R3 always takes a human. Reason: review's measured product
-is knowledge transfer and awareness rather than defect finding
-(EV-0166), and a solo operator directing agents collects almost none of
-that transfer, so blanket review buys ceremony. The reason a human
-stays in the loop on high-risk changes is not defect yield, it is the
-accountability gap: when an auto-approved change causes harm, no agent
-is answerable for it, and that gap is named as unsolved by the strongest
-argument for agent-led review (EV-0167), which is a preprint with no new
-data and should be read as a hypothesis. Override by recording which
-tier you moved and why. See
-`packs/coding/guides/GD-COD-002-review-gate.md`.
-
-**D2. Review approves on the health gradient.** Approve once the change
-definitely improves overall code health even when it is imperfect, and
-refuse only what definitely worsens it. One reviewer, one iteration,
-small changes (EV-0164, EV-0165). Reason: the practice that makes
-review affordable is keeping changes small, and the alternative bar of
-perfection stalls the queue. Scope note: EV-0165 describes one company
-with bespoke tooling and predates machine authorship.
-
-**D3. Trunk-based flow.** Small changes merged to trunk at least daily,
-branch lifetime measured in hours, three or fewer active branches, no
-code freezes (EV-0168). Large changes ride behind feature flags or
-branch by abstraction rather than a long branch (EV-0183). Reason: the
-conditions are measurable and the association with delivery performance
-is the best evidence available. Both sources are association or opinion
-rather than causal evidence, and for a one-person venture the residue
-that matters is merge cadence and the ban on freezes.
-
-**D4. Monorepo per venture until tooling cost forces otherwise.** A
-small repository gets the monorepo benefits free, because it is small
-(EV-0172, EV-0173). Reason: the benefits at scale are bought with
-bespoke tooling nobody at venture scale can fund, and the pain sits in
-the middle sizes. Override when a component has its own release train
-or its own consumers. See
-`packs/coding/guides/GD-COD-005-repo-shape.md`.
-
-**D5. Refactor when a pending change demands it.** Refactoring is
-change-driven, not smell-driven: developers refactor to make a specific
-pending change possible, and a smell-detector backlog is a poor model
-of the work (EV-0177). Reason: backlog-driven tidying spends the budget
-where no change is coming. Override for a documented decay signal you
-have measured in your own repository.
-
-**D6. A dumb pipeline before a clever one.** Prefer a fixed
-localise-repair-validate loop over autonomous sophistication until the
-simple pipeline is shown to fail; a fixed pipeline matched contemporary
-agents at far lower cost (EV-0008). Reason: cost and reproducibility.
-
-**D7. Write the oracle before the implementation wherever the condition
-can be stated.** For a FIX that means the failing reproduction, which is
-available before any code exists. Reason: it is the cheapest way to
-satisfy B1's independence clause, because at that moment there is no
-implementation to read. It is a default and not a rule because ordering
-is not what the evidence measures. Prompting for more tests across the
-500 tasks of SWE-bench Verified changed test-writing behaviour on most
-tasks and left the number resolved statistically unchanged (EV-0006),
-and in the human literature the active ingredient was granularity and
-uniformity rather than sequencing (EV-0178). Override by recording where
-the oracle did come from, which is what B1 actually wants.
-
-**D8. Cap the size of a work package, and keep packages of a similar
-size.** The venture picks the cap and records it. Reason: small, even
-increments are the ingredient the sequencing literature actually
-measured (EV-0178), and dropping the test-first cycle drops the thing
-that enforced them. Nothing in a queue or a dependency graph supplies
-this automatically.
-
-**D9. Declare distinguishable failures on internal interfaces too,
-where more than one caller exists.** Reason: the coordination benefit
-is real once there are two callers and absent when there is one, so this
-is judgement rather than law. B4 is the binding version and applies to
-published interfaces only. Override for a module with a single caller,
-where the declaration is rigidity for its own sake.
-
-## Preferences
-
-These are taste. Record them, do not gate on them, and override them
-without asking.
-
-- **Conventional Commits**, and only where release automation actually
-  consumes the grammar. As decoration it is ceremony. With agent
-  authors, normalise the message at merge rather than expecting every
-  commit to comply, which the specification itself suggests (EV-0170).
-- **Naming beyond concept selection.** Do not enforce naming
-  uniformity. Two developers pick the same name about 7 per cent of the
-  time, yet a chosen name is usually understood (EV-0176). Review which
-  concepts a name encodes; leave the wording alone.
-- **Duplication thresholds.** Instrument the direction in your own
-  repository if you care. The published magnitudes of AI-era structural
-  decay come from a vendor study with a non-random sample and causal
-  attribution by timing, so treat them as a hypothesis worth measuring,
-  never as fact (EV-0179).
-- **Test volume.** Optimise for confidence per test rather than layer
-  ratios (EV-0094). The delivery-testing pack owns this properly.
 
 ## Decision map
 

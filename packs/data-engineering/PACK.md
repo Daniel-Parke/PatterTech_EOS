@@ -1,19 +1,21 @@
 ---
-summary: How data arrives and is reprocessed, delivery guarantees per hop, idempotent reruns, the processing window, backfill, late and duplicate records and partitioning
+summary: Activation, outcomes and decision map for the data-engineering Doctrine and Wargames
 type: playbook
 tags: [data, ops, state, realtime]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [ingests_external_data, runs_scheduled_pipeline, reprocesses_data, processes_event_time_data]
 activation_paths: [**/pipelines/**, **/ingest/**, **/ingestion/**, **/etl/**, **/elt/**, **/dags/**, **/airflow/**, **/connectors/**, **/cdc/**, **/streams/**, **/*backfill*, **/*reprocess*, **/*debezium*, **/*kafka*]
 volatility: slow
-review: 2028-04
+review: none
 sources: [EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0513, EV-0514, EV-0515, EV-0516]
+depends_on: [architecture, security-privacy]
 ---
+
 
 # Data engineering
 
@@ -105,155 +107,38 @@ particular consumer's need, and a fleet-wide figure over them is
 arithmetic with no referent. Declare the freshness a consumer needs per
 table, and check that; never average it.
 
-## Binding requirements
+## Doctrine
 
-Three. Each names the failure it prevents, what the evidence is and the
-basis it rests on. Departure needs an accepted ADR. The list is short on
-purpose: it was tested against the two-limb rule in ADR-0008, and the
-rules that failed it are defaults below with the reason recorded.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-**Evidence pointer.** This pack has not been imported into
-`registry/evidence.json`, so it carries no `EV-` ids yet. The twelve
-sources are frozen at
-`packs/data-engineering/research/sources.fragment.json` with the
-eighteen-field record shape, the synthesis is in
-`packs/data-engineering/research/NOTES.md`, and the licence and
-quotation sweep is at
-`packs/data-engineering/research/provenance.fragment.json`. Until the
-import assigns ids, prose here names sources by short label, and the
-notes carry the label-to-fragment table under the heading about how the
-read surface cites. Inventing an id would be worse than naming the
-source.
-
-**B1. Every hop between two systems states its delivery guarantee, and a
-sink that is not idempotent or transactional is treated as
-at-least-once.** `ingests_external_data`, `runs_scheduled_pipeline`. The
-broker's own delivery-semantics documentation says exactly-once claims
-need their fine print read because they usually assume nobody fails, and
-then scopes its own to reading from the log and writing back to it,
-where the consumer's position commits inside the same transaction as the
-output. Write anywhere else and the choices are a two-phase commit the
-sink probably does not support, or storing the position in the same
-place as the output. The stream processor's checkpointing documentation
-says the same from the other side: its exactly-once setting is about its
-own state, and carrying that outward needs the sink to take part.
-*Prevents*: a pipeline built on a guarantee that stops at a boundary
-nobody drew, so duplicates land in the table of record and nothing is
-looking for them. *Basis*: standard, on two protocol and engine
-documentation sets that agree against the marketing around them.
-
-**B2. Reprocessing a window replaces a bounded unit or merges on a
-declared key. Bare append is not a reprocessing strategy.**
-`reprocesses_data`. The incremental-strategy documentation is explicit
-that append checks nothing, so a rerun duplicates, and that every other
-strategy rests on a key whose reliability is the strategy's real value:
-a merge with no key degrades into an append without saying so. The
-atomic primitive underneath is the table format specification's pointer
-swap, which is what makes "replace the partition" a single commit rather
-than a delete with a window in the middle where the table is wrong.
-*Prevents*: duplicate rows that compound on every retry and cannot be
-told apart afterwards, which is the one data defect with no clean
-recovery short of a full rebuild. *Basis*: standard, on one format
-specification for the primitive and one maintainer document for the
-strategies.
-
-**B3. A pipeline over event-time data declares its lateness horizon and
-where arrivals past it go. Nothing is dropped silently.**
-`processes_event_time_data`. The streaming model paper's argument is
-that completeness is never known, and that a progress marker fails in
-two directions rather than one: too fast, and records arrive behind it,
-so trusting it alone is knowingly lossy; too slow, and one straggler
-holds the whole pipeline's output back. The stream processor's time
-documentation states that no time can be named by which every record of
-a given timestamp will have arrived. *Prevents*: the quietest loss in
-this domain, a record discarded for being late by a threshold nobody
-chose, in a pipeline whose row counts all reconcile. *Basis*:
-empirical-evidence, on peer-reviewed work, with the engine documentation
-as the mechanism.
-
-## Defaults
-
-Starting positions. Override any of them with a reason recorded in the
-change record or the lock-book; an unrecorded override is the finding.
-
-**D1. The processing window comes from the scheduler or from the data,
-never from the run's own clock, and it is written down with the
-output.** The orchestrator's best-practice documentation puts the
-current-time call out of bounds inside a task, and most firmly out of
-bounds in the arithmetic that matters, and says a task reads and writes
-a named window rather than whatever the source happens to hold at that
-moment. The table format's partitioning documentation supplies the
-failure: when the writer supplies the partition value, using the wrong
-source column, and it names the processing time in place of the event
-time as exactly that mistake, lands a wrong answer while every query
-keeps succeeding. *Reason to depart*: a source that carries no usable
-time at all, in which case the arrival window is the honest answer and
-the table says so in its own column name. *Why this is a default rather
-than binding*: it prevents a serious and quiet failure, so it passes the
-first limb of ADR-0008, but its basis is two maintainer documents and it
-fails the second. It is the rule this pack would most like to bind, and
-the open questions below say so plainly.
-
-**D2. Backfill is the scheduled pipeline given different dates.** No
-separate backfill script, no notebook, no one-off query. The microbatch
-documentation makes this the shape rather than the exception: the same
-model run with an explicit start and end, batch by batch, each one
-replaced atomically. *Reason to depart*: a first historical load whose
-volume genuinely cannot go through the ordinary path, which is a
-capacity argument to record rather than a habit.
-
-**D3. Log-based change capture over polling, where the venture is
-allowed to read the source's log.** Polling a modified-at column cannot
-see a delete, cannot see a row that changed twice between polls, and
-needs a column the source's data model did not want. *Reason to depart*:
-no log access, which is the common case for third-party systems, and
-then the deletes have to be handled another way and the pipeline says
-how.
-
-**D4. The partition value is derived by the engine from a real column,
-or in exactly one place in code, and never written by hand at the call
-site.** Where the format supports a declared transform of the event-time
-column, use it and let the engine apply it. Where it does not, one
-function owns the derivation. *Reason to depart*: a table small enough
-that it is not partitioned at all, which is most tables in a young
-venture.
-
-**D5. One bounded window per run, sized so a single window can be
-reprocessed inside the schedule interval.** If a day's window takes
-thirty hours to rerun, the window is wrong, and the pipeline has no
-recovery path that does not fall further behind.
-
-**D6. Start in batch. Move a step to streaming only when a named
-decision cannot wait for the next run.** Streaming buys latency and
-charges for it in operational surface, an event-time clock, a lateness
-policy and a process to keep alive. *Reason to depart*: the decision
-exists and is named, or the source is a stream already and batching it
-would mean inventing a landing area.
-
-**D7. Every run records its window, the input position it read to, the
-row counts in and out, and the version of the code that ran.** Without
-the input position a rerun cannot be reasoned about, and without the
-counts nobody can tell a quiet loss from a quiet duplicate. The fields
-are in `packs/data-engineering/refs/RUN_LEDGER.md`.
-
-**D8. Rejected and very-late records go to a quarantine table with the
-reason and the raw payload, not to a log line.** A log line is not a
-record you can reprocess from.
-
-## Preferences
-
-Taste. Record them, do not gate on them, override without asking.
-
-- The table format. An open format with hidden partitioning and one with
-  a transaction log both meet B2, and the argument between them is
-  unsettled.
-- Whether the merge key is the source's natural key or a hash of it.
-- The orchestrator, and whether the window arrives as a CLI flag or a
-  configuration value.
-- Compaction cadence and small-file policy, until the read time
-  complains.
-- Whether quarantine is a table per source or one table with a source
-  column.
+<a id="B1"></a>
+- `B1` to [DOC-DATAENG-001](doctrines/DOC-DATAENG-001-every-hop-between-two-systems-states-its-delivery-guarantee-and.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-DATAENG-002](doctrines/DOC-DATAENG-002-reprocessing-a-window-replaces-a-bounded-unit-or-merges-on-a-dec.md) (binding)
+<a id="B3"></a>
+- `B3` to [DOC-DATAENG-003](doctrines/DOC-DATAENG-003-a-pipeline-over-event-time-data-declares-its-lateness-horizon-an.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-DATAENG-004](doctrines/DOC-DATAENG-004-the-processing-window-comes-from-the-scheduler-or-from-the-data.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-DATAENG-005](doctrines/DOC-DATAENG-005-backfill-is-the-scheduled-pipeline-given-different-dates.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-DATAENG-006](doctrines/DOC-DATAENG-006-log-based-change-capture-over-polling-where-the-venture-is-allow.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-DATAENG-007](doctrines/DOC-DATAENG-007-the-partition-value-is-derived-by-the-engine-from-a-real-column.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-DATAENG-008](doctrines/DOC-DATAENG-008-one-bounded-window-per-run-sized-so-a-single-window-can-be-repro.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-DATAENG-009](doctrines/DOC-DATAENG-009-start-in-batch-move-a-step-to-streaming-only-when-a-named-decisi.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-DATAENG-010](doctrines/DOC-DATAENG-010-every-run-records-its-window-the-input-position-it-read-to-the-r.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-DATAENG-011](doctrines/DOC-DATAENG-011-rejected-and-very-late-records-go-to-a-quarantine-table-with-the.md) (default)
+- source `preferences:001` to [DOC-DATAENG-012](doctrines/DOC-DATAENG-012-the-table-format.md) (preference)
+- source `preferences:002` to [DOC-DATAENG-013](doctrines/DOC-DATAENG-013-whether-the-merge-key-is-the-sources-natural-key-or-a-hash-of-it.md) (preference)
+- source `preferences:003` to [DOC-DATAENG-014](doctrines/DOC-DATAENG-014-the-orchestrator-and-whether-the-window-arrives-as-a-cli-flag-or.md) (preference)
+- source `preferences:004` to [DOC-DATAENG-015](doctrines/DOC-DATAENG-015-compaction-cadence-and-small-file-policy-until-the-read-time-com.md) (preference)
+- source `preferences:005` to [DOC-DATAENG-016](doctrines/DOC-DATAENG-016-whether-quarantine-is-a-table-per-source-or-one-table-with-a-sou.md) (preference)
 
 ## Decision map
 

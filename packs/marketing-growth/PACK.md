@@ -1,19 +1,21 @@
 ---
-summary: How a venture reaches and keeps people, four growth philosophies over one consent, refusal and measurement floor
+summary: Activation, outcomes and decision map for the marketing-growth Doctrine and Wargames
 type: playbook
 tags: [content, seo, pii, brand, voice]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: law
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [publishes_public_content, collects_contact_details, sends_marketing_message, reports_channel_effect, plans_growth_spend]
 activation_paths: [**/content/**, **/blog/**, **/robots.txt, **/sitemap*, **/*seo*, **/emails/**, **/campaigns/**, **/*landing*]
 volatility: fast
-review: on-change-of:PECR-reg-22-amendment
+review: none
 sources: [EV-0022, EV-0041, EV-0055, EV-0059, EV-0060, EV-0095, EV-0225, EV-0241, EV-0353, EV-0354, EV-0355, EV-0356, EV-0357, EV-0358, EV-0359, EV-0360, EV-0361, EV-0362, EV-0363, EV-0364, EV-0365, EV-0366, EV-0367, EV-0368, EV-0369]
+depends_on: [product-discovery, writing-content, legal-licensing]
 ---
+
 
 # marketing-growth
 
@@ -82,183 +84,48 @@ surface only. Not product analytics instrumentation depth. Not
 positioning or messaging method, which has no primary evidence in this
 pack's source set and is stated as taste.
 
-## Binding requirements
+## Doctrine
 
-Three requirements bind. All three are law, or the standard by which a
-legal duty is discharged. Everything else here is a default or a
-preference, which is the honest shape for a domain where most published
-practice is convention rather than finding.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The authority audit under ADR-0008 moved none of them. Each prevents a
-failure nobody can repair afterwards, and each rests on law or on the
-standard that discharges a legal duty, which is both limbs of the test.
-A mailing sent to somebody who never agreed to it has been sent.
-
-**Evidence note.** The import is done. The seventeen rows frozen in
-`packs/marketing-growth/research/sources.fragment.json`, each carrying
-its version, licence, access date, maintenance state and review
-trigger, are in `registry/evidence.json` as EV-0353 to EV-0369, and
-every citation here uses the ledger id. The fragment file stays in the
-research directory as the batch the import was made from, and the
-synthesis behind the pack is in
-`packs/marketing-growth/research/NOTES.md`.
-
-**B1. The lawful basis is stored with the address, not asserted about
-the list.** `collects_contact_details`. Every contact record carries a
-basis from a closed enum, a timestamp and the collection source,
-written at capture; a record claiming soft opt-in also carries a
-reference to the sale or negotiation it rests on. Prevents the one
-failure that cannot be repaired afterwards. PECR regulation 22 requires
-prior consent for marketing mail to an individual subscriber, with a
-single narrow escape needing all three of details obtained in the
-course of a sale or negotiation, similar products only, and a free
-refusal route at collection and in every later message (EV-0361).
-Provenance cannot be rebuilt from a table of addresses six months on,
-and UK statute now expects a recorded lawful basis rather than a
-privacy notice (EV-0225). Basis: law. See
-`packs/marketing-growth/refs/CONSENT_RECORD.md`.
-
-**B2. Every marketing message carries a refusal route that works
-without a conversation.** `sends_marketing_message`. Mail carries a
-`List-Unsubscribe` header with an HTTPS URI and
-`List-Unsubscribe-Post: List-Unsubscribe=One-Click`, both inside the
-DKIM signed-header list, with an opaque hard-to-forge token the server
-validates, no cookies, no HTTP authentication and no confirmation page
-(EV-0359). A visible in-body link stands beside it (EV-0360).
-Prevents a refusal route that exists on paper and fails in the hand,
-which is what PECR asks for at collection and in every message
-(EV-0361). The token closes the mirror failure, an unsubscribe
-endpoint anyone can forge into a denial-of-subscription hole. Basis:
-standard, discharging a legal duty. See
-`packs/marketing-growth/refs/SEND_PREFLIGHT.md`.
-
-**B3. A refusal suppresses before the next send, mechanically.**
-`sends_marketing_message`. A valid unsubscribe request writes to a
-suppression store; the send path reads that store and fails closed on
-any address in it. Suppression survives list re-import and a change of
-provider. Prevents the usual shape of a breach, which is not a missing
-link but a link whose effect never reached the sending system. RFC 8058
-fixes the signal and says nothing about how fast the effect must land
-(EV-0359), so this pack rules the timing: before the next send,
-not on a nightly job. Basis: law, because a refusal with no effect is
-the same as no refusal.
-
-## Defaults
-
-Followed unless the venture's lock-book records a reason to depart.
-
-**D1. One named growth philosophy per venture, recorded before spend.**
-Chosen from the four in
-`packs/marketing-growth/guides/GD-MKTG-001-growth-philosophy.md`, with
-at least one evidence id per choice. Reason: the four pull budget in
-genuinely different directions, no evidence ranks them, so the choice
-has to be argued rather than absorbed.
-
-**D2. A growth plan names its reinvestment step.** The place where an
-output re-enters as an input. A plan with none is a paid-acquisition
-budget and is described as one (EV-0365). Reason: the source is a
-practitioner essay with no data, and this rule survives the weak
-evidence because it is a naming discipline, not a claim about results.
-
-**D3. Effect comes from a randomised holdout, or the number is
-labelled.** Any conversion or lift figure carries a holdout design or
-the literal token UNVERIFIED. Reason: across fifteen randomised
-experiments and roughly 500 million user-experiment observations,
-observational estimators on far richer data than a venture will ever
-hold failed to reproduce the randomised estimates (EV-0362). Scope
-note: one platform, one era, mostly large advertisers with small
-percentage effects. It does not show observational methods failing
-everywhere, and it says nothing about a venture that cannot afford a
-holdout. See
-`packs/marketing-growth/guides/GD-MKTG-003-effect-measurement.md`.
-
-**D4. Attribution distributes a measured total, it never produces
-one.** Any percentage split across touchpoints is a declared reporting
-convention. Reason: the dominant analytics vendor deleted first-click,
-linear, time-decay and position-based models from its own product in
-November 2023 (EV-0364), and the platform paper defending
-attribution anchors its model to randomised trials rather than
-replacing them (EV-0363).
-
-**D5. A funnel number ships with its definition as configuration.**
-Step ordering mode, exclusion steps and the conversion denominator sit
-in machine-readable form beside the number. Reason: the same product
-yields different rates under sequential, strict-order and any-order
-steps, and two teams quoting different conversion rates are usually
-quoting different parameter sets (EV-0367).
-
-**D6. Every published page has a named human owner and a stated
-purpose,** recorded in a manifest the page set is checked against.
-Reason: the index operator's spam policies name scaled content abuse
-and site reputation abuse, and the test is purpose rather than
-production method (EV-0354), so a machine-drafted page with a real
-owner and a real reader is fine while a hundred with neither are not.
-The helpful-content guidance asks that substantial automation be
-evident to the visitor (EV-0356). See
-`packs/marketing-growth/guides/GD-MKTG-004-content-provenance.md`.
-
-**D7. Structured data describes what the reader can see.** Every markup
-property carrying user-facing text has a matching string in the
-rendered page (EV-0355), against the versioned vocabulary at
-EV-0022. Reason: the penalty is bounded, loss of rich-result
-eligibility rather than a ranking hit, and the rule is testable.
-
-**D8. Crawler directives are a release-gated artefact.** The robots
-file ships through the same pipeline as code, with a test asserting the
-production profile carries no blanket disallow and a staging fixture
-that fails the same test. Reason: a 5xx on that file means a conforming
-crawler must assume complete disallow (EV-0358), so a botched
-deploy is a self-inflicted deindexing incident. It is not a security
-control and never names a secret path.
-
-**D9. Deliverability is a preflight gate before a first send.** SPF or
-DKIM, forward and reverse DNS, TLS and RFC 5322 conformance for every
-sender; above five thousand messages a day, SPF and DKIM and DMARC with
-From alignment plus one-click unsubscribe; spam rate under 0.30 per
-cent (EV-0360). Reason: published numbers a machine can assert
-before anything ships. Scope note: one mailbox provider's rules for its
-own inboxes. Others publish overlapping but different thresholds, and
-at least one computes the spam-rate denominator differently, so no
-single number is universal. See
-`packs/marketing-growth/refs/SEND_PREFLIGHT.md`.
-
-**D10. Reach to category non-buyers is the opening bet for a small
-brand.** Reason: the repeat-purchase tradition puts acquisition at
-roughly twice the weight of retention and finds loyalty largely a
-consequence of brand size rather than a lever that produces it
-(EV-0368). Scope note: consumer goods and mass-market services
-panels, thin on business software and subscription products where
-negative churn is a real mechanism, and the record is an institute
-summary rather than the underlying papers.
-
-**D11. Each activity declares a time horizon.** Reason: brand-building
-and sales activation behave differently in time, and one blended return
-number will always select activation (EV-0369). The quoted 60:40
-split is not adopted: it rests on self-selected award case studies, the
-observational class EV-0362 found unreliable. The horizon
-declaration survives; the ratio does not.
-
-**D12. Field performance is a marketing constraint on public
-surfaces** (EV-0241, EV-0060), with any revenue claim from it settled
-by experiment rather than by quoting a case study, and guardrail
-metrics that block only on significant harm (EV-0059).
-
-## Preferences
-
-Taste. Depart freely, no reason needed.
-
-- Channel mix, and whether any of it is paid.
-- Pull rather than push, as in the public handbook at EV-0095, where the
-  audience has a reading habit. It transfers badly to a category whose
-  buyers do not read (EV-0366).
-- Publishing the marketing handbook itself, as at EV-0055 or EV-0095.
-- Taking a stance rather than hedging, which is what stops
-  machine-drafted content reading like everyone else's.
-- Treating documentation and marketing content as one artefact.
-- Cadence, format, length and tone.
-- Positioning and messaging method. No framework in common use has
-  primary evidence in this pack's source set, so a framework here is a
-  preference wearing a diagram.
+<a id="B1"></a>
+- `B1` to [DOC-MKTG-001](doctrines/DOC-MKTG-001-the-lawful-basis-is-stored-with-the-address-not-asserted-about-t.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-MKTG-002](doctrines/DOC-MKTG-002-every-marketing-message-carries-a-refusal-route-that-works-witho.md) (binding)
+<a id="B3"></a>
+- `B3` to [DOC-MKTG-003](doctrines/DOC-MKTG-003-a-refusal-suppresses-before-the-next-send-mechanically.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-MKTG-004](doctrines/DOC-MKTG-004-one-named-growth-philosophy-per-venture-recorded-before-spend.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-MKTG-005](doctrines/DOC-MKTG-005-a-growth-plan-names-its-reinvestment-step.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-MKTG-006](doctrines/DOC-MKTG-006-effect-comes-from-a-randomised-holdout-or-the-number-is-labelled.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-MKTG-007](doctrines/DOC-MKTG-007-attribution-distributes-a-measured-total-it-never-produces-one.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-MKTG-008](doctrines/DOC-MKTG-008-a-funnel-number-ships-with-its-definition-as-configuration.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-MKTG-009](doctrines/DOC-MKTG-009-every-published-page-has-a-named-human-owner-and-a-stated-purpos.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-MKTG-010](doctrines/DOC-MKTG-010-structured-data-describes-what-the-reader-can-see.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-MKTG-011](doctrines/DOC-MKTG-011-crawler-directives-are-a-release-gated-artefact.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-MKTG-012](doctrines/DOC-MKTG-012-deliverability-is-a-preflight-gate-before-a-first-send.md) (default)
+<a id="D10"></a>
+- `D10` to [DOC-MKTG-013](doctrines/DOC-MKTG-013-reach-to-category-non-buyers-is-the-opening-bet-for-a-small-bran.md) (default)
+<a id="D11"></a>
+- `D11` to [DOC-MKTG-014](doctrines/DOC-MKTG-014-each-activity-declares-a-time-horizon.md) (default)
+<a id="D12"></a>
+- `D12` to [DOC-MKTG-015](doctrines/DOC-MKTG-015-field-performance-is-a-marketing-constraint-on-public-surfaces.md) (default)
+- source `preferences:001` to [DOC-MKTG-016](doctrines/DOC-MKTG-016-channel-mix-and-whether-any-of-it-is-paid.md) (preference)
+- source `preferences:002` to [DOC-MKTG-017](doctrines/DOC-MKTG-017-pull-rather-than-push-as-in-the-public-handbook-at-ev-0095-where.md) (preference)
+- source `preferences:003` to [DOC-MKTG-018](doctrines/DOC-MKTG-018-publishing-the-marketing-handbook-itself-as-at-ev-0055-or-ev-009.md) (preference)
+- source `preferences:004` to [DOC-MKTG-019](doctrines/DOC-MKTG-019-taking-a-stance-rather-than-hedging-which-is-what-stops-machine.md) (preference)
+- source `preferences:005` to [DOC-MKTG-020](doctrines/DOC-MKTG-020-treating-documentation-and-marketing-content-as-one-artefact.md) (preference)
+- source `preferences:006` to [DOC-MKTG-021](doctrines/DOC-MKTG-021-cadence-format-length-and-tone.md) (preference)
+- source `preferences:007` to [DOC-MKTG-022](doctrines/DOC-MKTG-022-positioning-and-messaging-method.md) (preference)
 
 ## Decision map
 

@@ -1,19 +1,21 @@
 ---
-summary: Where a domain rule lives, how much model it earns, and the money, time and lifecycle types that stop it being quietly wrong
+summary: Activation, outcomes and decision map for the business-logic-modelling Doctrine and Wargames
 type: playbook
 tags: [arch, data, money, product]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [encodes_domain_rule, models_money, models_time, has_lifecycle_state]
 activation_paths: [**/domain/**, **/models/**, **/rules/**, **/entities/**, **/*pricing*.py, **/*billing*.py, **/*eligibility*, **/state_machine*, **/*invariant*]
 volatility: slow
-review: 2027-09
+review: none
 sources: [EV-0010, EV-0017, EV-0071, EV-0098, EV-0099, EV-0100, EV-0138, EV-0150, EV-0157, EV-0163, EV-0188, EV-0206, EV-0269, EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0275, EV-0276, EV-0277, EV-0278, EV-0279, EV-0280, EV-0281, EV-0282, EV-0283, EV-0284, EV-0285, EV-0286]
+depends_on: [product-discovery]
 ---
+
 
 # Business logic and modelling pack
 
@@ -81,171 +83,42 @@ never doctrine. It does not adopt domain-driven design as a house
 method: the strongest review of DDD finds demonstrated value in
 decomposition and thin support for anything else (EV-0286).
 
-## Binding requirements
+## Doctrine
 
-Two requirements bind. Each names its predicate, its evidence, its basis
-and the failure it prevents. Everything else here is a default or a
-preference, which in a domain this young is the honest split.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The authority audit under ADR-0008 moved three of the original five to
-defaults, and the reason is the same in all three cases: each said
-`Basis: decision`, and each rested on a practitioner essay rather than
-on law, a standard or a measurement. The type-narrowing rule is now D9,
-the outbox rule is D10 and the event-pattern naming rule is D11. The two
-that stayed keep their numbers and their basis is `standard` in both
-cases.
-
-**B1. Money is an integer count of minor units carrying its currency
-code.** `models_money`. No float, no bare number, no assumption that the
-exponent is two. The published lists carry an alphabetic code, a numeric
-code and a minor unit exponent per currency, and that exponent varies
-(EV-0283); the largest payment provider represents every amount the same
-way (EV-0284). Arithmetic between two currencies is refused rather than
-coerced, and a stored amount keeps the code it was denominated in,
-because currencies retire (EV-0283). Prevents the defect nobody sees
-until reconciliation: binary fractions that do not sum, and a total out
-by a factor of a hundred in the one currency nobody tested. Basis:
-standard. See
-`packs/business-logic-modelling/refs/MONEY_AND_CURRENCY.md`.
-
-**B2. A timestamp that will be compared or advanced carries a zone
-identifier, not just an offset.** `models_time`. An offset is a single
-number; a zone identifier such as Europe/London is a function from
-instants to offsets, and only the second answers what one day later
-means across a daylight-saving change (EV-0281). A naive timestamp with
-no zone is refused outright. Prevents the bug that appears twice a year
-and always in production: a hold that expires an hour early, a renewal
-that bills twice, a report whose day boundary moves. Basis: standard.
-See `packs/business-logic-modelling/refs/TIME_TYPES.md`.
-
-Nothing here lowers a tier floor in `kernel/POLICY_SPEC.md` or converts
-a guarded action under `kernel/GUARD_SPEC.md`. Money movement is a
-guarded action whatever this pack says about modelling it.
-
-## Defaults
-
-Followed unless the venture's lock-book records a reason to depart.
-
-**D1. Start with no model and earn the next step.** Logic in ordinary
-functions until a named invariant spans more than one object. Reason: a
-speculative model charges build cost, delay cost, carry cost on every
-later change, and repair cost when the guess proves wrong (EV-0273). The
-threshold is ours rather than any source's, and it is argued in
-`packs/business-logic-modelling/guides/GD-BLM-001-model-shape.md`.
-
-**D2. An aggregate boundary is a transactional consistency boundary and
-nothing else.** One aggregate per transaction, references to other
-aggregates by identity only, small clusters preferred (EV-0269), and the
-boundary written up in the field set of
-`packs/business-logic-modelling/refs/BOUNDARY_WRITE_UP.md` (EV-0270).
-Reason: the field set makes the design reviewable, and a long list of
-corrective policies is the tell that logic leaked out of the boundary.
-Both sources are consulting experience with no measurement behind them.
-
-**D3. A lifecycle with forbidden transitions is an explicit machine, and
-an illegal transition raises rather than doing nothing quietly.** A
-declared machine refuses what a set of booleans merely fails to notice,
-and hierarchy plus parallel regions stop the state explosion that makes
-flat machines unusable (EV-0279, EV-0280). Reason: a silent no-op leaves
-the caller believing the change happened. Depart when the lifecycle has
-no forbidden transition at all.
-
-**D4. One time dimension until somebody has actually had to answer a
-two-dimensional question.** Add valid time and transaction time
-together, or neither (EV-0275). Reason: the second dimension answers
-what we thought was true when we ran the payroll, and it complicates
-every reader of the model, which is the over-modelling D1 refuses.
-Depart once a correction, a dispute or a reprocessing has been asked for
-and the answer was not available.
-
-**D5. Choose the narrowest temporal type that holds the fact.** A
-birthday is a plain date, an opening time is a wall-clock time, a
-deadline is a zoned date-time, a log line is an instant (EV-0282).
-Reason: a wide type silently invents a zero, a zone or a UTC assumption
-for a value that is genuinely unknown.
-
-**D6. Rules stay in code until they change on a different clock from the
-code.** When they do, move them to a flat decision table with declared
-inputs, outputs and overlap handling, never to a chaining inference
-engine (EV-0277, EV-0278). Reason: with chaining, one rule's action
-satisfies another's condition and nobody predicts the outcome from
-reading any single rule (EV-0274), while a flat table is a closed form
-whose completeness is machine-checkable. A handful of rules earns
-neither. See
-`packs/business-logic-modelling/guides/GD-BLM-002-rule-placement.md`.
-
-**D7. Conversion between domain money and any external money happens in
-one adapter.** The minor-unit exponent is a property of a currency in a
-context, not of the currency alone: the same provider charges some
-currencies with two decimals and pays them out whole (EV-0284). Reason:
-one place to be wrong, and the domain keeps one representation
-(EV-0150).
-
-**D8. State-stored until replay is the requirement.** Event sourcing
-charges in three places: replay must not re-fire external effects, must
-not re-read external data at today's values, and old event shapes must
-stay readable (EV-0276). Reason: audit alone is a bad reason to adopt
-it, because a log is cheaper.
-
-**D9. A constraint expressible in the constructor or the type is
-expressed there.** `encodes_domain_rule`. A value that cannot legally
-exist cannot be constructed, and narrowing happens at the boundary as
-early as possible, so nothing downstream re-checks and nothing forgets
-(EV-0285). A separate `validate` or `is_valid` method a caller may skip
-does not satisfy it. Reason: scattered checking is how inconsistent
-state gets in. This is a default rather than binding because EV-0285 is
-a practitioner essay whose own author states it as an ideal, and because
-the failure it names is a structural weakness rather than a serious or
-irreversible event. Where the language cannot restrict construction, a
-constructor-enforced value object is the equivalent; where neither is
-available, record what checks instead.
-
-**D10. A state change and its outbound message are committed together or
-not at all.** `crosses_consistency_boundary`. The message goes to an
-outbox written in the same transaction as the state change, and every
-consumer is idempotent (EV-0157). Reason: otherwise the state is saved
-with the event lost, or the event is sent with the state rolled back,
-and nothing in the system can tell you which happened. This is a default
-rather than binding because EV-0157 is a pattern catalogue with no
-measurement behind it; the failure is real, the evidence is a
-description. Depart only with a written account of how the two writes
-are reconciled instead, and note that the pattern buys at-least-once
-delivery and nothing more, which is why the idempotence half is not the
-part to drop.
-
-**D11. A change that publishes or consumes events names which of the
-four patterns it means.** `crosses_consistency_boundary`. Event
-notification, event-carried state transfer, event sourcing and CQRS are
-four different things, and failures get attributed to event-driven
-architecture in general when one of them was responsible (EV-0163). A
-change record saying "we went event-driven" does not satisfy it. Reason:
-otherwise the argument cannot be settled, because the parties mean
-different things. This is a default rather than binding because the
-failure is an argument nobody can settle, which costs time and nothing
-else, and because EV-0163 is a definitional essay with no measurement.
-
-## Preferences
-
-Taste. Record them, do not gate on them, and depart without asking.
-
-- **Ubiquitous language naming, the ddd-crew canvases and the starter
-  process as thinking aids** (EV-0098, EV-0099, EV-0100). Their own
-  maintainers warn against institutionalising the process, so the estate
-  does not, and the strongest review reports onboarding cost and scarce
-  expertise as recurring problems (EV-0286).
-- **Event storming as the discovery method** (EV-0271). A past-tense
-  business event is a good unit of conversation, and the source sells
-  training, has nothing controlled behind it, and transfers nothing to
-  an agent working alone.
-- **Object-shaped or function-shaped domain layers.** Behaviour-free
-  objects with every rule in a service are called an anti-pattern
-  (EV-0272), and the same source is content with a procedural service
-  layer over a rich model.
-- **Property-based tests for domain invariants** (EV-0017, EV-0188),
-  which the delivery-testing pack owns properly.
-- **A small purpose-built evaluator over a standards-grade engine**
-  where a table is wanted and a second runtime is not (EV-0274,
-  EV-0071).
+<a id="B1"></a>
+- `B1` to [DOC-BLM-001](doctrines/DOC-BLM-001-money-is-an-integer-count-of-minor-units-carrying-its-currency-c.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-BLM-002](doctrines/DOC-BLM-002-a-timestamp-that-will-be-compared-or-advanced-carries-a-zone-ide.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-BLM-003](doctrines/DOC-BLM-003-start-with-no-model-and-earn-the-next-step.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-BLM-004](doctrines/DOC-BLM-004-an-aggregate-boundary-is-a-transactional-consistency-boundary-an.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-BLM-005](doctrines/DOC-BLM-005-a-lifecycle-with-forbidden-transitions-is-an-explicit-machine-an.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-BLM-006](doctrines/DOC-BLM-006-one-time-dimension-until-somebody-has-actually-had-to-answer-a-t.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-BLM-007](doctrines/DOC-BLM-007-choose-the-narrowest-temporal-type-that-holds-the-fact.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-BLM-008](doctrines/DOC-BLM-008-rules-stay-in-code-until-they-change-on-a-different-clock-from-t.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-BLM-009](doctrines/DOC-BLM-009-conversion-between-domain-money-and-any-external-money-happens-i.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-BLM-010](doctrines/DOC-BLM-010-state-stored-until-replay-is-the-requirement.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-BLM-011](doctrines/DOC-BLM-011-a-constraint-expressible-in-the-constructor-or-the-type-is-expre.md) (default)
+<a id="D10"></a>
+- `D10` to [DOC-BLM-012](doctrines/DOC-BLM-012-a-state-change-and-its-outbound-message-are-committed-together-o.md) (default)
+<a id="D11"></a>
+- `D11` to [DOC-BLM-013](doctrines/DOC-BLM-013-a-change-that-publishes-or-consumes-events-names-which-of-the-fo.md) (default)
+- source `preferences:001` to [DOC-BLM-014](doctrines/DOC-BLM-014-ubiquitous-language-naming-the-ddd-crew-canvases-and-the-starter.md) (preference)
+- source `preferences:002` to [DOC-BLM-015](doctrines/DOC-BLM-015-event-storming-as-the-discovery-method.md) (preference)
+- source `preferences:003` to [DOC-BLM-016](doctrines/DOC-BLM-016-object-shaped-or-function-shaped-domain-layers.md) (preference)
+- source `preferences:004` to [DOC-BLM-017](doctrines/DOC-BLM-017-property-based-tests-for-domain-invariants.md) (preference)
+- source `preferences:005` to [DOC-BLM-018](doctrines/DOC-BLM-018-a-small-purpose-built-evaluator-over-a-standards-grade-engine.md) (preference)
 
 ## Decision map
 

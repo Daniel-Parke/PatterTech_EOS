@@ -1,19 +1,21 @@
 ---
-summary: The PatterTech house visual language, adopted by name and never by default, with every house number in one place
-kind: rule
-authority: preference
+summary: Activation, outcomes and decision map for the pattertech-house Doctrine and Wargames
+kind: record
+authority: none
 lifecycle: active
 basis: decision
-evidence_grade: observational
+evidence_grade: not-applicable
 scope: brand:pattertech
 applies_when: [adopts_pattertech_house]
 activation_paths: [**/*.css, **/*.scss, **/tokens/**, **/theme/**, **/tailwind.config.*, **/design-system/**]
 volatility: slow
-review: on-change-of:WCAG-2.2
+review: none
 sources: [EV-0027, EV-0030, EV-0065, EV-0232, EV-0234, EV-0236, EV-0239, EV-0389, EV-0390, EV-0391, EV-0392, EV-0393, EV-0394, EV-0395, EV-0396, EV-0397, EV-0398, EV-0399, EV-0400, EV-0402]
 type: guide
 tags: [web, brand, colour, motion, layout, typography]
+depends_on: [ui-ux, writing-content]
 ---
+
 
 # pattertech-house
 
@@ -80,156 +82,40 @@ authority of its own, and the ui-ux requirement is the one that holds.
 This pack is not a copy guide, not a brand strategy, and not a component
 library.
 
-## House requirements
+## Doctrine
 
-These hold inside an adopting venture, they are preferences at estate
-level, and a lock-book line overrides any of them. Each names the failure
-it prevents and the basis it rests on. Most rest on a recorded ruling
-rather than on measurement, the correct shape for a domain built of
-taste.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-**Evidence pointer.** EV ids resolve in `registry/evidence.json`. The
-fourteen house sources are frozen with version, licence, access date and
-review trigger in `packs/pattertech-house/research/sources.fragment.json`
-and were imported as `EV-0389` to `EV-0402`. The synthesis behind the
-pack is in `packs/pattertech-house/research/NOTES.md`. This pack cites
-the EV ids.
-
-**H1. The container comes from the content, not from the layout.**
-`adopts_pattertech_house`. Parallel facts take a ledger, numbers take a
-plaque, prose stays prose, and a panel is reserved for a genuinely
-self-contained thing. Prevents the icon-tile card grid, the strongest
-generic-template tell and the reason the 2026-07 rebuild happened.
-Basis: local-observation, from the worked ruling in WG-WEB-003. See
-`packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md`.
-
-**H2. Sections open flush left, with the mark in a fixed order.**
-`adopts_pattertech_house`. Index, hairline, kicker, title, as real
-heading structure rather than styled text. Prevents the centred
-eyebrow-and-cards rhythm, and keeps the outline honest for anyone
-reading through headings (EV-0027). Basis: decision, with the heading
-part supported by a standard.
-
-**H3. Animation stays on the compositor whitelist.**
-`adopts_pattertech_house`. Transform, opacity, one-shot filters, and
-shadow transitions on small elements. The one sanctioned exception is
-the heading sweep, which is a one-shot and is named as such. Prevents a
-page that looks calm and repaints every frame
-(EV-0395), and prevents layer promotion being sprinkled
-rather than budgeted (EV-0396). Basis: standard, from
-engine guidance. Scope note: compositing rules are engine-specific and
-change, so the whitelist is conservative rather than exact, and a
-measurement on target hardware beats it.
-
-**H4. Motion is judged by moving area and scroll coupling.**
-`adopts_pattertech_house`. No large-area or scroll-coupled movement and
-no parallax on a reading surface, whatever the reduced-motion setting
-says, because most readers never set it (EV-0397).
-Prevents vestibular harm on a page that passes the query check. Basis:
-decision, on a practitioner synthesis rather than a trial, so the
-discrimination rule transfers and no numeric threshold does.
-
-**H5. Reading matter never animates and never glows.** `has_longform`.
-Paragraphs, lists, tables and notes arrive already visible, and
-body-tier text carries no text shadow. Prevents the
-fade-up-on-every-paragraph tell, and prevents a glow being spent where
-the dark-register penalty is already largest
-(EV-0393). Basis: decision.
-
-**H6. The dark register buys itself back in the smallest type.**
-`has_dark_register`. Mono kickers, indices and captions get size, weight
-and measured contrast above the floor rather than at it, and are
-reviewed on a cheap display. Prevents the house leaning its annotation
-voice on the exact condition where positive polarity wins by the most
-(EV-0393, EV-0394). Basis:
-empirical-evidence. Scope note: acuity and proofreading tasks for adults
-with normal or corrected vision under office lighting, not sustained
-reading, and some readers with impairments do better dark.
-
-**H7. Figures are positioned from data.** `has_figures`. Scales place
-every node, no label or box overlaps a line, connectors join labels to
-their nodes, no glow sits on a line, and at most one endpoint accent
-marks the datum that matters. Prevents a figure that lies about where a
-value sits, which no recall gain buys back
-(EV-0391). Basis: local-observation. See
-`packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md`.
-
-**H8. Every number has exactly one home.**
-`adopts_pattertech_house`. All house alphas, durations, duty cycles,
-measures, layer counts and weight budgets live in
-`packs/pattertech-house/refs/BUDGETS.md` and are cited, never restated.
-Prevents the failure that produced this pack: two documents carrying the
-same budget, drifting, and an agent picking whichever it read last.
-Basis: decision.
-
-**The conduit contradiction, resolved.** The v1 archive held one number
-twice: `archive/v1-final:doctrine/web-design/foundations/LIGHT.md` and
-`archive/v1-final:doctrine/web-design/foundations/MOTION.md` both stated a
-conduit duty cycle of eighteen seconds or longer. The newer argued
-ruling in WG-WEB-005, recorded against the v4 recalibration, relaxed it
-after the verdict that v3 sat on the wrong side of the line between
-elegant and invisible. The newer ruling wins, the relaxed figure is
-written once in `packs/pattertech-house/refs/BUDGETS.md`, and the older
-number is history.
-
-## Defaults
-
-Followed unless the lock-book records a different choice.
-
-- **Dark-first, single register, with a formal surface ladder.** A light
-  register is a supported variant when one is wanted, never a promise
-  made in passing (EV-0394). Reason: the identity is
-  emitted light and the maintenance budget is one person.
-- **The full graded light system for a luminous brand, fields only
-  otherwise.** Reason: the recorded rulings show both failure directions,
-  decoration and absence, and posture is the dial between them. See
-  `packs/pattertech-house/guides/GD-HOUSE-001-light-posture.md`.
-- **A surface ladder of four to six steps, derived in a perceptually
-  uniform space.** Hold chroma and hue, step lightness evenly
-  (EV-0400). Reason: hexadecimal ladders go invisible at
-  one end and jump at the other, the usual cause of a grey-on-grey ladder
-  nobody can see.
-- **A reading measure at the low end of the usual advice.** Reason: near
-  fifty-five characters gave the best comprehension against narrower and
-  much longer measures (EV-0392). That is a choice about
-  which variable is optimised, not a fact about reading: later work
-  reports faster reading and stronger preference at longer measures.
-  Scope note: cathode-ray displays, 2001 typography, scrolled text.
-- **Three type roles, three families as the ceiling**, with scale
-  contrast spent before any decoration. Reason: the mono annotation voice
-  separates an editorial-technical surface from a template.
-- **One delegated pointer listener for surface reactivity**, fine
-  pointers only, components opting in with one attribute. Reason: it is
-  one small file, and the page must stand complete on touch anyway.
-- **Spend the design budget on the first screen.** Appeal judgements form
-  in about fifty milliseconds and are stable on re-exposure
-  (EV-0402). Scope note: mid-2000s homepages, appeal
-  ratings only, a student population, and no measure of whether the
-  judgement is correct or survives use, so it never justifies ornament
-  that costs comprehension.
-- **Platform hygiene.** Line-break quality is a hint rather than a
-  dependency, and balance belongs on short display lines rather than
-  paragraphs (EV-0399). Animated custom properties are
-  registered once in the token layer, because an unregistered angle or
-  colour is untyped and the animation silently does nothing
-  (EV-0398).
-
-## Preferences
-
-Taste, ours, and not portable. Depart without asking.
-
-- Cyan as the live accent, with the Cherenkov story behind it, and amber
-  as the authority and quote voice. Two accents with meanings beat five
-  without, and mono indices carry the accent rather than grey.
-- The andon line: one accent hairline across the top of the chrome, and
-  a quiet header call to action to pay for it.
-- Plate numbering as a mono figure number joined to its caption by a
-  short hairline, and the reticle as four corner ticks around a single
-  calibrated artefact.
-- A journal index rather than a card grid on hubs, so two entries read as
-  a curated record rather than a thin feed.
-- A colophon rather than a closing call-to-action slab, written fresh per
-  page, and one warm interlude per long read, spent on the thesis moment.
+<a id="H1"></a>
+- `H1` to [DOC-HOUSE-001](doctrines/DOC-HOUSE-001-the-container-comes-from-the-content-not-from-the-layout.md) (preference)
+<a id="H2"></a>
+- `H2` to [DOC-HOUSE-002](doctrines/DOC-HOUSE-002-sections-open-flush-left-with-the-mark-in-a-fixed-order.md) (preference)
+<a id="H3"></a>
+- `H3` to [DOC-HOUSE-003](doctrines/DOC-HOUSE-003-animation-stays-on-the-compositor-whitelist.md) (preference)
+<a id="H4"></a>
+- `H4` to [DOC-HOUSE-004](doctrines/DOC-HOUSE-004-motion-is-judged-by-moving-area-and-scroll-coupling.md) (preference)
+<a id="H5"></a>
+- `H5` to [DOC-HOUSE-005](doctrines/DOC-HOUSE-005-reading-matter-never-animates-and-never-glows.md) (preference)
+<a id="H6"></a>
+- `H6` to [DOC-HOUSE-006](doctrines/DOC-HOUSE-006-the-dark-register-buys-itself-back-in-the-smallest-type.md) (preference)
+<a id="H7"></a>
+- `H7` to [DOC-HOUSE-007](doctrines/DOC-HOUSE-007-figures-are-positioned-from-data.md) (preference)
+<a id="H8"></a>
+- `H8` to [DOC-HOUSE-008](doctrines/DOC-HOUSE-008-every-number-has-exactly-one-home.md) (preference)
+- source `defaults:001` to [DOC-HOUSE-009](doctrines/DOC-HOUSE-009-dark-first-single-register-with-a-formal-surface-ladder.md) (default)
+- source `defaults:002` to [DOC-HOUSE-010](doctrines/DOC-HOUSE-010-the-full-graded-light-system-for-a-luminous-brand-fields-only-ot.md) (default)
+- source `defaults:003` to [DOC-HOUSE-011](doctrines/DOC-HOUSE-011-a-surface-ladder-of-four-to-six-steps-derived-in-a-perceptually.md) (default)
+- source `defaults:004` to [DOC-HOUSE-012](doctrines/DOC-HOUSE-012-a-reading-measure-at-the-low-end-of-the-usual-advice.md) (default)
+- source `defaults:005` to [DOC-HOUSE-013](doctrines/DOC-HOUSE-013-three-type-roles-three-families-as-the-ceiling.md) (default)
+- source `defaults:006` to [DOC-HOUSE-014](doctrines/DOC-HOUSE-014-one-delegated-pointer-listener-for-surface-reactivity.md) (default)
+- source `defaults:007` to [DOC-HOUSE-015](doctrines/DOC-HOUSE-015-spend-the-design-budget-on-the-first-screen.md) (default)
+- source `defaults:008` to [DOC-HOUSE-016](doctrines/DOC-HOUSE-016-platform-hygiene.md) (default)
+- source `preferences:001` to [DOC-HOUSE-017](doctrines/DOC-HOUSE-017-cyan-as-the-live-accent-with-the-cherenkov-story-behind-it-and-a.md) (preference)
+- source `preferences:002` to [DOC-HOUSE-018](doctrines/DOC-HOUSE-018-the-andon-line-one-accent-hairline-across-the-top-of-the-chrome.md) (preference)
+- source `preferences:003` to [DOC-HOUSE-019](doctrines/DOC-HOUSE-019-plate-numbering-as-a-mono-figure-number-joined-to-its-caption-by.md) (preference)
+- source `preferences:004` to [DOC-HOUSE-020](doctrines/DOC-HOUSE-020-a-journal-index-rather-than-a-card-grid-on-hubs-so-two-entries-r.md) (preference)
+- source `preferences:005` to [DOC-HOUSE-021](doctrines/DOC-HOUSE-021-a-colophon-rather-than-a-closing-call-to-action-slab-written-fre.md) (preference)
 
 ## Decision map
 

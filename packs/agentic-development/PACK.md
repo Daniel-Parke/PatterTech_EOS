@@ -1,19 +1,21 @@
 ---
-summary: Which agent topology to run, the invariants that bind every one of them, and how to bound, verify and trace a run
-kind: rule
-authority: binding
+summary: Activation, outcomes and decision map for the agentic-development Doctrine and Wargames
+kind: record
+authority: none
 lifecycle: active
-basis: empirical-evidence
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [builds_agent_workflow, orchestrates_multiple_agents, designs_agent_harness, defines_agent_tools]
 activation_paths: [**/agents/**, **/subagents/**, **/.claude/**, **/prompts/**, **/*prompt*.md, **/*agent*.py, **/*agent*.ts, **/mcp*.json, **/tools/**/*tool*.py, **/workflows/**, AGENTS.md, CLAUDE.md]
 volatility: fast
-review: on-change-of:agent-sdk-major-release
+review: none
 type: guide
 tags: [eos, arch, tooling]
 sources: [EV-0001, EV-0007, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121, EV-0449]
+depends_on: [ai-ml-llm, security-privacy]
 ---
+
 
 # Agentic development
 
@@ -78,157 +80,45 @@ different subject: if the agents ship to a customer, you are here; if
 the agents are the ones doing the building, read that pack and follow
 its rules there rather than inferring them from these.
 
-## Binding requirements
+## Doctrine
 
-Four. Each names the failure it prevents. Violating one is a defect,
-not a style disagreement.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The 2026-08 authority audit under ADR-0008 put one test to all seven
-requirements this pack used to bind: a rule binds only where it prevents
-a concrete failure that is serious or hard to reverse **and** its basis
-is law, a standard, empirical evidence or a protected-set floor. B2, B5
-and B6 failed it and are now defaults. They keep their B numbers,
-because `packs/agentic-development/CHECKS.md`, the guides and the refs
-cite them, and they sit under Defaults below. A default is departed from
-in writing, never in silence.
-
-**B1. One writer.** Several agents may read shared state. Writes to any
-shared artefact are serialised through exactly one owner, or split into
-disjoint files each with a single owner. Prevents the conflicting
-decisions and silent overwrite failures that dominate multi-agent
-traces (EV-0109, EV-0106, EV-0107). This is the constraint that lets
-parallel reading and single-writer merging coexist. Binds on both legs:
-a silent overwrite destroys work that nobody knows to look for, and
-ADR-0008 kept the estate's own claim refusal binding for the same
-reason, on its own conflict data.
-
-**B3. Irreversible or externally visible acts pass a human
-checkpoint.** The gate sits at the risky act, not at a tidy phase
-boundary (EV-0079, EV-0108). Prevents an agent publishing, deploying,
-deleting or spending on its own. The checkpoint is a recorded approval
-event, never a claim in prose. Binds as a protected-set floor: approval
-for consequential external actions is named in `GOVERNANCE.md`, carried
-by `packs/security-privacy/` B6, and enforced at the act by
-`kernel/GUARD_SPEC.md`. No audit touches it.
-
-**B4. Evaluation is separate from generation, and the evaluator holds
-external truth.** Tests, types, schema validators, linters, a fresh
-context or a person. Without external truth, self-review degrades the
-answer (EV-0111), and an agent asked to grade itself will praise itself
-(EV-0089, EV-0115). Prevents verification theatre. Where no external
-oracle exists, say so and do not claim an evaluator-optimizer loop.
-Binds on measurement: tests generated after faulty code caught 14 per
-cent of faults against 25 per cent for tests generated independently,
-because the tests inherit the implementation's wrong assumptions
-(EV-0007), and the self-correction result is controlled and
-peer-reviewed (EV-0111). ADR-0006 decision 5 makes independence the
-binding remainder across the estate, and this is its statement here.
-
-**B7. Checkpoint state is a trust boundary.** Never resume from a
-checkpoint of unknown provenance, and treat the store as attack surface
-(EV-0121). Prevents code execution through a deserialised run state.
-Binds as a protected-set floor: a checkpoint of unknown provenance is
-untrusted content deciding what the agent does next, which
-`packs/security-privacy/` B1 and B2 already hold.
-
-## Defaults
-
-Overridable, but the override is recorded with its reason in the
-topology decision record.
-
-### Demoted from binding, 2026-08
-
-Three rules that used to bind. Each still names the failure it prevents,
-and each says which leg of the ADR-0008 test it failed. Numbers are
-unchanged so the checks, refs and exemplar that cite them still resolve.
-
-**B2. Every loop is bounded.** A loop carries numeric limits on turns,
-tokens or wall-clock, at least two of the three, with units, plus a
-stated stop condition and what happens when it trips (EV-0051,
-EV-0052). Prevents unbounded spend and the stall that looks like
-progress. Failed the basis leg: both sources are repositories that
-happen to implement bounds, and nothing measures what bounding buys.
-The failure is still real and still expensive, and money spent is not
-refunded, so a run that departs from this default says what ceiling it
-is accepting instead.
-
-**B5. Any topology above direct single-agent is recorded.** The record
-names the pressure that forced the promotion and the failure mode it
-removes (EV-0109). It carries six level-two sections: Topology,
-Pressures, Bounds, Resumability, Verification, Approval. Front-matter
-carries `summary`, `type` and `tags` including `eos`, it cites at least
-four evidence ids of which at least two come from this pack's own set,
-and it stays under 120 lines. Prevents topology chosen by fashion, and
-prevents a design no reviewer can check. The section-by-section
-requirements are in
-`packs/agentic-development/refs/DECISION_RECORD_SHAPE.md` and a worked
-record is
-`packs/agentic-development/exemplars/EX-AGENT-001-logging-migration.md`.
-Failed the seriousness leg: an unrecorded topology is written down
-later at the cost of one reading.
-
-**B6. Runs are traceable.** A stable span vocabulary (run, turn, agent,
-generation, tool, guardrail, handoff), a workflow name, and a group id
-linking related runs, with a switch that keeps spans while excluding
-payloads where data policy forbids them (EV-0118, EV-0021). Prevents
-failures that cannot be located, which is the whole cost of parallel
-work. Failed the basis leg: the sources are vendor documentation for
-their own tracing products. The payload-exclusion half is not loosened
-by this, because personal data in a trace is a `packs/security-privacy/`
-B5 matter and that binds on its own.
-
-### Standing defaults
-
-**D1. Start at direct single-agent with a strong oracle** (EV-0088,
-EV-0052). Promote only on a named pressure. Reason: the promotion
-always costs tokens, latency or coherence, and often all three.
-
-**D2. Harness richness tracks the model's demonstrated gaps.** Add a
-component only by naming the model limitation it compensates for, and
-strip components as models improve (EV-0089, EV-0110, EV-0052). Reason:
-every component encodes an assumption about what the model cannot do,
-and those assumptions expire. This default is the one most likely to
-move; the ratio of harness to model can shift without any binding
-requirement changing.
-
-**D3. Context arrives just in time, by progressive disclosure.** Load
-identifiers and summaries, fetch bodies on demand, rather than
-pre-loading everything (EV-0086, EV-0114, EV-0083). Reason: tool and
-document surface is a context cost, and one worked vendor example fell
-from about 150,000 tokens to about 2,000 on this change alone.
-
-**D4. Tool capability order: explicit tools, then bash, then generated
-code, then MCP** (EV-0115). Tools are consolidated around whole
-workflows and namespaced, returning meaning rather than identifiers
-(EV-0113). Reason: each step down the order costs context and
-indirection.
-
-**D5. Continuity across context windows rides on artifacts and git
-history, not on compaction alone** (EV-0085, EV-0117). Reason: a
-compacted summary loses exactly the detail a resumed run needs.
-
-**D6. Cheap guardrails run beside the work and trip a wire, and
-cross-cutting policy sits at the runner rather than inside an agent**
-(EV-0076, EV-0120, EV-0119). Reason: a guardrail an agent can configure
-away is not a guardrail.
-
-**D7. Memory is a swappable store behind one interface with an explicit
-trimming policy** (EV-0117). Reason: recall is not relevance.
-
-**D8. Evaluation suites start at twenty to fifty tasks harvested from
-real failures, scored with pass@k and pass^k** (EV-0087). Reason:
-agents are non-deterministic, so a single pass proves little.
-
-## Preferences
-
-Taste. Freely overridable, no reason required.
-
-- Event-sourced conversation state over ad-hoc message history
-  (EV-0050, EV-0001).
-- Functional composition before graph builders, reaching for a graph
-  only when the graph earns itself (EV-0078).
-- Condensers that always preserve the opening events (EV-0080).
-- Mechanical stuck detection with thresholds tuned per model (EV-0082).
+<a id="B1"></a>
+- `B1` to [DOC-AGENT-001](doctrines/DOC-AGENT-001-one-writer.md) (binding)
+<a id="B3"></a>
+- `B3` to [DOC-AGENT-002](doctrines/DOC-AGENT-002-irreversible-or-externally-visible-acts-pass-a-human-checkpoint.md) (binding)
+<a id="B4"></a>
+- `B4` to [DOC-AGENT-003](doctrines/DOC-AGENT-003-evaluation-is-separate-from-generation-and-the-evaluator-holds-e.md) (binding)
+<a id="B7"></a>
+- `B7` to [DOC-AGENT-004](doctrines/DOC-AGENT-004-checkpoint-state-is-a-trust-boundary.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-AGENT-005](doctrines/DOC-AGENT-005-every-loop-is-bounded.md) (default)
+<a id="B5"></a>
+- `B5` to [DOC-AGENT-006](doctrines/DOC-AGENT-006-any-topology-above-direct-single-agent-is-recorded.md) (default)
+<a id="B6"></a>
+- `B6` to [DOC-AGENT-007](doctrines/DOC-AGENT-007-runs-are-traceable.md) (default)
+<a id="D1"></a>
+- `D1` to [DOC-AGENT-008](doctrines/DOC-AGENT-008-start-at-direct-single-agent-with-a-strong-oracle.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-AGENT-009](doctrines/DOC-AGENT-009-harness-richness-tracks-the-models-demonstrated-gaps.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-AGENT-010](doctrines/DOC-AGENT-010-context-arrives-just-in-time-by-progressive-disclosure.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-AGENT-011](doctrines/DOC-AGENT-011-tool-capability-order-explicit-tools-then-bash-then-generated-co.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-AGENT-012](doctrines/DOC-AGENT-012-continuity-across-context-windows-rides-on-artifacts-and-git-his.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-AGENT-013](doctrines/DOC-AGENT-013-cheap-guardrails-run-beside-the-work-and-trip-a-wire-and-cross-c.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-AGENT-014](doctrines/DOC-AGENT-014-memory-is-a-swappable-store-behind-one-interface-with-an-explici.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-AGENT-015](doctrines/DOC-AGENT-015-evaluation-suites-start-at-twenty-to-fifty-tasks-harvested-from.md) (default)
+- source `preferences:001` to [DOC-AGENT-016](doctrines/DOC-AGENT-016-event-sourced-conversation-state-over-ad-hoc-message-history-ev.md) (preference)
+- source `preferences:002` to [DOC-AGENT-017](doctrines/DOC-AGENT-017-functional-composition-before-graph-builders-reaching-for-a-grap.md) (preference)
+- source `preferences:003` to [DOC-AGENT-018](doctrines/DOC-AGENT-018-condensers-that-always-preserve-the-opening-events-ev-0080.md) (preference)
+- source `preferences:004` to [DOC-AGENT-019](doctrines/DOC-AGENT-019-mechanical-stuck-detection-with-thresholds-tuned-per-model-ev-00.md) (preference)
 
 ## Decision map
 

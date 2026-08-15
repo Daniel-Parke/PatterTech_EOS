@@ -1,19 +1,21 @@
 ---
-summary: Binding requirements, defaults and decision guides for API contracts, webhooks, event payloads and integration change
-kind: rule
-authority: binding
+summary: Activation, outcomes and decision map for the api-integration Doctrine and Wargames
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [exposes_service_boundary, consumes_external_api, receives_webhooks, publishes_events]
 activation_paths: [**/api/**, **/routes/**, **/handlers/**, **/webhooks/**, **/openapi*.y*ml, **/openapi*.json, **/asyncapi*.y*ml, **/*.proto, **/schemas/**, **/endpoints/**]
 volatility: slow
-review: 2027-12
+review: none
 type: guide
 tags: [arch, security, money]
 sources: [EV-0023, EV-0024, EV-0061, EV-0091, EV-0122, EV-0124, EV-0125, EV-0126, EV-0127, EV-0128, EV-0129, EV-0130, EV-0131, EV-0132, EV-0133, EV-0135, EV-0136, EV-0137, EV-0138, EV-0139, EV-0140, EV-0141, EV-0142, EV-0143, EV-0144, EV-0145]
+depends_on: [architecture, security-privacy]
 ---
+
 
 # API and integration
 
@@ -77,129 +79,33 @@ pack); gateway, transport and rate-limit enforcement operations
 data fetching (ui-ux). This pack is also not a style guide. Naming,
 casing and description rules belong in an executable ruleset, not here.
 
-## Binding requirements
+## Doctrine
 
-Four, each with a named failure and cited evidence. Every one names a
-failure that lands outside this repository: a consumer's production
-breaks, or money moves twice, and neither is something we can take back.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The authority audit under ADR-0008 moved two of the original six to
-defaults, because each named a missing artefact rather than a failure:
-the machine-readable contract is now D9 and the declared compatibility
-promise is now D10. The four that stayed keep their numbers, so the
-citations in the guides, refs and exemplars still resolve, which is why
-the list below starts at BR-2.
-
-**BR-2. A breaking-change check runs in CI against a committed baseline,
-and fails the build.** For HTTP that is `oasdiff breaking` against the
-frozen previous revision (EV-0136); for protobuf it is the buf breaking
-check (EV-0135); for a registry-backed event topic it is the registry's
-own compatibility check (EV-0139). Prevents: shipping a break silently
-and learning about it from a consumer. A published boundary carrying no
-machine-readable contract cannot satisfy this, which is what D9 costs
-when you depart from it, and why departing from D9 is done in writing
-rather than in silence.
-
-**BR-4. Webhook receivers verify before they parse.** The signature is
-computed over the exact bytes received, compared in constant time
-(`hmac.compare_digest`, `crypto.timingSafeEqual` or `secure_compare`),
-and rejected outside a numeric timestamp tolerance. A framework that
-hands the handler a parsed object has already destroyed the bytes the
-signature covers (EV-0126, EV-0125). Prevents: forged deliveries and
-replayed deliveries, both of which are free to an attacker otherwise.
-The ADR-0008 audit left this one alone even though EV-0126 is vendor
-documentation: verifying the authenticity of an inbound message is a
-security floor, and a floor stays binding whatever its basis field says.
-
-**BR-5. Money-touching mutating endpoints define all four idempotency
-parameters, not just a header.** What is stored (status code and body of
-the first attempt), for how long, what happens when the same key arrives
-with different parameters, and what happens under concurrency (EV-0133).
-Prevents: the double charge, and the retry loop that receives a cached
-500 forever. EV-0133 is vendor documentation, so this one binds on the
-failure rather than on the evidence grade: charging a customer twice is
-money already moved, and money already moved is the definition of hard
-to reverse.
-
-**BR-6. Deprecation and removal are two dated events, and removal is
-never the earlier one.** Announce deprecation in band with a date, carry
-a separate sunset date, and do not remove before it (EV-0124). A rename
-is a removal plus an addition and is therefore breaking: add the new
-name, mark the old one deprecated, and let both resolve until sunset
-(EV-0129). Adding a required field to a request is equally breaking, so
-it ships behind a version discriminator, never in place. Prevents: the
-silent removal that only the consumer discovers.
-
-## Defaults
-
-Overridable, but the override is recorded next to the code with its
-reason.
-
-- **D1. Errors use `application/problem+json`** (EV-0122). One
-  negotiated container with a stable type URI a consumer can branch on.
-  Override where a platform mandates a different envelope (EV-0132).
-- **D2. Cursor pagination with opaque tokens, no offset** (EV-0130).
-  Tokens bind to the filter and ordering of the issuing call and carry
-  no authorisation. Override for a table UI that needs page numbers, see
-  `packs/api-integration/guides/GD-API-005-collection-traversal.md`.
-- **D3. `Idempotency-Key` as the header name**, cited as de facto. The
-  IETF draft has never reached RFC (EV-0127) and Azure mandates a
-  different family (EV-0132), so this is a house choice, not a standard.
-- **D4. CloudEvents envelope for events** (EV-0138), which standardises
-  routing and deduplication metadata only; payload evolution stays
-  yours.
-- **D5. `BACKWARD_TRANSITIVE` for any log a consumer can rewind**
-  (EV-0139). Non-transitive modes check only the last version and give
-  false comfort on replay.
-- **D6. Schema-derived property tests against the contract** (EV-0143,
-  1.4 to 4.5 times more unique defects than the next-best fuzzer across
-  sixteen services; preprint, authors evaluating their own tool), plus
-  consumer-driven contract tests where two teams share a boundary
-  (EV-0091).
-- **D7. Rate limit policy advertised separately from the live budget**,
-  pinned to draft-11 (EV-0128).
-- **D8. Webhook signatures over the triple `id.timestamp.payload` with a
-  versioned prefix**, for anything we emit (EV-0125). Timestamp
-  tolerance five minutes: that number is an estate choice, since no
-  source fixes one.
-- **D9. The contract is machine-readable and lives in the repo.** A
-  boundary we publish carries a committed OpenAPI 3.x document
-  (EV-0023), AsyncAPI document (EV-0024) or protobuf definition,
-  versioned with the code. Reason: prose cannot be diffed, generated
-  from or tested against, and under-specified contracts cap every
-  downstream automation (EV-0144). This is a default rather than binding
-  because what it names is a missing artefact, not a failure; the
-  failure is a break reaching a consumer, and BR-2 is what stops that.
-  Departing costs you BR-2, so the recorded reason has to say how the
-  break gets caught instead.
-- **D10. The compatibility promise is declared before the first
-  change.** A parseable line in DECISIONS.md or an ADR records the
-  versioning approach and the tier or mode, for example a
-  `compatibility` line naming BACKWARD. Tiers come from the toolchain in
-  use: FILE, PACKAGE, WIRE_JSON or WIRE for protobuf (EV-0135);
-  BACKWARD, FORWARD, FULL, NONE and their transitive variants for events
-  (EV-0139). Reason:
-  otherwise you discover your own promise by breaking someone. This is a
-  default rather than binding because the gate in BR-2 still runs
-  without it, at whatever strictness the tool defaults to, so the cost
-  of departing is that you have accepted that default sight unseen.
-
-## Preferences
-
-Taste. Argue them if you like, override them without ceremony.
-
-- Contract-first with a definition language such as TypeSpec (EV-0145)
-  when the boundary is public or has several consumers; code-first
-  generation when it is internal, because a spec emitted from the
-  handlers cannot drift from them. OpenAPI itself declines to prescribe
-  either (EV-0023) and there is no controlled evidence on the question.
-- An executable ruleset (EV-0137) rather than a style document, noting
-  that Spectral listed no OpenAPI 3.2 support at the access date.
-- GraphQL only where selection-based delivery solves a demonstrated
-  client problem, and then with the schema surface monitored against
-  real production queries (EV-0142).
-- One problem-type URI namespace per venture, so error types are
-  greppable across services.
+<a id="BR-2"></a>
+- `BR-2` to [DOC-API-001](doctrines/DOC-API-001-a-breaking-change-check-runs-in-ci-against-a-committed-baseline.md) (binding)
+<a id="BR-4"></a>
+- `BR-4` to [DOC-API-002](doctrines/DOC-API-002-webhook-receivers-authenticate-the-exact-raw-request-before-pars.md) (binding)
+<a id="BR-5"></a>
+- `BR-5` to [DOC-API-003](doctrines/DOC-API-003-money-touching-mutating-endpoints-define-all-four-idempotency-pa.md) (binding)
+<a id="BR-6"></a>
+- `BR-6` to [DOC-API-004](doctrines/DOC-API-004-deprecation-and-removal-are-two-dated-events-and-removal-is-neve.md) (binding)
+- source `defaults:001` to [DOC-API-005](doctrines/DOC-API-005-errors-use-application-problem-json.md) (default)
+- source `defaults:002` to [DOC-API-006](doctrines/DOC-API-006-cursor-pagination-with-opaque-tokens-no-offset.md) (default)
+- source `defaults:003` to [DOC-API-007](doctrines/DOC-API-007-idempotency-key-as-the-header-name.md) (default)
+- source `defaults:004` to [DOC-API-008](doctrines/DOC-API-008-cloudevents-envelope-for-events.md) (default)
+- source `defaults:005` to [DOC-API-009](doctrines/DOC-API-009-backward-transitive-for-any-log-a-consumer-can-rewind.md) (default)
+- source `defaults:006` to [DOC-API-010](doctrines/DOC-API-010-schema-derived-property-tests-against-the-contract.md) (default)
+- source `defaults:007` to [DOC-API-011](doctrines/DOC-API-011-rate-limit-policy-advertised-separately-from-the-live-budget.md) (default)
+- source `defaults:008` to [DOC-API-012](doctrines/DOC-API-012-webhook-signatures-over-the-triple-id-timestamp-payload-with-a-v.md) (default)
+- source `defaults:009` to [DOC-API-013](doctrines/DOC-API-013-the-contract-is-machine-readable-and-lives-in-the-repo.md) (default)
+- source `defaults:010` to [DOC-API-014](doctrines/DOC-API-014-the-compatibility-promise-is-declared-before-the-first-change.md) (default)
+- source `preferences:001` to [DOC-API-015](doctrines/DOC-API-015-contract-first-with-a-definition-language-such-as-typespec-ev-01.md) (preference)
+- source `preferences:002` to [DOC-API-016](doctrines/DOC-API-016-an-executable-ruleset-ev-0137-rather-than-a-style-document-notin.md) (preference)
+- source `preferences:003` to [DOC-API-017](doctrines/DOC-API-017-graphql-only-where-selection-based-delivery-solves-a-demonstrate.md) (preference)
+- source `preferences:004` to [DOC-API-018](doctrines/DOC-API-018-one-problem-type-uri-namespace-per-venture-so-error-types-are-gr.md) (preference)
 
 ## Decision map
 

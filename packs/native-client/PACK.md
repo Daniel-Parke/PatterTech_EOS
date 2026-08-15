@@ -1,19 +1,21 @@
 ---
-summary: Software that ships as a binary, four client architectures, the offline write question, forward-only release and the non-web accessibility profile
-kind: rule
-authority: binding
+summary: Activation, outcomes and decision map for the native-client Doctrine and Wargames
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [ships_a_binary, has_native_ui, has_local_write_store, distributes_via_app_store]
 activation_paths: [**/ios/**, **/android/**, **/*.swift, **/*.kt, **/*.xcodeproj/**, **/AndroidManifest.xml, **/electron/**, **/*.plist]
 volatility: fast
-review: on-change-of:EN-301-549-v4-publication
+review: none
 sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0375, EV-0376, EV-0377, EV-0378, EV-0379, EV-0380, EV-0381, EV-0382, EV-0383, EV-0386, EV-0387, EV-0388]
 type: playbook
 tags: [eos, a11y, delivery, ops, state]
+depends_on: [ui-ux, architecture]
 ---
+
 
 # native-client
 
@@ -84,177 +86,42 @@ pack, API versioning in api-integration, how a surface looks in ui-ux.
 Games, embedded firmware and console distribution are out of scope:
 the research covered none of them.
 
-## Requirements
+## Doctrine
 
-Seven numbered requirements. Three bind and four are defaults, after
-the authority audit under ADR-0008: a rule stays binding only where it
-prevents a serious or hard-to-reverse failure and rests on law, a
-standard or evidence. Four of these rest on a ruling of ours, which is
-the test's second limb and is why they moved. A default is not a
-suggestion. Departing from one leaves a written reason in the venture's
-lock-book, and this pack expects almost nobody to depart from B2. The
-numbers do not move, because `packs/native-client/CHECKS.md`, the
-guides, the references and the worked example all cite them.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-| Id | Authority | Basis | Why it landed there |
-| --- | --- | --- | --- |
-| B1 | default | decision | the estate chose the vocabulary; no source ranks the policies |
-| B2 | default | decision | the failure is hard to reverse, the remedy is our ruling |
-| B3 | default | decision | the three properties are a design choice of ours |
-| B4 | binding | standard | a shipped binary cannot be taken back |
-| B5 | binding | standard | rejection or removal takes the distribution channel |
-| B6 | binding | standard | it decides whether disabled people can use the app |
-| B7 | default | decision | the pattern is a ruling, not a published rule |
-
-Each requirement names its predicate, its evidence and the failure it
-prevents. `EV-` ids resolve in `registry/evidence.json`, including the
-nineteen native-client sources imported as EV-0370 to EV-0388. Several
-sources are readable and not reusable, so no source prose is copied
-here.
-
-**B1. A conflict policy per write class, named before a sync library is
-chosen.** `has_local_write_store`. Every class is classified as
-commutative, last-writer-acceptable or invariant-bearing, and each gets
-exactly one policy from `converge`, `last-writer-wins`,
-`reserve-then-commit` or `reject-offline`, recorded in a decisions file
-citing at least three evidence ids. Reason: otherwise the library picks
-the policy by default. Convergence proofs say replicas agree and no
-update is lost, and say nothing about whether the agreed value
-satisfies an invariant (EV-0379), while the shipped
-server-authoritative product states outright that there is no single
-correct choice for handling a write failure (EV-0383). Depart where
-there is no local write store at all. Authority: default. Basis:
-decision. See
-`packs/native-client/guides/GD-NAT-002-offline-write-model.md`.
-
-**B2. No offline acceptance of an invariant-bearing write without a
-reservation or compensation path.** `has_invariant_bearing_writes` and
-`has_local_write_store`. Either the client holds a server-issued
-reservation before accepting the write, or the write is rejected
-offline, or a named compensation event fires for the loser on
-reconnection. Reason: two users hold one slot after a merge the
-algorithm correctly calls converged (EV-0379), and a booking made twice
-is a promise to a person that cannot be unmade by a later commit.
-Authority: default only because the remedy is our ruling rather than a
-published rule; the failure under it is the worst in this pack, and a
-departure is a lock-book entry a reviewer will read. Basis: decision.
-
-**B3. The outbox is durable, ordered and idempotent, and its blocked
-state is named.** `has_local_write_store`. A write acknowledged to the
-user survives process death, replays without duplicating, and the
-blocked state is surfaced within a stated timeout while reads keep
-working. Reason: the two failures of a FIFO upload queue, the write
-lost to a crash between acknowledgement and flush, and head-of-line
-blocking, where one unacknowledged mutation stalls the whole client and
-nothing on screen says so (EV-0383). Authority: default. Basis:
-decision.
-
-**B4. Release is forward-only.** `distributes_via_app_store`. Every
-shipping binary carries a remote kill switch for the behaviour it
-introduces, and no runbook step says roll back. Apple ramps automatic
-updates on a fixed schedule with no developer dial and no rollback
-(EV-0374); Play gives the dial and a halt, but halting only
-stops further delivery and the documented remedy for a bad build is to
-ship another one (EV-0375). Flags are the rollback on a client
-(EV-0026). Prevents an incident plan whose first step is impossible.
-Authority: binding. Basis: standard. See
-`packs/native-client/guides/GD-NAT-003-release-path.md`.
-
-**B5. A remote update channel changes presentation and content, never
-capability.** `has_remote_update_channel`. Copy, styling, assets and
-layout may ship out of band. Native code, native dependencies,
-permissions, SDK levels and anything a reasonable person would call a
-new feature may not. Prevents rejection or removal: the technical
-boundary sits at native code (EV-0377) and the review rule sits
-tighter still, at introducing or changing features (EV-0372).
-Authority: binding. Basis: standard, taking the narrower of two
-documented lines.
-
-**B6. Non-web accessibility conformance is stated per screen, declared
-in code, and gated by an automated audit with a written verdict on
-every undecided item.** `has_native_ui`. The unit of conformance is a
-screen, not a page (EV-0370), and the reviewable artefact is the
-semantics declaration, not a screenshot (EV-0387). The audit
-runs inside the platform test runner over every screen and fails the
-build on any violation (EV-0388); the verdict file's entry count
-equals the audit's undecided count. Where EN 301 549 applies, the
-target is clause 11 plus its WCAG mapping (EV-0371, EV-0027),
-which adds assistive-technology interoperability and user preference
-support. Prevents web conformance language being waved at an app, and a
-green audit being read as proof, which the web census warns against
-directly (EV-0235). Authority: binding, and the audit kept it there
-because the failure is a person locked out of the product rather than a
-line of text to correct. Basis: standard. See
-`packs/native-client/guides/GD-NAT-004-a11y-profile.md`.
-
-**B7. Client and server contracts change by expand, migrate,
-contract.** `ships_a_binary`. The new shape ships alongside the old,
-waits out the installed base, then the old is removed (EV-0206).
-Reason: a server release otherwise breaks a binary its user cannot
-update today and may never update, and version numbers mean nothing
-until that surface is declared precisely (EV-0171). Depart only where
-every client is known to be current and the venture can prove it.
-Authority: default, because the pattern is a ruling of ours and the
-source behind it is one practitioner's write-up. Basis: decision.
-
-## Defaults
-
-Followed unless the task records a reason to depart.
-
-**D1. Shared logic with a native user interface.** Sharing domain logic
-and sharing pixels are two decisions; the first is graded Stable per
-target while the interface layer carries its own grade
-(EV-0386). Reason: it removes business-rule divergence without
-forfeiting platform behaviour.
-
-**D2. Online-first with a read cache, until an offline write is a named
-requirement.** Reason: no local writes means no conflicts and no policy
-to maintain, and a serious sync project narrowed itself to the read
-path and left writes to the application (EV-0382).
-
-**D3. A one per cent first slice on Play with the halt trigger written
-down before the release starts, and phased release left on for Apple.**
-Reason: Play's only real containment lever is how small the first slice
-is (EV-0375) and Apple's ramp is fixed, unsteerable and
-bypassable by anyone updating manually (EV-0374), so the trigger
-comes from your own telemetry on both.
-
-**D4. Budget one rejection cycle into every release calendar.** Roughly
-one submission in four was rejected in the 2025 reporting year, the
-largest bucket by a wide margin being Performance (EV-0373).
-That is a vendor census of its own decisions and sizes a calendar risk
-only; the scope note sits in
-`packs/native-client/refs/RELEASE_MECHANICS.md`.
-
-**D5. The annual target SDK bump is fixed roadmap work.** From 31
-August 2026 Play requires API 36 for new submissions and API 35 for an
-existing app to stay visible to new users on current devices
-(EV-0376). Reason: an unmaintained client goes quietly
-invisible.
-
-**D6. Plan against a low automated accessibility catch rate and put the
-weight on the manual verdict list.** No coverage figure is published
-for the native audits (EV-0388) and the web figure is contested
-between roughly 57 per cent and roughly a third (EV-0236, EV-0104).
-
-**D7. Storage and compaction are budgeted on day one wherever a
-convergent store is used.** Text-suitable CRDTs only grow and the
-answer is conditional tombstone collection (EV-0381). Reason:
-compaction found at month six is a migration, not a tuning pass.
-
-**D8. Start from the platform's own control with its own behaviour**,
-and apply house style inside it (EV-0230). Reason: accessibility
-services, system gestures and preference settings arrive with the
-control and have to be rebuilt if you decline it.
-
-## Preferences
-
-Taste. Depart freely, no reason needed. Framework family inside a
-chosen architecture; language for a shared core; the specific CRDT or
-sync vendor once B1 has fixed the policy; document store or relational
-store; release cadence beyond the store's constraints; whether a
-companion watch or TV surface exists at all, noting only that those
-targets carry lower stability grades (EV-0386).
+<a id="B1"></a>
+- `B1` to [DOC-NAT-001](doctrines/DOC-NAT-001-a-conflict-policy-per-write-class-named-before-a-sync-library-is.md) (default)
+<a id="B2"></a>
+- `B2` to [DOC-NAT-002](doctrines/DOC-NAT-002-no-offline-acceptance-of-an-invariant-bearing-write-without-a-re.md) (default)
+<a id="B3"></a>
+- `B3` to [DOC-NAT-003](doctrines/DOC-NAT-003-the-outbox-is-durable-ordered-and-idempotent-and-its-blocked-sta.md) (default)
+<a id="B4"></a>
+- `B4` to [DOC-NAT-004](doctrines/DOC-NAT-004-release-is-forward-only.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-NAT-005](doctrines/DOC-NAT-005-a-remote-update-channel-changes-presentation-and-content-never-c.md) (binding)
+<a id="B6"></a>
+- `B6` to [DOC-NAT-006](doctrines/DOC-NAT-006-non-web-accessibility-conformance-is-stated-per-screen-declared.md) (binding)
+<a id="B7"></a>
+- `B7` to [DOC-NAT-007](doctrines/DOC-NAT-007-client-and-server-contracts-change-by-expand-migrate-contract.md) (default)
+<a id="D1"></a>
+- `D1` to [DOC-NAT-008](doctrines/DOC-NAT-008-shared-logic-with-a-native-user-interface.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-NAT-009](doctrines/DOC-NAT-009-online-first-with-a-read-cache-until-an-offline-write-is-a-named.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-NAT-010](doctrines/DOC-NAT-010-a-one-per-cent-first-slice-on-play-with-the-halt-trigger-written.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-NAT-011](doctrines/DOC-NAT-011-budget-one-rejection-cycle-into-every-release-calendar.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-NAT-012](doctrines/DOC-NAT-012-the-annual-target-sdk-bump-is-fixed-roadmap-work.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-NAT-013](doctrines/DOC-NAT-013-plan-against-a-low-automated-accessibility-catch-rate-and-put-th.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-NAT-014](doctrines/DOC-NAT-014-storage-and-compaction-are-budgeted-on-day-one-wherever-a-conver.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-NAT-015](doctrines/DOC-NAT-015-start-from-the-platforms-own-control-with-its-own-behaviour.md) (default)
+- source `preferences:001` to [DOC-NAT-016](doctrines/DOC-NAT-016-framework-family-within-the-selected-client-architecture-is-a-ve.md) (preference), [DOC-NAT-017](doctrines/DOC-NAT-017-language-for-a-shared-client-core-is-a-venture-preference.md) (preference), [DOC-NAT-018](doctrines/DOC-NAT-018-the-crdt-or-synchronisation-vendor-is-a-preference-after-the-con.md) (preference), [DOC-NAT-019](doctrines/DOC-NAT-019-document-versus-relational-local-storage-is-a-venture-preference.md) (preference), [DOC-NAT-020](doctrines/DOC-NAT-020-release-cadence-beyond-store-constraints-is-a-venture-preference.md) (preference), [DOC-NAT-021](doctrines/DOC-NAT-021-whether-to-ship-a-companion-watch-or-television-surface-is-a-ven.md) (preference)
 
 ## Decision map
 
