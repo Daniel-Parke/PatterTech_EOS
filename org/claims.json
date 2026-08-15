@@ -40,10 +40,12 @@
     "registry/DOCTRINE_PRESSURE_MATRIX.md",
     "registry/ID_ALIASES.md",
     "registry/identifier-aliases.json",
+    "registry/pressure-dispositions.json",
     "registry/coverage.json",
     "registry/stacks/",
     "registry/hypotheses/",
     "packs/*/doctrines/",
+    "packs/*/relations/",
     "packs/*/PACK.md",
     "examples/current-head-seed/",
     "README.md",
@@ -59,21 +61,28 @@
    "expires": "2026-08-16T20:15:00Z"
   },
   {
-   "lane_id": "lane/t0026-wargame-content",
+   "lane_id": "lane/t0026-wargame-expansion",
    "task_id": "T-0026",
-   "session_id": "wargame-content-author",
+   "session_id": "wargame-expansion-author",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "/root/resolver_oracle",
+   "harness_task_id": "/root/wargame_expansion",
    "path_claims": [
-    "packs/*/guides/",
-    "inception/wargames/",
-    "tools/eos/migrate_wargames.py",
-    "tests/test_migrate_wargames.py",
-    "org/migration/WARGAME_MIGRATION.json",
-    "registry/rulings/"
+    "packs/data-analytics/guides/WG-DATA-001-analytical-engine-selection.md",
+    "packs/data-analytics/guides/WG-DATA-002-representation-boundary.md",
+    "packs/data-analytics/guides/WG-DATA-003-acceleration-ladder.md",
+    "packs/ui-ux/guides/WG-UIUX-001-web-delivery-shape.md",
+    "packs/ui-ux/guides/WG-UIUX-002-semantic-or-custom-interaction.md",
+    "packs/architecture/guides/WG-ARCH-009-messaging-and-flow.md",
+    "packs/architecture/guides/WG-ARCH-010-storage-engine-selection.md",
+    "packs/architecture/guides/WG-ARCH-011-locality-and-consistency.md",
+    "packs/architecture/guides/WG-ARCH-012-capability-ownership.md",
+    "packs/delivery-testing/guides/WG-DEL-008-incident-hotfix.md",
+    "packs/devops-reliability/guides/WG-OPS-005-honest-degradation.md",
+    "packs/devops-reliability/guides/WG-OPS-006-observability-and-privacy.md",
+    "packs/ai-ml-llm/guides/WG-AIML-001-model-hosting.md"
    ],
-   "acquired": "2026-08-15T21:15:00Z",
-   "expires": "2026-08-16T21:15:00Z"
+   "acquired": "2026-08-15T23:30:00Z",
+   "expires": "2026-08-16T23:30:00Z"
   },
   {
    "lane_id": "lane/t0026-evidence-lessons",
@@ -91,5 +100,5 @@
    "expires": "2026-08-16T22:10:00Z"
   }
  ],
- "note": "T-0026 phase three. The Wargame lane owns the 114 existing procedures. The evidence lane owns the frozen study manifest and its evidence and lesson rows. The integrator owns landed Doctrine, shared checks and derived views. No lane writes another lane's paths."
+ "note": "T-0026 phase four. The 114 existing procedures are landed. The Wargame expansion lane owns only the 13 admitted new records. The evidence lane owns the frozen study manifest and its evidence and lesson rows. The integrator owns Doctrine, relations, pressure dispositions, shared checks and derived views. No lane writes another lane's paths."
 }
