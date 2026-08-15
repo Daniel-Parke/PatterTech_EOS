@@ -1049,9 +1049,10 @@ def apply_migration(root: Path) -> dict[str, int]:
             continue
         text = path.read_text(encoding="utf-8")
         if GENERATOR_MARKER not in text:
-            raise DoctrineMigrationError(
-                f"Refusing to remove non-generated Doctrine: {rel}"
-            )
+            # The migration owns only atoms descended from the frozen source
+            # inventory. Later, independently admitted Doctrine is canonical
+            # content and must survive a migration replay untouched.
+            continue
         path.unlink()
         removed += 1
     changed = 0
@@ -1084,7 +1085,9 @@ def check_fixpoint(root: Path) -> list[str]:
     }
     for path in sorted(root.glob("packs/*/doctrines/DOC-*.md")):
         rel = path.relative_to(root).as_posix()
-        if rel not in expected_docs:
+        if rel not in expected_docs and GENERATOR_MARKER in path.read_text(
+            encoding="utf-8"
+        ):
             changed.append(rel)
     return sorted(set(changed))
 
