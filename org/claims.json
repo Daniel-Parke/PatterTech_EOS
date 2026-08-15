@@ -40,7 +40,7 @@
    "task_id": "T-0026",
    "session_id": "doctrine-research-author",
    "host": "NucBox_M6Ultra",
-   "harness_task_id": "/root/research",
+   "harness_task_id": "/root/ontology_designer",
    "path_claims": [
     "org/reports/DOCTRINE_WARGAME_RESEARCH_2026-08-15.md"
    ],
