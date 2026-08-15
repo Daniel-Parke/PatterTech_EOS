@@ -127,6 +127,7 @@ file. Frozen trees are not indexed.
 | org/migration/plans/PatterTech_Website.md | org | eos | PatterTech_Website's read-only plan, fresh v2 S inception whenever the operator wants it |  |
 | org/migration/plans/Venture-A.md | org | eos | Venture A's read-only v2 migration plan, the recompile route and what the engine does not yet cover |  |
 | org/migration/plans/Venture-C.md | org | eos | Venture C's read-only v2 migration plan, the pin normalisation and the nineteen queue rows |  |
+| org/reports/BASELINE_2026-08-15.md | org | eos | The measured state of the tree before the audit, research and expansion mission, as the before half of every later comparison |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |
 | packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |

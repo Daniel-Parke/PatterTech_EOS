@@ -27,5 +27,5 @@ Nothing waits on the operator.
 ## Machine facts
 
 ```facts
-commit: 80b3f379888320c9b87cb9d5fc34c6444089f68e
+commit: a2e70c51a8a79672b2e395bc1db3084a6e862a5b
 ```
