@@ -1482,3 +1482,21 @@ def test_s022_pressure_predicates_use_the_controlled_vocabulary(tmp_path):
         ("error", "packs/testmod/guides/GD-TST-002-fixture-size.md",
          "knowledge metadata carries unknown_pressure, which is not in "
          "kernel/PREDICATES.md")]
+
+
+def test_creative_hypotheses_are_expiring_and_non_authoritative():
+    path = REPO_ROOT / "registry" / "hypotheses" / "creative-os.json"
+    registry = json.loads(path.read_text(encoding="utf-8"))
+    assert registry["authority"] == "none"
+    assert registry["expiry_action"] == "archive-or-refresh"
+    observed = date.fromisoformat(registry["observed_on"])
+    expires = date.fromisoformat(registry["expires"])
+    assert (expires - observed).days == 90
+    assert len(registry["rows"]) == 30
+    assert len({row["id"] for row in registry["rows"]}) == 30
+    assert all(row["observed_ventures"] == 1 for row in registry["rows"])
+    assert all(row["required_ventures"] == 2 for row in registry["rows"])
+    assert all(row["admission_state"] == "unresearched"
+               for row in registry["rows"])
+    assert "private venture" in registry["source_scope"]
+    assert "WG-" not in json.dumps(registry)

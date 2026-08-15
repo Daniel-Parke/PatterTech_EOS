@@ -1406,6 +1406,8 @@ KNOWLEDGE_JSON_SCHEMAS = {
         "kernel/schemas/knowledge-migration.schema.json",
     "registry/identifier-aliases.json":
         "kernel/schemas/identifier-aliases.schema.json",
+    "registry/hypotheses/creative-os.json":
+        "kernel/schemas/hypothesis-registry.schema.json",
 }
 WARGAME_HEADINGS = (
     "Decision question and stakes",
