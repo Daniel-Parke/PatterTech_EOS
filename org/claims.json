@@ -38,8 +38,6 @@
     "registry/DOCTRINE_PRESSURE_MATRIX.md",
     "registry/ID_ALIASES.md",
     "registry/identifier-aliases.json",
-    "registry/evidence.json",
-    "registry/lessons.json",
     "registry/coverage.json",
     "registry/stacks/",
     "registry/hypotheses/",
@@ -74,7 +72,22 @@
    ],
    "acquired": "2026-08-15T21:15:00Z",
    "expires": "2026-08-16T21:15:00Z"
+  },
+  {
+   "lane_id": "lane/t0026-evidence-lessons",
+   "task_id": "T-0026",
+   "session_id": "research-evidence-integrator",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "/root/evidence_integrator",
+   "path_claims": [
+    "registry/evidence.json",
+    "registry/lessons.json",
+    "org/studies/LENS-0002.md",
+    "org/studies/LENS-0002_SOURCES.json"
+   ],
+   "acquired": "2026-08-15T22:10:00Z",
+   "expires": "2026-08-16T22:10:00Z"
   }
  ],
- "note": "T-0026 phase three. The Wargame content lane owns the 114 existing procedures and its migration receipt. The integrator owns the landed Doctrine records, shared registries, predicates, checks and derived views. No lane writes another lane's paths."
+ "note": "T-0026 phase three. The Wargame lane owns the 114 existing procedures. The evidence lane owns the frozen study manifest and its evidence and lesson rows. The integrator owns landed Doctrine, shared checks and derived views. No lane writes another lane's paths."
 }
