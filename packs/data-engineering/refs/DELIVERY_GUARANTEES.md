@@ -5,7 +5,7 @@ tags: [data, ops, state]
 kind: recipe
 scope: estate
 review: 2028-05
-sources: [pending-import]
+sources: [EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0513, EV-0514, EV-0515, EV-0516]
 ---
 
 # Delivery guarantees, per hop

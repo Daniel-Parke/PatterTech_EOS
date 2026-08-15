@@ -602,45 +602,26 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             except (ValueError, UnicodeError) as exc:
                 err("D012", "docs/RULINGS.json", f"malformed JSON: {exc}")
             else:
-                schema_raw = (_show_at_commit(eos_root, eos_commit, RULINGS_SCHEMA)
-                              if pin_available else None)
-                if schema_raw is None:
-                    schema_path = eos_root / RULINGS_SCHEMA
-                    schema_raw = (schema_path.read_text(encoding="utf-8")
-                                  if schema_path.is_file() else None)
-                if schema_raw is None:
-                    err("D012", "docs/RULINGS.json",
-                        f"schema {RULINGS_SCHEMA} does not resolve at the pin "
-                        "or in the EOS worktree")
-                else:
-                    try:
-                        schema_doc = json.loads(schema_raw)
-                    except ValueError as exc:
-                        err("D012", RULINGS_SCHEMA,
-                            f"schema is malformed JSON: {exc}")
-                    else:
-                        messages, unavailable = _schema_validate_document(
-                            schema_doc, rulings_doc)
-                        if unavailable:
-                            err("D012", "docs/RULINGS.json", unavailable)
-                        for message in messages:
-                            err("D012", "docs/RULINGS.json",
-                                f"does not validate against {RULINGS_SCHEMA}: "
-                                f"{message}")
                 if isinstance(rulings_doc, dict) and eos_commit and \
                         str(rulings_doc.get("eos_commit") or "") != str(eos_commit):
                     err("D012", "docs/RULINGS.json",
                         "eos_commit does not match docs/LOCKBOOK.md")
                 try:
-                    from ..ontology import KnowledgeResolver, validate_rulings
+                    from ..ontology import (
+                        KnowledgeResolver,
+                        validate_rulings_document,
+                    )
                     resolver = KnowledgeResolver.open(
                         eos_root, eos_commit if pin_available else None)
                 except (OSError, ValueError) as exc:
                     err("D006", "docs/RULINGS.json",
                         f"knowledge resolver could not load: {exc}")
                 else:
-                    for problem in validate_rulings(rulings_doc, resolver):
-                        err("D006", "docs/RULINGS.json", problem.message)
+                    for problem in validate_rulings_document(
+                            rulings_doc, resolver):
+                        check_id = ("D012" if problem.code == "rulings-schema"
+                                    else "D006")
+                        err(check_id, "docs/RULINGS.json", problem.message)
     elif lockbook_text:
         # Compatibility reader for a pin whose matrix predates
         # docs/RULINGS.json. It validates the immutable legacy shape and

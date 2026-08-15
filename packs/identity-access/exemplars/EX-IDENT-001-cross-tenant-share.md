@@ -4,7 +4,7 @@ type: example
 tags: [auth, arch, data]
 kind: exemplar
 scope: estate
-sources: [pending-fragment-import]
+sources: [EV-0517, EV-0518, EV-0519, EV-0520, EV-0521, EV-0522, EV-0523, EV-0524, EV-0525, EV-0526, EV-0527, EV-0528, EV-0529, EV-0530, EV-0531]
 ---
 
 # EX-IDENT-001: the share that crosses the ownership tree

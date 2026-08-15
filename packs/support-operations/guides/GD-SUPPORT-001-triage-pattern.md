@@ -155,6 +155,9 @@ Settle this question with the smallest representative probe: ****What the failur
 
 ## Counter-evidence and transfer limits
 
+### Counter-evidence to test
+
+Facts that change the engagement answers above can overturn the safe default. Test ****What the failures look like.** Availability-shaped, where one cause hits many people at once, or request-shaped, where each item is its own small thing.** and ****Whether the reporter pays.** A volunteer on a public tracker and a customer under contract are different relationships, and closing on silence costs differently in each.** against the selected option. A contrary result counts only when it uses the same representative constraints and changes the decision rule, rather than merely preferring another style.
 ### Historical ruling boundary
 
 The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.

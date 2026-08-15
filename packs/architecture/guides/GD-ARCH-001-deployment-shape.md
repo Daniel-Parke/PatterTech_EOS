@@ -167,12 +167,12 @@ declines the framing entirely. EV-0010 is the reminder that
 agent-era productivity intuitions have been measured wrong before.
 Nothing here observed a one-person venture, so treat the rule as a
 rule about enforcement, not a claim about scale.
-### Historical ruling boundary
-
-The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Current research boundary
 
 EV-0564 contributes quality-attribute scenarios, sensitivity points and trade-off points. Its multi-day facilitated method does not transfer as mandatory ceremony for a small venture.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Transfer limit
 
 Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

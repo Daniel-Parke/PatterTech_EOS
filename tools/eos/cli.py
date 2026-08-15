@@ -317,6 +317,13 @@ def cmd_knowledge(args):
         if row is None or row.kind != args.entity:
             print(f"error: {args.identifier} does not resolve as {args.entity}", file=sys.stderr)
             return 1
+        if row.state != "live":
+            print(
+                f"error: {args.identifier} is retired and is not an operational "
+                f"{args.entity}; use id resolve for provenance",
+                file=sys.stderr,
+            )
+            return 1
         print(json.dumps(_resolution_document(row, resolver, include_body=True), indent=1))
         return 0
     facts = _knowledge_facts(args)
@@ -328,7 +335,70 @@ def cmd_knowledge(args):
 
 
 def cmd_id(args):
-    from .ontology import KnowledgeResolver
+    from .ontology import (
+        RULING_ID,
+        KnowledgeResolver,
+        resolve_ruling,
+        validate_rulings_document,
+    )
+
+    if RULING_ID.fullmatch(args.identifier):
+        rulings_path = Path(args.rulings) if args.rulings else \
+            Path.cwd() / "docs" / "RULINGS.json"
+        if not rulings_path.is_file():
+            print(json.dumps({
+                "id": args.identifier,
+                "resolved": False,
+                "scope": "venture-document",
+                "rulings": str(rulings_path),
+            }, indent=1))
+            return 1
+        document = _read_json(rulings_path, "the Rulings document")
+        declared_ref = str(document.get("eos_commit") or "").strip()
+        if not declared_ref:
+            raise CannotRun("the Rulings document has no eos_commit")
+        resolver = KnowledgeResolver.open(REPO, declared_ref)
+        if args.commit:
+            requested = KnowledgeResolver.open(REPO, args.commit)
+            if requested.view.commit != resolver.view.commit:
+                raise CannotRun(
+                    "--commit does not match the Rulings document eos_commit"
+                )
+        try:
+            display_path = rulings_path.resolve().relative_to(
+                Path.cwd().resolve()).as_posix()
+        except ValueError:
+            display_path = str(rulings_path.resolve())
+        problems = validate_rulings_document(document, resolver)
+        if problems:
+            print(json.dumps({
+                "id": args.identifier,
+                "resolved": False,
+                "scope": "venture-document",
+                "problems": [problem.message for problem in problems],
+            }, indent=1))
+            return 1
+        row, _ = resolve_ruling(
+            document, args.identifier, resolver, path=display_path)
+        if row is None:
+            print(json.dumps({
+                "id": args.identifier,
+                "resolved": False,
+                "scope": "venture-document",
+                "rulings": display_path,
+            }, indent=1))
+            return 1
+        print(json.dumps({
+            "id": args.identifier,
+            "resolved": True,
+            "canonical": row.canonical_id,
+            "kind": row.kind,
+            "state": row.state,
+            "path": row.path,
+            "commit": resolver.view.commit or "WORKTREE",
+            "scope": "venture-document",
+        }, indent=1))
+        return 0
 
     resolver = KnowledgeResolver.open(REPO, args.commit)
     row = resolver.resolve(args.identifier)
@@ -683,6 +753,11 @@ def build_parser():
     identity.add_argument("op", choices=["resolve"])
     identity.add_argument("identifier")
     identity.add_argument("--commit")
+    identity.add_argument(
+        "--rulings",
+        help="venture RULINGS.json for a document-scoped RUL identity; "
+             "defaults to docs/RULINGS.json below the current directory",
+    )
     identity.set_defaults(fn=cmd_id)
 
     st = sub.add_parser(

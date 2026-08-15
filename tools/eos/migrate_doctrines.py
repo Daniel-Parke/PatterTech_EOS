@@ -126,6 +126,23 @@ POST_MIGRATION_ADMISSIONS = {
     ],
 }
 
+
+PACK_PROSE_REPLACEMENTS = {
+    "identity-access": (
+        (
+            "Fifteen sources, all fetched on 2026-08-15. This pack was written before\n"
+            "the fragment import ran, so there are no evidence ids to cite yet and\n"
+            "the front matter says `pending-fragment-import` rather than inventing\n"
+            "them. Citations in the body name the source instead, which stays true\n"
+            "after the import assigns ids.",
+            "Fifteen sources, all fetched on 2026-08-15. The fragment import\n"
+            "assigned `EV-0517` through `EV-0531`, and front matter cites those\n"
+            "canonical rows. Citations in the body retain readable source names\n"
+            "beside the stable evidence identities.",
+        ),
+    ),
+}
+
 FAMILY_TO_LEDGER = {
     "requirements": "requirement",
     "defaults": "default",
@@ -1025,6 +1042,12 @@ def _render_pack(
         r"\bdecision guide\b", "Wargame", body,
         flags=re.IGNORECASE,
     )
+    for old, new in PACK_PROSE_REPLACEMENTS.get(pack.slug, ()):
+        if old not in body:
+            raise DoctrineMigrationError(
+                f"reviewed PACK prose anchor is absent: {pack.path}: {old[:40]}"
+            )
+        body = body.replace(old, new)
     body_lines = body.splitlines()
     sections: list[tuple[int, int, str]] = []
     h2 = [

@@ -137,6 +137,9 @@ Settle this question with the smallest representative probe: ****Whether the rep
 
 ## Counter-evidence and transfer limits
 
+### Counter-evidence to test
+
+Facts that change the engagement answers above can overturn the safe default. Test ****Whether the reporter is under contract or paying.** This is the load-bearing factor and it is not close.** and ****Who holds the missing information.** A timer punishes the person who cannot supply what was never asked for.** against the selected option. A contrary result counts only when it uses the same representative constraints and changes the decision rule, rather than merely preferring another style.
 ### Historical ruling boundary
 
 The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.

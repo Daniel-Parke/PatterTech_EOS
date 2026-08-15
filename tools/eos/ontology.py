@@ -31,6 +31,7 @@ RELATION_TYPES = {
 }
 ACYCLIC_RELATIONS = {"depends_on", "supersedes"}
 TRI_STATES = {"true", "false", "unknown"}
+RULINGS_SCHEMA_PATH = "kernel/schemas/rulings.schema.json"
 
 
 @dataclass(frozen=True)
@@ -603,7 +604,7 @@ class KnowledgeResolver:
         return tuple(sorted(rows, key=lambda row: row.canonical_id))
 
     def pack_order(self, active: Iterable[str] | None = None) -> list[str]:
-        wanted = set(active or self._packs)
+        wanted = set(self._packs if active is None else active)
         # Include prerequisites even when the caller named only a child.
         pending = list(wanted)
         while pending:
@@ -725,7 +726,12 @@ def match_knowledge(
         for identifier, reason in rows.items():
             if not str(reason).strip():
                 raise ValueError(f"operator {action} of {identifier} needs a reason")
-            resolver.require_live(identifier, {"wargame"})
+            row = resolver.require_live(identifier, {"wargame"})
+            if action == "omit" and str(
+                    row.metadata.get("always_walk") or "").lower() == "true":
+                raise ValueError(
+                    f"operator omit of always-walk Wargame {identifier} is not allowed"
+                )
 
     doctrines = []
     active_packs: set[str] = set()
@@ -848,12 +854,15 @@ def match_knowledge(
         "applicable_doctrines": sorted(doctrines, key=lambda row: row["id"]),
         "required_wargames": [required[k] for k in sorted(required)],
         "candidate_wargames": [candidates[k] for k in sorted(candidates)],
-        "omitted_wargames": [omitted_rows[k] for k in sorted(omitted_rows)],
+        "omitted_wargames": [
+            {"id": identifier, "reason": reasons[identifier][-1]}
+            for identifier in sorted(omitted_rows)
+        ],
         "unresolved_facts": sorted(unresolved),
         "uncovered_pressures": uncovered,
         "pressure_dispositions": pressure_rows,
         "selection_reasons": {k: reasons[k] for k in sorted(reasons)},
-        "pack_order": resolver.pack_order(active_packs or None),
+        "pack_order": resolver.pack_order(active_packs),
     }
 
 
@@ -875,6 +884,7 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
         return (KnowledgeProblem("rulings-shape", "docs/RULINGS.json", "",
                                  "rulings must be a list"),)
     seen: set[str] = set()
+    rulings_by_id: dict[str, dict] = {}
     for row in rows:
         if not isinstance(row, dict):
             add("ruling-shape", "", "ruling is not an object")
@@ -886,6 +896,7 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
             add("duplicate-ruling", identifier,
                 f"duplicate Ruling id {identifier}")
         seen.add(identifier)
+        rulings_by_id.setdefault(identifier, row)
         wid = str(row.get("wargame") or "")
         resolved = resolver.resolve(wid)
         if resolved is None:
@@ -915,6 +926,12 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                 if target is None or target.state != "live" or target.kind != "doctrine":
                     add("departure-doctrine", doctrine,
                         f"departure Doctrine {doctrine} does not resolve live")
+                elif str(target.metadata.get("authority") or "").lower() == "binding":
+                    add(
+                        "binding-departure", doctrine,
+                        f"binding Doctrine {doctrine} cannot be waived by an "
+                        "ordinary Ruling; open a Doctrine review or ADR",
+                    )
         changes = row.get("binding_scope_changes") or []
         if isinstance(changes, list):
             for change in changes:
@@ -923,18 +940,32 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                         "binding scope change must be an object")
                     continue
                 doctrine = str(change.get("doctrine") or "")
+                target = resolver.resolve(doctrine)
+                if target is None or target.state != "live" or target.kind != "doctrine":
+                    add("binding-change-doctrine", doctrine,
+                        f"binding scope change Doctrine {doctrine} does not resolve live")
+                elif str(target.metadata.get("authority") or "").lower() != "binding":
+                    add("binding-change-authority", doctrine,
+                        f"binding scope change Doctrine {doctrine} is not binding")
                 refs = ("adr", "adr_ref", "operator", "operator_ref",
                         "approval_ref")
                 if not any(str(change.get(key) or "").strip() for key in refs):
                     add("binding-change-approval", doctrine,
                         f"binding scope change for {doctrine} needs an ADR or operator reference")
     selection = document.get("selection_log") or []
+    selected_wargames: set[str] = set()
+    selection_seen: set[str] = set()
+    referenced_rulings: dict[str, str] = {}
     if isinstance(selection, list):
         for row in selection:
             if not isinstance(row, dict):
                 add("selection-shape", "", "selection row must be an object")
                 continue
             wid = str(row.get("wargame") or "")
+            if wid in selection_seen:
+                add("duplicate-selection", wid,
+                    f"duplicate selection row for Wargame {wid}")
+            selection_seen.add(wid)
             target = resolver.resolve(wid)
             if target is None or target.state != "live" or target.kind != "wargame":
                 state = "retired" if target and target.state == "retired" else "unresolved"
@@ -943,4 +974,121 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
             if not str(row.get("reason") or "").strip():
                 add("selection-reason", wid,
                     f"selection or omission of {wid} needs a reason")
+            disposition = str(row.get("disposition") or "")
+            ruling_id = str(row.get("ruling") or "")
+            if disposition == "selected":
+                selected_wargames.add(wid)
+                if not ruling_id:
+                    add("selection-ruling", wid,
+                        f"selected Wargame {wid} needs a linked Ruling")
+                    continue
+                ruling = rulings_by_id.get(ruling_id)
+                if ruling is None:
+                    add("selection-ruling", ruling_id,
+                        f"selection Ruling {ruling_id} does not exist in this document")
+                elif str(ruling.get("wargame") or "") != wid:
+                    add("selection-ruling", ruling_id,
+                        f"selection Ruling {ruling_id} belongs to "
+                        f"{ruling.get('wargame')}, not {wid}")
+                if ruling_id in referenced_rulings:
+                    add("duplicate-ruling-reference", ruling_id,
+                        f"Ruling {ruling_id} is linked from more than one selection row")
+                else:
+                    referenced_rulings[ruling_id] = wid
+            elif ruling_id:
+                add("selection-ruling", ruling_id,
+                    f"{disposition or 'non-selected'} Wargame {wid} cannot link a Ruling")
+
+    for identifier in sorted(rulings_by_id):
+        if identifier not in referenced_rulings:
+            add("unreferenced-ruling", identifier,
+                f"Ruling {identifier} is not linked from a selected Wargame")
+
+    always_walk = {
+        row.canonical_id for row in resolver.list("wargame")
+        if str(row.metadata.get("always_walk") or "").lower() == "true"
+    }
+    for wid in sorted(always_walk - selected_wargames):
+        add("always-walk", wid,
+            f"always-walk Wargame {wid} must be selected and ruled")
+    return tuple(problems)
+
+
+def resolve_ruling(
+    document: dict,
+    identifier: str,
+    resolver: KnowledgeResolver,
+    *,
+    path: str = "docs/RULINGS.json",
+) -> tuple[Resolution | None, tuple[KnowledgeProblem, ...]]:
+    """Resolve one Ruling inside its venture-owned document.
+
+    RUL identifiers are unique within one venture's RULINGS document, not
+    across the estate.  The estate resolver still validates every Doctrine
+    and Wargame edge at the document's EOS pin.
+    """
+
+    problems = validate_rulings(document, resolver)
+    if problems:
+        return None, problems
+    for index, row in enumerate(document.get("rulings") or []):
+        if isinstance(row, dict) and str(row.get("id") or "") == identifier:
+            return Resolution(
+                identifier,
+                "ruling",
+                f"{path}#/rulings/{index}",
+                "live",
+                str(row.get("decision") or ""),
+                dict(row),
+                identifier,
+            ), ()
+    return None, ()
+
+
+def validate_rulings_document(
+    document: dict,
+    resolver: KnowledgeResolver,
+) -> tuple[KnowledgeProblem, ...]:
+    """Run the pinned JSON Schema and semantic Ruling checks together."""
+
+    problems: list[KnowledgeProblem] = []
+    raw = resolver.view.read_text(RULINGS_SCHEMA_PATH)
+    if raw is None:
+        problems.append(KnowledgeProblem(
+            "rulings-schema", RULINGS_SCHEMA_PATH, "",
+            f"schema {RULINGS_SCHEMA_PATH} does not resolve at the EOS pin",
+        ))
+    else:
+        try:
+            schema = json.loads(raw)
+        except ValueError as exc:
+            problems.append(KnowledgeProblem(
+                "rulings-schema", RULINGS_SCHEMA_PATH, "",
+                f"schema is malformed JSON: {exc}",
+            ))
+        else:
+            try:
+                import jsonschema
+            except ImportError:
+                problems.append(KnowledgeProblem(
+                    "rulings-schema", RULINGS_SCHEMA_PATH, "",
+                    "jsonschema is required for schema validation: install "
+                    "with python -m pip install -e \"tools[dev]\" "
+                    "(or python -m pip install jsonschema)",
+                ))
+            else:
+                validator = jsonschema.Draft202012Validator(
+                    schema,
+                    format_checker=jsonschema.FormatChecker(),
+                )
+                for error in sorted(validator.iter_errors(document), key=str):
+                    pointer = "/".join(
+                        str(part) for part in error.absolute_path
+                    ) or "(root)"
+                    problems.append(KnowledgeProblem(
+                        "rulings-schema", "docs/RULINGS.json", "",
+                        f"does not validate against {RULINGS_SCHEMA_PATH}: "
+                        f"{pointer}: {error.message}",
+                    ))
+    problems.extend(validate_rulings(document, resolver))
     return tuple(problems)

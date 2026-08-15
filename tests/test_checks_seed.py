@@ -85,8 +85,13 @@ def test_current_head_seed_exercises_structured_pressure_ruling():
     rulings = json.loads(
         (seed / "docs" / "RULINGS.json").read_text(encoding="utf-8")
     )
-    assert rulings["selection_log"][1]["wargame"] == "GD-ARCH-001"
-    assert rulings["rulings"][1]["doctrines"] == ["DOC-ARCH-004"]
+    selected = {row["wargame"]: row for row in rulings["selection_log"]}
+    argued = {row["wargame"]: row for row in rulings["rulings"]}
+    assert set(selected) >= {
+        "WG-EOS-001", "WG-EOS-002", "GD-SEC-001", "GD-SEC-002",
+        "GD-SEC-003", "GD-SEC-004", "GD-ARCH-001",
+    }
+    assert argued["GD-ARCH-001"]["doctrines"] == ["DOC-ARCH-004"]
 
 
 def test_matrix_parses():
@@ -645,6 +650,18 @@ def test_d012_rejects_selection_without_reason(tmp_path):
         json.dumps(document) + "\n", encoding="utf-8")
     got = only(run_seed(seed, _v2_ctx(eos)), "D012")
     assert any("minLength" in message or "should be non-empty" in message
+               for _severity, _path, message in got)
+
+
+def test_d012_rejects_selected_wargame_without_ruling_link(tmp_path):
+    eos, seed, document = _structured_rulings_case(tmp_path)
+    del document["selection_log"][0]["ruling"]
+    (seed / "docs" / "RULINGS.json").write_text(
+        json.dumps(document) + "\n", encoding="utf-8")
+
+    got = only(run_seed(seed, _v2_ctx(eos)), "D012")
+
+    assert any("ruling" in message.lower()
                for _severity, _path, message in got)
 
 

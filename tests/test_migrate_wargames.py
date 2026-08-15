@@ -14,6 +14,7 @@ from tools.eos.frontmatter import parse as parse_frontmatter
 from tools.eos.migrate_wargames import (
     FROZEN_COUNT,
     PRESSURE_MAP,
+    SOURCE_OVERRIDES,
     WARGAME_HEADINGS,
     build_migration,
     frozen_procedures,
@@ -80,6 +81,37 @@ def test_all_114_wargames_pass_schema_and_complete_body_contract(migration):
         assert "**Exit condition:**" in parsed.body
         assert "**Revisit trigger:**" in parsed.body
         assert "## Worked rulings" not in parsed.body
+
+
+def test_every_migrated_wargame_has_substantive_counter_evidence(migration):
+    rendered, _ledger = migration
+    for path, text in rendered.items():
+        body = parse_frontmatter(text).body
+        section = re.search(
+            r"(?ms)^## Counter-evidence and transfer limits\s*$\n(.*)\Z",
+            body,
+        )
+        assert section is not None, path
+        before_history_or_transfer = re.split(
+            r"(?m)^### (?:Historical ruling boundary|Transfer limit)\s*$",
+            section.group(1),
+            maxsplit=1,
+        )[0].strip()
+        assert before_history_or_transfer, path
+
+
+def test_imported_pack_placeholders_are_replaced_by_reviewed_evidence(migration):
+    rendered, _ledger = migration
+    evidence = json.loads(
+        (REPO / "registry/evidence.json").read_text(encoding="utf-8")
+    )
+    live_evidence = {row["id"] for row in evidence["records"]}
+    for identifier, path in FROZEN_PROCEDURES.items():
+        sources = parse_frontmatter(rendered[path]).data.get("sources") or []
+        assert not [source for source in sources if str(source).startswith("pending-")], path
+        if identifier in SOURCE_OVERRIDES:
+            assert tuple(sources) == SOURCE_OVERRIDES[identifier], path
+            assert set(sources) <= live_evidence, path
 
 
 def test_every_applicable_doctrine_reference_resolves_live(migration):

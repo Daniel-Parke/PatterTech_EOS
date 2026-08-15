@@ -242,6 +242,8 @@ def test_pack_routers_remove_source_blocks_and_expose_every_anchor():
         assert metadata["authority"] == "none"
         assert metadata["depends_on"] == dependencies
         assert "decision guide" not in text.lower()
+        assert "pending-import" not in text.lower()
+        assert "pending-fragment-import" not in text.lower()
         for heading in (
             "Binding requirements", "Requirements", "House requirements",
             "Defaults", "Preferences",

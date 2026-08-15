@@ -156,6 +156,10 @@ or aliased Doctrine identity. An unknown or wrong-kind identity exits 1.
 a `facts` key. It returns applicable Doctrine summaries, required, candidate
 and omitted Wargames, unresolved facts, uncovered pressures, the reason for
 each selection and dependency-ordered packs. It never chooses the outcome.
+Required and candidate rows are summaries. False omissions are compact
+`{id, reason}` rows; use `show ID` when their full metadata is needed. This
+keeps a selective result smaller than loading every Wargame it chose not to
+run.
 `--include WG-ID=reason` and `--omit WG-ID=reason` record an operator override;
 the reason is required. Exit 1 when the resolver has an integrity problem or
 a true or unknown declared pressure has no covering Wargame.
@@ -178,12 +182,20 @@ pressure remains a candidate. An operator include or omission is preserved in
 
 ## id
 
-`id resolve ID [--commit REF]` resolves a canonical identity, a compatibility
-alias or a retired definition through the same commit-aware resolver used by
-checks, Session 0 and migration. Output is `{id, resolved, canonical, kind,
-state, path, commit}`. Retired history resolves with `state: retired` so
-provenance remains readable, but the Rulings validator refuses it as a live
-selection. An unknown identity returns `{id, resolved: false}` and exits 1.
+`id resolve ID [--commit REF] [--rulings FILE]` resolves a canonical estate
+identity, a compatibility alias or a retired definition through the same
+commit-aware resolver used by checks, Session 0 and migration. Output is
+`{id, resolved, canonical, kind, state, path, commit}`. Retired history
+resolves with `state: retired` so provenance remains readable, but the
+Rulings validator refuses it as a live selection. An unknown identity returns
+`{id, resolved: false}` and exits 1.
+
+`RUL-*` identity is document-scoped because ventures may use the same local
+identifier without creating an estate collision. For a RUL identity the
+command reads `docs/RULINGS.json` below the current directory, or the explicit
+`--rulings FILE`, validates the whole document against its `eos_commit`, and
+returns `scope: venture-document`. `--commit`, when supplied, must resolve to
+that same EOS pin. Raw venture Rulings are not added to an EOS registry.
 
 ## study
 

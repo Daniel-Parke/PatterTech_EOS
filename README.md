@@ -234,7 +234,7 @@ Each of these is `python -m tools.eos` followed by the arguments below.
 | `activate --brief PATH` | which packs a venture's declared facts activate, and which they do not |
 | `doctrine list`, `show ID`, `match --facts FILE` | which standing rules exist, what one says, and which apply to the declared facts |
 | `wargame list`, `show ID`, `match --facts FILE` | which decision procedures exist and which pressures make them required or worth considering |
-| `id resolve ID --commit REF` | where an immutable live, aliased, retired or historically pinned identity resolves |
+| `id resolve ID --commit REF` | where an immutable live, aliased, retired or historically pinned identity resolves; `--rulings FILE` resolves a venture-local RUL record |
 | `migrate plan/apply` | plan a lossless legacy Ruling migration, then apply an inspected state explicitly; dry-run is the default |
 | `drills` | list the frozen drills, their hashes, and which were frozen before their pack was authored |
 

@@ -226,12 +226,11 @@ store. Nothing here needs a new spelling of it.
 
 ## Evidence ids and how the read surface cites
 
-The fragment ids above are the pack-local namespace. The read surface
-carries no fragment ids, because check S014 fails them there, and it
-carries no evidence ids either, because the import that assigns them has
-not run and inventing one would be worse than naming the source. Until
-the integrator imports, the pack cites by the short labels below, and
-the front-matter `sources` field reads `pending-import`.
+The fragment ids above are the pack-local namespace retained in this
+pre-import record. The completed import assigned `EV-0505` through
+`EV-0516`; the read surface cites those canonical identities and check
+S014 refuses a fragment identity, unresolved placeholder or missing
+evidence row there. The short labels below preserve the readable mapping.
 
 | Label used in the read surface | Fragment |
 | --- | --- |

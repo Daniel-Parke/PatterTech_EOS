@@ -558,7 +558,7 @@ def build_lessons(model: RepoModel) -> str:
     return "\n".join(out).rstrip("\n") + "\n"
 
 
-def _wanted_indexes(model: RepoModel) -> dict:
+def _wanted_indexes(model: RepoModel, resolver=None) -> dict:
     """Every derived index and the text it should hold.
 
     packs/INDEX.md is in here deliberately. It was flagged derived,
@@ -573,7 +573,7 @@ def _wanted_indexes(model: RepoModel) -> dict:
     if any(rec.fm.present and rec.fm.data.get("kind") == "doctrine"
            for rec in model.files):
         from ..ontology import KnowledgeResolver
-        resolver = KnowledgeResolver.open(model.root)
+        resolver = resolver or KnowledgeResolver.open(model.root)
         want.update({
             "packs/DOCTRINE_INDEX.md": build_doctrine_index(model, resolver),
             "packs/WARGAME_INDEX.md": build_wargame_index(model, resolver),
@@ -598,7 +598,8 @@ def _wanted_indexes(model: RepoModel) -> dict:
 def check_e001_index_drift(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
     out = []
-    for rel, want_text in _wanted_indexes(model).items():
+    for rel, want_text in _wanted_indexes(
+            model, ctx.get("ontology")).items():
         have = model.read(rel)
         if have is None:
             out.append(_err("E001", rel, "missing, run --write-index"))
@@ -623,7 +624,8 @@ def write_indexes(ctx: dict) -> list:
     model: RepoModel = ctx["model"]
     for _ in range(MAX_INDEX_PASSES):
         wrote = False
-        for rel, text in _wanted_indexes(model).items():
+        for rel, text in _wanted_indexes(
+                model, ctx.get("ontology")).items():
             path = model.root / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             # Compared as bytes, written as bytes. read_text applies

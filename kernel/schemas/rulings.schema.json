@@ -24,6 +24,13 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["wargame", "disposition", "reason"],
+      "allOf": [
+        {
+          "if": {"properties": {"disposition": {"const": "selected"}}},
+          "then": {"required": ["ruling"]},
+          "else": {"not": {"required": ["ruling"]}}
+        }
+      ],
       "properties": {
         "wargame": {"type": "string", "pattern": "^(GD|WG)-[A-Z0-9]+-[0-9]{3}$"},
         "disposition": {"enum": ["selected", "omitted", "candidate"]},

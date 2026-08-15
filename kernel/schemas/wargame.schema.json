@@ -48,7 +48,11 @@
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "not": {"pattern": "^pending-"}
+      }
     },
     "review": {"type": "string", "minLength": 1},
     "review_cohort": {

@@ -39,13 +39,11 @@ adopting the job of implementing them.
 | C13 | The cross-tenant refusal is the standard refusal | Request another tenant's identifier and a non-existent identifier; the two responses must be identical in status and body | B2, Defaults |
 | C14 | Every source cited in this pack's front matter resolves to a row in the evidence ledger | Each id in front matter looked up in `registry/evidence.json` | Pack hygiene |
 
-C14 cannot pass yet. The front matter of every file in this pack carries
-`pending-fragment-import` where the evidence ids will go, because this
-pack was written before the integrator imported
-`packs/identity-access/research/sources.fragment.json` and assigned
-them. That is the integrator's step, not this pack's, and the body cites
-sources by name in the meantime so that nothing has to be rewritten
-twice.
+C14 is live. The fragment import assigned `EV-0517` through `EV-0531`,
+and the pack's front matter cites those canonical rows. S014 refuses an
+unresolved placeholder or an evidence identity absent from the ledger;
+S016 keeps the ledger's derived `cited_by` view aligned with the read
+surface.
 
 ## Judgement
 

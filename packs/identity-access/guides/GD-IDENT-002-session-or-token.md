@@ -14,7 +14,7 @@ scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-sources: [pending-fragment-import]
+sources: [EV-0524, EV-0525, EV-0526, EV-0527]
 review: 2028-11
 lifecycle: active
 generated_by: tools.eos.migrate_wargames

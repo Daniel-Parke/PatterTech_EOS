@@ -233,6 +233,31 @@ SOURCE_ADDITIONS: dict[str, tuple[str, ...]] = {
 }
 
 
+# The two packs below were authored before their fragment import assigned EV
+# identities. These reviewed subsets replace the frozen placeholder with the
+# evidence that bears on each decision, rather than citing every source in the
+# pack indiscriminately.
+SOURCE_OVERRIDES: dict[str, tuple[str, ...]] = {
+    "GD-DATAENG-001": ("EV-0505", "EV-0507", "EV-0509", "EV-0510"),
+    "GD-DATAENG-002": (
+        "EV-0511", "EV-0513", "EV-0514", "EV-0515", "EV-0516",
+    ),
+    "GD-DATAENG-003": (
+        "EV-0506", "EV-0508", "EV-0512", "EV-0513", "EV-0514",
+    ),
+    "GD-DATAENG-004": ("EV-0506", "EV-0508", "EV-0514"),
+    "GD-IDENT-001": (
+        "EV-0517", "EV-0518", "EV-0519", "EV-0520", "EV-0521",
+        "EV-0522", "EV-0523",
+    ),
+    "GD-IDENT-002": ("EV-0524", "EV-0525", "EV-0526", "EV-0527"),
+    "GD-IDENT-003": (
+        "EV-0524", "EV-0525", "EV-0526", "EV-0527", "EV-0531",
+    ),
+    "GD-IDENT-004": ("EV-0528", "EV-0529", "EV-0530"),
+}
+
+
 RESEARCH_NOTES: dict[str, str] = {
     "GD-AGENT-001": (
         "EV-0452 is benchmark evidence across stated models, harnesses and task "
@@ -667,6 +692,31 @@ def _first_question(preconditions: str) -> str:
     return first or "Which option changes the material outcome?"
 
 
+def _challenge_questions(preconditions: str, limit: int = 2) -> list[str]:
+    """Return compact legacy engagement questions for a falsification test."""
+
+    questions: list[str] = []
+    lines = preconditions.splitlines()
+    index = 0
+    while index < len(lines) and len(questions) < limit:
+        line = lines[index]
+        if not line.startswith("- "):
+            index += 1
+            continue
+        parts = [line[2:].strip()]
+        index += 1
+        while index < len(lines):
+            continuation = lines[index]
+            if continuation.startswith("- ") or not continuation.strip():
+                break
+            parts.append(continuation.strip())
+            index += 1
+        questions.append(_clean_excerpt(" ".join(parts), 260))
+    if not questions:
+        questions.append(_first_question(preconditions))
+    return questions
+
+
 def _first_risk(options: Sequence[tuple[str, str]]) -> str:
     if not options:
         return "the selected option's stated failure premise appears"
@@ -693,7 +743,9 @@ def _metadata(
     live_relations: set[str],
 ) -> dict[str, object]:
     source = dict(procedure.metadata)
-    sources = _values(source.get("sources"))
+    sources = list(SOURCE_OVERRIDES.get(
+        procedure.identifier, tuple(_values(source.get("sources"))),
+    ))
     if not sources:
         sources = ["kernel/SCALE_MATRIX.md"]
     for identifier in SOURCE_ADDITIONS.get(procedure.identifier, ()):
@@ -881,13 +933,24 @@ def _render_body(
     for name, value in rows:
         if name not in recognised and value:
             counter_parts.extend((f"### Preserved reasoning: {name}", "", value))
+    research_note = RESEARCH_NOTES.get(procedure.identifier)
+    if not counter_parts and not research_note:
+        questions = _challenge_questions(preconditions)
+        tested = " and ".join(f"**{question}**" for question in questions)
+        counter_parts.extend((
+            "### Counter-evidence to test", "",
+            "Facts that change the engagement answers above can overturn the "
+            f"safe default. Test {tested} against the selected option. A "
+            "contrary result counts only when it uses the same representative "
+            "constraints and changes the decision rule, rather than merely "
+            "preferring another style.",
+        ))
+    if research_note:
+        counter_parts.extend(("### Current research boundary", "", research_note))
     if worked:
         counter_parts.extend((
             "### Historical ruling boundary", "", _worked_ruling_note(worked),
         ))
-    research_note = RESEARCH_NOTES.get(procedure.identifier)
-    if research_note:
-        counter_parts.extend(("### Current research boundary", "", research_note))
     counter_parts.extend((
         "### Transfer limit", "",
         "Use this decision rule only where its applicability holds and the "

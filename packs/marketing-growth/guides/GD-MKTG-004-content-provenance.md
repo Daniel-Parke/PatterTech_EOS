@@ -125,6 +125,9 @@ Settle this question with the smallest representative probe: ****Whether a real 
 
 ## Counter-evidence and transfer limits
 
+### Counter-evidence to test
+
+Facts that change the engagement answers above can overturn the safe default. Test ****Whether a real reader is identifiable** for each page, by name of need rather than by keyword.** and ****Who answers for the page** when it is wrong.** against the selected option. A contrary result counts only when it uses the same representative constraints and changes the decision rule, rather than merely preferring another style.
 ### Historical ruling boundary
 
 The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.

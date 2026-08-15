@@ -156,11 +156,10 @@ worked example is
 
 ## Evidence
 
-Fifteen sources, all fetched on 2026-08-15. This pack was written before
-the fragment import ran, so there are no evidence ids to cite yet and
-the front matter says `pending-fragment-import` rather than inventing
-them. Citations in the body name the source instead, which stays true
-after the import assigns ids.
+Fifteen sources, all fetched on 2026-08-15. The fragment import
+assigned `EV-0517` through `EV-0531`, and front matter cites those
+canonical rows. Citations in the body retain readable source names
+beside the stable evidence identities.
 
 | Named here as | Source |
 | --- | --- |

@@ -804,7 +804,7 @@ loads.
 | Which knowledge applies to this task? | `packs/INDEX.md` |
 | Which standing Doctrine exists, and at what authority? | `packs/DOCTRINE_INDEX.md` |
 | Which Wargame covers this pressure? | `packs/WARGAME_INDEX.md`, then `registry/DOCTRINE_PRESSURE_MATRIX.md` |
-| Where does this old or pinned identity resolve? | `python -m tools.eos id resolve ID --commit REF` |
+| Where does this old or pinned identity resolve? | `python -m tools.eos id resolve ID --commit REF`; add `--rulings FILE` for a venture-local RUL record |
 | Which facts pull in which pack? | `kernel/PREDICATES.md` |
 | What does the EOS know, and what does it not? | `registry/CAPABILITIES.md` |
 | How is risk decided? | `kernel/POLICY_SPEC.md`, `kernel/GUARD_SPEC.md` |

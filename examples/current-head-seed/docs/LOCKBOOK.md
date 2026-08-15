@@ -19,4 +19,5 @@ rulings_record: docs/RULINGS.json
 
 The architecture pack is active. Structured selections and argued outcomes
 live in `docs/RULINGS.json`. Applicable Doctrine is inherited through this pin
-and is not copied into empty ruling rows.
+and is not copied into empty ruling rows. The inception and security floors
+remain always-walk decisions even when their packs are not otherwise adopted.

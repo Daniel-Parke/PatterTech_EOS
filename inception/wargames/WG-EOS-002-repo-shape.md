@@ -106,6 +106,9 @@ Settle this question with the smallest representative probe: **Contractual bound
 
 ## Counter-evidence and transfer limits
 
+### Counter-evidence to test
+
+Facts that change the engagement answers above can overturn the safe default. Test **Contractual boundary: will the whole venture ever be handed to someone (a client, a buyer, a co-founder)?** and **Lifespan divergence: do the surfaces live and die together?** against the selected option. A contrary result counts only when it uses the same representative constraints and changes the decision rule, rather than merely preferring another style.
 ### Historical ruling boundary
 
 The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.

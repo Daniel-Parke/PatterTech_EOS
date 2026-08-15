@@ -163,12 +163,12 @@ independent check possible later.
 The argument against D is its own literature: determinism is achievable
 and the second builder usually is not. A reproducible build with no
 rebuilder is an expensive property nobody exercises.
-### Historical ruling boundary
-
-The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Current research boundary
 
 EV-0582 says what provenance can establish about where, when and how an artefact was produced. EV-0549 preserves the hard limit: accurate provenance can still describe a malicious or flawed producer, so producer trust and safe use remain separate admission questions.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Transfer limit
 
 Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

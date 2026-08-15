@@ -86,11 +86,17 @@ ID_SCHEMES = {
     "PB": re.compile(r"\bPB-E\d{2}\b"),
     "S": re.compile(r"\bS-\d{4}\b"),
 }
+ID_REFERENCE = re.compile("|".join(
+    f"(?P<{scheme}>{pattern.pattern})"
+    for scheme, pattern in ID_SCHEMES.items()
+))
 
 # An id whose number is all zeros is the documented placeholder shape.
 ZERO_ID = re.compile(r"-0+$")
 # A possessive immediately before an id gives it to another venture.
-OWNED_ELSEWHERE = re.compile(r"(?:\w+'s|\bits|\btheir)\s+$", re.I)
+# `_owned_elsewhere` reads only that adjacent token. Searching an ever-growing
+# prefix for every identity makes the check quadratic as generated catalogues
+# grow.
 
 ESTATE_ROW_REQUIRED = ("role", "status")
 ESTATE_ROW_ALLOWED = {
@@ -372,19 +378,23 @@ def check_s004_id_references(ctx: dict) -> list:
         if not _semantic_scope(rec):
             continue
         prose = strip_code(rec.text)
-        for scheme, pattern in ID_SCHEMES.items():
+        references: set[tuple[str, str]] = set()
+        for match in ID_REFERENCE.finditer(prose):
+            scheme = str(match.lastgroup)
             if scheme == "PB" and rec.path == "org/PLAYBOOKS.md":
                 continue
-            for ref in sorted(_unqualified_refs(prose, pattern)):
-                if ZERO_ID.search(ref):
-                    continue
-                if scheme in knowledge_schemes:
-                    defined = resolver.resolve(ref) is not None or ref in defs[scheme]
-                else:
-                    defined = ref in defs[scheme]
-                if not defined:
-                    out.append(_f(ctx, "S004", rec.path,
-                                  f"reference to undefined id {ref}"))
+            if not _owned_elsewhere(prose, match.start()):
+                references.add((scheme, match.group(0)))
+        for scheme, ref in sorted(references):
+            if ZERO_ID.search(ref):
+                continue
+            if scheme in knowledge_schemes:
+                defined = resolver.resolve(ref) is not None or ref in defs[scheme]
+            else:
+                defined = ref in defs[scheme]
+            if not defined:
+                out.append(_f(ctx, "S004", rec.path,
+                              f"reference to undefined id {ref}"))
     return out
 
 
@@ -392,10 +402,32 @@ def _unqualified_refs(prose: str, pattern) -> set:
     """Ids cited without a possessive naming another venture as owner."""
     found = set()
     for m in pattern.finditer(prose):
-        if OWNED_ELSEWHERE.search(prose[:m.start()]):
+        if _owned_elsewhere(prose, m.start()):
             continue
         found.add(m.group(0))
     return found
+
+
+def _owned_elsewhere(prose: str, position: int) -> bool:
+    """Whether the adjacent token is ``its``, ``their`` or ``word's``."""
+
+    end = position
+    while end and prose[end - 1].isspace():
+        end -= 1
+    start = end
+    while start:
+        char = prose[start - 1]
+        if not (char.isalnum() or char in {"_", "'"}):
+            break
+        start -= 1
+    token = prose[start:end].lower()
+    if token in {"its", "their"}:
+        return True
+    return (
+        token.endswith("'s")
+        and bool(token[:-2])
+        and all(char.isalnum() or char == "_" for char in token[:-2])
+    )
 
 
 # --- S005 derived files need a registered generator --------------------
@@ -680,9 +712,23 @@ def check_s010_cross_registry(ctx: dict) -> list:
                   for row in repos.values() if isinstance(row, dict)}
     reach_targets = list(gitfacts.tags(model.root).values())
     reach_targets += list(gitfacts.remote_tracking_heads(model.root).values())
-    remote = gitfacts.remote_heads(model.root, offline)
-    if remote:
-        reach_targets += list(remote.values())
+    remote_checked = offline
+
+    def reaches_a_pushed_ref(sha: str) -> bool:
+        nonlocal remote_checked
+        if any(gitfacts.is_ancestor(model.root, sha, target)
+               for target in reach_targets):
+            return True
+        # A current network read buys nothing when a local pushed tag or
+        # remote-tracking head already proves reachability. Defer it to the
+        # only case where it can change the verdict.
+        if not remote_checked:
+            remote_checked = True
+            remote = gitfacts.remote_heads(model.root, offline=False)
+            if remote:
+                reach_targets.extend(remote.values())
+        return any(gitfacts.is_ancestor(model.root, sha, target)
+                   for target in reach_targets)
     for cells in _table_rows(projects):
         if len(cells) < 4 or cells[0] in ("Venture", "---") or cells[0].startswith("-"):
             continue
@@ -696,8 +742,7 @@ def check_s010_cross_registry(ctx: dict) -> list:
             if not gitfacts.object_exists(model.root, f"{sha}^{{commit}}"):
                 out.append(_f(ctx, "S010", "registry/PROJECTS.md",
                               f"venture {venture} pin {sha} does not resolve"))
-            elif reach_targets and not any(
-                    gitfacts.is_ancestor(model.root, sha, t) for t in reach_targets):
+            elif not reaches_a_pushed_ref(sha) and reach_targets:
                 out.append(_f(ctx, "S010", "registry/PROJECTS.md",
                               f"venture {venture} pin {sha} not reachable from a pushed tag or origin head"))
     return out
@@ -874,6 +919,7 @@ def check_s013_coverage_matrix(ctx: dict) -> list:
 # --- S014 pack-local fragment ids in the read surface --------------------
 
 FRAG_ID = re.compile(r"\bFRAG-[A-Z0-9-]+-\d{2}\b")
+EVIDENCE_ID = re.compile(r"^EV-\d{4}$")
 
 
 @register("S014")
@@ -892,6 +938,17 @@ def check_s014_fragment_citations(ctx: dict) -> list:
     """
     model: RepoModel = ctx["model"]
     out = []
+    known_evidence = set()
+    ledger_raw = model.read("registry/evidence.json")
+    if ledger_raw:
+        try:
+            known_evidence = {
+                str(row["id"])
+                for row in json.loads(ledger_raw).get("records", [])
+                if isinstance(row, dict) and row.get("id")
+            }
+        except (ValueError, TypeError):
+            known_evidence = set()
     for rec in model.files:
         if not rec.path.startswith("packs/") or RESEARCH_SEGMENT.match(rec.path):
             continue
@@ -900,6 +957,22 @@ def check_s014_fragment_citations(ctx: dict) -> list:
             out.append(_f(ctx, "S014", rec.path,
                           f"pack-local fragment id in the read surface: {hit}; "
                           f"cite the EV id the import assigned"))
+        sources = rec.fm.data.get("sources") if rec.fm.present else []
+        if isinstance(sources, str):
+            sources = [sources]
+        for source in sources or []:
+            value = str(source)
+            if value.startswith("pending-"):
+                out.append(_f(
+                    ctx, "S014", rec.path,
+                    f"unresolved evidence placeholder in sources: {value}",
+                ))
+            elif (known_evidence and EVIDENCE_ID.fullmatch(value)
+                  and value not in known_evidence):
+                out.append(_f(
+                    ctx, "S014", rec.path,
+                    f"evidence id in sources is not in the ledger: {value}",
+                ))
     return out
 
 
@@ -1432,23 +1505,36 @@ _BINDING_DECISION_EXEMPT = (
 
 
 def _schema_errors(model, schema_path: str, instance, path: str, ctx: dict) -> list:
-    raw = model.read(schema_path)
-    if raw is None:
-        return [_f(ctx, "S022", path,
-                   "%s is missing, so this knowledge record was not "
-                   "validated" % schema_path)]
-    try:
-        import jsonschema
-    except ImportError:
-        return [_f(ctx, "S022", path,
-                   "jsonschema is not installed, so this knowledge record "
-                   "was not validated against %s" % schema_path)]
-    try:
-        schema = json.loads(raw)
-    except ValueError as exc:
-        return [_f(ctx, "S022", schema_path, "invalid schema JSON: %s" % exc)]
+    cache = ctx.setdefault("_s022_schema_validators", {})
+    cached = cache.get(schema_path)
+    if cached is None:
+        raw = model.read(schema_path)
+        if raw is None:
+            cached = (None, "%s is missing, so this knowledge record was not "
+                      "validated" % schema_path)
+        else:
+            try:
+                import jsonschema
+            except ImportError:
+                cached = (
+                    None,
+                    "jsonschema is not installed, so this knowledge record "
+                    "was not validated against %s" % schema_path,
+                )
+            else:
+                try:
+                    schema = json.loads(raw)
+                except ValueError as exc:
+                    cached = (None, "invalid schema JSON: %s" % exc)
+                else:
+                    cached = (jsonschema.Draft202012Validator(schema), None)
+        cache[schema_path] = cached
+    validator, setup_error = cached
+    if setup_error:
+        error_path = schema_path if setup_error.startswith("invalid schema") else path
+        return [_f(ctx, "S022", error_path, setup_error)]
     errors = sorted(
-        jsonschema.Draft202012Validator(schema).iter_errors(instance),
+        validator.iter_errors(instance),
         key=lambda err: (list(err.path), err.message),
     )
     out = []

@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from collections import Counter
 from pathlib import Path
 
-from tools.eos.ontology import KnowledgeResolver, match_knowledge
+from tools.eos.ontology import (
+    KnowledgeResolver,
+    match_knowledge,
+    validate_rulings,
+)
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -191,6 +196,138 @@ def test_applicability_predicates_are_alternative_entrances(tmp_path):
     ]
 
 
+def test_all_false_facts_do_not_activate_every_pack(tmp_path):
+    resolver = KnowledgeResolver.open(_fixture(tmp_path))
+
+    result = match_knowledge(resolver, {
+        "has_test": "false",
+        "missing_pressure": "false",
+    })
+
+    assert result["applicable_doctrines"] == []
+    assert result["required_wargames"] == []
+    assert result["candidate_wargames"] == []
+    assert result["pack_order"] == []
+
+
+def test_operator_cannot_omit_an_always_walk_wargame(tmp_path):
+    root = _fixture(tmp_path)
+    path = root / "packs" / "test" / "guides" / "WG-TEST-001-gap.md"
+    _write(path, path.read_text(encoding="utf-8").replace(
+        "consequence: high", "consequence: high\nalways_walk: true"))
+    resolver = KnowledgeResolver.open(root)
+
+    try:
+        match_knowledge(
+            resolver,
+            {"has_test": "true", "missing_pressure": "true"},
+            omit={"WG-TEST-001": "The operator wants to skip it."},
+        )
+    except ValueError as exc:
+        assert "always-walk" in str(exc)
+    else:
+        raise AssertionError("always-walk Wargame was omitted")
+
+
+def _rulings(*, doctrine="DOC-TEST-001", wargame="WG-TEST-001"):
+    return {
+        "version": 1,
+        "venture": "Fixture",
+        "eos_commit": "WORKTREE",
+        "selection_log": [{
+            "wargame": wargame,
+            "disposition": "selected",
+            "reason": "The pressure is true.",
+            "ruling": "RUL-TEST-001",
+        }],
+        "rulings": [{
+            "id": "RUL-TEST-001",
+            "wargame": wargame,
+            "doctrines": [doctrine],
+            "decision": "Use the reversible option.",
+            "execution": "argued",
+            "reason": "The cheapest test discriminated the options.",
+            "decided": "2030-01-02",
+            "departures": [],
+            "binding_scope_changes": [],
+        }],
+    }
+
+
+def test_an_ordinary_ruling_cannot_depart_from_binding_doctrine(tmp_path):
+    root = _fixture(tmp_path)
+    path = root / "packs" / "test" / "doctrines" / "DOC-TEST-001-rule.md"
+    _write(path, path.read_text(encoding="utf-8").replace(
+        "authority: default", "authority: binding"))
+    document = _rulings()
+    document["rulings"][0]["departures"] = [{
+        "doctrine": "DOC-TEST-001",
+        "reason": "The venture would prefer to waive it.",
+    }]
+
+    problems = validate_rulings(document, KnowledgeResolver.open(root))
+
+    assert [(row.code, row.identifier) for row in problems] == [
+        ("binding-departure", "DOC-TEST-001")
+    ]
+
+
+def test_binding_scope_change_must_name_a_live_binding_doctrine(tmp_path):
+    root = _fixture(tmp_path)
+    document = _rulings()
+    document["rulings"][0]["binding_scope_changes"] = [{
+        "doctrine": "DOC-TEST-999",
+        "proposal": "Narrow the binding scope.",
+        "operator_ref": "operator:T-TEST",
+    }]
+
+    problems = validate_rulings(document, KnowledgeResolver.open(root))
+
+    assert [(row.code, row.identifier) for row in problems] == [
+        ("binding-change-doctrine", "DOC-TEST-999")
+    ]
+
+
+def test_selection_and_ruling_links_are_bijective(tmp_path):
+    resolver = KnowledgeResolver.open(_fixture(tmp_path))
+
+    duplicate = _rulings()
+    duplicate["selection_log"].append(dict(duplicate["selection_log"][0]))
+    duplicate_codes = {row.code for row in validate_rulings(duplicate, resolver)}
+    assert "duplicate-selection" in duplicate_codes
+    assert "duplicate-ruling-reference" in duplicate_codes
+
+    missing = _rulings()
+    missing["selection_log"][0]["ruling"] = "RUL-TEST-999"
+    missing_codes = {row.code for row in validate_rulings(missing, resolver)}
+    assert "selection-ruling" in missing_codes
+    assert "unreferenced-ruling" in missing_codes
+
+    mismatch = _rulings()
+    mismatch["rulings"][0]["wargame"] = "WG-TEST-999"
+    mismatch_messages = [
+        row.message for row in validate_rulings(mismatch, resolver)
+    ]
+    assert any("belongs to WG-TEST-999" in message
+               for message in mismatch_messages)
+
+
+def test_every_always_walk_wargame_is_selected_and_ruled(tmp_path):
+    root = _fixture(tmp_path)
+    path = root / "packs" / "test" / "guides" / "WG-TEST-001-gap.md"
+    _write(path, path.read_text(encoding="utf-8").replace(
+        "consequence: high", "consequence: high\nalways_walk: true"))
+    document = _rulings(wargame="WG-TEST-001")
+    document["selection_log"] = []
+    document["rulings"] = []
+
+    problems = validate_rulings(document, KnowledgeResolver.open(root))
+
+    assert [(row.code, row.identifier) for row in problems] == [
+        ("always-walk", "WG-TEST-001")
+    ]
+
+
 def test_accepted_pressure_backlog_has_one_disposition_per_case():
     document = json.loads(
         (REPO / "registry" / "pressure-dispositions.json").read_text(
@@ -218,3 +355,47 @@ def test_accepted_pressure_backlog_resolves_every_live_edge():
 
     assert resolver.problems == ()
     assert len(resolver.pressure_dispositions) == 25
+
+
+def test_two_pack_match_stays_below_the_old_full_pack_context_bound():
+    resolver = KnowledgeResolver.open(REPO)
+    predicates: set[str] = set()
+    for row in resolver.list():
+        for key in ("applies_when", "engages_when", "engage_when"):
+            values = row.metadata.get(key) or []
+            if isinstance(values, str):
+                values = [values]
+            predicates.update(str(value) for value in values)
+    predicates.update(
+        str(row["pressure"])
+        for row in resolver.pressure_dispositions
+        if row.get("pressure")
+    )
+    encoded = json.dumps(
+        sorted(predicates), separators=(",", ":"),
+    ).encode("utf-8")
+
+    assert len(predicates) == 94
+    assert hashlib.sha256(encoded).hexdigest() == (
+        "505d7c88a99cdc8810d551d1da00a88afaf413ef1ce134b680c7e97b9cc5a02d"
+    )
+    facts = {name: "false" for name in predicates}
+    facts.update({
+        "has_server_code": "true",
+        "publishes_analytics_table": "true",
+    })
+
+    result = match_knowledge(resolver, facts)
+
+    assert len(result["applicable_doctrines"]) == 34
+    assert result["required_wargames"] == []
+    assert result["candidate_wargames"] == []
+    assert len(result["omitted_wargames"]) == 127
+    assert result["pack_order"] == [
+        "product-discovery",
+        "business-logic-modelling",
+        "architecture",
+        "data-analytics",
+    ]
+    assert result["uncovered_pressures"] == []
+    assert len(json.dumps(result, indent=1).encode("utf-8")) <= 41_966

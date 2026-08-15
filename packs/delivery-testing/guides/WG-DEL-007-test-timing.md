@@ -188,12 +188,12 @@ Requirement 6 in the pack body holds whatever gets written, so a late
 check still runs against every changeset eventually (EV-0016, EV-0194),
 and diff-scoped mutation at review time is where a thin suite shows
 up (EV-0192).
-### Historical ruling boundary
-
-The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Current research boundary
 
 EV-0579 separates exploratory code from software that reaches users. It does not make every small change reversible: a spike still needs a named deletion or hardening boundary.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Transfer limit
 
 Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

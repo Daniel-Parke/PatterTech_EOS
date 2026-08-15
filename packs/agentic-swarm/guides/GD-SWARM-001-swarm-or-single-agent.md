@@ -145,12 +145,12 @@ Felt speed is not evidence. One randomised trial measured developers 19
 per cent slower with agent tooling while they believed they had been 20
 per cent faster (EV-0010). Whatever this fork decides, the run gets
 instrumented, or the next decision is made on a feeling again.
-### Historical ruling boundary
-
-The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Current research boundary
 
 EV-0452 reports gains on decomposable work and losses on sequential, tool-heavy work. Transfer the direction only: coordination cost, baseline capability and central verification still need measurement on this task.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
 ### Transfer limit
 
 Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

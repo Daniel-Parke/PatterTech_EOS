@@ -804,6 +804,32 @@ def test_s014_research_is_the_pre_import_record(tmp_path):
     assert only(run_s(root), "S014") == []
 
 
+def test_s014_rejects_a_pending_source_after_import(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/REF.md",
+          "---\nsummary: Unresolved source\ntype: foundation\ntags: [eos]\n"
+          "sources: [pending-fragment-import]\n---\n\nBody.\n")
+    assert only(run_s(root), "S014") == [
+        ("error", "packs/testmod/REF.md",
+         "unresolved evidence placeholder in sources: pending-fragment-import")
+    ]
+
+
+def test_s014_rejects_an_unknown_ev_source(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/REF.md",
+          "---\nsummary: Missing evidence\ntype: foundation\ntags: [eos]\n"
+          "sources: [EV-9999]\n---\n\nBody.\n")
+    write(root, "registry/evidence.json", json.dumps({
+        "version": 1,
+        "records": [{"id": "EV-0001"}],
+    }))
+    assert only(run_s(root), "S014") == [
+        ("error", "packs/testmod/REF.md",
+         "evidence id in sources is not in the ledger: EV-9999")
+    ]
+
+
 # --- S015 pack activation triggers --------------------------------------
 
 PACK_HEAD = ("---\nsummary: Testmod doctrine, one plain principle\n"
