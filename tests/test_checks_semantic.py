@@ -1297,3 +1297,48 @@ def test_e011_alone_cannot_see_it(tmp_path):
     with_absent = "## Machine facts\n\n" + ABSENT + "\n"
     assert (taskops.strip_machine_facts(with_block)
             == taskops.strip_machine_facts(with_absent))
+
+
+# --- S021 ---------------------------------------------------------------
+
+
+def test_s021_is_quiet_when_a_pack_uses_a_listed_predicate(tmp_path):
+    root = make_repo(tmp_path)
+    assert only(run_s(root), "S021") == []
+
+
+def test_s021_reports_a_predicate_that_is_in_no_vocabulary(tmp_path):
+    """A pack inventing a name is how the estate grows two for one fact."""
+    root = make_repo(tmp_path)
+    edit(root, "packs/testmod/PACK.md",
+         "applies_when: [does_a_fixture_thing]",
+         "applies_when: [does_a_fixture_thing, does_a_novel_thing]")
+    got = only(run_s(root), "S021")
+    assert len(got) == 1
+    severity, path, message = got[0]
+    assert severity == "error"
+    assert path == "packs/testmod/PACK.md"
+    assert "does_a_novel_thing" in message
+    assert "kernel/PREDICATES.md" in message
+
+
+def test_s021_names_the_replacement_for_a_retired_predicate(tmp_path):
+    """A retired name and an unknown name need different fixes."""
+    root = make_repo(tmp_path)
+    edit(root, "packs/testmod/PACK.md",
+         "applies_when: [does_a_fixture_thing]",
+         "applies_when: [did_a_fixture_thing]")
+    got = only(run_s(root), "S021")
+    assert len(got) == 1
+    assert "retired predicate did_a_fixture_thing" in got[0][2]
+    assert "use does_a_fixture_thing" in got[0][2]
+
+
+def test_s021_reports_a_missing_vocabulary_rather_than_passing(tmp_path):
+    """Deleting the file must not switch the check off."""
+    root = make_repo(tmp_path)
+    (root / "kernel" / "PREDICATES.md").unlink()
+    got = only(run_s(root), "S021")
+    assert got == [("error", "kernel/PREDICATES.md",
+                    "the predicate vocabulary is missing, so no pack's "
+                    "applies_when can be resolved")]

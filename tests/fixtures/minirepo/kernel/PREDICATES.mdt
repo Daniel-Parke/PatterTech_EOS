@@ -1,0 +1,23 @@
+---
+summary: Minirepo predicate vocabulary, the list S021 resolves a pack's applies_when against
+type: kernel
+tags: [eos]
+---
+
+# PREDICATES
+
+The fixture's controlled vocabulary. The real one is grouped by subject
+so two names for one fact sit next to each other; this one is small
+enough that a single group carries it.
+
+## Fixture facts
+
+| predicate | packs | true when |
+| --- | --- | --- |
+| `does_a_fixture_thing` | testmod | the fixture pack's trigger, which exists so S021 has something to resolve |
+
+## Retired
+
+| retired | replaced by | when | why |
+| --- | --- | --- | --- |
+| `did_a_fixture_thing` | `does_a_fixture_thing` | 2026-08-15 | a retired row so the fixture exercises the retired arm as well as the live one |

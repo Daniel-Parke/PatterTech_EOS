@@ -196,7 +196,7 @@ row is not coverage, and this view says so first.
 ### legal-licensing-and-compliance-routing
 
 - **Pack**: `packs/legal-licensing/`
-- **Activation**: Licence choice, third-party licence compatibility, regulatory routing, and which duties attach to which data. Predicates: adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, processes_personal_data.
+- **Activation**: Licence choice, third-party licence compatibility, regulatory routing, and which duties attach to which data. Predicates: adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, handles_personal_data.
 - **Worked example**: `packs/legal-licensing/exemplars/EX-LEGAL-001-waitlist-with-a-poisoned-tree.md`
 - **Evaluation**: packs/legal-licensing/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/legal-licensing.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.
 - **Estate relevance**: The evidence ledger already carries a per-source licence column that is load-bearing for what may be copied, and Venture F ships Apache-2.0 with reserved marks. The routing rules are unwritten.
