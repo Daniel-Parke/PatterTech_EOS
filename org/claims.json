@@ -1,6 +1,52 @@
 {
  "version": 1,
  "assigned": "2026-08-15",
- "lanes": [],
- "note": "T-0026 phase one is integrated. The independent ontology oracle is frozen at the hash recorded on T-0026 and its claim is released. The integrator is the sole writer until the resolver and compatibility substrate have landed."
+ "lanes": [
+  {
+   "lane_id": "lane/t0026-integrator",
+   "task_id": "T-0026",
+   "session_id": "doctrine-wargame-integrator",
+   "host": "NucBox_M6Ultra",
+   "path_claims": [
+    "tools/eos/ontology.py",
+    "tools/eos/cli.py",
+    "tools/eos/checks/",
+    "kernel/schemas/",
+    "tests/test_checks_structural.py",
+    "tests/test_checks_semantic.py",
+    "tests/test_ontology_oracle.py",
+    "org/claims.json",
+    "org/tasks/T-0026.json"
+   ],
+   "acquired": "2026-08-15T20:15:00Z",
+   "expires": "2026-08-16T20:15:00Z"
+  },
+  {
+   "lane_id": "lane/t0026-ledger",
+   "task_id": "T-0026",
+   "session_id": "doctrine-ledger-author",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "/root/ledger",
+   "path_claims": [
+    "tools/eos/knowledge_migration.py",
+    "tests/test_knowledge_migration.py",
+    "org/migration/"
+   ],
+   "acquired": "2026-08-15T20:15:00Z",
+   "expires": "2026-08-16T20:15:00Z"
+  },
+  {
+   "lane_id": "lane/t0026-research",
+   "task_id": "T-0026",
+   "session_id": "doctrine-research-author",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "/root/research",
+   "path_claims": [
+    "org/reports/DOCTRINE_WARGAME_RESEARCH_2026-08-15.md"
+   ],
+   "acquired": "2026-08-15T20:15:00Z",
+   "expires": "2026-08-16T20:15:00Z"
+  }
+ ],
+ "note": "T-0026 phase two. The integrator owns the shared resolver, schemas and checks. The ledger lane owns only the frozen migration inventory and its generator. The research lane owns one evidence packet. No lane writes another lane's paths."
 }
