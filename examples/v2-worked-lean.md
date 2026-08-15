@@ -9,8 +9,17 @@ tags: [eos]
 One task, start to finish, in the smallest shape v2 offers. The venture
 is Herbfield Lane, the S seed at benchmark/fixtures/seed-v2-S, which is
 a real compiled seed in this repository and passes the seed check with
-zero errors. Read this beside examples/v2-worked-high-assurance.md; the
-same kernel produces both, and the difference is entirely the ruling.
+zero errors, which tests/test_checks_seed.py now holds. Read this beside
+examples/v2-worked-high-assurance.md; the same kernel produces both, and
+the difference is entirely the ruling.
+
+Count the fixture's files against kernel/SCALE_MATRIX.md and you get
+nine where the live matrix asks for fourteen. That is not a broken seed.
+A seed resolves whichever matrix its pinned commit carries, and the S
+column had nine rows at this one's pin; the five that arrived later are
+the blank Genesis forms. The seed check reads the matrix at the pin for
+exactly this reason, so it passes here and would fail a seed compiled
+today against the same nine.
 
 Paths below that start with docs/ are the venture's own; in this
 repository they sit under benchmark/fixtures/seed-v2-S, so

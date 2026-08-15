@@ -58,6 +58,25 @@ def test_seed_v1_m_fixture_only_finding_is_the_unscheduled_lockin():
     assert "first-build lock-in in org/QUEUE.md" in fs.errors[0].message
 
 
+def test_seed_v2_s_fixture_is_clean():
+    """The S fixture the lean worked example reads against.
+
+    Nothing held it before. seed-v2-ORG is exercised by the D010 test
+    below, and the v1 pair by the two above, which left the one fixture
+    a reader is pointed at from examples/v2-worked-lean.md as the only
+    one no test ever ran the seed series over.
+
+    It carries nine files against the fourteen the live matrix requires,
+    and that is correct rather than short: a seed resolves whichever
+    matrix its pinned commit carries, and at its pin the S column had
+    nine rows. That is exactly what makes the check worth running here,
+    because a regression in the pinned-matrix lookup would surface as
+    findings against this fixture and nowhere else.
+    """
+    fs = run_seed(REPO_ROOT / "benchmark" / "fixtures" / "seed-v2-S", ctx())
+    assert [(f.severity, f.check_id, f.path) for f in fs] == []
+
+
 def test_matrix_parses():
     """The live matrix is v2 (S and ORG); v1's is at the archive tag.
 
