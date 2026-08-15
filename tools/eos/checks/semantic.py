@@ -1,4 +1,4 @@
-"""Semantic checks S001-S007 and S009-S019.
+"""Semantic checks S001-S007 and S009-S020.
 
 S008 asked that a fact declared canonical in one file was not restated
 in another. No file ever declared canonical_facts, so it had no
@@ -1241,4 +1241,49 @@ def check_s019_lessons_match_the_schema(ctx: dict) -> list:
                     out.append(_f(ctx, "S019", LESSONS_PATH,
                                   "%s: cites %s, which is not in "
                                   "registry/evidence.json" % (rid, ev)))
+    return out
+
+
+# --- S020 a derived view that says git was unavailable ------------------
+
+
+@register("S020")
+def check_s020_machine_facts_absent(ctx: dict) -> list:
+    """A committed view claiming git facts were unavailable, where they
+    are not.
+
+    render_views writes a ```facts block when the git subprocess resolves
+    a HEAD and the sentence taskops.MACHINE_FACTS_ABSENT when it does
+    not. Both are legitimate output. Committing the second from a working
+    copy where git works is not: the file then tells a reader the
+    repository could not be read, in a repository the reader is reading
+    it out of.
+
+    Neither existing check sees it. E011 compares the view through
+    strip_machine_facts, which maps the block and the sentence to the
+    same token, so the two are equal to it by construction. S007 parses a
+    facts block and a file with no block gives it nothing to test. That
+    gap shipped: org/STATE.md carried the sentence in a git working copy,
+    and the value it replaced was itself a commit behind.
+
+    The judgement is made against this working copy and only where it can
+    be made. Where git resolves nothing here, an export from a tarball or
+    a checkout with no history, the file's claim agrees with the
+    environment and there is nothing to report, so the check yields.
+    """
+    from .. import taskops  # local, matching E011's import of the same
+
+    model: RepoModel = ctx["model"]
+    if gitfacts.rev_parse(model.root, "HEAD") is None:
+        return []
+    out = []
+    for rec in model.files:
+        if rec.path.lower() not in taskops.DERIVED_FILES:
+            continue
+        if taskops.MACHINE_FACTS_ABSENT not in rec.text:
+            continue
+        out.append(_f(ctx, "S020", rec.path,
+                      "records that git facts were unavailable, but git "
+                      "resolves HEAD in this working copy: regenerate with "
+                      "python -m tools.eos task views"))
     return out
