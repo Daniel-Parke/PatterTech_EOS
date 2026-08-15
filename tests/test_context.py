@@ -194,3 +194,99 @@ def test_the_real_repo_narrows_a_ui_change():
     names = {r["pack"] for r in got}
     assert "ui-ux" in names
     assert len(names) < 6, f"activation too broad: {sorted(names)}"
+
+
+# --- activation from declared facts, the Session 0 half -----------------
+
+
+def _estate(root):
+    """Three packs whose predicates do not overlap."""
+    _pack(root, "ui-ux", paths=["**/components/**"],
+          predicates=["has_user_interface"])
+    _pack(root, "security-privacy", paths=["**/.env*"],
+          predicates=["runs_agents", "handles_personal_data"])
+    _pack(root, "devops", paths=["**/Dockerfile"],
+          predicates=["deploys_to_environment"])
+
+
+def test_facts_activate_only_the_packs_that_own_them(tmp_path):
+    root = tmp_path / "r"
+    _estate(root)
+    got = contextgen.activation_from_facts(root, ["has_user_interface"])
+    assert [r["pack"] for r in got["activated"]] == ["ui-ux"]
+    assert got["activated"][0]["matched_predicates"] == ["has_user_interface"]
+
+
+def test_the_packs_left_out_are_named_with_what_would_have_pulled_them(tmp_path):
+    """The pack-level why-excluded half.
+
+    D003 refuses a seed file with no reason to be there. Nothing recorded
+    the packs nobody loaded, so a reader could not tell a pack ruled
+    irrelevant from a pack nobody thought of.
+    """
+    root = tmp_path / "r"
+    _estate(root)
+    got = contextgen.activation_from_facts(root, ["has_user_interface"])
+    left = {r["pack"]: r["would_activate_on"] for r in got["not_activated"]}
+    assert set(left) == {"devops", "security-privacy"}
+    assert left["devops"] == ["deploys_to_environment"]
+    assert left["security-privacy"] == ["handles_personal_data", "runs_agents"]
+
+
+def test_a_brochure_site_does_not_pull_in_deployment_or_agents(tmp_path):
+    """Negative activation, which is the half that has to be measured.
+
+    A system that never misses a pack because it activates everything has
+    not solved activation.
+    """
+    root = tmp_path / "r"
+    _estate(root)
+    got = contextgen.activation_from_facts(root, ["has_user_interface"])
+    assert [r["pack"] for r in got["activated"]] == ["ui-ux"]
+
+
+def test_no_fact_activates_nothing_rather_than_everything(tmp_path):
+    root = tmp_path / "r"
+    _estate(root)
+    got = contextgen.activation_from_facts(root, [])
+    assert got["activated"] == []
+    assert len(got["not_activated"]) == 3
+
+
+def test_an_unknown_predicate_is_reported_not_swallowed(tmp_path):
+    """A misspelled fact is a silent false negative, the expensive kind."""
+    root = tmp_path / "r"
+    _estate(root)
+    got = contextgen.activation_from_facts(root, ["has_user_interfce"])
+    assert got["unknown_predicates"] == ["has_user_interfce"]
+    assert got["activated"] == []
+
+
+def test_one_venture_fact_spelled_two_ways_splits_the_estate(tmp_path):
+    """Why a shared predicate vocabulary is the next piece of work.
+
+    In the live tree security-privacy declares handles_personal_data and
+    legal-licensing declares processes_personal_data. They are the same
+    answer to interview question 9, and a venture recording one of them
+    loads one pack and silently misses the other.
+    """
+    root = tmp_path / "r"
+    _pack(root, "security-privacy", paths=["**/.env*"],
+          predicates=["handles_personal_data"])
+    _pack(root, "legal-licensing", paths=["**/LICENSE"],
+          predicates=["processes_personal_data"])
+    one = contextgen.activation_from_facts(root, ["handles_personal_data"])
+    assert [r["pack"] for r in one["activated"]] == ["security-privacy"]
+    assert one["unknown_predicates"] == []
+    both = contextgen.activation_from_facts(
+        root, ["handles_personal_data", "processes_personal_data"])
+    assert [r["pack"] for r in both["activated"]] == ["legal-licensing",
+                                                      "security-privacy"]
+
+
+def test_the_live_estate_has_the_synonym_pair_this_guards(tmp_path):
+    """Holds the finding against the real tree, so a fix retires the test."""
+    triggers = contextgen.pack_triggers(REPO)
+    owner = {p: t["pack"] for t in triggers for p in t["predicates"]}
+    assert owner.get("handles_personal_data") == "security-privacy"
+    assert owner.get("processes_personal_data") == "legal-licensing"
