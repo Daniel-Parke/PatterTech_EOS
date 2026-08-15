@@ -17,6 +17,7 @@ basis: standard
 evidence_grade: observational
 sources: [EV-0020, EV-0041, EV-0198, EV-0220, EV-0225, EV-0578]
 review: 2027-08
+review_cohort: T-0026-pressure-wargames
 lifecycle: active
 ---
 

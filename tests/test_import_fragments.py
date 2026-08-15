@@ -147,6 +147,30 @@ def test_a_study_source_without_a_url_is_refused():
         imp.study_intake([], {"source": "a thing with no address"})
 
 
+def test_derived_markdown_never_counts_as_an_evidence_citer(tmp_path):
+    path = tmp_path / "packs" / "DOCTRINE_INDEX.md"
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        "---\nsummary: Derived view\ntype: index\ntags: [eos]\n"
+        "derived: true\n---\n\nCopied EV-0001.\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    assert imp.scan_citations(tmp_path) == {}
+
+
+def test_canonical_markdown_still_counts_as_an_evidence_citer(tmp_path):
+    path = tmp_path / "packs" / "testmod" / "PACK.md"
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        "---\nsummary: Canonical source\ntype: record\ntags: [eos]\n"
+        "---\n\nArgument from EV-0001.\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    assert imp.scan_citations(tmp_path) == {"EV-0001": {"testmod"}}
+
+
 def test_the_study_row_validates_against_the_evidence_schema(tmp_path):
     jsonschema = pytest.importorskip("jsonschema")
     path = _ledger(tmp_path)

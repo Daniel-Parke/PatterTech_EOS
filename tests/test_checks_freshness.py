@@ -201,6 +201,52 @@ def test_f003_keeps_separate_pack_review_cohorts(tmp_path):
     assert fs[0][2] == "review date 2029-01 shared by 11 files, bulk-set smell"
 
 
+def test_f003_does_not_count_derived_views_as_separate_reviews(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"derived/view{i:02d}.md",
+              "---\nsummary: Derived view\ntype: index\ntags: [eos]\n"
+              "derived: true\nreview: 2029-01\n---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+def test_f003_counts_an_explicit_joint_review_cohort_once(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"packs/testmod/guides/WG-TEST-{i:03d}.md",
+              "---\nsummary: Cohort Wargame\ntype: wargame\ntags: [eos]\n"
+              "review: 2029-01\nreview_cohort: T-0001-pressure-wargames\n"
+              "---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+def test_f003_rejects_a_single_file_review_cohort(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/guides/WG-TEST-001.md",
+          "---\nsummary: Lone cohort\ntype: wargame\ntags: [eos]\n"
+          "review: 2029-01\nreview_cohort: T-0001-pressure-wargames\n"
+          "---\nBody.\n")
+    assert only(run_f(root), "F003") == [
+        ("error", "packs/testmod/guides/WG-TEST-001.md",
+         "review cohort T-0001-pressure-wargames has one file; "
+         "schedule it independently")
+    ]
+
+
+def test_f003_rejects_inconsistent_cohort_dates(tmp_path):
+    root = make_repo(tmp_path)
+    for i, month in enumerate(("2029-01", "2029-02")):
+        write(root, f"packs/testmod/guides/WG-TEST-{i:03d}.md",
+              "---\nsummary: Cohort Wargame\ntype: wargame\ntags: [eos]\n"
+              f"review: {month}\n"
+              "review_cohort: T-0001-pressure-wargames\n---\nBody.\n")
+    assert only(run_f(root), "F003") == [
+        ("error", "packs/testmod/guides/WG-TEST-000.md",
+         "review cohort T-0001-pressure-wargames must share one YYYY-MM "
+         "date, found 2029-01, 2029-02")
+    ]
+
+
 # --- F004 ---------------------------------------------------------------
 
 

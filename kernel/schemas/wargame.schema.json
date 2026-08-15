@@ -51,6 +51,10 @@
       "items": {"type": "string", "minLength": 1}
     },
     "review": {"type": "string", "minLength": 1},
+    "review_cohort": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
     "lifecycle": {
       "enum": ["draft", "experimental", "active", "contested", "superseded", "archived"]
     }

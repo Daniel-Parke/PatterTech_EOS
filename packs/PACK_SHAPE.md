@@ -77,7 +77,14 @@ For every line ask: would removing this cause an agent to make a
 mistake? If not, cut it. Restating common knowledge is bloat, and bloat
 is how instructions get ignored. Versioned facts belong in `registry/`
 and are cited, never inlined. One fork per Wargame: a second independent
-question is a new Wargame with a cross-link, never a sub-number.
+question is a new Wargame with a cross-link, never a sub-number. Tightly
+coupled pressure dimensions may share one Wargame only when each remains
+separately addressable and ruleable in its body and pressure mapping.
+
+Files admitted under one evidence packet may declare one `review_cohort`
+when a joint semantic and coverage review genuinely revalidates all of
+them. Cohort members share one non-empty slug and one dated review;
+source-specific freshness remains in the evidence and relation records.
 
 ## Activation triggers
 

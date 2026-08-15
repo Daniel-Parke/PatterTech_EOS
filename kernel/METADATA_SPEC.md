@@ -126,6 +126,12 @@ nothing and no check minds; the second is a claim that the file never
 needs looking at again, and F001 allows it only on records and archived
 items.
 
+`review_cohort` names one scheduled joint review for files admitted from
+the same evidence packet. It is legal only with one shared `YYYY-MM`
+review date and at least two files. It does not replace the source-specific
+review trigger in the evidence ledger. F003 coalesces that declared cohort
+once, and rejects a singleton or inconsistent dates.
+
 Defaults are exactly that: a file may state a field explicitly to
 depart from the default, and then owns keeping it true.
 
