@@ -19,6 +19,7 @@
     "tests/test_ontology_oracle.py",
     "tools/eos/migrate.py",
     "kernel/templates/LOCKBOOK.tpl.md",
+    "kernel/templates/RULINGS.tpl.json",
     "kernel/SCALE_MATRIX.md",
     "kernel/SEED_RUBRIC.md",
     "inception/INCEPTION.md",
