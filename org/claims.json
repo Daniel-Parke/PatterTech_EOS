@@ -47,6 +47,7 @@
     "registry/coverage.json",
     "registry/evidence.json",
     "registry/lessons.json",
+    "registry/LICENCE_RESIDUALS.md",
     "registry/stacks/",
     "registry/hypotheses/",
     "packs/*/doctrines/",
