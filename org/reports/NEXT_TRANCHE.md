@@ -14,8 +14,8 @@ next session starts from a line rather than a wish.
 
 ## What landed
 
-Twelve commits. `python -m tools.eos check` reports no errors and the
-one known warning; the suite went from 513 tests to 545.
+Fifteen commits. `python -m tools.eos check` reports no errors and the
+one known warning; the suite went from 513 tests to 576.
 
 - **Baseline** recorded in `org/reports/BASELINE_2026-08-15.md`, so
   every later claim about growth or proportionality has a before half.
@@ -26,10 +26,14 @@ one known warning; the suite went from 513 tests to 545.
   says when it ruled a tier from an empty fact set.
 - **Audit deliverables**: `org/reports/CONTROL_ENFORCEMENT.md` and
   `org/reports/DEFECT_REGISTER_2026-08.md`.
-- **Activation**: `eos activate --facts` computes the Session 0 pack
-  walk from declared venture facts, names the packs left out and why,
-  and exits 1 on a predicate no pack owns. Seven tests, four of them
-  negative activation.
+- **Activation**: `eos activate` computes the Session 0 pack walk from
+  declared venture facts or straight off a brief's ```facts block, names
+  the packs left out and why, and exits 1 on a predicate no pack owns.
+  Measured across eight venture archetypes.
+- **Coverage**: the seven domains no pack owns are registry-only rows in
+  `registry/coverage.json` with their reasons, so the matrix reads 21
+  built and 8 registry-only rather than as though the packs were the
+  whole map.
 - **ADR-0009**, accepted: the line is renumbered to 0.4.0 and 1.0 now
   means an eight-item gate somebody can run or read. No tag is cut, so
   nothing is released.
@@ -64,19 +68,28 @@ until the work exists, and one is always true. That constrains anything
 built on top: a Session 0 flow cannot settle roughly a third of the
 vocabulary, whatever it asks.
 
-What is still open here is the other direction. A venture brief has no
-machine-readable answers block, so `eos activate` takes facts an
-operator has asserted rather than facts read off the interview. Closing
-that is a template change to `kernel/templates/VENTURE_BRIEF.tpl.md` and
-belongs with the brief corpus below.
+**Two, the activation corpus. Mostly done, 2026-08-15.**
+`tests/fixtures/activation/profiles.json` holds eight venture
+archetypes, from a disposable script to a SaaS with subscriptions, and
+`tests/test_activation_corpus.py` measures precision and recall per
+pack with negative cases, which is 1.0 gate item 5. Both are 1.000
+across 49 expected activations. The venture brief template now carries a
+```facts block and `eos activate --brief` reads it, so the walk can be
+computed from what the operator answered.
 
-**Two, the brief corpus.** `benchmark/fixtures/briefs/` holds two
-briefs. Activation precision and recall cannot be measured on two
-points, and 1.0 gate item 5 asks for them per pack. Grow it across
-archetypes and freeze expected activation per brief **before** any new
-pack's predicates are tuned, carrying over the `frozen_before_authoring`
-discipline the drill manifest already uses. Written after, it grades the
-tool against itself.
+Two things are still open here. The expected lists were authored in the
+same commit as the code that satisfies them, which is the Wave B
+guarantee rather than the Wave A one, so a later pass should freeze
+expectations for the four admitted capabilities before their predicates
+are written. And eight archetypes is a start, not a corpus: the mission
+brief names twelve.
+
+The corpus already earned its place by surfacing something the design
+passes missed. Three packs, `agentic-swarm`, `coding` and
+`product-discovery`, declare nothing but task facts, so no Session 0
+interview can activate them however it is answered. They activate when
+work arrives, through `eos context`. That is correct, and it means a
+compiled seed's pack walk can never include them.
 
 **Three, seed proportionality.** `packs_adopted` is empty in both seed
 fixtures and in all three ventures, so the pack-adoption path has never
@@ -102,9 +115,10 @@ gate, each with a drill frozen before its pack is authored:
 `identity-access`, `supply-chain-integrity`, `data-engineering` and
 `research-knowledge`, with guides into `architecture`,
 `devops-reliability`, `native-client`, `ui-ux` and
-`agentic-development`, and registry-only rows for
-`scientific-computing`, `platform-engineering` and `document-design`
-where no venture yet gives them an activation case.
+`agentic-development`. The registry-only rows for all seven are already
+in `registry/coverage.json`, so building one is a promotion rather than
+a new entry, and abandoning one leaves an honest row behind rather than
+a silence.
 
 Two holes to close in the same pass: `delivery-testing` has no `GD-`
 guides at all, and `agentic-swarm`, the pack the estate itself runs on,
