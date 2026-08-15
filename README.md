@@ -129,7 +129,15 @@ what the empty claim file in this repository does to `task new`.
 
 You need Python 3.11 or newer and two libraries. CI runs the same checks
 on Ubuntu and Windows against Python 3.11 and 3.14, from
-`.github/workflows/checks.yml`, on every push and pull request.
+`.github/workflows/checks.yml`, on every push and pull request, and
+installs from the same hash-locked file the command below names.
+
+The lock carries every wheel hash for linux-x86_64, windows-amd64 and
+macos-arm64 on CPython 3.11 and 3.14. Intel macOS is not covered,
+because rpds-py publishes no wheel for it and asking for one walks pip
+back to a six-year-old release. On a platform outside that set the
+install fails the hash check, which is the intended answer rather than
+a quiet unpinned install.
 
 ```
 python -m pip install --require-hashes -r tools/requirements-dev.txt

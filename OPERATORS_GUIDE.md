@@ -20,6 +20,14 @@ concurrency is claims, and claims are needed when more than one session
 may write at once. `org/policy.json` declares `parallelism.max_lanes`,
 but no code reads it, so it is a note to yourself and not a ceiling.
 
+The other two values in that block are the same. `claim_expiry_hours`
+and `renewal_window_hours` are read by nothing in `tools/`, so a claim
+does not expire on the clock they name. What does read an expiry is
+`task claims-verify`, at the merge, and it reports a lapsed claim as
+C002 rather than refusing anything. All three were disclosed as a set
+because a block where one value is declared inert and two are silent
+reads as though the silent two work.
+
 ## Launchers
 
 Paste one line into a fresh agent session, in the repository named. The
