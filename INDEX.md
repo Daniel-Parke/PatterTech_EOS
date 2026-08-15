@@ -101,6 +101,7 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0006-genesis-exemplar-learning-and-the-swarm-pack.md | decision | eos | EOS v2.1, the Genesis blueprint phase, the exemplar-learning workflow, the agentic-swarm pack, hands-off ventures and staged verification |  |
 | org/decisions/ADR-0007-one-release.md | decision | eos | Hold v2, fold v2.1 into it, release once, strike the two efficiency gates with reasons and retire the sealed suite unopened |  |
 | org/decisions/ADR-0008-less-law-better-kept.md | decision | eos | The de-restriction pass, what stops binding and what stays, and what catches each loosened failure instead |  |
+| org/decisions/ADR-0009-a-version-that-means-something.md | decision | eos | Re-designate the current line to 0.x, and define the checkable gate that 1.0 has to pass |  |
 | org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |
@@ -130,6 +131,7 @@ file. Frozen trees are not indexed.
 | org/reports/BASELINE_2026-08-15.md | org | eos | The measured state of the tree before the audit, research and expansion mission, as the before half of every later comparison |  |
 | org/reports/CONTROL_ENFORCEMENT.md | org | eos | Every material control in the EOS, classified by what actually enforces it, with the file and the test behind each classification |  |
 | org/reports/DEFECT_REGISTER_2026-08.md | org | eos | Every defect and contradiction the audit raised, what it turned out to be, and where each one now stands |  |
+| org/reports/NEXT_TRANCHE.md | org | eos | What the audit and expansion mission completed, what it deliberately did not, and the dependency-ordered work that follows |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision Daniel owns |  |
 | packs/PACK_SHAPE.md | governance | eos | The pack contract, invariant and optional organs, the definition of done, and what stays a registry row |  |
 | packs/agentic-development/CHECKS.md | guide | eos arch delivery | What a reviewer or checker can verify about agent workflow design, split into executable today and judgement | 2027-10 |
