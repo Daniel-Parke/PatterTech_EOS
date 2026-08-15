@@ -523,6 +523,12 @@ tags: [eos]
 | ops-runbook | ops/runbooks/deploy.md | authored per the stack profile | server state |
 """
 
+STRUCTURED_RULINGS_MATRIX = V2_TEST_MATRIX.replace(
+    "| docs/LOCKBOOK.md | kernel/templates/LOCKBOOK.tpl.md | x | x |",
+    "| docs/LOCKBOOK.md | kernel/templates/LOCKBOOK.tpl.md | x | x |\n"
+    "| docs/RULINGS.json | kernel/templates/RULINGS.tpl.json | x | x |",
+)
+
 
 def _valid_policy():
     doc = json.loads(
@@ -569,6 +575,75 @@ def _v2_seed(tmp_path, scale="S", policy=None):
 
 def _v2_ctx(eos):
     return {"root": eos, "today": TODAY, "offline": True}
+
+
+def _structured_rulings_case(tmp_path):
+    eos = _v2_eos(tmp_path, matrix=STRUCTURED_RULINGS_MATRIX)
+    shutil.copy(REPO_ROOT / "kernel" / "schemas" / "rulings.schema.json",
+                eos / "kernel" / "schemas" / "rulings.schema.json")
+    wargame = eos / "packs" / "testmod" / "guides" / "GD-TST-001-case.md"
+    wargame.parent.mkdir(parents=True)
+    wargame.write_text(
+        "---\nid: GD-TST-001\nsummary: Fixture decision\nkind: wargame\n"
+        "type: wargame\ntags: [eos, wargame]\n---\n\n# Fixture\n",
+        encoding="utf-8")
+    seed = _v2_seed(tmp_path, policy=_valid_policy())
+    edit(seed, "docs/LOCKBOOK.md", "addons: []",
+         "addons: []\nrulings_record: docs/RULINGS.json")
+    document = {
+        "version": 1,
+        "venture": "Testfield",
+        "eos_commit": "0000000",
+        "selection_log": [{
+            "wargame": "GD-TST-001",
+            "disposition": "selected",
+            "reason": "The fixture pressure is true.",
+            "ruling": "RUL-TST-001",
+            "facts": ["fixture_pressure=true"],
+        }],
+        "rulings": [{
+            "id": "RUL-TST-001",
+            "wargame": "GD-TST-001",
+            "doctrines": [],
+            "decision": "Use the small fixture.",
+            "execution": "argued",
+            "reason": "The small fixture discriminates the behaviour.",
+            "decided": "2026-08-03",
+            "review": "on-change-of:fixture",
+            "departures": [],
+            "binding_scope_changes": [],
+        }],
+    }
+    (seed / "docs" / "RULINGS.json").write_text(
+        json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    return eos, seed, document
+
+
+def test_d006_and_d012_validate_structured_gd_ruling(tmp_path):
+    eos, seed, _document = _structured_rulings_case(tmp_path)
+    findings = run_seed(seed, _v2_ctx(eos))
+    assert only(findings, "D006") == []
+    assert only(findings, "D012") == []
+
+
+def test_d012_rejects_selection_without_reason(tmp_path):
+    eos, seed, document = _structured_rulings_case(tmp_path)
+    document["selection_log"][0]["reason"] = ""
+    (seed / "docs" / "RULINGS.json").write_text(
+        json.dumps(document) + "\n", encoding="utf-8")
+    got = only(run_seed(seed, _v2_ctx(eos)), "D012")
+    assert any("minLength" in message or "should be non-empty" in message
+               for _severity, _path, message in got)
+
+
+def test_d006_rejects_unresolved_structured_wargame(tmp_path):
+    eos, seed, document = _structured_rulings_case(tmp_path)
+    document["selection_log"][0]["wargame"] = "GD-TST-999"
+    document["rulings"][0]["wargame"] = "GD-TST-999"
+    (seed / "docs" / "RULINGS.json").write_text(
+        json.dumps(document) + "\n", encoding="utf-8")
+    got = only(run_seed(seed, _v2_ctx(eos)), "D006")
+    assert any("does not resolve" in message for _severity, _path, message in got)
 
 
 def test_d007_valid_policy_is_quiet(tmp_path):
