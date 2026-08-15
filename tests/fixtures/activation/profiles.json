@@ -1,0 +1,207 @@
+{
+ "version": 1,
+ "note": "Venture profiles for measuring pack activation. Each row carries the venture facts a Session 0 interview would settle, and the packs a reader of the archetype expects to load. The expected lists were authored by hand from the archetype, not read off the tool, but they were authored in the same commit as the measurement, which is the weaker guarantee the drill manifest records for its Wave B specs. Nothing here is a complete venture brief: these are facts blocks, not Session 0 transcripts, and no venture in registry/PROJECTS.md corresponds to any of them.",
+ "profiles": [
+  {
+   "id": "disposable-script",
+   "what": "A one-off local script that reshapes a CSV on the operator's own machine. No surfaces, no persistence beyond a file, no money, nobody else's data.",
+   "facts": [
+    "runs_agents"
+   ],
+   "expected_packs": [
+    "security-privacy"
+   ],
+   "why": "The always-walk pack and nothing else. If a script pulls in deployment or pricing guidance, activation is over-firing."
+  },
+  {
+   "id": "brochure-site",
+   "what": "A sole trader's static brochure site with contact details and no accounts.",
+   "facts": [
+    "collects_contact_details",
+    "has_user_interface",
+    "hosts_service",
+    "publishes_public_content",
+    "runs_agents"
+   ],
+   "expected_packs": [
+    "legal-licensing",
+    "marketing-growth",
+    "security-privacy",
+    "ui-ux"
+   ],
+   "why": "A contact form is personal data handling in the legal sense, which is why legal-licensing loads. Nothing here deploys server state or takes money."
+  },
+  {
+   "id": "internal-staff-analytics",
+   "what": "An internal dashboard over employment data, role-gated, whose outputs may inform management decisions.",
+   "facts": [
+    "deploys_to_environment",
+    "handles_analytics_identifier",
+    "handles_personal_data",
+    "has_database",
+    "has_server_code",
+    "has_test_suite",
+    "has_user_interface",
+    "hosts_service",
+    "publishes_analytics_table",
+    "runs_agents",
+    "stores_persistent_data"
+   ],
+   "expected_packs": [
+    "architecture",
+    "data-analytics",
+    "delivery-testing",
+    "devops-reliability",
+    "legal-licensing",
+    "security-privacy",
+    "ui-ux"
+   ],
+   "why": "The archetype the mission brief calls out as high consequence on a small codebase. Personal data plus a decision surface, with no money involved."
+  },
+  {
+   "id": "batch-pipeline",
+   "what": "A daily batch pipeline over several sources, feeding commercially important tables, with backfills and on-call support.",
+   "facts": [
+    "defines_events",
+    "deploys_to_environment",
+    "has_customer_visible_incident",
+    "has_database",
+    "has_server_code",
+    "has_test_suite",
+    "models_time",
+    "publishes_analytics_table",
+    "runs_agents",
+    "stores_persistent_data"
+   ],
+   "expected_packs": [
+    "architecture",
+    "business-logic-modelling",
+    "data-analytics",
+    "delivery-testing",
+    "devops-reliability",
+    "security-privacy",
+    "support-operations"
+   ],
+   "why": "No interface and no money, so ui-ux and business-model-pricing must stay out. Time modelling matters because a daily window is a business rule."
+  },
+  {
+   "id": "saas-web-app",
+   "what": "A small multi-tenant SaaS with accounts, subscriptions and a public sign-up.",
+   "facts": [
+    "deploys_to_environment",
+    "handles_personal_data",
+    "has_customer_inbound",
+    "has_database",
+    "has_external_egress",
+    "has_forms",
+    "has_paying_customers",
+    "has_server_code",
+    "has_test_suite",
+    "has_user_interface",
+    "holds_credentials",
+    "hosts_service",
+    "models_money",
+    "publishes_a_price",
+    "runs_agents",
+    "sells_by_subscription",
+    "sells_to_consumers",
+    "sets_a_price",
+    "stores_persistent_data"
+   ],
+   "expected_packs": [
+    "architecture",
+    "business-logic-modelling",
+    "business-model-pricing",
+    "delivery-testing",
+    "devops-reliability",
+    "legal-licensing",
+    "security-privacy",
+    "support-operations",
+    "ui-ux",
+    "writing-content"
+   ],
+   "why": "The widest honest activation in the corpus. writing-content loads on has_forms, which is the pack that owns validation copy and error behaviour."
+  },
+  {
+   "id": "public-api",
+   "what": "A versioned public API with webhooks, SDK consumers and a compatibility promise.",
+   "facts": [
+    "consumes_external_api",
+    "deploys_to_environment",
+    "exposes_service_boundary",
+    "has_database",
+    "has_external_egress",
+    "has_server_code",
+    "has_test_suite",
+    "hosts_service",
+    "publishes_docs",
+    "publishes_events",
+    "receives_webhooks",
+    "runs_agents",
+    "stores_persistent_data"
+   ],
+   "expected_packs": [
+    "api-integration",
+    "architecture",
+    "delivery-testing",
+    "devops-reliability",
+    "docs-dx",
+    "legal-licensing",
+    "security-privacy"
+   ],
+   "why": "No user interface at all, so ui-ux must stay out even though the venture is public facing."
+  },
+  {
+   "id": "rag-agent-app",
+   "what": "An internal PatterTech assistant retrieving from company documents, calling tools, with a person approving anything consequential.",
+   "facts": [
+    "adopts_pattertech_house",
+    "builds_agent_workflow",
+    "builds_retrieval",
+    "calls_a_model",
+    "defines_agent_tools",
+    "deploys_to_environment",
+    "handles_personal_data",
+    "has_external_egress",
+    "has_server_code",
+    "has_test_suite",
+    "has_user_interface",
+    "holds_credentials",
+    "runs_agents",
+    "ships_model_output"
+   ],
+   "expected_packs": [
+    "agentic-development",
+    "ai-ml-llm",
+    "architecture",
+    "delivery-testing",
+    "devops-reliability",
+    "legal-licensing",
+    "pattertech-house",
+    "security-privacy",
+    "ui-ux"
+   ],
+   "why": "agentic-swarm must stay out: fanning a build across lanes is how we work, not what this venture is."
+  },
+  {
+   "id": "local-first-family-app",
+   "what": "A native application for one household, storing its own data on device, syncing later if ever.",
+   "facts": [
+    "distributes_via_app_store",
+    "handles_personal_data",
+    "has_local_write_store",
+    "has_native_ui",
+    "has_user_interface",
+    "runs_agents",
+    "ships_a_binary"
+   ],
+   "expected_packs": [
+    "legal-licensing",
+    "native-client",
+    "security-privacy",
+    "ui-ux"
+   ],
+   "why": "No server, so architecture and devops-reliability must stay out. Personal data is still personal when it never leaves the device."
+  }
+ ]
+}

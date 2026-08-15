@@ -181,9 +181,22 @@ def cmd_guard(args):
 
 
 def cmd_activate(args):
-    from .contextgen import activation_from_facts
+    from .contextgen import activation_from_facts, facts_from_brief
 
     predicates = list(args.predicate or [])
+    if args.brief:
+        path = Path(args.brief)
+        if not path.is_file():
+            print(f"error: no brief at {path}", file=sys.stderr)
+            return 2
+        found = facts_from_brief(path.read_text(encoding="utf-8"))
+        if not found:
+            print(f"error: {path} declares no venture facts. The block is "
+                  f"```facts in kernel/templates/VENTURE_BRIEF.tpl.md, and "
+                  f"an empty one is a brief that was compiled before the "
+                  f"block existed or never filled it", file=sys.stderr)
+            return 2
+        predicates += found
     if args.facts:
         doc = _read_json(Path(args.facts), "the facts file")
         if isinstance(doc, dict):
@@ -529,6 +542,8 @@ def build_parser():
         description="Which packs a venture's declared facts activate, and "
                     "which they do not. Session 0 has no diff, so this is "
                     "the half of pack activation `context` cannot compute.")
+    a.add_argument("--brief", help="a venture brief, whose ```facts block "
+                                   "carries the declared venture facts")
     a.add_argument("--facts", help="JSON file holding a list of predicates, "
                                    "or an object with a predicates key")
     a.add_argument("--predicate", action="append", default=[],

@@ -261,3 +261,33 @@ def activation_from_facts(root, predicates) -> dict:
         "activated": activated,
         "not_activated": not_activated,
     }
+
+
+_FACTS_FENCE = re.compile(r"```facts\n(.*?)```", re.S)
+
+
+def facts_from_brief(text: str) -> list:
+    """The venture facts a brief declares, from its ```facts block.
+
+    kernel/templates/VENTURE_BRIEF.tpl.md carries the block and
+    inception/COMPILE.md fills it from the interview. Reading it here is
+    what lets the Session 0 pack walk be computed from the brief rather
+    than matched against it by eye.
+
+    A line is a predicate name and nothing else. Blank lines and
+    comments are skipped; an unfilled slot yields nothing, so a brief
+    compiled without the block reads as no facts rather than as a
+    parse error, and the caller reports the empty result.
+    """
+    match = _FACTS_FENCE.search(text or "")
+    if not match:
+        return []
+    out = []
+    for line in match.group(1).splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("{{") and line.endswith("}}"):
+            continue  # an unfilled slot, not a fact
+        out.append(line.lstrip("- ").strip())
+    return [x for x in out if x]

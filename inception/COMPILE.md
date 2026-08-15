@@ -60,6 +60,7 @@ inception/INTERVIEW.md's.
 | WHY_NOW, AGREEMENTS | question 3 |
 | TIME_CONSTRAINTS | questions 3 and 4: the deadline behind it, and how long it should live |
 | TRIGGERS | questions 4 to 11, read back as the yes-or-no facts WG-EOS-001 ruled on |
+| VENTURE_FACTS | the same interview answers as TRIGGERS and the rest, written as the predicate names kernel/PREDICATES.md gives them, one per line. Only rows that file settles with a question number: a `task` row is about a piece of work and is not knowable at Session 0. Transcription, not inference: a fact goes in because an answer put it there |
 | SPEND_RULE | question 8 |
 | PEOPLE | questions 8 and 11: who else holds a decision, who approves spend |
 | SUCCESS_90 | question 12 |
