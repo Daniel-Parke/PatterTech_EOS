@@ -1,5 +1,5 @@
 ---
-summary: Derived index of every decision guide, one fork each
+summary: Compatibility pointer from the retired Guide name to the unified Wargame index
 type: index
 tags: [eos, wargame]
 derived: true
@@ -7,9 +7,6 @@ derived: true
 
 # GUIDE_INDEX
 
-Derived file. Edit guide front-matter, then run
-`python -m tools.eos check --write-index`.
-
-| id | question | pack | authority | review |
-| --- | --- | --- | --- | --- |
-| WG-TST-001 | Should the fixture repo carry a wargame at all | testmod |  | 2030-01 |
+Guide is the retired public name for this surface. Existing `GD-*`
+identities and `guides/` paths remain stable, but every live decision
+procedure is a Wargame. Use [WARGAME_INDEX](WARGAME_INDEX.md).

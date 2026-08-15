@@ -33,7 +33,11 @@ from ..findings import Finding
 from ..repo import RepoModel
 from . import register
 
-DERIVED = {"INDEX.md", "packs/GUIDE_INDEX.md", "packs/INDEX.md"}
+DERIVED = {
+    "INDEX.md", "packs/INDEX.md", "packs/GUIDE_INDEX.md",
+    "packs/DOCTRINE_INDEX.md", "packs/WARGAME_INDEX.md",
+    "registry/DOCTRINE_PRESSURE_MATRIX.md", "registry/ID_ALIASES.md",
+}
 # Frozen trees: checked, never indexed. Indexing them puts archived law
 # and benchmark fixtures in front of an agent as if they were current.
 # Drill scenarios are fixture material in the same sense: a toy repo a
@@ -187,25 +191,134 @@ def build_pack_index(model: RepoModel) -> str:
 
 
 def build_guide_index(model: RepoModel) -> str:
-    rows = ["---", "summary: Derived index of every decision guide, one fork each",
+    return "\n".join([
+        "---",
+        "summary: Compatibility pointer from the retired Guide name to the unified Wargame index",
+        "type: index",
+        "tags: [eos, wargame]",
+        "derived: true",
+        "---",
+        "",
+        "# GUIDE_INDEX",
+        "",
+        "Guide is the retired public name for this surface. Existing `GD-*`",
+        "identities and `guides/` paths remain stable, but every live decision",
+        "procedure is a Wargame. Use [WARGAME_INDEX](WARGAME_INDEX.md).",
+        "",
+    ])
+
+
+def build_doctrine_index(model: RepoModel, resolver=None) -> str:
+    from ..ontology import KnowledgeResolver
+
+    resolver = resolver or KnowledgeResolver.open(model.root)
+    rows = ["---", "summary: Derived catalogue of every atomic Doctrine and its authority",
+            "type: index", "tags: [eos]", "derived: true", "---", "",
+            "# DOCTRINE_INDEX", "",
+            "Derived from the atomic files under each pack. Edit a Doctrine",
+            "record, then run `python -m tools.eos check --write-index`.", "",
+            "| id | authority | standing statement | applies when | challenge triggers | pack | review |",
+            "| --- | --- | --- | --- | --- | --- | --- |"]
+    for row in resolver.list("doctrine"):
+        data = row.metadata
+        pack = PurePosixPath(row.path).parts[1]
+        rows.append("| {} | {} | {} | {} | {} | {} | {} |".format(
+            row.canonical_id, _cell(data.get("authority")),
+            _cell(data.get("statement")), _cell(data.get("applies_when")),
+            _cell(data.get("challenge_triggers")), pack,
+            _cell(data.get("review"))))
+    rows += ["", f"{len(resolver.list('doctrine'))} live Doctrine atoms."]
+    return "\n".join(rows) + "\n"
+
+
+def build_wargame_index(model: RepoModel, resolver=None) -> str:
+    from ..ontology import KnowledgeResolver
+
+    resolver = resolver or KnowledgeResolver.open(model.root)
+    rows = ["---", "summary: Derived public index of every unified Wargame",
             "type: index", "tags: [eos, wargame]", "derived: true", "---", "",
-            "# GUIDE_INDEX", "",
-            "Derived file. Edit guide front-matter, then run",
-            "`python -m tools.eos check --write-index`.", "",
-            "| id | question | pack | authority | review |",
-            "| --- | --- | --- | --- | --- |"]
-    for rec in model.files:
-        if not rec.fm.present or not indexable(rec) or not is_guide(rec):
-            continue
-        fm = rec.fm.data
-        p = PurePosixPath(rec.path)
-        m = GUIDE_ID.match(p.stem)
-        gid = m.group(1) if m else p.stem
-        module = (p.parent.parent.name
-                  if p.parent.name in ("wargames", "guides") else "")
-        rows.append("| {} | {} | {} | {} | {} |".format(
-            gid, _cell(fm.get("summary")), module,
-            _cell(fm.get("authority")), _cell(fm.get("review"))))
+            "# WARGAME_INDEX", "",
+            "`GD-*` and `WG-*` are immutable identities of the same semantic",
+            "type. New Wargames use `WG-*`; historical paths stay where they are.",
+            "This view is derived from their metadata.", "",
+            "| id | question | modes | Doctrine or gap | engages when | consequence | pack | review |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+    for row in resolver.list("wargame"):
+        data = row.metadata
+        parts = PurePosixPath(row.path).parts
+        pack = parts[1] if parts and parts[0] == "packs" else "inception"
+        doctrine_or_gap = data.get("applicable_doctrines") or data.get("gap_domain")
+        rows.append("| {} | {} | {} | {} | {} | {} | {} | {} |".format(
+            row.canonical_id, _cell(data.get("summary")),
+            _cell(data.get("scenario_modes")), _cell(doctrine_or_gap),
+            _cell(data.get("engages_when")), _cell(data.get("consequence")),
+            pack, _cell(data.get("review"))))
+    rows += ["", f"{len(resolver.list('wargame'))} live Wargames."]
+    return "\n".join(rows) + "\n"
+
+
+def build_pressure_matrix(model: RepoModel, resolver=None) -> str:
+    from ..ontology import KnowledgeResolver
+
+    resolver = resolver or KnowledgeResolver.open(model.root)
+    coverage: dict[str, list[str]] = {}
+    for row in resolver.list("wargame"):
+        for pressure in row.metadata.get("engages_when") or []:
+            coverage.setdefault(str(pressure), []).append(row.canonical_id)
+    rows = ["---", "summary: Derived estate view of Doctrine relations and Wargame pressure coverage",
+            "type: registry", "tags: [eos, wargame]", "status: active",
+            "review_by: 2027-02", "derived: true", "---", "",
+            "# DOCTRINE_PRESSURE_MATRIX", "",
+            "Derived from Doctrine, DREL and Wargame metadata. It is a view, not",
+            "a second relation registry.", "", "## Typed relations", ""]
+    if not resolver.relations:
+        rows += ["No live typed relations.", ""]
+    else:
+        rows += ["| id | owner | relation | target | conditions | status | Wargame | fallback |",
+                 "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+        for relation in sorted(resolver.relations, key=lambda row: str(row.get("id"))):
+            rows.append("| {} | {} | {} | {} | {} | {} | {} | {} |".format(
+                _cell(relation.get("id")), _cell(relation.get("owner_doctrine")),
+                _cell(relation.get("relation")), _cell(relation.get("target")),
+                _cell(relation.get("conditions")), _cell(relation.get("status")),
+                _cell(relation.get("wargame")), _cell(relation.get("fallback"))))
+        rows.append("")
+    rows += ["## Pressure coverage", "",
+             "| pressure | covering Wargames |",
+             "| --- | --- |"]
+    for pressure in sorted(coverage):
+        rows.append("| {} | {} |".format(
+            pressure, _cell(sorted(coverage[pressure]))))
+    challenged = {
+        str(trigger): []
+        for row in resolver.list("doctrine")
+        for trigger in row.metadata.get("challenge_triggers") or []
+    }
+    for pressure, wargames in coverage.items():
+        if pressure in challenged:
+            challenged[pressure] = wargames
+    uncovered = sorted(pressure for pressure, rows_ in challenged.items() if not rows_)
+    rows += ["", "## Uncovered Doctrine challenge triggers", ""]
+    rows += ([", ".join(uncovered)] if uncovered else ["None."])
+    return "\n".join(rows).rstrip("\n") + "\n"
+
+
+def build_alias_view(model: RepoModel) -> str:
+    raw = model.read("registry/identifier-aliases.json") or "{}"
+    try:
+        aliases = json.loads(raw).get("aliases") or {}
+    except (ValueError, AttributeError):
+        aliases = {}
+    rows = ["---", "summary: Derived readable view of immutable knowledge identity aliases",
+            "type: registry", "tags: [eos]", "status: active",
+            "review_by: 2027-02", "derived: true", "---", "",
+            "# ID_ALIASES", "",
+            "Derived from `registry/identifier-aliases.json`. Aliases preserve",
+            "legacy anchors; they never create a second live definition.", "",
+            "| legacy identity or anchor | canonical identity |",
+            "| --- | --- |"]
+    for old, new in sorted(aliases.items()):
+        rows.append("| {} | {} |".format(_cell(old), _cell(new)))
     return "\n".join(rows) + "\n"
 
 
@@ -428,6 +541,18 @@ def _wanted_indexes(model: RepoModel) -> dict:
         "packs/INDEX.md": build_pack_index(model),
         "packs/GUIDE_INDEX.md": build_guide_index(model),
     }
+    if any(rec.fm.present and rec.fm.data.get("kind") == "doctrine"
+           for rec in model.files):
+        from ..ontology import KnowledgeResolver
+        resolver = KnowledgeResolver.open(model.root)
+        want.update({
+            "packs/DOCTRINE_INDEX.md": build_doctrine_index(model, resolver),
+            "packs/WARGAME_INDEX.md": build_wargame_index(model, resolver),
+            "registry/DOCTRINE_PRESSURE_MATRIX.md":
+                build_pressure_matrix(model, resolver),
+        })
+        if model.read("registry/identifier-aliases.json") is not None:
+            want["registry/ID_ALIASES.md"] = build_alias_view(model)
     # Only where the matrix exists: the minirepo fixture has no registry.
     if model.read("registry/coverage.json") is not None:
         want["registry/CAPABILITIES.md"] = build_capabilities(model)

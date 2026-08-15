@@ -66,7 +66,10 @@ V2_SCOPES = {"estate", "venture", "eos-internal"}
 
 DERIVED_GENERATED = {"INDEX.md",
                      "packs/GUIDE_INDEX.md", "packs/INDEX.md",
+                     "packs/DOCTRINE_INDEX.md", "packs/WARGAME_INDEX.md",
                      "registry/CAPABILITIES.md", "registry/LESSONS.md",
+                     "registry/DOCTRINE_PRESSURE_MATRIX.md",
+                     "registry/ID_ALIASES.md",
                      "org/TASKS.md", "org/STATE.md"}
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")

@@ -18,6 +18,7 @@ from tools.eos.checks.structural import (
     build_guide_index,
     build_index,
     build_pack_index,
+    build_wargame_index,
     write_indexes,
 )
 from tools.eos.repo import RepoModel
@@ -129,9 +130,8 @@ def test_e001_catches_an_unindexed_pack(tmp_path):
     assert ("error", "packs/INDEX.md", "stale, run --write-index") in only(run_e(root), "E001")
 
 
-def test_guide_index_covers_gd_guides_not_only_wargames(tmp_path):
-    """79 of 86 guides were invisible because the generator selected on
-    type: wargame and the guides carry type: guide."""
+def test_wargame_index_covers_gd_identities(tmp_path):
+    """GD is an immutable identity prefix, not a second semantic type."""
     root = make_repo(tmp_path)
     guide = root / "packs" / "testmod" / "guides" / "GD-TST-001-a-fork.md"
     guide.write_text(
@@ -140,7 +140,8 @@ def test_guide_index_covers_gd_guides_not_only_wargames(tmp_path):
         "review_by: 2030-01\n---\n\n# GD-TST-001\n\nBody.\n",
         encoding="utf-8", newline="\n")
     model = RepoModel.load(root, today=TODAY)
-    assert "GD-TST-001" in build_guide_index(model)
+    assert "GD-TST-001" in build_wargame_index(model)
+    assert "[WARGAME_INDEX](WARGAME_INDEX.md)" in build_guide_index(model)
 
 
 def test_indexes_exclude_frozen_trees(tmp_path):
@@ -153,7 +154,7 @@ def test_indexes_exclude_frozen_trees(tmp_path):
         "type: wargame\ntags: [eos]\nstatus: active\nreview_by: 2030-01\n---\n\n# WG-FIX-001\n",
         encoding="utf-8", newline="\n")
     model = RepoModel.load(root, today=TODAY)
-    assert "WG-FIX-001" not in build_guide_index(model)
+    assert "WG-FIX-001" not in build_wargame_index(model)
     assert "benchmark/fixtures" not in build_index(model)
 
 
