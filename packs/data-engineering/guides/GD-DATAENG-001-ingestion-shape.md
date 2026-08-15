@@ -1,19 +1,28 @@
 ---
+id: GD-DATAENG-001
 summary: Scheduled batch extract, a subscribed stream, log-based change capture, or polling a modified-at column?
-type: guide
-tags: [data, ops, state]
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, eos, ops, state, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DATAENG-001, DOC-DATAENG-009]
+applies_when: [ingests_external_data]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2027-12
 sources: [pending-import]
+review: 2027-12
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DATAENG-001: how does the data get here?
 
-## The question
+## Decision question and stakes
 
 Something outside the venture holds data the venture needs. The fork is
 the mechanism that moves it, and it is ruled before the first row lands,
@@ -23,7 +32,14 @@ gaps in it become permanent features.
 This is not a tooling question. Each option sees a different set of
 facts, and two of them cannot see a delete at all.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DATAENG-001` (binding): Every hop between two systems states its delivery guarantee, and a sink that is not idempotent or transactional is treated as at-least-once.
+- `DOC-DATAENG-009` (default): Start in batch. Move a step to streaming only when a named decision cannot wait for the next run.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether the venture may read the source's replication log. Most
   third-party systems say no, and that ends the argument.
@@ -35,6 +51,8 @@ facts, and two of them cannot see a delete at all.
 - Whether anybody will operate a long-running process, or whether the
   venture only has room for jobs that start, finish and exit.
 - Whether history exists that the source's log no longer holds.
+
+Applicability is `ingests_external_data`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -98,6 +116,24 @@ column. Cannot see an intermediate state where a row changed twice
 between polls. Depends on the source populating the column correctly on
 every write path, including the ones nobody remembered.
 
+## Failure premises
+
+### Premortem for A. Scheduled batch extract over a bounded window
+
+Assume `A. Scheduled batch extract over a bounded window` was selected and the outcome failed. Test this option's stated failure mechanism first: * Latency is the schedule interval. The source has to support a range query on something, and that something is usually a modified-at column, which drags option D's problems along with it.
+
+### Premortem for B. Subscribed stream with an event-time clock
+
+Assume `B. Subscribed stream with an event-time clock` was selected and the outcome failed. Test this option's stated failure mechanism first: * Completeness is never known, so the pipeline needs a lateness policy before it is correct at all, and the streaming model paper's two watermark failure directions both apply. It adds an always-on process, a state store and a checkpointing story. Reprocessing means replay, and replay is only as good as the retention behind it.
+
+### Premortem for C. Log-based change capture
+
+Assume `C. Log-based change capture` was selected and the outcome failed. Test this option's stated failure mechanism first: * A recorded position that has to survive restarts, an initial snapshot for history the log no longer holds, and a process to operate. After an ungraceful stop it resumes from the last flushed position and replays whatever came after it, so the target must be idempotent before this is safe. Needs log access the venture is often not granted.
+
+### Premortem for D. Polling a modified-at column
+
+Assume `D. Polling a modified-at column` was selected and the outcome failed. Test this option's stated failure mechanism first: * Cannot see a delete, so the target keeps rows the source no longer has, for ever, unless the source owner agrees to a soft-delete column. Cannot see an intermediate state where a row changed twice between polls. Depends on the source populating the column correctly on every write path, including the ones nobody remembered.
+
 ## Decision rule
 
 Source is a database the venture may read the log of, and deletes or
@@ -112,27 +148,35 @@ Whichever is chosen, the hop into the venture's own store is
 at-least-once until the sink proves otherwise, per B1, and the landing
 store is the boundary where that stops being someone else's problem.
 
-## Default
+## Safe default
 
 A, with C where the log is readable. Batch first is not conservatism: it
 is that the window is the unit everything else in this pack is built on,
 and a venture that starts with a stream has to build a landing area
 later anyway to reprocess anything.
 
-## What this does not decide
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **Whether the venture may read the source's replication log. Most third-party systems say no, and that ends the argument.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, with C where the log is readable. Batch first is not conservatism: it is that the window is the unit everything else in this pack is built on, and a venture that starts with a stream has to build a landing area later anyway to reprocess anything.
+
+**Exit condition:** Stop or roll back the selected branch when * Latency is the schedule interval. The source has to support a range query on something, and that something is usually a modified-at column, which drags option D's problems along with it, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether the venture may read the source's replication log. Most third-party systems say no, and that ends the argument.
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: What this does not decide
 
 Whether the landed data is modelled as events, and what the events are
 called, is `packs/data-analytics/PACK.md`. The shape of the envelope on
 the wire, and any webhook contract, is `packs/api-integration/PACK.md`.
+### Historical ruling boundary
 
-## Worked rulings
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-- **PatterTech EOS (2026-08, argued)**: A as the estate default, with C
-  named as the right answer for an owned database and D marked as
-  carrying a permanent gap rather than as a cheap alternative. B is
-  admitted only against a named decision that cannot wait, which is D6
-  in `packs/data-engineering/PACK.md`.
-- **Worked application**: the extract half of
-  `packs/data-engineering/exemplars/EX-DATAENG-001-orders-backfill.md`
-  takes D inside A, because the source is a third-party system with no
-  log access, and records the delete gap on the way past.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

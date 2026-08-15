@@ -1,19 +1,28 @@
 ---
+id: GD-LEGAL-002
 summary: How a venture decides licence questions at all, standing verdict against per-file declaration against certified process against scan and review
-type: guide
-tags: [security, delivery, tooling]
-kind: guide
+kind: wargame
+type: wargame
+tags: [delivery, eos, security, tooling, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-LEGAL-008, DOC-LEGAL-009, DOC-LEGAL-010]
+applies_when: [adds_dependency]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
 sources: [EV-0342, EV-0343, EV-0344, EV-0346, EV-0347]
 review: on-change-of:https://www.apache.org/legal/resolved.html
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-LEGAL-002: Which compliance posture does this venture run?
 
-## The question
+## Decision question and stakes
 
 Four materially different philosophies exist for keeping licensing
 under control. They are not stages of maturity and they are not
@@ -21,13 +30,23 @@ alternatives to each other in every respect: two of them compose well.
 The fork is which one carries the weight, because that decides what a
 cold agent can check and what still needs a person.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-LEGAL-008` (default): A three-bucket allowlist keyed on identifiers, with the reason written next to each bucket.
+- `DOC-LEGAL-009` (default): The scanner produces the inventory and a person produces the verdict.
+- `DOC-LEGAL-010` (default): Per-file declaration for anything published.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - How many items per year, and what are the stakes per item?
 - Does the venture publish, or only consume?
 - Is there more than one person, and will there be next year?
 - Can the answer be checked in CI, or does it need judgement each time?
 - What happens to the arrangement when nobody remembers making it?
+
+Applicability is `adds_dependency`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -72,6 +91,24 @@ dependency tree nobody could read by hand. Costs: it reports what files
 claim about themselves. Treated as a verdict producer it manufactures
 false confidence, and its accuracy is unmeasured.
 
+## Failure premises
+
+### Premortem for A. The standing verdict
+
+Assume `A. The standing verdict` was selected and the outcome failed. Test this option's stated failure mechanism first: per item, and no argument at the point of use. Costs: the verdict encodes the decider's situation, so importing categories without their reason produces a rule that misfires and then gets defended.
+
+### Premortem for B. Declare, do not detect
+
+Assume `B. Declare, do not detect` was selected and the outcome failed. Test this option's stated failure mechanism first: real per-file overhead, and it proves declarations are present and consistent, never that they are correct.
+
+### Premortem for C. Certify the process
+
+Assume `C. Certify the process` was selected and the outcome failed. Test this option's stated failure mechanism first: written for organisations with staff to assign roles to. A one-person venture satisfies the letter in an afternoon and learns nothing, and self-certification against your own checklist is the failure mode a standard is meant to prevent.
+
+### Premortem for D. Scan and review
+
+Assume `D. Scan and review` was selected and the outcome failed. Test this option's stated failure mechanism first: it reports what files claim about themselves. Treated as a verdict producer it manufactures false confidence, and its accuracy is unmeasured.
+
 ## Decision rule
 
 - Consuming a dependency tree, any size: A for the verdict, D for the
@@ -86,13 +123,27 @@ false confidence, and its accuracy is unmeasured.
 - Never D alone. A scan that ran and reported nothing is the most
   common way a compliance step passes while proving nothing.
 
-## Default
+## Safe default
 
 A plus D, with B on anything published, and C read once as a prompt
 rather than adopted. That combination is what
 `packs/legal-licensing/PACK.md` encodes in D1, D2 and D3.
 
-## Evidence boundary
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **How many items per year, and what are the stakes per item?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A plus D, with B on anything published, and C read once as a prompt rather than adopted. That combination is what `packs/legal-licensing/PACK.md` encodes in D1, D2 and D3.
+
+**Exit condition:** Stop or roll back the selected branch when per item, and no argument at the point of use. Costs: the verdict encodes the decider's situation, so importing categories without their reason produces a rule that misfires and then gets defended, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: How many items per year, and what are the stakes per item?
+
+## Counter-evidence and transfer limits
+
+### Evidence boundary
 
 Every source here is a standard, a policy or a maintainer document, and
 none is a measurement. No source read compares the four postures on
@@ -104,14 +155,9 @@ not a measurement and not a legal opinion for any specific use
 claim with no published figure (EV-0346). The decision
 rule above is therefore an argument about cost and checkability, and it
 should be read as one.
+### Historical ruling boundary
 
-## Worked rulings
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-- **PatterTech EOS legal-licensing pack (2026-08, argued)**: A plus D
-  as the spine, B for published repositories, C deferred until a second
-  person joins. Argued from the cost asymmetry: A and D are cheap per
-  item, B is cheap only where the artefact is public, and C prices a
-  role structure a venture does not have.
-- **PatterTech EOS itself (2026-08, inherited)**: A plus D. This
-  repository publishes documentation with almost no dependency tree, so
-  B would be ceremony over prose files.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

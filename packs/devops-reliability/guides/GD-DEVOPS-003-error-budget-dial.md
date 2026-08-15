@@ -1,19 +1,28 @@
 ---
+id: GD-DEVOPS-003
 summary: No budget, advisory budget, enforced budget policy, or calendar change freezes?
-type: guide
-tags: [ops, delivery]
-kind: guide
+kind: wargame
+type: wargame
+tags: [delivery, eos, ops, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DEVOPS-009]
+applies_when: [deploys_to_environment]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2028-03
 sources: [EV-0020, EV-0096, EV-0199, EV-0211]
+review: 2028-03
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DEVOPS-003: What governs the release rate when reliability slips?
 
-## The question
+## Decision question and stakes
 
 Shipping faster raises the chance of breaking something, and every
 venture eventually has the argument about whether to keep shipping while
@@ -21,7 +30,13 @@ the service is wobbling. The fork is what settles that argument, and the
 only useful time to rule it is before the wobble, because during one
 every position is motivated.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DEVOPS-009` (default): An error budget policy in the shape the SRE Workbook describes, paraphrased.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether an SLO exists at all. Without a target there is no budget and
   the argument has no referent.
@@ -31,6 +46,8 @@ every position is motivated.
   halting features halts everything.
 - Whether the reliability signal is trustworthy enough to hang a freeze
   on. A noisy SLI turns the dial into a nuisance.
+
+Applicability is `deploys_to_environment`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -87,6 +104,24 @@ precisely the trade-off the delivery evidence says does not exist
 (EV-0199). Large batches accumulate against the window and land
 together, which is worse.
 
+## Failure premises
+
+### Premortem for A. No budget, judgement each time
+
+Assume `A. No budget, judgement each time` was selected and the outcome failed. Test this option's stated failure mechanism first: * The argument is re-run every time under pressure, and the person who most wants to ship usually wins it. There is no record of the decision and no way to notice a pattern.
+
+### Premortem for B. SLO with an advisory budget
+
+Assume `B. SLO with an advisory budget` was selected and the outcome failed. Test this option's stated failure mechanism first: * Advisory means ignorable, and budgets that are always ignored train everyone to ignore them. The dashboard becomes decoration.
+
+### Premortem for C. Enforced error budget policy
+
+Assume `C. Enforced error budget policy` was selected and the outcome failed. Test this option's stated failure mechanism first: * Google-scale practice with no controlled comparison behind it (EV-0096). It needs an SLI trustworthy enough to justify stopping work, and a venture small enough that stopping feature work stops everything will find the freeze hard to honour. A badly chosen SLO produces freezes that teach people to game the SLO.
+
+### Premortem for D. Calendar change freezes
+
+Assume `D. Calendar change freezes` was selected and the outcome failed. Test this option's stated failure mechanism first: * It responds to the calendar rather than to the service. It suppresses deploy frequency without improving stability, which is precisely the trade-off the delivery evidence says does not exist (EV-0199). Large batches accumulate against the window and land together, which is worse.
+
 ## Decision rule
 
 Pre-production or no users: A, with B stood up as soon as the first SLO
@@ -100,18 +135,28 @@ Whatever is chosen, the halt condition must never be a mean time to
 recovery target: EV-0211 shows that number is not sound enough to hang a
 freeze on. Burn against a declared SLO is.
 
-## Default
+## Safe default
 
 C once there are users, B before that. A budget nobody enforces is a
 dashboard, and a freeze nobody agreed to is an argument.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: C as a default rather than
-  binding. The mechanism is well described but its evidence is a
-  single organisation's practice with no comparison, so it does not meet
-  the bar for a binding requirement. What binds is that an SLO exists
-  and is machine-readable (EV-0020), because that is what the dial needs
-  to read.
-- **Venture A (2026-07, inherited)**: no error budget, reliability
-  handled by attention. Recorded here as the gap this guide addresses.
+Settle this question with the smallest representative probe: **Whether an SLO exists at all. Without a target there is no budget and the argument has no referent.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C once there are users, B before that. A budget nobody enforces is a dashboard, and a freeze nobody agreed to is an argument.
+
+**Exit condition:** Stop or roll back the selected branch when * The argument is re-run every time under pressure, and the person who most wants to ship usually wins it. There is no record of the decision and no way to notice a pattern, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether an SLO exists at all. Without a target there is no budget and the argument has no referent.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

@@ -1,19 +1,28 @@
 ---
+id: GD-MKTG-004
 summary: Who owns a published page, and how fast may a venture publish?
-kind: guide
+kind: wargame
+type: wargame
+tags: [content, eos, seo, voice, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-MKTG-009]
+applies_when: [publishes_public_content]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: decision
 evidence_grade: not-applicable
-scope: estate
 sources: [EV-0095, EV-0353, EV-0354, EV-0356]
 review: on-change-of:Google-spam-policies-revision
-type: guide
-tags: [content, seo, voice]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-MKTG-004: Who owns a published page and why does it exist?
 
-## The question
+## Decision question and stakes
 
 An agent can write a hundred pages in an afternoon. The index operator
 does not test how text was produced; it tests why the page exists
@@ -21,7 +30,13 @@ does not test how text was produced; it tests why the page exists
 per page. This guide decides how much provenance machinery a venture
 needs and what publishing rate that machinery supports.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-MKTG-009` (default): Every published page has a named human owner and a stated purpose.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whether a real reader is identifiable** for each page, by name of
   need rather than by keyword.
@@ -32,6 +47,8 @@ needs and what publishing rate that machinery supports.
   substantial automation be evident to the visitor (EV-0356).
 - **Whether the venture publishes third-party content on its domain**,
   which is where site reputation abuse lives (EV-0354).
+
+Applicability is `publishes_public_content`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -60,6 +77,24 @@ purpose, and a page published to see whether it ranks has declared its
 purpose. This option is excluded, and it is listed so the argument
 against it is on the record rather than assumed.
 
+## Failure premises
+
+### Premortem for A. Manifest with a named owner and a one-line purpose per page
+
+Assume `A. Manifest with a named owner and a one-line purpose per page` was selected and the outcome failed. Test this option's stated failure mechanism first: a file that must be updated in the same commit as the page.
+
+### Premortem for B. Front-matter provenance on each page
+
+Assume `B. Front-matter provenance on each page` was selected and the outcome failed. Test this option's stated failure mechanism first: a generator and the habit of never editing the derived file.
+
+### Premortem for C. Editorial review before publication, no artefact
+
+Assume `C. Editorial review before publication, no artefact` was selected and the outcome failed. Test this option's stated failure mechanism first: the one resource a small venture does not have, and it leaves no evidence afterwards that a check happened.
+
+### Premortem for D. Publish freely, prune on measured failure
+
+Assume `D. Publish freely, prune on measured failure` was selected and the outcome failed. Test this option's stated failure mechanism first: the exact thing the spam policy names: scaled content abuse is defined by purpose, and a page published to see whether it ranks has declared its purpose. This option is excluded, and it is listed so the argument against it is on the record rather than assumed.
+
 ## Decision rule
 
 If pages number in the tens, run A: it is one file and one test. If
@@ -69,25 +104,30 @@ consequence for a reader, never instead of them. Never D. Publishing
 rate then follows from ownership: the rate a venture can sustain is the
 rate at which it can name an owner and a reader, and no faster.
 
-## Default
+## Safe default
 
 A. It satisfies D6 with a single artefact and a single check, and it
 upgrades into B without changing what is asserted. The manifest is
 checked by a test that fails on a page missing from it and on a manifest
 entry with no page, so the two sets are identical by construction.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **marketing-growth pack exemplar (2026-08, argued)**: A, with five
-  pages, five owners and a test asserting set equality in both
-  directions, plus an assertion that no page carries a keywords meta tag
-  because the index operator says it is unused (EV-0353). See
-  `packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
-- **Estate default (2026-08, argued)**: machine authorship is not the
-  test and this pack does not treat it as one. A page drafted by an
-  agent, owned by a person and written for a reader is in policy. The
-  open question the pack records is whether such content is detectably
-  worse rather than merely against someone's policy, which nothing in
-  the source set measures. The publishing stance itself, opinionated or
-  hedged, is a preference and sits in PACK.md rather than here
-  (EV-0095).
+Settle this question with the smallest representative probe: ****Whether a real reader is identifiable** for each page, by name of need rather than by keyword.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A. It satisfies D6 with a single artefact and a single check, and it upgrades into B without changing what is asserted. The manifest is checked by a test that fails on a page missing from it and on a manifest entry with no page, so the two sets are identical by construction.
+
+**Exit condition:** Stop or roll back the selected branch when a file that must be updated in the same commit as the page, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whether a real reader is identifiable** for each page, by name of need rather than by keyword.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

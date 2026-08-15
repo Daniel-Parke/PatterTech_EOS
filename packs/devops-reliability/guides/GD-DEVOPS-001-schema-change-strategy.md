@@ -1,19 +1,28 @@
 ---
+id: GD-DEVOPS-001
 summary: Reversible migrations, expand-migrate-contract, online schema change, or a freeze window?
-type: guide
-tags: [ops, data, migrations]
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, eos, migrations, ops, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-DEVOPS-001]
+applies_when: [deploys_to_environment]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2027-09
 sources: [EV-0202, EV-0206, EV-0207, EV-0208]
+review: 2027-09
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DEVOPS-001: How is a backwards-incompatible schema change made safe?
 
-## The question
+## Decision question and stakes
 
 A column must go, a table must split, a type must change. The schema
 cannot be both shapes at once for free, and the application version
@@ -22,7 +31,13 @@ mechanism carries the change across that gap, and it is ruled before the
 first production write, because afterwards the answer is retrofitted to
 whatever was already done.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DEVOPS-001` (binding): Backwards-incompatible schema change ships as expand, migrate, contract, in separate deploys.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Deploy frequency. Three separate deploys are cheap weekly and
   expensive quarterly.
@@ -35,6 +50,8 @@ whatever was already done.
   plan as an artefact.
 - Whether long-running jobs or third-party consumers hold old
   assumptions past the deploy window.
+
+Applicability is `deploys_to_environment`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -93,6 +110,24 @@ genuinely cannot be made compatible.
 *Costs.* Downtime, a rollback story that is a restore from backup, and
 a habit that suppresses deploy frequency across the whole venture.
 
+## Failure premises
+
+### Premortem for A. Reversibility by design
+
+Assume `A. Reversibility by design` was selected and the outcome failed. Test this option's stated failure mechanism first: * The inverse is written and never run, so it rots. It cannot reverse destructive data change, and it cannot recover a script that failed part way through a multi-statement run (EV-0207). The comfort is larger than the capability.
+
+### Premortem for B. Forward-only with expand, migrate, contract
+
+Assume `B. Forward-only with expand, migrate, contract` was selected and the outcome failed. Test this option's stated failure mechanism first: * A period of dual maintenance, and the named failure mode of a contract phase that never happens, leaving permanent duplication. Only pays off if deploys are frequent enough to finish all three.
+
+### Premortem for C. Data-layer isolation with an online schema change tool
+
+Assume `C. Data-layer isolation with an online schema change tool` was selected and the outcome failed. Test this option's stated failure mechanism first: * Real operational complexity, and it binds you to a specific database topology. Nothing here transfers to PostgreSQL or a managed serverless database.
+
+### Premortem for D. Freeze window and big-bang
+
+Assume `D. Freeze window and big-bang` was selected and the outcome failed. Test this option's stated failure mechanism first: * Downtime, a rollback story that is a restore from backup, and a habit that suppresses deploy frequency across the whole venture.
+
 ## Decision rule
 
 Deploying more than weekly and the change is backwards-incompatible: B,
@@ -110,22 +145,28 @@ backwards-incompatible findings and the change record names the risk
 class of each migration (EV-0202). See
 `packs/devops-reliability/refs/MIGRATION_RISK_CLASSES.md`.
 
-## Default
+## Safe default
 
 B. The inverse you never ran is not a rollback, it is a hope with a
 filename.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: B as the estate binding
-  requirement, with A refused outright for anything destructive on the
-  strength of EV-0207 and the drill in
-  `benchmark/drills/devops-reliability.md` scoring forward-only recovery
-  as a fatal criterion.
-- **Venture A (2026-07, inherited)**: forward-only migrations were
-  already the v1 devops doctrine position, applied before app start,
-  idempotent and advisory-locked. The re-grade adds the explicit expand,
-  migrate, contract split and the CI gate, which v1 left implicit.
-- **Venture B (2026, inherited)**: single-deploy schema changes with
-  no linter, counted as the gap that argued this guide into existence
-  rather than as evidence for D.
+Settle this question with the smallest representative probe: **Deploy frequency. Three separate deploys are cheap weekly and expensive quarterly.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B. The inverse you never ran is not a rollback, it is a hope with a filename.
+
+**Exit condition:** Stop or roll back the selected branch when * The inverse is written and never run, so it rots. It cannot reverse destructive data change, and it cannot recover a script that failed part way through a multi-statement run (EV-0207). The comfort is larger than the capability, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Deploy frequency. Three separate deploys are cheap weekly and expensive quarterly.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

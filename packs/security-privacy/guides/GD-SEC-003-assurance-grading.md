@@ -1,19 +1,29 @@
 ---
+id: GD-SEC-003
 summary: No declared level, a flat entry bar, a graded catalogue by data sensitivity, or per-practice maturity?
-type: guide
-tags: [security, testing]
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, security, testing, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-SEC-011]
+applies_when: [runs_agents]
+engages_when: [operator_requests_wargame]
+consequence: high
+relations: []
+always_walk: true
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2027-06
 sources: [EV-0034, EV-0035, EV-0036, EV-0037, EV-0039, EV-0040]
+review: 2027-06
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SEC-003: how much assurance, and graded how?
 
-## The question
+## Decision question and stakes
 
 A control catalogue with no grading is either ignored or it stops all
 work. The fork is how to say how much security this surface needs, in a
@@ -21,7 +31,13 @@ way a reviewer can check and a solo operator can actually reach. It
 returns whenever a venture adds a surface that holds personal data or
 faces a buyer who asks what standard you work to.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SEC-011` (default): ASVS level 1 as the entry bar, level 2 for anything holding personal data, exclusions documented.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Does the surface hold personal data, money, or credentials for
   someone else's system?
@@ -31,6 +47,8 @@ faces a buyer who asks what standard you work to.
   returns on a two-week experiment.
 - Is one practice the bottleneck, or is the whole surface uniformly
   thin?
+
+Applicability is `runs_agents`. Engagement is `operator_requests_wargame`. This is an always-walk decision.
 
 ## Options
 
@@ -64,6 +82,24 @@ weakest practice rather than the whole catalogue. Costs a heavier
 assessment, and it can excuse a permanently thin practice by giving it
 a number and calling that a position.
 
+## Failure premises
+
+### Premortem for A. No declared level
+
+Assume `A. No declared level` was selected and the outcome failed. Test this option's stated failure mechanism first: any ability to say what is covered, which fails the moment someone asks, and it hides uniform thinness because nothing is compared against anything.
+
+### Premortem for B. A flat entry bar for everything
+
+Assume `B. A flat entry bar for everything` was selected and the outcome failed. Test this option's stated failure mechanism first: precision: a payment surface and a marketing page carry the same bar, so one is over-served and the other under-served.
+
+### Premortem for C. Graded by data sensitivity
+
+Assume `C. Graded by data sensitivity` was selected and the outcome failed. Test this option's stated failure mechanism first: a tailoring step: exclusions must be documented per surface or the level becomes theatre, and someone has to decide which surface is which.
+
+### Premortem for D. Per-practice maturity
+
+Assume `D. Per-practice maturity` was selected and the outcome failed. Test this option's stated failure mechanism first: a heavier assessment, and it can excuse a permanently thin practice by giving it a number and calling that a position.
+
 ## Decision rule
 
 - Any venture surface that will outlive the quarter: C. Level 1
@@ -80,7 +116,7 @@ a number and calling that a position.
   level, because it is a claim you cannot support.
 - A is only defensible for a spike that will be deleted.
 
-## Default
+## Safe default
 
 C. Level 1 as the entry bar, level 2 for anything holding personal
 data, exclusions documented. Add D per practice when one practice is
@@ -89,19 +125,19 @@ against, not declared: an untested level is the failure EV-0039 shows
 inside a maintained project, whose index still pointed at v4 mappings
 long after v5 shipped.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: C, adopted as the pack default,
-  with the graded-tier structure taken from ASVS as the model for how
-  our own binding requirements separate from defaults. This repository
-  holds no runtime surface, so the level applies to what it seeds, not
-  to itself.
-- **PatterTech EOS (2026-08, argued)**: D rejected as the primary
-  scheme. The argument that decided it: a scheme with no floor cannot
-  express a binding requirement, and this pack owns four of them.
-- No venture ruling yet.
+Settle this question with the smallest representative probe: **Does the surface hold personal data, money, or credentials for someone else's system?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C. Level 1 as the entry bar, level 2 for anything holding personal data, exclusions documented. Add D per practice when one practice is demonstrably the constraint. Whichever is chosen, the level is tested against, not declared: an untested level is the failure EV-0039 shows inside a maintained project, whose index still pointed at v4 mappings long after v5 shipped.
+
+**Exit condition:** Stop or roll back the selected branch when any ability to say what is covered, which fails the moment someone asks, and it hides uniform thinness because nothing is compared against anything, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Does the surface hold personal data, money, or credentials for someone else's system?
+
+## Counter-evidence and transfer limits
 
 Levels grade controls, not the reasoning behind them, so a tailored
 level can be met by a surface nobody thought about. The NIST AI RMF
@@ -112,3 +148,9 @@ here carry outcome evidence that a level-2 surface suffers fewer
 incidents than a level-1 one, because nobody has run that study. The
 grading is a way of allocating effort, and it should be described that
 way rather than as a measured risk reduction.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

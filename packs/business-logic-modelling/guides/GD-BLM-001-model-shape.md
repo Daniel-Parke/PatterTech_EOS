@@ -1,19 +1,28 @@
 ---
+id: GD-BLM-001
 summary: How much model does this domain earn, from plain procedures to declared decisions?
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, data, eos, product, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-BLM-003]
+applies_when: [encodes_domain_rule]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: decision
 evidence_grade: anecdotal
-scope: estate
 sources: [EV-0269, EV-0270, EV-0272, EV-0273, EV-0277, EV-0285, EV-0286]
 review: 2027-09
-type: guide
-tags: [arch, data, product]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-BLM-001: How much model does this domain earn?
 
-## The question
+## Decision question and stakes
 
 Four shapes are available and they are not a maturity ladder. The fork
 is which one this domain has earned today, given that the wrong answer
@@ -21,7 +30,13 @@ costs in both directions: too little model and the same condition gets
 re-checked in four places, too much and every later change routes
 around scaffolding nobody needed (EV-0273).
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-BLM-003` (default): Start with no model and earn the next step.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whether you can name an invariant.** Not a validation rule, an
   invariant: a statement that must never be observed false, spanning
@@ -34,6 +49,8 @@ around scaffolding nobody needed (EV-0273).
   weekly while the code ships quarterly want a different home.
 - **How many condition combinations exist.** Past what one person holds
   in their head, control flow stops being readable.
+
+Applicability is `encodes_domain_rule`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -69,6 +86,24 @@ lifecycle. Buys machine-checkable completeness and a form a
 non-programmer can read. Costs an artefact to version, test and deploy,
 and for a handful of rules that cost buys nothing.
 
+## Failure premises
+
+### Premortem for A. Procedures over data
+
+Assume `A. Procedures over data` was selected and the outcome failed. Test this option's stated failure mechanism first: in the pack and a shape any reader follows. Costs nothing until the rules thicken, at which point the same condition appears in several handlers and nobody notices, because the tell is only visible if somebody looks.
+
+### Premortem for B. Types that make the illegal state unrepresentable
+
+Assume `B. Types that make the illegal state unrepresentable` was selected and the outcome failed. Test this option's stated failure mechanism first: a constructor per concept, and it does not reach invariants that span several objects.
+
+### Premortem for C. Aggregates around a transactional boundary
+
+Assume `C. Aggregates around a transactional boundary` was selected and the outcome failed. Test this option's stated failure mechanism first: eventual consistency everywhere outside the boundary, which brings the outbox and idempotent consumers with it, and it costs a written boundary in the canvas field set (EV-0270).
+
+### Premortem for D. Declared decisions and machines
+
+Assume `D. Declared decisions and machines` was selected and the outcome failed. Test this option's stated failure mechanism first: an artefact to version, test and deploy, and for a handful of rules that cost buys nothing.
+
 ## Decision rule
 
 Start at A. Move to B the moment a scalar is not really a scalar, which
@@ -84,34 +119,35 @@ never happen.
 The shapes compose. B under C is the normal end state. A with B is a
 legitimate final answer for most venture software.
 
-## Default
+## Safe default
 
 A plus B. Growth is earned, one step at a time, against a named
 trigger. The worst position is the middle one: full mapping and
 lifecycle cost paid while every rule still sits in a service
 (EV-0272).
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Subscription renewal exemplar (2026-08, argued)**: took A plus B,
-  then C for the one invariant that spanned the subscription and its
-  ledger entries. Money and the renewal instant were B from the first
-  commit. See
-  `packs/business-logic-modelling/exemplars/EX-BLM-001-subscription-renewal.md`.
-- **Four statuses is not an engine (estate, argued)**: a lifecycle with
-  four states and five legal transitions takes a hand-written
-  transition table under B, not a state machine library and not D. The
-  threshold for D is combinations nobody holds in their head, and five
-  is not that.
-- **Boundaries are provisional (external, inherited)**: the source
-  behind C spends its third part on first designs being wrong and
-  superseded (EV-0269), so a boundary is revisited when the invariant
-  changes, not defended because it is written down.
+Settle this question with the smallest representative probe: ****Whether you can name an invariant.** Not a validation rule, an invariant: a statement that must never be observed false, spanning more than one object.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A plus B. Growth is earned, one step at a time, against a named trigger. The worst position is the middle one: full mapping and lifecycle cost paid while every rule still sits in a service (EV-0272).
+
+**Exit condition:** Stop or roll back the selected branch when in the pack and a shape any reader follows. Costs nothing until the rules thicken, at which point the same condition appears in several handlers and nobody notices, because the tell is only visible if somebody looks, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whether you can name an invariant.** Not a validation rule, an invariant: a statement that must never be observed false, spanning more than one object.
+
+## Counter-evidence and transfer limits
 
 The systematic review finds DDD's demonstrated value is decomposing
 systems into services, and that several of its primary studies carried
 no empirical evaluation at all (EV-0286). Nothing here is measured. C
 and D are argued from consulting experience and standards adoption, so
 treat the thresholds as this estate's decision rather than a finding.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

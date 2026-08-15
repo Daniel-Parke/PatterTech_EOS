@@ -1,19 +1,28 @@
 ---
+id: GD-SUPPORT-002
 summary: May an item close without an answer, and on whose clock?
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, ops, pii, product, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-SUPPORT-002]
+applies_when: [has_customer_inbound]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-scope: estate
 sources: [EV-0041]
 review: on-change-of:ISO-10002-revision
-type: guide
-tags: [ops, product, pii]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SUPPORT-002: May an item close without an answer, and on whose clock?
 
-## The question
+## Decision question and stakes
 
 Two maintained sources give opposite instructions. A large public
 tracker closes unreproducible reports after twenty days of silence and
@@ -24,7 +33,13 @@ closes only once the complainant has been told the outcome
 relationships. The failure is letting a ticketing tool's default answer
 the question by accident.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SUPPORT-002` (binding): A support inbox is a personal-data store and is run as one.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whether the reporter is under contract or paying.** This is the
   load-bearing factor and it is not close.
@@ -37,6 +52,8 @@ the question by accident.
 - **Retention duty.** A closed ticket is still personal data, and how
   long it is kept is a separate decision from when it closed (EV-0041,
   PACK.md B6).
+
+Applicability is `has_customer_inbound`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -69,6 +86,24 @@ Everything else takes C. The policy is written down per channel before
 any timer is switched on. Buys the right answer per relationship. Costs
 one more thing to configure and one more thing to keep true.
 
+## Failure premises
+
+### Premortem for A. Close on silence, with a timer
+
+Assume `A. Close on silence, with a timer` was selected and the outcome failed. Test this option's stated failure mechanism first: and a defensible answer to "why is this still open". Costs real bugs: the maintainers of the project that runs the best-known implementation have filed complaints about their own bot closing important issues, which is honest counter-evidence from inside the practice.
+
+### Premortem for B. Close on answer only
+
+Assume `B. Close on answer only` was selected and the outcome failed. Test this option's stated failure mechanism first: a standing human obligation that scales linearly with volume.
+
+### Premortem for C. Needs-info with a due date, then a human decision
+
+Assume `C. Needs-info with a due date, then a human decision` was selected and the outcome failed. Test this option's stated failure mechanism first: a recurring review slot, which is the thing that actually gets skipped.
+
+### Premortem for D. Split by channel, with the policy written per channel
+
+Assume `D. Split by channel, with the policy written per channel` was selected and the outcome failed. Test this option's stated failure mechanism first: one more thing to configure and one more thing to keep true.
+
 ## Decision rule
 
 If the reporter pays, B. If the channel is a public tracker with
@@ -80,7 +115,7 @@ whenever more than one channel exists, which is almost always.
 Never apply a timer to a complaint, and never apply one to any item
 where the venture is the party that failed to ask a question.
 
-## Default
+## Safe default
 
 D, with C as the behaviour for anything that does not clearly sit in A
 or B. Needs-info items carry `next_action_due` as a date strictly after
@@ -88,16 +123,23 @@ the day they were triaged, which is what makes the state reviewable
 rather than a parking space. Retention of closed items follows the
 privacy pack and is set once, per channel, not per ticket.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **support-operations exemplar (2026-08, argued)**: three of forty
-  items lacked any reproduction detail and were set to needs-info with
-  a due date four days out, under C. Two billing complaints were run
-  under B with acknowledgement timestamps recorded and no timer field
-  present at all, so that no later tooling change could quietly apply
-  one. See
-  `packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md`.
-- **The stale bot is contested by its own operators (external,
-  inherited)**: A is recorded here with that objection attached rather
-  than cleaned up, because a guide that hides the strongest objection
-  to an option is not a guide.
+Settle this question with the smallest representative probe: ****Whether the reporter is under contract or paying.** This is the load-bearing factor and it is not close.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** D, with C as the behaviour for anything that does not clearly sit in A or B. Needs-info items carry `next_action_due` as a date strictly after the day they were triaged, which is what makes the state reviewable rather than a parking space. Retention of closed items follows the privacy pack and is set once, per channel, not per ticket.
+
+**Exit condition:** Stop or roll back the selected branch when and a defensible answer to "why is this still open". Costs real bugs: the maintainers of the project that runs the best-known implementation have filed complaints about their own bot closing important issues, which is honest counter-evidence from inside the practice, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whether the reporter is under contract or paying.** This is the load-bearing factor and it is not close.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

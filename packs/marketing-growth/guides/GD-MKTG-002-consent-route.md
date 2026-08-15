@@ -1,22 +1,29 @@
 ---
+id: GD-MKTG-002
 summary: Where does a lawful marketing address come from, and what may be sent to it?
-kind: guide
+kind: wargame
+type: wargame
+tags: [content, eos, forms, pii, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-MKTG-001]
+applies_when: [collects_contact_details]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: binding
-lifecycle: active
 basis: law
 evidence_grade: observational
-scope: estate
-applies_when: [collects_contact_details, sends_marketing_message]
 volatility: fast
-review: on-change-of:PECR-reg-22-amendment
 sources: [EV-0041, EV-0225, EV-0361]
-type: guide
-tags: [pii, forms, content]
+review: on-change-of:PECR-reg-22-amendment
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-MKTG-002: Where does a lawful marketing address come from?
 
-## The question
+## Decision question and stakes
 
 PACK.md B1 requires a lawful basis stored with every address. This guide
 decides which basis a given capture route can honestly claim, and what
@@ -24,7 +31,13 @@ that basis then permits. Getting it wrong at capture is unrecoverable,
 because the fact you needed to record was true only at the moment of
 collection.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-MKTG-001` (binding): The lawful basis is stored with the address, not asserted about the list.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whether the person is an individual subscriber**, which includes
   sole traders and most partnerships, or a corporate one. The
@@ -39,6 +52,8 @@ collection.
   variation.
 - **Whether the venture can evidence the capture** a year later without
   the person's help.
+
+Applicability is `collects_contact_details`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -74,6 +89,24 @@ address you did not collect, the consent was not given to you, and B1
 cannot be satisfied by a supplier's assurance. There is no configuration
 of this option that this pack permits.
 
+## Failure premises
+
+### Premortem for A. Explicit opt-in at a form the person filled in
+
+Assume `A. Explicit opt-in at a form the person filled in` was selected and the outcome failed. Test this option's stated failure mechanism first: conversion at the form, and it needs the capture wording stored, not just a boolean.
+
+### Premortem for B. Soft opt-in from a prior sale or negotiation
+
+Assume `B. Soft opt-in from a prior sale or negotiation` was selected and the outcome failed. Test this option's stated failure mechanism first: a stored reference to the transaction it rests on, and it narrows what may be sent. A record claiming this with no transaction reference is invalid, and should fail validation rather than warn.
+
+### Premortem for C. Corporate subscriber
+
+Assume `C. Corporate subscriber` was selected and the outcome failed. Test this option's stated failure mechanism first: certainty: the individual and corporate line, and the enforcement practice around it, live in regulator guidance rather than in the regulation, and data protection duties still apply to a named person at a company (EV-0041, EV-0225). Record the classification and the reason for it, never assume it from the domain.
+
+### Premortem for D. A bought, rented or scraped list
+
+Assume `D. A bought, rented or scraped list` was selected and the outcome failed. Test this option's stated failure mechanism first: Named to be excluded. The provenance you need cannot travel with an address you did not collect, the consent was not given to you, and B1 cannot be satisfied by a supplier's assurance. There is no configuration of this option that this pack permits.
+
 ## Decision rule
 
 If the person acted at a form you control, record A with the wording
@@ -83,21 +116,28 @@ the subscriber is corporate, record C with the reason for the
 classification, and keep the refusal route anyway. Never D. Where two
 routes could apply, record the stronger one, which is A.
 
-## Default
+## Safe default
 
 A. It is the only route whose permission does not narrow over time, and
 it is the one a machine can validate completely from the stored fields.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **marketing-growth pack exemplar (2026-08, argued)**: A for the launch
-  sequence, with the soft opt-in enum value present in the schema and
-  unused, so the validator that rejects a soft opt-in with no
-  transaction reference is exercised by a fixture rather than by live
-  data. See
-  `packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
-- **Estate default (2026-08, argued)**: the basis enum is closed and
-  legitimate interests is not in it for marketing mail to an individual.
-  A venture wanting a route this guide does not list argues it as an RFC
-  against the regulation text, not in a lock-book note. The field shape
-  is in `packs/marketing-growth/refs/CONSENT_RECORD.md`.
+Settle this question with the smallest representative probe: ****Whether the person is an individual subscriber**, which includes sole traders and most partnerships, or a corporate one. The distinction sits in regulator guidance rather than the regulation text (EV-0361).** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A. It is the only route whose permission does not narrow over time, and it is the one a machine can validate completely from the stored fields.
+
+**Exit condition:** Stop or roll back the selected branch when conversion at the form, and it needs the capture wording stored, not just a boolean, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whether the person is an individual subscriber**, which includes sole traders and most partnerships, or a corporate one. The distinction sits in regulator guidance rather than the regulation text (EV-0361).
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

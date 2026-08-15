@@ -1,26 +1,41 @@
 ---
+id: GD-BLM-002
 summary: Where does this rule live, in code, in a table, in a machine or in an engine?
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, eos, product, tooling, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-BLM-008]
+applies_when: [encodes_domain_rule]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-scope: estate
 sources: [EV-0071, EV-0274, EV-0277, EV-0278, EV-0279, EV-0280]
 review: on-change-of:DMN-1.7-formal
-type: guide
-tags: [arch, product, tooling]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-BLM-002: Where does this rule live?
 
-## The question
+## Decision question and stakes
 
 A rule can sit in a conditional, in a table, in a state machine or in
 an engine. The fork is not about elegance, it is about who changes the
 rule, how often, and whether anyone can still predict the outcome by
 reading it.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-BLM-008` (default): Rules stay in code until they change on a different clock from the code.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whose clock the rule runs on.** Rules that move weekly while the
   code ships quarterly are the case for externalising.
@@ -35,6 +50,8 @@ reading it.
 - **Whether rules can trigger each other.** Chaining is the property
   that makes rule sets unpredictable, and it is separable from the
   table form (EV-0278).
+
+Applicability is `encodes_domain_rule`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -68,6 +85,24 @@ rule, and a set large enough to need a clever matching algorithm for
 speed is already too large to reason about (EV-0274). Also costs a
 runtime, an authoring story and a deployment story.
 
+## Failure premises
+
+### Premortem for A. Conditionals in code
+
+Assume `A. Conditionals in code` was selected and the outcome failed. Test this option's stated failure mechanism first: readability once the combinations grow, and costs a release cycle for every rule change.
+
+### Premortem for B. A decision table, hand-rolled or standardised
+
+Assume `B. A decision table, hand-rolled or standardised` was selected and the outcome failed. Test this option's stated failure mechanism first: an evaluator, and the standardised form costs a second runtime (EV-0278).
+
+### Premortem for C. An explicit state machine
+
+Assume `C. An explicit state machine` was selected and the outcome failed. Test this option's stated failure mechanism first: a declaration to keep in step with the code that acts on transitions.
+
+### Premortem for D. A production rule engine with chaining
+
+Assume `D. A production rule engine with chaining` was selected and the outcome failed. Test this option's stated failure mechanism first: predictability: nobody predicts the outcome from reading any single rule, and a set large enough to need a clever matching algorithm for speed is already too large to reason about (EV-0274). Also costs a runtime, an authoring story and a deployment story.
+
 ## Decision rule
 
 Stay at A while the rules ship with the code and the combinations fit
@@ -82,7 +117,7 @@ will author rules in the engine's own language and the rule set is
 large enough that the matching algorithm earns its keep. In this estate
 that has not happened yet.
 
-## Default
+## Safe default
 
 A, with C wherever a lifecycle has forbidden transitions, and B when
 the clock or the combination count breaks. Never D without a recorded
@@ -90,19 +125,19 @@ argument. Whatever is chosen, an illegal transition raises rather than
 silently doing nothing, because a silent no-op leaves the caller
 believing the change happened.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Booking hold expiry (estate, argued)**: four statuses, five legal
-  transitions, a hand-written transition table under A plus C. No
-  library. The transition table is data, the guard is a constructor,
-  and the illegal pair raises.
-- **Subscription price bands (2026-08, argued)**: five bands changing
-  on a commercial clock, moved to B as a flat table with declared
-  overlap handling, evaluated in-process. No engine, no second runtime.
-  See
-  `packs/business-logic-modelling/exemplars/EX-BLM-001-subscription-renewal.md`.
+Settle this question with the smallest representative probe: ****Whose clock the rule runs on.** Rules that move weekly while the code ships quarterly are the case for externalising.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, with C wherever a lifecycle has forbidden transitions, and B when the clock or the combination count breaks. Never D without a recorded argument. Whatever is chosen, an illegal transition raises rather than silently doing nothing, because a silent no-op leaves the caller believing the change happened.
+
+**Exit condition:** Stop or roll back the selected branch when readability once the combinations grow, and costs a release cycle for every rule change, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whose clock the rule runs on.** Rules that move weekly while the code ships quarterly are the case for externalising.
+
+## Counter-evidence and transfer limits
 
 The critique of engines is from 2009 and predates a standardised
 non-chaining decision-table form with defined evaluation semantics
@@ -112,3 +147,9 @@ treating externalised rules as one choice. The statecharts paper behind
 C was read at abstract level only, so no detailed semantic claim rests
 on it (EV-0280), and the maintained implementation offers popularity
 rather than evidence of defect reduction (EV-0279).
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

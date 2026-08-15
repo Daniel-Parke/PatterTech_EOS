@@ -1,15 +1,23 @@
 ---
+id: WG-OPS-003
 summary: Trusted snapshots, a restore test with a tick, an evidenced restore drill, or full estate rehearsal?
-type: guide
-tags: [ops, data, infra]
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, eos, infra, ops, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-DEVOPS-005]
+applies_when: [deploys_to_environment]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
-applies_when: [stores_persistent_data]
 authority: binding
 basis: standard
 evidence_grade: observational
-review: 2028-06
 sources: [EV-0201, EV-0203]
+review: 2028-06
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # WG-OPS-003: What proves the backups work?
@@ -22,14 +30,20 @@ governs. The v1 file it replaces is at
 `archive/v1-final:doctrine/devops/wargames/WG-OPS-003-backups-and-restore.md`,
 kept for provenance and not for guidance.
 
-## The question
+## Decision question and stakes
 
 Every managed database advertises backups; almost nobody has met theirs.
 The fork is the strength of proof the venture demands that its data can
 come back, and it is ruled before the first production write, because
 afterwards every answer is retrofitted.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DEVOPS-005` (binding): A restore drill runs on cadence and produces a dated evidence record with a measured elapsed time, a validation query and a result.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether production data exists at all yet.
 - The data's legal weight. Audit trails and attestations raise the bar,
@@ -38,6 +52,8 @@ afterwards every answer is retrofitted.
   downtime the operator would truly accept.
 - Whether the estate itself (infrastructure as code, DNS, secrets) is
   now the thing that must survive, rather than one database.
+
+Applicability is `deploys_to_environment`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -93,6 +109,24 @@ and the only one that catches the dependencies nobody wrote down.
 *Costs.* Expensive in time and in cloud spend, and it needs the estate
 to be reproducible from code before it can run at all.
 
+## Failure premises
+
+### Premortem for A. Provider snapshots, trusted
+
+Assume `A. Provider snapshots, trusted` was selected and the outcome failed. Test this option's stated failure mechanism first: * It is a hope, not a capability. The named anti-patterns land here in a row: assuming a backup exists, assuming it is uncorrupted, assuming restore fits the recovery time objective (EV-0201).
+
+### Premortem for B. Restore test with a tick
+
+Assume `B. Restore test with a tick` was selected and the outcome failed. Test this option's stated failure mechanism first: * The remaining anti-pattern is intact: restoring a snapshot without querying the data back out (EV-0201). A tick records that something happened, not what it proved, and nobody can tell later whether the restore fitted the RTO.
+
+### Premortem for C. Evidenced restore drill
+
+Assume `C. Evidenced restore drill` was selected and the outcome failed. Test this option's stated failure mechanism first: * Someone has to define the validation criteria per data source and keep the drill script working. The hypothesis discipline feels like ceremony until the first drill falsifies one.
+
+### Premortem for D. Full estate rehearsal
+
+Assume `D. Full estate rehearsal` was selected and the outcome failed. Test this option's stated failure mechanism first: * Expensive in time and in cloud spend, and it needs the estate to be reproducible from code before it can run at all.
+
 ## Decision rule
 
 No production data yet: A, with C scheduled against the first production
@@ -107,24 +141,28 @@ underneath.
 B is not a resting place. It is what C looks like before someone wrote
 down what the restore proved.
 
-## Default
+## Safe default
 
 C. A backup that has never restored is a rumour, and a restore that was
 never validated is an anecdote.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: C re-graded to binding on
-  EV-0201, whose anti-pattern list is the argument. The evidence record
-  shape is fixed in
-  `packs/devops-reliability/refs/RESTORE_DRILL_EVIDENCE.md` so a checker
-  can read it, and the pack drill treats a passing record with a
-  measured elapsed time inside the RTO as a fatal criterion.
-- **Venture A (2026-07, argued)**: B as a seeded cadence row, monthly
-  from first production deploy, with managed automated backups and
-  point-in-time recovery beneath it, and audit trail integrity raising
-  the evidential bar. Under this re-grade that ruling moves to C, and
-  the cadence row now owes an evidence record.
-- **Venture B (2026, inherited)**: A in practice, managed backups
-  unexercised. Counted as the gap that argued this wargame into
-  existence, not as evidence for A.
+Settle this question with the smallest representative probe: **Whether production data exists at all yet.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C. A backup that has never restored is a rumour, and a restore that was never validated is an anecdote.
+
+**Exit condition:** Stop or roll back the selected branch when * It is a hope, not a capability. The named anti-patterns land here in a row: assuming a backup exists, assuming it is uncorrupted, assuming restore fits the recovery time objective (EV-0201), or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether production data exists at all yet.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

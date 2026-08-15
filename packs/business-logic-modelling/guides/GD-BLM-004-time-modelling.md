@@ -1,19 +1,28 @@
 ---
+id: GD-BLM-004
 summary: How much time does this fact carry, which temporal type and how many dimensions?
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, data, eos, product, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-BLM-002]
+applies_when: [models_time]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: binding
 basis: standard
 evidence_grade: observational
-scope: estate
 sources: [EV-0275, EV-0281, EV-0282]
 review: on-change-of:RFC-9557
-type: guide
-tags: [data, arch, product]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-BLM-004: How much time does this fact carry?
 
-## The question
+## Decision question and stakes
 
 Two forks sit on top of each other. Which temporal type holds this
 fact, and how many time dimensions the domain needs. Getting the first
@@ -21,7 +30,13 @@ wrong produces bugs twice a year; getting the second wrong produces a
 question you cannot answer at all, or a model every reader has to
 understand.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-BLM-002` (binding): A timestamp that will be compared or advanced carries a zone identifier, not just an offset.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whether the fact has a zone at all.** A birthday does not. A
   meeting does. A log line has an instant and nothing else.
@@ -35,6 +50,8 @@ understand.
 - **Whether the future time can be moved by a political decision.** A
   future local time is not a fixed instant, because a government can
   change the offset.
+
+Applicability is `models_time`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -66,6 +83,24 @@ temporal property, fully versioned object (EV-0275). Buys answers to
 correction, dispute and reprocessing questions. Costs complication for
 every reader of the model, which the source concedes.
 
+## Failure premises
+
+### Premortem for A. One instant, stored in UTC
+
+Assume `A. One instant, stored in UTC` was selected and the outcome failed. Test this option's stated failure mechanism first: every calendar question: it cannot tell you what day it was for the customer, and it cannot advance by a day across a clock change.
+
+### Premortem for B. The narrowest type that holds the fact
+
+Assume `B. The narrowest type that holds the fact` was selected and the outcome failed. Test this option's stated failure mechanism first: a vocabulary the team has to learn.
+
+### Premortem for C. B, plus a zone identifier wherever arithmetic happens
+
+Assume `C. B, plus a zone identifier wherever arithmetic happens` was selected and the outcome failed. Test this option's stated failure mechanism first: a current time-zone database in every runtime that does the arithmetic.
+
+### Premortem for D. C, plus a second time dimension
+
+Assume `D. C, plus a second time dimension` was selected and the outcome failed. Test this option's stated failure mechanism first: audit log, effectivity dating, temporal property, fully versioned object (EV-0275). Buys answers to correction, dispute and reprocessing questions. Costs complication for every reader of the model, which the source concedes.
+
 ## Decision rule
 
 C for anything compared or advanced, which binds as B2 in PACK.md. B
@@ -80,7 +115,7 @@ declared. A thirty-minute hold is elapsed time and survives a clock
 change unchanged; a 9am reminder is wall-clock and moves with the zone.
 Both are legitimate and the domain has to choose.
 
-## Default
+## Safe default
 
 B plus C, one time dimension, and durations declared as elapsed unless
 the rule is explicitly a wall-clock rule. Serialise with the zone
@@ -88,24 +123,19 @@ identifier attached rather than the offset alone (EV-0281). Never store
 a naive local datetime in a domain that touches more than one zone, and
 never store an offset where a zone was meant.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **The hold that expires across a clock change (estate, argued)**: a
-  thirty-minute hold created at 01:40 in Europe/London on the morning
-  the clocks go back is still held twenty wall-clock minutes later and
-  expired after forty. Elapsed time, zoned value, arithmetic on the
-  instant. A naive datetime gets this wrong in the direction of
-  expiring things early.
-- **Renewal date (2026-08, argued)**: a monthly renewal is a calendar
-  operation in the customer's zone, not an addition of thirty days to
-  an instant, so the renewal instant is computed by adding one month in
-  the zone and then resolving to an instant. See
-  `packs/business-logic-modelling/exemplars/EX-BLM-001-subscription-renewal.md`.
-- **Birthday is a plain date (estate, argued)**: no zone, no time, no
-  midnight. Storing it as a timestamp is how somebody's birthday lands
-  on the wrong day for half the world.
+Settle this question with the smallest representative probe: ****Whether the fact has a zone at all.** A birthday does not. A meeting does. A log line has an instant and nothing else.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B plus C, one time dimension, and durations declared as elapsed unless the rule is explicitly a wall-clock rule. Serialise with the zone identifier attached rather than the offset alone (EV-0281). Never store a naive local datetime in a domain that touches more than one zone, and never store an offset where a zone was meant.
+
+**Exit condition:** Stop or roll back the selected branch when every calendar question: it cannot tell you what day it was for the customer, and it cannot advance by a day across a clock change, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whether the fact has a zone at all.** A birthday does not. A meeting does. A log line has an instant and nothing else.
+
+## Counter-evidence and transfer limits
 
 The serialisation standard covers the wire format, not storage or
 arithmetic, and it is only as good as the time-zone database revision
@@ -117,3 +147,9 @@ verified at access, so it is cited as a modelling idea rather than as a
 shipped API (EV-0282). The two-dimension source is twenty-one years old
 and gives no rule for when the second dimension is worth its cost,
 which is the decision that actually matters (EV-0275).
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

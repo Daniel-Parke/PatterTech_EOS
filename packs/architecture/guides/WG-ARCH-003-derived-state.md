@@ -1,14 +1,23 @@
 ---
+id: WG-ARCH-003
 summary: Where a derived value is allowed to rest, whether computed on read, cached with a named owner, frozen as an immutable snapshot, or maintained by the write path
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, data, eos, state, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-ARCH-008]
+applies_when: [has_server_code]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0157, EV-0163, EV-0276]
 review: 2027-07
-type: guide
-tags: [arch, data, state]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # WG-ARCH-003: computed on read, owned cache, immutable snapshot, or maintained by the writer?
@@ -19,14 +28,20 @@ is now D5 of `packs/architecture/PACK.md`, a default, because nothing
 outside this estate measures it. It also gained a fourth option, the
 value a write path maintains and readers take on trust.
 
-## The question
+## Decision question and stakes
 
 Scores, grades, statuses, rollups, current-anything. A derived value
 wants to be stored the moment it gets expensive, and a stored
 derivation parts company with its source without saying so. The fork
 is where it rests, and who is answerable for it being right.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-ARCH-008` (default): Derived values are computed, not stored.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether the number was quoted to a customer, signed or attested. A
   point-in-time fact is not a cache.
@@ -36,6 +51,8 @@ is where it rests, and who is answerable for it being right.
 - Whether the derivation can be reproduced later: versions, rounding,
   and any external answer that fed it.
 - Whether staleness is visible to the reader or silent.
+
+Applicability is `has_server_code`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -95,6 +112,24 @@ derived on a schedule. Relayed projection is at-least-once, so the
 arithmetic has to survive being applied twice. Name the pattern in use
 (EV-0163); the four hiding behind event-driven carry different costs.
 
+## Failure premises
+
+### Premortem for A. Computed on read
+
+Assume `A. Computed on read` was selected and the outcome failed. Test this option's stated failure mechanism first: Compute and latency on the user's path at every read, and a long derivation reads its inputs over a moving window, so two panels can disagree unless the read is taken at one transaction.
+
+### Premortem for B. Cache-aside with a named owner
+
+Assume `B. Cache-aside with a named owner` was selected and the outcome failed. Test this option's stated failure mechanism first: An invalidation discipline that has to stay true as inputs multiply. The failure is silent: a missed invalidation serves a wrong number that looks right, and nothing goes red.
+
+### Premortem for C. Immutable snapshot
+
+Assume `C. Immutable snapshot` was selected and the outcome failed. Test this option's stated failure mechanism first: Snapshots accumulate, and a reader wanting the current value takes the latest and treats it as live. Erasure duties sit badly against an immutable row, so one holding personal data needs its retention plan before it lands.
+
+### Premortem for D. Maintained by the write path
+
+Assume `D. Maintained by the write path` was selected and the outcome failed. Test this option's stated failure mechanism first: Every writer must remember, and a new write path that skips the update makes the value wrong with no read that would notice. It is only honest with a reconciliation job comparing stored against freshly derived on a schedule. Relayed projection is at-least-once, so the arithmetic has to survive being applied twice. Name the pattern in use (EV-0163); the four hiding behind event-driven carry different costs.
+
 ## Decision rule
 
 A number quoted to a customer, signed or attested: **C**, with digest
@@ -106,29 +141,23 @@ is the price of entry, not a later improvement. Otherwise **A**;
 latency is cheaper than drift. Never store a derived value that is
 none of the three: it has no owner, no expiry and no check.
 
-## Default
+## Safe default
 
 **A**, computed, with **C** wherever a number left the building.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Venture A (2026-07, argued)**: A with the C exception, in its
-  constitution Part I Article 3. Everything derived is computed, and
-  the sole sanctioned store is the attestation snapshot a Verification
-  issues, carrying score, grade, inputs digest and profile versions.
-- **Venture B (2026, argued)**: B for the weather grid and the SAT
-  results, in its ADR-002. Shared Postgres grid plus Redis cache-aside,
-  invalidation owned by the grid keys, after per-process SQLite proved
-  unshareable across replicas.
-- **Venture C (2026-07, argued)**: C for stored feature tracks and A for
-  live analysis, in its lock-book. Kept-take features are immutable
-  snapshots stamped with an inputs digest, the analyser version and the
-  capturing device's calibration fingerprint; an analyser upgrade
-  writes new snapshots rather than restating old ones. Live per-frame
-  analysis is always computed and never stored. The clearest worked
-  case of the split this guide's default describes.
+Settle this question with the smallest representative probe: **Whether the number was quoted to a customer, signed or attested. A point-in-time fact is not a cache.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** **A**, computed, with **C** wherever a number left the building.
+
+**Exit condition:** Stop or roll back the selected branch when Compute and latency on the user's path at every read, and a long derivation reads its inputs over a moving window, so two panels can disagree unless the read is taken at one transaction, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether the number was quoted to a customer, signed or attested. A point-in-time fact is not a cache.
+
+## Counter-evidence and transfer limits
 
 This fork is thin on evidence and the grading says so. Nothing in the
 ledger measures drift, and none of it observed a venture this size.
@@ -140,3 +169,9 @@ with no operational data and no guidance on snapshot cadence, and it
 predates erasure obligations against an immutable log. D5 rests on
 local observation across two ventures and on the argument that a
 stored derivation has no failing check, not on anything measured.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

@@ -1,19 +1,28 @@
 ---
+id: GD-COD-001
 summary: Where does the oracle for this change come from, specification, characterisation, contract or downstream gate?
-type: guide
-tags: [testing, delivery, wargame]
-kind: guide
+kind: wargame
+type: wargame
+tags: [delivery, eos, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-COD-013, DOC-COD-001, DOC-COD-002]
+applies_when: [edits_source]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0003, EV-0004, EV-0005, EV-0006, EV-0007, EV-0008, EV-0070, EV-0177, EV-0178, EV-0180, EV-0181, EV-0191, EV-0192]
 review: 2027-05
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-COD-001: Where does the oracle come from?
 
-## The question
+## Decision question and stakes
 
 Something has to say whether the code is right, and it has to come from
 somewhere other than the code. When the author is a model, that is the
@@ -23,7 +32,15 @@ which independent statement of intent you build. When you write it is a
 separate and much smaller question, settled by D7 in the pack body and
 by `packs/delivery-testing/guides/WG-DEL-007-test-timing.md`.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-COD-013` (default): Write the oracle before the implementation wherever the condition can be stated.
+- `DOC-COD-001` (binding): The oracle that judges a change is authored independently of the implementation under test.
+- `DOC-COD-002` (binding): A gate oracle is observed failing before its green result counts as acceptance evidence.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Can you state an acceptance condition before you start? A FIX almost
   always can. An exploratory spike usually cannot.
@@ -33,6 +50,8 @@ by `packs/delivery-testing/guides/WG-DEL-007-test-timing.md`.
   release train depends on?
 - Is the change mechanical and high-volume, where per-change oracles
   cost more than they return?
+
+Applicability is `edits_source`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -78,6 +97,24 @@ carried a vulnerability, and the rate moved with prompt and domain
 (EV-0181, a 2021 model on loaded prompts), so the gate is necessary
 under every option rather than an alternative to them.
 
+## Failure premises
+
+### Premortem for A. Specification-sourced, from a context that never held the code
+
+Assume `A. Specification-sourced, from a context that never held the code` was selected and the outcome failed. Test this option's stated failure mechanism first: you have to state the condition, which rules out genuine exploration, and a frozen oracle that turns out wrong needs a ruled amendment rather than an edit.
+
+### Premortem for B. Characterisation first
+
+Assume `B. Characterisation first` was selected and the outcome failed. Test this option's stated failure mechanism first: it locks in current bugs, so it is a safety net and never a specification, and approvals rot into reflexive stamps unless approving is deliberate.
+
+### Premortem for C. Contract first
+
+Assume `C. Contract first` was selected and the outcome failed. Test this option's stated failure mechanism first: rigidity with no coordination benefit when the module has one caller.
+
+### Premortem for D. Generate and gate
+
+Assume `D. Generate and gate` was selected and the outcome failed. Test this option's stated failure mechanism first: it catches classes of defect, not intent. Roughly 40 per cent of generated programs in security-relevant scenarios carried a vulnerability, and the rate moved with prompt and domain (EV-0181, a 2021 model on loaded prompts), so the gate is necessary under every option rather than an alternative to them.
+
 ## Decision rule
 
 - The change has a stateable acceptance condition, or is a FIX, or
@@ -93,7 +130,7 @@ under every option rather than an alternative to them.
   sampled A oracle over the class rather than each instance.
 - Under every option the gate from D still runs. It is a floor.
 
-## Default
+## Safe default
 
 A. Almost every change in a venture repo has a stateable acceptance
 condition, and the cost of finding out later that the checks agreed with
@@ -102,14 +139,21 @@ of the condition, not the moment it is written: B1 in the pack body is
 the floor, not authored by the agent holding the implementation and seen
 to fail once before it counts.
 
-## What does not count as an oracle
+## Cheapest discriminating test
 
-An observational print is not a test. Agent test-writing frequency is
-about the same in runs that resolve and runs that do not, and what gets
-written is mostly prints rather than assertions (EV-0006). If it does
-not fail when the behaviour is wrong, it is not an oracle.
+Settle this question with the smallest representative probe: **Can you state an acceptance condition before you start? A FIX almost always can. An exploratory spike usually cannot.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Evidence boundary
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A. Almost every change in a venture repo has a stateable acceptance condition, and the cost of finding out later that the checks agreed with the bug is higher than the cost of stating it. What binds is the source of the condition, not the moment it is written: B1 in the pack body is the floor, not authored by the agent holding the implementation and seen to fail once before it counts.
+
+**Exit condition:** Stop or roll back the selected branch when you have to state the condition, which rules out genuine exploration, and a frozen oracle that turns out wrong needs a ruled amendment rather than an edit, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Can you state an acceptance condition before you start? A FIX almost always can. An exploratory spike usually cannot.
+
+## Counter-evidence and transfer limits
+
+### Evidence boundary
 
 The agent results above (EV-0003, EV-0004, EV-0005, EV-0007) are runs on
 curated benchmarks, mostly SWE-bench Verified. Across 82 observations
@@ -126,24 +170,15 @@ bug-revealing tests on average, against 304.08 prompted with the correct
 implementation and 186.77 when the code was replaced by a specification.
 Its licence was recorded from a research packet rather than read at
 source, so the row carries no observation date.
+### Preserved reasoning: What does not count as an oracle
 
-## Worked rulings
+An observational print is not a test. Agent test-writing frequency is
+about the same in runs that resolve and runs that do not, and what gets
+written is mostly prints rather than assertions (EV-0006). If it does
+not fail when the behaviour is wrong, it is not an oracle.
+### Historical ruling boundary
 
-- **PatterTech EOS coding pack (2026-08-03, argued, superseded)**: A as
-  the binding default, with D as an unconditional floor. Argued from
-  EV-0007 and EV-0003 for the sequencing and EV-0181 for the floor. The
-  human TDD literature was excluded on purpose, which is how the ruling
-  came out reading sequencing as the finding.
-- **PatterTech EOS coding pack (2026-08-10, argued, ADR-0006)**: A on
-  its source, not on its clock. The binding half is the authoring
-  context plus a demonstrated failure; the ordering became D7. Argued
-  from EV-0007 for the context, EV-0006 for ordering carrying no
-  measured outcome, EV-0178 for what increment size was doing, and
-  EV-0191 with EV-0192 for the replacement proof that a check bites.
-- **Inherited parser with no tests (2026-08, argued)**: B then A. The
-  behaviour pin first, the failing test for the intended change next,
-  the implementation third. Worked in full at
-  `packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md`.
-- **High-volume dependency bumps (2026-08, inherited)**: D with a
-  sampled A oracle, inherited from the EV-0008 finding that a fixed
-  pipeline matched autonomous agents at far lower cost.
+The baseline file carried 4 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

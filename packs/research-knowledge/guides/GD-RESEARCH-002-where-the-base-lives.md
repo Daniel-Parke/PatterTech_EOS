@@ -1,19 +1,28 @@
 ---
+id: GD-RESEARCH-002
 summary: In the repository under the code gate, an open wiki with a policy, a curated store with one editor, or no separate base at all?
-type: guide
-tags: [data, content, delivery]
-kind: guide
+kind: wargame
+type: wargame
+tags: [content, data, delivery, eos, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-RESEARCH-020]
+applies_when: [researches_before_building]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2029-05
 sources: [EV-0539, EV-0540, EV-0546, EV-0547, EV-0548, EV-0055, EV-0097, EV-0331]
+review: 2029-05
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-RESEARCH-002: where does the knowledge base live, and who may write to it?
 
-## The question
+## Decision question and stakes
 
 A venture that researches produces findings, and findings have to land
 somewhere other people will find them. Where they land decides two
@@ -26,7 +35,13 @@ and nobody may rely on.
 The fork is not the tool. It is who carries the burden of sourcing, and
 what happens to a claim that does not carry one.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-RESEARCH-020` (preference): Whether the knowledge base is a wiki, a repository of markdown, or a database, so long as B6 holds and reading is open.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - How many people write, and are they the same people who read?
 - Is the base read by anyone outside the venture, now or later?
@@ -35,6 +50,8 @@ what happens to a claim that does not carry one.
 - What happens to a claim when it is challenged: is there history to
   restore from, or is deletion final?
 - Does the base need to be readable by machines, or only by people?
+
+Applicability is `researches_before_building`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -77,6 +94,24 @@ question gets researched again next quarter because nobody can find last
 quarter's answer, and there is no place at all for a finding that did
 not settle a decision, which includes every piece of counter-evidence.
 
+## Failure premises
+
+### Premortem for A. In the venture's repository, under the same gate as the code
+
+Assume `A. In the venture's repository, under the same gate as the code` was selected and the outcome failed. Test this option's stated failure mechanism first: friction for anyone who does not work in the repository, which in most ventures is everyone who is not an engineer, and that friction is exactly where findings stop being written down.
+
+### Premortem for B. An open wiki with a written policy
+
+Assume `B. An open wiki with a written policy` was selected and the outcome failed. Test this option's stated failure mechanism first: the assumption that removal is cheap: the policy works because the history holds the text, so a wiki without real history turns the removal rule into evidence destruction. Costs the assumption of volume too, and a policy written for a project with thousands of editors is heavier than three people need.
+
+### Premortem for C. A curated store with a named editor
+
+Assume `C. A curated store with a named editor` was selected and the outcome failed. Test this option's stated failure mechanism first: a bus factor and a bottleneck, and the editor becomes the slowest part of every research question. Costs contributions too: a proposal queue that runs a week long stops receiving proposals.
+
+### Premortem for D. No separate base; findings live only in decision records
+
+Assume `D. No separate base; findings live only in decision records` was selected and the outcome failed. Test this option's stated failure mechanism first: available and guarantees no finding rots unread, because there is nothing to read. Costs re-use entirely: the same question gets researched again next quarter because nobody can find last quarter's answer, and there is no place at all for a finding that did not settle a decision, which includes every piece of counter-evidence.
+
 ## Decision rule
 
 - The venture is a repository and the writers are the engineers: A.
@@ -92,7 +127,7 @@ not settle a decision, which includes every piece of counter-evidence.
 - Any of the four: reading is open. A knowledge base that is hard to
   read has already failed, whatever its write path looks like.
 
-## Default
+## Safe default
 
 A, with B's burden rule. The findings live in the venture's repository
 under the gate the code already goes through, and the person adding or
@@ -104,26 +139,19 @@ The record is the durable artefact and outlives the source, which is
 what A buys and what makes the base still worth reading after the pages
 it cites have gone (EV-0539).
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: A throughout. The evidence
-  ledger, the lessons ledger and every pack's research directory are
-  files in the repository under the merge gate, and the integrator is
-  the only writer to the shared registries, which is C layered on A for
-  the registries alone. The reason for the layer is deduplication of
-  source ids across parallel lanes, not editorial control.
-- **PatterTech EOS (2026-08, argued)**: D rejected. The estate's
-  decisions live in ADRs and its findings live in a ledger, deliberately
-  apart, because the counter-evidence that settles nothing today is the
-  material that settles something in a year.
-- The GitLab handbook is the strongest published instance of A taken to
-  its limit, where the handbook is the working artefact and gaps are
-  fixed at the point of discovery (EV-0055). It evidences that the
-  pattern scales; it does not evidence that a small venture should copy
-  the whole of it.
-- No venture ruling yet.
+Settle this question with the smallest representative probe: **How many people write, and are they the same people who read?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, with B's burden rule. The findings live in the venture's repository under the gate the code already goes through, and the person adding or restoring a claim owes the citation. A claim that needs one and lacks it gets marked unsourced and stays visible, rather than being deleted, because in most venture bases deletion loses the only copy. The record is the durable artefact and outlives the source, which is what A buys and what makes the base still worth reading after the pages it cites have gone (EV-0539).
+
+**Exit condition:** Stop or roll back the selected branch when friction for anyone who does not work in the repository, which in most ventures is everyone who is not an engineer, and that friction is exactly where findings stop being written down, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: How many people write, and are they the same people who read?
+
+## Counter-evidence and transfer limits
 
 The burden rule is imported from a project whose enforcement half is
 heavier than a venture needs, and whose removal rule depends on an
@@ -144,3 +172,9 @@ Nothing here is evidenced against the outcome that matters. No source
 measures whether a venture that keeps a knowledge base decides better
 than one that does not, and the estate's own practice is one instance
 with no comparison.
+### Historical ruling boundary
+
+The baseline file carried 4 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

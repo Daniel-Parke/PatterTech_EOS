@@ -1,19 +1,28 @@
 ---
+id: GD-SUPPLY-003
 summary: Floating ranges, continuous auto-merge, a cooldown window with batched moves, digest pins everywhere, or frozen?
-type: guide
-tags: [security, delivery, ci, tooling]
-kind: guide
+kind: wargame
+type: wargame
+tags: [ci, delivery, eos, security, tooling, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-SUPPLY-005, DOC-DEVOPS-005, DOC-DEVOPS-008]
+applies_when: [publishes_code]
+engages_when: [dependency_update_changes_known_good]
+consequence: high
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2027-05
 sources: [EV-0038, EV-0069]
+review: 2027-05
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SUPPLY-003: how far do we pin, and how often do we move?
 
-## The question
+## Decision question and stakes
 
 Two failures sit at opposite ends of one dial. Move too fast and you
 install a version that was malicious for four hours. Move too slowly and
@@ -22,7 +31,15 @@ eventually have to do spans two years of breaking changes. There is no
 setting that avoids both, so the job is to pick a point deliberately and
 write down which failure you accepted.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SUPPLY-005` (default): A cooldown window before adopting a newly published version, with security fixes deliberately exempted.
+- `DOC-DEVOPS-005` (binding): A restore drill runs on cadence and produces a dated evidence record with a measured elapsed time, a validation query and a result.
+- `DOC-DEVOPS-008` (default): Progressive rollout with an automated abort condition for user-facing change.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - How quickly does this ecosystem catch a compromised release, and does
   the registry allow a version to be replaced once published?
@@ -30,6 +47,8 @@ write down which failure you accepted.
 - Who applies the update: a person, a bot, or an agent?
 - Does the venture ship to somebody who cannot patch quickly afterwards?
 - How many dependencies are there? The strategies scale differently.
+
+Applicability is `publishes_code`. Engagement is `dependency_update_changes_known_good`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -74,6 +93,28 @@ not change underneath its users. Costs an upgrade cliff that grows
 until somebody has to take a month off to climb it, and it tends to be
 chosen by accident rather than argued.
 
+## Failure premises
+
+### Premortem for A. Floating ranges, resolved at build time
+
+Assume `A. Floating ranges, resolved at build time` was selected and the outcome failed. Test this option's stated failure mechanism first: reproducibility outright: two builds of the same commit produce different software, so a bisect is meaningless and an incident cannot be reconstructed. It also means a malicious release reaches you at the speed of your next build.
+
+### Premortem for B. Lock file, continuous bumps, auto-merge on green
+
+Assume `B. Lock file, continuous bumps, auto-merge on green` was selected and the outcome failed. Test this option's stated failure mechanism first: exposure to the freshly published malicious version, because green tests are not a malware check, and it hands the merge decision to a bot on the day the ecosystem is under attack.
+
+### Premortem for C. Lock file, cooldown window, batched moves
+
+Assume `C. Lock file, cooldown window, batched moves` was selected and the outcome failed. Test this option's stated failure mechanism first: delayed patches, which the tooling makes visible rather than hiding: the install keeps the vulnerable version, warns and exits non-zero. Security fixes are normally exempted from the window, which is a deliberate hole in the control and should be recognised as one.
+
+### Premortem for D. Digest pins everywhere, including transitive and toolchain
+
+Assume `D. Digest pins everywhere, including transitive and toolchain` was selected and the outcome failed. Test this option's stated failure mechanism first: a great deal of mechanical work unless a bot does the digest bumps for you, and it makes the diff of an update unreadable to a human without tooling.
+
+### Premortem for E. Frozen
+
+Assume `E. Frozen` was selected and the outcome failed. Test this option's stated failure mechanism first: an upgrade cliff that grows until somebody has to take a month off to climb it, and it tends to be chosen by accident rather than argued.
+
 ## Decision rule
 
 - Every venture, floor: a committed lock file. A is not a strategy.
@@ -95,22 +136,24 @@ chosen by accident rather than argued.
   that works for a package registry does nothing for a container
   registry unless you pin by digest.
 
-## Default
+## Safe default
 
 C, with D for base images, build steps and toolchains, security fixes
 exempt from the window, and the exemption list short and argued.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: the lock file is the control
-  here, and until 2026-08-15 it was single-platform, which is the
-  defect class this capability owns and is recorded in the coverage
-  row. No cooldown is configured, because the dependency set is a
-  handful of Python tools; the honest position is that this repository
-  is at the floor and not at the default.
-- No venture ruling yet.
+Take one representative security update through the cooldown exception, suite, staged release, rollback and incident reconstruction path. Compare that proof with the known-good deployment it would replace.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C, with D for base images, build steps and toolchains, security fixes exempt from the window, and the exemption list short and argued.
+
+**Exit condition:** Stop or roll back the selected branch when reproducibility outright: two builds of the same commit produce different software, so a bisect is meaningless and an incident cannot be reconstructed. It also means a malicious release reaches you at the speed of your next build, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: How quickly does this ecosystem catch a compromised release, and does the registry allow a version to be replaced once published?
+
+## Counter-evidence and transfer limits
 
 The cooldown case rests on incident timelines and maintainer
 documentation, not on a controlled comparison. Reported detection times
@@ -129,3 +172,9 @@ The exemption for security updates is a judgement made by whichever tool
 classifies them, not a fact about the update. A malicious release
 published as a security fix is exactly the shape that exemption lets
 through.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

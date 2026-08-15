@@ -1,19 +1,28 @@
 ---
+id: GD-AIML-003
 summary: Who grades model output, a deterministic scorer, a human, a validated model judge or the user, and what each can settle
-type: guide
-tags: [testing, delivery, data]
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, delivery, eos, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-AIML-004, DOC-AIML-006, DOC-AGENT-003, DOC-COD-001]
+applies_when: [calls_a_model]
+engages_when: [evaluation_oracle_is_undecided]
+consequence: high
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0250, EV-0251, EV-0252, EV-0253, EV-0254, EV-0265, EV-0087]
 review: 2026-12
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-AIML-003: Who grades the output?
 
-## The question
+## Decision question and stakes
 
 An eval is only as good as its scorer. The fork is who or what
 produces the score, and the trap is that the cheapest scorer, a model,
@@ -21,7 +30,16 @@ is also the one with the most interesting biases. A judge is a
 measuring instrument, and an uncalibrated instrument produces numbers
 that look exactly like results.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-AIML-004` (binding): A judge is validated against human labels before its score decides anything.
+- `DOC-AIML-006` (default): Grade a sample by hand before writing the rubric.
+- `DOC-AGENT-003` (binding): Evaluation is separate from generation, and the evaluator holds external truth.
+- `DOC-COD-001` (binding): The oracle that judges a change is authored independently of the implementation under test.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Is there one right answer, or a family of acceptable ones?
 - Can correctness be checked by code: a label, a number, a schema, a
@@ -30,6 +48,8 @@ that look exactly like results.
   trend? Selection is where bias does the damage.
 - Does the grader need domain knowledge the judge model does not have?
 - How often will you run it, and what does a run cost?
+
+Applicability is `calls_a_model`. Engagement is `evaluation_oracle_is_undecided`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -69,6 +89,24 @@ grader that knows what the user actually wanted, at no labelling cost.
 Costs: sparse, biased towards the annoyed, confounded by interface
 design, and unusable as a release gate.
 
+## Failure premises
+
+### Premortem for A. Deterministic scorer
+
+Assume `A. Deterministic scorer` was selected and the outcome failed. Test this option's stated failure mechanism first: only works where correctness is checkable, and it says nothing about whether a correct answer was well expressed.
+
+### Premortem for B. Human grader
+
+Assume `B. Human grader` was selected and the outcome failed. Test this option's stated failure mechanism first: slow, small, and subject to its own drift, so the labelling protocol has to be written down and the same person cannot be both author and grader on anything consequential.
+
+### Premortem for C. Model judge, validated
+
+Assume `C. Model judge, validated` was selected and the outcome failed. Test this option's stated failure mechanism first: position bias, verbosity bias, self-preference, and weak reasoning on tasks needing calculation, all of which have to be measured rather than assumed away.
+
+### Premortem for D. User signal
+
+Assume `D. User signal` was selected and the outcome failed. Test this option's stated failure mechanism first: sparse, biased towards the annoyed, confounded by interface design, and unusable as a release gate.
+
 ## Decision rule
 
 - Correctness is checkable by code: A. Do not reach for a judge
@@ -86,24 +124,27 @@ design, and unusable as a release gate.
   for it. Eighty per cent agreement is far too coarse for that job.
 - D always, as a source of new eval items, never as a gate.
 
-## Default
+## Safe default
 
 A where possible, C where not, B as the calibration underneath both.
 Mix code graders, model graders and human transcript review rather
 than picking one (EV-0087).
 
-## Scoring abstention
+## Cheapest discriminating test
 
-Whatever the grader, the rubric gives explicit credit for a calibrated
-refusal and the report carries the abstention rate beside accuracy. A
-rubric that pays a guess the same as an admission of uncertainty
-selects for confident error (EV-0250). Two numbers move
-together: pushing abstention up buys fewer wrong answers and a system
-that refuses more work, so the pair is watched, never one alone. The
-evidence does not tell you where the threshold belongs, and the
-product decides that.
+Calibrate each proposed judge against the same human-labelled sample. Report agreement, disagreement, order effects, abstention and cost before allowing any judge to decide the claimed behaviour.
 
-## Evidence boundary
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A where possible, C where not, B as the calibration underneath both. Mix code graders, model graders and human transcript review rather than picking one (EV-0087).
+
+**Exit condition:** Stop or roll back the selected branch when only works where correctness is checkable, and it says nothing about whether a correct answer was well expressed, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Is there one right answer, or a family of acceptable ones?
+
+## Counter-evidence and transfer limits
+
+### Evidence boundary
 
 The eighty per cent agreement figure is general chat preference on
 retired models, not domain correctness, and it should never be
@@ -115,15 +156,19 @@ superseded models, and follow-up work argues some of the effect
 reflects genuine quality differences human raters under-detect, so the
 correction direction is contested even where the direction of the bias
 is not.
+### Preserved reasoning: Scoring abstention
 
-## Worked rulings
+Whatever the grader, the rubric gives explicit credit for a calibrated
+refusal and the report carries the abstention rate beside accuracy. A
+rubric that pays a guess the same as an admission of uncertainty
+selects for confident error (EV-0250). Two numbers move
+together: pushing abstention up buys fewer wrong answers and a system
+that refuses more work, so the pair is watched, never one alone. The
+evidence does not tell you where the threshold belongs, and the
+product decides that.
+### Historical ruling boundary
 
-- **PatterTech EOS ai-ml-llm pack (2026-08, argued)**: A where
-  checkable, C only after validation, B as the calibration set, D as
-  an item source. Argued from EV-0252 and
-  EV-0253 for the selection restriction.
-- **Ticket classifier (2026-08, argued)**: A. Labels exist, so a judge
-  would add variance and cost for nothing.
-- **Retrieval groundedness (2026-08, argued)**: C with a standing
-  human sample, because span-level support is not checkable by code
-  and the metric is reference-free by construction.
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

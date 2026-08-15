@@ -1,14 +1,23 @@
 ---
+id: WG-ARCH-006
 summary: What proves a change changed nothing, whether a green suite, behaviour pinned first, a byte-stable output canary, or a differential run against the old version
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, ci, eos, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-ARCH-013]
+applies_when: [has_server_code]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0155, EV-0156, EV-0180, EV-0191]
 review: 2027-07
-type: guide
-tags: [arch, testing, ci]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # WG-ARCH-006: what proves a change changed nothing?
@@ -20,14 +29,20 @@ D10 of `packs/architecture/PACK.md` puts the canary first wherever
 output is deterministic. And the fork gained a fourth option v1 did
 not carry, the differential run against the old version.
 
-## The question
+## Decision question and stakes
 
 Restructures, moves, dependency bumps and rewrites all claim behaviour
 is unchanged. The fork is the strength of proof demanded before that
 claim is believed. "The tests pass" measures what the tests measure
 and is silent about the rest, which is thin ground for a restructure.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-ARCH-013` (default): Proof of harmless change is a byte-stable output canary where output is deterministic.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether the output is a deterministic artefact, documents, exports,
   a build, or live behaviour that never repeats itself exactly.
@@ -36,6 +51,8 @@ and is silent about the rest, which is thin ground for a restructure.
   not a sense that it went fine.
 - Whether the old version is still runnable, and whether a corpus of
   real inputs exists to run it against.
+
+Applicability is `has_server_code`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -92,6 +109,24 @@ baseline files to keep, which is what a surface too large to pin needs.
 is theatre, and suppressed side effects or the comparison writes
 twice. It proves equivalence over the inputs you ran and no others.
 
+## Failure premises
+
+### Premortem for A. The suite is the proof
+
+Assume `A. The suite is the proof` was selected and the outcome failed. Test this option's stated failure mechanism first: As strong as what the suite detects, which is not what the suite runs. Just et al. (EV-0191) found 73 per cent of real faults coupled to at least one mutant, so 27 per cent were coupled to none, and the correlation weakens once suite size is controlled.
+
+### Premortem for B. Behaviour pinned first
+
+Assume `B. Behaviour pinned first` was selected and the outcome failed. Test this option's stated failure mechanism first: It records current bugs as if they were intent, so it is a net and never a specification. Approvals rot into reflexive stamps, and output that varies run to run needs scrubbers first.
+
+### Premortem for C. Byte-stable output canary
+
+Assume `C. Byte-stable output canary` was selected and the outcome failed. Test this option's stated failure mechanism first: Only possible where output is deterministic, and determinism is bought rather than found. SOURCE_DATE_EPOCH (EV-0155) clamps the timestamp non-determinism; hermeticity (EV-0156) buys the rest by treating tools as versioned dependencies and identifying inputs by content hash. A hash tells you something moved, never what.
+
+### Premortem for D. Differential run against the old version
+
+Assume `D. Differential run against the old version` was selected and the outcome failed. Test this option's stated failure mechanism first: Two runnable versions, a representative corpus or the proof is theatre, and suppressed side effects or the comparison writes twice. It proves equivalence over the inputs you ran and no others.
+
 ## Decision rule
 
 Deterministic artefact output: **C**, hashing composed content so the
@@ -104,31 +139,25 @@ real inputs to hand: **D**, once the non-determinism is scrubbed.
 **A** alone only where the suite demonstrably covers the touched
 paths, and never for an agent-driven restructure.
 
-## Default
+## Safe default
 
 **C** where the output is deterministic, **B** everywhere else. Pixels
 count as artefacts, so visual regression at zero threshold inside a
 pinned container is C for a user interface.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Venture D (2026-06, argued)**: C. An output-hash canary over
-  composed kit output, its ADR-0004, which survived the physical ring
-  move of its ADR-0007 with both hashes unchanged, and re-baselining
-  governed as a reviewed event by its ADR-0011. The same venture's
-  byte-stable build, with nothing generative in the build step, became
-  the estate principle that plan and build decouple
-  (`registry/LESSONS.md`).
-- **Venture B (2026, argued)**: C for pixels, Lost Pixel at zero
-  threshold inside a pinned container, and B by policy for refactors
-  where the suite is thin, its PB-012.
+Settle this question with the smallest representative probe: **Whether the output is a deterministic artefact, documents, exports, a build, or live behaviour that never repeats itself exactly.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-Two ventures, not three. The v1 source recorded this venture under its
-remote name rather than the canonical name `estate/repos.json` carries,
-and the same repo counted under both names would count twice on the
-promotion ladder.
+## Fallback, exit and revisit
 
-## Counter-evidence
+**Fallback `safe-default`:** **C** where the output is deterministic, **B** everywhere else. Pixels count as artefacts, so visual regression at zero threshold inside a pinned container is C for a user interface.
+
+**Exit condition:** Stop or roll back the selected branch when As strong as what the suite detects, which is not what the suite runs. Just et al. (EV-0191) found 73 per cent of real faults coupled to at least one mutant, so 27 per cent were coupled to none, and the correlation weakens once suite size is controlled, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether the output is a deterministic artefact, documents, exports, a build, or live behaviour that never repeats itself exactly.
+
+## Counter-evidence and transfer limits
 
 The evidence grades the options and does not rank them. Nothing in the
 ledger measures whether a canary catches regressions a suite misses,
@@ -142,3 +171,9 @@ projects, faults drawn from version-control history and so biased
 towards the ones that were found. D carries no ledger evidence at all:
 it is what people reach for when there is no baseline, graded on
 argument alone.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

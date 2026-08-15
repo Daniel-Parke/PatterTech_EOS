@@ -1,14 +1,23 @@
 ---
+id: WG-ARCH-004
 summary: Where background work runs, whether in the request process, on a durable database claim queue, on an external broker, or on a scheduled pass over state
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, eos, infra, state, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-ARCH-009]
+applies_when: [has_server_code]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0151, EV-0152, EV-0157, EV-0162, EV-0163]
 review: 2027-07
-type: guide
-tags: [arch, state, infra]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # WG-ARCH-004: background work in-process, on a durable queue, on a broker, or on a schedule?
@@ -19,7 +28,7 @@ durable queue outright, D6 of `packs/architecture/PACK.md`, where v1
 started in-process and promoted later. And a fourth option arrived
 that v1 did not have: work that needs no queue at all.
 
-## The question
+## Decision question and stakes
 
 The first background job arrives innocently. Send an email, refresh a
 forecast. The substrate it lands on is load-bearing within a week:
@@ -27,7 +36,13 @@ deploys orphan it, retries duplicate it, and the backlog forms where
 nobody looks. The fork is the substrate, and taking it early is when
 EV-0152 warns the process decomposition gets welded to the logical one.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-ARCH-009` (default): Background jobs run on a durable database claim queue.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether the work must survive a deploy, and whether anyone finds out
   when it does not.
@@ -38,6 +53,8 @@ EV-0152 warns the process decomposition gets welded to the logical one.
 - Whether workers need to fail or scale apart from the request path,
   on a DORA signal rather than a hunch (EV-0151).
 - Whether anything outside this venture consumes the work.
+
+Applicability is `has_server_code`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -95,6 +112,24 @@ and recovery is running it again.
 the table, and overlapping runs when a pass outlives its interval. The
 work must be a function of state, so a one-off send does not fit.
 
+## Failure premises
+
+### Premortem for A. In-process executor
+
+Assume `A. In-process executor` was selected and the outcome failed. Test this option's stated failure mechanism first: Work dies with the process and nobody is told, so a routine deploy is a silent loss. The backlog lives in memory, where no tool can see it and no operator can drain it.
+
+### Premortem for B. Durable database claim queue
+
+Assume `B. Durable database claim queue` was selected and the outcome failed. Test this option's stated failure mechanism first: The queue competes with the application for connections, locks and vacuum, and long claims bloat the table. It is a shared store in EV-0162's sense: workers and API hold the same credentials until someone splits them.
+
+### Premortem for C. External broker
+
+Assume `C. External broker` was selected and the outcome failed. Test this option's stated failure mechanism first: A second stateful system with its own failure modes. The message and the state change can disagree, so anything doing both needs an outbox regardless (EV-0157). And event-driven names four patterns with four prices, so nothing is decided until one is named (EV-0163).
+
+### Premortem for D. Scheduled pass over state
+
+Assume `D. Scheduled pass over state` was selected and the outcome failed. Test this option's stated failure mechanism first: A latency floor equal to the tick, a scan that grows with the table, and overlapping runs when a pass outlives its interval. The work must be a function of state, so a one-off send does not fit.
+
 ## Decision rule
 
 Work derivable from rows that already exist, where a minute of delay
@@ -109,30 +144,24 @@ EV-0163's four patterns is meant before building. Where a state change
 must also produce a message, write it in the same transaction and make
 consumers idempotent (EV-0157), whichever substrate carries it.
 
-## Default
+## Safe default
 
 **B**, with idempotency keys and rebuildable units from the first job,
 whether or not they are needed yet.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Venture B (2026, argued)**: B behind a durable-jobs flag (its
-  ADR-006), in-process the default path, after deploys orphaned
-  forecast jobs. The unit-builder registry exists because a fresh
-  worker could not pick up a closure.
-- **Venture C (2026-07, argued)**: A, the in-process executor, against this
-  guide's default. Rig jobs may vanish without harm, because the client
-  degrades gracefully and resubmits, and idempotency comes free since a
-  job is a pure function of an audio hash and its parameters. The
-  argument is the one A's decision branch names: durability buys
-  nothing when the work is cheap to redo and nobody is waiting on a
-  promise. Recorded here as the case where the default correctly loses.
+Settle this question with the smallest representative probe: **Whether the work must survive a deploy, and whether anyone finds out when it does not.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-Venture A is not listed. Its lock-book carries no WG-ARCH row, because
-its pin predates the pack system; reading a ruling into it from the
-default it inherited would be inventing evidence.
+## Fallback, exit and revisit
 
-## Counter-evidence
+**Fallback `safe-default`:** **B**, with idempotency keys and rebuildable units from the first job, whether or not they are needed yet.
+
+**Exit condition:** Stop or roll back the selected branch when Work dies with the process and nobody is told, so a routine deploy is a silent loss. The backlog lives in memory, where no tool can see it and no operator can drain it, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether the work must survive a deploy, and whether anyone finds out when it does not.
+
+## Counter-evidence and transfer limits
 
 Thinner than the rest of the pack, and worth saying plainly. Nothing
 in the ledger measures job substrates. EV-0157, EV-0162 and EV-0163
@@ -144,3 +173,9 @@ makes B the default while `registry/stacks/STACK-fastapi-postgres.md`
 still records the v1 rule, in-process with B behind a flag, and that
 profile has not been re-graded. No venture has argued C, so its costs
 here are reasoned, not lived.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

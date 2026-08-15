@@ -1,19 +1,28 @@
 ---
+id: GD-IDENT-001
 summary: Ownership checks, roles, attributes or relationships? The fork the coverage matrix recorded as missing
-type: guide
-tags: [auth, arch, security]
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, auth, eos, security, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-IDENT-001]
+applies_when: [authenticates_people]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2028-10
 sources: [pending-fragment-import]
+review: 2028-10
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-IDENT-001: what decides whether this person may do this thing?
 
-## The question
+## Decision question and stakes
 
 Every system with more than one kind of user meets this fork, usually in
 the week the second kind arrives. The question is not which model is
@@ -22,7 +31,13 @@ what separates the four options and it is what costs to change later.
 `registry/coverage.json` recorded this argument as absent from the
 packs. This guide is it.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-IDENT-001` (binding): Deny unless something permitted, and decide at one layer.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - What does the rule actually depend on? Who the person is, what the
   record is, or who the person is to that record?
@@ -32,6 +47,8 @@ packs. This guide is it.
   by hand?
 - Does anyone have to answer "who can see this record" or "what can this
   person see"? Some models make one of those very expensive.
+
+Applicability is `authenticates_people`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -84,6 +101,24 @@ can see the new content unless the check respects the causal order,
 which the design solves by making the client store a token per content
 version and pass it back (Zanzibar).
 
+## Failure premises
+
+### Premortem for A. Ownership checks in the handler
+
+Assume `A. Ownership checks in the handler` was selected and the outcome failed. Test this option's stated failure mechanism first: repetition: the check has to be written everywhere and only has to be forgotten once. This is the shape the largest measured defect class mostly takes, and its named forms are exactly the forgotten cases, unguarded write verbs and identifiers nobody checks belong to the caller (OWASP Top 10:2025). A fine start, a poor destination.
+
+### Premortem for B. Roles
+
+Assume `B. Roles` was selected and the outcome failed. Test this option's stated failure mechanism first: a role per exception: the moment a permission depends on anything other than who the person is, the only way to express it is a new role, and the set grows past what anyone can reason about (OWASP authorization guidance).
+
+### Premortem for C. Attributes
+
+Assume `C. Attributes` was selected and the outcome failed. Test this option's stated failure mechanism first: attribute supply: the decision is only as good as the attributes, and each has to come from somewhere, be current and be trusted. Answering "what can this person see" now means evaluating a rule against every record.
+
+### Premortem for D. Relationships
+
+Assume `D. Relationships` was selected and the outcome failed. Test this option's stated failure mechanism first: a second stateful service on the request path, a set of tuples that must stay in step with the application's own data, and a consistency problem that is real: revoke access and then add content, and the removed user can see the new content unless the check respects the causal order, which the design solves by making the client store a token per content version and pass it back (Zanzibar).
+
 ## Decision rule
 
 - One kind of user, records with one owner, no sharing: A. Do not
@@ -106,7 +141,7 @@ version and pass it back (Zanzibar).
   this is, relationships or attributes for the fine one. What is not
   normal is two mechanisms both able to grant the same permission.
 
-## Default
+## Safe default
 
 A plus a small fixed role set, and move only when a real rule cannot be
 expressed. The cost of the wrong model is paid in migration, not in
@@ -118,17 +153,19 @@ that has spread checks through its handlers cannot.
 Do not read the default as a preference for roles on the merits. It is a
 preference for not buying a model before the rule that needs it exists.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS itself (2026-08, argued)**: none of the four. One
-  operator, no runtime, so `authenticates_people` is false and this
-  guide does not apply. Recorded because a pack that cannot say where it
-  does not apply invites its rules being applied everywhere.
-- No venture ruling yet. The hosted web application archetype meets the
-  sharing question on its first customer with two staff, which is where
-  D starts to earn its cost.
+Settle this question with the smallest representative probe: **What does the rule actually depend on? Who the person is, what the record is, or who the person is to that record?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A plus a small fixed role set, and move only when a real rule cannot be expressed. The cost of the wrong model is paid in migration, not in bugs, so the cheap move is to keep the check in one place from the start, which B1 requires anyway, and change what that one place consults. A venture that has done that can change model in a week; one that has spread checks through its handlers cannot. Do not read the default as a preference for roles on the merits. It is a preference for not buying a model before the rule that needs it exists.
+
+**Exit condition:** Stop or roll back the selected branch when repetition: the check has to be written everywhere and only has to be forgotten once. This is the shape the largest measured defect class mostly takes, and its named forms are exactly the forgotten cases, unguarded write verbs and identifiers nobody checks belong to the caller (OWASP Top 10:2025). A fine start, a poor destination, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: What does the rule actually depend on? Who the person is, what the record is, or who the person is to that record?
+
+## Counter-evidence and transfer limits
 
 There is no controlled comparison of these models, and the two published
 opinions point opposite ways. OWASP prefers attributes and relationships
@@ -147,3 +184,9 @@ relationship systems now in production (NIST SP 800-162).
 So the rule above is argued from what each model can express and what it
 costs to change, not from evidence that one produces fewer defects. If
 an independent evaluation is published, this guide moves first.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

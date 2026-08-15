@@ -1,19 +1,28 @@
 ---
+id: GD-ARCH-001
 summary: One deployable, several deployables, or contract-shaped seams inside one process
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, eos, infra, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-ARCH-001, DOC-ARCH-004, DOC-ARCH-005]
+applies_when: [has_server_code]
+engages_when: [requires_independent_deployability]
+consequence: high
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: observational
-sources: [EV-0151, EV-0152, EV-0153, EV-0159, EV-0160, EV-0150, EV-0010]
+sources: [EV-0151, EV-0152, EV-0153, EV-0159, EV-0160, EV-0150, EV-0010, EV-0564]
 review: 2027-03
-type: guide
-tags: [arch, infra]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-ARCH-001: what shape is the deployment?
 
-## The question
+## Decision question and stakes
 
 A boundary can be a process boundary, a build-enforced module
 boundary, or a substitutable contract. The three are usually argued as
@@ -21,7 +30,15 @@ if they were one choice, and they are not. This fork is taken early,
 paid for continuously, and reversed at high cost in one direction
 only.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-ARCH-001` (binding): A declared boundary is machine-checked in CI from the first week.
+- `DOC-ARCH-004` (default): One deployable, one database, modules enforced in the build.
+- `DOC-ARCH-005` (default): Split only on a measured signal, never on a label.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Are there genuinely separate owners who must ship without
   coordinating? Not people who could, in principle.
@@ -33,6 +50,8 @@ only.
   still guesses?
 - Is a second driver or a second device genuinely plausible at this
   seam?
+
+Applicability is `has_server_code`. Engagement is `requires_independent_deployability`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -92,6 +111,24 @@ regulatory asymmetry.
 **Costs.** Needs a written record per seam, or it decays into
 inconsistency nobody can explain later.
 
+## Failure premises
+
+### Premortem for A. Deployment-shaped
+
+Assume `A. Deployment-shaped` was selected and the outcome failed. Test this option's stated failure mechanism first: The distribution premium in full: network failure modes, distributed transactions, N backup stories, and contract tests as a permanent tax. Uber (EV-0160) reached about 2,200 services and had to reimpose domains, a five-layer call rule and per-domain gateways to recover the discipline one deployable gives away.
+
+### Premortem for B. Module-shaped
+
+Assume `B. Module-shaped` was selected and the outcome failed. Test this option's stated failure mechanism first: No independent release. No hard isolation. Enforcement is static, so dynamic wiring can cross a boundary while the check stays green.
+
+### Premortem for C. Contract-shaped
+
+Assume `C. Contract-shaped` was selected and the outcome failed. Test this option's stated failure mechanism first: Ceremony wherever no second device is plausible. Cockburn's 2005 pattern statement (EV-0150) never bounded this, which is where the adapter-per-dependency habit comes from.
+
+### Premortem for D. Mixed, deliberately
+
+Assume `D. Mixed, deliberately` was selected and the outcome failed. Test this option's stated failure mechanism first: Needs a written record per seam, or it decays into inconsistency nobody can explain later.
+
 ## Decision rule
 
 Boundaries not yet proved stable under change, one release train, one
@@ -104,24 +141,24 @@ asymmetry that exists today rather than in a roadmap: **A** for that
 component only, from the start. Never **A** across the board because
 of a label.
 
-## Default
+## Safe default
 
 **B**, composed with **C**. Splitting is a response to a measurement,
 never to an aesthetic.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Venture D (2026-06, argued)**: B, rings enforced by import-linter
-  over a flat tree, later reaching for one database per service as a
-  target once a second real owner existed.
-- **Venture A (2026-07, argued)**: B with C at the vendor seams, and a
-  constitutional carve-out for telemetry as the one volume-asymmetric
-  component.
-- **Venture B (2026, argued)**: B in substance, with one-way
-  dependencies from app to api to engine. The erosion it suffered
-  before the checks arrived is the reason WG-ARCH-001 binds.
+Map change coupling, deployment cadence, isolation, ownership and capacity from recent work. Test one proposed seam without splitting deployment, then ask whether the measured pressure still requires an independently deployable boundary.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** **B**, composed with **C**. Splitting is a response to a measurement, never to an aesthetic.
+
+**Exit condition:** Stop or roll back the selected branch when The distribution premium in full: network failure modes, distributed transactions, N backup stories, and contract tests as a permanent tax. Uber (EV-0160) reached about 2,200 services and had to reimpose domains, a five-layer call rule and per-domain gateways to recover the discipline one deployable gives away, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Are there genuinely separate owners who must ship without coordinating? Not people who could, in principle.
+
+## Counter-evidence and transfer limits
 
 Service Weaver's co-location figures come from the authors' own
 prototype with no independent replication. Fowler's monolith-first
@@ -130,3 +167,12 @@ declines the framing entirely. EV-0010 is the reminder that
 agent-era productivity intuitions have been measured wrong before.
 Nothing here observed a one-person venture, so treat the rule as a
 rule about enforcement, not a claim about scale.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Current research boundary
+
+EV-0564 contributes quality-attribute scenarios, sensitivity points and trade-off points. Its multi-day facilitated method does not transfer as mandatory ceremony for a small venture.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

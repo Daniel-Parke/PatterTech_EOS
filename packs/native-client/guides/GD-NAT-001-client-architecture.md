@@ -1,19 +1,28 @@
 ---
+id: GD-NAT-001
 summary: Which client architecture does this product take?
-kind: guide
+kind: wargame
+type: wargame
+tags: [a11y, arch, delivery, eos, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-NAT-008]
+applies_when: [ships_a_binary]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0171, EV-0230, EV-0372, EV-0384, EV-0385, EV-0386, EV-0387]
 review: 2028-05
-type: guide
-tags: [arch, delivery, a11y]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-NAT-001: Which client architecture does this product take?
 
-## The question
+## Decision question and stakes
 
 Four architectures are in serious use, and the choice sets the cost of
 every later decision: how many accessibility passes, how many release
@@ -27,7 +36,13 @@ architectures on performance, energy or defect rate. Treat every
 framework performance claim as unevidenced, and decide on the things
 that are documented.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-NAT-008` (default): Shared logic with a native user interface.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Team shape.** Whether the people writing the client are the people
   writing the web product, and whether anyone on the team has shipped
@@ -42,6 +57,8 @@ that are documented.
 - **Whether one platform carries the revenue.** Two codebases for a
   product with a ninety-ten split is two release trains for a tenth of
   the money.
+
+Applicability is `ships_a_binary`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -84,6 +101,24 @@ advance.
 **Not an option: the wrapped website.** A repackaged site is rejected
 outright under review rule 4.2 (EV-0372).
 
+## Failure premises
+
+### Premortem for A. Two native codebases
+
+Assume `A. Two native codebases` was selected and the outcome failed. Test this option's stated failure mechanism first: two of everything, including two accessibility passes and two release trains.
+
+### Premortem for B. Shared logic, native user interface
+
+Assume `B. Shared logic, native user interface` was selected and the outcome failed. Test this option's stated failure mechanism first: a build seam, and a toolchain fewer people know.
+
+### Premortem for C. Own the renderer
+
+Assume `C. Own the renderer` was selected and the outcome failed. Test this option's stated failure mechanism first: platform conventions, accessibility services and system controls, which arrive only as far as the framework has reimplemented them, and the repository publishes no per-target maturity grade.
+
+### Premortem for D. Platform widgets driven by shared code
+
+Assume `D. Platform widgets driven by shared code` was selected and the outcome failed. Test this option's stated failure mechanism first: model rather than as a criticism: the seam between shared and platform code is a permanent migration surface the team inherits. On a zero-major version scheme, semantic versioning expectations (EV-0171) do not apply and every upgrade is potentially breaking. Buys web-team reuse and the over-the-air path in GD-NAT-003. Costs standing upgrade work and third-party native module readiness you cannot see in advance.
+
 ## Decision rule
 
 If one platform carries the revenue and the surface is small and deep,
@@ -98,21 +133,30 @@ over-the-air path is worth real money, take D.
 Never decide on a published performance comparison. None that we could
 retrieve is serious.
 
-## Default
+## Safe default
 
 B, shared logic with a native user interface. It takes the decision
 that is graded Stable and declines the one that is not, and it keeps
 the accessibility and platform-behaviour properties that cost the most
 to rebuild.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **native-client pack exemplar (2026-08, argued)**: B, on a two-person
-  team with one booking invariant that must behave identically on both
-  platforms and a screen count in single figures. Runner-up was A,
-  refused on release-train cost. See
-  `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`.
-- **Grading as disclosure (external, inherited)**: the per-target
-  stability grade (EV-0386) is what makes a cross-platform bet
-  auditable. Neither C nor D publishes a comparable grade, and the
-  absence is evidence of less disclosure, not of lower maturity.
+Settle this question with the smallest representative probe: ****Team shape.** Whether the people writing the client are the people writing the web product, and whether anyone on the team has shipped on both platforms.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B, shared logic with a native user interface. It takes the decision that is graded Stable and declines the one that is not, and it keeps the accessibility and platform-behaviour properties that cost the most to rebuild.
+
+**Exit condition:** Stop or roll back the selected branch when two of everything, including two accessibility passes and two release trains, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Team shape.** Whether the people writing the client are the people writing the web product, and whether anyone on the team has shipped on both platforms.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

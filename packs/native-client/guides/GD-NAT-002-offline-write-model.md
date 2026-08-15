@@ -1,19 +1,28 @@
 ---
+id: GD-NAT-002
 summary: What happens to a write made with no network?
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, delivery, eos, state, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-NAT-001, DOC-NAT-002, DOC-NAT-003]
+applies_when: [has_local_write_store]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0206, EV-0379, EV-0380, EV-0381, EV-0382, EV-0383]
 review: 2028-05
-type: guide
-tags: [state, data, delivery]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-NAT-002: What happens to a write made with no network?
 
-## The question
+## Decision question and stakes
 
 The fork is not which sync library to use. It is what the product
 promises about a write the user made in a tunnel, and that promise has
@@ -31,7 +40,15 @@ correct choice for handling a write failure (EV-0383). Both are
 right. Together they mean the library never answers the question that
 matters.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-NAT-001` (default): A conflict policy per write class, named before a sync library is chosen.
+- `DOC-NAT-002` (default): No offline acceptance of an invariant-bearing write without a reservation or compensation path.
+- `DOC-NAT-003` (default): The outbox is durable, ordered and idempotent, and its blocked state is named.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **The write class.** Classify first: commutative (notes, sets,
   counters), last-writer-acceptable (preferences, drafts) or
@@ -45,6 +62,8 @@ matters.
   double-booked slot is a refund and an apology.
 - **Storage budget on the device**, which decides whether a growing
   document is viable at all.
+
+Applicability is `has_local_write_store`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -82,6 +101,24 @@ to the application (EV-0382). Costs a heterogeneous client with
 more than one path to reason about, and a reservation service on the
 server.
 
+## Failure premises
+
+### Premortem for A. Online-required with a read cache
+
+Assume `A. Online-required with a read cache` was selected and the outcome failed. Test this option's stated failure mechanism first: the offline experience entirely.
+
+### Premortem for B. Server-authoritative sync
+
+Assume `B. Server-authoritative sync` was selected and the outcome failed. Test this option's stated failure mechanism first: head-of-line blocking, where one unacknowledged mutation stalls the whole client, and costs you writing and testing the write-failure policy yourself, because the vendor says there is no single correct one.
+
+### Premortem for C. Convergent replication
+
+Assume `C. Convergent replication` was selected and the outcome failed. Test this option's stated failure mechanism first: documents that only grow, so compaction and a storage budget are first-class from day one, and costs the acceptance of a converged value nobody chose. Convergence is not correctness (EV-0379).
+
+### Premortem for D. Split by write class
+
+Assume `D. Split by write class` was selected and the outcome failed. Test this option's stated failure mechanism first: a heterogeneous client with more than one path to reason about, and a reservation service on the server.
+
 ## Decision rule
 
 Classify every write class first, then pick exactly one policy per
@@ -99,20 +136,29 @@ pay for a named degraded state. If any class is invariant-bearing, take
 D. Server contracts change by expand, migrate, contract regardless
 (EV-0206), because the old binary is still out there.
 
-## Default
+## Safe default
 
 A, online-first with a read cache, until an offline write is a named
 requirement. It is the cheapest correct answer and it is reversible,
 which none of the others is.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **native-client pack exemplar (2026-08, argued)**: D, with `converge`
-  on notes, `last-writer-wins` on preferences and `reserve-then-commit`
-  on bookings, plus a compensation event for the loser. See
-  `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`.
-- **Read-only as a deliberate scope (external, inherited)**: narrowing
-  to a read-path engine with partial replication (EV-0382) is
-  the strongest available signal that the write path is the expensive
-  half. The reason behind that scope change is not documented by the
-  maintainers, so the inference is ours and is held loosely.
+Settle this question with the smallest representative probe: ****The write class.** Classify first: commutative (notes, sets, counters), last-writer-acceptable (preferences, drafts) or invariant-bearing (money, bookings, permissions). Detail in `packs/native-client/refs/WRITE_CLASSES.md`.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, online-first with a read cache, until an offline write is a named requirement. It is the cheapest correct answer and it is reversible, which none of the others is.
+
+**Exit condition:** Stop or roll back the selected branch when the offline experience entirely, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **The write class.** Classify first: commutative (notes, sets, counters), last-writer-acceptable (preferences, drafts) or invariant-bearing (money, bookings, permissions). Detail in `packs/native-client/refs/WRITE_CLASSES.md`.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

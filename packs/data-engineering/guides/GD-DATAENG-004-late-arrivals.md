@@ -1,19 +1,28 @@
 ---
+id: GD-DATAENG-004
 summary: Drop at the watermark, hold the window open and restate, reprocess a fixed lookback every run, or recompute everything?
-type: guide
-tags: [data, ops, realtime]
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, eos, ops, realtime, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-DATAENG-003]
+applies_when: [processes_event_time_data]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: observational
-review: 2028-03
 sources: [pending-import]
+review: 2028-03
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DATAENG-004: how are late and out-of-order arrivals handled?
 
-## The question
+## Decision question and stakes
 
 A record for Tuesday arrives on Thursday. A phone was offline, a
 retrying webhook got through, a source replayed a day, a consumer
@@ -25,7 +34,13 @@ The premise is where the peer-reviewed source earns its place:
 completeness is never known, so every option below is a choice about
 which error to accept.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DATAENG-003` (binding): A pipeline over event-time data declares its lateness horizon and where arrivals past it go. Nothing is dropped silently.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - The observed lateness of this source, which almost nobody has
   measured, and which is the first thing to go and look at.
@@ -35,6 +50,8 @@ which error to accept.
   `packs/data-engineering/guides/GD-DATAENG-002-idempotent-reprocess.md`.
 - Whether the pipeline is a stream holding windows in memory, or a batch
   that can simply be rerun.
+
+Applicability is `processes_event_time_data`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -107,6 +124,28 @@ source supplies and the only honest way to set the horizon.
 *Costs.* A table to keep, and somebody has to look at it. An unread
 quarantine is a drop with extra storage.
 
+## Failure premises
+
+### Premortem for A. Drop at the progress marker
+
+Assume `A. Drop at the progress marker` was selected and the outcome failed. Test this option's stated failure mechanism first: , and a single answer per period that never changes.
+
+### Premortem for B. Hold the window open, then restate
+
+Assume `B. Hold the window open, then restate` was selected and the outcome failed. Test this option's stated failure mechanism first: * Every downstream consumer must accept a revised number, which is a contract rather than a setting. State is held for the whole allowance, so cost scales with how generous it is, and the tail is still a guess.
+
+### Premortem for C. Reprocess a fixed lookback every run
+
+Assume `C. Reprocess a fixed lookback every run` was selected and the outcome failed. Test this option's stated failure mechanism first: * Cost is multiplied by N on every run, for ever, whether or not anything was late. Anything later than N windows is silently missed, so this is option A with a longer fuse unless it is paired with a quarantine. The default value of N in the tooling is a guess, not a finding.
+
+### Premortem for D. Recompute from the beginning
+
+Assume `D. Recompute from the beginning` was selected and the outcome failed. Test this option's stated failure mechanism first: * Cost grows with history rather than with change, so it has a cliff that arrives without warning. It rewrites periods nobody asked about, which makes a downstream snapshot or audit trail harder to trust.
+
+### Premortem for E. Quarantine and count
+
+Assume `E. Quarantine and count` was selected and the outcome failed. Test this option's stated failure mechanism first: * A table to keep, and somebody has to look at it. An unread quarantine is a drop with extra storage.
+
 ## Decision rule
 
 Batch pipeline over windows, which is most of them: C with a lookback
@@ -121,14 +160,28 @@ E sits under every one of those, because B3 in
 silently and the quarantine is what makes that a fact rather than a
 claim.
 
-## Default
+## Safe default
 
 C with a lookback of one window and a quarantine, revised upward once
 the quarantine has a month of evidence in it. Start with the tooling's
 default only because a declared guess beats an undeclared one, and
 replace it with a measurement as soon as there is one.
 
-## The number nobody has
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **The observed lateness of this source, which almost nobody has measured, and which is the first thing to go and look at.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C with a lookback of one window and a quarantine, revised upward once the quarantine has a month of evidence in it. Start with the tooling's default only because a declared guess beats an undeclared one, and replace it with a measurement as soon as there is one.
+
+**Exit condition:** Stop or roll back the selected branch when , and a single answer per period that never changes, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: The observed lateness of this source, which almost nobody has measured, and which is the first thing to go and look at.
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: The number nobody has
 
 No published figure was found for how much late data a real source
 produces, so every horizon here is declared rather than derived, and
@@ -136,14 +189,9 @@ produces, so every horizon here is declared rather than derived, and
 lookback is a venture fact to be measured locally, and a pipeline
 running a month without reading its quarantine has the measurement and
 is ignoring it.
+### Historical ruling boundary
 
-## Worked rulings
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-- **PatterTech EOS (2026-08, argued)**: C plus E as the estate default,
-  D named as legitimately correct for small tables rather than as a
-  naive option, and A refused unless the drop is counted, at which point
-  it stops being A.
-- **Worked application**:
-  `packs/data-engineering/exemplars/EX-DATAENG-001-orders-backfill.md`
-  runs C with a three-day lookback, set from a quarantine that had been
-  collecting for five weeks.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

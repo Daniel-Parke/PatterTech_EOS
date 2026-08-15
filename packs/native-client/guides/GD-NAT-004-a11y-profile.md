@@ -1,19 +1,28 @@
 ---
+id: GD-NAT-004
 summary: How much accessibility assurance does a non-web surface buy, and against which instrument?
-kind: guide
+kind: wargame
+type: wargame
+tags: [a11y, eos, product, testing, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-NAT-006]
+applies_when: [has_native_ui]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
 sources: [EV-0027, EV-0104, EV-0235, EV-0236, EV-0370, EV-0371, EV-0387, EV-0388]
 review: on-change-of:EN-301-549-v4-publication
-type: guide
-tags: [a11y, testing, product]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-NAT-004: How much non-web accessibility assurance?
 
-## The question
+## Decision question and stakes
 
 This is the profile `packs/ui-ux/PACK.md` defers to when a surface has
 no web UI. Three things change when the surface is an app.
@@ -32,7 +41,13 @@ The numeric floors still come from WCAG 2.2 (EV-0027) through the
 mobile mapping, because the platform guidance publishes no touch target
 minimum and no contrast ratio at all (EV-0387).
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-NAT-006` (binding): Non-web accessibility conformance is stated per screen, declared in code, and gated by an automated audit with a written verdict on every undecided item.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Statutory duty.** European Accessibility Act reach, public sector
   procurement, or a regulated market.
@@ -45,6 +60,8 @@ minimum and no contrast ratio at all (EV-0387).
   a kiosk or a locked-down device needs its own argument.
 - **Rate of change.** A surface rebuilt monthly needs the audit in the
   test suite, not in an annual review.
+
+Applicability is `has_native_ui`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -73,6 +90,24 @@ public conformance claim against EN 301 549 clause 11 and its WCAG
 mapping. Buys the only evidence that survives challenge. Costs money,
 calendar time and recruiting.
 
+## Failure premises
+
+### Premortem for A. Platform defaults, no audit
+
+Assume `A. Platform defaults, no audit` was selected and the outcome failed. Test this option's stated failure mechanism first: any defensible claim, and it silently fails everything custom-drawn. Named here as the practice this pack rejects.
+
+### Premortem for B. Semantics declared, automated audit in the test suite
+
+Assume `B. Semantics declared, automated audit in the test suite` was selected and the outcome failed. Test this option's stated failure mechanism first: the authoring habit and a per-screen test.
+
+### Premortem for C. B plus a manual verdict list and assistive-technology passes
+
+Assume `C. B plus a manual verdict list and assistive-technology passes` was selected and the outcome failed. Test this option's stated failure mechanism first: standing triage and device time.
+
+### Premortem for D. C plus a conformance statement and independent audit
+
+Assume `D. C plus a conformance statement and independent audit` was selected and the outcome failed. Test this option's stated failure mechanism first: money, calendar time and recruiting.
+
 ## Decision rule
 
 If a statutory duty applies, or a public conformance claim will be
@@ -88,7 +123,7 @@ state it as clause 11 plus the WCAG mapping, and note that the in-force
 version references an older WCAG level, so targeting WCAG 2.2 puts you
 ahead of the binding standard rather than behind it (EV-0371).
 
-## Default
+## Safe default
 
 C for anything a member of the public installs.
 
@@ -99,14 +134,23 @@ web figure is contested between roughly 57 per cent and roughly a third
 errors does not mean accessible (EV-0235), and that caution is stronger
 here where nobody has published a number.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **native-client pack exemplar (2026-08, argued)**: C. Audit in the
-  test suite over all six screens, a verdict file whose entry count
-  equals the undecided count, and a static check for unlabelled
-  interactive elements and explicitly marked decoration. See
-  `packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`.
-- **The mapping has no legal force (external, inherited)**: the mobile
-  mapping is a Group Draft Note, informative, replaceable at any time,
-  Level A and AA only (EV-0370). Use it to translate. Do not
-  cite it as an obligation.
+Settle this question with the smallest representative probe: ****Statutory duty.** European Accessibility Act reach, public sector procurement, or a regulated market.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C for anything a member of the public installs. Plan against a low catch rate for the automated audit. No coverage figure is published for it at all (EV-0388), and the equivalent web figure is contested between roughly 57 per cent and roughly a third (EV-0236, EV-0104). The web census puts it plainly that no detected errors does not mean accessible (EV-0235), and that caution is stronger here where nobody has published a number.
+
+**Exit condition:** Stop or roll back the selected branch when any defensible claim, and it silently fails everything custom-drawn. Named here as the practice this pack rejects, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Statutory duty.** European Accessibility Act reach, public sector procurement, or a regulated market.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

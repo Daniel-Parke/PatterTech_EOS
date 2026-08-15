@@ -1,19 +1,28 @@
 ---
+id: GD-SUPPLY-004
 summary: Depend with a pin, vendor the source, fork and maintain, reimplement the slice you need, or use the platform?
-type: guide
-tags: [security, delivery, arch, tooling]
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, delivery, eos, security, tooling, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-SUPPLY-011]
+applies_when: [publishes_code]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: on-change-of:EV-0069
 sources: [EV-0069]
+review: on-change-of:EV-0069
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SUPPLY-004: do we vendor it or depend on it?
 
-## The question
+## Decision question and stakes
 
 You need a piece of somebody else's code. It can stay theirs and arrive
 through a resolver, or it can become yours and sit in the tree. The
@@ -25,7 +34,13 @@ hardening.
 Licence obligations that follow the copy are `legal-licensing`'s
 question, not this one. Cross-link and go there before choosing B or C.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SUPPLY-011` (default): Read the repository, not its self-description, before depending on it.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Is the dependency small enough that a person could actually read it?
 - How often does it change, and do those changes matter to you?
@@ -34,6 +49,8 @@ question, not this one. Cross-link and go there before choosing B or C.
 - Is the concern integrity, availability, or the maintainer's future?
   Those want different answers.
 - Who is going to read the diff on every update, by name?
+
+Applicability is `publishes_code`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -75,6 +92,28 @@ with the thing you already trust. Costs capability, usually, because the
 standard library version is more basic. Chronically under-considered,
 because reaching for a package is faster than reading the manual.
 
+## Failure premises
+
+### Premortem for A. Depend, pinned
+
+Assume `A. Depend, pinned` was selected and the outcome failed. Test this option's stated failure mechanism first: a build-time dependency on the registry, and it means a compromised release upstream reaches you on whatever schedule GD-SUPPLY-003 set.
+
+### Premortem for B. Vendor the source into the tree
+
+Assume `B. Vendor the source into the tree` was selected and the outcome failed. Test this option's stated failure mechanism first: the fixes: nothing arrives unless somebody pulls it. And there is a trap in the mechanics worth knowing: at least one major toolchain stops verifying hashes once a vendor directory is in use, checking only that the vendored manifest agrees with the module file. Vendoring moves verification from the resolver to the moment the directory was generated, and from there to whoever reads the diff. If nobody reads it, verification has moved to nowhere.
+
+### Premortem for C. Fork and maintain
+
+Assume `C. Fork and maintain` was selected and the outcome failed. Test this option's stated failure mechanism first: a permanent maintenance line on your own team, and the cost compounds: every upstream release is now a merge. Correct when upstream is unresponsive and the code is load-bearing, and a slow disaster the rest of the time.
+
+### Premortem for D. Reimplement the slice you need
+
+Assume `D. Reimplement the slice you need` was selected and the outcome failed. Test this option's stated failure mechanism first: your own bugs in a problem somebody else already solved, and the cost is worst exactly where it looks cheapest: date handling, character encoding, retries, anything with edge cases you have not met yet.
+
+### Premortem for E. Use the platform or the standard library
+
+Assume `E. Use the platform or the standard library` was selected and the outcome failed. Test this option's stated failure mechanism first: capability, usually, because the standard library version is more basic. Chronically under-considered, because reaching for a package is faster than reading the manual.
+
 ## Decision rule
 
 - Default A. It is the option where security fixes arrive without
@@ -97,19 +136,23 @@ because reaching for a package is faster than reading the manual.
   (EV-0069): who can publish, whether releases are automated, whether
   anything has been released recently at all.
 
-## Default
+## Safe default
 
 A, pinned. B only with a named reason and a named reader.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: A throughout. This repository
-  depends on a handful of Python tools through a lock file and vendors
-  nothing. There is no air-gapped build and nothing to justify carrying
-  a copy.
-- No venture ruling yet.
+Settle this question with the smallest representative probe: **Is the dependency small enough that a person could actually read it?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, pinned. B only with a named reason and a named reader.
+
+**Exit condition:** Stop or roll back the selected branch when a build-time dependency on the registry, and it means a compromised release upstream reaches you on whatever schedule GD-SUPPLY-003 set, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Is the dependency small enough that a person could actually read it?
+
+## Counter-evidence and transfer limits
 
 The strongest case against A is the one this whole pack is about: a
 pinned dependency still executes somebody else's code on your build
@@ -126,3 +169,9 @@ of thing that stops happening without anybody noticing.
 There is no measurement here. This guide rests on toolchain
 documentation and on the shape of the failure, not on a study comparing
 vendoring against depending, and work that leans on it should say so.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

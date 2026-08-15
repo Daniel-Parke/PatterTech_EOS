@@ -1,19 +1,28 @@
 ---
+id: GD-DISC-001
 summary: How much discovery does this decision deserve, a gated phase, a standing cadence, outcome elicitation alone, or ship and instrument?
-type: guide
-tags: [product, testing, wargame]
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, product, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DISC-002, DOC-DISC-009]
+applies_when: [runs_experiment]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: observational
-sources: [EV-0010, EV-0153]
+sources: [EV-0010, EV-0153, EV-0579]
 review: 2028-06
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DISC-001: How much discovery does this decision deserve?
 
-## The question
+## Decision question and stakes
 
 Somebody wants something built. The fork is how much investigation to do
 before committing, and the honest version of the question is: what would
@@ -21,13 +30,22 @@ it cost to be wrong, and how fast would you find out? Every named school
 below answers that with a fixed shape, and the shapes were priced for
 teams whose build step was the expensive part.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DISC-002` (binding): An experiment fixes its stopping rule, metric, segmentation and sample before data arrives.
+- `DOC-DISC-009` (default): Depth is set by reversibility, not by the size of the request.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Is the commitment reversible, and at what cost?
 - Are there real users you can reach this week?
 - Is there enough traffic to power a test on the metric that matters?
 - Would a wrong problem statement cost days or months?
 - Does anything here touch a regulatory, data or contractual boundary?
+
+Applicability is `runs_experiment`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -77,6 +95,24 @@ floor the readout is theatre with statistics attached, and naive
 experimentation manufactures confident wrong answers
 (`EV-0406`).
 
+## Failure premises
+
+### Premortem for A. Gated phase
+
+Assume `A. Gated phase` was selected and the outcome failed. Test this option's stated failure mechanism first: four to eight weeks of calendar, a hand-off shape that a solo venture does not have, and a phase length calibrated to public-sector funding.
+
+### Premortem for B. Standing cadence
+
+Assume `B. Standing cadence` was selected and the outcome failed. Test this option's stated failure mechanism first: it assumes weekly access to real customers, and with one operator holding all four risks the uninteresting two get assumed away.
+
+### Premortem for C. Outcome elicitation only
+
+Assume `C. Outcome elicitation only` was selected and the outcome failed. Test this option's stated failure mechanism first: it settles what to aim at and nothing about whether anyone will use it or pay for it. The scoring arithmetic attached to this school is separately unsupported, see `packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md`.
+
+### Premortem for D. Ship and instrument
+
+Assume `D. Ship and instrument` was selected and the outcome failed. Test this option's stated failure mechanism first: it needs traffic. Below the power floor the readout is theatre with statistics attached, and naive experimentation manufactures confident wrong answers (`EV-0406`).
+
 ## Decision rule
 
 - `is_irreversible`, or a regulatory, data or contractual boundary is
@@ -95,14 +131,37 @@ experimentation manufactures confident wrong answers
 - Mixed case, which is most cases: C is never wrong to do first, because
   it is an hour and it changes what the other three would investigate.
 
-## Default
+## Safe default
 
 Depth set by reversibility, not by the size of the request. In practice
 that means C for almost everything, D wherever there is traffic, A only
 where undoing it is expensive, and B once there are users worth a
 standing cadence.
 
-## Why the inherited lengths do not transfer
+## Cheapest discriminating test
+
+Build the narrowest representative path and list the assumptions it can actually test. Name its deletion or promotion boundary, then list the hardening evidence required before any retained artefact reaches users.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** Depth set by reversibility, not by the size of the request. In practice that means C for almost everything, D wherever there is traffic, A only where undoing it is expensive, and B once there are users worth a standing cadence.
+
+**Exit condition:** Stop or roll back the selected branch when four to eight weeks of calendar, a hand-off shape that a solo venture does not have, and a phase length calibrated to public-sector funding, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Is the commitment reversible, and at what cost?
+
+## Counter-evidence and transfer limits
+
+### Evidence boundary
+
+`EV-0403` is a stable government standard, not a
+study, and it predates agentic development. The base-rate result behind
+D is a large industrial corpus on very high-traffic consumer surfaces
+(`EV-0405`) and it says nothing about
+agent-generated ideas. B rests on coaching practice with no controlled
+evaluation. Do not report a build estimate from feel: self-reported
+speed inverted the sign in the one randomised trial available (EV-0010).
+### Preserved reasoning: Why the inherited lengths do not transfer
 
 The four-to-eight-week box, and the phase language around it, was
 written for a funded multidisciplinary team handing over to a separate
@@ -114,28 +173,12 @@ boundaries are discovered under change rather than designed up front,
 and the advice there is explicitly tentative and anecdotal (EV-0153).
 Treat any confident claim about the right length, including this
 guide's, as a working rule.
+### Historical ruling boundary
 
-## Evidence boundary
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Current research boundary
 
-`EV-0403` is a stable government standard, not a
-study, and it predates agentic development. The base-rate result behind
-D is a large industrial corpus on very high-traffic consumer surfaces
-(`EV-0405`) and it says nothing about
-agent-generated ideas. B rests on coaching practice with no controlled
-evaluation. Do not report a build estimate from feel: self-reported
-speed inverted the sign in the one randomised trial available (EV-0010).
+EV-0579 supports a narrow exploratory path only while its deletion or promotion boundary remains explicit. Copying or retaining the result moves it back through the normal evidence gate.
+### Transfer limit
 
-## Worked rulings
-
-- **PatterTech EOS product-discovery pack (2026-08, argued)**: depth by
-  reversibility adopted as default D1. Argued from
-  `EV-0403` for the exit artefacts and
-  `EV-0405` for why prediction is weak.
-- **Approvals inbox request (2026-08, argued)**: C then a hand-read
-  signal, verdict TEST. Traffic was two orders of magnitude below the
-  power floor, so D was refused. See
-  `packs/product-discovery/exemplars/EX-DISC-001-approvals-inbox-request.md`.
-- **Data-retention change on regulated records (2026-08, inherited)**:
-  A, because the commitment is irreversible once records are deleted.
-  The box was two days, not four weeks, and the exit artefacts were the
-  same four.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

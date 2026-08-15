@@ -1,19 +1,28 @@
 ---
+id: GD-IDENT-004
 summary: Tenant isolation by application filter, by database row policy, by schema, or by a store per tenant?
-type: guide
-tags: [auth, data, arch]
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, auth, data, eos, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-IDENT-002]
+applies_when: [serves_multiple_tenants]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2029-01
 sources: [pending-fragment-import]
+review: 2029-01
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-IDENT-004: where does the tenant boundary live?
 
-## The question
+## Decision question and stakes
 
 One system, several customers, and a guarantee that one cannot see
 another. The fork is which layer holds that guarantee, because the layer
@@ -26,7 +35,13 @@ unrecoverable for the business it happens to (AWS SaaS Lens), which is a
 fair description of telling a customer that another customer read their
 data.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-IDENT-002` (default): The tenant boundary is enforced below the code that serves the request.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - How many tenants now, and how many in two years? Three and fifty are
   different problems (Azure multitenancy guidance).
@@ -40,6 +55,8 @@ data.
   far away is it?
 - Can the application carry the tenant identity from the request into
   every query, including background jobs and migrations?
+
+Applicability is `serves_multiple_tenants`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -90,6 +107,28 @@ regulatory profile and its noisy-neighbour behaviour (AWS SaaS Lens).
 Buys proportion. Costs a decision per component and the discipline to
 record which is which.
 
+## Failure premises
+
+### Premortem for A. Shared tables, tenant column, filter in the application
+
+Assume `A. Shared tables, tenant column, filter in the application` was selected and the outcome failed. Test this option's stated failure mechanism first: , one schema to migrate and one store to back up. Costs the guarantee: it now rests on every query ever written, including the one added at half past five in a background job, and the failure mode is exactly the one the 2025 list measures most of (OWASP Top 10:2025). This option is the default state of any system that has not decided, which is why it is listed first and not recommended alone.
+
+### Premortem for B. Shared tables, tenant column, database row policy
+
+Assume `B. Shared tables, tenant column, database row policy` was selected and the outcome failed. Test this option's stated failure mechanism first: propagation and care. The tenant has to be set per transaction rather than per connection wherever pooling reuses one database role, and the bypass paths have to be closed deliberately: a superuser, any role holding the bypass attribute, and by default the table's own owner, which is the role most applications connect as. Constraint checks bypass policies by design, so a unique or foreign key violation can still confirm that a row exists in another tenant. The vendor that hosts two of the databases offering this.
+
+### Premortem for C. Schema per tenant
+
+Assume `C. Schema per tenant` was selected and the outcome failed. Test this option's stated failure mechanism first: migration work that scales with tenant count and a catalogue that grows with it, and cross-tenant reporting becomes a union nobody enjoys writing.
+
+### Premortem for D. Database or full stack per tenant
+
+Assume `D. Database or full stack per tenant` was selected and the outcome failed. Test this option's stated failure mechanism first: the economics: the most expensive shape per tenant and the most work to operate. What stops it being a managed service is that onboarding, identity and operations stay shared; the moment each customer gets its own version and its own operational life, the model's advantages are gone.
+
+### Premortem for E. Mixed, per component
+
+Assume `E. Mixed, per component` was selected and the outcome failed. Test this option's stated failure mechanism first: a decision per component and the discipline to record which is which.
+
 ## Decision rule
 
 - Any system with more than one tenant, always: B as the floor, not A. A
@@ -112,7 +151,7 @@ record which is which.
   read from a parameter, a header or a subdomain is not a boundary, it
   is a suggestion.
 
-## Default
+## Safe default
 
 B, escalating to C, D or E per requirement. Density is cheap and
 separation is bought one requirement at a time. Whichever is chosen, the
@@ -120,15 +159,19 @@ venture writes down which layer holds the guarantee: "the application
 filters by tenant" and "the database refuses" are different promises and
 only one survives a forgotten query.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS itself (2026-08, argued)**: not applicable. One
-  operator, no tenants, no runtime store, so `serves_multiple_tenants`
-  is false and B2 in `packs/identity-access/PACK.md` does not apply.
-- No venture ruling yet. The hosted web application archetype lands on B
-  on its second customer.
+Settle this question with the smallest representative probe: **How many tenants now, and how many in two years? Three and fifty are different problems (Azure multitenancy guidance).** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B, escalating to C, D or E per requirement. Density is cheap and separation is bought one requirement at a time. Whichever is chosen, the venture writes down which layer holds the guarantee: "the application filters by tenant" and "the database refuses" are different promises and only one survives a forgotten query.
+
+**Exit condition:** Stop or roll back the selected branch when , one schema to migrate and one store to back up. Costs the guarantee: it now rests on every query ever written, including the one added at half past five in a background job, and the failure mode is exactly the one the 2025 list measures most of (OWASP Top 10:2025). This option is the default state of any system that has not decided, which is why it is listed first and not recommended alone, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: How many tenants now, and how many in two years? Three and fifty are different problems (Azure multitenancy guidance).
+
+## Counter-evidence and transfer limits
 
 The vocabulary everyone uses for this fork comes from a 2020 whitepaper
 its own publisher now marks as historical (AWS SaaS Lens). The naming
@@ -147,3 +190,9 @@ Nothing in the source set measures cross-tenant leak rates by isolation
 model. There is no evidence that B produces fewer incidents than A. The
 argument for it is structural, that A has no floor, and structural
 arguments have been wrong before.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

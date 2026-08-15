@@ -1,19 +1,28 @@
 ---
+id: GD-IDENT-003
 summary: Hosted identity provider, self-hosted identity server, passwords of your own, or federation to the customer's provider?
-type: guide
-tags: [auth, arch, security]
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, auth, eos, security, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-IDENT-009]
+applies_when: [has_privileged_access_path]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2028-12
 sources: [pending-fragment-import]
+review: 2028-12
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-IDENT-003: who checks the credential?
 
-## The question
+## Decision question and stakes
 
 Somebody has to hold the authenticator, run the sign-in flow, handle
 recovery, and keep up with what counts as strong authentication this
@@ -21,7 +30,13 @@ year. The fork is whether that somebody is a vendor, software you run,
 code you write, or the customer's own identity team. It is usually
 decided in an afternoon and lived with for years.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-IDENT-009` (default): The privileged path is named, alarmed and reviewed.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Who are the users? Consumers with their own accounts, or staff of
   organisations that already have an identity provider?
@@ -34,6 +49,8 @@ decided in an afternoon and lived with for years.
 - Is the user list an asset the venture must be able to move, or an
   implementation detail?
 - Who carries the pager when a sign-in bug appears at the weekend?
+
+Applicability is `has_privileged_access_path`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -76,6 +93,24 @@ failure mode: a token from tenant A's provider must not be accepted for
 tenant B, which is an audience and issuer check the venture owns and
 nobody else will make (OpenID Connect Core).
 
+## Failure premises
+
+### Premortem for A. Hosted identity provider
+
+Assume `A. Hosted identity provider` was selected and the outcome failed. Test this option's stated failure mechanism first: a dependency on the request path at its worst moment, because a provider outage is a total outage of sign-in, and costs a migration whenever the commercial terms change. The validation duties do not transfer: the venture still checks signature, issuer, audience and expiry on every token, and still knows the difference between the identity token and the access token (OpenID Connect Core).
+
+### Premortem for B. Self-hosted identity server
+
+Assume `B. Self-hosted identity server` was selected and the outcome failed. Test this option's stated failure mechanism first: operations: a stateful service on the critical path, its upgrades, its backups, and its security patches, all landing on whoever carries the pager. The protocol duties are identical to A.
+
+### Premortem for C. Passwords of your own
+
+Assume `C. Passwords of your own` was selected and the outcome failed. Test this option's stated failure mechanism first: the whole surface: recovery flows are where the interesting attacks live, and the current practice closes off the shortcut of handing the password to a client and having it exchange that for a token (RFC 9700).
+
+### Premortem for D. Federation to the customer's provider
+
+Assume `D. Federation to the customer's provider` was selected and the outcome failed. Test this option's stated failure mechanism first: per-tenant configuration, a trust decision per tenant, and a subtle failure mode: a token from tenant A's provider must not be accepted for tenant B, which is an audience and issuer check the venture owns and nobody else will make (OpenID Connect Core).
+
 ## Decision rule
 
 - Consumer users, no procurement pressure, small team: A. The parts a
@@ -95,7 +130,7 @@ nobody else will make (OpenID Connect Core).
   no arrangement under which the audience check becomes somebody else's
   job (OpenID Connect Core).
 
-## Default
+## Safe default
 
 A, with the sign-in surface kept thin enough to move: the venture's own
 user record keyed by a stable subject identifier, the provider's tokens
@@ -104,16 +139,19 @@ no provider-specific claim read anywhere else. That is what makes the
 choice reversible, and reversibility is the whole of the answer to the
 lock-in objection.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS itself (2026-08, argued)**: not applicable. The
-  repository has no users and no sign-in. The break-glass shape in B4
-  still applies to any venture it seeds, which is why the rule sits in
-  the pack rather than in this guide.
-- No venture ruling yet. Recording the absence rather than inventing a
-  ruling, because a worked ruling nobody made is worse than none.
+Settle this question with the smallest representative probe: **Who are the users? Consumers with their own accounts, or staff of organisations that already have an identity provider?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, with the sign-in surface kept thin enough to move: the venture's own user record keyed by a stable subject identifier, the provider's tokens translated into the venture's own session or token at one boundary, and no provider-specific claim read anywhere else. That is what makes the choice reversible, and reversibility is the whole of the answer to the lock-in objection.
+
+**Exit condition:** Stop or roll back the selected branch when a dependency on the request path at its worst moment, because a provider outage is a total outage of sign-in, and costs a migration whenever the commercial terms change. The validation duties do not transfer: the venture still checks signature, issuer, audience and expiry on every token, and still knows the difference between the identity token and the access token (OpenID Connect Core), or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Who are the users? Consumers with their own accounts, or staff of organisations that already have an identity provider?
+
+## Counter-evidence and transfer limits
 
 Nothing in the source set compares a hosted provider against a
 self-hosted one on either security or availability. The specifications
@@ -129,3 +167,9 @@ as a first-class scenario worth designing a separate path for (Entra
 emergency access guidance). Read straight, that is a vendor telling you
 its own layer will be unavailable at some point. It does not change the
 default; it is why the default carries a second path.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

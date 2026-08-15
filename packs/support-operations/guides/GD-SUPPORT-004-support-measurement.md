@@ -1,19 +1,28 @@
 ---
+id: GD-SUPPORT-004
 summary: What do we measure about support, and what may the number be used for?
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, ops, product, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-SUPPORT-003, DOC-SUPPORT-007, DOC-SUPPORT-006]
+applies_when: [has_customer_inbound]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
-scope: estate
 sources: [EV-0210, EV-0211]
 review: 2028-08
-type: guide
-tags: [ops, product, testing]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SUPPORT-004: What do we measure about support, and what may the number be used for?
 
-## The question
+## Decision question and stakes
 
 Support generates numbers faster than it generates insight. The fork is
 not which dashboard: it is what claim each number is allowed to carry.
@@ -22,7 +31,15 @@ and the fourth has no evidence at all. Choosing without reading the
 failure is how a venture ends up steering on a statistic that describes
 nothing.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SUPPORT-003` (default): Nothing enters a backlog without a classification, and untriaged is a state rather than an absence.
+- `DOC-SUPPORT-007` (default): A loyalty or satisfaction score is a trend about one population, never a cross-firm benchmark.
+- `DOC-SUPPORT-006` (default): No target and no published figure is the mean of a duration distribution.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Who reads it and what they will do on Monday.** A number nobody can
   act on within a week is not a support metric.
@@ -33,6 +50,8 @@ nothing.
 - **Whether a comparison will be attempted.** Most misuse is
   comparison: against a competitor, an industry figure, or last
   quarter's different population.
+
+Applicability is `has_customer_inbound`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -74,6 +93,24 @@ honest denominator for available hours, which a founder rarely has.
 Scope note: single server, first come first served, no priority
 classes, nobody giving up.
 
+## Failure premises
+
+### Premortem for A. Single-question loyalty score
+
+Assume `A. Single-question loyalty score` was selected and the outcome failed. Test this option's stated failure mechanism first: credibility if the superiority claim is repeated: the replication using the same exemplar industries found explanatory power statistically indistinguishable from a conventional satisfaction index (EV-0428). Scope note: 21 firms, more than 15,500 interviews, one national panel, an era predating subscription software.
+
+### Premortem for B. Customer effort
+
+Assume `B. Customer effort` was selected and the outcome failed. Test this option's stated failure mechanism first: the same instrument-vendor caveat as A. Scope note: roughly 97,000 customers of contact centres, self-reported loyalty intent rather than observed retention, and headline proportions not independently replicated at the same magnitude.
+
+### Premortem for C. Counts and percentiles over the queue itself
+
+Assume `C. Counts and percentiles over the queue itself` was selected and the outcome failed. Test this option's stated failure mechanism first: interpretation: a count is only a finding once it has a denominator (EV-0431).
+
+### Premortem for D. Utilisation of the responder
+
+Assume `D. Utilisation of the responder` was selected and the outcome failed. Test this option's stated failure mechanism first: an honest denominator for available hours, which a founder rarely has. Scope note: single server, first come first served, no priority classes, nobody giving up.
+
 ## Decision rule
 
 Always run C and D. They cost nothing beyond the triage record that
@@ -89,7 +126,7 @@ measurements. No single number captures a system, which the estate
 already accepts for developer productivity (EV-0210) and which holds
 here for the same reason.
 
-## Default
+## Safe default
 
 C and D from the first paying customer. Durations at percentiles or as
 raw counts only: no key, heading or target names an average or a mean
@@ -99,17 +136,23 @@ the measurement behind it has not moved (EV-0211). B once a help
 centre exists. A is optional and carries its scope statement wherever
 it is shown.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **support-operations exemplar (2026-08, argued)**: the week's report
-  carried counts by kind, a duplicate count against the one incident,
-  a queue-untriaged count of zero, and the outage duration as a single
-  raw figure with no target attached. No average appeared anywhere, and
-  no loyalty score was collected at 60 customers because nobody had
-  named a decision it would change. See
-  `packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md`.
-- **Deflection was left unmeasured on purpose (2026-08, argued)**: no
-  primary source was found supporting a customer benefit from
-  self-service deflection, so the venture measured resolution and
-  onward contacts instead, under PACK.md D10, and recorded that the
-  deflection rate itself was deliberately not collected.
+Settle this question with the smallest representative probe: ****Who reads it and what they will do on Monday.** A number nobody can act on within a week is not a support metric.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C and D from the first paying customer. Durations at percentiles or as raw counts only: no key, heading or target names an average or a mean of a duration, which is PACK.md B5. B5 is a default since the 2026-08 audit, so it is departed from in writing rather than in passing, and the measurement behind it has not moved (EV-0211). B once a help centre exists. A is optional and carries its scope statement wherever it is shown.
+
+**Exit condition:** Stop or roll back the selected branch when credibility if the superiority claim is repeated: the replication using the same exemplar industries found explanatory power statistically indistinguishable from a conventional satisfaction index (EV-0428). Scope note: 21 firms, more than 15,500 interviews, one national panel, an era predating subscription software, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Who reads it and what they will do on Monday.** A number nobody can act on within a week is not a support metric.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

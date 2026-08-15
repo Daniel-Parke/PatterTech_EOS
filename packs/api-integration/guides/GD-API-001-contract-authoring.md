@@ -1,19 +1,28 @@
 ---
+id: GD-API-001
 summary: Who writes the contract and when: by hand, in a definition language, generated from the handlers, or not at all?
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, ci, eos, tooling, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-API-001]
+applies_when: [exposes_service_boundary]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: advisory
 basis: standard
 evidence_grade: observational
-scope: estate
 sources: [EV-0023, EV-0137, EV-0144, EV-0145, EV-0057]
 review: on-change-of:EV-0023
-type: guide
-tags: [arch, tooling, ci]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-API-001: who authors the contract, and when?
 
-## The question
+## Decision question and stakes
 
 Almost every boundary ends up with a machine-readable contract, because
 default D9 asks for one and BR-2 cannot run without one. The fork is
@@ -24,7 +33,13 @@ decides it is drift: a document that says one thing while the service
 does another is worse than no document, because generation, testing and
 review all trust it.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-API-001` (binding): A breaking-change check runs in CI against a committed baseline, and fails the build.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Who reads the contract before the code exists: another team, an
   external consumer, or nobody?
@@ -32,6 +47,8 @@ review all trust it.
   quietly stops matching the service?
 - Do you own both sides of the seam, or only one?
 - Is there more than one boundary sharing house patterns?
+
+Applicability is `exposes_service_boundary`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -72,6 +89,24 @@ Costs: departs from D9, defeats the breaking-change gate in BR-2
 defeats client generation. Legitimate only with a recorded reason
 saying how a break gets caught instead.
 
+## Failure premises
+
+### Premortem for A. Hand-written specification, committed, code follows
+
+Assume `A. Hand-written specification, committed, code follows` was selected and the outcome failed. Test this option's stated failure mechanism first: hand-written specifications are where ambiguity comes from, and ambiguity caps every downstream generator (EV-0144). Nothing stops the implementation diverging later unless a gate is added.
+
+### Premortem for B. Definition language compiled to a specification
+
+Assume `B. Definition language compiled to a specification` was selected and the outcome failed. Test this option's stated failure mechanism first: a compile step and a second language between intent and the emitted artefact; the emitted specification becomes a build output, which breaks any workflow that expected to hand-edit it. Vendor-led roadmap despite the MIT licence.
+
+### Premortem for C. Code-first, specification generated from the handlers, committed
+
+Assume `C. Code-first, specification generated from the handlers, committed` was selected and the outcome failed. Test this option's stated failure mechanism first: the boundary gets designed by whoever writes the handler, so the design conversation happens late or not at all, and the emitted shapes carry implementation habits.
+
+### Premortem for D. No committed contract
+
+Assume `D. No committed contract` was selected and the outcome failed. Test this option's stated failure mechanism first: departs from D9, defeats the breaking-change gate in BR-2 (there is no baseline to diff), defeats schema-derived testing, and defeats client generation. Legitimate only with a recorded reason saying how a break gets caught instead.
+
 ## Decision rule
 
 - Public boundary, or several consumers you cannot upgrade in one go:
@@ -88,22 +123,29 @@ Whichever option is taken, the specification is committed and gated
 (D9, BR-2), and house style is enforced by a ruleset rather than by
 review comments (EV-0137).
 
-## Default
+## Safe default
 
 C for internal boundaries in this estate, generated, committed and
 drift-checked. A or B when the boundary is public. The choice is
 recorded next to the code, not assumed.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Venture B (2026, argued, inherited here)**: C. OpenAPI generated
-  from the API app, compiled into a types package and a typed client,
-  committed with a CI drift check. See
-  `packs/architecture/guides/WG-ARCH-005-contract-seam.md` and the
-  2026-07 lesson in `registry/LESSONS.md`, which records that generated
-  artefacts rot silently without the drift check.
-- **Venture D (2026-06, argued, inherited here)**: C, from the same
-  wargame, after failed mutations masqueraded as success in a plain-JS
-  client.
-- No venture has yet argued B. The definition-language option stays a
-  preference until one does.
+Settle this question with the smallest representative probe: **Who reads the contract before the code exists: another team, an external consumer, or nobody?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C for internal boundaries in this estate, generated, committed and drift-checked. A or B when the boundary is public. The choice is recorded next to the code, not assumed.
+
+**Exit condition:** Stop or roll back the selected branch when hand-written specifications are where ambiguity comes from, and ambiguity caps every downstream generator (EV-0144). Nothing stops the implementation diverging later unless a gate is added, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Who reads the contract before the code exists: another team, an external consumer, or nobody?
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

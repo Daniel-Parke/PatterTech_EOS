@@ -1,20 +1,28 @@
 ---
+id: GD-SWARM-004
 summary: What decides that a lane's work is good, and who is allowed to have written it?
-kind: guide
+kind: wargame
+type: wargame
+tags: [delivery, eos, testing, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-SWARM-004]
+applies_when: [fans_work_across_lanes]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
-lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
-scope: estate
 sources: [EV-0006, EV-0053, EV-0105, EV-0111, EV-0178, EV-0251, EV-0480]
 review: on-change-of:agent-harness-major-release
-type: guide
-tags: [eos, delivery, testing]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SWARM-004: what decides a lane is done?
 
-## The question
+## Decision question and stakes
 
 A lane returns and says it is finished. Something other than the lane
 has to agree. The fork is what that something is, and the rule that
@@ -25,7 +33,13 @@ evaluation is separate from generation and holds external truth. This
 guide is about which oracle to reach for in a graph, and how lane count
 follows from the answer.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SWARM-004` (binding): Node output is untrusted data at the integrator.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Decidability.** Does the check give a verdict a script can read, or
   does it give an opinion?
@@ -39,6 +53,8 @@ follows from the answer.
   while the composition is wrong.
 - **Blast radius of a wrong pass.** Money, auth, deletion, migration
   and public contracts do not take a machine-only path.
+
+Applicability is `fans_work_across_lanes`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -79,6 +95,28 @@ Spend it confirming that the acceptance criteria say what was meant,
 not reading the diff, because contract incompleteness rather than
 implementation error is the documented escape route.
 
+## Failure premises
+
+### Premortem for A. Decidable external oracle
+
+Assume `A. Decidable external oracle` was selected and the outcome failed. Test this option's stated failure mechanism first: authoring, and most business software has nothing like it.
+
+### Premortem for B. Executable acceptance authored ahead of the lane
+
+Assume `B. Executable acceptance authored ahead of the lane` was selected and the outcome failed. Test this option's stated failure mechanism first: the authoring pass, and it is only as good as the specification clause it came from.
+
+### Premortem for C. Repository-level always-on gates
+
+Assume `C. Repository-level always-on gates` was selected and the outcome failed. Test this option's stated failure mechanism first: per lane. Costs tuning, and it catches shape rather than intent.
+
+### Premortem for D. Clean-context reviewer
+
+Assume `D. Clean-context reviewer` was selected and the outcome failed. Test this option's stated failure mechanism first: determinism, and it must not be weaker than the writer, must not be asked to fix in the same pass, and must never be the sole gate. A model judge reaches roughly human-level agreement on preference and carries documented position and self-preference biases (EV-0251).
+
+### Premortem for E. A person at the gate
+
+Assume `E. A person at the gate` was selected and the outcome failed. Test this option's stated failure mechanism first: the scarcest thing in the run. Spend it confirming that the acceptance criteria say what was meant, not reading the diff, because contract incompleteness rather than implementation error is the documented escape route.
+
 ## Decision rule
 
 C always, for every lane, because it is cheap and it catches what
@@ -95,22 +133,28 @@ to its own harness: test files, fixtures, evaluation scripts and CI
 configuration for the node being judged are outside its write set.
 And agreement between lanes is not a verdict, however many lanes agree.
 
-## Default
+## Safe default
 
 C plus B, with D beside it and E at the gate. No fan-out beyond two
 lanes without A. Report the mutation score on the changed lines rather
 than a coverage percentage, because coverage is not the meter
 (EV-0105).
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech_EOS, 2026-08-10, argued.** C plus E. The repository
-  checker predates every lane and is mechanical, so it is C; prose
-  quality has no machine oracle, so acceptance is a person at the gate.
-  No lane may weaken or delete a check to pass, which is the floor the
-  estate already carries.
+Settle this question with the smallest representative probe: ****Decidability.** Does the check give a verdict a script can read, or does it give an opinion?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Notes
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C plus B, with D beside it and E at the gate. No fan-out beyond two lanes without A. Report the mutation score on the changed lines rather than a coverage percentage, because coverage is not the meter (EV-0105).
+
+**Exit condition:** Stop or roll back the selected branch when authoring, and most business software has nothing like it, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Decidability.** Does the check give a verdict a script can read, or does it give an opinion?
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: Notes
 
 Ordering is ceremony and independence is not. Prompting a frontier model
 for more tests across about 500 benchmark tasks left the number of tasks
@@ -121,3 +165,9 @@ buggy implementation rather than the specification cut bug-revealing
 tests by about 44 per cent, and by about two thirds against the correct
 implementation (EV-0480), and self-review without external feedback
 degrades the answer (EV-0111). Drop the ritual; keep the separation.
+### Historical ruling boundary
+
+The baseline file carried 1 worked ruling note. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

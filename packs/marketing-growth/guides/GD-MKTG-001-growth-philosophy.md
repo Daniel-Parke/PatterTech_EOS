@@ -1,19 +1,28 @@
 ---
+id: GD-MKTG-001
 summary: Which growth philosophy does this venture run?
-kind: guide
+kind: wargame
+type: wargame
+tags: [brand, content, eos, product, seo, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-MKTG-004, DOC-MKTG-013]
+applies_when: [publishes_public_content]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: decision
 evidence_grade: not-applicable
-scope: estate
 sources: [EV-0055, EV-0095, EV-0353, EV-0356, EV-0359, EV-0360, EV-0361, EV-0365, EV-0366, EV-0368, EV-0369]
 review: on-change-of:Reforge-and-IPA-primary-text-access
-type: guide
-tags: [brand, content, seo, product]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-MKTG-001: Which growth philosophy does this venture run?
 
-## The question
+## Decision question and stakes
 
 Four traditions claim to explain how a business grows, and they pull
 budget in different directions. Picking by habit means inheriting
@@ -21,7 +30,14 @@ whichever one the last plan was written in. PACK.md D1 requires the
 choice to be named and recorded before spend; this guide is where the
 choice is argued.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-MKTG-004` (default): One named growth philosophy per venture, recorded before spend.
+- `DOC-MKTG-013` (default): Reach to category non-buyers is the opening bet for a small brand.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Whether the buyer already searches.** A category with no reading
   habit gives an organic asset nothing to compound on.
@@ -35,6 +51,8 @@ choice is argued.
   owned channel is for.
 - **Platform risk.** A business that dies when one account is closed has
   already made a decision it has not written down.
+
+Applicability is `publishes_public_content`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -71,6 +89,24 @@ nobody can take away and a compliance surface that is auditable. Costs a
 real and jurisdictional compliance burden, and it needs an audience that
 already exists.
 
+## Failure premises
+
+### Premortem for A. Compounding organic asset
+
+Assume `A. Compounding organic asset` was selected and the outcome failed. Test this option's stated failure mechanism first: a payback measured in a year or more, and it produces nothing at all where buyers do not read (EV-0353, EV-0356, EV-0366).
+
+### Premortem for B. Reach-led brand building
+
+Assume `B. Reach-led brand building` was selected and the outcome failed. Test this option's stated failure mechanism first: money, patience, and visibility in short-term reporting. The evidence is directional: both records were read at second hand, and one rests on self-selected award entries.
+
+### Premortem for C. Growth loops
+
+Assume `C. Growth loops` was selected and the outcome failed. Test this option's stated failure mechanism first: credibility: the source is a practitioner essay with no data, published by a consultancy positioning its own curriculum.
+
+### Premortem for D. Lifecycle and owned channel
+
+Assume `D. Lifecycle and owned channel` was selected and the outcome failed. Test this option's stated failure mechanism first: a real and jurisdictional compliance burden, and it needs an audience that already exists.
+
 ## Decision rule
 
 If the buyer already searches for the problem and the category has a
@@ -83,23 +119,30 @@ a platform account would end the business, choose D. Combining two is
 allowed; running all four with one person is not a strategy, it is a
 list.
 
-## Default
+## Safe default
 
 A for a technical venture with a reading audience, D alongside it as
 soon as anyone gives you an address. B is the default for a small brand
 in a repeat-purchase category, which is where PACK.md D10 points. C is
 never a default: it is earned by naming the mechanism.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **marketing-growth pack exemplar (2026-08, argued)**: A as the primary
-  philosophy with D beside it, on the grounds that the buyer searches
-  and the sequence exists to close a two-week readiness gap. Reach was
-  rejected for want of budget rather than for want of evidence, and that
-  reason is recorded so the decision can be revisited. See
-  `packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
-- **Estate default (2026-08, argued)**: no philosophy is ranked above
-  another by this pack. Where evidence exists it is population-bound,
-  and where it does not, the pack says so. A venture that records no
-  choice has taken A by accident, which is the failure D1 exists to
-  stop.
+Settle this question with the smallest representative probe: ****Whether the buyer already searches.** A category with no reading habit gives an organic asset nothing to compound on.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A for a technical venture with a reading audience, D alongside it as soon as anyone gives you an address. B is the default for a small brand in a repeat-purchase category, which is where PACK.md D10 points. C is never a default: it is earned by naming the mechanism.
+
+**Exit condition:** Stop or roll back the selected branch when a payback measured in a year or more, and it produces nothing at all where buyers do not read (EV-0353, EV-0356, EV-0366), or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Whether the buyer already searches.** A category with no reading habit gives an organic asset nothing to compound on.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

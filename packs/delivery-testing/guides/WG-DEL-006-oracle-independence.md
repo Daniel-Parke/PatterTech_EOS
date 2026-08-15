@@ -1,22 +1,28 @@
 ---
+id: WG-DEL-006
 summary: How independent must the oracle be from the code it judges, and who authors it?
-kind: guide
+kind: wargame
+type: wargame
+tags: [ci, delivery, eos, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DEL-002, DOC-DEL-006, DOC-COD-001]
+applies_when: [ships_code]
+engages_when: [test_fidelity_changes_outcome, evaluation_oracle_is_undecided]
+consequence: high
+relations: []
 scope: estate
 authority: binding
-lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
-applies_when: [ships_code, has_test_suite]
 sources: [EV-0006, EV-0007, EV-0009, EV-0017, EV-0189, EV-0191, EV-0092]
 review: 2028-03
-type: wargame
-status: active
-tags: [delivery, testing, ci]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # WG-DEL-006: How independent is the oracle?
 
-## The question
+## Decision question and stakes
 
 A suite is worth exactly what its oracle is worth. Everything else,
 coverage, mutation score, test count, is a measure of how much
@@ -30,7 +36,15 @@ kind of oracle a given change should build and when to commit it, is
 the coding pack's oracle-strategy guide, GD-COD-001. Read that one for
 the change; read this one for the suite that has to keep holding.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DEL-002` (binding): Every double standing in for a dependency outside the venture's control has a contract suite that runs the same cases against the double and the real implementation, on a stated cadence.
+- `DOC-DEL-006` (default): Double preference order.
+- `DOC-COD-001` (binding): The oracle that judges a change is authored independently of the implementation under test.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether a specification exists that is not the code.
 - Whether the behaviour has a checkable invariant, a published schema,
@@ -42,6 +56,8 @@ the change; read this one for the suite that has to keep holding.
   wrong.
 - Whether the code is legacy behaviour we intend to preserve, or new
   behaviour we intend to specify.
+
+Applicability is `ships_code`. Engagement is `test_fidelity_changes_outcome`, `evaluation_oracle_is_undecided`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -83,6 +99,24 @@ Costs: it pays only where an invariant or a schema exists, a
 well-described but wrong API still passes a schema check, and
 generation adds triage effort.
 
+## Failure premises
+
+### Premortem for A. The implementation is the oracle
+
+Assume `A. The implementation is the oracle` was selected and the outcome failed. Test this option's stated failure mechanism first: it certifies current bugs. Tests generated after faulty code detected roughly half the faults of tests generated independently, 14% against 25% (EV-0007). Coverage and mutation numbers computed over such a suite are informative only while the code is assumed correct (EV-0009).
+
+### Premortem for B. Same author, oracle written first from the spec
+
+Assume `B. Same author, oracle written first from the spec` was selected and the outcome failed. Test this option's stated failure mechanism first: the author's misreading of the requirement propagates into both artefacts, and nothing catches it.
+
+### Premortem for C. Independent author, oracle frozen before implementation
+
+Assume `C. Independent author, oracle frozen before implementation` was selected and the outcome failed. Test this option's stated failure mechanism first: coordination, and a frozen oracle that turns out to be wrong needs a ruled change rather than an edit.
+
+### Premortem for D. An external reference is the oracle
+
+Assume `D. An external reference is the oracle` was selected and the outcome failed. Test this option's stated failure mechanism first: it pays only where an invariant or a schema exists, a well-described but wrong API still passes a schema check, and generation adds triage effort.
+
 ## Decision rule
 
 - R2, or anything crossing a boundary another party depends on: **B**
@@ -109,14 +143,28 @@ generation adds triage effort.
   stop. That is not an oracle. Say so on the task record and get a
   specification, a reproduction or an invariant.
 
-## Default
+## Safe default
 
 B everywhere, C from R2 upwards, D wherever the domain offers an
 invariant or a schema, A confined to pinning. Binding requirement 1 in
 the pack body is the floor beneath all of this: the check that decides
 correctness is never derived from the implementation under test.
 
-## What does not count as an oracle
+## Cheapest discriminating test
+
+Run the same representative case through the proposed oracle and an independently authored reference. Seed one plausible shared mistake; the test discriminates only if the independent path rejects it.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B everywhere, C from R2 upwards, D wherever the domain offers an invariant or a schema, A confined to pinning. Binding requirement 1 in the pack body is the floor beneath all of this: the check that decides correctness is never derived from the implementation under test.
+
+**Exit condition:** Stop or roll back the selected branch when it certifies current bugs. Tests generated after faulty code detected roughly half the faults of tests generated independently, 14% against 25% (EV-0007). Coverage and mutation numbers computed over such a suite are informative only while the code is assumed correct (EV-0009), or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether a specification exists that is not the code.
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: What does not count as an oracle
 
 A print. A log line. An assertion that the function returned something.
 A test that passes against both the fixed and the broken version.
@@ -124,19 +172,9 @@ Agent-written test volume is uncorrelated with task success, largely
 because what gets written is observational rather than assertive
 (EV-0006, scoped to SWE-bench Verified runs). The mechanical test is
 simple: revert the fix, and the test must go red.
+### Historical ruling boundary
 
-## Worked rulings
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-- **Venture A (2026, argued)**: C. The acceptance walk-through in the
-  signed agreement, its §A5, was written as a failing suite at Genesis,
-  before any implementation, and the acceptance skips were lifted only
-  when the journeys went green end to end. The agreement, not the code,
-  was the oracle. Genesis here means the v1 phase PB-001, which is
-  history. The v2.1 phase of the same name is a different thing under
-  `inception/`, and this ruling predates it.
-- **PatterTech EOS delivery pack (2026-08, argued)**: independence
-  binds, ordering does not. Argued from EV-0007, which isolates
-  independence rather than test-first as the load-bearing property, and
-  from EV-0009 on why quality numbers stop meaning anything once the
-  oracle is contaminated. Timing was left to WG-DEL-007, whose ablation
-  ran on 2026-08-03 and ranked the timings on cost alone.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

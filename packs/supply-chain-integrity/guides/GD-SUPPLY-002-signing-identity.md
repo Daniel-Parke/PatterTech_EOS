@@ -1,19 +1,28 @@
 ---
+id: GD-SUPPLY-002
 summary: No signature, a personal key, a custodied key, a short-lived identity certificate, or the platform's own signing?
-type: guide
-tags: [security, delivery, ci, tooling]
-kind: guide
+kind: wargame
+type: wargame
+tags: [ci, delivery, eos, security, tooling, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-SUPPLY-003]
+applies_when: [consumes_prebuilt_artefact]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: on-change-of:EV-0068
 sources: [EV-0068]
+review: on-change-of:EV-0068
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SUPPLY-002: short-lived identity or a long-lived key?
 
-## The question
+## Decision question and stakes
 
 A signature says a particular identity stood behind these bytes. The
 fork is what that identity is made of: a key somebody keeps for years,
@@ -22,7 +31,13 @@ that already has to be protected anyway. It looks like a cryptography
 question and is really a custody question, which is where the measured
 failures are.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SUPPLY-003` (binding): Verification exists on the consuming side and fails closed.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Can the publishing environment present an identity token to a
   certificate authority, or is it a laptop?
@@ -32,6 +47,8 @@ failures are.
 - What happens on the day the signer leaves, or the laptop dies?
 - Is a public record of every signature acceptable, or does the fact
   that a release happened need to stay private until announcement?
+
+Applicability is `consumes_prebuilt_artefact`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -78,6 +95,28 @@ platform at all. Costs are not really costs because there is no
 alternative; the decision left is only how the credential is held, which
 is C or D applied to the platform's certificate.
 
+## Failure premises
+
+### Premortem for A. No signature
+
+Assume `A. No signature` was selected and the outcome failed. Test this option's stated failure mechanism first: any ability to distinguish a compromised account from a compromised registry, and gives a consumer nothing to check. Defensible for an internal artefact behind an authenticated boundary. Not defensible for anything a stranger installs.
+
+### Premortem for B. A long-lived personal key
+
+Assume `B. A long-lived personal key` was selected and the outcome failed. Test this option's stated failure mechanism first: the whole custody problem, and this is where the evidence is loudest: in the four-registry measurement, public-key problems accounted for over 99 percent of verification failures on the two registries where failures were analysed, with keys expired, revoked or simply not findable. The key also encodes a person, so it becomes a succession problem the first time somebody leaves.
+
+### Premortem for C. A long-lived key held by a service
+
+Assume `C. A long-lived key held by a service` was selected and the outcome failed. Test this option's stated failure mechanism first: a service dependency, a cost line, and the fact that whoever can invoke the signing operation can sign anything, so the control collapses back onto access to that invocation.
+
+### Premortem for D. Short-lived identity certificates
+
+Assume `D. Short-lived identity certificates` was selected and the outcome failed. Test this option's stated failure mechanism first: a dependency on an identity provider and on the log staying available and honest, and it makes every release publicly visible at the moment it happens.
+
+### Premortem for E. Platform-managed signing
+
+Assume `E. Platform-managed signing` was selected and the outcome failed. Test this option's stated failure mechanism first: are not really costs because there is no alternative; the decision left is only how the credential is held, which is C or D applied to the platform's certificate.
+
 ## Decision rule
 
 - Publishing into an ecosystem that supports identity-based signing:
@@ -96,19 +135,24 @@ is C or D applied to the platform's certificate.
 - Whichever is chosen, the signature is worth nothing until something
   checks it, which is binding requirement B3, not this guide's default.
 
-## Default
+## Safe default
 
 D where the ecosystem supports it, C where it does not, and the release
 path is the only thing that can invoke either.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: not applicable. Nothing is
-  published from this repository, so no signing identity exists and none
-  is described as existing.
-- No venture ruling yet.
+Settle this question with the smallest representative probe: **Can the publishing environment present an identity token to a certificate authority, or is it a laptop?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** D where the ecosystem supports it, C where it does not, and the release path is the only thing that can invoke either.
+
+**Exit condition:** Stop or roll back the selected branch when any ability to distinguish a compromised account from a compromised registry, and gives a consumer nothing to check. Defensible for an internal artefact behind an authenticated boundary. Not defensible for anything a stranger installs, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Can the publishing environment present an identity token to a certificate authority, or is it a laptop?
+
+## Counter-evidence and transfer limits
 
 Short-lived identity moves the target rather than removing it. Whoever
 can obtain a token for the publishing identity can obtain a valid
@@ -128,3 +172,9 @@ instance, and the availability guarantee of the log is a matter of who
 runs it. Neither is a specification constant, and a venture depending on
 either should record that it is depending on somebody else's
 operations.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

@@ -1,26 +1,41 @@
 ---
+id: GD-DEVOPS-002
 summary: All at once, watched canary, analysis-gated rollout, or flag-decoupled release?
-type: guide
-tags: [ops, delivery, infra]
-kind: guide
+kind: wargame
+type: wargame
+tags: [delivery, eos, infra, ops, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DEVOPS-008]
+applies_when: [deploys_to_environment]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2027-12
 sources: [EV-0026, EV-0059, EV-0204, EV-0209]
+review: 2027-12
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DEVOPS-002: How does a change reach users once it is deployed?
 
-## The question
+## Decision question and stakes
 
 Deploying code and exposing behaviour are two different events, and
 conflating them means every deploy is a bet on the whole user base at
 once. The fork is what stands between the artefact landing and the
 behaviour reaching everyone, and who or what decides to continue.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DEVOPS-008` (default): Progressive rollout with an automated abort condition for user-facing change.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Blast radius. A change that can only be wrong for one tenant is not
   the same as one that can corrupt every row.
@@ -32,6 +47,8 @@ behaviour reaching everyone, and who or what decides to continue.
   rows (EV-0204).
 - Whether anyone is awake. Automation matters most for the changes that
   land at eleven at night.
+
+Applicability is `deploys_to_environment`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -90,6 +107,24 @@ nothing about lifecycle (EV-0026). Every flag is an untested code path
 until it is removed, which is why an owner and an expiry are declared at
 creation (EV-0209). Combinatorial state grows fast.
 
+## Failure premises
+
+### Premortem for A. Deploy is release
+
+Assume `A. Deploy is release` was selected and the outcome failed. Test this option's stated failure mechanism first: * Every deploy is a full-population bet, and the recovery path is another deploy, which is the slowest tool available. Fine for a service with no users yet, indefensible once there are.
+
+### Premortem for B. Watched canary
+
+Assume `B. Watched canary` was selected and the outcome failed. Test this option's stated failure mechanism first: * The decision depends on a person being present, awake and honest about what the graph says. Under time pressure, watched canaries get promoted because everyone wants to go home.
+
+### Premortem for C. Analysis-gated progressive rollout
+
+Assume `C. Analysis-gated progressive rollout` was selected and the outcome failed. Test this option's stated failure mechanism first: * Needs a traffic router and a metrics backend, and it is Kubernetes-shaped in its best-documented form. It protects the serving tier only: rows the canary wrote are still there after the abort.
+
+### Premortem for D. Flag-decoupled release
+
+Assume `D. Flag-decoupled release` was selected and the outcome failed. Test this option's stated failure mechanism first: * Flag debt is the standing bill, and the flag standard says nothing about lifecycle (EV-0026). Every flag is an untested code path until it is removed, which is why an owner and an expiry are declared at creation (EV-0209). Combinatorial state grows fast.
+
 ## Decision rule
 
 No users yet: A, and say so in the change record rather than pretending
@@ -106,19 +141,29 @@ Every flag created under D carries a non-empty owner and an expiry date
 in the future. See
 `packs/devops-reliability/refs/FLAG_AND_ROLLOUT_LIFECYCLE.md`.
 
-## Default
+## Safe default
 
 C for user-facing change where the machinery exists, D where it does
 not. A machine that aborts on a declared condition beats a person who
 meant to watch.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS (2026-08, argued)**: C as the estate default rather
-  than a binding requirement, because EV-0204 does not transfer to
-  single-instance or serverless topologies and binding a requirement to
-  a platform the estate has not standardised on would be asserted taste
-  wearing a citation.
-- **Venture A (2026-07, inherited)**: D in practice through configuration
-  rather than a flag SDK, with no expiry field. The re-grade adds owner
-  and expiry as binding, which is the part v1 never had.
+Settle this question with the smallest representative probe: **Blast radius. A change that can only be wrong for one tenant is not the same as one that can corrupt every row.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C for user-facing change where the machinery exists, D where it does not. A machine that aborts on a declared condition beats a person who meant to watch.
+
+**Exit condition:** Stop or roll back the selected branch when * Every deploy is a full-population bet, and the recovery path is another deploy, which is the slowest tool available. Fine for a service with no users yet, indefensible once there are, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Blast radius. A change that can only be wrong for one tenant is not the same as one that can corrupt every row.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

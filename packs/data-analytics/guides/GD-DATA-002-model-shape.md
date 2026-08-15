@@ -1,26 +1,41 @@
 ---
+id: GD-DATA-002
 summary: What shape does the analytics model take, a source mirror, layered wide entities, a dimensional star, or one metrics layer over any of them?
-type: guide
-tags: [data, arch]
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, data, eos, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DATA-014]
+applies_when: [publishes_analytics_table]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
 sources: [EV-0057, EV-0307, EV-0308]
 review: 2027-12
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DATA-002: What shape does the analytics model take?
 
-## The question
+## Decision question and stakes
 
 Raw rows are landed. Between them and the person asking a question sits
 some number of models. How many layers, how wide, and where does the
 business logic live? This is the fork that decides whether two people
 asking the same question get the same answer.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DATA-014` (default): A fact model declares its grain in words before it declares columns.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - How many people write queries against this, and how many of them know
   the source system?
@@ -29,6 +44,8 @@ asking the same question get the same answer.
   today?
 - Is anyone querying this interactively, where a wide pre-joined table
   is the difference between two seconds and thirty?
+
+Applicability is `publishes_analytics_table`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -69,6 +86,24 @@ in a semantic or metrics layer that queries resolve against. Buys: the
 definition of "active user" lives in one place and cannot be forked by a
 dashboard. Costs: another tool in the path and a tighter coupling to it.
 
+## Failure premises
+
+### Premortem for A. Normalised source mirror
+
+Assume `A. Normalised source mirror` was selected and the outcome failed. Test this option's stated failure mechanism first: every consumer re-derives the same business logic slightly differently, which is the failure the other three options exist to prevent. Also couples every analyst to the source system's internal design.
+
+### Premortem for B. Layered transformations to wide business entities
+
+Assume `B. Layered transformations to wide business entities` was selected and the outcome failed. Test this option's stated failure mechanism first: model count and build time, which is real on a small warehouse. It says nothing about the design inside the marts layer.
+
+### Premortem for C. Dimensional star
+
+Assume `C. Dimensional star` was selected and the outcome failed. Test this option's stated failure mechanism first: the physical prescriptions (surrogate keys, narrow facts) were formalised when storage and joins were expensive, and that cost argument is much weaker on columnar storage.
+
+### Premortem for D. Layers plus a declared metrics layer
+
+Assume `D. Layers plus a declared metrics layer` was selected and the outcome failed. Test this option's stated failure mechanism first: another tool in the path and a tighter coupling to it.
+
 ## Decision rule
 
 - One analyst who wrote the source system: A, and expect to leave it.
@@ -81,14 +116,28 @@ dashboard. Costs: another tool in the path and a tighter coupling to it.
 - In every case, declare the grain in words before you declare columns
   (D11). One sentence: one row per what.
 
-## Default
+## Safe default
 
 B, with grain declared per fact model. The layering makes review
 mechanical, the grain statement gives the auditability that C's
 discipline was really buying, and nothing in the default depends on
 picking a side in the wide-against-star argument.
 
-## The contested part, stated plainly
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **How many people write queries against this, and how many of them know the source system?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B, with grain declared per fact model. The layering makes review mechanical, the grain statement gives the auditability that C's discipline was really buying, and nothing in the default depends on picking a side in the wide-against-star argument.
+
+**Exit condition:** Stop or roll back the selected branch when every consumer re-derives the same business logic slightly differently, which is the failure the other three options exist to prevent. Also couples every analyst to the source system's internal design, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: How many people write queries against this, and how many of them know the source system?
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: The contested part, stated plainly
 
 The dimensional source keeps facts narrow and joins to conformed
 dimensions. The transformation-tool guide lands on wide denormalised
@@ -102,16 +151,9 @@ not been substantially updated since its authors wound down, so read it
 as a settled body of technique rather than a maintained one. The
 layering guidance is vendor documentation for one tool with no
 measurement behind it.
+### Historical ruling boundary
 
-## Worked rulings
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-- **PatterTech EOS data-analytics pack (2026-08, argued)**: B as the
-  default, grain declaration carried across as D11. Argued from EV-0307
-  for the layering and EV-0308 for grain-first.
-- **Signup and checkout event model (2026-08, argued)**: B, with one
-  fact model at one row per checkout order and a wide user entity. Grain
-  stated in the model documentation. See
-  `packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md`.
-- **Public model contract scope (2026-08, inherited)**: contracts on
-  marts only, private staging and intermediate models uncontracted,
-  inherited from EV-0057.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

@@ -1,19 +1,28 @@
 ---
+id: GD-IDENT-002
 summary: Server-side session in a cookie, bearer token, token in a cookie behind a front end, or a sender-constrained token?
-type: guide
-tags: [auth, security, state]
-kind: guide
+kind: wargame
+type: wargame
+tags: [auth, eos, security, state, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-IDENT-015]
+applies_when: [authenticates_people]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2028-11
 sources: [pending-fragment-import]
+review: 2028-11
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-IDENT-002: how does the venture remember who this is?
 
-## The question
+## Decision question and stakes
 
 Authentication happens once and the request happens a thousand times.
 Something has to carry the answer between them, and the fork is what
@@ -22,7 +31,13 @@ statement the client holds and presents. The choice decides how
 revocation works, where the credential can be stolen from, and what
 happens on the day you need to sign everybody out.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-IDENT-015` (default): Server-side sessions in cookies for a first-party browser surface; tokens for anything else.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Who is calling? A browser the venture also serves, a browser it does
   not, a native client, or another service?
@@ -34,6 +49,8 @@ happens on the day you need to sign everybody out.
   share a database?
 - Can the client hold a private key, or is it script running in a page
   where anything script can read is already lost?
+
+Applicability is `authenticates_people`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -78,6 +95,24 @@ bearer tokens lack. Costs client capability: something has to hold a key
 and sign, which rules out the cases where the token was attractive
 because the client was simple.
 
+## Failure premises
+
+### Premortem for A. Server-side session, key in a cookie
+
+Assume `A. Server-side session, key in a cookie` was selected and the outcome failed. Test this option's stated failure mechanism first: server state, which has to be shared or sticky across instances, and it fits a browser far better than anything else.
+
+### Premortem for B. Bearer token in an authorisation header
+
+Assume `B. Bearer token in an authorisation header` was selected and the outcome failed. Test this option's stated failure mechanism first: revocation: the token is valid until it expires, so either the lifetime is short and a refresh token carries the risk instead, or a check against a revocation list puts the state back and removes the reason for choosing this. It costs storage safety too, because the browser places to put it are the places script can read, which the guidance is direct about (OWASP session guidance). And a bearer token is a password with an expiry: whoever holds it is the user (RFC 9700).
+
+### Premortem for C. Token behind a front end, cookie to the browser
+
+Assume `C. Token behind a front end, cookie to the browser` was selected and the outcome failed. Test this option's stated failure mechanism first: a component that has to exist, be deployed and be kept in step, and it reintroduces server state for the browser leg.
+
+### Premortem for D. Sender-constrained token
+
+Assume `D. Sender-constrained token` was selected and the outcome failed. Test this option's stated failure mechanism first: client capability: something has to hold a key and sign, which rules out the cases where the token was attractive because the client was simple.
+
 ## Decision rule
 
 - First-party browser surface, one origin, one venture: A. It is the
@@ -97,7 +132,7 @@ because the client was simple.
   to one named client that somebody authenticated, and the client is the
   one required to check the audience (OpenID Connect Core).
 
-## Default
+## Safe default
 
 A for a first-party browser surface, B constrained per D for everything
 else. Both limits on every session, idle and absolute, sized against the
@@ -105,17 +140,19 @@ graded ranges: a month is defensible for a low-assurance surface, a day
 for one holding somebody's account, hours for anything administrative
 (NIST SP 800-63B-4).
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech EOS itself (2026-08, argued)**: not applicable. The
-  repository authenticates nobody. Recorded so that nobody reads the
-  pack's activation on `**/*session*` as a claim that this repository
-  has sessions.
-- No venture ruling yet. The archetype in the coverage row is a hosted
-  web application with a browser front end, which lands on A, and it
-  will meet B on the first integration that is not a browser.
+Settle this question with the smallest representative probe: **Who is calling? A browser the venture also serves, a browser it does not, a native client, or another service?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Counter-evidence
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A for a first-party browser surface, B constrained per D for everything else. Both limits on every session, idle and absolute, sized against the graded ranges: a month is defensible for a low-assurance surface, a day for one holding somebody's account, hours for anything administrative (NIST SP 800-63B-4).
+
+**Exit condition:** Stop or roll back the selected branch when server state, which has to be shared or sticky across instances, and it fits a browser far better than anything else, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Who is calling? A browser the venture also serves, a browser it does not, a native client, or another service?
+
+## Counter-evidence and transfer limits
 
 The session property list and the storage warning are practitioner
 consensus with no measurement behind them (OWASP session guidance), and
@@ -131,3 +168,9 @@ only for OAuth deployments. It does not say whether to use OAuth at all,
 sets no token lifetime, and says nothing about authorisation beyond the
 scope carried in the token. The choice between A and B is therefore ours
 to argue and nobody's to settle.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

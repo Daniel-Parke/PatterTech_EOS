@@ -1,32 +1,51 @@
 ---
+id: GD-DISC-002
 summary: Where does the evidence about users come from, existing behaviour, talking to people, a controlled experiment, or a model standing in for them?
-type: guide
-tags: [product, testing, wargame]
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, product, testing, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DISC-007, DOC-DISC-015, DOC-DISC-001]
+applies_when: [cites_user_claim]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: controlled
 sources: [EV-0059]
 review: 2028-06
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DISC-002: Where does the evidence about users come from?
 
-## The question
+## Decision question and stakes
 
 You need to say something about what people want or do, and the record
 has to name where that came from (B5). The fork is which instrument you
 point at the question. Each instrument answers a different question, and
 most bad discovery comes from using one to answer another's.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DISC-007` (default): Every number carries its own provenance.
+- `DOC-DISC-015` (default): Reason about the worst case of a small sample, not its average.
+- `DOC-DISC-001` (binding): Claims about people that a model produced are labelled unverified.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Are you asking whether a problem exists, or whether a design works,
   or whether a change moves a number?
 - Can you reach real users this week, and which users?
 - How much traffic does the surface carry?
 - What does being wrong cost, and when would you find out?
+
+Applicability is `cites_user_claim`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -77,6 +96,24 @@ US cases, and no tested model beat the strongest non-LLM baseline at the
 individual level (`EV-0413`). Scope note: that
 benchmark is attitudinal survey prediction, not interview rehearsal.
 
+## Failure premises
+
+### Premortem for A. Existing behaviour already recorded
+
+Assume `A. Existing behaviour already recorded` was selected and the outcome failed. Test this option's stated failure mechanism first: it is a record of the people who spoke, not of the population; it tells you what people hit and never what they wanted; and the filter you applied to get a count becomes part of the claim, so the record has to state it.
+
+### Premortem for B. Talking to and watching real people
+
+Assume `B. Talking to and watching real people` was selected and the outcome failed. Test this option's stated failure mechanism first: recruitment is slow, and the recruitment frame decides whether the whole discovery is wrong (`EV-0404`). Small samples are wildly variable rather than merely thin: across random sets of five participants the share of known problems found ran from 99 per cent down to 55, ten raised the floor to about 80, twenty to about 95 (`EV-0407`).
+
+### Premortem for C. A controlled experiment
+
+Assume `C. A controlled experiment` was selected and the outcome failed. Test this option's stated failure mechanism first: it needs enough traffic to power the metric, and without a platform enforcing guardrails the known failure modes get more likely, not less (`EV-0406`). Asymmetric gating is the usable default: goal metrics drive the ship decision, guardrails block only on significant harm (EV-0059, vendor documentation of its own feature, so the thresholds are conventions).
+
+### Premortem for D. A model standing in for users
+
+Assume `D. A model standing in for users` was selected and the outcome failed. Test this option's stated failure mechanism first: on the segment-targeting task, which is the thing product teams actually want from it, models inflated between-segment gaps two to fourfold and would have pointed a team at the wrong segment in half the US cases, and no tested model beat the strongest non-LLM baseline at the individual level (`EV-0413`). Scope note: that benchmark is attitudinal survey prediction, not interview rehearsal.
+
 ## Decision rule
 
 - "Does this problem exist and who has it": A first, because it is an
@@ -93,13 +130,39 @@ benchmark is attitudinal survey prediction, not interview rehearsal.
 - Any use of D that reaches the record is labelled unverified at the
   point of use, per B6, and never carries a decision alone.
 
-## Default
+## Safe default
 
 A then B for problem questions, C for metric questions above the power
 floor, D only for structuring real input. Where two instruments
 disagree, the one that observed behaviour wins over the one that asked.
 
-## Sample size, honestly
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **Are you asking whether a problem exists, or whether a design works, or whether a change moves a number?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A then B for problem questions, C for metric questions above the power floor, D only for structuring real input. Where two instruments disagree, the one that observed behaviour wins over the one that asked.
+
+**Exit condition:** Stop or roll back the selected branch when it is a record of the people who spoke, not of the population; it tells you what people hit and never what they wanted; and the filter you applied to get a count becomes part of the claim, so the record has to state it, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Are you asking whether a problem exists, or whether a design works, or whether a change moves a number?
+
+## Counter-evidence and transfer limits
+
+### Evidence boundary
+
+`EV-0407` is one interface, one problem set, a 2003
+web application, and its denominator is problems found by the full
+sixty, so problems nobody found are invisible to it. The exact
+percentages do not transfer to another interface class; the shape of the
+variance does. `EV-0412` is a preprint on a single
+platform with participants rather than real stakeholders, scored against
+a documentation standard that rewards well-formed prose and cannot
+detect a well-written requirement for the wrong thing.
+`EV-0413` moves as models move; the direction is the
+durable part, not the margins.
+### Preserved reasoning: Sample size, honestly
 
 Two sources are usually presented as contradicting each other. The
 five-user convention argues that three rounds of five beat one round of
@@ -113,29 +176,9 @@ which one you drew. Two further cautions: the five-user article is
 twenty-six years old and never revised, and it models usability defect
 finding, not whether a problem is worth solving. Citing it to justify
 five customer interviews is citing it for something it does not cover.
+### Historical ruling boundary
 
-## Evidence boundary
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-`EV-0407` is one interface, one problem set, a 2003
-web application, and its denominator is problems found by the full
-sixty, so problems nobody found are invisible to it. The exact
-percentages do not transfer to another interface class; the shape of the
-variance does. `EV-0412` is a preprint on a single
-platform with participants rather than real stakeholders, scored against
-a documentation standard that rewards well-formed prose and cannot
-detect a well-written requirement for the wrong thing.
-`EV-0413` moves as models move; the direction is the
-durable part, not the margins.
-
-## Worked rulings
-
-- **PatterTech EOS product-discovery pack (2026-08, argued)**: worst
-  case over average adopted as D7, and the label rule bound as B6.
-- **Approvals inbox request (2026-08, argued)**: A only, because there
-  were no reachable users and the ticket export was the sole real
-  source. The three supplied personas were refused as decision evidence
-  and cited as unverified. See
-  `packs/product-discovery/exemplars/EX-DISC-001-approvals-inbox-request.md`.
-- **Onboarding copy variant (2026-08, inherited)**: C, because the
-  signup surface was the one place with enough traffic to power a test
-  inside a fortnight.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

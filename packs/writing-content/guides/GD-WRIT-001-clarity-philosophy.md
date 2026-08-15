@@ -1,19 +1,28 @@
 ---
+id: GD-WRIT-001
 summary: Which clarity philosophy governs this text, and where the control point sits?
-kind: guide
+kind: wargame
+type: wargame
+tags: [a11y, content, eos, voice, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-WRIT-001, DOC-WRIT-002]
+applies_when: [writes_user_facing_text]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-scope: estate
 sources: [EV-0433, EV-0434, EV-0435, EV-0437, EV-0438, EV-0439, EV-0440, EV-0441, EV-0442]
 review: 2028-09
-type: guide
-tags: [voice, content, a11y]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-WRIT-001: Which clarity philosophy governs this text?
 
-## The question
+## Decision question and stakes
 
 Four mature traditions claim to make text clear, and they disagree
 about where the control point sits: at the writer, at the word, at the
@@ -21,7 +30,14 @@ reader, or in the message data structure. They are not stages of one
 method and they cannot all be applied to one piece of text without the
 result being incoherent. Pick one per body of text and say which.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-WRIT-001` (binding): No user-facing sentence is assembled by string concatenation.
+- `DOC-WRIT-002` (binding): Plural and gender selection resolves per locale through CLDR categories, never from the English pair.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **What happens if the reader gets it wrong.** Injury, money lost, or
   a mildly worse afternoon.
@@ -34,6 +50,8 @@ result being incoherent. Pick one per body of text and say which.
   towards the message structure whatever else is true.
 - **Whether anyone will ever test the text on a real reader.** Two of
   the four are unfalsifiable without that.
+
+Applicability is `writes_user_facing_text`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -78,6 +96,24 @@ of the four that fixes a defect the others cannot see. Costs a format
 decision, tooling, and a migration from whatever exists. Says nothing
 about tone, terminology or whether the sentence is any good.
 
+## Failure premises
+
+### Premortem for A. Plain language, control at the writer
+
+Assume `A. Plain language, control at the writer` was selected and the outcome failed. Test this option's stated failure mechanism first: a skill that degrades the moment the writer is rushed or is a subject expert, and nothing in the guidance detects that degradation. Its own definition makes comprehension the test, and comprehension is only sometimes gained (EV-0439).
+
+### Premortem for B. Controlled language, control at the word
+
+Assume `B. Controlled language, control at the word` was selected and the outcome failed. Test this option's stated failure mechanism first: a maintained termbase, a linter, and text that is deliberately not idiomatic. No controlled trial of its comprehension gains was located.
+
+### Premortem for C. Content design, control at the reader
+
+Assume `C. Content design, control at the reader` was selected and the outcome failed. Test this option's stated failure mechanism first: research time, and it says nothing about how the sentence is assembled.
+
+### Premortem for D. Message data, control at the structure
+
+Assume `D. Message data, control at the structure` was selected and the outcome failed. Test this option's stated failure mechanism first: a format decision, tooling, and a migration from whatever exists. Says nothing about tone, terminology or whether the sentence is any good.
+
 ## Decision rule
 
 If a misread step hurts someone or costs money, and the readers are
@@ -88,23 +124,29 @@ the text is interface microcopy, choose C, because placement and timing
 dominate wording there. If a second locale exists or is planned, D is
 not an alternative to the others: layer it under whichever you picked.
 
-## Default
+## Safe default
 
 C for interface strings, A for documentation, D layered under both from
 the first commit that creates a string file. B only where the harm case
 is real, because its ongoing cost is real too.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **writing-content pack (2026-08, argued)**: this pack applies C to
-  the error and form requirements, A to the venture documentation
-  defaults, and D as B1 and B2, which bind regardless of philosophy.
-  B was considered and rejected as a house-wide choice, and survives as
-  the option to reach for on a safety-critical procedure.
-- **EOS internal prose (2026-08, inherited)**: A, with the house voice
-  law of ADR-0002 on top. The readers are agents and one person, and
-  the failure mode is drift rather than misunderstanding. See
-  `packs/writing-content/guides/GD-WRIT-003-voice-scope.md`.
-- **Worked example (2026-08, argued)**: C plus D applied to an order
-  panel, in
-  `packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md`.
+Settle this question with the smallest representative probe: ****What happens if the reader gets it wrong.** Injury, money lost, or a mildly worse afternoon.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** C for interface strings, A for documentation, D layered under both from the first commit that creates a string file. B only where the harm case is real, because its ongoing cost is real too.
+
+**Exit condition:** Stop or roll back the selected branch when a skill that degrades the moment the writer is rushed or is a subject expert, and nothing in the guidance detects that degradation. Its own definition makes comprehension the test, and comprehension is only sometimes gained (EV-0439), or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **What happens if the reader gets it wrong.** Injury, money lost, or a mildly worse afternoon.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

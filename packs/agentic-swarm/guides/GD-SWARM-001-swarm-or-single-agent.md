@@ -1,20 +1,28 @@
 ---
+id: GD-SWARM-001
 summary: Should this work be fanned out over lanes at all, or given to one agent?
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, delivery, eos, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-AGENT-008, DOC-SWARM-012, DOC-SWARM-013, DOC-SWARM-024]
+applies_when: [fans_work_across_lanes]
+engages_when: [agent_coordination_cost_is_material]
+consequence: routine
+relations: []
+scope: estate
 authority: default
-lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
-scope: estate
-sources: [EV-0010, EV-0053, EV-0107, EV-0112, EV-0479]
+sources: [EV-0010, EV-0053, EV-0107, EV-0112, EV-0479, EV-0452]
 review: on-change-of:agent-harness-major-release
-type: guide
-tags: [eos, arch, delivery]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SWARM-001: swarm, or one agent?
 
-## The question
+## Decision question and stakes
 
 Fan-out costs roughly an order of magnitude more tokens than one
 session and buys coverage, not correctness. The fork is whether this
@@ -22,7 +30,16 @@ particular job is one a graph helps with. Getting it wrong is the most
 expensive mistake in the pack, because the loss is invisible: the work
 looks done, it cost seven to fifteen times as much, and it is worse.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-AGENT-008` (default): Start at direct single-agent with a strong oracle.
+- `DOC-SWARM-012` (default): Do not swarm work a single agent already does well.
+- `DOC-SWARM-013` (default): If the graph will not cut, do not swarm.
+- `DOC-SWARM-024` (default): Run a single-agent control on a sample, and instrument the landing.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **Decomposability.** Can the work be cut so that lanes do not need
   each other's intermediate results? This, not difficulty, is what
@@ -41,6 +58,8 @@ looks done, it cost seven to fifteen times as much, and it is worse.
   breath (EV-0112).
 - **Hub density.** How many artefacts would more than one lane want to
   write? Every one of those is either integrator-owned or a conflict.
+
+Applicability is `fans_work_across_lanes`. Engagement is `agent_coordination_cost_is_material`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -71,6 +90,24 @@ implementation in place before the agents started (EV-0053). Costs
 everything C costs, at a scale where a weak oracle becomes a disaster
 rather than a nuisance.
 
+## Failure premises
+
+### Premortem for A. One agent, one session
+
+Assume `A. One agent, one session` was selected and the outcome failed. Test this option's stated failure mechanism first: wall-clock time, and degrades on work that overflows one context window.
+
+### Premortem for B. One writer, several readers
+
+Assume `B. One writer, several readers` was selected and the outcome failed. Test this option's stated failure mechanism first: the extra tokens, and nothing else.
+
+### Premortem for C. Fan-out over a measured graph, one integrator
+
+Assume `C. Fan-out over a measured graph, one integrator` was selected and the outcome failed. Test this option's stated failure mechanism first: a partition artefact, a claim set, an integrator, and a merge gate that becomes the constraint.
+
+### Premortem for D. Wide fan-out, ten lanes or more
+
+Assume `D. Wide fan-out, ten lanes or more` was selected and the outcome failed. Test this option's stated failure mechanism first: everything C costs, at a scale where a weak oracle becomes a disaster rather than a nuisance.
+
 ## Decision rule
 
 Start at A. Move to B when the job needs judgement one session cannot
@@ -82,27 +119,38 @@ Move to D only when the oracle is decidable per unit, and record the
 reason. If the graph will not cut, or the work is a chain, run A and
 say so on the record. That is a decision, not a failure.
 
-## Default
+## Safe default
 
 Three to five lanes when C is chosen. This is a converging heuristic
 from three independent directions, not a measured optimum, and the pack
 says so in its counter-evidence.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech_EOS, 2026-08-10, argued.** C at about a dozen lanes for
-  the v2.1 documentation build. The artefacts cut cleanly by pack and
-  by kernel file, the derived views were held back to the integrator,
-  and the verifier, `python -m tools.eos check --repo`, predates every
-  lane by months. The oracle is mechanical but partial: it checks
-  structure, references and voice, not whether an argument is any good,
-  which is why review stayed human at the gate. Worked example in
-  `packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md`.
-- **Any single pack edit, inherited.** A. One file, one owner, no graph.
+Compare one bounded single-agent baseline with the smallest justified lane split under the same task set, model budget and external verifier. Include merge and verification time in the result.
 
-## Notes
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** Three to five lanes when C is chosen. This is a converging heuristic from three independent directions, not a measured optimum, and the pack says so in its counter-evidence.
+
+**Exit condition:** Stop or roll back the selected branch when wall-clock time, and degrades on work that overflows one context window, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **Decomposability.** Can the work be cut so that lanes do not need each other's intermediate results? This, not difficulty, is what separated a domain that gained 80.9 per cent from one that lost 70.0 per cent at almost identical complexity.
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: Notes
 
 Felt speed is not evidence. One randomised trial measured developers 19
 per cent slower with agent tooling while they believed they had been 20
 per cent faster (EV-0010). Whatever this fork decides, the run gets
 instrumented, or the next decision is made on a feeling again.
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Current research boundary
+
+EV-0452 reports gains on decomposable work and losses on sequential, tool-heavy work. Transfer the direction only: coordination cost, baseline capability and central verification still need measurement on this task.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

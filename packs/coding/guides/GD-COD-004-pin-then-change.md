@@ -1,19 +1,28 @@
 ---
+id: GD-COD-004
 summary: How do you change code nobody can specify, read carefully, pin behaviour, reconstruct a spec or rewrite behind a contract?
-type: guide
-tags: [testing, delivery, wargame]
-kind: guide
+kind: wargame
+type: wargame
+tags: [delivery, eos, testing, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-COD-003]
+applies_when: [edits_source]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: empirical-evidence
 evidence_grade: observational
 sources: [EV-0008, EV-0094, EV-0177, EV-0179, EV-0180, EV-0182]
 review: 2027-10
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-COD-004: How do you change code nobody can specify?
 
-## The question
+## Decision question and stakes
 
 You have to change code whose intended behaviour is not written down
 anywhere. That is now the normal case, not the exception: it covers
@@ -21,13 +30,21 @@ inherited code, and it covers code an agent wrote last month that nobody
 read closely. The fork is what you put in place before you touch it, and
 that is a question about how you find out you broke something.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-COD-003` (binding): Behaviour is pinned before structure moves.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Is current behaviour deterministic enough to record?
 - Is the change adding behaviour, or moving structure, or both?
 - How would you find out you broke it? In CI, in an hour, or from a
   customer?
 - Is anyone depending on the current bugs?
+
+Applicability is `edits_source`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -63,6 +80,24 @@ same inputs until they agree, then swap. Buys: an escape from code that
 cannot be reasoned about. Costs: the most expensive option, and the
 comparison harness is itself a project.
 
+## Failure premises
+
+### Premortem for A. Read it and change carefully
+
+Assume `A. Read it and change carefully` was selected and the outcome failed. Test this option's stated failure mechanism first: Costs: the failure is silent and arrives later, and attention does not scale to code a model wrote faster than you can read it. This is the option that quietly becomes the default when nobody rules.
+
+### Premortem for B. Characterisation pin, then change
+
+Assume `B. Characterisation pin, then change` was selected and the outcome failed. Test this option's stated failure mechanism first: it records current bugs as if they were intent, so it is a net and never a specification, and approvals rot into reflexive stamps unless approving is treated as a real act (EV-0094).
+
+### Premortem for C. Reconstruct the specification, then test to it
+
+Assume `C. Reconstruct the specification, then test to it` was selected and the outcome failed. Test this option's stated failure mechanism first: slow, and where the reconstruction is wrong you have replaced an undocumented behaviour with a documented misunderstanding.
+
+### Premortem for D. Rewrite behind a declared contract
+
+Assume `D. Rewrite behind a declared contract` was selected and the outcome failed. Test this option's stated failure mechanism first: the most expensive option, and the comparison harness is itself a project.
+
 ## Decision rule
 
 - You are moving structure and not changing behaviour: B first, always.
@@ -76,13 +111,37 @@ comparison harness is itself a project.
   route it as a project rather than a change.
 - A alone is not an option on any code with a caller you did not write.
 
-## Default
+## Safe default
 
 B. It is the cheapest thing that turns a silent failure into a loud one,
 and the cost of getting it wrong on inherited code is measured in
 incidents rather than in minutes.
 
-## When to refactor at all
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **Is current behaviour deterministic enough to record?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** B. It is the cheapest thing that turns a silent failure into a loud one, and the cost of getting it wrong on inherited code is measured in incidents rather than in minutes.
+
+**Exit condition:** Stop or roll back the selected branch when Costs: the failure is silent and arrives later, and attention does not scale to code a model wrote faster than you can read it. This is the option that quietly becomes the default when nobody rules, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Is current behaviour deterministic enough to record?
+
+## Counter-evidence and transfer limits
+
+### Evidence boundary
+
+EV-0177 is self-reported motivation with recall bias, and it says
+nothing about whether the refactorings improved anything. EV-0180 is a
+tool, not a study. EV-0182 supplies the framing that any behaviour you
+want preserved has to be defended by an automated test rather than by
+convention, and it comes from a very large monorepo with a build system
+that can run affected tests cheaply, so the principle transfers and the
+machinery does not. That text carries a no-derivatives licence, so
+nothing here reproduces it.
+### Preserved reasoning: When to refactor at all
 
 Refactor when a pending change demands it. Developer-reported motivation
 for detected refactorings is overwhelmingly situational, driven by a
@@ -94,8 +153,7 @@ sharply in machine-assisted codebases (EV-0179, vendor study, direction
 only), which suggests the change-driven trigger gets skipped rather than
 that the model is wrong. Instrument your own repository if you want to
 know.
-
-## The rule that stops a fix buying decay
+### Preserved reasoning: The rule that stops a fix buying decay
 
 A fix that duplicates a block to avoid touching a shared path has
 bought its result with structure. Check that the duplicate-block count
@@ -103,26 +161,9 @@ for the file you touched is no higher after your change than before it.
 This is mechanical and cheap, and it is the one structural metric worth
 gating in a small repository. Justify it locally rather than from the
 published magnitudes (EV-0179).
+### Historical ruling boundary
 
-## Evidence boundary
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-EV-0177 is self-reported motivation with recall bias, and it says
-nothing about whether the refactorings improved anything. EV-0180 is a
-tool, not a study. EV-0182 supplies the framing that any behaviour you
-want preserved has to be defended by an automated test rather than by
-convention, and it comes from a very large monorepo with a build system
-that can run affected tests cheaply, so the principle transfers and the
-machinery does not. That text carries a no-derivatives licence, so
-nothing here reproduces it.
-
-## Worked rulings
-
-- **PatterTech EOS coding pack (2026-08, argued)**: B binding as
-  requirement B2. Argued from EV-0180 for the mechanism and EV-0177 for
-  the trigger.
-- **Webhook receiver with no tests (2026-08, argued)**: B, then the new
-  failing test, then the fix, in three commits. See
-  `packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md`.
-- **Bulk dependency bumps (2026-08, inherited)**: the existing suite is
-  the pin, and the fixed validate loop from EV-0008 is the whole
-  procedure.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

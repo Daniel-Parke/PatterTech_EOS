@@ -1,20 +1,28 @@
 ---
+id: GD-SWARM-002
 summary: Where do the cuts go when work is split across lanes, and what is never cut at all?
-kind: guide
+kind: wargame
+type: wargame
+tags: [arch, delivery, eos, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-SWARM-001]
+applies_when: [fans_work_across_lanes]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
-lifecycle: active
 basis: empirical-evidence
 evidence_grade: controlled
-scope: estate
 sources: [EV-0053, EV-0109, EV-0471]
 review: on-change-of:agent-harness-major-release
-type: guide
-tags: [eos, arch, delivery]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SWARM-002: where do the cuts go?
 
-## The question
+## Decision question and stakes
 
 Once the answer to `GD-SWARM-001` is fan-out, something has to decide
 which lane owns what. This is the decision the run's cost and its
@@ -22,7 +30,13 @@ conflict rate both come from, and it is made once, before any lane
 starts. A cut made from the feature list looks reasonable and produces
 lanes that write the same files.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SWARM-001` (binding): The partition is written before any lane starts, and it is cut on the dependency graph.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **The actual dependency graph**, from static analysis or from the
   product map, not from the backlog headings.
@@ -39,6 +53,8 @@ lanes that write the same files.
   with the human duration of the task, at a roughly constant hazard per
   minute, so node size is a reliability parameter rather than a
   convenience (EV-0471).
+
+Applicability is `fans_work_across_lanes`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -62,6 +78,24 @@ of pass rate. Listed here so it is recognised and refused.
 
 ### D. Do not cut
 Cohesion returns one group, or the work is a chain. Run it in one lane.
+
+## Failure premises
+
+### Premortem for A. Cut by dependency-graph community
+
+Assume `A. Cut by dependency-graph community` was selected and the outcome failed. Test this option's stated failure mechanism first: Costs a graph you have to build and keep current.
+
+### Premortem for B. Cut by product-map component
+
+Assume `B. Cut by product-map component` was selected and the outcome failed. Test this option's stated failure mechanism first: accuracy where the map has drifted from the code.
+
+### Premortem for C. Cut by file or by feature
+
+Assume `C. Cut by file or by feature` was selected and the outcome failed. Test this option's stated failure mechanism first: 44 to 60 per cent more than sequential for one to three points of pass rate. Listed here so it is recognised and refused.
+
+### Premortem for D. Do not cut
+
+Assume `D. Do not cut` was selected and the outcome failed. Test this option's stated failure mechanism first: Cohesion returns one group, or the work is a chain. Run it in one lane.
 
 ## Decision rule
 
@@ -88,21 +122,26 @@ Then, whichever was used, do these four things before dispatch:
 4. **Commit the claims.** The claim file is the mutex, and its history
    is the audit trail.
 
-## Default
+## Safe default
 
 A, with hubs held back and the partition committed before dispatch.
 Five or six deliverables per lane.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **PatterTech_EOS, 2026-08-10, argued.** B, because the unit of work
-  was documentation with an explicit file map, verified against a
-  disjointness check across lane write sets. Every derived file,
-  `GOVERNANCE.md`, `org/` and the kernel specifications went to the
-  integrator, which is why a lane authoring a pack could not also add
-  its own row to `registry/coverage.json`.
+Settle this question with the smallest representative probe: ****The actual dependency graph**, from static analysis or from the product map, not from the backlog headings.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
 
-## Notes
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** A, with hubs held back and the partition committed before dispatch. Five or six deliverables per lane.
+
+**Exit condition:** Stop or roll back the selected branch when Costs a graph you have to build and keep current, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **The actual dependency graph**, from static analysis or from the product map, not from the backlog headings.
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: Notes
 
 In the annotated multi-agent corpus, the two largest failure categories
 are specification and system design, and misalignment between agents.
@@ -111,3 +150,9 @@ Both sit before or between the lanes rather than in the checking step
 created. A partition also decays: the moment a lane
 publishes an interface the graph did not have, the cut is stale and the
 integrator, not the lane, decides what to do about it.
+### Historical ruling boundary
+
+The baseline file carried 1 worked ruling note. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

@@ -1,19 +1,28 @@
 ---
+id: GD-DATAENG-003
 summary: The run's own clock, the scheduler's interval, a high-water mark read from the target, or the event time carried in the record?
-type: guide
-tags: [data, ops, state]
-kind: guide
+kind: wargame
+type: wargame
+tags: [data, eos, ops, state, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-DATAENG-005, DOC-DATAENG-004]
+applies_when: [ingests_external_data]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
 scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-review: 2028-02
 sources: [pending-import]
+review: 2028-02
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-DATAENG-003: where does the processing date come from?
 
-## The question
+## Decision question and stakes
 
 Every scheduled run has to decide which rows are its business. That
 decision is a date or a pair of dates, and where those dates come from
@@ -25,7 +34,14 @@ is listed because it is what a pipeline does by default when nobody
 rules, and because the argument against it has to be available at the
 moment somebody reaches for it.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-DATAENG-005` (default): Backfill is the scheduled pipeline given different dates.
+- `DOC-DATAENG-004` (default): The processing window comes from the scheduler or from the data, never from the run's own clock, and it is written down with the output.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - Whether an orchestrator exists that owns a schedule, or whether the
   job is a cron line and a script.
@@ -35,6 +51,8 @@ moment somebody reaches for it.
 - Whether more than one run may be in flight at once.
 - Whether history has to be loaded, because a mechanism that cannot
   express an old window cannot backfill.
+
+Applicability is `ingests_external_data`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -107,6 +125,24 @@ that shows up a week late belongs to an old window and will not be
 picked up unless the lateness policy says so, which is
 `packs/data-engineering/guides/GD-DATAENG-004-late-arrivals.md`.
 
+## Failure premises
+
+### Premortem for A. The run's own clock
+
+Assume `A. The run's own clock` was selected and the outcome failed. Test this option's stated failure mechanism first: * The window is a function of when the process started, so a rerun of Tuesday's failed job on Thursday processes Thursday and Tuesday stays broken. Backfill is impossible without editing the code. The orchestrator's best-practice documentation puts the current-time call out of bounds inside a task, and most firmly out of bounds in the arithmetic that matters. The table format's partitioning documentation supplies the sharpest version of the failure: using the processing time in place of the event time to derive a.
+
+### Premortem for B. The scheduler's interval, passed in
+
+Assume `B. The scheduler's interval, passed in` was selected and the outcome failed. Test this option's stated failure mechanism first: * Needs an orchestrator, and ties the pipeline to that orchestrator's model of time, which has changed across major versions of the ones in common use. A manually triggered run may carry an interval that is not what the operator meant, so the task should take the window it is given rather than reconstructing it.
+
+### Premortem for C. A high-water mark read from the target
+
+Assume `C. A high-water mark read from the target` was selected and the outcome failed. Test this option's stated failure mechanism first: * The window is derived from state, so the same code produces different windows depending on what ran before, and reprocessing a period in the middle of history means lying to the mark. Two concurrent runs read the same mark and do the same work. A partially failed run leaves the mark and the data disagreeing, and which one is right is not recorded anywhere.
+
+### Premortem for D. The event time carried in the record
+
+Assume `D. The event time carried in the record` was selected and the outcome failed. Test this option's stated failure mechanism first: * Requires a trustworthy occurrence time in the records, and every upstream input has to declare its own or the read cannot be narrowed and each batch scans everything. Silent about arrival: a record that shows up a week late belongs to an old window and will not be picked up unless the lateness policy says so, which is `packs/data-engineering/guides/GD-DATAENG-004-late-arrivals.md`.
+
 ## Decision rule
 
 Records carry a usable occurrence time and the transform tool supports
@@ -121,11 +157,25 @@ Whichever is chosen, the window that ran is written into the run ledger
 in `packs/data-engineering/refs/RUN_LEDGER.md`, because a window nobody
 recorded cannot be argued about afterwards.
 
-## Default
+## Safe default
 
 D where the data supports it, B otherwise.
 
-## Why this is a default and not a requirement
+## Cheapest discriminating test
+
+Settle this question with the smallest representative probe: **Whether an orchestrator exists that owns a schedule, or whether the job is a cron line and a script.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** D where the data supports it, B otherwise.
+
+**Exit condition:** Stop or roll back the selected branch when * The window is a function of when the process started, so a rerun of Tuesday's failed job on Thursday processes Thursday and Tuesday stays broken. Backfill is impossible without editing the code. The orchestrator's best-practice documentation puts the current-time call out of bounds inside a task, and most firmly out of bounds in the arithmetic that matters. The table format's partitioning documentation supplies the sharpest version of the failure: using the processing time in place of the event time to derive a, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Whether an orchestrator exists that owns a schedule, or whether the job is a cron line and a script.
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: Why this is a default and not a requirement
 
 It prevents a serious and quiet corruption, which is the first limb of
 the ADR-0008 test, and its basis is two maintainer documents rather than
@@ -133,14 +183,9 @@ a law, a standard or a measurement, which fails the second. Rather than
 inflate the basis to keep the authority, it is D1 in
 `packs/data-engineering/PACK.md` and the open questions there record
 that it is the rule the pack would most like to bind.
+### Historical ruling boundary
 
-## Worked rulings
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
 
-- **PatterTech EOS (2026-08, argued)**: D preferred, B accepted, C
-  admitted for a venture with no orchestrator, A refused. The refusal is
-  worth stating as a refusal rather than as a preference, because A is
-  what a pipeline does when nobody decides.
-- **Worked application**:
-  `packs/data-engineering/exemplars/EX-DATAENG-001-orders-backfill.md`
-  takes B for the extract, where only arrival time exists, and D for the
-  transform, where the order's own timestamp does.
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

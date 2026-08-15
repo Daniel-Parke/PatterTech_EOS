@@ -1,19 +1,28 @@
 ---
+id: GD-SUPPORT-001
 summary: How does inbound get classified, and what keeps the queue finite?
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, ops, product, wargame]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-SUPPORT-003]
+applies_when: [has_customer_inbound]
+engages_when: [operator_requests_wargame]
+consequence: routine
+relations: []
+scope: estate
 authority: default
 basis: standard
 evidence_grade: observational
-scope: estate
 sources: [EV-0055, EV-0200]
 review: on-change-of:ISO-10002-revision
-type: guide
-tags: [ops, product]
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # GD-SUPPORT-001: How does inbound get classified, and what keeps the queue finite?
 
-## The question
+## Decision question and stakes
 
 Four patterns for handling inbound exist in the wild, and they are not
 points on one scale. They differ in what the queue is for: restoring a
@@ -21,7 +30,13 @@ service, keeping a backlog honest, discharging an obligation, or
 learning what the product feels like to use. Pick the wrong one and
 either the cost per item is absurd or the queue grows without bound.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+- `DOC-SUPPORT-003` (default): Nothing enters a backlog without a classification, and untriaged is a state rather than an absence.
+
+The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
+
+## Preconditions and engagement triggers
 
 - **What the failures look like.** Availability-shaped, where one cause
   hits many people at once, or request-shaped, where each item is its
@@ -34,6 +49,8 @@ either the cost per item is absurd or the queue grows without bound.
   like**, or already knows.
 - **Volume against responders.** The arithmetic in PACK.md D8 decides
   this one whatever anybody prefers.
+
+Applicability is `has_customer_inbound`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 
@@ -81,6 +98,24 @@ side effect. Costs a ceiling that arrives non-linearly
 (EV-0430), and it has no exit signal of its own, so
 one has to be written.
 
+## Failure premises
+
+### Premortem for A. Severity-first operational triage
+
+Assume `A. Severity-first operational triage` was selected and the outcome failed. Test this option's stated failure mechanism first: a written ladder maintained ahead of time, and it does nothing for a billing question.
+
+### Premortem for B. Labelled backlog triage
+
+Assume `B. Labelled backlog triage` was selected and the outcome failed. Test this option's stated failure mechanism first: real bugs to the timer, which the maintainers of the project that runs the best-known stale bot have themselves complained about.
+
+### Premortem for C. Complaint as a closed loop
+
+Assume `C. Complaint as a closed loop` was selected and the outcome failed. Test this option's stated failure mechanism first: the most per item, and the management-system apparatus is disproportionate below a handful of staff.
+
+### Premortem for D. Founder as the support function
+
+Assume `D. Founder as the support function` was selected and the outcome failed. Test this option's stated failure mechanism first: a ceiling that arrives non-linearly (EV-0430), and it has no exit signal of its own, so one has to be written.
+
 ## Decision rule
 
 Run more than one. The patterns are not exclusive, and the axes in
@@ -97,7 +132,7 @@ for the internal defect backlog, and only there. If the venture has no
 paying customers and no public tracker, D alone is honest and A is
 still cheap insurance.
 
-## Default
+## Safe default
 
 D plus A for a pre-revenue venture. D plus A plus C from the first
 paying customer. Add B when a public tracker opens or when the defect
@@ -106,19 +141,23 @@ fires, which in practice is whichever comes first of the utilisation
 figure in PACK.md D8 crossing seventy per cent for two consecutive
 weeks, or a month in which no contact taught anything new.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **support-operations exemplar (2026-08, argued)**: a 60-customer paid
-  product ran D plus A plus C. Forty inbound items split into an
-  incident queue and a request queue, one outage declared under A with
-  four duplicate reports collapsed onto one incident id, two billing
-  complaints run under C with acknowledgement recorded and no timer,
-  and three unreproducible reports left in needs-info with a due date
-  rather than closed. See
-  `packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md`.
-- **The conflict is real and is not resolved here (external,
-  inherited)**: B closes unreproducible reports on silence and C
-  forbids closing before the complainant has been answered. The choice
-  is made per channel in
-  `packs/support-operations/guides/GD-SUPPORT-002-close-policy.md`, not
-  by whichever tool default is switched on.
+Settle this question with the smallest representative probe: ****What the failures look like.** Availability-shaped, where one cause hits many people at once, or request-shaped, where each item is its own small thing.** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** D plus A for a pre-revenue venture. D plus A plus C from the first paying customer. Add B when a public tracker opens or when the defect backlog outgrows one person's memory. Move off D when the exit signal fires, which in practice is whichever comes first of the utilisation figure in PACK.md D8 crossing seventy per cent for two consecutive weeks, or a month in which no contact taught anything new.
+
+**Exit condition:** Stop or roll back the selected branch when a written ladder maintained ahead of time, and it does nothing for a billing question, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: **What the failures look like.** Availability-shaped, where one cause hits many people at once, or request-shaped, where each item is its own small thing.
+
+## Counter-evidence and transfer limits
+
+### Historical ruling boundary
+
+The baseline file carried 2 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.
