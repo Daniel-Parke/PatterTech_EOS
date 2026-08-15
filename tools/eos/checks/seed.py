@@ -25,8 +25,9 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
   seed passes D005 vacuously. The check is kept because a seed pinned
   to a v1 commit resolves the v1 matrix, and seeds in the estate are
   pinned that way.
-- D006 every WG id the lock-book cites resolves in the pinned EOS
-  (worktree fallback when the commit is unavailable, with a warning).
+- D006 every Wargame identity in the structured Rulings record resolves
+  live in the pinned EOS. Legacy delimiter rows are read only for a
+  matrix that predates structured Rulings.
 - D007 the seed's policy file (per the matrix at the ruled scale)
   parses and validates against kernel/schemas/policy.schema.json.
 - D008 the policy's guard section either ships a validated adapter
@@ -52,6 +53,8 @@ kernel/SEED_RUBRIC.md still reads true. The D-series is new in v2:
   so both are checked. What it does not check is whether the suite
   fails. There is no suite at compile time and no runtime to run one
   in, so this reads the form and only the form.
+- D012 the venture-owned docs/RULINGS.json validates against the schema
+  at the EOS pin and every selection or omission records a reason.
 
 The scale matrix that governs a seed is the one at the seed's pinned
 eos_commit, read with git show; the working-tree matrix is only a
@@ -80,15 +83,18 @@ from ..repo import SKIP_DIRS
 
 LOCKBOOK_KEYS = ("eos_version", "eos_commit", "scale", "stack")
 ROUTER_CAP = 40
-RULING_ROW = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·")
-RULING_OK = re.compile(r"^\s*-\s+WG-[A-Z]+-\d{3}\s*·.+?·\s*(argued|inherited)\s*·")
+RULING_ROW = re.compile(r"^\s*-\s+(?:GD|WG)-[A-Z0-9]+-\d{3}\s*·")
+RULING_OK = re.compile(
+    r"^\s*-\s+(?:GD|WG)-[A-Z0-9]+-\d{3}\s*·.+?·\s*"
+    r"(argued|inherited)\s*·"
+)
 # Digits included, matching the structural check's pattern: the kernel
 # ships {{SUCCESS_90}} in VENTURE_BRIEF.tpl.md, and a pattern of
 # [A-Z_]+ let it through rubric item A4 unfilled, so a seed could ship
 # green with an empty slot in the brief a stranger reads first.
 SLOT_RE = re.compile(r"\{\{[A-Z0-9_]+\}\}")
 SCALE_FENCE_RE = re.compile(r"<!--\s*scale:")
-WG_REF = re.compile(r"\bWG-[A-Z]+-\d{3}\b")
+WARGAME_REF = re.compile(r"\b(?:GD|WG)-[A-Z0-9]+-\d{3}\b")
 DEFERRAL = "set at first build"
 # The file that carries scheduled work, per scale and matrix generation.
 # v1: WORKLOG at S, QUEUE at M, NEXT at L. v2: task lists replace them.
@@ -116,6 +122,7 @@ MATRIX_PATH = "kernel/SCALE_MATRIX.md"
 POLICY_FILES = ("docs/policy.json", "org/policy.json")
 POLICY_SCHEMA = "kernel/schemas/policy.schema.json"
 CLAIMS_SCHEMA = "kernel/schemas/claims.schema.json"
+RULINGS_SCHEMA = "kernel/schemas/rulings.schema.json"
 
 # The Genesis blueprint set (ADR-0006 decision 1), named by its kernel
 # sources. A compiled seed file records the template it came from in
@@ -320,6 +327,15 @@ def _schema_validate(eos_root, schema_rel: str, doc) -> tuple:
     if not schema_path.is_file():
         return [f"schema {schema_rel} not found in the EOS worktree"], None
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    return _schema_validate_document(schema, doc)
+
+
+def _schema_validate_document(schema, doc) -> tuple:
+    """Validate against an already resolved schema document."""
+    try:
+        import jsonschema
+    except ImportError:
+        return [], _JSONSCHEMA_INSTALL
     validator = jsonschema.Draft202012Validator(schema)
     messages = []
     for err in sorted(validator.iter_errors(doc), key=str):
@@ -566,19 +582,84 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             if not (seed / d).is_dir():
                 err("D005", d, f"directory required empty at scale {scale}, missing")
 
-    # --- D006 lock-book WG ids resolve in the pinned EOS ---------------
-    if lockbook_text:
+    # --- D006/D012 structured Rulings, legacy only for older matrices --
+    structured_required = bool(
+        scale and "docs/RULINGS.json" in (required.get(scale) or []))
+    rulings_rel = (lb_fm.data.get("rulings_record")
+                   if lb_fm and lb_fm.present else None)
+    rulings_path = seed / "docs" / "RULINGS.json"
+    if structured_required:
+        if not rulings_rel:
+            err("D012", "docs/LOCKBOOK.md",
+                "current seed schema requires rulings_record: docs/RULINGS.json")
+        elif str(PurePosixPath(str(rulings_rel))) != "docs/RULINGS.json":
+            err("D012", "docs/LOCKBOOK.md",
+                "rulings_record must be docs/RULINGS.json")
+        if rulings_path.is_file():
+            try:
+                rulings_doc = json.loads(
+                    rulings_path.read_text(encoding="utf-8", errors="strict"))
+            except (ValueError, UnicodeError) as exc:
+                err("D012", "docs/RULINGS.json", f"malformed JSON: {exc}")
+            else:
+                schema_raw = (_show_at_commit(eos_root, eos_commit, RULINGS_SCHEMA)
+                              if pin_available else None)
+                if schema_raw is None:
+                    schema_path = eos_root / RULINGS_SCHEMA
+                    schema_raw = (schema_path.read_text(encoding="utf-8")
+                                  if schema_path.is_file() else None)
+                if schema_raw is None:
+                    err("D012", "docs/RULINGS.json",
+                        f"schema {RULINGS_SCHEMA} does not resolve at the pin "
+                        "or in the EOS worktree")
+                else:
+                    try:
+                        schema_doc = json.loads(schema_raw)
+                    except ValueError as exc:
+                        err("D012", RULINGS_SCHEMA,
+                            f"schema is malformed JSON: {exc}")
+                    else:
+                        messages, unavailable = _schema_validate_document(
+                            schema_doc, rulings_doc)
+                        if unavailable:
+                            err("D012", "docs/RULINGS.json", unavailable)
+                        for message in messages:
+                            err("D012", "docs/RULINGS.json",
+                                f"does not validate against {RULINGS_SCHEMA}: "
+                                f"{message}")
+                if isinstance(rulings_doc, dict) and eos_commit and \
+                        str(rulings_doc.get("eos_commit") or "") != str(eos_commit):
+                    err("D012", "docs/RULINGS.json",
+                        "eos_commit does not match docs/LOCKBOOK.md")
+                try:
+                    from ..ontology import KnowledgeResolver, validate_rulings
+                    resolver = KnowledgeResolver.open(
+                        eos_root, eos_commit if pin_available else None)
+                except (OSError, ValueError) as exc:
+                    err("D006", "docs/RULINGS.json",
+                        f"knowledge resolver could not load: {exc}")
+                else:
+                    for problem in validate_rulings(rulings_doc, resolver):
+                        err("D006", "docs/RULINGS.json", problem.message)
+    elif lockbook_text:
+        # Compatibility reader for a pin whose matrix predates
+        # docs/RULINGS.json. It validates the immutable legacy shape and
+        # resolves both historic identity prefixes without reinterpreting
+        # them as types.
         if pin_available:
-            names = {PurePosixPath(p).name for p in gitfacts.ls_tree(eos_root, eos_commit)}
+            names = {PurePosixPath(p).name
+                     for p in gitfacts.ls_tree(eos_root, eos_commit)}
             where = f"eos_commit {eos_commit}"
         else:
-            names = {p.name for p in eos_root.rglob("WG-*.md")
+            names = {p.name for prefix in ("GD-", "WG-")
+                     for p in eos_root.rglob(prefix + "*.md")
                      if not SKIP_DIRS.intersection(p.parts)}
             where = "the EOS worktree"
-            if lockbook_text and WG_REF.search(lockbook_text) and eos_commit is None:
+            if WARGAME_REF.search(lockbook_text) and eos_commit is None:
                 warn("D006", "docs/LOCKBOOK.md",
-                     "no eos_commit pin, resolving WG ids against the worktree")
-        for wid in sorted(set(WG_REF.findall(lockbook_text))):
+                     "no eos_commit pin, resolving legacy Wargame ids "
+                     "against the worktree")
+        for wid in sorted(set(WARGAME_REF.findall(lockbook_text))):
             if not any(name.startswith(wid) for name in names):
                 err("D006", "docs/LOCKBOOK.md",
                     f"ruling cites {wid}, which does not resolve in {where}")

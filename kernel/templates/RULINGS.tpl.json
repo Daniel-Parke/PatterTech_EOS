@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "venture": "{{VENTURE_NAME}}",
+  "eos_commit": "{{EOS_COMMIT}}",
+  "selection_log": [
+    {
+      "wargame": "WG-EOS-001",
+      "disposition": "selected",
+      "reason": "Scale is always walked at Session 0.",
+      "ruling": "RUL-EOS-001",
+      "facts": []
+    }
+  ],
+  "rulings": [
+    {
+      "id": "RUL-EOS-001",
+      "wargame": "WG-EOS-001",
+      "doctrines": [],
+      "decision": "{{SCALE}}",
+      "execution": "argued",
+      "reason": "The scale ruling taken with the operator at Session 0.",
+      "decided": "{{COMPILED_DATE}}",
+      "review": "on-change-of:venture-scale",
+      "departures": [],
+      "binding_scope_changes": []
+    }
+  ]
+}
