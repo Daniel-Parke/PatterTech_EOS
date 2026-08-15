@@ -109,6 +109,34 @@ JSON on stdout, truncated to 300 lines: `{changed, summaries,
 referencing_files, activated_packs, routed}`. Unchanged context is never
 re-supplied within a run.
 
+## activate
+
+Inputs: `--facts FILE`, a JSON list of predicates or an object with a
+`predicates` key, and `--predicate NAME`, repeatable, which may be given
+together. Neither exits 2, and so does a facts file that is not a list.
+
+Output on stdout: `{declared, unknown_predicates, activated,
+not_activated}`. An `activated` row carries the pack, its body path, the
+predicates that matched and the ones still to confirm. A `not_activated`
+row carries the pack and every predicate that would have activated it.
+
+This is the half of pack activation `context` cannot compute. Path
+triggers need a diff, and at Session 0 the venture has no history, which
+is why `inception/WALK_ORDER.md` builds the walk by matching triggers
+against the interview by hand. The same match from declared facts is
+reproducible and testable.
+
+`not_activated` is the pack-level record of what was considered and left
+out. A compiled seed records what came in through the compile report's
+ancestry, and D003 refuses a file with no reason to be there, but
+nothing recorded the packs nobody loaded, so a reader could not tell a
+pack ruled irrelevant from a pack nobody thought of.
+
+Exit 1 when a declared predicate is owned by no pack. A misspelled fact
+activates nothing and reads exactly like a fact that is false, so the
+pack it should have loaded stays out and the seed ships without the
+ruling. That is the expensive direction, so it fails rather than warns.
+
 ## study
 
 Inputs: `--out DIR` and optional `--name NNNN`. Copies

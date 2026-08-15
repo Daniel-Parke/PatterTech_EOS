@@ -180,6 +180,46 @@ def cmd_guard(args):
     return 0 if verdict.get("verdict") == "allow" else 1
 
 
+def cmd_activate(args):
+    from .contextgen import activation_from_facts
+
+    predicates = list(args.predicate or [])
+    if args.facts:
+        doc = _read_json(Path(args.facts), "the facts file")
+        if isinstance(doc, dict):
+            doc = doc.get("predicates") or doc.get("applies_when") or []
+        if not isinstance(doc, list):
+            print("error: the facts file must hold a list of predicates, or "
+                  "an object with a predicates key", file=sys.stderr)
+            return 2
+        predicates += [str(p) for p in doc]
+    if not predicates:
+        print("error: no predicates given; use --facts or --predicate",
+              file=sys.stderr)
+        return 2
+
+    result = activation_from_facts(REPO, predicates)
+    print(json.dumps(result, indent=1))
+
+    for row in result["activated"]:
+        print("activate {pack}: {why}".format(
+            pack=row["pack"], why=", ".join(row["matched_predicates"])),
+            file=sys.stderr)
+    print("%d pack(s) activate, %d do not"
+          % (len(result["activated"]), len(result["not_activated"])),
+          file=sys.stderr)
+    if result["unknown_predicates"]:
+        # A misspelled fact matches nothing and reads exactly like a fact
+        # that is simply false, so the pack it should have loaded stays
+        # out and the seed ships without the ruling. That is the
+        # expensive direction, so it exits non-zero rather than warning.
+        for p in result["unknown_predicates"]:
+            print("error: no pack declares %s, so it activates nothing" % p,
+                  file=sys.stderr)
+        return 1
+    return 0
+
+
 def cmd_context(args):
     from .contextgen import build_packet
 
@@ -483,6 +523,17 @@ def build_parser():
     x.add_argument("--task")
     x.add_argument("--diff")
     x.set_defaults(fn=cmd_context)
+
+    a = sub.add_parser(
+        "activate",
+        description="Which packs a venture's declared facts activate, and "
+                    "which they do not. Session 0 has no diff, so this is "
+                    "the half of pack activation `context` cannot compute.")
+    a.add_argument("--facts", help="JSON file holding a list of predicates, "
+                                   "or an object with a predicates key")
+    a.add_argument("--predicate", action="append", default=[],
+                   help="a declared predicate, repeatable")
+    a.set_defaults(fn=cmd_activate)
 
     st = sub.add_parser(
         "study",

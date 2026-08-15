@@ -209,3 +209,55 @@ def build_packet(root, base_ref=None, files=None, declared_predicates=None):
             root, changed, declared_predicates=declared_predicates),
         "routed": {"tier": routed["tier"], "reasons": routed["reasons"]},
     }
+
+
+def activation_from_facts(root, predicates) -> dict:
+    """Which packs a venture's declared facts activate, and which they do not.
+
+    Session 0 has no diff. The venture has no history yet, so the path
+    half of a trigger cannot fire and `context` has nothing to read,
+    which is why inception/WALK_ORDER.md builds the walk by matching
+    triggers against the interview by hand. This computes the same match
+    from the facts instead, so the walk is reproducible and testable
+    rather than eyeballed once.
+
+    The `not_activated` half is the point as much as the activated half.
+    A compiled seed records what came in through the compile report's
+    ancestry table, and check D003 refuses a file that is in the seed
+    without a reason to be. Nothing recorded the packs that were
+    considered and left out, so a reader could not tell a pack ruled
+    irrelevant from a pack nobody thought about.
+
+    An unknown predicate is a finding rather than a shrug. A misspelled
+    fact activates nothing, silently, and a pack that should have loaded
+    then does not: the expensive direction, because the seed ships
+    without the ruling and nothing in it says so.
+    """
+    declared = set(predicates or [])
+    triggers = pack_triggers(root)
+    known = {p for t in triggers for p in t["predicates"]}
+    activated, not_activated = [], []
+    for trigger in triggers:
+        owned = set(trigger["predicates"])
+        matched = sorted(owned & declared)
+        if matched:
+            activated.append({
+                "pack": trigger["pack"],
+                "body": trigger["path"],
+                "matched_predicates": matched,
+                "predicates_to_confirm": [p for p in trigger["predicates"]
+                                          if p not in declared],
+            })
+        else:
+            not_activated.append({
+                "pack": trigger["pack"],
+                "would_activate_on": sorted(owned),
+            })
+    activated.sort(key=lambda r: r["pack"])
+    not_activated.sort(key=lambda r: r["pack"])
+    return {
+        "declared": sorted(declared),
+        "unknown_predicates": sorted(declared - known),
+        "activated": activated,
+        "not_activated": not_activated,
+    }
