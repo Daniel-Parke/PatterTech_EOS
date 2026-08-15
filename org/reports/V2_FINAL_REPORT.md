@@ -259,7 +259,7 @@ of eight and the two it dropped are the two v2 fails hardest.
 
 ## What the rebuild found and fixed
 
-- The append-only ledger was rewritten in place by `2c7468d`. No run
+- The append-only ledger was rewritten in place by `2637520`. No run
   disappeared, but seventeen rows were overwritten and six had their
   verdicts changed, every one of them a v1 run moving from fail to pass
   as the criteria scripts were corrected. The direction is worth noting:

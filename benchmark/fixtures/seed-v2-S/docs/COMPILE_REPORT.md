@@ -16,7 +16,7 @@ traced to a row below is a compile failure.
 
 - venture: Herbfield Lane
 - scale: S · add-ons: none
-- eos_version: 2.0.0-dev · eos_commit: 00fbaba
+- eos_version: 2.0.0-dev · eos_commit: 40741b9
 - compiled: 2026-08-03 · compiler session: EOS v2 build, lane P3
 
 ## Ancestry
@@ -95,7 +95,7 @@ green before the human items are judged.
 - 2026-08-03 · `python -m tools.eos check --seed benchmark/fixtures/seed-v2-S`
   · `5 errors, 0 warnings`. Not green, and not for a fault in this
   seed. The seed check resolves the governing matrix at the pinned
-  `eos_commit`, and at 00fbaba `kernel/SCALE_MATRIX.md` still holds
+  `eos_commit`, and at 40741b9 `kernel/SCALE_MATRIX.md` still holds
   the v1 S/M/L matrix while the v2 matrix waits at
   `kernel/SCALE_MATRIX_v2.staging.md`. Three of the five findings are
   that pin alone: a missing `docs/WORKLOG.md`, its missing ancestry

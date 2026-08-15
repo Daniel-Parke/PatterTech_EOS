@@ -291,12 +291,12 @@ def test_d002_compiled_from_absent_at_pin(tmp_path):
     fs = run_seed(seed, ctx())
     assert only(fs, "D002") == [("error", "docs/EOS_FEEDBACK.md",
                                  "compiled_from kernel/templates/NOPE.tpl.md "
-                                 "absent at eos_commit 6590a82")]
+                                 "absent at eos_commit ba34d01")]
 
 
 def test_d002_unknown_pin_degrades_to_worktree(tmp_path):
     seed = make_seed(tmp_path, "S")
-    edit(seed, "docs/LOCKBOOK.md", "eos_commit: 6590a82", "eos_commit: 1111111")
+    edit(seed, "docs/LOCKBOOK.md", "eos_commit: ba34d01", "eos_commit: 1111111")
     fs = run_seed(seed, ctx())
     got = only(fs, "D002")
     assert ("warn", "docs/LOCKBOOK.md",
@@ -393,7 +393,7 @@ def test_d006_unresolvable_wargame_id(tmp_path):
     fs = run_seed(seed, ctx())
     assert only(fs, "D006") == [("error", "docs/LOCKBOOK.md",
                                  "ruling cites WG-ZZZ-999, which does not resolve "
-                                 "in eos_commit 6590a82")]
+                                 "in eos_commit ba34d01")]
 
 
 # --- the matrix resolves at the pin, not the working tree ---------------
@@ -403,7 +403,7 @@ def _real_v1_matrix():
     """The v1 matrix exactly as the frozen fixtures pinned it, read
     from this repository's history so later worktree edits cannot
     reach it."""
-    return git(REPO_ROOT, "show", "6590a82:kernel/SCALE_MATRIX.md")
+    return git(REPO_ROOT, "show", "ba34d01:kernel/SCALE_MATRIX.md")
 
 
 def _eos_repo_for(tmp_path, seed):
@@ -446,7 +446,7 @@ def test_fixture_seed_validates_against_the_matrix_at_its_pin(tmp_path):
     edit(seed, "docs/WORKLOG.md", "1. (none yet)",
          "1. Run the first-build lock-in and replace every deferral")
     eos, pin = _eos_repo_for(tmp_path, seed)
-    edit(seed, "docs/LOCKBOOK.md", "eos_commit: 6590a82", "eos_commit: " + pin)
+    edit(seed, "docs/LOCKBOOK.md", "eos_commit: ba34d01", "eos_commit: " + pin)
     fs = run_seed(seed, {"root": eos, "today": TODAY, "offline": True})
     # Zero errors and zero warnings: the garbage working-tree matrix
     # never entered the check because the pinned matrix governs.
@@ -471,7 +471,7 @@ def test_matrix_absent_at_pin_falls_back_to_worktree_with_warning(tmp_path):
     matrix.parent.mkdir(parents=True)
     matrix.write_text(_real_v1_matrix(), encoding="utf-8")
     assert early != matrixless
-    edit(seed, "docs/LOCKBOOK.md", "eos_commit: 6590a82",
+    edit(seed, "docs/LOCKBOOK.md", "eos_commit: ba34d01",
          "eos_commit: " + matrixless)
     fs = run_seed(seed, {"root": eos, "today": TODAY, "offline": True})
     got = only(fs, "D003")

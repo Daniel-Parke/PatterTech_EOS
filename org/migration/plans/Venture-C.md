@@ -16,7 +16,7 @@ write for a later decision, so this file is a report and not a change.
 ## What the command reported
 
 - venture: Venture C
-- pin_current: v1.0.0@3807eb163f7ada8d533e40a137267945cf95709a
+- pin_current: v1.0.0@a9a0392ad5ae82a906365de264bcfbb2f9dbdde4
 - route: recompile
 - steps: pin-policy; roles-to-tier-note; queue-to-tasks (queue rows
   become task records); inventory, which came back "inventory complete"
@@ -26,19 +26,19 @@ write for a later decision, so this file is a report and not a change.
 
 ## The pin, and why it needs normalising
 
-The lock-book records the pin as v1.0.0 at 3807eb1. Both halves are
+The lock-book records the pin as v1.0.0 at a9a0392. Both halves are
 checkable and they disagree.
 
-- The v1.0.0 tag is 85b31f4, dated 2026-07-07.
-- 3807eb1 is dated 2026-07-08 and its subject is an estate bookkeeping
+- The v1.0.0 tag is 819577f, dated 2026-07-07.
+- a9a0392 is dated 2026-07-08 and its subject is an estate bookkeeping
   commit. It is a descendant of the v1.0.0 tag, so it is not that
   release.
-- 3807eb1 does resolve, and it is an ancestor of the pushed tag
+- a9a0392 does resolve, and it is an ancestor of the pushed tag
   archive/v1-final, so the provenance holds and nothing is lost.
 
 The label is therefore wrong and the commit is fine. The migration
 normalises the pin to archive/v1-final, which is a pushed tag that
-contains 3807eb1, and check S010 then passes on the registry row
+contains a9a0392, and check S010 then passes on the registry row
 without a caveat.
 
 ## Why recompile rather than apply

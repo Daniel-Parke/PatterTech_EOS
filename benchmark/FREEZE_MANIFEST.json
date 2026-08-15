@@ -50,9 +50,9 @@
   "benchmark/fixtures/seed-v1-M/AGENTS.md": "7892e2b77bf4461584cb9ab1ac235c41b266037288993eebb4087cafc1677327",
   "benchmark/fixtures/seed-v1-M/CLAUDE.md": "7892e2b77bf4461584cb9ab1ac235c41b266037288993eebb4087cafc1677327",
   "benchmark/fixtures/seed-v1-M/OPERATORS_GUIDE.md": "b2988109da98cee6b8116499309b777f24b0f8b1ba2f2c760896ce1c07356ade",
-  "benchmark/fixtures/seed-v1-M/docs/COMPILE_REPORT.md": "895a48c18a25642334ddf5876e38c38d9ccb9c507221f939e7f82cf87292b814",
+  "benchmark/fixtures/seed-v1-M/docs/COMPILE_REPORT.md": "1a9c3f8ac9bc2a8f94f98ff68b1e2aaa51f1e98342ec86d3f84ecbbb6efd4571",
   "benchmark/fixtures/seed-v1-M/docs/EOS_FEEDBACK.md": "31fb4c8a872542219566d07daa88189995d18e8b68ac361ef3dd9e56f5d334ac",
-  "benchmark/fixtures/seed-v1-M/docs/LOCKBOOK.md": "9e9864d84a93bf823cc6f41b88283b13cd7afd0d9a0cfe1595aba9b74652e61d",
+  "benchmark/fixtures/seed-v1-M/docs/LOCKBOOK.md": "9c61184620868911e73ca7a0c84bb27ee58d084fdc7fb645c90803d0b5690283",
   "benchmark/fixtures/seed-v1-M/docs/VENTURE_BRIEF.md": "6bd5e076170986027a991a839ffccb7fcac354e8a8bc907f0de6d504009091ed",
   "benchmark/fixtures/seed-v1-M/org/CADENCE.md": "8985751c7efef8a8c30634d41f445d729fc675989b1caea22d9d9766989939d4",
   "benchmark/fixtures/seed-v1-M/org/CONSTITUTION.md": "90004bb7bd4e7fac4950beca637c61d804d652d6a7c6408b038bcc9446b2e8e1",
@@ -70,9 +70,9 @@
   "benchmark/fixtures/seed-v1-S/AGENTS.md": "285f6e0b55004ced38b939ec056ac23e49a422e14e57c7a263ee283786aa9dc6",
   "benchmark/fixtures/seed-v1-S/CLAUDE.md": "285f6e0b55004ced38b939ec056ac23e49a422e14e57c7a263ee283786aa9dc6",
   "benchmark/fixtures/seed-v1-S/OPERATORS_GUIDE.md": "8372a302fffe2e7c28aadf340763a32e4f1f4140d80429a6a83489d1a5ba6767",
-  "benchmark/fixtures/seed-v1-S/docs/COMPILE_REPORT.md": "5d36c639d13f385c2e4cfefd4a3dca74ef498250a5d50162475d332381f7efa1",
+  "benchmark/fixtures/seed-v1-S/docs/COMPILE_REPORT.md": "c50082c56ce16c296d1db4baa5730f4ab2aff461691d97e7c6f451fd5448411d",
   "benchmark/fixtures/seed-v1-S/docs/EOS_FEEDBACK.md": "6c4befe942f408b6bc3acb4e7ba18aaca1b0a325800c168a5b3fc5b18ede3426",
-  "benchmark/fixtures/seed-v1-S/docs/LOCKBOOK.md": "5a7f3cd9b62f913d2bd5253b486026159c22fad05a7790052108ce942fc033ca",
+  "benchmark/fixtures/seed-v1-S/docs/LOCKBOOK.md": "9f9c1ba500ff291cde9685cd251f79635691c0a21e0443067e2596e60834a787",
   "benchmark/fixtures/seed-v1-S/docs/VENTURE_BRIEF.md": "b43cc013505bdb8fefc58e72db7187b3741673ff2e885278435c0e65f9cafe95",
   "benchmark/fixtures/seed-v1-S/docs/WORKLOG.md": "da1f38f93040ab30dfd40d1c40a7e7ddba33ac3913ee2c0a167b653319ff89f7",
   "benchmark/holdout/app-api/README.md": "73a4f0879cb8cac40e88f296545e3e6c218e7d6ce6587f7e894ab24735b9084a",
@@ -290,6 +290,18 @@
    "reference": "org/decisions/ADR-0002, de-identification pass",
    "class": "names a role where it named a person, no threshold, gate or scoring rule changed",
    "note": "The repository is public and the owner asked that it stop referring to him by name, in the third person throughout. This file said the private key for the sealed suite is held by a named person; it now says the operator. The custody claim is unchanged, and so is every threshold, session count, gate and scoring rule. The copyright holder in LICENSE and NOTICE and the decided_by field on the decision records keep the name, because attribution and the record of who ruled are the two places where a role would be a worse answer."
+  },
+  {
+   "date": "2026-08-15",
+   "files": [
+    "benchmark/fixtures/seed-v1-M/docs/COMPILE_REPORT.md",
+    "benchmark/fixtures/seed-v1-M/docs/LOCKBOOK.md",
+    "benchmark/fixtures/seed-v1-S/docs/COMPILE_REPORT.md",
+    "benchmark/fixtures/seed-v1-S/docs/LOCKBOOK.md"
+   ],
+   "reference": "org/decisions/ADR-0002, history rewrite",
+   "class": "pin translation only, no fixture content or expectation changed",
+   "note": "The repository's history was rewritten to remove a third party's name from every commit, message and path, which changed every commit id. These four fixtures record the EOS commit their seed was compiled at, and the seed check resolves kernel/SCALE_MATRIX.md at that commit, so an untranslated pin would have made them unresolvable rather than merely stale. Each pin was translated through filter-repo's own old-to-new commit map, so it names the same tree under the id that tree now has. Nothing else in these files changed: not a slot, not a fence, not a ruling, and not the file set either fixture contains."
   }
  ]
 }

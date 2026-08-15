@@ -34,7 +34,7 @@ def test_plan_reads_scale_and_pin_from_lockbook(tmp_path):
     seed = _copy_seed("seed-v1-M", tmp_path)
     plan = migrate.plan(seed)
     assert plan["venture"] == "FieldKit"
-    assert plan["pin_current"] == "1.0.0@6590a82"
+    assert plan["pin_current"] == "1.0.0@ba34d01"
     assert plan["route"] == "apply"
     step_ids = [s["id"] for s in plan["steps"]]
     assert "pin-policy" in step_ids

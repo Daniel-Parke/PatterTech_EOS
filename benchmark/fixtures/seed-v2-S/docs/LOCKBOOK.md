@@ -5,7 +5,7 @@ tags: [eos]
 compiled_from: kernel/templates/LOCKBOOK.tpl.md
 eos_root: PatterTech_EOS
 eos_version: 2.0.0-dev
-eos_commit: 00fbaba
+eos_commit: 40741b9
 scale: S
 stack: STACK-web-static
 policy_profile: docs/policy.json

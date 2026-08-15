@@ -384,7 +384,7 @@ def test_migrate_apply_needs_the_seed_the_state_cannot_name(venture, capsys):
     (seed / "docs").mkdir(parents=True)
     (seed / "docs" / "LOCKBOOK.md").write_text(
         "---\nsummary: A v1 lock-book\ntype: template\ntags: [eos]\n"
-        "eos_version: 1.0.0\neos_commit: 6590a82\nscale: S\n"
+        "eos_version: 1.0.0\neos_commit: ba34d01\nscale: S\n"
         "stack: STACK-test\n---\n\n# Fieldwork lock-book\n",
         encoding="utf-8")
     state_path = venture / "state.json"

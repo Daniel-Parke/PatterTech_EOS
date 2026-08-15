@@ -16,7 +16,7 @@ traced to a row below is a compile failure.
 
 - venture: FieldKit
 - scale: M · add-ons: none
-- eos_version: 1.0.0 · eos_commit: 6590a82
+- eos_version: 1.0.0 · eos_commit: ba34d01
 - compiled: 2026-08-02 · compiler session: EOS v2 build, lane E
 
 ## Ancestry

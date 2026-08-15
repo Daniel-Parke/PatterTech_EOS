@@ -42,7 +42,7 @@
         "Any EOS doctrine"
       ],
       "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
-      "eos_pin": "pre-1.0.0 @ 0a2a044",
+      "eos_pin": "pre-1.0.0 @ ce1ea42",
       "notes": "Seeded venture, L scale. v1 Genesis, the archived PB-001 playbook and not the phase inception/GENESIS.md now defines, was in progress when the venture was last looked at on 2026-07-07 and has not been observed since; registry/PROJECTS.md carries the dates. The 2026-08-03 pass read git state only. No git remote is configured locally, so nothing here is pushed anywhere; branch main, last commit 2026-07-17. Its seed pack is the extraction source for kernel/templates/, and its route to v2 is recompile rather than upgrade."
     },
     "Venture C": {
@@ -58,7 +58,7 @@
         "The kernel it was seeded from"
       ],
       "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
-      "eos_pin": "3807eb1, recorded in the venture as v1.0.0 @ 3807eb1. The version label is wrong: the v1.0.0 tag is 85b31f4 of 2026-07-07 and 3807eb1 is a 2026-07-08 branch commit made after it. Treat the pin as the commit and ignore the label; see registry/PROJECTS.md",
+      "eos_pin": "a9a0392, recorded in the venture as v1.0.0 @ a9a0392. The version label is wrong: the v1.0.0 tag is 819577f of 2026-07-07 and a9a0392 is a 2026-07-08 branch commit made after it. Treat the pin as the commit and ignore the label; see registry/PROJECTS.md",
       "notes": "Seeded venture, M scale, S0 gate passed 2026-07-15. v1 Genesis, the archived PB-001 playbook and not the phase inception/GENESIS.md now defines, was recorded complete on that date, and the venture has not been observed since; the 2026-08-03 pass read git state only. Branch main, last commit 2026-07-16. The directory on disk carries a different name from the venture."
     },
     "PatterTech_Website": {

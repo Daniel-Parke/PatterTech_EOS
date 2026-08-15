@@ -55,7 +55,7 @@
         "operator_events": 0,
         "turns": 18
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-P1-t1"
     },
     {
@@ -112,7 +112,7 @@
         "operator_events": 0,
         "turns": 25
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-P1-t2"
     },
     {
@@ -403,7 +403,7 @@
         "operator_events": 0,
         "turns": 33
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-P2-t1"
     },
     {
@@ -470,7 +470,7 @@
         "operator_events": 0,
         "turns": 24
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-P2-t2"
     },
     {
@@ -801,7 +801,7 @@
         "operator_events": 0,
         "turns": 27
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-P3-t1"
     },
     {
@@ -868,7 +868,7 @@
         "operator_events": 0,
         "turns": 33
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-P3-t2"
     },
     {
@@ -1209,7 +1209,7 @@
         "operator_events": 0,
         "turns": 21
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T01-t1"
     },
     {
@@ -1854,7 +1854,7 @@
         "operator_events": 0,
         "turns": 35
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T02-t1"
     },
     {
@@ -2449,7 +2449,7 @@
         "operator_events": 0,
         "turns": 99
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T03-t1"
     },
     {
@@ -3084,7 +3084,7 @@
         "operator_events": 0,
         "turns": 73
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T04-t1"
     },
     {
@@ -3693,7 +3693,7 @@
         "operator_events": 0,
         "turns": 36
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T05-t1"
     },
     {
@@ -4074,7 +4074,7 @@
         "operator_events": 0,
         "turns": 138
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T06-t1"
     },
     {
@@ -4493,7 +4493,7 @@
         "operator_events": 0,
         "turns": 81
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T07-t1"
     },
     {
@@ -4570,7 +4570,7 @@
         "operator_events": 0,
         "turns": 87
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T07-t2"
     },
     {
@@ -5065,7 +5065,7 @@
         "operator_events": 0,
         "turns": 47
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T08-t1"
     },
     {
@@ -5436,7 +5436,7 @@
         "operator_events": 0,
         "turns": 18
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T09-t1"
     },
     {
@@ -5767,7 +5767,7 @@
         "operator_events": 0,
         "turns": 58
       },
-      "notes": "Original scoring, restored 2026-08-08. Commit 2c7468d rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
+      "notes": "Original scoring, restored 2026-08-08. Commit 2637520 rewrote this row in place when the criteria scripts were corrected, against the append-only rule benchmark/README.md states. The correction itself was sound and its direction was against v2's interest: every verdict it changed was a v1 run moving from fail to pass. The row is restored so the trail is in the ledger rather than only in git history.",
       "superseded_by": "R-V1-T10-t1"
     },
     {

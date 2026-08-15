@@ -10,8 +10,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "agentic-swarm": {
    "spec": "benchmark/drills/agentic-swarm.md",
@@ -30,9 +30,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "api-integration": {
    "spec": "benchmark/drills/api-integration.md",
@@ -41,8 +41,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "architecture": {
    "spec": "benchmark/drills/architecture.md",
@@ -51,8 +51,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "business-logic-modelling": {
    "spec": "benchmark/drills/business-logic-modelling.md",
@@ -61,9 +61,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "business-model-pricing": {
    "spec": "benchmark/drills/business-model-pricing.md",
@@ -72,9 +72,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "coding": {
    "spec": "benchmark/drills/coding.md",
@@ -83,8 +83,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "data-analytics": {
    "spec": "benchmark/drills/data-analytics.md",
@@ -93,9 +93,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "data-engineering": {
    "spec": "benchmark/drills/data-engineering.md",
@@ -114,8 +114,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "devops-reliability": {
    "spec": "benchmark/drills/devops-reliability.md",
@@ -124,8 +124,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "docs-dx": {
    "spec": "benchmark/drills/docs-dx.md",
@@ -134,9 +134,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "identity-access": {
    "spec": "benchmark/drills/identity-access.md",
@@ -155,9 +155,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "marketing-growth": {
    "spec": "benchmark/drills/marketing-growth.md",
@@ -166,9 +166,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "marketing-growth-positioning": {
    "spec": "benchmark/drills/marketing-growth-positioning.md",
@@ -187,9 +187,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "pattertech-house": {
    "spec": "benchmark/drills/pattertech-house.md",
@@ -198,9 +198,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "product-discovery": {
    "spec": "benchmark/drills/product-discovery.md",
@@ -209,9 +209,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "research-knowledge": {
    "spec": "benchmark/drills/research-knowledge.md",
@@ -230,8 +230,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "supply-chain-integrity": {
    "spec": "benchmark/drills/supply-chain-integrity.md",
@@ -250,9 +250,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   },
   "ui-ux": {
    "spec": "benchmark/drills/ui-ux.md",
@@ -261,8 +261,8 @@
    "wave": "A",
    "frozen": "2026-08-03",
    "frozen_before_authoring": true,
-   "pack_first_commit": "00fbaba",
-   "source_first_commit": "fb634ab"
+   "pack_first_commit": "40741b9",
+   "source_first_commit": "d00efb7"
   },
   "ui-ux-greenfield": {
    "spec": "benchmark/drills/ui-ux-greenfield.md",
@@ -281,9 +281,9 @@
    "wave": "B",
    "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
+   "pack_first_commit": "a5f74a4",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
+   "source_first_commit": "a5f74a4"
   }
  },
  "waves": {
@@ -321,7 +321,7 @@
   "frozen_before_authoring": "True when the spec was committed before any of its pack's content existed, so the pack could not have been written to the drill.",
   "source_first_commit": "First commit holding the drill spec.",
   "pack_first_commit": "First commit holding the pack's PACK.md.",
-  "how_to_read_it": "Wave A specs landed in fb634ab and their packs in 00fbaba, four commits later, so the flag is true. Wave B specs and packs both landed in a43c20b, the same commit, so the flag is false and the evidence for it is in the two commit fields.",
+  "how_to_read_it": "Wave A specs landed in d00efb7 and their packs in 40741b9, four commits later, so the flag is true. Wave B specs and packs both landed in a5f74a4, the same commit, so the flag is false and the evidence for it is in the two commit fields.",
   "pack": "The pack the drill exercises. Present where the drill key is not itself a pack name, which happens when a pack has more than one drill."
  }
 }

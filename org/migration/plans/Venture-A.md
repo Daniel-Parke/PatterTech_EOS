@@ -16,7 +16,7 @@ write for a later decision, so this file is a report and not a change.
 ## What the command reported
 
 - venture: Venture A
-- pin_current: pre-1.0.0@0a2a044
+- pin_current: pre-1.0.0@ce1ea42
 - route: recompile
 - steps: pin-policy (the lock-book header gains the v2 policy pin);
   roles-to-tier-note (role charters swap for the tier policy note);
@@ -31,7 +31,7 @@ starts.
 
 ## Why recompile
 
-The pin is 0a2a044, an EOS commit of 2026-07-07 that is an ancestor of
+The pin is ce1ea42, an EOS commit of 2026-07-07 that is an ancestor of
 both pushed tags, so it resolves and the provenance is sound. It
 predates the v1.0.0 kernel freeze, which is the condition for recompile
 in org/migration/PLAYBOOK.md: the templates that produced this seed no

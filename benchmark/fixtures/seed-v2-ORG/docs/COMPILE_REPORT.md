@@ -16,7 +16,7 @@ traced to a row below is a compile failure.
 
 - venture: FieldKit
 - scale: ORG · add-ons: none
-- eos_version: 2.0.0-dev · eos_commit: 00fbaba
+- eos_version: 2.0.0-dev · eos_commit: 40741b9
 - compiled: 2026-08-03 · compiler session: EOS v2 build, lane P3
 
 ## Ancestry
@@ -123,7 +123,7 @@ green before the human items are judged.
 - 2026-08-03 · `python -m tools.eos check --seed benchmark/fixtures/seed-v2-ORG`
   · `1 errors, 0 warnings`, and the one error is the pin, not the
   seed: the check resolves the governing matrix at the pinned
-  `eos_commit`, and at 00fbaba `kernel/SCALE_MATRIX.md` still holds
+  `eos_commit`, and at 40741b9 `kernel/SCALE_MATRIX.md` still holds
   the v1 S/M/L matrix while the v2 matrix waits at
   `kernel/SCALE_MATRIX_v2.staging.md`. Under a matrix with no ORG
   column the ruled scale cannot resolve.

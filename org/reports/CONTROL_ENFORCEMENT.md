@@ -6,7 +6,7 @@ tags: [eos]
 
 # Control enforcement
 
-Written 2026-08-15 against commit `5e6fbf0` on
+Written 2026-08-15 against commit `14d4ad7` on
 `eos/audit-research-expansion`. The repository's first rule is that a
 control which is not built must not be described as though it were, and
 this file is the audit of that rule against itself. Every row was
