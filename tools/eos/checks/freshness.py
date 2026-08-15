@@ -165,13 +165,26 @@ def check_f003_bulk_review_dates(ctx: dict) -> list:
     for rec in model.files:
         if not _in_scope(rec):
             continue
+        cohort = rec.path
+        parts = rec.path.split("/")
+        if (
+            len(parts) >= 4
+            and parts[0] == "packs"
+            and parts[2] == "doctrines"
+            and rec.fm.data.get("generated_by") == "tools.eos.migrate_doctrines"
+        ):
+            # The migration gave each atom the review policy of the pack
+            # statement it came from. They are one scheduled pack review,
+            # not hundreds of independently bulk-set dates. F001 still
+            # expires every atom, while F003 counts the truthful cohort once.
+            cohort = "/".join(parts[:3])
         for key in ("review_by", "review"):
             value = rec.fm.data.get(key)
             if isinstance(value, str) and MONTH_RE.match(value.strip()):
-                groups.setdefault(value.strip(), set()).add(rec.path)
+                groups.setdefault(value.strip(), {})[cohort] = rec.path
     out = []
     for value in sorted(groups):
-        paths = sorted(groups[value])
+        paths = sorted(groups[value].values())
         if len(paths) > BULK_THRESHOLD:
             out.append(Finding("F003", "warn", paths[0],
                                f"review date {value} shared by {len(paths)} files, bulk-set smell"))

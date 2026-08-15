@@ -178,6 +178,29 @@ def test_f003_ten_files_is_not_a_smell(tmp_path):
     assert only(run_f(root), "F003") == []
 
 
+def test_f003_counts_migrated_doctrines_as_one_pack_review(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"packs/testmod/doctrines/DOC-TEST-{i:03d}.md",
+              "---\nsummary: Atomic Doctrine\ntype: doctrine\ntags: [eos]\n"
+              "kind: doctrine\nreview: 2029-01\n"
+              "generated_by: tools.eos.migrate_doctrines\n---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+def test_f003_keeps_separate_pack_review_cohorts(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"packs/mod{i:02d}/doctrines/DOC-MOD-{i:03d}.md",
+              "---\nsummary: Atomic Doctrine\ntype: doctrine\ntags: [eos]\n"
+              "kind: doctrine\nreview: 2029-01\n"
+              "generated_by: tools.eos.migrate_doctrines\n---\nBody.\n")
+    fs = only(run_f(root), "F003")
+    assert len(fs) == 1
+    assert fs[0][0] == "warn"
+    assert fs[0][2] == "review date 2029-01 shared by 11 files, bulk-set smell"
+
+
 # --- F004 ---------------------------------------------------------------
 
 
