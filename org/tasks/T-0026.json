@@ -40,7 +40,7 @@
       "evidence": "diff size 270 lines across 3 files exceeds express limits 150/8"
     }
   ],
-  "status": "active",
+  "status": "done",
   "owner_session": "doctrine-wargame-integrator",
   "claims": [
     "AGENTS.md",
@@ -63,7 +63,8 @@
   ],
   "timestamps": {
     "opened": "2026-08-15T19:35:02Z",
-    "updated": "2026-08-15T19:53:00Z"
+    "updated": "2026-08-15T23:24:35Z",
+    "closed": "2026-08-15T23:24:35Z"
   },
   "hypothesis_ledger": [],
   "oracle_provenance": {
