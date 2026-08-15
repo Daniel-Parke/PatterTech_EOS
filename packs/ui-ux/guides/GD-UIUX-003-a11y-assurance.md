@@ -4,12 +4,12 @@ summary: How much accessibility assurance does this surface buy?
 kind: wargame
 type: wargame
 tags: [a11y, eos, testing, wargame, web]
-scenario_modes: [selection, exception]
+scenario_modes: [selection, exception, conflict]
 applicable_doctrines: [DOC-UIUX-002, DOC-UIUX-007, DOC-HOUSE-004, DOC-HOUSE-015, DOC-UIUX-011, DOC-UIUX-014]
 applies_when: [has_user_interface]
 engages_when: [house_style_costs_access_or_performance]
 consequence: high
-relations: []
+relations: [DREL-HOUSE-001]
 scope: estate
 authority: default
 basis: standard

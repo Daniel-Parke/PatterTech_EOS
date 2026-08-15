@@ -9,7 +9,7 @@ applicable_doctrines: [DOC-AGENT-008, DOC-SWARM-012, DOC-SWARM-013, DOC-SWARM-02
 applies_when: [fans_work_across_lanes]
 engages_when: [agent_coordination_cost_is_material]
 consequence: routine
-relations: []
+relations: [DREL-AGENT-001]
 scope: estate
 authority: default
 basis: empirical-evidence

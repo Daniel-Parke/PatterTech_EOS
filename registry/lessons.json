@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-08-11",
+ "generated": "2026-08-15",
  "note": "Canonical lessons ledger. One row per decision about something the estate learned, from either intake: the harvest names the venture, the Study workflow names the sources it read and the lens it read them through. Declines and deferrals stay as rows, because a decision that leaves no trace gets argued again. registry/LESSONS.md is the derived view of this file. Schema: kernel/schemas/lesson.schema.json.",
  "preamble": [
   "The lessons ledger. Two intakes write here: the harvest, which pulls\nrulings and feedback from a governed venture, and the Study workflow,\nwhich reads a named source through a lens contract. Every row carries\na disposition that points at the file which now owns the decision, and\na declined lesson keeps its reason, so a decline cannot be re-proposed\nas if it had never been argued. A silent harvest month still records\n\"checked, clean\".",
@@ -73,7 +73,7 @@
    "scope": "estate",
    "applicability_conditions": "Products with a design system whose tokens are enforced somewhere other than the code that consumes them.",
    "informs": [
-    "WG-WEB-013",
+    "GD-UIUX-004",
     "packs/ui-ux/guides/GD-UIUX-004-token-source.md"
    ],
    "decided": "2026-07"
@@ -127,7 +127,7 @@
    "scope": "estate",
    "applicability_conditions": "Brands with a print-native or institutional register. One argued ruling from one venture, which under the ladder in GOVERNANCE.md is short of promotion evidence.",
    "informs": [
-    "WG-WEB-001",
+    "GD-UIUX-001",
     "packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md"
    ],
    "decided": "2026-07"
@@ -280,20 +280,20 @@
    "title": "Platform-native deployment beats containers on a sovereign LAN",
    "lesson": "Platform-native deployment beats the container default on a sovereign LAN with no parity or handover trigger.",
    "venture": "Venture C",
-   "source_note": "WG-OPS-002 ruled contrary.",
+   "source_note": "The archived WG-OPS-002 ruled contrary.",
    "evidence_class": "observational",
    "disposition": "venture-ruling",
-   "outcome": "Contrary evidence recorded against the container default. Under `GOVERNANCE.md` precedence this triggers review, never automatic demotion, and one ruling from one venture is not promotion evidence. Carried to `packs/devops-reliability` at the next authoring pass.",
+   "outcome": "Contrary evidence against the archived WG-OPS-002 container default. The active dated default lives in `registry/stacks/STACK-fastapi-postgres.md`; this row records the sovereign-LAN exception and does not promote a new estate Doctrine.",
    "scope": "estate",
    "applicability_conditions": "Deployment onto machines the operator owns, on a LAN, with no environment-parity requirement and no handover to another operator.",
    "informs": [
-    "packs/devops-reliability/PACK.md"
+    "registry/stacks/STACK-fastapi-postgres.md"
    ],
    "conflicts_with": [
-    "WG-OPS-002"
+    "registry/stacks/STACK-fastapi-postgres.md"
    ],
    "conflict_resolutions": {
-    "WG-OPS-002": {
+    "registry/stacks/STACK-fastapi-postgres.md": {
      "resolution": "scoped-differently",
      "note": "The container default holds where environment parity or a handover to another operator is in play; this ruling covers a sovereign LAN with neither."
     }
@@ -383,12 +383,12 @@
    "source_note": "Estate survey at EOS creation.",
    "evidence_class": "observational",
    "disposition": "estate-default",
-   "outcome": "Now owned by `packs/delivery-testing/PACK.md`, argued in WG-DEL-003.",
+   "outcome": "The archived WG-DEL-003 supplied the original ruling. The live decision is `WG-ARCH-006`, which treats visual regression inside a pinned container as deterministic change proof.",
    "scope": "estate",
    "applicability_conditions": "Test suites comparing rendered screenshots across machines.",
    "informs": [
     "packs/delivery-testing/PACK.md",
-    "WG-DEL-003"
+    "WG-ARCH-006"
    ],
    "decided": "2026-07",
    "pruned_on": "2026-08-03"
@@ -470,6 +470,975 @@
    "decided": "2026-08-10",
    "reasoning": "The profile already carried the shape; what it lacked was the argument for which ideals a machine-local product actually buys.",
    "review": "2027-02"
+  },
+  {
+   "id": "LES-0026",
+   "origin": "study",
+   "title": "Representative measurement precedes a material tool or capacity claim",
+   "lesson": "A performance, capacity or tool claim is useful only when its baseline, representative input or workload, acceptance measure and relevant environment are named together. Maintainer examples can identify mechanisms, but they do not set a universal threshold.",
+   "sources": [
+    "EV-0566",
+    "EV-0568",
+    "EV-0570",
+    "EV-0573",
+    "EV-0574",
+    "EV-0578"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Accepted for integration as one scoped Doctrine under the existing data surface, with every compute Wargame linked to it.",
+   "scope": "estate",
+   "applicability_conditions": "A material performance, capacity, engine or acceleration claim. An exploratory spike may use a cheaper sample when it records how that sample differs from the target workload.",
+   "informs": [
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The sources agree that workload, execution mode, compilation, memory and user objective change the answer, while none supplies a universal winner."
+  },
+  {
+   "id": "LES-0027",
+   "origin": "study",
+   "title": "Data compute uses a measured promotion ladder, not a timeless tool winner",
+   "lesson": "The durable default is to keep the highest-level sufficient representation, preserve an ecosystem contract where it matters, profile before acceleration, and distribute only on demonstrated pressure. Package names and versions belong in a dated profile.",
+   "sources": [
+    "EV-0566",
+    "EV-0567",
+    "EV-0568",
+    "EV-0569",
+    "EV-0570",
+    "EV-0571",
+    "EV-0572",
+    "EV-0573",
+    "EV-0574"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Accepted as a scoped Doctrine plus a dated local-tabular stack profile under data analytics; no package name becomes timeless Doctrine.",
+   "scope": "estate",
+   "applicability_conditions": "New local analytical and numerical work where the venture can run a representative comparison and has not already made pandas, an array ABI, SQL, GPU execution or a distributed engine part of its contract.",
+   "informs": [
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The tools expose materially different semantics and operational surfaces, and the Numba CUDA move demonstrates why a package route cannot be a timeless rule."
+  },
+  {
+   "id": "LES-0028",
+   "origin": "study",
+   "title": "Native semantic HTML is the default, and custom interaction earns its tests",
+   "lesson": "Use native HTML semantics and behaviour first. ARIA or a custom interaction must name the missing native capability and carry keyboard, focus and assistive-technology evidence proportionate to the claim.",
+   "sources": [
+    "EV-0027",
+    "EV-0576",
+    "EV-0577"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Accepted for integration as one scoped Doctrine under UI and UX, linked to the custom-interaction Wargame and existing accessibility assurance.",
+   "scope": "estate",
+   "applicability_conditions": "Browser interfaces and embedded web surfaces. A canvas, spatial editor or specialised control may depart where native controls cannot express the task and an accessible alternative or equivalent behaviour is proved.",
+   "informs": [
+    "packs/ui-ux/PACK.md",
+    "GD-UIUX-003"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The standards make native semantics the cheaper starting point and make clear that adding a role does not add its required behaviour."
+  },
+  {
+   "id": "LES-0029",
+   "origin": "study",
+   "title": "Interface philosophy follows users, tasks, devices and failure cost",
+   "lesson": "An interface default is selected per surface from its users, tasks, devices, modes and failure cost. A house aesthetic remains an opt-in preference subordinate to accessibility, measured performance and task success.",
+   "sources": [
+    "EV-0575",
+    "EV-0027"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Merged into the existing design-philosophy Wargame and normalised Doctrine rather than authored as a second visual rule.",
+   "scope": "estate",
+   "applicability_conditions": "Every user-facing surface. Brand preferences activate only through explicit adoption and cannot override accessibility or target-device evidence.",
+   "informs": [
+    "GD-UIUX-001",
+    "packs/ui-ux/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The W3C Note supports a user-first philosophy but is not a conformance standard, so the rule remains a scoped default rather than a binding aesthetic."
+  },
+  {
+   "id": "LES-0030",
+   "origin": "study",
+   "title": "One deployable remains the default until a measured split pressure earns distribution",
+   "lesson": "Distribution is an operating cost, not a maturity badge. Start with one deployable and enforced internal boundaries, then split only when change coupling, isolation, ownership, capacity or deployment evidence identifies a stable seam.",
+   "sources": [
+    "EV-0151",
+    "EV-0152",
+    "EV-0153"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Linked to the existing architecture Doctrine and deployment-shape procedures; no duplicate monolith rule was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "A new deployable or an existing system considering a service split. Regulatory, isolation, capacity and independent ownership pressure can earn an earlier split.",
+   "informs": [
+    "packs/architecture/PACK.md",
+    "GD-ARCH-001",
+    "WG-ARCH-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Existing EOS evidence already settles the default and its exceptions, while the retained source set adds no independent outcome evidence that warrants another rule."
+  },
+  {
+   "id": "LES-0031",
+   "origin": "study",
+   "title": "Small, reversible and evidenced are separate change properties",
+   "lesson": "A small change can still be irreversible, and a spike can become production by copying or prolonged use. Exploratory work therefore names its deletion or promotion boundary, while retained work takes verification proportionate to risk.",
+   "sources": [
+    "EV-0153",
+    "EV-0403",
+    "EV-0579"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Merged into existing discovery and test-timing guidance, with a relation between reversibility and the spike-to-hardened boundary.",
+   "scope": "estate",
+   "applicability_conditions": "Exploratory changes, vertical slices and normal delivery. Consequential or difficult-to-reverse effects earn stronger evidence even when the diff is small.",
+   "informs": [
+    "GD-DISC-001",
+    "WG-DEL-007"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The source sharpens a boundary already present in EOS and does not justify a second general delivery rule."
+  },
+  {
+   "id": "LES-0032",
+   "origin": "study",
+   "title": "Reliability starts from user journeys, objectives and proved restoration",
+   "lesson": "Reliability has three independently reviewable parts: user journeys select indicators, objectives govern change, and persistent data earns a demonstrated restoration path. A database restore alone does not prove service recovery.",
+   "sources": [
+    "EV-0096",
+    "EV-0201",
+    "EV-0203",
+    "EV-0578"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Merged into three existing reliability atoms and their procedures rather than one compound Doctrine.",
+   "scope": "estate",
+   "applicability_conditions": "A user-facing or data-bearing service. Safety and integrity floors remain non-spendable even when an error-budget policy permits ordinary reliability trade-offs.",
+   "informs": [
+    "GD-DEVOPS-003",
+    "GD-DEVOPS-004",
+    "WG-OPS-003"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The propositions activate under different conditions and would become harder to challenge if collapsed into one broad reliability statement."
+  },
+  {
+   "id": "LES-0033",
+   "origin": "study",
+   "title": "Security assurance is shaped by threats without weakening protected floors",
+   "lesson": "Security assurance states the protected property, threat surface and required outcome before selecting controls. Risk tailoring cannot waive an already binding privacy, authorisation, integrity or consequential-action floor.",
+   "sources": [
+    "EV-0037",
+    "EV-0223",
+    "EV-0549"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "estate-default",
+   "outcome": "Normalised the existing threat-shaped rule and retained the binding security floors; domain disputes route to Wargames.",
+   "scope": "estate",
+   "applicability_conditions": "Security and supply-chain assurance decisions after applicable statutory, privacy, authorisation, integrity and human-approval floors have been identified.",
+   "informs": [
+    "packs/security-privacy/PACK.md",
+    "GD-SEC-003"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "SSDF supports outcome and risk tailoring, while SLSA's own threat model shows that assurance schemes leave explicit non-goals."
+  },
+  {
+   "id": "LES-0034",
+   "origin": "study",
+   "title": "Use the simplest agent topology that meets the task",
+   "lesson": "Start with one bounded agent and a strong oracle. Add topology only when task decomposability, context isolation, restartability, tool load and verifier placement show that coordination buys more than it costs.",
+   "sources": [
+    "EV-0052",
+    "EV-0088",
+    "EV-0452"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "controlled",
+   "disposition": "estate-default",
+   "outcome": "Refreshed the evidence behind the existing agent and swarm topology procedures; no second swarm Doctrine was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "Agentic work with a stable task set and an external oracle. The paper's benchmark magnitudes do not transfer as universal thresholds to repository engineering.",
+   "informs": [
+    "GD-AGENT-001",
+    "GD-SWARM-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Version 3 shows large gains and large losses under different task structures, which supports a Wargame and rejects a universal swarm preference."
+  },
+  {
+   "id": "LES-0035",
+   "origin": "study",
+   "title": "An evaluation result names the tested system, harness, budget and oracle",
+   "lesson": "A model name is not an evaluation description. The result identifies the tested version, task set, harness, tools, budget, scorer, oracle, sampling and conditions needed to reproduce or challenge the claim.",
+   "sources": [
+    "EV-0007",
+    "EV-0087",
+    "EV-0250",
+    "EV-0251",
+    "EV-0452"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "controlled",
+   "disposition": "estate-default",
+   "outcome": "Merged into existing evaluation-harness, judge and oracle procedures; no new procedure was admitted because the current routes own the pressure.",
+   "scope": "estate",
+   "applicability_conditions": "Any comparative model, agent, retrieval or automated-evaluation claim used to select or govern a system.",
+   "informs": [
+    "GD-AIML-001",
+    "GD-AIML-003",
+    "GD-AGENT-004",
+    "WG-DEL-006"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The apparent effect can change with model family, task graph, tool load and verifier placement, so those facts must travel with the result."
+  },
+  {
+   "id": "LES-0036",
+   "origin": "study",
+   "title": "Defer a platform Doctrine until a second team proves the consumer pressure",
+   "lesson": "Golden paths can reduce repeated work and can also rot or suppress valid local choices. The current one-operator estate has no independent platform consumer, so it cannot yet test adoption, failure recovery or escape-route cost.",
+   "sources": [
+    "EV-0058",
+    "EV-0205"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "asserted",
+   "disposition": "deferred",
+   "outcome": "No first-class golden-path Doctrine was admitted; platform engineering remains registry-only.",
+   "scope": "estate",
+   "applicability_conditions": "The current estate has one operator and no independent team consuming a shared internal platform. Individual profiles and seeds may still provide optional defaults with tested escapes.",
+   "informs": [
+    "registry/coverage.json"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The approved source set supplies no platform outcome evidence for this estate, and admitting Doctrine now would bypass ADR-0014's consumer trigger.",
+   "revisit_trigger": "A second independently operating team consumes a shared platform path and can measure completion, failure recovery, voluntary adoption and escape-route cost."
+  },
+  {
+   "id": "LES-0037",
+   "origin": "study",
+   "title": "Analytical engine choice is a measured workload decision",
+   "lesson": "Polars, pandas, DuckDB and Spark solve overlapping but different jobs. Engine selection records semantic fit, ecosystem contract, wall time, peak memory or spill, operating surface and integration cost on one representative pipeline.",
+   "sources": [
+    "EV-0566",
+    "EV-0567",
+    "EV-0568",
+    "EV-0572",
+    "EV-0573",
+    "EV-0574"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new analytical engine-selection Wargame under the existing data surface; it may share an advanced procedure with execution mode if both rulings stay separate.",
+   "scope": "estate",
+   "applicability_conditions": "A local or distributed analytical workload choosing or materially changing its dataframe or SQL execution engine.",
+   "informs": [
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "No engine is an unconditional winner, and the cheapest useful discriminator is a representative pipeline under a shared correctness oracle."
+  },
+  {
+   "id": "LES-0038",
+   "origin": "study",
+   "title": "Representation movement is an architectural boundary",
+   "lesson": "A dataframe-to-array or solver boundary names dtype, layout, device, copy behaviour, ownership, peak memory, transfer cost and numerical tolerance. Interoperability support does not make those properties implicit.",
+   "sources": [
+    "EV-0568",
+    "EV-0569"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new representation-boundary Wargame under the existing data surface.",
+   "scope": "estate",
+   "applicability_conditions": "A dataframe, array, solver or device boundary where representation movement can affect memory, performance or correctness.",
+   "informs": [
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "A representative round trip can expose copies, type changes and tolerance failures before the boundary becomes difficult to reverse."
+  },
+  {
+   "id": "LES-0039",
+   "origin": "study",
+   "title": "Acceleration is earned by a measured hotspot and a numerical oracle",
+   "lesson": "Choose among vectorised NumPy, Numba, native code and GPU execution only after profiling the same hotspot. Compare compile-inclusive first use and steady state, and record any parallel, device or floating-point change separately.",
+   "sources": [
+    "EV-0569",
+    "EV-0570",
+    "EV-0571"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new acceleration Wargame under the existing data surface; current package routes remain dated stack facts.",
+   "scope": "estate",
+   "applicability_conditions": "A measured numerical hotspot whose cost matters to the stated objective and whose correctness can be compared under explicit tolerances.",
+   "informs": [
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Compilation, unsupported features, device transfer and relaxed arithmetic can remove or reverse an apparent speed gain."
+  },
+  {
+   "id": "LES-0040",
+   "origin": "study",
+   "title": "Execution mode trades visibility, memory, ordering and operating cost",
+   "lesson": "Eager, lazy, streaming, out-of-core and distributed execution are conditional choices. A ruling records the plan, ordering, peak memory, spill, duration, failure behaviour and reproducibility across clean runs.",
+   "sources": [
+    "EV-0566",
+    "EV-0573",
+    "EV-0574"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted execution mode as a distinct ruling surface, either in its own Wargame or as an independently ruleable part of analytical engine selection.",
+   "scope": "estate",
+   "applicability_conditions": "An analytical pipeline choosing how and where its plan executes, especially when ordering, memory, spill or reproducibility is material.",
+   "informs": [
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Out of core is bounded and distribution adds costs, while lazy execution can trade intermediate visibility for optimisation."
+  },
+  {
+   "id": "LES-0041",
+   "origin": "study",
+   "title": "Web delivery shape follows the route and target device",
+   "lesson": "Static, server-rendered, client-rendered, islands, PWA and native delivery should be compared on a representative route for useful content, interaction, navigation, accessibility tree, offline need, cache behaviour and operating complexity.",
+   "sources": [
+    "EV-0027",
+    "EV-0575"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new web-delivery Wargame under the UI surface, related to the existing native-client architecture procedure without reviving retired web IDs.",
+   "scope": "estate",
+   "applicability_conditions": "A public or internal web surface choosing its primary rendering and delivery architecture, including a comparison with native delivery where device integration is material.",
+   "informs": [
+    "packs/ui-ux/PACK.md",
+    "GD-NAT-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The current estate has a native-client procedure but no live procedure that owns the complete web-delivery fork."
+  },
+  {
+   "id": "LES-0042",
+   "origin": "study",
+   "title": "Novice and expert density is already a per-surface design ruling",
+   "lesson": "Information density is not a house default. It is selected from representative novice and expert task completion, error and search cost, with progressive disclosure or separate modes where one surface cannot serve both well.",
+   "sources": [
+    "EV-0575",
+    "EV-0239",
+    "EV-0404"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "reference-only",
+   "outcome": "Covered by a Doctrine relation to the existing design-philosophy Wargame; no duplicate density procedure was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "A surface used by people with materially different familiarity, frequency or task complexity.",
+   "informs": [
+    "GD-UIUX-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The existing procedure already asks the deciding audience, task, session and failure-cost questions."
+  },
+  {
+   "id": "LES-0043",
+   "origin": "study",
+   "title": "Custom rendering must replace the behaviour native semantics would have supplied",
+   "lesson": "Canvas and custom controls are justified only where native semantics cannot express the task. The exception names keyboard, focus, accessibility-tree or equivalent interaction and tests the hardest representative path on relevant browser and assistive-technology pairs.",
+   "sources": [
+    "EV-0027",
+    "EV-0576",
+    "EV-0577"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new semantic-versus-custom-interaction Wargame linked to component sourcing and accessibility assurance.",
+   "scope": "estate",
+   "applicability_conditions": "A browser interaction considering canvas, a custom widget or an ARIA reconstruction because native controls appear insufficient.",
+   "informs": [
+    "GD-UIUX-002",
+    "GD-UIUX-003",
+    "packs/ui-ux/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "A role is a promise rather than an implementation, and copied authoring patterns do not prove product behaviour."
+  },
+  {
+   "id": "LES-0044",
+   "origin": "study",
+   "title": "House style and motion remain subordinate to audience and accessibility",
+   "lesson": "House style is an optional adopted preference. Motion and visual treatment yield to audience, task, reduced-motion choice, accessibility floors and measured loading or frame behaviour on target devices.",
+   "sources": [
+    "EV-0027",
+    "EV-0232",
+    "EV-0575"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "reference-only",
+   "outcome": "Covered by explicit relations among the existing design, accessibility and house-style procedures; no new Wargame was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "A venture that explicitly adopts PatterTech house style or proposes motion and visual treatments on a user-facing surface.",
+   "informs": [
+    "GD-UIUX-001",
+    "GD-UIUX-003",
+    "GD-HOUSE-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The live procedures already separate optional taste from audience, accessibility and performance evidence."
+  },
+  {
+   "id": "LES-0045",
+   "origin": "study",
+   "title": "Refresh the monolith-to-services Wargame around measured sensitivities",
+   "lesson": "A service split is argued from recent change coupling, deployment cadence, isolation, ownership and capacity. Before splitting deployment, test one proposed seam and record which quality is sensitive to it and what reversal would cost.",
+   "sources": [
+    "EV-0151",
+    "EV-0152",
+    "EV-0153",
+    "EV-0564"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed the existing deployment-shape procedures with forces, affected qualities, sensitivity and reversal fields while preserving their IDs.",
+   "scope": "estate",
+   "applicability_conditions": "A modular monolith considering a service boundary or a distributed system considering consolidation.",
+   "informs": [
+    "GD-ARCH-001",
+    "WG-ARCH-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "ATAM contributes lightweight trade-off structure, while the estate's current evidence already owns the one-deployable default."
+  },
+  {
+   "id": "LES-0046",
+   "origin": "study",
+   "title": "Message flow is chosen from latency, ordering, retry, consistency and replay",
+   "lesson": "Synchronous calls, queues, events and streams make different guarantees. A decision failure-injects one representative operation and observes latency, duplicate handling, ordering, retry, replay and user-visible state.",
+   "sources": [
+    "EV-0151",
+    "EV-0157",
+    "EV-0162",
+    "EV-0163"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new messaging-and-flow Wargame in architecture, related to background-work and ingestion procedures.",
+   "scope": "estate",
+   "applicability_conditions": "A boundary choosing its interaction contract where latency, ordering, retries, consistency or replay affects correctness or user experience.",
+   "informs": [
+    "WG-ARCH-004",
+    "GD-DATAENG-001",
+    "packs/architecture/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Existing procedures choose background machinery or ingestion shape but do not own the general interaction contract."
+  },
+  {
+   "id": "LES-0047",
+   "origin": "study",
+   "title": "Storage engines are selected from workload and recovery obligations",
+   "lesson": "Transactional, analytical, search, graph, object and time-series storage are not interchangeable labels. Compare a representative read and write trace plus restore or rebuild behaviour against the simplest credible candidates.",
+   "sources": [
+    "EV-0150",
+    "EV-0162",
+    "EV-0572",
+    "EV-0573"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new storage-engine Wargame under architecture with data-analytics activation.",
+   "scope": "estate",
+   "applicability_conditions": "A durable data surface choosing or replacing its primary engine or adding a specialised secondary engine.",
+   "informs": [
+    "WG-ARCH-002",
+    "WG-ARCH-008",
+    "packs/architecture/PACK.md",
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Current procedures cover access style, topology and analytical storage separately but do not decide engine purpose and recoverability together."
+  },
+  {
+   "id": "LES-0048",
+   "origin": "study",
+   "title": "Local, hosted, hybrid and offline placement is a consistency decision",
+   "lesson": "Placement determines data ownership, outage behaviour and reconciliation. Disconnect during a representative write, reconnect, introduce a concurrent change and measure data loss, conflict visibility and recovery effort.",
+   "sources": [
+    "EV-0206",
+    "EV-0379",
+    "EV-0380",
+    "EV-0382"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new locality-and-consistency Wargame under architecture and related it to the existing offline-write procedure.",
+   "scope": "estate",
+   "applicability_conditions": "A system placing state across local devices, hosted services or both, especially where writes continue during disconnection.",
+   "informs": [
+    "GD-NAT-002",
+    "packs/architecture/PACK.md",
+    "packs/native-client/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The native procedure owns client writes but not whole-system placement, data ownership and cross-location consistency."
+  },
+  {
+   "id": "LES-0049",
+   "origin": "study",
+   "title": "A spike names its deletion, promotion and hardening boundary",
+   "lesson": "A spike is safe only while its learning artefact is visibly separated from user-facing software. The narrowest end-to-end path should also list the hardening work required before anything is retained or reaches users.",
+   "sources": [
+    "EV-0003",
+    "EV-0192",
+    "EV-0579"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed the existing test-timing Wargame and its discovery relation with explicit deletion, promotion and evidence boundaries.",
+   "scope": "estate",
+   "applicability_conditions": "Exploratory work deciding between a disposable spike and a hardened vertical slice.",
+   "informs": [
+    "WG-DEL-007",
+    "GD-DISC-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "A small exploratory artefact can quietly become production, so retention is a separate decision from building it."
+  },
+  {
+   "id": "LES-0050",
+   "origin": "study",
+   "title": "Test fidelity and oracle independence are linked but distinct",
+   "lesson": "Doubles, sandboxes and live boundaries answer fidelity, while an independent oracle answers whether the result is true. Run the same contract at the nearest real boundary and seed one mismatch that the independent oracle must catch.",
+   "sources": [
+    "EV-0007",
+    "EV-0184",
+    "EV-0189",
+    "EV-0191"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "controlled",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed and related the existing test-double and oracle-independence Wargames; no third procedure was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "A test strategy selecting a fake, sandbox or live system and deciding what independent truth will detect contract drift or a mutually consistent defect.",
+   "informs": [
+    "WG-DEL-005",
+    "WG-DEL-006"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "A high-fidelity boundary can share the same mistaken expectation, and an independent oracle can still operate against a lower-fidelity double."
+  },
+  {
+   "id": "LES-0051",
+   "origin": "study",
+   "title": "An incident hotfix is a narrower gate, not no gate",
+   "lesson": "Urgent mitigation assesses and observes user impact before root-cause work, keeps supervision, a known-good state and rollback, and preserves every non-waivable safety check. The incident route is proved with a timed apply-and-rollback drill.",
+   "sources": [
+    "EV-0423",
+    "EV-0580"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new incident-hotfix versus normal-gate Wargame under delivery and reliability.",
+   "scope": "estate",
+   "applicability_conditions": "A declared incident where waiting for the normal delivery path causes greater user harm, and a rollback or known-good recovery route exists.",
+   "informs": [
+    "packs/delivery-testing/PACK.md",
+    "packs/devops-reliability/PACK.md",
+    "GD-DEVOPS-002"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Existing release controls assume normal delivery, while incident practice supports mitigation first without supporting an unbounded bypass."
+  },
+  {
+   "id": "LES-0052",
+   "origin": "study",
+   "title": "Capability ownership includes portability and incident access",
+   "lesson": "Build, buy and managed-service decisions include who can diagnose an outage, export state and restore service, not only feature fit and purchase cost. Exercise outage, export and restore before relying on the provider boundary.",
+   "sources": [
+    "EV-0069",
+    "EV-0161"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new capability-ownership Wargame in architecture with supply-chain relations.",
+   "scope": "estate",
+   "applicability_conditions": "A material capability choosing between owned implementation, purchased software or a managed service, especially where provider failure can block diagnosis or recovery.",
+   "informs": [
+    "WG-ARCH-007",
+    "GD-SUPPLY-004",
+    "packs/architecture/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Vendor seams and code vendoring do not by themselves decide capability ownership or prove incident access."
+  },
+  {
+   "id": "LES-0053",
+   "origin": "study",
+   "title": "Degrade honestly only while protected properties still hold",
+   "lesson": "Graceful degradation preserves a named minimum useful journey, reports its state truthfully and keeps monitoring and a kill switch. It is disqualified where the reduced path weakens privacy, authorisation, integrity or consequential-action approval.",
+   "sources": [
+    "EV-0225",
+    "EV-0581"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new fail-closed versus honest-degradation Wargame under reliability with security activation and protected-set disqualifiers.",
+   "scope": "estate",
+   "applicability_conditions": "A dependency or subsystem failure where some useful service might continue without weakening a protected property.",
+   "informs": [
+    "packs/devops-reliability/PACK.md",
+    "packs/security-privacy/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The reliability source supports simple exercised degradation, while protected-set rules make fail-closed behaviour non-negotiable for specific properties."
+  },
+  {
+   "id": "LES-0054",
+   "origin": "study",
+   "title": "Observability must prove diagnostic value and data minimisation together",
+   "lesson": "Telemetry is sufficient only when it can diagnose a representative seeded incident without exposing secrets, unnecessary personal data or cross-tenant context. More collection is not a substitute for a better diagnostic model.",
+   "sources": [
+    "EV-0021",
+    "EV-0225"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new observability-and-privacy Wargame under reliability with security activation.",
+   "scope": "estate",
+   "applicability_conditions": "A service adding or changing logs, traces, metrics or diagnostic event capture where records can contain personal, secret or tenant-specific context.",
+   "informs": [
+    "packs/devops-reliability/PACK.md",
+    "packs/security-privacy/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Observability is an uncovered estate capability and privacy constrains the same records, so leaving the tension implicit is high consequence."
+  },
+  {
+   "id": "LES-0055",
+   "origin": "study",
+   "title": "Provenance proves production facts, not producer trust or artefact safety",
+   "lesson": "A valid attestation can establish where, when and how an artefact was produced within its trust model. It cannot establish benign producer intent, product correctness, safe dependencies or safe use.",
+   "sources": [
+    "EV-0038",
+    "EV-0549",
+    "EV-0582"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed the existing provenance Wargame and added the relation between verified provenance and separate producer and dependency admission.",
+   "scope": "estate",
+   "applicability_conditions": "Admission or deployment of an artefact carrying provenance, an SBOM or both.",
+   "informs": [
+    "GD-SUPPLY-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The SLSA provenance and threat pages state different assurance surfaces and explicit non-goals, so attestation cannot be used as a safety proxy."
+  },
+  {
+   "id": "LES-0056",
+   "origin": "study",
+   "title": "Dependency freshness and known-good deployment are one governed tension",
+   "lesson": "A newer dependency can close a known security exposure and can also replace a proven deployment with an unobserved one. A security-fix exception still takes the suite, staged observation, rollback and incident-reconstruction path proportionate to consequence.",
+   "sources": [
+    "EV-0038",
+    "EV-0069",
+    "EV-0204",
+    "EV-0549"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed and related the existing dependency-cadence and release-control Wargames; no duplicate update procedure was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "A dependency update, especially an urgent security update, where the currently deployed version is known good and the replacement is not yet observed in production shape.",
+   "informs": [
+    "GD-SUPPLY-003",
+    "GD-DEVOPS-002"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Freshness and deployment confidence are separate assurance axes, and neither should silently erase the other."
+  },
+  {
+   "id": "LES-0057",
+   "origin": "study",
+   "title": "Agent topology compares against one bounded single-agent control",
+   "lesson": "A deterministic workflow, single agent and multi-agent topology are compared on the same frozen task set, model budget, tools and external verifier. Tool load and central verification are first-class pressures, not after-the-fact explanations.",
+   "sources": [
+    "EV-0052",
+    "EV-0088",
+    "EV-0452"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "controlled",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed the existing topology Wargames with version 3 evidence, tool-load pressure and central-verification checks.",
+   "scope": "estate",
+   "applicability_conditions": "Agentic work considering topology beyond a direct bounded agent or replacing deterministic orchestration with an agent loop.",
+   "informs": [
+    "GD-AGENT-001",
+    "GD-SWARM-001"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The controlled study shows topology effects reverse with task structure, so the baseline and harness must remain fixed during comparison."
+  },
+  {
+   "id": "LES-0058",
+   "origin": "study",
+   "title": "Model hosting is a data-route, device-capacity and outage decision",
+   "lesson": "Local, hosted and hybrid inference are compared on the same frozen evaluation set for quality, latency, cost, data movement and recovery under provider or network loss. A model name alone does not settle hosting.",
+   "sources": [
+    "EV-0245",
+    "EV-0258",
+    "EV-0259",
+    "EV-0260",
+    "EV-0261",
+    "EV-0262"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "decision-guide",
+   "outcome": "Admitted a new model-hosting Wargame under AI and ML, related to the existing model-lifecycle procedure.",
+   "scope": "estate",
+   "applicability_conditions": "An AI feature deciding whether inference runs on the target device, through a provider or across a hybrid fallback path.",
+   "informs": [
+    "GD-AIML-005",
+    "packs/ai-ml-llm/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The live model-choice procedure covers cost and retirement but not inference locality, data route, device capacity or provider outage."
+  },
+  {
+   "id": "LES-0059",
+   "origin": "study",
+   "title": "Use deterministic judges where truth is decidable and calibrate the rest",
+   "lesson": "Deterministic scoring comes first where correctness is decidable. Human and model judges are calibrated against the same labelled sample, with agreement, disagreement, order effects, abstention and cost reported.",
+   "sources": [
+    "EV-0007",
+    "EV-0250",
+    "EV-0251",
+    "EV-0252",
+    "EV-0253",
+    "EV-0254"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "controlled",
+   "disposition": "decision-guide",
+   "outcome": "Refreshed and related the existing judge-selection and oracle-independence Wargames; no new judge procedure was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "An evaluation choosing deterministic, human or model scoring for an output that affects acceptance or comparison.",
+   "informs": [
+    "GD-AIML-003",
+    "WG-DEL-006"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Judge families can share error and self-preference with the system under test, so calibration and independence are part of the result."
+  },
+  {
+   "id": "LES-0060",
+   "origin": "study",
+   "title": "Reject a golden-path Wargame until the estate has a platform consumer",
+   "lesson": "A one-operator estate cannot yet distinguish a useful golden path from a compulsory template because no independent consumer can measure adoption, escape cost or recovery from the path's failure.",
+   "sources": [
+    "EV-0058",
+    "EV-0205"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "asserted",
+   "disposition": "rejected",
+   "outcome": "No golden-path versus autonomy Wargame was admitted in this programme; existing profiles, seeds and domain Wargames continue to provide optional local defaults.",
+   "scope": "estate",
+   "applicability_conditions": "The estate has one operator and no internal teams consuming a shared platform product.",
+   "informs": [
+    "registry/coverage.json"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Admitting the Wargame now would invent a second governance surface before ADR-0014's second-team trigger has fired.",
+   "revisit_trigger": "A second independently operating team consumes a shared platform path and can test completion, failure recovery and escape-route cost."
+  },
+  {
+   "id": "LES-0061",
+   "origin": "study",
+   "title": "Local exceptions do not become Doctrine without repeated evidence",
+   "lesson": "A venture ruling is local authority. Promotion requires overlapping argued cases, generalisability evidence and the existing governance ladder; a new Wargame would create a competing promotion route.",
+   "sources": [
+    "EV-0537",
+    "EV-0097"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "asserted",
+   "disposition": "reference-only",
+   "outcome": "Covered by Doctrine-to-ruling and promotion-evidence relations under the existing governance path; no new Wargame was admitted.",
+   "scope": "estate",
+   "applicability_conditions": "A local ruling appears to contradict or improve a default and somebody proposes applying it beyond the venture that made it.",
+   "informs": [
+    "GOVERNANCE.md",
+    "ADR-0014"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The cited research-control evidence supports recording counter-evidence and decisions. The operator-approved governance ladder, not an external platform source, supplies the promotion threshold."
+  },
+  {
+   "id": "LES-0062",
+   "origin": "study",
+   "title": "Scientific and reproducible computing has not earned a pack",
+   "lesson": "The public source set establishes maintained compute references and a real contradicting implementation choice, but it does not establish two materially distinct executable local examples, a sanitised exemplar, a reviewable drill or a clear admission boundary.",
+   "sources": [
+    "EV-0566",
+    "EV-0567",
+    "EV-0568",
+    "EV-0569",
+    "EV-0570",
+    "EV-0571",
+    "EV-0572",
+    "EV-0573",
+    "EV-0574"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "deferred",
+   "outcome": "Scientific and reproducible computing remains registry-only; dated compute profiles and experimental Wargames stay under the existing data surface.",
+   "scope": "estate",
+   "applicability_conditions": "The current tranche has public documentation but no qualifying local example pair, sanitised exemplar or drill packet.",
+   "informs": [
+    "registry/coverage.json",
+    "packs/data-analytics/PACK.md"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Building a pack on source count alone would bypass the executable and boundary evidence required by ADR-0014.",
+   "revisit_trigger": "A packet proves three maintained primary sources, two materially distinct executable local examples, one contradicting implementation choice, a sanitised worked exemplar, a reviewable drill and a clear boundary from analytics and data engineering."
+  },
+  {
+   "id": "LES-0063",
+   "origin": "study",
+   "title": "The admitted pressures fit existing packs",
+   "lesson": "The web, UI, reliability, supply-chain and AI pressures have live destination packs and cross-pack activation paths. A new pack would add activation and ownership ambiguity before repeated evidence establishes a broader independent capability.",
+   "sources": [
+    "EV-0027",
+    "EV-0037",
+    "EV-0038",
+    "EV-0452",
+    "EV-0549",
+    "EV-0575",
+    "EV-0578",
+    "EV-0581"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "asserted",
+   "disposition": "rejected",
+   "outcome": "No new web, UI, reliability, supply-chain or AI pack was admitted; the new and refreshed Wargames land in current packs with relations where ownership crosses domains.",
+   "scope": "estate",
+   "applicability_conditions": "This first pressure tranche, where every admitted decision has an existing owning pack or a clear cross-pack activation route.",
+   "informs": [
+    "registry/coverage.json"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "Pack creation is not required to make a pressure visible, and no retained source proves a separate capability boundary for this estate.",
+   "revisit_trigger": "A repeated pressure cannot be owned or activated cleanly through any current pack and brings its own evidence, worked example and drill."
+  },
+  {
+   "id": "LES-0064",
+   "origin": "study",
+   "title": "One advanced Wargame form carries lifecycle, trade-offs and interaction coverage",
+   "lesson": "A Wargame starts from a decision question and stakes, exposes forces, affected qualities and sensitivities, plans discriminating evidence, and records constraints and interactions only where they change the ruling. Interaction coverage still needs a valid parameter model and oracle.",
+   "sources": [
+    "EV-0563",
+    "EV-0564",
+    "EV-0565"
+   ],
+   "lens": "LENS-0002",
+   "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
+   "evidence_class": "observational",
+   "disposition": "implementation-reference",
+   "outcome": "The unified Wargame schema, authoring contract and semantic checks use one advanced form across stable GD and WG identities.",
+   "scope": "eos-internal",
+   "applicability_conditions": "New and refreshed EOS Wargames. Defence ceremony, full ATAM workshops and generated covering arrays remain optional and do not transfer as mandatory process.",
+   "informs": [
+    "kernel/schemas/wargame.schema.json",
+    "ADR-0012"
+   ],
+   "decided": "2026-08-15",
+   "reasoning": "The three sources contribute complementary lifecycle, sensitivity and interaction concepts without requiring three scenario types or a larger file count."
   }
  ]
 }

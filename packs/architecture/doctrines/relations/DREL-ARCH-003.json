@@ -1,0 +1,13 @@
+{
+  "id": "DREL-ARCH-003",
+  "owner_doctrine": "DOC-ARCH-004",
+  "relation": "depends_on",
+  "target": "DOC-ARCH-005",
+  "conditions": ["requires_independent_deployability"],
+  "status": "covered",
+  "evidence": ["EV-0151", "EV-0152", "EV-0159", "EV-0564"],
+  "fallback": "Keep one deployable with enforced module seams until ownership, release, isolation or capacity evidence earns one split.",
+  "wargame": "GD-ARCH-001",
+  "owner": "architecture",
+  "review": "2027-02"
+}

@@ -293,7 +293,7 @@ copy of it in this file would be the one that went stale.
 | EV-0362 | Gordon, Zettelmeyer, Bhargava and Chapsky, A Comparison of Approaches to Advertising Measurement: Evidence from Big Field Experiments at Facebook | unknown (INFORMS subscription content; abstract publicly readable) | no |
 | EV-0369 | Binet and Field, The Long and the Short of It (IPA) | unknown; IPA and WARC content is paywalled | no |
 | EV-0377 | Expo documentation, EAS Update introduction | unknown; no licence stated on the page | no |
-| EV-0378 | Kleppmann, Wiggins, van Hardenberg and McGranaghan, Local-first software: you own your data, in spite of the cloud (Onward! 2019) | unknown; no explicit licence notice on the essay page, ACM proceedings version under ACM terms | no |
+| EV-0378 | Kleppmann, Wiggins, van Hardenberg and McGranaghan, `Local-first software: you own your data, in spite of the cloud (Onward! 2019)` | unknown; no explicit licence notice on the essay page, ACM proceedings version under ACM terms | no |
 | EV-0383 | PowerSync documentation, Consistency | unknown; no licence stated on the page | no |
 | EV-0389 | APCA in a Nutshell (Myndex Research, Advanced Perceptual Contrast Algorithm) | unknown (no reuse licence stated on the documentation page; the algorithm itself is distributed under separate Myndex terms) | no |
 | EV-0390 | Adrian Roselli, WCAG3 Contrast as of April 2026 | unknown (personal site, no reuse licence stated) | no |

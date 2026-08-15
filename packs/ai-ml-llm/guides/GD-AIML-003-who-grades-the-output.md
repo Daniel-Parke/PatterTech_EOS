@@ -9,7 +9,7 @@ applicable_doctrines: [DOC-AIML-004, DOC-AIML-006, DOC-AGENT-003, DOC-COD-001]
 applies_when: [calls_a_model]
 engages_when: [evaluation_oracle_is_undecided]
 consequence: high
-relations: []
+relations: [DREL-AIML-002]
 scope: estate
 authority: default
 basis: empirical-evidence

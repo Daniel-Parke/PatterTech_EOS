@@ -113,6 +113,15 @@ compatibility anchors; they do not encode authority.
 - source `preferences:005` to [DOC-UIUX-021](doctrines/DOC-UIUX-021-a-reading-grid-with-one-default-measure-and-opt-in-wider-bleeds.md) (preference)
 - source `preferences:006` to [DOC-UIUX-022](doctrines/DOC-UIUX-022-one-tokenised-easing-curve-per-project.md) (preference)
 
+### Later evidence-led admissions
+
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
+
+- [DOC-UIUX-023](doctrines/DOC-UIUX-023-native-semantics-before-custom-interaction.md) (default Doctrine)
+- [WG-UIUX-001](guides/WG-UIUX-001-web-delivery-shape.md) (Wargame)
+- [WG-UIUX-002](guides/WG-UIUX-002-semantic-or-custom-interaction.md) (Wargame)
+
 ## Decision map
 
 | Fork | What it decides | Guide |

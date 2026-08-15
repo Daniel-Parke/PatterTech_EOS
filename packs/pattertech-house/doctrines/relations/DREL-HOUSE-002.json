@@ -1,0 +1,13 @@
+{
+  "id": "DREL-HOUSE-002",
+  "owner_doctrine": "DOC-HOUSE-015",
+  "relation": "tensions_with",
+  "target": "DOC-UIUX-011",
+  "conditions": ["house_style_costs_access_or_performance"],
+  "status": "covered",
+  "evidence": ["EV-0402", "EV-0241"],
+  "fallback": "Keep useful content and measured performance; remove house styling that consumes either budget.",
+  "wargame": "GD-UIUX-001",
+  "owner": "pattertech-house",
+  "review": "2027-02"
+}

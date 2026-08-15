@@ -1,0 +1,13 @@
+{
+  "id": "DREL-NAT-001",
+  "owner_doctrine": "DOC-NAT-009",
+  "relation": "supports",
+  "target": "DOC-NAT-002",
+  "conditions": ["requires_offline_or_hybrid_consistency"],
+  "status": "covered",
+  "evidence": ["EV-0379", "EV-0382"],
+  "fallback": "Remain online-first and reject invariant-bearing offline writes until conflict, reservation or compensation behaviour is proved.",
+  "wargame": "WG-ARCH-011",
+  "owner": "native-client",
+  "review": "2027-02"
+}

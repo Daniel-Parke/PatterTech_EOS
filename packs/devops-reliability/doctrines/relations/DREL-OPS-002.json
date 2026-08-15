@@ -1,0 +1,13 @@
+{
+  "id": "DREL-OPS-002",
+  "owner_doctrine": "DOC-DEVOPS-004",
+  "relation": "tensions_with",
+  "target": "DOC-SEC-004",
+  "conditions": ["observability_collects_sensitive_data"],
+  "status": "covered",
+  "evidence": ["EV-0020", "EV-0220", "EV-0578"],
+  "fallback": "Collect the minimum redacted signal that diagnoses the named journey and reject secret-bearing telemetry.",
+  "wargame": "WG-OPS-006",
+  "owner": "devops-reliability",
+  "review": "2027-02"
+}

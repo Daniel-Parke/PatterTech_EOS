@@ -9,7 +9,7 @@ applicable_doctrines: [DOC-DEL-002, DOC-DEL-006, DOC-COD-001]
 applies_when: [ships_code]
 engages_when: [test_fidelity_changes_outcome, evaluation_oracle_is_undecided]
 consequence: high
-relations: []
+relations: [DREL-DEL-002, DREL-AIML-002]
 scope: estate
 authority: binding
 basis: empirical-evidence

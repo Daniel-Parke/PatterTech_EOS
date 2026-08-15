@@ -124,6 +124,16 @@ compatibility anchors; they do not encode authority.
 - source `preferences:004` to [DOC-ARCH-019](doctrines/DOC-ARCH-019-raw-sql-behind-a-repository-layer-over-an-orm-when-the-data-is-h.md) (preference)
 - source `preferences:005` to [DOC-ARCH-020](doctrines/DOC-ARCH-020-defer-domain-grouping-and-per-domain-gateways-until-service-coun.md) (preference)
 
+### Later evidence-led admissions
+
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
+
+- [WG-ARCH-009](guides/WG-ARCH-009-messaging-and-flow.md) (Wargame)
+- [WG-ARCH-010](guides/WG-ARCH-010-storage-engine-selection.md) (Wargame)
+- [WG-ARCH-011](guides/WG-ARCH-011-locality-and-consistency.md) (Wargame)
+- [WG-ARCH-012](guides/WG-ARCH-012-capability-ownership.md) (Wargame)
+
 ## Decision map
 
 | Fork | Question | Argued at | Default |

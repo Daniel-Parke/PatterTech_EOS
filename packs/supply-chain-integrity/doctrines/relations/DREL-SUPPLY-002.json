@@ -1,0 +1,13 @@
+{
+  "id": "DREL-SUPPLY-002",
+  "owner_doctrine": "DOC-SUPPLY-005",
+  "relation": "tensions_with",
+  "target": "DOC-DEVOPS-008",
+  "conditions": ["dependency_update_changes_known_good"],
+  "status": "covered",
+  "evidence": ["EV-0038", "EV-0155", "EV-0204"],
+  "fallback": "Keep the known-good deployment during routine freshness pressure; use the proved security exception, staged observation and rollback when delay is riskier.",
+  "wargame": "GD-SUPPLY-003",
+  "owner": "supply-chain-integrity",
+  "review": "2027-02"
+}

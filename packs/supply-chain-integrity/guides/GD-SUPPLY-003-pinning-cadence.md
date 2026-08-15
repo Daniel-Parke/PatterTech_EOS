@@ -4,12 +4,12 @@ summary: Floating ranges, continuous auto-merge, a cooldown window with batched 
 kind: wargame
 type: wargame
 tags: [ci, delivery, eos, security, tooling, wargame]
-scenario_modes: [selection, exception]
+scenario_modes: [selection, exception, conflict]
 applicable_doctrines: [DOC-SUPPLY-005, DOC-DEVOPS-005, DOC-DEVOPS-008]
 applies_when: [publishes_code]
 engages_when: [dependency_update_changes_known_good]
 consequence: high
-relations: []
+relations: [DREL-SUPPLY-002]
 scope: estate
 authority: default
 basis: standard

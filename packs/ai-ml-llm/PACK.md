@@ -122,6 +122,13 @@ compatibility anchors; they do not encode authority.
 - source `preferences:002` to [DOC-AIML-017](doctrines/DOC-AIML-017-trained-cascade-routing-against-model-self-assessment-routing.md) (preference)
 - source `preferences:003` to [DOC-AIML-018](doctrines/DOC-AIML-018-which-evaluation-framework-and-where-the-eval-lives.md) (preference)
 
+### Later evidence-led admissions
+
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
+
+- [WG-AIML-001](guides/WG-AIML-001-model-hosting.md) (Wargame)
+
 ## Decision map
 
 | Fork | Guide | Default |

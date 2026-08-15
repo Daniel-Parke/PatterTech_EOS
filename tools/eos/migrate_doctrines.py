@@ -92,6 +92,40 @@ PACK_DEPENDENCIES = {
     "writing-content": ["product-discovery"],
 }
 
+# Evidence-led records admitted after the frozen 501-row migration. They stay
+# outside the migration ledger, but PACK.md remains the local decision map and
+# therefore links them deterministically on every replay.
+POST_MIGRATION_ADMISSIONS = {
+    "ai-ml-llm": [
+        ("WG-AIML-001", "guides/WG-AIML-001-model-hosting.md", "Wargame"),
+    ],
+    "architecture": [
+        ("WG-ARCH-009", "guides/WG-ARCH-009-messaging-and-flow.md", "Wargame"),
+        ("WG-ARCH-010", "guides/WG-ARCH-010-storage-engine-selection.md", "Wargame"),
+        ("WG-ARCH-011", "guides/WG-ARCH-011-locality-and-consistency.md", "Wargame"),
+        ("WG-ARCH-012", "guides/WG-ARCH-012-capability-ownership.md", "Wargame"),
+    ],
+    "data-analytics": [
+        ("DOC-DATA-020", "doctrines/DOC-DATA-020-representative-measurement-before-material-compute-claims.md", "default Doctrine"),
+        ("DOC-DATA-021", "doctrines/DOC-DATA-021-measured-data-compute-promotion-ladder.md", "default Doctrine"),
+        ("WG-DATA-001", "guides/WG-DATA-001-analytical-engine-selection.md", "Wargame"),
+        ("WG-DATA-002", "guides/WG-DATA-002-representation-boundary.md", "Wargame"),
+        ("WG-DATA-003", "guides/WG-DATA-003-acceleration-ladder.md", "Wargame"),
+    ],
+    "delivery-testing": [
+        ("WG-DEL-008", "guides/WG-DEL-008-incident-hotfix.md", "Wargame"),
+    ],
+    "devops-reliability": [
+        ("WG-OPS-005", "guides/WG-OPS-005-honest-degradation.md", "Wargame"),
+        ("WG-OPS-006", "guides/WG-OPS-006-observability-and-privacy.md", "Wargame"),
+    ],
+    "ui-ux": [
+        ("DOC-UIUX-023", "doctrines/DOC-UIUX-023-native-semantics-before-custom-interaction.md", "default Doctrine"),
+        ("WG-UIUX-001", "guides/WG-UIUX-001-web-delivery-shape.md", "Wargame"),
+        ("WG-UIUX-002", "guides/WG-UIUX-002-semantic-or-custom-interaction.md", "Wargame"),
+    ],
+}
+
 FAMILY_TO_LEDGER = {
     "requirements": "requirement",
     "defaults": "default",
@@ -922,6 +956,18 @@ def _render_navigation(
                 f"[{identifier}]({link}) ({definition.authority})"
             )
         lines.append(f"- {label} to " + ", ".join(rendered))
+    admissions = POST_MIGRATION_ADMISSIONS.get(pack.slug, [])
+    if admissions:
+        lines += [
+            "",
+            "### Later evidence-led admissions",
+            "",
+            "These records were admitted after the frozen source migration.",
+            "Their own metadata is canonical; this map does not restate it.",
+            "",
+        ]
+        for identifier, path, record_type in admissions:
+            lines.append(f"- [{identifier}]({path}) ({record_type})")
     return lines + [""]
 
 

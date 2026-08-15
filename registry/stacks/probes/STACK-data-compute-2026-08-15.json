@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "run_id": "STACK-PROBE-DATA-COMPUTE-2026-08-15",
+  "task": "T-0026",
+  "executed": "2026-08-15",
+  "environment": {
+    "python": "3.14.4",
+    "platform": "Windows 11 10.0.26200 x86-64"
+  },
+  "probes": [
+    {
+      "name": "tabular representation boundary",
+      "script": "registry/stacks/probes/probe_tabular_boundary.py",
+      "command": "python registry/stacks/probes/probe_tabular_boundary.py",
+      "versions": {
+        "polars": "1.40.1",
+        "pandas": "3.0.2",
+        "numpy": "2.4.4",
+        "duckdb": "1.5.5"
+      },
+      "assertions": {
+        "index_preserved_explicitly": true,
+        "polars_and_duckdb_results_match_tolerance": true,
+        "both_engines_match_exact_workload_result_tolerance": true,
+        "array_dtype_and_shape_recorded": true
+      },
+      "result_sha256": "1fc0e5b87dbbe67543905f10d9f1d605bdc9ddc6d8c70a00d589cd206a0418ce",
+      "timings_ns": {
+        "pandas_to_polars": 2030900,
+        "polars_lazy_query": 7233800,
+        "duckdb_query": 4619000
+      },
+      "limits": "One synthetic local run. Timings are environment facts, not comparative performance evidence."
+    },
+    {
+      "name": "array acceleration boundary",
+      "script": "registry/stacks/probes/probe_array_acceleration.py",
+      "command": "python registry/stacks/probes/probe_array_acceleration.py",
+      "versions": {
+        "numpy": "2.4.4",
+        "numba": "0.65.1"
+      },
+      "assertions": {
+        "compile_inclusive_result_matches_tolerance": true,
+        "steady_result_matches_tolerance": true,
+        "compile_and_steady_timings_separated": true
+      },
+      "result_sha256": "7939e6d08441728fe9b824c2dafe961cfd2ab6ee04066dae222b5ec6f73ed4cb",
+      "timings_ns": {
+        "numpy_vectorised": 4072400,
+        "numba_compile_inclusive": 450632000,
+        "numba_steady": 2118400
+      },
+      "limits": "One synthetic local run. Compilation, hardware, numerical tolerance and workload decide whether JIT is useful."
+    }
+  ]
+}

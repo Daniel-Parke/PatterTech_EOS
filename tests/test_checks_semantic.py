@@ -1183,9 +1183,9 @@ def test_s019_runs_against_the_real_kernel_schema(tmp_path):
 
     # The schema requires a resolution once a conflict is named, and
     # S018 requires it to be one the vocabulary knows.
-    lessons(root, [dict(row, conflicts_with=["WG-OPS-002"])])
+    lessons(root, [dict(row, conflicts_with=["WG-OPS-005"])])
     assert [m for _, _, m in only(run_s(root), "S018")] == [
-        "LES-0001: conflicts_with WG-OPS-002 is unresolved; record it in "
+        "LES-0001: conflicts_with WG-OPS-005 is unresolved; record it in "
         "conflict_resolutions as {resolution, note}, the resolution being "
         "one of stricter-applies, scoped-differently, superseded, "
         "operator-ruling"]

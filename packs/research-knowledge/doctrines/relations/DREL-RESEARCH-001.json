@@ -1,0 +1,12 @@
+{
+  "id": "DREL-RESEARCH-001",
+  "owner_doctrine": "DOC-RESEARCH-003",
+  "relation": "supports",
+  "target": "DOC-RESEARCH-016",
+  "conditions": ["local_exception_may_generalise"],
+  "status": "active",
+  "evidence": ["EV-0537", "EV-0097"],
+  "fallback": "Keep the departure local until two argued venture rulings overlap in applicability and survive Doctrine admission review.",
+  "owner": "research-knowledge",
+  "review": "2027-02"
+}

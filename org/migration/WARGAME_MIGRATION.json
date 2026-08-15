@@ -26,7 +26,9 @@
       "engages_when": [
         "agent_coordination_cost_is_material"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-AGENT-001"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -135,7 +137,9 @@
       "engages_when": [
         "evaluation_oracle_is_undecided"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-AIML-002"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -280,7 +284,9 @@
       "engages_when": [
         "requires_independent_deployability"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-ARCH-003"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -727,15 +733,19 @@
       "disposition": "live-convert",
       "scenario_modes": [
         "selection",
-        "exception"
+        "exception",
+        "conflict"
       ],
       "applicable_doctrines": [
-        "DOC-DEVOPS-008"
+        "DOC-DEVOPS-008",
+        "DOC-SUPPLY-005"
       ],
       "engages_when": [
-        "operator_requests_wargame"
+        "dependency_update_changes_known_good"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-SUPPLY-002"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -1486,7 +1496,9 @@
       "engages_when": [
         "producer_trust_is_unproved"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-SUPPLY-001"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -1513,7 +1525,8 @@
       "disposition": "live-convert",
       "scenario_modes": [
         "selection",
-        "exception"
+        "exception",
+        "conflict"
       ],
       "applicable_doctrines": [
         "DOC-SUPPLY-005",
@@ -1523,7 +1536,9 @@
       "engages_when": [
         "dependency_update_changes_known_good"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-SUPPLY-002"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -1636,7 +1651,9 @@
       "engages_when": [
         "agent_coordination_cost_is_material"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-AGENT-001"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -1698,7 +1715,8 @@
       "disposition": "live-convert",
       "scenario_modes": [
         "selection",
-        "exception"
+        "exception",
+        "conflict"
       ],
       "applicable_doctrines": [
         "DOC-UIUX-008",
@@ -1713,7 +1731,10 @@
         "serves_novice_and_expert_users",
         "house_style_costs_access_or_performance"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-UIUX-001",
+        "DREL-HOUSE-002"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -1742,7 +1763,8 @@
       "disposition": "live-convert",
       "scenario_modes": [
         "selection",
-        "exception"
+        "exception",
+        "conflict"
       ],
       "applicable_doctrines": [
         "DOC-UIUX-002",
@@ -1755,7 +1777,9 @@
       "engages_when": [
         "house_style_costs_access_or_performance"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-HOUSE-001"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -1856,15 +1880,20 @@
       "path": "packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md",
       "disposition": "live-convert",
       "scenario_modes": [
-        "selection"
+        "selection",
+        "exception"
       ],
       "applicable_doctrines": [
-        "DOC-ARCH-001"
+        "DOC-ARCH-001",
+        "DOC-ARCH-004",
+        "DOC-ARCH-005"
       ],
       "engages_when": [
-        "operator_requests_wargame"
+        "requires_independent_deployability"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-ARCH-003"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -2012,7 +2041,9 @@
       "engages_when": [
         "test_fidelity_changes_outcome"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-DEL-002"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },
@@ -2033,7 +2064,10 @@
         "test_fidelity_changes_outcome",
         "evaluation_oracle_is_undecided"
       ],
-      "relations": [],
+      "relations": [
+        "DREL-DEL-002",
+        "DREL-AIML-002"
+      ],
       "ruling_disposition": "not-extracted",
       "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
     },

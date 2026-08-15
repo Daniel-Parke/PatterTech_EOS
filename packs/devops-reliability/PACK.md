@@ -141,6 +141,14 @@ compatibility anchors; they do not encode authority.
 - source `preferences:004` to [DOC-DEVOPS-017](doctrines/DOC-DEVOPS-017-automated-flag-removal-that-rewrites-the-syntax-tree-when-a-flag.md) (preference)
 - source `preferences:005` to [DOC-DEVOPS-018](doctrines/DOC-DEVOPS-018-experiment-flags-governed-by-asymmetric-gating-where-goal-metric.md) (preference)
 
+### Later evidence-led admissions
+
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
+
+- [WG-OPS-005](guides/WG-OPS-005-honest-degradation.md) (Wargame)
+- [WG-OPS-006](guides/WG-OPS-006-observability-and-privacy.md) (Wargame)
+
 ## Decision map
 
 The material forks in this domain, each argued in a guide.

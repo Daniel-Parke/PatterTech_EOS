@@ -18,6 +18,7 @@ from tools.eos.checks.structural import (
     build_guide_index,
     build_index,
     build_pack_index,
+    build_pressure_matrix,
     build_wargame_index,
     write_indexes,
 )
@@ -142,6 +143,16 @@ def test_wargame_index_covers_gd_identities(tmp_path):
     model = RepoModel.load(root, today=TODAY)
     assert "GD-TST-001" in build_wargame_index(model)
     assert "[WARGAME_INDEX](WARGAME_INDEX.md)" in build_guide_index(model)
+
+
+def test_pressure_matrix_renders_the_accepted_backlog_from_canonical_rows():
+    model = RepoModel.load(REPO_ROOT, today=TODAY)
+    text = build_pressure_matrix(model)
+
+    assert "| 1 | Polars/pandas/DuckDB/Spark | requires_tabular_engine_choice |" in text
+    assert "| 24 | golden path versus autonomy | golden_path_needs_escape |" in text
+    assert "on-change-of:estate-gaining-a-second-team" in text
+    assert text.count("| new-wargame |") == 14
 
 
 def test_indexes_exclude_frozen_trees(tmp_path):
@@ -387,6 +398,26 @@ def test_e007_silent_inside_the_budget_and_off_it(tmp_path):
                  + "".join(f"State filler line {i}.\n" for i in range(200)),
                  encoding="utf-8")
     assert only(run_e(root), "E007") == []
+
+
+def test_e007_gives_advanced_wargames_their_ten_section_budget(tmp_path):
+    root = make_repo(tmp_path)
+    path = root / "packs" / "testmod" / "guides" / "WG-TST-001-sample.md"
+    text = path.read_text(encoding="utf-8")
+    pad = 220 - len(text.splitlines())
+    assert pad > 0
+    path.write_text(
+        text + "".join(f"Wargame detail {i}.\n" for i in range(pad)),
+        encoding="utf-8",
+    )
+    assert only(run_e(root), "E007") == []
+
+    path.write_text(path.read_text(encoding="utf-8") + "Over budget.\n",
+                    encoding="utf-8")
+    assert only(run_e(root), "E007") == [(
+        "warn", "packs/testmod/guides/WG-TST-001-sample.md",
+        "221 lines over the 220 budget, prune it or record a length_waiver",
+    )]
 
 
 # --- E008 ---------------------------------------------------------------
@@ -655,13 +686,13 @@ def test_lessons_view_renders_a_conflict_and_how_it_was_settled(tmp_path):
     write_ledger(root, {"version": 1, "rows": [
         {"id": "LES-0006", "title": "Platform-native beats containers",
          "lesson": "On a sovereign LAN", "disposition": "venture-ruling",
-         "conflicts_with": ["WG-OPS-002"],
-         "conflict_resolutions": {"WG-OPS-002": {
+         "conflicts_with": ["WG-OPS-005"],
+         "conflict_resolutions": {"WG-OPS-005": {
              "resolution": "scoped-differently",
              "note": "The container default holds where parity is in play"}}}]})
     text = build_lessons(RepoModel.load(root, today=TODAY))
-    assert "- **Conflicts with**: WG-OPS-002" in text
-    assert ("- **Conflict resolutions**: WG-OPS-002: resolution: "
+    assert "- **Conflicts with**: WG-OPS-005" in text
+    assert ("- **Conflict resolutions**: WG-OPS-005: resolution: "
             "scoped-differently; note: The container default holds where "
             "parity is in play") in text
 

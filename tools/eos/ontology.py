@@ -525,11 +525,24 @@ class KnowledgeResolver:
                 if target is None or target.state != "live" or target.kind != "wargame":
                     self._problem("pressure-wargame", path, pressure,
                                   f"Wargame {identifier} does not resolve live")
+                elif pressure not in _values(
+                    target.metadata.get("engages_when")
+                    or target.metadata.get("engage_when")
+                ):
+                    self._problem(
+                        "pressure-engagement", path, pressure,
+                        f"Wargame {identifier} does not engage {pressure}",
+                    )
             for identifier in _values(row.get("relations")):
                 target = self.resolve(identifier)
                 if target is None or target.state != "live" or target.kind != "relation":
                     self._problem("pressure-relation", path, pressure,
                                   f"relation {identifier} does not resolve live")
+                elif pressure not in _values(target.metadata.get("conditions")):
+                    self._problem(
+                        "pressure-condition", path, pressure,
+                        f"relation {identifier} does not name {pressure} as a condition",
+                    )
             self._pressure_dispositions.append(dict(row))
 
     def _load(self) -> None:
@@ -654,13 +667,12 @@ def _truth(facts: Mapping[str, str], predicates: list[str]) -> tuple[str, list[s
         return "true", []
     values = [str(facts.get(name, "unknown")).lower() for name in predicates]
     unknown = [name for name, value in zip(predicates, values) if value == "unknown"]
-    # Applicability is conjunctive.  One false fact makes it inapplicable;
-    # otherwise uncertainty remains uncertainty.
-    if "false" in values:
-        return "false", unknown
+    # Applicability predicates are alternative entrances to one surface.
+    if "true" in values:
+        return "true", unknown
     if unknown:
         return "unknown", unknown
-    return "true", []
+    return "false", []
 
 
 def _pressure_truth(facts: Mapping[str, str], predicates: list[str]) -> tuple[str, list[str]]:

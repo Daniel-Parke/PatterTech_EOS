@@ -9,7 +9,7 @@ applicable_doctrines: [DOC-AGENT-006, DOC-AGENT-008, DOC-SWARM-012, DOC-SWARM-01
 applies_when: [builds_agent_workflow]
 engages_when: [agent_coordination_cost_is_material]
 consequence: routine
-relations: []
+relations: [DREL-AGENT-001]
 scope: estate
 authority: default
 basis: empirical-evidence

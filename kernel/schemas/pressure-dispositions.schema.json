@@ -4,12 +4,13 @@
   "title": "Accepted disposition of the first Doctrine pressure backlog",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "kind", "source", "accepted_by", "review", "rows"],
+  "required": ["version", "kind", "source", "accepted_by", "governed_by", "review", "rows"],
   "properties": {
     "version": {"const": 1},
     "kind": {"const": "pressure-dispositions"},
     "source": {"type": "string", "minLength": 1},
     "accepted_by": {"type": "string", "minLength": 1},
+    "governed_by": {"type": "string", "pattern": "^ADR-[0-9]{4}$"},
     "review": {"type": "string", "minLength": 1},
     "rows": {
       "type": "array",

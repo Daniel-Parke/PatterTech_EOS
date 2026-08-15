@@ -1,0 +1,13 @@
+{
+  "id": "DREL-ARCH-001",
+  "owner_doctrine": "DOC-ARCH-011",
+  "relation": "tensions_with",
+  "target": "DOC-DATA-008",
+  "conditions": ["requires_storage_engine_choice"],
+  "status": "covered",
+  "evidence": ["EV-0162", "EV-0310", "EV-0311"],
+  "fallback": "Keep one proved store and isolate the new access pattern behind a rebuildable seam until a representative trace and recovery test justify another engine.",
+  "wargame": "WG-ARCH-010",
+  "owner": "architecture",
+  "review": "2027-02"
+}

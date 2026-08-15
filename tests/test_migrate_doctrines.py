@@ -25,6 +25,7 @@ from tools.eos.migrate_doctrines import (
     IDENTITY_CREDENTIAL,
     NATIVE_PREFERENCE,
     PACK_DEPENDENCIES,
+    POST_MIGRATION_ADMISSIONS,
     SECURITY_APPROVAL,
     UI_OVERLAY,
     WRITING_BRAND_VOICE,
@@ -46,7 +47,14 @@ ALIASES = json.loads((
 ).read_text(encoding="utf-8")) if (
     REPO / "registry" / "identifier-aliases.json"
 ).is_file() else {"version": 1, "aliases": {}}
-DOC_PATHS = sorted(REPO.glob("packs/*/doctrines/DOC-*.md"))
+ALL_DOC_PATHS = sorted(REPO.glob("packs/*/doctrines/DOC-*.md"))
+DOC_PATHS = [
+    path for path in ALL_DOC_PATHS
+    if parse_frontmatter(path.read_text(encoding="utf-8")).data.get(
+        "generated_by"
+    ) == "tools.eos.migrate_doctrines"
+]
+ADMITTED_DOC_PATHS = [path for path in ALL_DOC_PATHS if path not in DOC_PATHS]
 DOCS = {
     parse_frontmatter(path.read_text(encoding="utf-8")).data["id"]:
         (path, parse_frontmatter(path.read_text(encoding="utf-8")).data)
@@ -96,6 +104,27 @@ def test_ledger_and_every_doctrine_satisfy_their_schemas():
         jsonschema.Draft202012Validator(doctrine_schema).validate(metadata)
         assert path.name.startswith(identifier + "-")
         assert metadata["migration_sources"]
+
+
+def test_later_admitted_doctrines_are_schema_valid_and_outside_the_ledger():
+    doctrine_schema = json.loads((
+        REPO / "kernel" / "schemas" / "doctrine.schema.json"
+    ).read_text(encoding="utf-8"))
+    assert len(ADMITTED_DOC_PATHS) == 3
+    identifiers = set()
+    for path in ADMITTED_DOC_PATHS:
+        metadata = parse_frontmatter(path.read_text(encoding="utf-8")).data
+        jsonschema.Draft202012Validator(doctrine_schema).validate(metadata)
+        identifiers.add(metadata["id"])
+        assert "migration_sources" not in metadata
+    assert identifiers == {"DOC-DATA-020", "DOC-DATA-021", "DOC-UIUX-023"}
+
+
+def test_pack_maps_link_every_later_admission_deterministically():
+    for pack, admissions in POST_MIGRATION_ADMISSIONS.items():
+        text = (REPO / "packs" / pack / "PACK.md").read_text(encoding="utf-8")
+        for identifier, path, record_type in admissions:
+            assert f"[{identifier}]({path}) ({record_type})" in text
 
 
 def test_targets_have_one_canonical_definition_and_complete_provenance():

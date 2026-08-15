@@ -1,0 +1,13 @@
+{
+  "id": "DREL-DEL-002",
+  "owner_doctrine": "DOC-DEL-006",
+  "relation": "depends_on",
+  "target": "DOC-DEL-002",
+  "conditions": ["test_fidelity_changes_outcome"],
+  "status": "covered",
+  "evidence": ["EV-0093", "EV-0186", "EV-0187"],
+  "fallback": "Use the highest-fidelity affordable boundary and prove any double against the same contract and an independent oracle.",
+  "wargame": "WG-DEL-005",
+  "owner": "delivery-testing",
+  "review": "2027-02"
+}

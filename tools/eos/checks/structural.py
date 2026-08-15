@@ -49,6 +49,7 @@ GUIDE_ID = re.compile(r"((?:WG|GD)-[A-Z]+-\d{3})")
 ROUTERS = {"AGENTS.md", "CLAUDE.md"}
 ROUTER_CAP = 40
 BUDGET = 150
+WARGAME_BUDGET = 220
 BUDGET_TYPES = {"doctrine", "foundation", "pattern", "ux", "implementation", "wargame"}
 TYPES = {
     "root", "governance", "decision", "doctrine", "foundation", "pattern",
@@ -265,6 +266,10 @@ def build_pressure_matrix(model: RepoModel, resolver=None) -> str:
     for row in resolver.list("wargame"):
         for pressure in row.metadata.get("engages_when") or []:
             coverage.setdefault(str(pressure), []).append(row.canonical_id)
+    dispositions = sorted(
+        resolver.pressure_dispositions,
+        key=lambda row: int(row.get("case") or 0),
+    )
     rows = ["---", "summary: Derived estate view of Doctrine relations and Wargame pressure coverage",
             "type: registry", "tags: [eos, wargame]", "status: active",
             "review_by: 2027-02", "derived: true", "---", "",
@@ -283,12 +288,29 @@ def build_pressure_matrix(model: RepoModel, resolver=None) -> str:
                 _cell(relation.get("conditions")), _cell(relation.get("status")),
                 _cell(relation.get("wargame")), _cell(relation.get("fallback"))))
         rows.append("")
-    rows += ["## Pressure coverage", "",
-             "| pressure | covering Wargames |",
-             "| --- | --- |"]
-    for pressure in sorted(coverage):
-        rows.append("| {} | {} |".format(
-            pressure, _cell(sorted(coverage[pressure]))))
+    rows += ["## Pressure coverage", ""]
+    if dispositions:
+        rows += [
+            "The accepted backlog is canonical. Wargame engagement metadata and",
+            "relation conditions are validated against each row.", "",
+            "| case | named pressure | predicate | consequence | disposition | covering Wargames | relations | fallback or reopen trigger |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+        ]
+        for row in dispositions:
+            pressure = str(row.get("pressure") or "")
+            covering = sorted(set(coverage.get(pressure, [])))
+            final_column = row.get("reopen_trigger") or row.get("fallback")
+            rows.append("| {} | {} | {} | {} | {} | {} | {} | {} |".format(
+                _cell(row.get("case")), _cell(row.get("name")), pressure,
+                _cell(row.get("consequence")), _cell(row.get("disposition")),
+                _cell(covering), _cell(row.get("relations")),
+                _cell(final_column)))
+    else:
+        rows += ["| pressure | covering Wargames |",
+                 "| --- | --- |"]
+        for pressure in sorted(coverage):
+            rows.append("| {} | {} |".format(
+                pressure, _cell(sorted(coverage[pressure]))))
     challenged = {
         str(trigger): []
         for row in resolver.list("doctrine")
@@ -297,7 +319,12 @@ def build_pressure_matrix(model: RepoModel, resolver=None) -> str:
     for pressure, wargames in coverage.items():
         if pressure in challenged:
             challenged[pressure] = wargames
-    uncovered = sorted(pressure for pressure, rows_ in challenged.items() if not rows_)
+    disposed = {str(row.get("pressure")) for row in dispositions}
+    uncovered = sorted(
+        pressure for pressure, rows_ in challenged.items()
+        if not rows_ and pressure not in disposed
+        and pressure != "operator_requests_doctrine_review"
+    )
     rows += ["", "## Uncovered Doctrine challenge triggers", ""]
     rows += ([", ".join(uncovered)] if uncovered else ["None."])
     return "\n".join(rows).rstrip("\n") + "\n"
@@ -775,7 +802,9 @@ def check_e007_line_budgets(ctx: dict) -> list:
     in packs/PACK_SHAPE.md and by the review passes, so a long pack is a
     thing to look at rather than a build failure.
 
-    Both over-budget cases warn, and their messages stay different on
+    The unified ten-section Wargame contract has a 220-line review budget;
+    other budgeted records retain 150 lines. Both over-budget cases warn,
+    and their messages stay different on
     purpose. A `length_waiver` is no longer the downgrade from error to
     warning; it is the recorded reason for the departure, which is what
     a default asks for and what the monthly pass samples. The two
@@ -790,13 +819,15 @@ def check_e007_line_budgets(ctx: dict) -> list:
         n = rec.lines
         if rec.path in ROUTERS and n > ROUTER_CAP:
             out.append(_err("E007", rec.path, f"router is {n} lines, cap {ROUTER_CAP}"))
-        if fm.get("type", "") in BUDGET_TYPES and n > BUDGET:
+        record_type = fm.get("type", "")
+        budget = WARGAME_BUDGET if record_type == "wargame" else BUDGET
+        if record_type in BUDGET_TYPES and n > budget:
             if "length_waiver" in fm:
                 out.append(_warn("E007", rec.path,
                                  f"{n} lines under waiver: {fm['length_waiver']}"))
             else:
                 out.append(_warn("E007", rec.path,
-                                 f"{n} lines over the {BUDGET} budget, "
+                                 f"{n} lines over the {budget} budget, "
                                  f"prune it or record a length_waiver"))
     return out
 

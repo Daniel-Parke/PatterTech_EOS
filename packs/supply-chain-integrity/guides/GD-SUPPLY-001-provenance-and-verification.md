@@ -9,7 +9,7 @@ applicable_doctrines: [DOC-SUPPLY-002, DOC-SUPPLY-003, DOC-SEC-014]
 applies_when: [publishes_code]
 engages_when: [producer_trust_is_unproved]
 consequence: high
-relations: []
+relations: [DREL-SUPPLY-001]
 scope: estate
 authority: default
 basis: standard

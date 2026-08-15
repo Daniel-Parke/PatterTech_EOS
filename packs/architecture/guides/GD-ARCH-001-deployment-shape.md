@@ -9,7 +9,7 @@ applicable_doctrines: [DOC-ARCH-001, DOC-ARCH-004, DOC-ARCH-005]
 applies_when: [has_server_code]
 engages_when: [requires_independent_deployability]
 consequence: high
-relations: []
+relations: [DREL-ARCH-003]
 scope: estate
 authority: default
 basis: empirical-evidence

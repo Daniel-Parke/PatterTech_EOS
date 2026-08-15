@@ -107,6 +107,13 @@ compatibility anchors; they do not encode authority.
 - source `preferences:003` to [DOC-DEL-017](doctrines/DOC-DEL-017-where-a-published-schema-exists-generate-conformance-and-negativ.md) (preference)
 - source `preferences:004` to [DOC-DEL-018](doctrines/DOC-DEL-018-keep-one-assertion-idea-per-test-so-a-failure-names-itself.md) (preference)
 
+### Later evidence-led admissions
+
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
+
+- [WG-DEL-008](guides/WG-DEL-008-incident-hotfix.md) (Wargame)
+
 ## Decision map
 
 | Fork | Guide |

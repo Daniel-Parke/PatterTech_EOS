@@ -73,6 +73,13 @@ A predicate should be a fact somebody can answer yes or no about, not a
 judgement about the work. `has_database` is a fact.
 `needs_careful_design` is not.
 
+An `applies_when` list names alternative entrances to the same surface: one
+true fact makes it applicable, all false facts make it inapplicable, and no
+true fact with at least one unknown keeps it unknown. `engages_when` uses the
+same any-of rule for decision pressure. A rule that genuinely needs two facts
+together gets one named compound predicate whose settling question proves
+both; a list does not silently mean `and`.
+
 Every row needs all four cells, including what settles it. A predicate
 nobody can settle activates nothing and cannot be tested.
 

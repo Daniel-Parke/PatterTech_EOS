@@ -4,12 +4,12 @@ summary: All at once, watched canary, analysis-gated rollout, or flag-decoupled 
 kind: wargame
 type: wargame
 tags: [delivery, eos, infra, ops, wargame]
-scenario_modes: [selection, exception]
-applicable_doctrines: [DOC-DEVOPS-008]
+scenario_modes: [selection, exception, conflict]
+applicable_doctrines: [DOC-DEVOPS-008, DOC-SUPPLY-005]
 applies_when: [deploys_to_environment]
-engages_when: [operator_requests_wargame]
-consequence: routine
-relations: []
+engages_when: [dependency_update_changes_known_good]
+consequence: high
+relations: [DREL-SUPPLY-002]
 scope: estate
 authority: default
 basis: standard
@@ -32,6 +32,7 @@ behaviour reaching everyone, and who or what decides to continue.
 ## Doctrines or coverage gap under pressure
 
 - `DOC-DEVOPS-008` (default): Progressive rollout with an automated abort condition for user-facing change.
+- `DOC-SUPPLY-005` (default): A cooldown window before adopting a newly published version, with security fixes deliberately exempted.
 
 The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
 
@@ -48,7 +49,7 @@ The options test how those propositions apply here. A Wargame may justify depart
 - Whether anyone is awake. Automation matters most for the changes that
   land at eleven at night.
 
-Applicability is `deploys_to_environment`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
+Applicability is `deploys_to_environment`. Engagement is `dependency_update_changes_known_good`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 

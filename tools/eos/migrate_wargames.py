@@ -151,6 +151,7 @@ PRESSURE_MAP: dict[str, tuple[str, ...]] = {
     "GD-SWARM-001": ("agent_coordination_cost_is_material",),
     "GD-AIML-003": ("evaluation_oracle_is_undecided",),
     "GD-ARCH-001": ("requires_independent_deployability",),
+    "WG-ARCH-001": ("requires_independent_deployability",),
     "WG-DEL-005": ("test_fidelity_changes_outcome",),
     "WG-DEL-006": (
         "test_fidelity_changes_outcome",
@@ -159,6 +160,7 @@ PRESSURE_MAP: dict[str, tuple[str, ...]] = {
     "WG-DEL-007": ("riskiest_assumption_is_unproved",),
     "GD-SUPPLY-001": ("producer_trust_is_unproved",),
     "GD-SUPPLY-003": ("dependency_update_changes_known_good",),
+    "GD-DEVOPS-002": ("dependency_update_changes_known_good",),
     "GD-UIUX-001": (
         "serves_novice_and_expert_users",
         "house_style_costs_access_or_performance",
@@ -180,12 +182,16 @@ PRESSURE_DOC_ADDITIONS: dict[str, tuple[str, ...]] = {
     "GD-UIUX-003": (
         "DOC-HOUSE-004", "DOC-HOUSE-015", "DOC-UIUX-011", "DOC-UIUX-014",
     ),
+    "WG-ARCH-001": ("DOC-ARCH-004", "DOC-ARCH-005"),
+    "GD-DEVOPS-002": ("DOC-SUPPLY-005",),
 }
 
 
 CONSEQUENCE_OVERRIDES = {
     "GD-AIML-003",
     "GD-ARCH-001",
+    "WG-ARCH-001",
+    "GD-DEVOPS-002",
     "GD-SUPPLY-001",
     "GD-SUPPLY-003",
     "GD-UIUX-001",
@@ -200,19 +206,19 @@ RELATION_CANDIDATES: dict[str, tuple[str, ...]] = {
     "GD-SWARM-001": ("DREL-AGENT-001",),
     "GD-AIML-003": ("DREL-AIML-002",),
     "GD-ARCH-001": ("DREL-ARCH-003",),
+    "WG-ARCH-001": ("DREL-ARCH-003",),
     "WG-DEL-005": ("DREL-DEL-002",),
     "WG-DEL-006": ("DREL-DEL-002", "DREL-AIML-002"),
     "GD-SUPPLY-001": ("DREL-SUPPLY-001",),
     "GD-SUPPLY-003": ("DREL-SUPPLY-002",),
+    "GD-DEVOPS-002": ("DREL-SUPPLY-002",),
     "GD-UIUX-001": ("DREL-UIUX-001", "DREL-HOUSE-002"),
     "GD-UIUX-003": ("DREL-HOUSE-001",),
 }
 
 
 CONFLICT_WHEN_RELATED = {
-    "GD-AGENT-001", "GD-SWARM-001", "GD-AIML-003",
-    "WG-DEL-005", "WG-DEL-006", "GD-SUPPLY-001", "GD-SUPPLY-003",
-    "GD-UIUX-001", "GD-UIUX-003",
+    "GD-DEVOPS-002", "GD-SUPPLY-003", "GD-UIUX-001", "GD-UIUX-003",
 }
 
 
@@ -220,6 +226,7 @@ SOURCE_ADDITIONS: dict[str, tuple[str, ...]] = {
     "GD-AGENT-001": ("EV-0452",),
     "GD-SWARM-001": ("EV-0452",),
     "GD-ARCH-001": ("EV-0564",),
+    "WG-ARCH-001": ("EV-0564",),
     "WG-DEL-007": ("EV-0579",),
     "GD-DISC-001": ("EV-0579",),
     "GD-SUPPLY-001": ("EV-0549", "EV-0582"),

@@ -70,7 +70,8 @@
    "counter_evidence": "Its own ablation shows procedural TDD mandates without context worsen regressions, countering any blanket TDD-instruction doctrine.",
    "cited_by": [
     "coding",
-    "delivery-testing"
+    "delivery-testing",
+    "registry"
    ],
    "review": "2027-08",
    "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"TDAD: Test-Driven Agentic Development - Reducing Code Regressions in AI Coding Agents via Graph-Based Impact Analysis\". Confirmed in raw HTML.",
@@ -173,7 +174,8 @@
     "coding",
     "delivery-testing",
     "inception",
-    "kernel"
+    "kernel",
+    "registry"
    ],
    "review": "2027-08",
    "licence_evidence": "arXiv abstract page licence line links to http://creativecommons.org/licenses/by/4.0/ with the by-4.0.png icon and the text \"view license\". Paper: \"On the risk of coding before testing: An empirical study on LLM-based test generation workflow\". Confirmed in raw HTML.",
@@ -221,6 +223,7 @@
    "applicability_limits": "Replication diverges from classic human-test findings and the authors caution against generalising across all LLM test-generation workflows; results must not be promoted to universal doctrine.",
    "counter_evidence": null,
    "cited_by": [
+    "coding",
     "delivery-testing"
    ],
    "review": "2027-08",
@@ -494,6 +497,7 @@
    "counter_evidence": null,
    "cited_by": [
     "devops-reliability",
+    "supply-chain-integrity",
     "support-operations"
    ],
    "review": "2028-08"
@@ -516,7 +520,8 @@
    "applicability_limits": "Years of experimental-to-stable churn caused real migration pain; stability tiers defer but do not eliminate breaking change.",
    "counter_evidence": null,
    "cited_by": [
-    "agentic-development"
+    "agentic-development",
+    "registry"
    ],
    "review": "2028-08"
   },
@@ -634,6 +639,7 @@
    "counter_evidence": null,
    "cited_by": [
     "coding",
+    "delivery-testing",
     "devops-reliability",
     "native-client"
    ],
@@ -651,7 +657,7 @@
    "benchmark": null,
    "version_or_commit": "W3C Recommendation, revised 12 December 2024",
    "licence": "W3C Document Licence",
-   "access_date": "2026-08-02",
+   "access_date": "2026-08-15",
    "maintenance": "active",
    "finding": "Conformance is a set of technology-neutral, individually testable statements in tiered levels (A/AA/AAA), and criteria can be removed when they stop earning their keep, as 4.1.1 Parsing was in 2.2.",
    "applicability_limits": "Many real usability failures pass WCAG; the W3C acknowledges this through non-normative Understanding docs and the outcome-based WCAG 3 effort.",
@@ -659,11 +665,15 @@
    "cited_by": [
     "kernel",
     "native-client",
+    "org",
     "pattertech-house",
+    "registry",
     "ui-ux",
     "writing-content"
    ],
-   "review": "2028-08"
+   "review": "on-change-of:https://www.w3.org/TR/WCAG22/",
+   "licence_evidence": "The Recommendation page links the W3C Document Licence.",
+   "licence_checked": "2026-08-15"
   },
   {
    "id": "EV-0028",
@@ -886,34 +896,38 @@
    "model": null,
    "benchmark": null,
    "version_or_commit": "v1.1, February 2022; SP 800-218A companion 2024",
-   "licence": "US Government work (public domain)",
-   "access_date": "2026-08-02",
+   "licence": "US Government publication under the NIST copyright and disclaimer notice; marked third-party material excepted",
+   "access_date": "2026-08-15",
    "maintenance": "stable",
    "finding": "Define outcomes at the practice level with a common vocabulary and let each implementation choose its own tooling and rigour, rather than mandating specific tools or a single methodology.",
    "applicability_limits": "High-level by design; gives no concrete gate placement or level scheme, so it constrains what to assure, not how much ceremony to spend.",
    "counter_evidence": null,
    "cited_by": [
+    "org",
+    "registry",
     "security-privacy"
    ],
-   "review": "2028-08"
+   "review": "on-change-of:https://csrc.nist.gov/pubs/sp/800/218/final",
+   "licence_evidence": "NIST identifies the report as a US Government publication and requests attribution; marked third-party material remains separate.",
+   "licence_checked": "2026-08-15"
   },
   {
    "id": "EV-0038",
-   "source": "SLSA v1.2",
-   "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+   "source": "OpenSSF SLSA v1.2 specification",
+   "url": "https://slsa.dev/spec/v1.2/",
    "kind": "standard",
    "publication_status": "standard",
    "study_design": null,
    "population": null,
    "model": null,
    "benchmark": null,
-   "version_or_commit": "v1.2 (approved; v1.0 retired)",
-   "licence": "Community Specification License / CC (OpenSSF project); unknown exact",
-   "access_date": "2026-08-02",
+   "version_or_commit": "v1.2, approved 2025-11-24; v1.0 retired",
+   "licence": "Community Specification License 1.0",
+   "access_date": "2026-08-15",
    "maintenance": "active",
-   "finding": "Tracks with independent levels let you progress on one dimension without blocking on others, and verification sits at admission time against expectations rather than inside the producing workflow.",
-   "applicability_limits": "SLSA measures pipeline tamper-resistance, not code quality; L3 needs build-platform features an agent framework cannot supply itself, and no guidance says which level to demand for a given risk.",
-   "counter_evidence": null,
+   "finding": "Independent source and build tracks allow progressive assurance on each dimension, with claimed properties verified when an artefact is admitted against stated expectations.",
+   "applicability_limits": "A SLSA level describes properties of source or build controls, not product quality, producer intent or safe use. Higher levels also depend on platform features outside an agent framework, and the specification does not set one risk threshold for every product.",
+   "counter_evidence": "EV-0549 records threats outside the levels, including a producer deliberately submitting harmful code and insecure use of a correctly produced artefact.",
    "cited_by": [
     "architecture",
     "devops-reliability",
@@ -922,7 +936,9 @@
     "security-privacy",
     "supply-chain-integrity"
    ],
-   "review": "2028-08"
+   "review": "on-change-of:https://slsa.dev/spec/",
+   "licence_evidence": "The specification page states Community Specification License 1.0.",
+   "licence_checked": "2026-08-15"
   },
   {
    "id": "EV-0039",
@@ -989,6 +1005,7 @@
    "cited_by": [
     "ai-ml-llm",
     "data-analytics",
+    "devops-reliability",
     "legal-licensing",
     "marketing-growth",
     "registry",
@@ -1244,7 +1261,8 @@
    "applicability_limits": "The headline is maintainer-reported on SWE-bench Verified, a distribution of small localised bug fixes, and must not be promoted to universal doctrine; minimalism is less proven for large greenfield or multi-day work.",
    "counter_evidence": "OpenHands, at larger production scale, still invests in condensers, analyzers and delegation, so minimalism and rich runtime services coexist as valid poles.",
    "cited_by": [
-    "agentic-development"
+    "agentic-development",
+    "registry"
    ],
    "review": "2027-08"
   },
@@ -1394,7 +1412,8 @@
    "applicability_limits": "Catalog freshness still depends on files being updated on change; Spotify concedes golden paths need continual gardening or they rot.",
    "counter_evidence": null,
    "cited_by": [
-    "devops-reliability"
+    "devops-reliability",
+    "registry"
    ],
    "review": "2027-08"
   },
@@ -1656,6 +1675,7 @@
    "applicability_limits": "Checks are heuristics on repo metadata that can be gamed or misfire; they measure hygiene, not semantic correctness or staleness of docs.",
    "counter_evidence": null,
    "cited_by": [
+    "architecture",
     "coding",
     "legal-licensing",
     "registry",
@@ -2336,6 +2356,8 @@
     "delivery-testing",
     "devops-reliability",
     "legal-licensing",
+    "org",
+    "registry",
     "support-operations"
    ],
    "review": "2027-08"
@@ -3881,6 +3903,7 @@
    "applicability_limits": "Stripe specifics. Tolerances, header format and version-pinning semantics differ per vendor, so the rule that transfers is 'verify raw bytes, bound recency, pin payload version', not the constants.",
    "counter_evidence": "Stripe supplies SDK helpers that do the verification, which softens the case for hand-rolled raw-protocol handling; the durable argument for owning it is that the raw-body requirement is exactly what a framework upgrade breaks.",
    "cited_by": [
+    "api-integration",
     "architecture",
     "registry"
    ],
@@ -4897,9 +4920,11 @@
    "applicability_limits": "Kubernetes-native and needs a traffic router plus a metrics backend; the pattern does not transfer as-is to a single-instance or serverless deployment. Automatic abort protects the serving tier only, not data already written by the canary.",
    "counter_evidence": null,
    "cited_by": [
+    "delivery-testing",
     "devops-reliability",
     "native-client",
-    "registry"
+    "registry",
+    "supply-chain-integrity"
    ],
    "review": "2027-08"
   },
@@ -4944,6 +4969,7 @@
    "applicability_limits": "Costs a period of dual maintenance and only pays off when deploys are frequent enough to complete all three phases; the named risk is a contract phase that never happens, leaving permanent duplication. Applies to interfaces and schemas, not to irreversible data destruction.",
    "counter_evidence": null,
    "cited_by": [
+    "architecture",
     "business-logic-modelling",
     "devops-reliability",
     "native-client",
@@ -5015,6 +5041,7 @@
    "applicability_limits": "Requires per-language grammars and a house flag API the tool can recognise; a small codebase gets most of the benefit from a scheduled report of flags past their expiry date rather than from automated rewriting.",
    "counter_evidence": null,
    "cited_by": [
+    "delivery-testing",
     "devops-reliability",
     "registry"
    ],
@@ -5233,6 +5260,7 @@
    "applicability_limits": "Written for the OAuth and transport surface of MCP deployments; it does not address what a correctly authorised tool then does with untrusted content, and the strongest statements assume a hosted server rather than a local stdio one.",
    "counter_evidence": null,
    "cited_by": [
+    "ai-ml-llm",
     "registry",
     "security-privacy"
    ],
@@ -5283,6 +5311,8 @@
    "applicability_limits": "Not available on native Windows, incompatible with docker and some Go CLIs, and the default proxy does not terminate TLS so a broad allowlist entry such as github.com remains an exfiltration path; the sandbox covers Bash subprocesses only, not the in-process file and fetch tools.",
    "counter_evidence": null,
    "cited_by": [
+    "ai-ml-llm",
+    "devops-reliability",
     "registry",
     "security-privacy"
    ],
@@ -5402,6 +5432,7 @@
    "cited_by": [
     "ai-ml-llm",
     "data-analytics",
+    "devops-reliability",
     "legal-licensing",
     "marketing-growth",
     "registry",
@@ -5786,6 +5817,7 @@
    "counter_evidence": "The page's own Vodafone note concedes that only A/B testing measures meaningful impact, which undercuts the headline figures it lists.",
    "cited_by": [
     "marketing-growth",
+    "pattertech-house",
     "registry",
     "ui-ux"
    ],
@@ -6035,6 +6067,7 @@
    "applicability_limits": "Agreement is measured on general chat preference, not on domain-specific correctness where the judge lacks the knowledge to grade. Eighty per cent human agreement also means twenty per cent disagreement, which is far too coarse to gate a safety property. The subject and judge models are long retired, so the agreement figure must be re-established for any current judge rather than cited as a constant.",
    "counter_evidence": "EV-0252 finds position bias is severe and inconsistent enough to change conclusions, and EV-0253 shows self-preference is grounded in genuine self-recognition, both of which make the headline agreement number look optimistic.",
    "cited_by": [
+    "agentic-development",
     "agentic-swarm",
     "ai-ml-llm",
     "registry"
@@ -6061,6 +6094,7 @@
    "applicability_limits": "Pairwise comparison only, so it does not directly govern single-answer rubric scoring, which has its own biases. Judge models tested are 2024 vintage. The proposed metrics are useful but not standardised, so numbers are not comparable across papers.",
    "counter_evidence": "EV-0251 reports GPT-4 suffered less position bias than weaker judges, which suggests the effect shrinks with judge capability even if it does not vanish.",
    "cited_by": [
+    "agentic-development",
     "ai-ml-llm",
     "registry"
    ],
@@ -6086,6 +6120,7 @@
    "applicability_limits": "Summarisation only, three models, all superseded. The causal manipulation is via fine-tuning self-recognition, which is a proxy for the naturally occurring mechanism rather than the mechanism itself. Says nothing about whether self-preference persists when the judge grades against an explicit rubric with reference answers rather than expressing a preference.",
    "counter_evidence": "Follow-up work argues some apparent self-preference reflects genuine quality differences that human raters under-detect rather than bias, so the correction direction is not settled.",
    "cited_by": [
+    "agentic-development",
     "ai-ml-llm",
     "registry"
    ],
@@ -7400,6 +7435,7 @@
    "applicability_limits": "Written by the vendor whose product is the lakehouse, so the architectural claim and the commercial interest coincide. TPC-DS is a synthetic decision-support benchmark and does not represent interactive product analytics. The argument presumes machine learning and unstructured data are in scope; for a venture doing SQL over structured events, the second-generation problem it solves may never arise.",
    "counter_evidence": "Directly contradicted on scale grounds by Tigani's account of BigQuery workloads, where most customers hold under a terabyte and most queries scan under 100 MB, at which point the two-tier problem the lakehouse solves does not exist because there is no lake.",
    "cited_by": [
+    "architecture",
     "data-analytics",
     "registry"
    ],
@@ -7423,6 +7459,7 @@
    "applicability_limits": "Catalogue operation, compaction and snapshot expiry are ongoing maintenance work that a managed warehouse does for you; below a few terabytes that overhead usually exceeds the lock-in it avoids. The format specification and the Java implementation move at different speeds from the Python, Go and Rust implementations, so multi-engine parity is a claim to verify per feature, not a given.",
    "counter_evidence": null,
    "cited_by": [
+    "architecture",
     "data-analytics",
     "registry"
    ],
@@ -7446,6 +7483,7 @@
    "applicability_limits": "Vendor commentary from a single-node warehouse company, and the author states the figures are from memory with the charts hand-drawn, so the numbers are indicative rather than measurements you can cite as data. Nothing here addresses streaming, unstructured data or machine-learning training sets.",
    "counter_evidence": "The lakehouse position paper argues the opposite direction of travel, that dataset growth and unstructured data broke the warehouse shape. Both cannot be the default; the disagreement is about which population you belong to.",
    "cited_by": [
+    "architecture",
     "data-analytics",
     "registry"
    ],
@@ -9022,6 +9060,7 @@
    "applicability_limits": "Formal result about a data type, not about an application: uniqueness constraints, monetary balances, referential integrity and approval states are all outside what convergence buys. Implementations differ from the paper in storage and garbage collection, so performance claims here transfer to no shipping library directly.",
    "counter_evidence": "PowerSync (EV-0383) states plainly that there is no single correct choice for handling write failures, which is precisely the space convergence proofs leave empty.",
    "cited_by": [
+    "architecture",
     "native-client",
     "registry"
    ],
@@ -9045,6 +9084,7 @@
    "applicability_limits": "Vendor's own performance claim, not independently measured here. The maintainers state the Rust API is low level and thinly documented and is shaped around the JavaScript wrapper, which matters a great deal if the target is a shared core for iOS and Android rather than a browser app. Staffing is small, two full-time maintainers plus contributors.",
    "counter_evidence": "The original local-first essay by the same group (EV-0378) flagged unbounded change history as a structural performance problem, and mitigation rather than elimination is what the library offers.",
    "cited_by": [
+    "architecture",
     "native-client",
     "registry"
    ],
@@ -9068,6 +9108,7 @@
    "applicability_limits": "Optimised for shared text editing under the YATA algorithm; the shape of the win does not transfer automatically to record-oriented business data. Garbage collection is conditional, and the conditions were not enumerated at inspection, so the growth bound cannot be stated from this source.",
    "counter_evidence": "Automerge (EV-0380) makes competing performance claims and the two projects publish benchmarks against each other, so neither figure is neutral.",
    "cited_by": [
+    "architecture",
     "native-client",
     "registry"
    ],
@@ -9091,6 +9132,7 @@
    "applicability_limits": "Postgres-sourced only. The repository page does not state the history behind the scope change or any write-path guidance, so the inference about why is mine and rests on the shape of the product rather than on a maintainer statement. Version 1.0 status was read from the page, not from a release tag.",
    "counter_evidence": "Automerge and Yjs (EV-0380, EV-0381) take the opposite bet, that bidirectional convergence is the product, and both are actively maintained with real users.",
    "cited_by": [
+    "architecture",
     "native-client",
     "registry"
    ],
@@ -9114,6 +9156,7 @@
    "applicability_limits": "The same mechanism that removes local conflicts creates a head-of-line blocking failure mode: an unacknowledged mutation stalls the client's whole sync state, so a poorly behaved backend degrades the app globally rather than locally. Causal-plus is claimed with reference to independent testing that was not examined here.",
    "counter_evidence": "CRDT libraries (EV-0380, EV-0381) merge without a round trip and therefore have no head-of-line blocking, at the cost of accepting a converged value nobody chose.",
    "cited_by": [
+    "architecture",
     "native-client",
     "registry"
    ],
@@ -9598,7 +9641,8 @@
    "counter_evidence": null,
    "cited_by": [
     "product-discovery",
-    "registry"
+    "registry",
+    "ui-ux"
    ],
    "review": "on-change-of:the GOV.UK Service Manual user research section"
   },
@@ -10034,6 +10078,8 @@
    "applicability_limits": "Assumes at least three or four available responders. The one-hour trigger is calibrated to Google-scale services and is not evidence for any particular threshold elsewhere. Licence forbids copying the role definitions verbatim into a pack, so only the principle transfers.",
    "counter_evidence": "The role separation is Google practice with no comparative measurement. EV-0200 places the postmortem on a fixed clock, which is complementary, but neither source shows that separating the communications role improves customer outcomes rather than internal focus.",
    "cited_by": [
+    "delivery-testing",
+    "org",
     "registry",
     "support-operations"
    ],
@@ -10685,24 +10731,29 @@
   {
    "id": "EV-0452",
    "source": "Towards a Science of Scaling Agent Systems",
-   "url": "https://arxiv.org/html/2512.08296v1",
+   "url": "https://arxiv.org/abs/2512.08296",
    "kind": "controlled",
    "publication_status": "preprint",
-   "study_design": "180 controlled configurations over five topologies, three model families and four domains, with a fitted coordination model validated on held-out configurations",
-   "population": "agent counts of 1, 3, 5, 7 and 9 across four task domains",
-   "model": "three model families, not individually named in the material read",
-   "benchmark": "Finance-Agent, BrowseComp-Plus, PlanCraft, Workbench",
-   "version_or_commit": "arXiv, 9 December 2025",
-   "licence": "CC BY 4.0",
-   "access_date": "2026-08-10",
+   "study_design": "260 controlled configurations over six benchmarks, five agent-system architectures and three model families, with architecture selection tested on held-out configurations",
+   "population": "Six benchmark task sets spanning decomposable finance, web research, sequential planning and tool-heavy work",
+   "model": "Three model families under five agent-system architectures",
+   "benchmark": "Six benchmarks reported in arXiv v3",
+   "version_or_commit": "arXiv v3, revised 2026-04-08",
+   "licence": "arXiv non-exclusive distribution licence 1.0",
+   "access_date": "2026-08-15",
    "maintenance": "active",
-   "finding": "Decomposability, not difficulty, decides whether adding agents helps: one domain gained 80.9 per cent and another lost 70.0 per cent at almost identical decomposability scores. Turn count grows superlinearly with agent count (T = 2.72(n+0.5)^1.724, R-squared 0.974). Under a fixed budget per-agent reasoning becomes prohibitively thin beyond three or four agents. Error amplification against a single agent was 17.2 times for independent lanes and 4.4 times with a validating orchestrator. Where a single agent already succeeds above roughly 45 per cent, adding agents predicts a loss (beta -0.408, p<0.001).",
-   "applicability_limits": "None of the four domains is repository software engineering, so the transfer to code is inferential; cross-validated R-squared falls to 0.513 on held-out domains; authors state benefits are contingent on problem structure rather than general.",
-   "counter_evidence": "Its own strongest result, plus 80.9 per cent from centralised coordination, is among the best pro-swarm numbers available. The paper cuts both ways depending on decomposability.",
+   "finding": "Agent topology is task-shaped. Version 3 reports an 80.8 per cent gain on a decomposable finance task and a 70 per cent loss on sequential planning, with coordination overhead on tool-heavy work, error propagation without central verification and 87 per cent held-out architecture selection. Its data-derived capability-saturation rule, that single-agent success above 45 per cent predicts degradation from adding agents, matches 94 per cent across the reported 16-model, two-benchmark check. The fitted capability model reports R-squared 0.373, rising to 0.413 with grounded capability.",
+   "applicability_limits": "These are benchmark results rather than a repository-software study. Outcomes depend on the tested model families, harness, task graph, tool load, budget and oracle. The paper is a preprint and its fitted model leaves most variance unexplained. The 45 per cent boundary is a data-derived study threshold to test locally, not a universal EOS cut-off.",
+   "counter_evidence": "The 80.8 per cent improvement is strong evidence that a coordinated multi-agent topology can help a decomposable task. The sequential and tool-heavy losses show why that result cannot become a general swarm default.",
    "cited_by": [
-    "agentic-swarm"
+    "agentic-development",
+    "agentic-swarm",
+    "org",
+    "registry"
    ],
-   "review": "on-change-of:packs/agentic-swarm"
+   "review": "on-change-of:https://arxiv.org/abs/2512.08296",
+   "licence_evidence": "The arXiv record identifies the non-exclusive distribution licence for this submission.",
+   "licence_checked": "2026-08-15"
   },
   {
    "id": "EV-0453",
@@ -12930,10 +12981,13 @@
    "applicability_limits": "A framework rather than a measurement: it names threat classes and level requirements, gives no acceptance thresholds, and its levels describe the build platform's properties rather than the artefact's safety. The source track was only promoted out of experimental in v1.2, so its requirements have had little adversarial use.",
    "counter_evidence": null,
    "cited_by": [
+    "org",
     "registry",
     "supply-chain-integrity"
    ],
-   "review": "on-change-of:https://slsa.dev/spec/v1.2/threats"
+   "review": "on-change-of:https://slsa.dev/spec/v1.2/threats",
+   "licence_evidence": "The specification page states Community Specification License 1.0.",
+   "licence_checked": "2026-08-15"
   },
   {
    "id": "EV-0550",
@@ -13233,6 +13287,536 @@
     "supply-chain-integrity"
    ],
    "review": "on-change-of:https://arxiv.org/abs/2606.22593"
+  },
+  {
+   "source": "UK Ministry of Defence, Analysis-Led Wargaming Framework",
+   "url": "https://assets.publishing.service.gov.uk/media/69f346fe95de5140ec7eef3c/ALWF_DEWH_Booklet.pdf",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Crown copyright 2025 booklet; publishing page updated 2026-05-01",
+   "licence": "Crown copyright; Open Government Licence v3.0 applies on the publishing page except where otherwise indicated",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "A useful wargame begins with a decision question and hypotheses, plans evidence and analysis, playtests the design, then records how the result changes practice.",
+   "applicability_limits": "A developing UK defence framework, not comparative validation of the EOS schema. Its roles, terminology, ceremony and scale do not transfer by default.",
+   "counter_evidence": "The source supplies no file-count target and no evidence that this lifecycle alone improves software decisions.",
+   "cited_by": [
+    "architecture",
+    "data-analytics",
+    "delivery-testing",
+    "org",
+    "registry",
+    "ui-ux"
+   ],
+   "review": "on-change-of:https://www.gov.uk/guidance/defence-experimentation-and-wargaming-hub",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The publishing page states Open Government Licence v3.0 except where otherwise indicated; the booklet states Crown copyright 2025.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0563"
+  },
+  {
+   "source": "Carnegie Mellon University Software Engineering Institute, The Architecture Tradeoff Analysis Method",
+   "url": "https://www.sei.cmu.edu/documents/1186/1998_005_001_16646.pdf",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "CMU/SEI-98-TR-008, 1998-07-01",
+   "licence": "CMU copyright and SEI permission terms; link and paraphrase only",
+   "access_date": "2026-08-15",
+   "maintenance": "stable",
+   "finding": "Architecture evaluation is made concrete by testing quality-attribute scenarios against business drivers and recording risks, sensitivities and trade-off points.",
+   "applicability_limits": "The full ATAM method assumes trained facilitators, architects and stakeholders over several days. Only the lightweight scenario and sensitivity concepts transfer.",
+   "counter_evidence": "The report is a method description, not comparative outcome evidence that ATAM ceremony improves every architecture decision.",
+   "cited_by": [
+    "ai-ml-llm",
+    "architecture",
+    "data-analytics",
+    "org",
+    "registry",
+    "ui-ux"
+   ],
+   "review": "2028-08",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official report and SEI library page carry CMU copyright and SEI permission terms.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0564"
+  },
+  {
+   "source": "NIST SP 800-142, Practical Combinatorial Testing",
+   "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-142.pdf",
+   "kind": "standard",
+   "publication_status": "standard",
+   "version_or_commit": "Final, October 2010; DOI 10.6028/NIST.SP.800-142",
+   "licence": "US Government publication under the NIST copyright and disclaimer notice; marked third-party material excepted",
+   "access_date": "2026-08-15",
+   "maintenance": "stable",
+   "finding": "Constrained t-way coverage can exercise modelled interactions among several factors with substantially fewer cases than exhaustive enumeration.",
+   "applicability_limits": "Interaction coverage is not correctness. Missing variables, wrong constraints, weak equivalence classes or a weak oracle can make the generated set useless.",
+   "counter_evidence": "The source does not justify generating every Doctrine pair or treating a covering array as proof of the expected result.",
+   "cited_by": [
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://csrc.nist.gov/pubs/sp/800/142/final",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "NIST identifies the report as a US Government publication and requests attribution; marked third-party material remains separate.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0565"
+  },
+  {
+   "source": "Polars project, Lazy API",
+   "url": "https://docs.pola.rs/user-guide/concepts/lazy-api/",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Living documentation read against Polars 1.41.0",
+   "licence": "Polars repository MIT licence, with stated third-party notices; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Lazy execution exposes a query plan for optimisation, while eager execution can remain useful when intermediate inspection is part of the job.",
+   "applicability_limits": "Maintainer documentation proves supported behaviour, not that Polars is faster or more suitable for every workload. Lazy plans can reduce execution visibility.",
+   "counter_evidence": "Ecosystem constraints, ordering requirements and representative workload results can justify an eager route or another engine.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://docs.pola.rs/user-guide/concepts/lazy-api/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official Polars repository states the MIT licence and lists third-party notices; no documentation wording is carried.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0566"
+  },
+  {
+   "source": "Polars project, Coming from pandas",
+   "url": "https://docs.pola.rs/user-guide/migration/pandas/",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Living documentation read against Polars 1.41.0",
+   "licence": "Polars repository MIT licence, with stated third-party notices; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Polars and pandas differ in index semantics, memory representation, execution modes, streaming and ecosystem boundaries, so selection is not a simple slow-to-fast ranking.",
+   "applicability_limits": "A migration guide is maintainer material written to support adoption. Its comparisons are not independent benchmarks and interoperability can dominate engine design.",
+   "counter_evidence": "pandas remains the safer choice where its index semantics or dependent ecosystem is the product contract.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://docs.pola.rs/user-guide/migration/pandas/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official Polars repository states the MIT licence and lists third-party notices; no documentation wording is carried.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0567"
+  },
+  {
+   "source": "pandas project, Enhancing performance",
+   "url": "https://pandas.pydata.org/docs/user_guide/enhancingperf.html",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "pandas 3.0.5 documentation",
+   "licence": "BSD-3-Clause project licence; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Array conversion and JIT acceleration can help a measured numerical path, but compilation and conversion costs can outweigh gains on small or unsuitable work.",
+   "applicability_limits": "Published example sizes are instructional, not universal break-even thresholds. Conversion can copy data, change representation or discard dataframe semantics.",
+   "counter_evidence": "Keeping computation in pandas can be correct when its semantics, integrations or non-numerical operations are the contract.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://pandas.pydata.org/docs/user_guide/enhancingperf.html",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official pandas project states the BSD-3-Clause licence; no examples or documentation wording are carried.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0568"
+  },
+  {
+   "source": "NumPy project, Interoperability with NumPy",
+   "url": "https://numpy.org/doc/stable/user/basics.interoperability.html",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "NumPy 2.5 manual",
+   "licence": "BSD-3-Clause project licence with separately listed bundled components; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Array protocols and DLPack can cross library boundaries, but device, dtype, layout, ownership and copy behaviour remain explicit correctness and performance concerns.",
+   "applicability_limits": "Protocol support does not guarantee zero-copy exchange, identical layouts or numerical equivalence. NumPy itself does not execute arrays on a GPU.",
+   "counter_evidence": "A copy or a higher-level dataframe boundary can be the safer design when ownership, layout or ecosystem semantics matter more than transfer cost.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://numpy.org/doc/stable/user/basics.interoperability.html",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official NumPy project states the BSD-3-Clause licence and identifies separately licensed bundled components.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0569"
+  },
+  {
+   "source": "Numba project, Performance tips",
+   "url": "https://numba.readthedocs.io/en/stable/user/performance-tips.html",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Numba 0.65.1 documentation, commit 9e3087a, published 2026-04-24",
+   "licence": "BSD-2-Clause project licence; examples are not carried or treated as benchmarks",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "JIT acceleration is earned by profiling representative data and comparing compile-inclusive and steady-state cost under an explicit numerical oracle.",
+   "applicability_limits": "Pedagogical examples do not set a universal threshold. Unsupported features, compilation delay, parallel constraints and relaxed floating-point rules can remove or reverse a gain.",
+   "counter_evidence": "Vectorised NumPy, native code or no acceleration can remain simpler and faster for the measured hotspot.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://numba.readthedocs.io/en/stable/user/performance-tips.html",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official Numba project states the BSD-2-Clause licence; no examples are copied.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0570"
+  },
+  {
+   "source": "Numba project, Deprecation notices",
+   "url": "https://numba.readthedocs.io/en/latest/reference/deprecation.html",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Living documentation read against Numba 0.65.1",
+   "licence": "BSD-2-Clause project licence; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "The built-in CUDA target moved to a separately maintained package, showing that a named acceleration route can change independently of the durable optimisation principle.",
+   "applicability_limits": "The move does not show that GPU acceleration is unsuitable. It shows that package-specific routes need dated facts and event review.",
+   "counter_evidence": "A maintained GPU route can be correct where profiling, device capacity and a numerical oracle justify it.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://numba.readthedocs.io/en/latest/reference/deprecation.html",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official Numba project states the BSD-2-Clause licence; no documentation wording is carried.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0571"
+  },
+  {
+   "source": "DuckDB project, Python API overview",
+   "url": "https://raw.githubusercontent.com/duckdb/duckdb-web/f8863ffe1d9bc2f3c100d775f899305c1a9ec899/docs/current/clients/python/overview.md",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "duckdb-web f8863ffe1d9bc2f3c100d775f899305c1a9ec899",
+   "licence": "MIT project licence; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "An in-process analytical SQL engine can query pandas, Polars and Arrow objects and return common dataframe or array representations.",
+   "applicability_limits": "Interoperability does not make DuckDB a transactional store, high-concurrency query service or universal replacement for dataframe code.",
+   "counter_evidence": "A dataframe, managed warehouse or service database can better fit operational ownership, concurrency or ecosystem constraints.",
+   "cited_by": [
+    "architecture",
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://duckdb.org/docs/stable/clients/python/overview",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official DuckDB project states the MIT licence; no documentation wording is carried.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0572"
+  },
+  {
+   "source": "DuckDB project, How to tune workloads",
+   "url": "https://raw.githubusercontent.com/duckdb/duckdb-web/f8863ffe1d9bc2f3c100d775f899305c1a9ec899/docs/current/guides/performance/how_to_tune_workloads.md",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "duckdb-web f8863ffe1d9bc2f3c100d775f899305c1a9ec899",
+   "licence": "MIT project licence; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Local analytical queries can spill selected operators to disk, while operator shape, memory, storage and concurrency still bound what out-of-core execution can do.",
+   "applicability_limits": "Out of core is not unbounded. Several blocking operators, aggregates and concurrent workloads can still exhaust memory or miss the objective.",
+   "counter_evidence": "A distributed or managed engine can be justified after the representative local route demonstrably fails the stated capacity, time or concurrency objective.",
+   "cited_by": [
+    "architecture",
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://duckdb.org/docs/current/guides/performance/how_to_tune_workloads",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official DuckDB project states the MIT licence; no documentation wording is carried.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0573"
+  },
+  {
+   "source": "Apache Spark 4.2.0, SQL performance tuning",
+   "url": "https://spark.apache.org/docs/latest/sql-performance-tuning",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Apache Spark 4.2.0, released 2026-07-14",
+   "licence": "Apache-2.0 project licence with bundled third-party notices; documentation is linked and paraphrased",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Distributed SQL exposes partition, cache, join, statistics and adaptive-execution controls that matter once work genuinely requires distributed execution.",
+   "applicability_limits": "Distribution adds shuffle, coordination, operational and reproducibility costs. The documentation does not position Spark as an upgrade for small or single-node work.",
+   "counter_evidence": "A local in-memory or out-of-core engine can be simpler and sufficient until a representative one-node route fails the objective.",
+   "cited_by": [
+    "data-analytics",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://spark.apache.org/docs/latest/sql-performance-tuning",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The Apache Spark project states Apache-2.0 and carries bundled third-party notices.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0574"
+  },
+  {
+   "source": "W3C Web Platform Design Principles",
+   "url": "https://www.w3.org/TR/design-principles/",
+   "kind": "maintainer",
+   "publication_status": "standard",
+   "version_or_commit": "W3C Group Note, 2026-02-24",
+   "licence": "W3C permissive document terms on the source page",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Web-interface defaults should follow user needs and intent, device and mode diversity, compatibility, data minimisation and the simplest sufficient design.",
+   "applicability_limits": "This is a W3C Group Note, not an endorsed Recommendation or a conformance test. It supports a philosophy, not a binding technical floor.",
+   "counter_evidence": "User needs can conflict, and a specialised product can justify complexity when representative tasks and failure costs require it.",
+   "cited_by": [
+    "org",
+    "registry",
+    "ui-ux"
+   ],
+   "review": "on-change-of:https://www.w3.org/TR/design-principles/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The source page links the W3C document terms and labels the publication a Group Note.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0575"
+  },
+  {
+   "source": "W3C ARIA in HTML",
+   "url": "https://www.w3.org/TR/html-aria/",
+   "kind": "standard",
+   "publication_status": "standard",
+   "version_or_commit": "W3C Recommendation current on 2026-08-15",
+   "licence": "W3C document terms on the source page",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Native HTML semantics are the default; ARIA roles and attributes are constrained by the host element and should express a missing semantic rather than casually replace working semantics.",
+   "applicability_limits": "A permitted role does not implement keyboard interaction, focus management, styling or usable behaviour.",
+   "counter_evidence": "Custom semantics can be necessary where native controls cannot express the interaction, but that exception carries its own behaviour and testing obligation.",
+   "cited_by": [
+    "org",
+    "registry",
+    "ui-ux"
+   ],
+   "review": "on-change-of:https://www.w3.org/TR/html-aria/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The source page identifies a W3C Recommendation and links the W3C document terms.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0576"
+  },
+  {
+   "source": "W3C WAI ARIA Authoring Practices, Read Me First",
+   "url": "https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/",
+   "kind": "maintainer",
+   "publication_status": "vendor-doc",
+   "version_or_commit": "Living Authoring Practices guidance retrieved 2026-08-15",
+   "licence": "W3C document terms on the source page",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "A custom role is a continuing promise to implement the expected behaviour, including keyboard and focus handling, and to test relevant assistive-technology and browser combinations.",
+   "applicability_limits": "Authoring patterns are guidance and examples, not proof that a copied widget works for a product or its users.",
+   "counter_evidence": "Native controls already carry much of this behaviour and usually remain the cheaper, safer route.",
+   "cited_by": [
+    "org",
+    "registry",
+    "ui-ux"
+   ],
+   "review": "on-change-of:https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The official WAI page carries W3C document terms; examples are not copied.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0577"
+  },
+  {
+   "source": "Google SRE, Service Level Objectives",
+   "url": "https://sre.google/sre-book/service-level-objectives/",
+   "kind": "exemplar",
+   "publication_status": "blog",
+   "version_or_commit": "Web edition of the 2016 Site Reliability Engineering book",
+   "licence": "CC BY-NC-ND 4.0; link and paraphrase only",
+   "access_date": "2026-08-15",
+   "maintenance": "stable",
+   "finding": "Reliability measures start from user journeys, use a small representative set of service indicators and set objectives that can govern change.",
+   "applicability_limits": "Google practice is not a controlled comparison and its organisation and thresholds do not transfer. Safety and integrity floors cannot be spent as an error budget.",
+   "counter_evidence": "A product with sparse use or consequential safety properties can need different indicators, hard floors or direct outcome checks.",
+   "cited_by": [
+    "devops-reliability",
+    "org",
+    "registry"
+   ],
+   "review": "on-change-of:https://sre.google/sre-book/service-level-objectives/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The online SRE book states CC BY-NC-ND 4.0; EOS links and paraphrases only.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0578"
+  },
+  {
+   "source": "Google SRE, Service Best Practices",
+   "url": "https://sre.google/sre-book/service-best-practices/",
+   "kind": "exemplar",
+   "publication_status": "blog",
+   "version_or_commit": "Web edition of the 2016 Site Reliability Engineering book",
+   "licence": "CC BY-NC-ND 4.0; link and paraphrase only",
+   "access_date": "2026-08-15",
+   "maintenance": "stable",
+   "finding": "Exploratory code is kept distinct from user-facing software, and retained changes remain small enough to understand and control.",
+   "applicability_limits": "Small does not mean reversible, and an exploratory artefact can become de facto production through copying or prolonged use.",
+   "counter_evidence": "A hardened vertical slice can be a better learning vehicle when integration, migration or operational behaviour is the unknown.",
+   "cited_by": [
+    "delivery-testing",
+    "org",
+    "product-discovery",
+    "registry"
+   ],
+   "review": "on-change-of:https://sre.google/sre-book/service-best-practices/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The online SRE book states CC BY-NC-ND 4.0; EOS links and paraphrases only.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0579"
+  },
+  {
+   "source": "Google Site Reliability Workbook, Incident Response",
+   "url": "https://sre.google/workbook/incident-response/",
+   "kind": "exemplar",
+   "publication_status": "blog",
+   "version_or_commit": "Web edition of the 2018 Site Reliability Workbook",
+   "licence": "CC BY-NC-ND 4.0; link and paraphrase only",
+   "access_date": "2026-08-15",
+   "maintenance": "stable",
+   "finding": "Incident work assesses and mitigates user impact before root-cause analysis, names coordination and communication, and keeps a live state for handover and review.",
+   "applicability_limits": "The role structure assumes several responders and does not define a universal hotfix gate for a solo operator or small venture.",
+   "counter_evidence": "Urgency does not remove the need for supervision, a known-good state, impact observation and rollback.",
+   "cited_by": [
+    "delivery-testing",
+    "org",
+    "registry",
+    "supply-chain-integrity"
+   ],
+   "review": "on-change-of:https://sre.google/workbook/incident-response/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The online SRE Workbook states CC BY-NC-ND 4.0; EOS links and paraphrases only.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0580"
+  },
+  {
+   "source": "Google SRE, Addressing Cascading Failures",
+   "url": "https://sre.google/sre-book/addressing-cascading-failures/",
+   "kind": "exemplar",
+   "publication_status": "blog",
+   "version_or_commit": "Web edition of the 2016 Site Reliability Engineering book",
+   "licence": "CC BY-NC-ND 4.0; link and paraphrase only",
+   "access_date": "2026-08-15",
+   "maintenance": "stable",
+   "finding": "Graceful degradation preserves a minimum useful journey only when the rare path is simple, exercised, observable and switchable.",
+   "applicability_limits": "Degradation is unsafe where it weakens privacy, authorisation, integrity or approval of consequential actions. Rare paths rot without drills.",
+   "counter_evidence": "Failing closed remains the correct default for protected properties even when it reduces availability.",
+   "cited_by": [
+    "devops-reliability",
+    "org",
+    "registry",
+    "supply-chain-integrity"
+   ],
+   "review": "on-change-of:https://sre.google/sre-book/addressing-cascading-failures/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The online SRE book states CC BY-NC-ND 4.0; EOS links and paraphrases only.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0581"
+  },
+  {
+   "source": "OpenSSF SLSA v1.2 Provenance",
+   "url": "https://slsa.dev/spec/v1.2/provenance",
+   "kind": "standard",
+   "publication_status": "standard",
+   "version_or_commit": "Approved SLSA v1.2 provenance specification",
+   "licence": "Community Specification License 1.0",
+   "access_date": "2026-08-15",
+   "maintenance": "active",
+   "finding": "Provenance is verifiable information about where, when and how an artefact was produced within a stated trust model.",
+   "applicability_limits": "Accurate provenance can describe a malicious or flawed process. It does not prove producer intent, product correctness or safe use.",
+   "counter_evidence": "A source, producer or dependency still needs separate admission and outcome checks even when the attestation is valid.",
+   "cited_by": [
+    "org",
+    "registry",
+    "supply-chain-integrity"
+   ],
+   "review": "on-change-of:https://slsa.dev/spec/",
+   "study_design": null,
+   "population": null,
+   "model": null,
+   "benchmark": null,
+   "licence_evidence": "The specification page states Community Specification License 1.0.",
+   "licence_checked": "2026-08-15",
+   "id": "EV-0582"
   }
  ],
  "research_cutoff": "2026-08-15"

@@ -3,8 +3,13 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
+from pathlib import Path
 
 from tools.eos.ontology import KnowledgeResolver, match_knowledge
+
+
+REPO = Path(__file__).resolve().parents[1]
 
 
 def _write(path, text):
@@ -94,6 +99,7 @@ def _write_pressure_registry(root, *, wargames=None, relations=None):
         "kind": "pressure-dispositions",
         "source": "test",
         "accepted_by": "ADR-TEST",
+        "governed_by": "ADR-0001",
         "review": "2030-01",
         "rows": [{
             "case": 1,
@@ -101,8 +107,10 @@ def _write_pressure_registry(root, *, wargames=None, relations=None):
             "pressure": "missing_pressure",
             "disposition": "relation-only",
             "consequence": "high",
-            "wargames": list(wargames or []),
-            "relations": list(relations or ["DREL-TEST-001"]),
+            "wargames": list(wargames if wargames is not None else []),
+            "relations": list(
+                relations if relations is not None else ["DREL-TEST-001"]
+            ),
             "fallback": "Keep the current default.",
         }],
     }
@@ -144,3 +152,69 @@ def test_pressure_registry_rejects_a_non_live_reference(tmp_path):
     assert [(problem.code, problem.identifier) for problem in resolver.problems] == [
         ("pressure-wargame", "missing_pressure")
     ]
+
+
+def test_pressure_registry_rejects_an_edge_that_does_not_engage_pressure(tmp_path):
+    root = _fixture(tmp_path)
+    _write_pressure_registry(root, wargames=["WG-TEST-001"], relations=[])
+    path = root / "registry" / "pressure-dispositions.json"
+    document = json.loads(path.read_text(encoding="utf-8"))
+    document["rows"][0]["pressure"] = "another_pressure"
+    document["rows"][0]["disposition"] = "new-wargame"
+    _write(path, json.dumps(document, indent=2) + "\n")
+
+    resolver = KnowledgeResolver.open(root)
+
+    assert [(problem.code, problem.identifier) for problem in resolver.problems] == [
+        ("pressure-engagement", "another_pressure")
+    ]
+
+
+def test_applicability_predicates_are_alternative_entrances(tmp_path):
+    root = _fixture(tmp_path)
+    path = root / "packs" / "test" / "guides" / "WG-TEST-001-gap.md"
+    text = path.read_text(encoding="utf-8").replace(
+        "applies_when: [has_test]",
+        "applies_when: [has_test, has_second_surface]",
+    )
+    _write(path, text)
+    resolver = KnowledgeResolver.open(root)
+
+    result = match_knowledge(resolver, {
+        "has_test": "false",
+        "has_second_surface": "true",
+        "missing_pressure": "true",
+    })
+
+    assert [row["id"] for row in result["required_wargames"]] == [
+        "WG-TEST-001"
+    ]
+
+
+def test_accepted_pressure_backlog_has_one_disposition_per_case():
+    document = json.loads(
+        (REPO / "registry" / "pressure-dispositions.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    rows = document["rows"]
+
+    assert [row["case"] for row in rows] == list(range(1, 26))
+    assert document["accepted_by"] == (
+        "Operator instruction for T-0026, 2026-08-15"
+    )
+    assert document["governed_by"] == "ADR-0014"
+    assert len({row["pressure"] for row in rows}) == 25
+    assert Counter(row["disposition"] for row in rows) == {
+        "new-wargame": 14,
+        "existing-wargame-refreshed": 7,
+        "relation-only": 3,
+        "rejected": 1,
+    }
+
+
+def test_accepted_pressure_backlog_resolves_every_live_edge():
+    resolver = KnowledgeResolver.open(REPO)
+
+    assert resolver.problems == ()
+    assert len(resolver.pressure_dispositions) == 25

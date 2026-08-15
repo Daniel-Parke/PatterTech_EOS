@@ -1,0 +1,13 @@
+{
+  "id": "DREL-AIML-001",
+  "owner_doctrine": "DOC-AIML-003",
+  "relation": "depends_on",
+  "target": "DOC-SEC-005",
+  "conditions": ["model_residency_or_hosting_is_constrained"],
+  "status": "covered",
+  "evidence": ["EV-0225", "EV-0259", "EV-0260"],
+  "fallback": "Keep protected data on the proved route and retain a deterministic or human fallback until locality, provider and outage constraints are tested.",
+  "wargame": "WG-AIML-001",
+  "owner": "ai-ml-llm",
+  "review": "2027-02"
+}

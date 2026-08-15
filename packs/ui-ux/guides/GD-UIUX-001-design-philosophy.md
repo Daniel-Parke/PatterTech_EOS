@@ -4,12 +4,12 @@ summary: Which design philosophy does this surface take?
 kind: wargame
 type: wargame
 tags: [density, eos, layout, wargame, web]
-scenario_modes: [selection, exception]
+scenario_modes: [selection, exception, conflict]
 applicable_doctrines: [DOC-UIUX-008, DOC-UIUX-009, DOC-DISC-016, DOC-HOUSE-004, DOC-HOUSE-015, DOC-UIUX-011, DOC-UIUX-014]
 applies_when: [has_user_interface]
 engages_when: [serves_novice_and_expert_users, house_style_costs_access_or_performance]
 consequence: high
-relations: []
+relations: [DREL-UIUX-001, DREL-HOUSE-002]
 scope: estate
 authority: advisory
 basis: local-observation

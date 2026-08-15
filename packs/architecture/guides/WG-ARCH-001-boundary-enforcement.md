@@ -4,17 +4,17 @@ summary: Where module boundaries live, whether convention, a machine contract, t
 kind: wargame
 type: wargame
 tags: [arch, ci, eos, tooling, wargame]
-scenario_modes: [selection]
-applicable_doctrines: [DOC-ARCH-001]
+scenario_modes: [selection, exception]
+applicable_doctrines: [DOC-ARCH-001, DOC-ARCH-004, DOC-ARCH-005]
 applies_when: [has_server_code]
-engages_when: [operator_requests_wargame]
-consequence: routine
-relations: []
+engages_when: [requires_independent_deployability]
+consequence: high
+relations: [DREL-ARCH-003]
 scope: estate
 authority: default
 basis: decision
 evidence_grade: observational
-sources: [EV-0146, EV-0147, EV-0148, EV-0154, EV-0159]
+sources: [EV-0146, EV-0147, EV-0148, EV-0154, EV-0159, EV-0564]
 review: 2026-12
 lifecycle: active
 generated_by: tools.eos.migrate_wargames
@@ -38,6 +38,8 @@ one-way. By the time a boundary hurts, it has been crossed for months.
 ## Doctrines or coverage gap under pressure
 
 - `DOC-ARCH-001` (binding): A declared boundary is machine-checked in CI from the first week.
+- `DOC-ARCH-004` (default): One deployable, one database, modules enforced in the build.
+- `DOC-ARCH-005` (default): Split only on a measured signal, never on a label.
 
 The options test how those propositions apply here. A Wargame may justify departure from a default, advisory rule or preference. It does not waive a binding Doctrine; contrary evidence opens Doctrine review or an ADR.
 
@@ -51,7 +53,7 @@ The options test how those propositions apply here. A Wargame may justify depart
 - How much of the wiring is dynamic: reflection, dependency injection,
   service locators, string-keyed lookup.
 
-Applicability is `has_server_code`. Engagement is `operator_requests_wargame`. If no engagement fact is true, an operator may still request it explicitly.
+Applicability is `has_server_code`. Engagement is `requires_independent_deployability`. If no engagement fact is true, an operator may still request it explicitly.
 
 ## Options
 

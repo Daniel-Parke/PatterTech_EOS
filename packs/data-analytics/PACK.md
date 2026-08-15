@@ -132,6 +132,17 @@ compatibility anchors; they do not encode authority.
 - source `preferences:004` to [DOC-DATA-018](doctrines/DOC-DATA-018-whether-marts-are-wide-entities-or-star-shaped-and-whether-dimen.md) (preference)
 - source `preferences:005` to [DOC-DATA-019](doctrines/DOC-DATA-019-the-dashboard-method-as-long-as-one-is-committed-to-and-the-pane.md) (preference)
 
+### Later evidence-led admissions
+
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
+
+- [DOC-DATA-020](doctrines/DOC-DATA-020-representative-measurement-before-material-compute-claims.md) (default Doctrine)
+- [DOC-DATA-021](doctrines/DOC-DATA-021-measured-data-compute-promotion-ladder.md) (default Doctrine)
+- [WG-DATA-001](guides/WG-DATA-001-analytical-engine-selection.md) (Wargame)
+- [WG-DATA-002](guides/WG-DATA-002-representation-boundary.md) (Wargame)
+- [WG-DATA-003](guides/WG-DATA-003-acceleration-ladder.md) (Wargame)
+
 ## Decision map
 
 | Fork | Guide | Default |
