@@ -270,17 +270,38 @@ def _cmd_task(args, taskops):
         reasons = record.get("reasons") or []
         print(json.dumps({"created": str(path), "tier_ruled": tier,
                           "reasons": reasons}, indent=1))
+        declared = (record.get("declared") or {}).get("side_effects") or []
         if reasons:
             print(f"ruled {tier}, from these factors:", file=sys.stderr)
             for r in reasons:
                 print("  {factor} floor {tier_floor} ({source}): {evidence}"
                       .format(**r), file=sys.stderr)
+        elif declared:
+            print(f"ruled {tier}: {len(declared)} side effect(s) declared and "
+                  f"no factor active", file=sys.stderr)
         else:
-            print(f"ruled {tier}, no factor active, a clean {tier}",
-                  file=sys.stderr)
+            # The distinction this draws is the one the ruling turns on.
+            # Routing here reads declarations and no diff, so a record
+            # declaring nothing rules from an empty fact set. Calling
+            # that "a clean R0", as this did, reads as though the
+            # thirteen factors looked at the work and found nothing. On
+            # 21 of the first 25 records they had nothing to look at.
+            print(f"ruled {tier} from an empty fact set: no side effect was "
+                  f"declared and no diff is read here, so no factor could "
+                  f"fire. This is the absence of evidence, not evidence of "
+                  f"low risk.", file=sys.stderr)
+        proposed = record.get("tier_proposed")
+        if proposed and tier and proposed > tier:
+            print(f"note: you proposed {proposed} and the declared facts rule "
+                  f"{tier}. The ruling stands, and the gap is worth a look: "
+                  f"if {proposed} was right, the facts behind it are not on "
+                  f"this record.", file=sys.stderr)
         print("routed once, at record creation: read the ruling off the "
               "record rather than routing again. The merge gate recomputes "
-              "against the actual diff and only ever raises it.",
+              "against the actual diff and only ever raises it. Nothing runs "
+              "that gate for you: it is `python -m tools.eos route --task "
+              "{id} --diff RANGE` in the merge playbook.".format(
+                  id=record.get("id", "T-####")),
               file=sys.stderr)
         return 0
     if args.op == "show":

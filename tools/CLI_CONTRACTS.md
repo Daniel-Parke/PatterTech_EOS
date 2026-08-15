@@ -78,8 +78,11 @@ Inputs: `--task T-####` or `--facts FILE` (declared facts JSON), plus
 optional `--diff RANGE` for gate-time recomputation and `--adr ADR-####`
 to acknowledge a protected-set touch. An unknown task id exits 2. With
 neither `--task` nor `--facts` the command routes an empty fact set and
-rules a clean R0, which is the honest answer to a question with no
-facts in it. Output: `{tier, reasons, discrepancies}` where `reasons`
+rules R0, which is the only answer available to a question with no facts
+in it. R0 from an empty fact set is not R0 from facts that fired
+nothing, and `task new` now prints which of the two it did, because on
+21 of the first 25 task records it was the first and every reader of
+those records had to infer it. Output: `{tier, reasons, discrepancies}` where `reasons`
 rows follow `task-record.schema.json` and `discrepancies` lists derived
 facts the declaration missed. Deterministic given the same inputs and
 policy version. Gate-time recomputation only ever raises the ruling.

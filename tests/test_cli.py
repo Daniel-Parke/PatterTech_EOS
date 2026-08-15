@@ -78,14 +78,58 @@ def test_task_new_prints_the_ruling_without_a_second_command(venture, capsys):
     assert "read the ruling off the record" in captured.err
 
 
-def test_task_new_says_when_the_ruling_is_a_clean_r0(venture, capsys):
+def test_task_new_calls_an_empty_fact_set_what_it_is(venture, capsys):
+    """R0 from nothing declared is not the same as R0 from nothing found.
+
+    This printed "no factor active, a clean R0", which reads as though
+    the thirteen factors examined the work. Routing here reads
+    declarations and no diff, so on a record declaring nothing they had
+    nothing to examine, and on 21 of the first 25 records that is what
+    happened.
+    """
     code = cli.main(["task", "new", "--record", _record_file(venture)])
     captured = capsys.readouterr()
     assert code == 0
     out = json.loads(captured.out)
     assert out["tier_ruled"] == "R0"
     assert out["reasons"] == []
-    assert "no factor active, a clean R0" in captured.err
+    assert "empty fact set" in captured.err
+    assert "no diff is read here" in captured.err
+    assert "absence of evidence, not evidence of low risk" in captured.err
+    # And the gate that would catch it is named as somebody's job.
+    assert "Nothing runs that gate for you" in captured.err
+
+
+def test_task_new_separates_declared_but_inert_from_declared_nothing(
+        venture, capsys):
+    """A side effect that reaches no factor is a different sentence."""
+    code = cli.main(["task", "new", "--record",
+                     _record_file(venture, side_effects=["sends-external"])])
+    captured = capsys.readouterr()
+    assert code == 0
+    assert "empty fact set" not in captured.err
+
+
+def test_task_new_surfaces_a_proposal_the_facts_do_not_carry(venture, capsys):
+    """T-0013 proposed R3 and was ruled R0, and nothing said so."""
+    record = _record()
+    record["tier_proposed"] = "R3"
+    path = venture / "proposed.json"
+    path.write_text(json.dumps(record), encoding="utf-8")
+    code = cli.main(["task", "new", "--record", str(path)])
+    captured = capsys.readouterr()
+    assert code == 0
+    assert json.loads(captured.out)["tier_ruled"] == "R0"
+    assert "you proposed R3" in captured.err
+    assert "the facts behind it are not on this record" in captured.err
+
+
+def test_task_new_is_quiet_when_the_proposal_matches(venture, capsys):
+    code = cli.main(["task", "new", "--record",
+                     _record_file(venture, side_effects=["handles-pii"])])
+    captured = capsys.readouterr()
+    assert code == 0
+    assert "you proposed" not in captured.err
 
 
 def test_task_new_refuses_an_invalid_record(venture, capsys):
