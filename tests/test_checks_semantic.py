@@ -1342,3 +1342,14 @@ def test_s021_reports_a_missing_vocabulary_rather_than_passing(tmp_path):
     assert got == [("error", "kernel/PREDICATES.md",
                     "the predicate vocabulary is missing, so no pack's "
                     "applies_when can be resolved")]
+
+
+def test_s021_reports_a_predicate_nobody_can_settle(tmp_path):
+    """A predicate with no settler activates nothing and cannot be tested."""
+    root = make_repo(tmp_path)
+    edit(root, "kernel/PREDICATES.md",
+         "| `does_a_fixture_thing` | testmod | task |",
+         "| `does_a_fixture_thing` | testmod |  |")
+    got = only(run_s(root), "S021")
+    assert ("error", "kernel/PREDICATES.md",
+            "does_a_fixture_thing does not say what settles it") in got

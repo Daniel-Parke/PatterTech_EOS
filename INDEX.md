@@ -64,7 +64,7 @@ file. Frozen trees are not indexed.
 | kernel/GUARD_SPEC.md | kernel | eos | The action-time guard, ten guarded classes, four verdicts, non-waivable floors, fail closed |  |
 | kernel/METADATA_SPEC.md | kernel | eos | The nine metadata axes, per-kind required minima, derived defaults and compatibility rules |  |
 | kernel/POLICY_SPEC.md | kernel | eos | The risk model law, the semantic factor table, tier routing, exceptions and recomputation |  |
-| kernel/PREDICATES.md | kernel | eos | The controlled vocabulary of pack activation predicates, grouped by subject so two names for one fact sit next to each other |  |
+| kernel/PREDICATES.md | kernel | eos | The controlled vocabulary of pack activation predicates, grouped by subject so two names for one fact sit next to each other, each with what settles it |  |
 | kernel/README.md | kernel | eos | The kernel in v2, the law files and the compile contract |  |
 | kernel/SCALE_MATRIX.md | kernel | eos | The v2 seed law, the S and ORG file lists, first-use directories, trigger add-ons |  |
 | kernel/SEED_RUBRIC.md | kernel | eos | The pass gate for a compiled seed, auto items keyed to v2 checker ids, human items headed by cold-start |  |
