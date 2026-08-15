@@ -14,8 +14,8 @@ next session starts from a line rather than a wish.
 
 ## What landed
 
-Eight commits. `python -m tools.eos check` reports no errors and the one
-known warning; the suite went from 513 tests to 540.
+Twelve commits. `python -m tools.eos check` reports no errors and the
+one known warning; the suite went from 513 tests to 545.
 
 - **Baseline** recorded in `org/reports/BASELINE_2026-08-15.md`, so
   every later claim about growth or proportionality has a before half.
@@ -30,8 +30,11 @@ known warning; the suite went from 513 tests to 540.
   walk from declared venture facts, names the packs left out and why,
   and exits 1 on a predicate no pack owns. Seven tests, four of them
   negative activation.
-- **ADR-0009**, proposed: re-designate to 0.x and define the checkable
-  1.0 gate.
+- **ADR-0009**, accepted: the line is renumbered to 0.4.0 and 1.0 now
+  means an eight-item gate somebody can run or read. No tag is cut, so
+  nothing is released.
+- **ADR-0010**, accepted: the controlled predicate vocabulary, check
+  S021, and the first duplicate merged.
 
 ## What did not land, and why
 
@@ -48,23 +51,24 @@ done, and doing the expansion first would have meant redoing it.
 
 ## The dependency order that follows
 
-**One, the predicate vocabulary.** This blocks everything else.
+**One, the predicate vocabulary. Done, 2026-08-15.** ADR-0010 landed it:
+`kernel/PREDICATES.md` is the controlled vocabulary, grouped by subject
+so two names for one fact sit adjacent, and check S021 holds pack
+front-matter to it at error severity. The collision that prompted it is
+merged, so `handles_personal_data` now activates both `security-privacy`
+and `legal-licensing`.
 
-The estate declares 88 predicates and 87 are owned by exactly one pack.
-That is not yet a problem of scale, but one confirmed collision already
-splits the estate: `security-privacy` declares `handles_personal_data`
-and `legal-licensing` declares `processes_personal_data`. They are one
-answer to interview question 9. A venture recording either loads one
-pack and silently misses the other, which `eos activate` demonstrates
-and two tests hold. Retrofitting a shared vocabulary across 25 packs
-after four more are written is more work than doing it across 21 now.
+Each row also records what settles it. Of 87 predicates, 59 are venture
+facts answerable at Session 0, 27 are task facts that are not knowable
+until the work exists, and one is always true. That constrains anything
+built on top: a Session 0 flow cannot settle roughly a third of the
+vocabulary, whatever it asks.
 
-Needs a predicates file in the kernel beside the other specs, a schema
-for it, checks that every `applies_when` entry resolves in it and that
-every predicate is settled by an interview question, and an ADR because
-it changes pack front-matter. The path is left unwritten here on
-purpose: S003 refuses a reference that does not resolve, which is the
-check doing its job on a file nobody has written yet.
+What is still open here is the other direction. A venture brief has no
+machine-readable answers block, so `eos activate` takes facts an
+operator has asserted rather than facts read off the interview. Closing
+that is a template change to `kernel/templates/VENTURE_BRIEF.tpl.md` and
+belongs with the brief corpus below.
 
 **Two, the brief corpus.** `benchmark/fixtures/briefs/` holds two
 briefs. Activation precision and recall cannot be measured on two
