@@ -11,6 +11,7 @@
     "tools/eos/ontology.py",
     "tools/eos/cli.py",
     "tools/eos/checks/",
+    "tests/test_checks_freshness.py",
     "kernel/schemas/",
     "tests/test_checks_structural.py",
     "tests/test_checks_semantic.py",
@@ -35,6 +36,14 @@
     "registry/DOCTRINE_PRESSURE_MATRIX.md",
     "registry/ID_ALIASES.md",
     "registry/identifier-aliases.json",
+    "registry/evidence.json",
+    "registry/lessons.json",
+    "registry/coverage.json",
+    "registry/stacks/",
+    "registry/hypotheses/",
+    "packs/*/doctrines/",
+    "packs/*/PACK.md",
+    "examples/current-head-seed/",
     "README.md",
     "TOUR.md",
     "OPERATORS_GUIDE.md",
@@ -46,22 +55,6 @@
    ],
    "acquired": "2026-08-15T20:15:00Z",
    "expires": "2026-08-16T20:15:00Z"
-  },
-  {
-   "lane_id": "lane/t0026-doctrine-content",
-   "task_id": "T-0026",
-   "session_id": "doctrine-content-author",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "/root/ledger",
-   "path_claims": [
-    "packs/*/PACK.md",
-    "packs/*/doctrines/",
-    "tools/eos/migrate_doctrines.py",
-    "tests/test_migrate_doctrines.py",
-    "org/migration/DOCTRINE_MIGRATION.json"
-   ],
-   "acquired": "2026-08-15T20:45:00Z",
-   "expires": "2026-08-16T20:45:00Z"
   },
   {
    "lane_id": "lane/t0026-wargame-content",
@@ -79,19 +72,7 @@
    ],
    "acquired": "2026-08-15T21:15:00Z",
    "expires": "2026-08-16T21:15:00Z"
-  },
-  {
-   "lane_id": "lane/t0026-research",
-   "task_id": "T-0026",
-   "session_id": "doctrine-research-author",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "/root/ontology_designer",
-   "path_claims": [
-    "org/reports/DOCTRINE_WARGAME_RESEARCH_2026-08-15.md"
-   ],
-   "acquired": "2026-08-15T20:15:00Z",
-   "expires": "2026-08-16T20:15:00Z"
   }
  ],
- "note": "T-0026 phase three. Doctrine and Wargame content lanes own disjoint canonical records and migration receipts. The integrator retains shared registries, predicates, checks and derived views. The research lane owns one evidence packet. No lane writes another lane's paths."
+ "note": "T-0026 phase three. The Wargame content lane owns the 114 existing procedures and its migration receipt. The integrator owns the landed Doctrine records, shared registries, predicates, checks and derived views. No lane writes another lane's paths."
 }
