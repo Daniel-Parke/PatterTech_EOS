@@ -64,6 +64,23 @@
    "expires": "2026-08-16T20:45:00Z"
   },
   {
+   "lane_id": "lane/t0026-wargame-content",
+   "task_id": "T-0026",
+   "session_id": "wargame-content-author",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "/root/resolver_oracle",
+   "path_claims": [
+    "packs/*/guides/",
+    "inception/wargames/",
+    "tools/eos/migrate_wargames.py",
+    "tests/test_migrate_wargames.py",
+    "org/migration/WARGAME_MIGRATION.json",
+    "registry/rulings/"
+   ],
+   "acquired": "2026-08-15T21:15:00Z",
+   "expires": "2026-08-16T21:15:00Z"
+  },
+  {
    "lane_id": "lane/t0026-research",
    "task_id": "T-0026",
    "session_id": "doctrine-research-author",
@@ -76,5 +93,5 @@
    "expires": "2026-08-16T20:15:00Z"
   }
  ],
- "note": "T-0026 phase three. The frozen source inventory is the content oracle. The Doctrine content lane owns pack migration only; the integrator retains shared registries, predicates and generators. The research lane owns one evidence packet. No lane writes another lane's paths."
+ "note": "T-0026 phase three. Doctrine and Wargame content lanes own disjoint canonical records and migration receipts. The integrator retains shared registries, predicates, checks and derived views. The research lane owns one evidence packet. No lane writes another lane's paths."
 }
