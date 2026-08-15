@@ -38,3 +38,4 @@ The records under org/tasks/ are canonical.
 | T-0023 | standard | R0 | done | eos-v21-L10 |
 | T-0024 | standard | R0 | done | eos-v21-L11 |
 | T-0025 | standard | R0 | done | eos-v21-L12 |
+| T-0026 | high-assurance | R2 | active | doctrine-wargame-integrator |

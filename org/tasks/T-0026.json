@@ -1,0 +1,57 @@
+{
+  "id": "T-0026",
+  "intent": "Implement the operator-approved Doctrine and Wargaming rebuild: first-class graded doctrine, one semantic Wargame model over stable GD/WG identities, commit-aware resolution, typed pressure relations, structured venture rulings, selective Session 0 matching, evidence-led coverage and generated public views. Invariants: existing IDs and paths resolve at current and historical pins; retired IDs never become live rulings; binding controls cannot be waived by an ordinary ruling; derived views have one canonical source; raw venture context is never harvested; no venture, release, tag or remote is mutated. Rollback: keep compatibility readers and frozen inventories until the new checks, migration round-trip and cold-clone gate pass; revert phase commits in reverse dependency order without rewriting venture repositories.",
+  "declared": {
+    "capabilities": [
+      "network",
+      "filesystem"
+    ],
+    "side_effects": [
+      "migrates-schema",
+      "sends-external"
+    ]
+  },
+  "mode": "high-assurance",
+  "tier_proposed": "R3",
+  "tier_ruled": "R2",
+  "reasons": [
+    {
+      "factor": "schema-change",
+      "tier_floor": "R2",
+      "source": "declared",
+      "evidence": "declared side effect: migrates-schema"
+    },
+    {
+      "factor": "boundary-contact",
+      "tier_floor": "R1",
+      "source": "declared",
+      "evidence": "declared side effect: sends-external"
+    }
+  ],
+  "status": "active",
+  "owner_session": "doctrine-wargame-integrator",
+  "claims": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GOVERNANCE.md",
+    "INDEX.md",
+    "README.md",
+    "TOUR.md",
+    "OPERATORS_GUIDE.md",
+    "CHANGELOG.md",
+    "archive/",
+    "examples/",
+    "inception/",
+    "kernel/",
+    "org/",
+    "packs/",
+    "registry/",
+    "tests/",
+    "tools/"
+  ],
+  "timestamps": {
+    "opened": "2026-08-15T19:35:02Z",
+    "updated": "2026-08-15T19:35:02Z"
+  },
+  "hypothesis_ledger": []
+}
