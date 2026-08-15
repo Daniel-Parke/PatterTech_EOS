@@ -22,6 +22,7 @@
     "kernel/templates/RULINGS.tpl.json",
     "kernel/SCALE_MATRIX.md",
     "kernel/SEED_RUBRIC.md",
+    "kernel/PREDICATES.md",
     "inception/INCEPTION.md",
     "inception/WALK_ORDER.md",
     "inception/COMPILE.md",
