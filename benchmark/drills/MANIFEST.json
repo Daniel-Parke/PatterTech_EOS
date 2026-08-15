@@ -13,6 +13,16 @@
    "pack_first_commit": "00fbaba",
    "source_first_commit": "fb634ab"
   },
+  "agentic-swarm": {
+   "spec": "benchmark/drills/agentic-swarm.md",
+   "source": "packs/agentic-swarm/research/DRILL_PROPOSAL.md",
+   "pack": "agentic-swarm",
+   "wave": "E",
+   "frozen": "2026-08-15",
+   "frozen_before_authoring": false,
+   "note": "The pack shipped in v2.1 with its drill proposed and never frozen, so it was the one built pack with no drill. This spec was written against the pack that already existed, which makes it a weaker guarantee than Wave A and the flag says so.",
+   "sha256": "56117e4ca7024c549fc742344f1bc23e3ed910d23916b2b5ac7b713620ddce5e"
+  },
   "ai-ml-llm": {
    "spec": "benchmark/drills/ai-ml-llm.md",
    "sha256": "cb7907726c5b14dbc313810bf65b3477e72756f18c3da165989fd1fcc175958b",
@@ -87,6 +97,16 @@
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
    "source_first_commit": "a43c20b"
   },
+  "data-engineering": {
+   "spec": "benchmark/drills/data-engineering.md",
+   "source": null,
+   "pack": null,
+   "wave": "D",
+   "frozen": "2026-08-15",
+   "frozen_before_authoring": true,
+   "note": "Written while data-engineering was a registry-only row in registry/coverage.json. No pack existed to write it to, so source and pack are null and the independence is the strongest kind the estate has.",
+   "sha256": "50260963f7080856e57e0d17f142e57a23f081ee804bf04ecb7f44e7f9be23fe"
+  },
   "delivery-testing": {
    "spec": "benchmark/drills/delivery-testing.md",
    "sha256": "4d6e67e54f250155c40e70f236a11913ef6c7ed9d67a60d4b7a3cc255cd7cb5c",
@@ -118,6 +138,16 @@
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
    "source_first_commit": "a43c20b"
   },
+  "identity-access": {
+   "spec": "benchmark/drills/identity-access.md",
+   "source": null,
+   "pack": null,
+   "wave": "D",
+   "frozen": "2026-08-15",
+   "frozen_before_authoring": true,
+   "note": "Written while identity-authorisation-and-tenancy was a registry-only row in registry/coverage.json. No pack existed to write it to, so source and pack are null and the independence is the strongest kind the estate has.",
+   "sha256": "c99d34e005f96ea8bcd7969701bf295a29e1733cff60598441a6eca2a9a84f42"
+  },
   "legal-licensing": {
    "spec": "benchmark/drills/legal-licensing.md",
    "sha256": "58c632ba6a24463d9a8a599fcef18e59ad85efb02cef8835e751401239837944",
@@ -139,6 +169,16 @@
    "pack_first_commit": "a43c20b",
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
    "source_first_commit": "a43c20b"
+  },
+  "marketing-growth-positioning": {
+   "spec": "benchmark/drills/marketing-growth-positioning.md",
+   "source": null,
+   "pack": "marketing-growth",
+   "wave": "C",
+   "frozen": "2026-08-08",
+   "frozen_before_authoring": false,
+   "note": "Written at the pre-release review, after the pack. The existing marketing drill covers campaigns and measurement and never touches positioning. No pack-local proposal preceded it, so source is null.",
+   "sha256": "5aafa915fb1eaf4a17b00ac5c6ed5ad14410b572851748f475e4e19aa983958c"
   },
   "native-client": {
    "spec": "benchmark/drills/native-client.md",
@@ -173,6 +213,16 @@
    "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
    "source_first_commit": "a43c20b"
   },
+  "research-knowledge": {
+   "spec": "benchmark/drills/research-knowledge.md",
+   "source": null,
+   "pack": null,
+   "wave": "D",
+   "frozen": "2026-08-15",
+   "frozen_before_authoring": true,
+   "note": "Written while research-and-knowledge-base was a registry-only row in registry/coverage.json. No pack existed to write it to, so source and pack are null and the independence is the strongest kind the estate has.",
+   "sha256": "b8449ef29ed2a9a6f0c2270109aa5d61f9225d7b966e91372b2a9086e8955f6b"
+  },
   "security-privacy": {
    "spec": "benchmark/drills/security-privacy.md",
    "sha256": "739683588170ea8e6926efe9d9280cadc5bde8e148bf6a9f352b8ccdee19ec6f",
@@ -182,6 +232,16 @@
    "frozen_before_authoring": true,
    "pack_first_commit": "00fbaba",
    "source_first_commit": "fb634ab"
+  },
+  "supply-chain-integrity": {
+   "spec": "benchmark/drills/supply-chain-integrity.md",
+   "source": null,
+   "pack": null,
+   "wave": "D",
+   "frozen": "2026-08-15",
+   "frozen_before_authoring": true,
+   "note": "Written while supply-chain-and-release-integrity was a registry-only row in registry/coverage.json. No pack existed to write it to, so source and pack are null and the independence is the strongest kind the estate has.",
+   "sha256": "1014c814e1cf8aaef17611f24cd781e56a862b5164d71ff5db1838a33b3b6434"
   },
   "support-operations": {
    "spec": "benchmark/drills/support-operations.md",
@@ -204,17 +264,6 @@
    "pack_first_commit": "00fbaba",
    "source_first_commit": "fb634ab"
   },
-  "writing-content": {
-   "spec": "benchmark/drills/writing-content.md",
-   "sha256": "527192a74307794cd5708c55dd1e0a54c01f72d643e277b736fa68a0779578ed",
-   "source": "packs/writing-content/research/DRILL_PROPOSAL.md",
-   "wave": "B",
-   "frozen": "2026-08-03",
-   "frozen_before_authoring": false,
-   "pack_first_commit": "a43c20b",
-   "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
-   "source_first_commit": "a43c20b"
-  },
   "ui-ux-greenfield": {
    "spec": "benchmark/drills/ui-ux-greenfield.md",
    "source": null,
@@ -225,15 +274,16 @@
    "note": "Written at the pre-release review, after the pack. Covers the case the pack's pluralism contract is only testable on: a brief the house style is wrong for. No pack-local proposal preceded it, so source is null.",
    "sha256": "7fb872ad702e8edd87354cc8459d07455179c0b4e9ab1a01da5a0d2c93c643c8"
   },
-  "marketing-growth-positioning": {
-   "spec": "benchmark/drills/marketing-growth-positioning.md",
-   "source": null,
-   "pack": "marketing-growth",
-   "wave": "C",
-   "frozen": "2026-08-08",
+  "writing-content": {
+   "spec": "benchmark/drills/writing-content.md",
+   "sha256": "527192a74307794cd5708c55dd1e0a54c01f72d643e277b736fa68a0779578ed",
+   "source": "packs/writing-content/research/DRILL_PROPOSAL.md",
+   "wave": "B",
+   "frozen": "2026-08-03",
    "frozen_before_authoring": false,
-   "note": "Written at the pre-release review, after the pack. The existing marketing drill covers campaigns and measurement and never touches positioning. No pack-local proposal preceded it, so source is null.",
-   "sha256": "5aafa915fb1eaf4a17b00ac5c6ed5ad14410b572851748f475e4e19aa983958c"
+   "pack_first_commit": "a43c20b",
+   "weaker_guarantee": "Frozen after the pack was authored, in the same commit as the pack itself. The spec could have been written to the pack, so a pass here is weaker evidence than a Wave A pass.",
+   "source_first_commit": "a43c20b"
   }
  },
  "waves": {
@@ -246,6 +296,21 @@
    "count": 12,
    "frozen_before_authoring": false,
    "meaning": "Spec and pack landed together; the spec is not an independent oracle."
+  },
+  "C": {
+   "count": 2,
+   "frozen_before_authoring": false,
+   "meaning": "Added at the 2026-08-08 pre-release review to cover gaps the first twenty left. Written after their packs, so they carry the Wave B guarantee. Documented here on 2026-08-15: the wave had entries and no entry of its own."
+  },
+  "D": {
+   "count": 4,
+   "frozen_before_authoring": true,
+   "meaning": "Spec committed while the capability was a registry-only row and no pack existed at all, so the spec cannot have been written to suit one."
+  },
+  "E": {
+   "count": 1,
+   "frozen_before_authoring": false,
+   "meaning": "Spec written for a pack that already existed. Not an independent oracle."
   }
  },
  "fields": {

@@ -12,13 +12,15 @@ without an ADR amendment. A failed drill routes to fixing the pack and
 re-running; it never routes to editing the spec.
 
 **No drill reports a pack verdict yet, because no cold agent has been
-handed a scenario.** All twenty-two have a scenario and graders, and
-graders make a verdict possible without being one. Read the rest of
-this file with that in mind.
+handed a scenario.** Twenty-seven specs are frozen. Twenty-two have a
+scenario and graders, which make a verdict possible without being one.
+Five, frozen on 2026-08-15, have neither yet. Read the rest of this file
+with that in mind.
 
-What is now recorded is the discrimination check. On 2026-08-15 all
-twenty-two ran against their untouched fixtures and every one came back
-`fail`, so `RESULTS.json` no longer holds only null verdicts. Those rows
+What is now recorded is the discrimination check. On 2026-08-15 the
+twenty-two runnable drills ran against their untouched fixtures and
+every one came back `fail`, so `RESULTS.json` no longer holds only null
+verdicts. Those rows
 carry `graded: scenario-baseline`, which is the marker that says a fail
 there is the criteria proving they discriminate and not a judgement on
 a pack.
@@ -28,7 +30,7 @@ section of `tools/CLI_CONTRACTS.md`.
 
 ## What is frozen, and how strongly
 
-Twenty-two specs. Read `frozen_before_authoring` on every entry in
+Twenty-seven specs. Read `frozen_before_authoring` on every entry in
 `MANIFEST.json` before you read a result:
 
 - The **Wave A eight** were frozen before any of their pack content was
@@ -46,6 +48,22 @@ Twenty-two specs. Read `frozen_before_authoring` on every entry in
   drill never touched. Both were written after their packs, so they
   carry the Wave B guarantee, and neither has a pack-local proposal
   behind it.
+- The **Wave D four** were frozen on 2026-08-15 while their capability
+  was still a registry-only row in `registry/coverage.json` and no pack
+  existed at all: supply-chain integrity, identity and authorisation,
+  data engineering, and research and knowledge base. That is the
+  strongest independence the estate has, stronger than Wave A, because
+  Wave A's packs were at least planned when their specs were written and
+  these have nothing to have been written to.
+- The **Wave E one** is `agentic-swarm`, frozen the same day against a
+  pack that shipped in v2.1 with its drill proposed and never frozen. It
+  was the only built pack with no drill. Written after its pack, so it
+  carries the Wave B guarantee and the flag says so.
+
+None of the five has a scenario tree or graders yet, so `drills` reports
+them as not runnable and they have no row in `RESULTS.json`. A frozen
+spec with no scenario is not a drill that failed, it is a drill that
+cannot yet be run, and the two must not be read as the same thing.
 
 Each Wave A and Wave B spec began as the pack's own
 `research/DRILL_PROPOSAL.md`. The spec here is now the only copy: the
@@ -59,13 +77,16 @@ The runner grades; it does not think. For a drill to return anything
 other than `manual` it needs all three:
 
 1. `<drill>.md`, the frozen spec, matching its recorded hash. Present
-   for all twenty-two.
+   for all twenty-seven.
 2. `scenarios/<drill>/`, the fixture tree the drill materialises into a
-   scratch directory. **Built for all twenty-two.**
+   scratch directory. **Built for twenty-two of the twenty-seven.**
 3. `graders/<drill>/cN.py`, one grader per numbered criterion. **Built
-   for all twenty-two**, though not for every criterion: where a
+   for the same twenty-two**, though not for every criterion: where a
    property is genuinely a matter of judgement the grader is absent on
    purpose and the criterion reports `manual`.
+
+The five frozen on 2026-08-15 have the first and neither of the other
+two, so `drills` reports them as not runnable rather than as failing.
 
 Each set was built by one agent and then attacked by another, whose job
 was to break it: construct a tree that looks right and still carries
@@ -98,8 +119,8 @@ Every drill now materialises its scenario and runs its graders, so a
 criterion comes back `pass` or `fail`. A criterion with no grader, or
 one whose grader exits 2 because the tool it drives is absent, reports
 `manual`, and a manual criterion is never counted as a pass. Against
-the untouched fixture all twenty-two come back `fail`, and the command
-exits 1. That is a discrimination check, not evidence about a pack.
+the untouched fixture the twenty-two runnable drills come back `fail`,
+and the command exits 1. That is a discrimination check, not evidence about a pack.
 
 `RESULTS.json` holds two kinds of row and the dates separate them. The
 twenty-two written on 2026-08-03 and 2026-08-08 predate any scenario or

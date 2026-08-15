@@ -145,16 +145,32 @@ def test_every_shipped_spec_parses_and_matches_its_frozen_hash():
 def test_the_manifest_records_which_drills_predate_their_pack():
     manifest = drills.load_manifest(REPO)
     entries = manifest["drills"].values()
-    flags = [e["frozen_before_authoring"] for e in entries]
-    # The Wave A eight are the only independent oracles in the set, and
-    # that number is a historical fact worth pinning. Everything else
-    # was written after its pack, so the complement is derived rather
-    # than hardcoded and a new drill does not break this test.
+    # The Wave A eight are a historical fact worth pinning, and they were
+    # the only independent oracles until 2026-08-15. This used to assert
+    # that no other entry predated its pack, on the reasoning that
+    # everything else was written after one. Wave D broke that by being
+    # written while its capability was still a registry-only row, with no
+    # pack to be written to at all, so the assertion now ties each entry
+    # to the wave that documents it rather than to a number.
     wave_a = [e for e in entries if e.get("wave") == "A"]
     assert len(wave_a) == 8, "the Wave A eight predate their packs"
     assert all(e["frozen_before_authoring"] for e in wave_a)
-    assert flags.count(True) == 8
-    assert flags.count(False) == len(flags) - 8
+
+    waves = manifest["waves"]
+    for entry in entries:
+        wave = entry.get("wave")
+        assert wave in waves, (
+            f"{entry['spec']} is in wave {wave}, which the manifest does not "
+            f"describe, so a reader cannot tell what its freeze is worth")
+        assert entry["frozen_before_authoring"] == \
+            waves[wave]["frozen_before_authoring"], (
+                f"{entry['spec']} disagrees with its own wave about whether "
+                f"it predates its pack")
+
+    for name, wave in waves.items():
+        counted = sum(1 for e in entries if e.get("wave") == name)
+        assert counted == wave["count"], (
+            f"wave {name} says {wave['count']} and holds {counted}")
 
 
 def test_a_changed_spec_is_refused_rather_than_re_baselined(drill_root):
