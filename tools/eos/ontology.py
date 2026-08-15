@@ -73,6 +73,7 @@ class TreeView:
         self.commit = commit
         self._paths: tuple[str, ...] | None = None
         self._texts: dict[str, str | None] = {}
+        self._tag_paths: dict[str, frozenset[str]] = {}
 
     @classmethod
     def open(cls, root: Path, ref: str | None = None) -> "TreeView":
@@ -135,12 +136,60 @@ class TreeView:
     def exists(self, path: str) -> bool:
         return str(PurePosixPath(path)) in set(self.paths())
 
+    def knowledge_paths(self) -> tuple[str, ...]:
+        """The small canonical surface from which identities may be defined."""
+        if self.commit is not None:
+            paths = self.paths()
+        else:
+            candidates = []
+            patterns = (
+                "packs/*/PACK.md",
+                "packs/*/doctrines/**/*.md",
+                "packs/*/doctrines/**/*.json",
+                "packs/*/guides/*.md",
+                "packs/*/wargames/*.md",
+                "inception/wargames/*.md",
+            )
+            for pattern in patterns:
+                candidates.extend(self.root.glob(pattern))
+            for rel in ("archive/RETIRED_IDS.json",
+                        "registry/identifier-aliases.json"):
+                path = self.root / rel
+                if path.is_file():
+                    candidates.append(path)
+            return tuple(sorted({
+                path.relative_to(self.root).as_posix()
+                for path in candidates if path.is_file()
+            }))
+        return tuple(path for path in paths if (
+            _is_pack(path) or _is_doctrine(path) or _is_wargame(path) or
+            _is_relation(path) or path in {
+                "archive/RETIRED_IDS.json",
+                "registry/identifier-aliases.json",
+            }
+        ))
+
     def read_tag_text(self, tag: str, path: str) -> str | None:
         proc = subprocess.run(
             ["git", "-C", str(self.root), "show", f"{tag}:{path}"],
             capture_output=True, text=True, encoding="utf-8",
         )
         return proc.stdout if proc.returncode == 0 else None
+
+    def tag_paths(self, tag: str) -> frozenset[str]:
+        """All paths at a tag, fetched once for retired-ID verification."""
+        if tag in self._tag_paths:
+            return self._tag_paths[tag]
+        proc = subprocess.run(
+            ["git", "-C", str(self.root), "ls-tree", "-r", "--name-only", tag],
+            capture_output=True, text=True, encoding="utf-8",
+        )
+        if proc.returncode:
+            paths = frozenset()
+        else:
+            paths = frozenset(p for p in proc.stdout.splitlines() if p)
+        self._tag_paths[tag] = paths
+        return paths
 
 
 def _values(value: object) -> list[str]:
@@ -341,15 +390,18 @@ class KnowledgeResolver:
             self._problem("retired-shape", path, "",
                           "retired manifest needs tag and ids object")
             return
+        archived_paths = self.view.tag_paths(tag)
+        if not archived_paths:
+            self._problem("retired-tag", path, "",
+                          f"retired tag does not resolve: {tag}")
         for identifier, archived_path in sorted(ids.items()):
             identifier, archived_path = str(identifier), str(archived_path)
-            archived = self.view.read_tag_text(tag, archived_path)
-            if archived is None:
+            if archived_path not in archived_paths:
                 self._problem("retired-missing", path, identifier,
                               f"retired location missing at {tag}:{archived_path}")
             else:
-                parsed = parse_frontmatter(archived)
-                found = _definition_id(archived_path, parsed.data)
+                match = DEFINITION_FROM_STEM.match(PurePosixPath(archived_path).stem)
+                found = match.group(1) if match else None
                 if found != identifier:
                     self._problem(
                         "retired-id-mismatch", path, identifier,
@@ -417,7 +469,7 @@ class KnowledgeResolver:
                           f"pack dependency cycle: {' -> '.join(cycle)}")
 
     def _load(self) -> None:
-        paths = self.view.paths()
+        paths = self.view.knowledge_paths()
         for path in paths:
             if _is_pack(path):
                 self._load_pack(path)

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/rulings.schema.json",
+  "title": "Venture-owned structured Wargame Rulings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "venture", "eos_commit", "selection_log", "rulings"],
+  "properties": {
+    "version": {"const": 1},
+    "venture": {"type": "string", "minLength": 1},
+    "eos_commit": {"type": "string", "minLength": 1},
+    "selection_log": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/selection"}
+    },
+    "rulings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/ruling"}
+    },
+    "legacy_migration": {"$ref": "#/$defs/legacy"}
+  },
+  "$defs": {
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wargame", "disposition", "reason"],
+      "properties": {
+        "wargame": {"type": "string", "pattern": "^(GD|WG)-[A-Z0-9]+-[0-9]{3}$"},
+        "disposition": {"enum": ["selected", "omitted", "candidate"]},
+        "reason": {"type": "string", "minLength": 1},
+        "ruling": {"type": "string", "pattern": "^RUL-[A-Z0-9]+-[0-9]{3}$"},
+        "facts": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "ruling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "wargame", "doctrines", "decision", "execution", "reason", "decided", "departures", "binding_scope_changes"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^RUL-[A-Z0-9]+-[0-9]{3}$"},
+        "wargame": {"type": "string", "pattern": "^(GD|WG)-[A-Z0-9]+-[0-9]{3}$"},
+        "doctrines": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^DOC-[A-Z0-9]+-[0-9]{3}$"}},
+        "decision": {"type": "string", "minLength": 1},
+        "execution": {"enum": ["argued", "legacy-inherited"]},
+        "reason": {"type": "string", "minLength": 1},
+        "decided": {"type": "string", "format": "date"},
+        "review": {"type": "string", "minLength": 1},
+        "departures": {"type": "array", "items": {"$ref": "#/$defs/departure"}},
+        "binding_scope_changes": {"type": "array", "items": {"$ref": "#/$defs/bindingChange"}},
+        "legacy_text": {"type": "string"}
+      }
+    },
+    "departure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["doctrine", "reason"],
+      "properties": {
+        "doctrine": {"type": "string", "pattern": "^DOC-[A-Z0-9]+-[0-9]{3}$"},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "bindingChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["doctrine", "proposal"],
+      "anyOf": [
+        {"required": ["adr_ref"]},
+        {"required": ["operator_ref"]},
+        {"required": ["approval_ref"]}
+      ],
+      "properties": {
+        "doctrine": {"type": "string", "pattern": "^DOC-[A-Z0-9]+-[0-9]{3}$"},
+        "proposal": {"type": "string", "minLength": 1},
+        "adr_ref": {"type": "string", "minLength": 1},
+        "operator_ref": {"type": "string", "minLength": 1},
+        "approval_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "legacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "migrated_at"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "migrated_at": {"type": "string", "format": "date-time"},
+        "unparsed_rows": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-"""Semantic checks S001-S007 and S009-S021.
+"""Semantic checks S001-S007 and S009-S022.
 
 S008 asked that a fact declared canonical in one file was not restated
 in another. No file ever declared canonical_facts, so it had no
@@ -34,9 +34,8 @@ Exemptions, applied uniformly unless a check says otherwise:
 - template: true files document syntax (placeholder enums, slot
   values) and are exempt from value-level semantic checks.
 
-WG id references are checked by both E005, which also covers the frozen
-fixtures, and S004, which generalises to every id scheme, so an
-undefined WG reference in a live file reports twice.
+Knowledge identity integrity is checked by E005. S004 checks live prose
+references once across every supported id scheme.
 """
 
 from __future__ import annotations
@@ -56,7 +55,7 @@ V1_STATUS = {"draft", "active", "contested", "superseded", "accepted",
              "proposed", "archived"}
 
 V2_AXES = {
-    "kind": {"rule", "guide", "recipe", "exemplar", "stack-profile", "fact", "record"},
+    "kind": {"rule", "guide", "doctrine", "wargame", "recipe", "exemplar", "stack-profile", "fact", "record"},
     "authority": {"binding", "default", "advisory", "preference", "none"},
     "lifecycle": {"draft", "experimental", "active", "contested", "superseded", "archived"},
     "basis": {"decision", "law", "standard", "empirical-evidence", "local-observation"},
@@ -76,7 +75,10 @@ PATH_BAD_CHARS = set("*<>{}$#()\\ \t")
 PLACEHOLDER_SEGMENT = re.compile(r"(?<![A-Za-z0-9])(YYYY|MM|DD|WW|HH|NNN?N?)(?![A-Za-z0-9])")
 
 ID_SCHEMES = {
-    "WG": re.compile(r"\bWG-[A-Z]+-\d{3}\b"),
+    "DOC": re.compile(r"\bDOC-[A-Z0-9]+-\d{3}\b"),
+    "DREL": re.compile(r"\bDREL-[A-Z0-9]+-\d{3}\b"),
+    "GD": re.compile(r"\bGD-[A-Z0-9]+-\d{3}\b"),
+    "WG": re.compile(r"\bWG-[A-Z0-9]+-\d{3}\b"),
     "ADR": re.compile(r"\bADR-\d{4}\b"),
     "PB": re.compile(r"\bPB-E\d{2}\b"),
     "S": re.compile(r"\bS-\d{4}\b"),
@@ -313,7 +315,7 @@ def _id_definitions(model: RepoModel) -> dict:
     indexes reference it, so excluding it here would report the index
     as broken when it is exactly right.
     """
-    defs: dict = {"WG": set(), "ADR": set(), "PB": set(), "S": set()}
+    defs: dict = {name: set() for name in ID_SCHEMES}
     for rec in model.files:
         stem = PurePosixPath(rec.path).stem
         # The filename carries the id. Keying on type: wargame missed
@@ -321,9 +323,10 @@ def _id_definitions(model: RepoModel) -> dict:
         # type: guide, so their ids read as undefined the moment the
         # archived originals left the tree.
         if rec.fm.present:
-            m = re.match(r"WG-[A-Z]+-\d{3}", stem)
-            if m:
-                defs["WG"].add(m.group(0))
+            for scheme in ("DOC", "DREL", "GD", "WG"):
+                m = ID_SCHEMES[scheme].match(stem)
+                if m:
+                    defs[scheme].add(m.group(0))
         if rec.path.startswith("org/decisions/"):
             m = re.match(r"ADR-\d{4}", stem)
             if m:
@@ -355,11 +358,12 @@ def check_s004_id_references(ctx: dict) -> list:
     dangling references, and the only fix would have been rewording
     every provenance line in the repository.
     """
-    from .structural import retired_ids
+    from ..ontology import KnowledgeResolver
 
     model: RepoModel = ctx["model"]
     defs = _id_definitions(model)
-    defs["WG"] = set(defs.get("WG") or set()) | retired_ids(model)
+    resolver = ctx.get("ontology") or KnowledgeResolver.open(model.root)
+    knowledge_schemes = {"DOC", "DREL", "GD", "WG"}
     out = []
     for rec in model.files:
         if not _semantic_scope(rec):
@@ -371,7 +375,11 @@ def check_s004_id_references(ctx: dict) -> list:
             for ref in sorted(_unqualified_refs(prose, pattern)):
                 if ZERO_ID.search(ref):
                     continue
-                if ref not in defs[scheme]:
+                if scheme in knowledge_schemes:
+                    defined = resolver.resolve(ref) is not None or ref in defs[scheme]
+                else:
+                    defined = ref in defs[scheme]
+                if not defined:
                     out.append(_f(ctx, "S004", rec.path,
                                   f"reference to undefined id {ref}"))
     return out
@@ -1378,4 +1386,205 @@ def check_s021_predicate_vocabulary(ctx: dict) -> list:
                               "after checking no existing predicate is "
                               "already true in the same circumstances"
                               % (name, PREDICATES_PATH)))
+    return out
+
+
+# --- S022 Doctrine, Wargame and relation contracts ---------------------
+
+
+KNOWLEDGE_SCHEMAS = {
+    "doctrine": "kernel/schemas/doctrine.schema.json",
+    "wargame": "kernel/schemas/wargame.schema.json",
+}
+KNOWLEDGE_JSON_SCHEMAS = {
+    "org/migration/DOCTRINE_SOURCE_INVENTORY.json":
+        "kernel/schemas/knowledge-migration.schema.json",
+    "registry/identifier-aliases.json":
+        "kernel/schemas/identifier-aliases.schema.json",
+}
+WARGAME_HEADINGS = (
+    "Decision question and stakes",
+    "Doctrines or coverage gap under pressure",
+    "Preconditions and engagement triggers",
+    "Options",
+    "Failure premises",
+    "Decision rule",
+    "Safe default",
+    "Cheapest discriminating test",
+    "Fallback, exit and revisit",
+    "Counter-evidence and transfer limits",
+)
+_BINDING_DECISION_EXEMPT = (
+    "packs/security-privacy/",
+    "packs/devops-reliability/",
+)
+
+
+def _schema_errors(model, schema_path: str, instance, path: str, ctx: dict) -> list:
+    raw = model.read(schema_path)
+    if raw is None:
+        return [_f(ctx, "S022", path,
+                   "%s is missing, so this knowledge record was not "
+                   "validated" % schema_path)]
+    try:
+        import jsonschema
+    except ImportError:
+        return [_f(ctx, "S022", path,
+                   "jsonschema is not installed, so this knowledge record "
+                   "was not validated against %s" % schema_path)]
+    try:
+        schema = json.loads(raw)
+    except ValueError as exc:
+        return [_f(ctx, "S022", schema_path, "invalid schema JSON: %s" % exc)]
+    errors = sorted(
+        jsonschema.Draft202012Validator(schema).iter_errors(instance),
+        key=lambda err: (list(err.path), err.message),
+    )
+    out = []
+    for err in errors[:20]:
+        where = "/".join(str(part) for part in err.path) or "(root)"
+        out.append(_f(ctx, "S022", path,
+                      "schema: %s: %s" % (where, err.message)))
+    return out
+
+
+def _knowledge_predicates(fm: dict) -> set[str]:
+    names = set()
+    for key in ("applies_when", "challenge_triggers", "engages_when"):
+        values = fm.get(key) or []
+        if isinstance(values, str):
+            values = [values]
+        names.update(str(value) for value in values if str(value))
+    return names
+
+
+@register("S022")
+def check_s022_knowledge_contracts(ctx: dict) -> list:
+    """The accepted ontology is executable, not a prose convention.
+
+    Existing v1 records are deliberately ignored until they declare the new
+    kind.  Once a record declares itself Doctrine or Wargame it crosses the
+    compatibility boundary atomically and every part of the new contract is
+    checked on that run.
+    """
+    from ..ontology import KnowledgeResolver
+
+    model: RepoModel = ctx["model"]
+    resolver = ctx.get("ontology") or KnowledgeResolver.open(model.root)
+    live_predicates, retired_predicates = _predicate_vocabulary(model)
+    live_predicates = live_predicates or {}
+    out = []
+    statements: dict[str, str] = {}
+
+    for rec in model.files:
+        if not _semantic_scope(rec):
+            continue
+        fm = rec.fm.data
+        kind = str(fm.get("kind") or "")
+        if kind not in KNOWLEDGE_SCHEMAS:
+            continue
+        out.extend(_schema_errors(
+            model, KNOWLEDGE_SCHEMAS[kind], fm, rec.path, ctx,
+        ))
+
+        for name in sorted(_knowledge_predicates(fm)):
+            if name in retired_predicates:
+                out.append(_f(ctx, "S022", rec.path,
+                              "knowledge metadata carries retired predicate %s; "
+                              "use %s" % (name, retired_predicates[name])))
+            elif name not in live_predicates:
+                out.append(_f(ctx, "S022", rec.path,
+                              "knowledge metadata carries %s, which is not in %s"
+                              % (name, PREDICATES_PATH)))
+
+        identifier = str(fm.get("id") or "")
+        if kind == "doctrine":
+            statement = " ".join(str(fm.get("statement") or "").lower().split())
+            if statement:
+                first = statements.get(statement)
+                if first:
+                    out.append(_f(ctx, "S022", rec.path,
+                                  "exact normalised doctrine statement duplicates %s"
+                                  % first))
+                else:
+                    statements[statement] = identifier or rec.path
+            if (fm.get("authority") == "binding"
+                    and fm.get("basis") == "decision"
+                    and not fm.get("accepted_adr")
+                    and not rec.path.startswith(_BINDING_DECISION_EXEMPT)):
+                out.append(_f(ctx, "S022", rec.path,
+                              "decision-only binding Doctrine needs an accepted_adr "
+                              "or must be authority: default"))
+            continue
+
+        body = rec.fm.body
+        for heading in WARGAME_HEADINGS:
+            if not re.search(r"(?m)^## %s\s*$" % re.escape(heading), body):
+                out.append(_f(ctx, "S022", rec.path,
+                              "Wargame is missing section: %s" % heading))
+        options = re.search(
+            r"(?ms)^## Options\s*$\n(.*?)(?=^## |\Z)", body,
+        )
+        if options is None or len(re.findall(r"(?m)^### ", options.group(1))) < 2:
+            out.append(_f(ctx, "S022", rec.path,
+                          "Wargame needs at least two materially different options"))
+
+        doctrines = fm.get("applicable_doctrines") or []
+        if isinstance(doctrines, str):
+            doctrines = [doctrines]
+        relations = fm.get("relations") or []
+        if isinstance(relations, str):
+            relations = [relations]
+        for target, expected in [
+            *[(value, "doctrine") for value in doctrines],
+            *[(value, "relation") for value in relations],
+        ]:
+            resolved = resolver.resolve(str(target))
+            if resolved is None or resolved.state != "live" or resolved.kind != expected:
+                out.append(_f(ctx, "S022", rec.path,
+                              "%s reference does not resolve to a live %s: %s"
+                              % (kind, expected, target)))
+        modes = set(fm.get("scenario_modes") or [])
+        if "conflict" in modes and (len(doctrines) < 2 or not relations):
+            out.append(_f(ctx, "S022", rec.path,
+                          "conflict Wargame needs at least two Doctrines and one DREL"))
+        if "gap" in modes and not fm.get("gap_domain"):
+            out.append(_f(ctx, "S022", rec.path,
+                          "gap Wargame needs gap_domain"))
+
+    relation_schema = "kernel/schemas/doctrine-relation.schema.json"
+    relation_root = model.root / "packs"
+    if relation_root.is_dir():
+        for path in sorted(relation_root.glob("*/doctrines/relations/DREL-*.json")):
+            rel = path.relative_to(model.root).as_posix()
+            try:
+                document = json.loads(path.read_text(encoding="utf-8"))
+            except ValueError as exc:
+                out.append(_f(ctx, "S022", rel,
+                              "invalid relation JSON: %s" % exc))
+                continue
+            out.extend(_schema_errors(model, relation_schema, document, rel, ctx))
+
+    for document_path, schema_path in KNOWLEDGE_JSON_SCHEMAS.items():
+        raw = model.read(document_path)
+        if raw is None:
+            continue
+        try:
+            document = json.loads(raw)
+        except ValueError as exc:
+            out.append(_f(ctx, "S022", document_path,
+                          "invalid JSON: %s" % exc))
+            continue
+        out.extend(_schema_errors(model, schema_path, document,
+                                  document_path, ctx))
+
+    rulings_schema = "kernel/schemas/rulings.schema.json"
+    for path in sorted(model.root.glob("examples/**/docs/RULINGS.json")):
+        rel = path.relative_to(model.root).as_posix()
+        try:
+            document = json.loads(path.read_text(encoding="utf-8"))
+        except ValueError as exc:
+            out.append(_f(ctx, "S022", rel, "invalid Rulings JSON: %s" % exc))
+            continue
+        out.extend(_schema_errors(model, rulings_schema, document, rel, ctx))
     return out

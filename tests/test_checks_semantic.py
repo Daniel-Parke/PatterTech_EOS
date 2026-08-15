@@ -248,6 +248,16 @@ def test_s004_defined_adr_reference_clean(tmp_path):
     assert only(run_s(root), "S004") == []
 
 
+def test_s004_undefined_gd_and_wg_references_report_once_each(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "org/STATE.md", "The fixture repo is at rest.",
+         "The fixture repo cites GD-NEVER-001 and WG-NEVER-001.")
+    assert only(run_s(root), "S004") == [
+        ("error", "org/STATE.md", "reference to undefined id GD-NEVER-001"),
+        ("error", "org/STATE.md", "reference to undefined id WG-NEVER-001"),
+    ]
+
+
 # --- S005 ---------------------------------------------------------------
 
 
@@ -1353,3 +1363,122 @@ def test_s021_reports_a_predicate_nobody_can_settle(tmp_path):
     got = only(run_s(root), "S021")
     assert ("error", "kernel/PREDICATES.md",
             "does_a_fixture_thing does not say what settles it") in got
+
+
+# --- S022 ---------------------------------------------------------------
+
+
+def _install_knowledge_schemas(root):
+    target = root / "kernel" / "schemas"
+    target.mkdir(parents=True, exist_ok=True)
+    for name in ("doctrine.schema.json", "wargame.schema.json",
+                 "doctrine-relation.schema.json"):
+        shutil.copy(REPO_ROOT / "kernel" / "schemas" / name, target / name)
+
+
+def _valid_doctrine():
+    return """---
+id: DOC-TST-001
+summary: Fixture changes stay small
+statement: Fixture changes stay small
+kind: doctrine
+type: doctrine
+tags: [eos]
+authority: default
+basis: decision
+evidence_grade: asserted
+scope: eos-internal
+applies_when: [does_a_fixture_thing]
+challenge_triggers: [does_a_fixture_thing]
+sources: [EV-FIXTURE]
+review: 2030-01
+lifecycle: active
+verification_refs: [packs/testmod/CHECKS.md]
+---
+
+# Fixture changes stay small
+
+The fixture keeps one atomic standing rule.
+"""
+
+
+def _valid_wargame():
+    sections = [
+        ("Decision question and stakes", "Choose a fixture shape without hiding the test."),
+        ("Doctrines or coverage gap under pressure", "DOC-TST-001 is under pressure."),
+        ("Preconditions and engagement triggers", "The fixture behaviour differs."),
+        ("Options", "### Keep it small\n\nKeep one case.\n\n### Add one case\n\nAdd the smallest discriminating case."),
+        ("Failure premises", "Either option fails if it hides the behaviour under test."),
+        ("Decision rule", "Choose the least addition that exposes the behaviour."),
+        ("Safe default", "Keep the fixture small."),
+        ("Cheapest discriminating test", "Run the one test that observes the boundary."),
+        ("Fallback, exit and revisit", "Return to the small fixture if the extra case adds no signal."),
+        ("Counter-evidence and transfer limits", "A fixture is not evidence about production scale."),
+    ]
+    body = "\n\n".join("## %s\n\n%s" % row for row in sections)
+    return """---
+id: GD-TST-002
+summary: Choose how much fixture is enough
+kind: wargame
+type: wargame
+tags: [eos, wargame]
+scenario_modes: [selection]
+applicable_doctrines: [DOC-TST-001]
+applies_when: [does_a_fixture_thing]
+engages_when: [does_a_fixture_thing]
+consequence: routine
+relations: []
+sources: [EV-FIXTURE]
+review: 2030-01
+lifecycle: active
+---
+
+# Fixture size
+
+""" + body + "\n"
+
+
+def _write_valid_knowledge_pair(root):
+    _install_knowledge_schemas(root)
+    write(root, "packs/testmod/doctrines/DOC-TST-001-fixture-size.md",
+          _valid_doctrine())
+    write(root, "packs/testmod/guides/GD-TST-002-fixture-size.md",
+          _valid_wargame())
+
+
+def test_s022_accepts_one_atomic_doctrine_and_complete_wargame(tmp_path):
+    root = make_repo(tmp_path)
+    _write_valid_knowledge_pair(root)
+    assert only(run_s(root), "S022") == []
+
+
+def test_s022_decision_only_binding_needs_accepted_adr(tmp_path):
+    root = make_repo(tmp_path)
+    _write_valid_knowledge_pair(root)
+    edit(root, "packs/testmod/doctrines/DOC-TST-001-fixture-size.md",
+         "authority: default", "authority: binding")
+    assert only(run_s(root), "S022") == [
+        ("error", "packs/testmod/doctrines/DOC-TST-001-fixture-size.md",
+         "decision-only binding Doctrine needs an accepted_adr or must be "
+         "authority: default")]
+
+
+def test_s022_wargame_body_contract_is_enforced(tmp_path):
+    root = make_repo(tmp_path)
+    _write_valid_knowledge_pair(root)
+    edit(root, "packs/testmod/guides/GD-TST-002-fixture-size.md",
+         "## Cheapest discriminating test", "## Expensive test")
+    assert only(run_s(root), "S022") == [
+        ("error", "packs/testmod/guides/GD-TST-002-fixture-size.md",
+         "Wargame is missing section: Cheapest discriminating test")]
+
+
+def test_s022_pressure_predicates_use_the_controlled_vocabulary(tmp_path):
+    root = make_repo(tmp_path)
+    _write_valid_knowledge_pair(root)
+    edit(root, "packs/testmod/guides/GD-TST-002-fixture-size.md",
+         "engages_when: [does_a_fixture_thing]", "engages_when: [unknown_pressure]")
+    assert only(run_s(root), "S022") == [
+        ("error", "packs/testmod/guides/GD-TST-002-fixture-size.md",
+         "knowledge metadata carries unknown_pressure, which is not in "
+         "kernel/PREDICATES.md")]

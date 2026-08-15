@@ -51,14 +51,12 @@ TYPES = {
     "ux", "implementation", "wargame", "template", "example", "registry",
     "stack", "playbook", "org", "kernel", "guide", "index",
 }
-NEEDS_STATUS = {"wargame", "decision", "stack", "registry"}
+NEEDS_STATUS = {"decision", "stack", "registry"}
 NEEDS_REVIEW = {"wargame", "stack", "registry", "guide"}
 CLICHES = [
     "delve", "empower", "seamless", "leverage", "unlock", "revolutioni",
     "supercharge", "game-chang", "cutting-edge", "elevat",
 ]
-WG_DEF = re.compile(r"^WG-[A-Z]+-\d{3}")
-WG_REF = re.compile(r"\bWG-[A-Z]+-\d{3}\b")
 # Digits included: the kernel ships {{SUCCESS_90}}, and a pattern of
 # [A-Z_]+ let it through a green seed check unfilled. Reported by
 # Venture C's cold-start probe, 2026-07-15, and harvested 2026-08-08.
@@ -575,32 +573,33 @@ def retired_ids(model: RepoModel) -> set:
 
 @register("E005")
 def check_e005_wargame_ids(ctx: dict) -> list:
+    """The shared resolver's identity and archive integrity findings.
+
+    ``GD`` and ``WG`` are both Wargame identities.  The old check inferred
+    semantic type from the WG prefix and therefore rejected a correctly
+    reclassified GD file.  References are checked once by S004.
+    """
+    from ..ontology import KnowledgeResolver
+
     model: RepoModel = ctx["model"]
+    resolver = ctx.get("ontology") or KnowledgeResolver.open(model.root)
     out = []
-    # Live definitions only, so duplicate detection stays honest. An id
-    # that is both live and retired is not a duplicate of itself.
-    wg_defined: set = set()
     for rec in model.files:
         if not rec.fm.present:
             continue
-        stem = PurePosixPath(rec.path).stem
-        m = WG_DEF.match(stem)
-        if rec.fm.data.get("type") != "wargame" and not m:
+        fm = rec.fm.data
+        if fm.get("type") != "wargame" and fm.get("kind") != "wargame":
             continue
-        if not m:
-            out.append(_err("E005", rec.path, "wargame filename lacks a WG-<MOD>-NNN id"))
-        else:
-            wid = m.group(0)
-            if wid in wg_defined:
-                out.append(_err("E005", rec.path, f"duplicate wargame id {wid}"))
-            wg_defined.add(wid)
-    # A reference resolves against live definitions plus ids retired to
-    # the tag, which are still defined and still locatable.
-    resolvable = wg_defined | retired_ids(model)
-    for rec in model.files:
-        for ref in sorted(set(WG_REF.findall(strip_code(rec.text)))):
-            if ref not in resolvable and not ref.endswith("-000"):
-                out.append(_warn("E005", rec.path, f"reference to undefined wargame {ref}"))
+        if GUIDE_ID.match(PurePosixPath(rec.path).stem) is None:
+            out.append(_err(
+                "E005", rec.path,
+                "wargame filename lacks a GD-<PACK>-NNN or WG-<PACK>-NNN identity",
+            ))
+    for problem in resolver.problems:
+        out.append(_err(
+            "E005", problem.path or "registry/identifier-aliases.json",
+            problem.message,
+        ))
     return out
 
 

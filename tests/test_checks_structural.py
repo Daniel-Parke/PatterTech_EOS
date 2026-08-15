@@ -12,7 +12,7 @@ import subprocess
 import sys
 from datetime import date
 
-from conftest import REPO_ROOT, make_repo
+from conftest import REPO_ROOT, git, make_repo
 from tools.eos.checks import run_all
 from tools.eos.checks.structural import (
     build_guide_index,
@@ -181,13 +181,13 @@ def test_e002_unknown_type(tmp_path):
     assert ("error", "org/STATE.md", "unknown type: mystery") in only(fs, "E002")
 
 
-def test_e002_type_requires_status_and_review(tmp_path):
+def test_e002_wargame_requires_review_but_uses_lifecycle_not_status(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "status: active\n", "")
     edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "review: 2030-01\n", "")
     fs = run_e(root)
     got = only(fs, "E002")
-    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires status") in got
+    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires status") not in got
     assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires review") in got
 
 
@@ -266,7 +266,7 @@ def test_e005_wargame_without_id(tmp_path):
     fs = run_e(root)
     assert only(fs, "E005") == [(
         "error", "packs/testmod/guides/nameless.md",
-        "wargame filename lacks a WG-<MOD>-NNN id")]
+        "wargame filename lacks a GD-<PACK>-NNN or WG-<PACK>-NNN identity")]
 
 
 def test_e005_duplicate_id(tmp_path):
@@ -275,17 +275,17 @@ def test_e005_duplicate_id(tmp_path):
     shutil.copy(src, src.with_name("WG-TST-001-copy.md"))
     fs = run_e(root)
     assert ("error", "packs/testmod/guides/WG-TST-001-sample.md",
-            "duplicate wargame id WG-TST-001") in only(fs, "E005")
+            "duplicate live definition for WG-TST-001; first at "
+            "packs/testmod/guides/WG-TST-001-copy.md") in only(fs, "E005")
 
 
-def test_e005_undefined_reference(tmp_path):
+def test_e005_leaves_undefined_prose_references_to_s004(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/PACK.md",
          "The single ruling surface is WG-TST-001.",
          "The single ruling surface is WG-TST-001. See also WG-TST-999.")
     fs = run_e(root)
-    assert only(fs, "E005") == [("warn", "packs/testmod/PACK.md",
-                                 "reference to undefined wargame WG-TST-999")]
+    assert only(fs, "E005") == []
 
 
 def test_e005_zero_suffix_reference_allowed(tmp_path):
@@ -694,6 +694,16 @@ def test_retired_ids_resolve_but_do_not_duplicate(tmp_path):
     a provenance reference to it is not dangling. Retiring archive/v1
     without this turned 33 real ids into 79 findings overnight."""
     root = make_repo(tmp_path)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.email", "suite@example.invalid")
+    git(root, "config", "user.name", "Test Suite")
+    gone = root / "doctrine" / "gone" / "WG-GONE-001-x.md"
+    gone.parent.mkdir(parents=True)
+    gone.write_text("retired definition\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "archive source")
+    git(root, "tag", "archive/v1-final")
+    gone.unlink()
     (root / "archive").mkdir(exist_ok=True)
     (root / "archive" / "RETIRED_IDS.json").write_text(
         '{"version": 1, "tag": "archive/v1-final",'
@@ -709,8 +719,8 @@ def test_retired_ids_resolve_but_do_not_duplicate(tmp_path):
     assert [f for f in fs if f.check_id == "E005"] == []
 
 
-def test_a_genuinely_undefined_id_still_reports(tmp_path):
-    """The exemption is for ids that moved, not for ids that never were."""
+def test_e005_does_not_duplicate_a_genuinely_undefined_reference(tmp_path):
+    """S004 reports prose references; E005 reports identity integrity."""
     root = make_repo(tmp_path)
     write = root / "org" / "STATE.md"
     write.write_text(
@@ -719,8 +729,7 @@ def test_a_genuinely_undefined_id_still_reports(tmp_path):
             "The fixture repo is at rest. See WG-NEVER-001."),
         encoding="utf-8", newline="\n")
     fs = run_e(root)
-    assert ("warn", "org/STATE.md",
-            "reference to undefined wargame WG-NEVER-001") in only(fs, "E005")
+    assert only(fs, "E005") == []
 
 
 # --- B001 benchmark freeze ----------------------------------------------

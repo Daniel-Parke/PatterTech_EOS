@@ -46,12 +46,14 @@ def _read_json(path, what):
 
 
 def _ctx(args):
+    from .ontology import KnowledgeResolver
     from .repo import RepoModel
 
     today = _dt.date.today()
     model = RepoModel.load(REPO, today=today)
     return {
         "model": model,
+        "ontology": KnowledgeResolver.open(REPO),
         "root": REPO,
         "today": today,
         "offline": getattr(args, "offline", False),
@@ -230,6 +232,96 @@ def cmd_activate(args):
             print("error: no pack declares %s, so it activates nothing" % p,
                   file=sys.stderr)
         return 1
+    return 0
+
+
+def _resolution_document(row, resolver, *, include_body=False):
+    result = {
+        "id": row.canonical_id,
+        "requested_id": row.requested_id,
+        "kind": row.kind,
+        "state": row.state,
+        "path": row.path,
+        "summary": row.summary,
+        "metadata": dict(row.metadata),
+    }
+    if include_body and row.state == "live":
+        text = resolver.view.read_text(row.path)
+        if text is not None:
+            from .frontmatter import parse
+            result["body"] = parse(text).body
+    return result
+
+
+def _parse_assignments(values, what):
+    result = {}
+    for raw in values or []:
+        if "=" not in raw:
+            raise CannotRun(f"{what} must be NAME=VALUE: {raw}")
+        name, value = raw.split("=", 1)
+        name, value = name.strip(), value.strip()
+        if not name or not value:
+            raise CannotRun(f"{what} must be NAME=VALUE: {raw}")
+        result[name] = value
+    return result
+
+
+def _knowledge_facts(args):
+    facts = {}
+    if args.facts:
+        doc = _read_json(Path(args.facts), "the knowledge facts file")
+        supplied = doc.get("facts", doc)
+        if not isinstance(supplied, dict):
+            raise CannotRun("the knowledge facts file must be an object, or carry a facts object")
+        facts.update({str(k): str(v).lower() for k, v in supplied.items()})
+    facts.update({k: v.lower() for k, v in
+                  _parse_assignments(args.fact, "--fact").items()})
+    if not facts:
+        raise CannotRun("match needs --facts or at least one --fact NAME=STATE")
+    return facts
+
+
+def cmd_knowledge(args):
+    from .ontology import KnowledgeResolver, match_knowledge
+
+    resolver = KnowledgeResolver.open(REPO, args.commit)
+    if args.op == "list":
+        rows = [_resolution_document(row, resolver)
+                for row in resolver.list(args.entity)]
+        print(json.dumps({"kind": args.entity, "count": len(rows), "records": rows}, indent=1))
+        return 1 if resolver.problems else 0
+    if args.op == "show":
+        row = resolver.resolve(args.identifier)
+        if row is None or row.kind != args.entity:
+            print(f"error: {args.identifier} does not resolve as {args.entity}", file=sys.stderr)
+            return 1
+        print(json.dumps(_resolution_document(row, resolver, include_body=True), indent=1))
+        return 0
+    facts = _knowledge_facts(args)
+    include = _parse_assignments(args.include, "--include")
+    omit = _parse_assignments(args.omit, "--omit")
+    result = match_knowledge(resolver, facts, include=include, omit=omit)
+    print(json.dumps(result, indent=1))
+    return 1 if resolver.problems or result["uncovered_pressures"] else 0
+
+
+def cmd_id(args):
+    from .ontology import KnowledgeResolver
+
+    resolver = KnowledgeResolver.open(REPO, args.commit)
+    row = resolver.resolve(args.identifier)
+    if row is None:
+        print(json.dumps({"id": args.identifier, "resolved": False}, indent=1))
+        return 1
+    print(json.dumps({
+        "id": args.identifier,
+        "resolved": True,
+        "canonical": row.canonical_id,
+        "kind": row.kind,
+        "state": row.state,
+        "path": row.path,
+        "commit": resolver.view.commit or "WORKTREE",
+    }, indent=1))
     return 0
 
 
@@ -549,6 +641,27 @@ def build_parser():
     a.add_argument("--predicate", action="append", default=[],
                    help="a declared predicate, repeatable")
     a.set_defaults(fn=cmd_activate)
+
+    for command, entity in (("doctrine", "doctrine"),
+                            ("wargame", "wargame")):
+        knowledge = sub.add_parser(
+            command,
+            description=f"List, show or pressure-match {command} records through the shared resolver.")
+        knowledge.add_argument("op", choices=["list", "show", "match"])
+        knowledge.add_argument("identifier", nargs="?")
+        knowledge.add_argument("--commit")
+        knowledge.add_argument("--facts")
+        knowledge.add_argument("--fact", action="append", default=[])
+        knowledge.add_argument("--include", action="append", default=[])
+        knowledge.add_argument("--omit", action="append", default=[])
+        knowledge.set_defaults(fn=cmd_knowledge, entity=entity)
+
+    identity = sub.add_parser(
+        "id", description="Resolve one knowledge identity in the worktree or at a pinned commit.")
+    identity.add_argument("op", choices=["resolve"])
+    identity.add_argument("identifier")
+    identity.add_argument("--commit")
+    identity.set_defaults(fn=cmd_id)
 
     st = sub.add_parser(
         "study",
