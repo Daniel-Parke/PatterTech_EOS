@@ -34,6 +34,22 @@
    "expires": "2026-08-16T20:15:00Z"
   },
   {
+   "lane_id": "lane/t0026-doctrine-content",
+   "task_id": "T-0026",
+   "session_id": "doctrine-content-author",
+   "host": "NucBox_M6Ultra",
+   "harness_task_id": "/root/ledger",
+   "path_claims": [
+    "packs/*/PACK.md",
+    "packs/*/doctrines/",
+    "tools/eos/migrate_doctrines.py",
+    "tests/test_migrate_doctrines.py",
+    "org/migration/DOCTRINE_MIGRATION.json"
+   ],
+   "acquired": "2026-08-15T20:45:00Z",
+   "expires": "2026-08-16T20:45:00Z"
+  },
+  {
    "lane_id": "lane/t0026-research",
    "task_id": "T-0026",
    "session_id": "doctrine-research-author",
@@ -46,5 +62,5 @@
    "expires": "2026-08-16T20:15:00Z"
   }
  ],
- "note": "T-0026 phase two. The 501-row source inventory has landed and its lane is released. The integrator owns shared contracts and seed compatibility. The research lane owns one evidence packet. No lane writes another lane's paths."
+ "note": "T-0026 phase three. The frozen source inventory is the content oracle. The Doctrine content lane owns pack migration only; the integrator retains shared registries, predicates and generators. The research lane owns one evidence packet. No lane writes another lane's paths."
 }
