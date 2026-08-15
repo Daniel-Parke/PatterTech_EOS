@@ -1,46 +1,6 @@
 {
  "version": 1,
  "assigned": "2026-08-15",
- "lanes": [
-  {
-   "lane_id": "lane/t0026-integrator",
-   "task_id": "T-0026",
-   "session_id": "doctrine-wargame-integrator",
-   "host": "NucBox_M6Ultra",
-   "pid": 26052,
-   "path_claims": [
-    "AGENTS.md",
-    "CLAUDE.md",
-    "GOVERNANCE.md",
-    "INDEX.md",
-    "README.md",
-    "TOUR.md",
-    "OPERATORS_GUIDE.md",
-    "CHANGELOG.md",
-    "archive/",
-    "examples/",
-    "inception/",
-    "kernel/",
-    "org/",
-    "packs/",
-    "registry/",
-    "tools/"
-   ],
-   "acquired": "2026-08-15T19:41:41Z",
-   "expires": "2026-08-16T19:41:41Z"
-  },
-  {
-   "lane_id": "lane/t0026-oracle",
-   "task_id": "T-0026",
-   "session_id": "resolver-oracle-author",
-   "host": "NucBox_M6Ultra",
-   "harness_task_id": "/root/resolver_oracle",
-   "path_claims": [
-    "tests/test_ontology_oracle.py"
-   ],
-   "acquired": "2026-08-15T19:41:41Z",
-   "expires": "2026-08-16T19:41:41Z"
-  }
- ],
- "note": "T-0026 phase one. The integrator owns shared contracts and every generated hub. The independent oracle lane owns only tests/test_ontology_oracle.py and was designed before implementation. No implementation starts until this claim set is committed and the oracle is frozen."
+ "lanes": [],
+ "note": "T-0026 phase one is integrated. The independent ontology oracle is frozen at the hash recorded on T-0026 and its claim is released. The integrator is the sole writer until the resolver and compatibility substrate have landed."
 }
