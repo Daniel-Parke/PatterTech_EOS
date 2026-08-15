@@ -428,10 +428,13 @@ class KnowledgeResolver:
             if relation not in RELATION_TYPES:
                 self._problem("relation-type", path, identifier,
                               f"unknown relation type {relation}")
-            for role, value, kinds in (
-                ("owner", owner, {"doctrine"}),
-                ("target", target, {"doctrine"}),
-            ):
+            endpoints = [("owner", owner, {"doctrine"})]
+            if relation != "covers_gap":
+                endpoints.append(("target", target, {"doctrine"}))
+            elif not target:
+                self._problem("relation-target", path, identifier,
+                              "covers_gap needs a named gap target")
+            for role, value, kinds in endpoints:
                 resolved = self.resolve(value) if value else None
                 if resolved is None or resolved.state != "live" or resolved.kind not in kinds:
                     self._problem("relation-target", path, identifier,
@@ -445,6 +448,17 @@ class KnowledgeResolver:
                 if resolved is None or resolved.state != "live" or resolved.kind != "wargame":
                     self._problem("relation-wargame", path, identifier,
                                   f"wargame {wargame} does not resolve live")
+                elif relation == "covers_gap" and str(
+                    resolved.metadata.get("gap_domain") or ""
+                ) != target:
+                    self._problem(
+                        "relation-gap", path, identifier,
+                        f"covers_gap target {target} does not match "
+                        f"{wargame} gap_domain",
+                    )
+            elif relation == "covers_gap":
+                self._problem("relation-wargame", path, identifier,
+                              "covers_gap needs a live covering Wargame")
             if relation in graphs and owner and target:
                 graphs[relation].setdefault(owner, set()).add(target)
         for relation, graph in graphs.items():

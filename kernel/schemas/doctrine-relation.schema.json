@@ -29,6 +29,17 @@
     "owner": {"type": "string", "minLength": 1},
     "review": {"type": "string", "minLength": 1}
   },
+  "allOf": [
+    {
+      "if": {"properties": {"relation": {"const": "covers_gap"}}},
+      "then": {
+        "required": ["wargame"],
+        "properties": {
+          "target": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}
+        }
+      }
+    }
+  ],
   "$defs": {
     "strings": {
       "type": "array",
