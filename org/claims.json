@@ -10,8 +10,10 @@
    "path_claims": [
     "tools/eos/ontology.py",
     "tools/eos/cli.py",
+    "tools/eos/migrate_doctrines.py",
     "tools/eos/checks/",
     "tests/test_checks_freshness.py",
+    "tests/test_migrate_doctrines.py",
     "kernel/schemas/",
     "tests/test_checks_structural.py",
     "tests/test_checks_semantic.py",
