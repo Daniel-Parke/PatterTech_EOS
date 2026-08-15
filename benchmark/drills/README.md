@@ -11,10 +11,17 @@ spec is frozen with its sha256 in `MANIFEST.json` and never changes
 without an ADR amendment. A failed drill routes to fixing the pack and
 re-running; it never routes to editing the spec.
 
-**No drill reports a verdict yet, because no cold agent has been
+**No drill reports a pack verdict yet, because no cold agent has been
 handed a scenario.** All twenty-two have a scenario and graders, and
 graders make a verdict possible without being one. Read the rest of
 this file with that in mind.
+
+What is now recorded is the discrimination check. On 2026-08-15 all
+twenty-two ran against their untouched fixtures and every one came back
+`fail`, so `RESULTS.json` no longer holds only null verdicts. Those rows
+carry `graded: scenario-baseline`, which is the marker that says a fail
+there is the criteria proving they discriminate and not a judgement on
+a pack.
 
 Run them with `python -m tools.eos drills`. The contract is the drills
 section of `tools/CLI_CONTRACTS.md`.
@@ -93,8 +100,24 @@ one whose grader exits 2 because the tool it drives is absent, reports
 `manual`, and a manual criterion is never counted as a pass. Against
 the untouched fixture all twenty-two come back `fail`, and the command
 exits 1. That is a discrimination check, not evidence about a pack.
-The rows already in `RESULTS.json` were written before any scenario or
-grader existed and carry a `pass` of `null` with the reason stated.
+
+`RESULTS.json` holds two kinds of row and the dates separate them. The
+twenty-two written on 2026-08-03 and 2026-08-08 predate any scenario or
+grader and carry a `pass` of `null`. Their stored reasons name a grader
+path as absent, and those paths now hold graders, so each reason is
+true of the day it was written and false of the tree today. The ledger
+is append-only and rows are never rewritten, so they stand as history
+and the 2026-08-15 rows carry the current state beside them.
+
+Four criteria pass against the untouched fixture, and none of them is a
+grader failing to discriminate. Three are prohibitions, which an agent
+that did nothing has not breached: `delivery-testing` c8 on quarantine,
+c9 on added dependencies, and `devops-reliability` c12 on secrets in
+changed lines. The fourth, `api-integration` c1, asks that
+`api/openapi.yaml` still parses. That drill hands the agent the file to
+edit, so c1 is a regression guard against breaking the document rather
+than a test that the work was done, and the nine criteria beside it
+carry the discrimination.
 
 There is also a fourth thing a drill needs that no command supplies:
 the cold-agent session that does the work. `drills run` materialises the
