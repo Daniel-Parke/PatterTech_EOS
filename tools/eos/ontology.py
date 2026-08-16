@@ -230,9 +230,15 @@ def _is_wargame(path: str) -> bool:
         return False
     in_pack = (len(parts) >= 4 and parts[0] == "packs" and
                parts[2] in {"guides", "wargames"})
+    in_v1_doctrine = (
+        parts[0] == "doctrine" and (
+            (len(parts) >= 3 and parts[1] == "wargames")
+            or (len(parts) >= 4 and parts[2] == "wargames")
+        )
+    )
     in_inception = (len(parts) >= 3 and parts[0] == "inception" and
                     parts[1] == "wargames")
-    return (in_pack or in_inception) and bool(
+    return (in_pack or in_v1_doctrine or in_inception) and bool(
         re.match(r"^(?:GD|WG)-", parts[-1]))
 
 

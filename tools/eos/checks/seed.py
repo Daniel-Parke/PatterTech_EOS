@@ -627,23 +627,27 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         # docs/RULINGS.json. It validates the immutable legacy shape and
         # resolves both historic identity prefixes without reinterpreting
         # them as types.
-        if pin_available:
-            names = {PurePosixPath(p).name
-                     for p in gitfacts.ls_tree(eos_root, eos_commit)}
-            where = f"eos_commit {eos_commit}"
-        else:
-            names = {p.name for prefix in ("GD-", "WG-")
-                     for p in eos_root.rglob(prefix + "*.md")
-                     if not SKIP_DIRS.intersection(p.parts)}
-            where = "the EOS worktree"
+        from ..ontology import KnowledgeResolver
+        where = f"eos_commit {eos_commit}" if pin_available else "the EOS worktree"
+        try:
+            resolver = KnowledgeResolver.open(
+                eos_root, eos_commit if pin_available else None,
+            )
+        except (OSError, ValueError) as exc:
+            err("D006", "docs/LOCKBOOK.md",
+                f"knowledge resolver could not load: {exc}")
+            resolver = None
+        if resolver is not None:
             if WARGAME_REF.search(lockbook_text) and eos_commit is None:
                 warn("D006", "docs/LOCKBOOK.md",
                      "no eos_commit pin, resolving legacy Wargame ids "
                      "against the worktree")
-        for wid in sorted(set(WARGAME_REF.findall(lockbook_text))):
-            if not any(name.startswith(wid) for name in names):
-                err("D006", "docs/LOCKBOOK.md",
-                    f"ruling cites {wid}, which does not resolve in {where}")
+            for wid in sorted(set(WARGAME_REF.findall(lockbook_text))):
+                resolved = resolver.resolve(wid)
+                if resolved is None or resolved.state != "live" \
+                        or resolved.kind != "wargame":
+                    err("D006", "docs/LOCKBOOK.md",
+                        f"ruling cites {wid}, which does not resolve in {where}")
 
     # --- D007, D008 policy file and guard adapter (matrix-gated) -------
     if scale:

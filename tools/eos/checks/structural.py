@@ -19,8 +19,7 @@ agent the wrong law. The main indexes and their sources:
   built pack, sourced from PACK.md front-matter and its first
   paragraph.
 - packs/DOCTRINE_INDEX.md, every atomic Doctrine.
-- packs/WARGAME_INDEX.md, every unified Wargame. GUIDE_INDEX is its
-  compatibility pointer.
+- packs/WARGAME_INDEX.md, every unified Wargame.
 - registry/DOCTRINE_PRESSURE_MATRIX.md, typed Doctrine relations and
   accepted pressure dispositions.
 """
@@ -37,9 +36,9 @@ from ..repo import RepoModel
 from . import register
 
 DERIVED = {
-    "INDEX.md", "packs/INDEX.md", "packs/GUIDE_INDEX.md",
+    "INDEX.md", "packs/INDEX.md",
     "packs/DOCTRINE_INDEX.md", "packs/WARGAME_INDEX.md",
-    "registry/DOCTRINE_PRESSURE_MATRIX.md", "registry/ID_ALIASES.md",
+    "registry/DOCTRINE_PRESSURE_MATRIX.md", "registry/IDENTIFIER_ALIASES.md",
 }
 # Frozen trees: checked, never indexed. Indexing them puts archived law
 # and benchmark fixtures in front of an agent as if they were current.
@@ -48,7 +47,7 @@ DERIVED = {
 # and must not be read as EOS prose or held to the front-matter law.
 NOT_INDEXED = ("archive/", "benchmark/fixtures/", "benchmark/holdout/",
                "benchmark/drills/scenarios/")
-GUIDE_ID = re.compile(r"((?:WG|GD)-[A-Z]+-\d{3})")
+WARGAME_ID = re.compile(r"(WG-[A-Z0-9]+-\d{3})")
 ROUTERS = {"AGENTS.md", "CLAUDE.md"}
 ROUTER_CAP = 40
 BUDGET = 150
@@ -57,7 +56,7 @@ BUDGET_TYPES = {"doctrine", "foundation", "pattern", "ux", "implementation", "wa
 TYPES = {
     "root", "governance", "decision", "doctrine", "foundation", "pattern",
     "ux", "implementation", "wargame", "template", "example", "registry",
-    "stack", "playbook", "org", "kernel", "guide", "index",
+    "stack", "playbook", "org", "kernel", "guide", "index", "pack", "checks",
 }
 NEEDS_STATUS = {"decision", "stack", "registry"}
 NEEDS_REVIEW = {"wargame", "stack", "registry", "guide"}
@@ -109,7 +108,7 @@ def _cell(value) -> str:
 def _first_paragraph(body: str) -> str:
     """A pack's level-one metadata: the first prose paragraph of PACK.md.
 
-    This is the paragraph PACK_SHAPE.md keeps under eighty words because
+    This is the paragraph PACK_CONTRACT.md keeps under eighty words because
     it sits in every agent's context whether the pack loads or not.
     """
     for block in body.split("\n\n"):
@@ -117,14 +116,6 @@ def _first_paragraph(body: str) -> str:
         if block and not block.startswith("#"):
             return block
     return ""
-
-
-def is_guide(rec) -> bool:
-    """Compatibility locator for Wargames in guides/ or outside a pack."""
-    p = PurePosixPath(rec.path)
-    under_pack = (len(p.parts) == 4 and p.parts[0] == "packs"
-                  and p.parts[2] == "guides")
-    return under_pack or rec.fm.data.get("type") == "wargame"
 
 
 # --- derived index builders ---------------------------------------------
@@ -150,25 +141,34 @@ def build_index(model: RepoModel) -> str:
     return "\n".join(rows) + "\n"
 
 
+PACK_CATEGORIES = (
+    ("data-ai", "Data and AI"),
+    ("engineering", "Engineering"),
+    ("experience-content", "Experience and Content"),
+    ("practice-governance", "Practice and Governance"),
+    ("product-commercial", "Product and Commercial"),
+    ("reliability-trust", "Reliability and Trust"),
+)
+
+
 def build_pack_index(model: RepoModel) -> str:
     """The always-loaded activation surface, one row per built pack.
 
     A pack directory holding a PACK.md is built by definition: the
     contract forbids stub packs, so presence on disk is the status.
     """
-    rows = ["---", "summary: Derived index of every built pack, the always-loaded metadata surface",
+    rows = ["---", "summary: Derived index of every built pack, grouped by its reader-facing category",
             "type: index", "tags: [eos]", "derived: true", "---", "",
             "# PACK INDEX", "",
-            "The always-loaded knowledge surface. One row per built pack: what",
-            "it covers, the predicates that gate it, and how big its body is.",
+            "The always-loaded knowledge surface. Stable directory slugs are",
+            "machine keys; display names and categories are reader-facing.",
+            "Each row says what a pack covers, what gates it and its body size.",
             "Nothing else in `packs/` is loaded until a row here activates.", "",
             "Derived file. Edit `PACK.md` front-matter and its first paragraph,",
             "then run `python -m tools.eos check --write-index`.", "",
             "Domains without a pack are not omissions here. Every domain, built",
             "or not, carries an honest row in `registry/CAPABILITIES.md`,",
-            "generated from `registry/coverage.json`.", "",
-            "| Pack | What it covers, and when it activates | Predicates | Authority | Body lines |",
-            "| --- | --- | --- | --- | --- |"]
+            "generated from `registry/coverage.json`.", ""]
     packs = []
     for rec in model.files:
         p = PurePosixPath(rec.path)
@@ -177,38 +177,32 @@ def build_pack_index(model: RepoModel) -> str:
         if not rec.fm.present or not indexable(rec):
             continue
         packs.append(rec)
-    total = 0
+    total = sum(len(rec.fm.body.strip("\n").splitlines()) for rec in packs)
+    grouped = {key: [] for key, _ in PACK_CATEGORIES}
     for rec in packs:
-        fm = rec.fm.data
-        body_lines = len(rec.fm.body.strip("\n").splitlines())
-        total += body_lines
-        rows.append("| `{}` | {} | {} | {} | {} |".format(
-            rec.path, _cell(_first_paragraph(rec.fm.body)),
-            _cell(fm.get("applies_when")), _cell(fm.get("authority")),
-            body_lines))
+        grouped.setdefault(str(rec.fm.data.get("category") or ""), []).append(rec)
+    for key, label in PACK_CATEGORIES:
+        rows += [f"## {label}", "",
+                 "| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |",
+                 "| --- | --- | --- | --- | --- | --- |"]
+        for rec in sorted(
+            grouped.get(key, []),
+            key=lambda item: str(item.fm.data.get("display_name") or item.path),
+        ):
+            fm = rec.fm.data
+            slug = PurePosixPath(rec.path).parts[1]
+            display_name = _cell(fm.get("display_name") or slug)
+            body_lines = len(rec.fm.body.strip("\n").splitlines())
+            rows.append("| [{}]({}/PACK.md) | `{}` | {} | {} | {} | {} |".format(
+                display_name, slug, slug, _cell(_first_paragraph(rec.fm.body)),
+                _cell(fm.get("applies_when")), _cell(fm.get("id_namespace")),
+                body_lines))
+        rows.append("")
     rows += ["",
              "{} built packs, {:,} body lines. The pack contract is".format(len(packs), total),
-             "`packs/PACK_SHAPE.md`; a domain that cannot meet its definition of",
+             "`packs/PACK_CONTRACT.md`; a domain that cannot meet its definition of",
              "done stays a registry row and is never described as implemented."]
     return "\n".join(rows) + "\n"
-
-
-def build_guide_index(model: RepoModel) -> str:
-    return "\n".join([
-        "---",
-        "summary: Compatibility pointer from the retired Guide name to the unified Wargame index",
-        "type: index",
-        "tags: [eos, wargame]",
-        "derived: true",
-        "---",
-        "",
-        "# GUIDE_INDEX",
-        "",
-        "Guide is the retired public name for this surface. Existing `GD-*`",
-        "identities and `guides/` paths remain stable, but every live decision",
-        "procedure is a Wargame. Use [WARGAME_INDEX](WARGAME_INDEX.md).",
-        "",
-    ])
 
 
 def build_doctrine_index(model: RepoModel, resolver=None) -> str:
@@ -241,9 +235,10 @@ def build_wargame_index(model: RepoModel, resolver=None) -> str:
     rows = ["---", "summary: Derived public index of every unified Wargame",
             "type: index", "tags: [eos, wargame]", "derived: true", "---", "",
             "# WARGAME_INDEX", "",
-            "`GD-*` and `WG-*` are immutable identities of the same semantic",
-            "type. New Wargames use `WG-*`; historical paths stay where they are.",
-            "This view is derived from their metadata.", "",
+            "Every current decision procedure has one `WG-*` identity and lives",
+            "under `wargames/`. Historical `GD-*` references resolve through the",
+            "explicit alias registry or within the commit that defined them.",
+            "This view is derived from current Wargame metadata.", "",
             "| id | question | modes | Doctrine or gap | engages when | consequence | pack | review |",
             "| --- | --- | --- | --- | --- | --- | --- | --- |"]
     for row in resolver.list("wargame"):
@@ -341,9 +336,10 @@ def build_alias_view(model: RepoModel) -> str:
     rows = ["---", "summary: Derived readable view of immutable knowledge identity aliases",
             "type: registry", "tags: [eos]", "status: active",
             "review_by: 2027-02", "derived: true", "---", "",
-            "# ID_ALIASES", "",
+            "# IDENTIFIER_ALIASES", "",
             "Derived from `registry/identifier-aliases.json`. Aliases preserve",
-            "legacy anchors; they never create a second live definition.", "",
+            "legacy identifiers and pack anchors; they never create a second",
+            "live definition or a current filesystem redirect.", "",
             "| legacy identity or anchor | canonical identity |",
             "| --- | --- |"]
     for old, new in sorted(aliases.items()):
@@ -568,7 +564,6 @@ def _wanted_indexes(model: RepoModel, resolver=None) -> dict:
     want = {
         "INDEX.md": build_index(model),
         "packs/INDEX.md": build_pack_index(model),
-        "packs/GUIDE_INDEX.md": build_guide_index(model),
     }
     if any(rec.fm.present and rec.fm.data.get("kind") == "doctrine"
            for rec in model.files):
@@ -581,7 +576,7 @@ def _wanted_indexes(model: RepoModel, resolver=None) -> dict:
                 build_pressure_matrix(model, resolver),
         })
         if model.read("registry/identifier-aliases.json") is not None:
-            want["registry/ID_ALIASES.md"] = build_alias_view(model)
+            want["registry/IDENTIFIER_ALIASES.md"] = build_alias_view(model)
     # Only where the matrix exists: the minirepo fixture has no registry.
     if model.read("registry/coverage.json") is not None:
         want["registry/CAPABILITIES.md"] = build_capabilities(model)
@@ -729,12 +724,7 @@ def retired_ids(model: RepoModel) -> set:
 
 @register("E005")
 def check_e005_wargame_ids(ctx: dict) -> list:
-    """The shared resolver's identity and archive integrity findings.
-
-    ``GD`` and ``WG`` are both Wargame identities.  The old check inferred
-    semantic type from the WG prefix and therefore rejected a correctly
-    reclassified GD file.  References are checked once by S004.
-    """
+    """Current definitions use WG; the resolver still reads historical GD."""
     from ..ontology import KnowledgeResolver
 
     model: RepoModel = ctx["model"]
@@ -743,13 +733,22 @@ def check_e005_wargame_ids(ctx: dict) -> list:
     for rec in model.files:
         if not rec.fm.present:
             continue
+        if rec.path.startswith(("archive/", "benchmark/")):
+            continue
         fm = rec.fm.data
         if fm.get("type") != "wargame" and fm.get("kind") != "wargame":
             continue
-        if GUIDE_ID.match(PurePosixPath(rec.path).stem) is None:
+        path = PurePosixPath(rec.path)
+        if WARGAME_ID.match(path.stem) is None:
             out.append(_err(
                 "E005", rec.path,
-                "wargame filename lacks a GD-<PACK>-NNN or WG-<PACK>-NNN identity",
+                "current Wargame filename lacks a WG-<NAMESPACE>-NNN identity",
+            ))
+        if len(path.parts) >= 4 and path.parts[0] == "packs" \
+                and path.parts[2] != "wargames":
+            out.append(_err(
+                "E005", rec.path,
+                "current pack Wargame must live under wargames/",
             ))
     for problem in resolver.problems:
         out.append(_err(
@@ -803,7 +802,7 @@ def check_e007_line_budgets(ctx: dict) -> list:
     file sits in every agent's context and its cost is paid on every
     task, so a router over the cap is a bill the whole estate keeps
     paying. Everything else warns: length is caught by the pruning test
-    in packs/PACK_SHAPE.md and by the review passes, so a long pack is a
+    in packs/PACK_CONTRACT.md and by the review passes, so a long pack is a
     thing to look at rather than a build failure.
 
     The unified ten-section Wargame contract has a 220-line review budget;

@@ -49,13 +49,13 @@ from .. import gitfacts
 from ..findings import Finding
 from ..repo import RepoModel
 from . import register
-from .structural import strip_code
+from .structural import PACK_CATEGORIES, strip_code
 
 V1_STATUS = {"draft", "active", "contested", "superseded", "accepted",
              "proposed", "archived"}
 
 V2_AXES = {
-    "kind": {"rule", "guide", "doctrine", "wargame", "recipe", "exemplar", "stack-profile", "fact", "record"},
+    "kind": {"rule", "guide", "doctrine", "wargame", "recipe", "example", "stack-profile", "fact", "record"},
     "authority": {"binding", "default", "advisory", "preference", "none"},
     "lifecycle": {"draft", "experimental", "active", "contested", "superseded", "archived"},
     "basis": {"decision", "law", "standard", "empirical-evidence", "local-observation"},
@@ -65,11 +65,11 @@ V2_AXES = {
 V2_SCOPES = {"estate", "venture", "eos-internal"}
 
 DERIVED_GENERATED = {"INDEX.md",
-                     "packs/GUIDE_INDEX.md", "packs/INDEX.md",
+                     "packs/INDEX.md",
                      "packs/DOCTRINE_INDEX.md", "packs/WARGAME_INDEX.md",
                      "registry/CAPABILITIES.md", "registry/LESSONS.md",
                      "registry/DOCTRINE_PRESSURE_MATRIX.md",
-                     "registry/ID_ALIASES.md",
+                     "registry/IDENTIFIER_ALIASES.md",
                      "org/TASKS.md", "org/STATE.md"}
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")
@@ -459,9 +459,9 @@ def check_s005_derived(ctx: dict) -> list:
 def check_s006_module_organs(ctx: dict) -> list:
     """Every built pack carries its invariant organs.
 
-    packs/PACK_SHAPE.md fixes the contract: PACK.md (whose first
-    paragraph is the always-loaded metadata), guides/ for the decision
-    guides, and CHECKS.md for the evaluation criteria. Archived v1
+    packs/PACK_CONTRACT.md fixes the contract: PACK.md (whose first
+    paragraph is the always-loaded metadata), five named collections,
+    and CHECKS.md for the evaluation criteria. Archived v1
     modules under archive/ are history and are not held to it.
     """
     model: RepoModel = ctx["model"]
@@ -471,6 +471,9 @@ def check_s006_module_organs(ctx: dict) -> list:
         if parts[0] == "packs" and len(parts) >= 3:
             packs.setdefault(parts[1], set()).add(rec.path)
     out = []
+    namespaces: dict[str, str] = {}
+    display_names: dict[str, str] = {}
+    categories = {key for key, _ in PACK_CATEGORIES}
     for pack in sorted(packs):
         base = f"packs/{pack}"
         paths = packs[pack]
@@ -480,8 +483,86 @@ def check_s006_module_organs(ctx: dict) -> list:
         for organ in ("PACK.md", "CHECKS.md"):
             if f"{base}/{organ}" not in paths:
                 out.append(_f(ctx, "S006", base, f"pack missing {organ}"))
-        if not any(p.startswith(f"{base}/guides/") for p in paths):
-            out.append(_f(ctx, "S006", base, "pack missing guides/"))
+        pack_record = model.get(f"{base}/PACK.md")
+        if pack_record is not None:
+            fm = pack_record.fm.data
+            if fm.get("kind") != "record" or fm.get("type") != "pack":
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    "PACK.md must be kind: record and type: pack",
+                ))
+            display = str(fm.get("display_name") or "").strip()
+            category = str(fm.get("category") or "").strip()
+            namespace = str(fm.get("id_namespace") or "").strip()
+            if not display:
+                out.append(_f(ctx, "S006", pack_record.path,
+                              "PACK.md needs display_name"))
+            elif display in display_names:
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    f"display_name duplicates {display_names[display]}",
+                ))
+            else:
+                display_names[display] = pack_record.path
+            if category not in categories:
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    f"unknown pack category: {category or '(missing)'}",
+                ))
+            if not re.fullmatch(r"[A-Z][A-Z0-9]*", namespace) or namespace == "EOS":
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    "id_namespace must be uppercase alphanumeric and EOS is reserved",
+                ))
+            elif namespace in namespaces:
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    f"id_namespace duplicates {namespaces[namespace]}",
+                ))
+            else:
+                namespaces[namespace] = pack_record.path
+            heading = re.search(r"(?m)^# ([^\n]+)$", pack_record.fm.body)
+            if display and (heading is None or heading.group(1).strip() != display):
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    "PACK.md H1 must equal display_name",
+                ))
+        checks_record = model.get(f"{base}/CHECKS.md")
+        if checks_record is not None and (
+            checks_record.fm.data.get("kind") != "record"
+            or checks_record.fm.data.get("type") != "checks"
+        ):
+            out.append(_f(
+                ctx, "S006", checks_record.path,
+                "CHECKS.md must be kind: record and type: checks",
+            ))
+        for collection in (
+            "doctrines", "wargames", "examples", "references", "research",
+        ):
+            if not any(p.startswith(f"{base}/{collection}/") for p in paths):
+                out.append(_f(
+                    ctx, "S006", base, f"pack missing {collection}/",
+                ))
+        for retired in (
+            "guides", "exemplars", "refs", "doctrines/relations",
+        ):
+            if any(p.startswith(f"{base}/{retired}/") for p in paths):
+                out.append(_f(
+                    ctx, "S006", base,
+                    f"pack retains retired collection {retired}/",
+                ))
+        for path in sorted(paths):
+            if not path.startswith(f"{base}/examples/"):
+                continue
+            record = model.get(path)
+            if record is not None and (
+                record.fm.data.get("kind") != "example"
+                or record.fm.data.get("type") != "example"
+            ):
+                out.append(_f(
+                    ctx, "S006", path,
+                    "worked example must be kind: example and type: example",
+                ))
     return out
 
 
@@ -983,7 +1064,7 @@ def check_s014_fragment_citations(ctx: dict) -> list:
 def check_s015_activation_triggers(ctx: dict) -> list:
     """Every built pack carries a machine-readable, non-keyword trigger.
 
-    packs/PACK_SHAPE.md requires it, because routing has to be
+    packs/PACK_CONTRACT.md requires it, because routing has to be
     deterministic given the same inputs. Twenty packs stated their
     triggers in prose only, so nothing could evaluate them, and
     contextgen returned a hardcoded empty list: progressive disclosure,
@@ -1006,7 +1087,7 @@ def check_s015_activation_triggers(ctx: dict) -> list:
         if not fm.get("applies_when"):
             out.append(_f(ctx, "S015", rec.path,
                           "no applies_when: predicates are the real gate "
-                          "under packs/PACK_SHAPE.md"))
+                          "under packs/PACK_CONTRACT.md"))
     return out
 
 
@@ -1082,7 +1163,7 @@ def check_s017_evidence_matches_its_schema(ctx: dict) -> list:
     that the schema forbade, and a record whose publication_status was
     outside the enum. A schema nobody validates against is a comment.
 
-    Also holds the licence floor of packs/PACK_SHAPE.md item 11. A
+    Also holds the licence floor of packs/PACK_CONTRACT.md item 11. A
     record may say what the source states, including that the source
     states nothing, but "unknown" means nobody looked and is a gap
     rather than a value.
@@ -1122,7 +1203,7 @@ def check_s017_evidence_matches_its_schema(ctx: dict) -> list:
         out.append(_f(ctx, "S017", "registry/evidence.json",
                       "%d record(s) carry licence 'unknown' (%s%s): read the "
                       "licence off the source, or record that the source "
-                      "states none. PACK_SHAPE item 11 wants a fact here."
+                      "states none. PACK_CONTRACT item 11 wants a fact here."
                       % (len(unknown), ", ".join(unknown[:5]),
                          ", ..." if len(unknown) > 5 else "")))
     return out
@@ -1504,6 +1585,11 @@ _BINDING_DECISION_EXEMPT = (
 )
 
 
+def _naming_slug(value: str) -> str:
+    value = str(value).lower().replace("'", "")
+    return re.sub(r"[^a-z0-9]+", "-", value).strip("-")
+
+
 def _schema_errors(model, schema_path: str, instance, path: str, ctx: dict) -> list:
     cache = ctx.setdefault("_s022_schema_validators", {})
     cached = cache.get(schema_path)
@@ -1597,6 +1683,23 @@ def check_s022_knowledge_contracts(ctx: dict) -> list:
         identifier = str(fm.get("id") or "")
         if kind == "doctrine":
             statement = " ".join(str(fm.get("statement") or "").lower().split())
+            stem = PurePosixPath(rec.path).stem
+            prefix = f"{identifier}-"
+            filename_slug = stem.removeprefix(prefix)
+            statement_slug = _naming_slug(fm.get("statement") or "")
+            if len(stem) > 72:
+                out.append(_f(
+                    ctx, "S022", rec.path,
+                    f"Doctrine basename is {len(stem)} characters; maximum is 72",
+                ))
+            if not stem.startswith(prefix) or not filename_slug or not (
+                statement_slug == filename_slug
+                or statement_slug.startswith(filename_slug + "-")
+            ):
+                out.append(_f(
+                    ctx, "S022", rec.path,
+                    "Doctrine filename must be a whole-word prefix of its statement",
+                ))
             if statement:
                 first = statements.get(statement)
                 if first:
@@ -1652,7 +1755,7 @@ def check_s022_knowledge_contracts(ctx: dict) -> list:
     relation_schema = "kernel/schemas/doctrine-relation.schema.json"
     relation_root = model.root / "packs"
     if relation_root.is_dir():
-        for path in sorted(relation_root.glob("*/doctrines/relations/DREL-*.json")):
+        for path in sorted(relation_root.glob("*/relations/DREL-*.json")):
             rel = path.relative_to(model.root).as_posix()
             try:
                 document = json.loads(path.read_text(encoding="utf-8"))

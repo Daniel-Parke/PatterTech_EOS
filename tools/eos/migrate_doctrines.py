@@ -31,6 +31,7 @@ from tools.eos.knowledge_migration import (
 INVENTORY_PATH = "org/migration/DOCTRINE_SOURCE_INVENTORY.json"
 LEDGER_PATH = "org/migration/DOCTRINE_MIGRATION.json"
 ALIASES_PATH = "registry/identifier-aliases.json"
+NAMING_BASELINE_PATH = "org/migration/NAMING_BASELINE.json"
 GENERATOR_MARKER = "generated_by: tools.eos.migrate_doctrines"
 CHALLENGE_TRIGGER = "operator_requests_doctrine_review"
 
@@ -97,32 +98,32 @@ PACK_DEPENDENCIES = {
 # therefore links them deterministically on every replay.
 POST_MIGRATION_ADMISSIONS = {
     "ai-ml-llm": [
-        ("WG-AIML-001", "guides/WG-AIML-001-model-hosting.md", "Wargame"),
+        ("WG-AIML-001", "wargames/WG-AIML-001-model-hosting.md", "Wargame"),
     ],
     "architecture": [
-        ("WG-ARCH-009", "guides/WG-ARCH-009-messaging-and-flow.md", "Wargame"),
-        ("WG-ARCH-010", "guides/WG-ARCH-010-storage-engine-selection.md", "Wargame"),
-        ("WG-ARCH-011", "guides/WG-ARCH-011-locality-and-consistency.md", "Wargame"),
-        ("WG-ARCH-012", "guides/WG-ARCH-012-capability-ownership.md", "Wargame"),
+        ("WG-ARCH-009", "wargames/WG-ARCH-009-messaging-and-flow.md", "Wargame"),
+        ("WG-ARCH-010", "wargames/WG-ARCH-010-storage-engine-selection.md", "Wargame"),
+        ("WG-ARCH-011", "wargames/WG-ARCH-011-locality-and-consistency.md", "Wargame"),
+        ("WG-ARCH-012", "wargames/WG-ARCH-012-capability-ownership.md", "Wargame"),
     ],
     "data-analytics": [
         ("DOC-DATA-020", "doctrines/DOC-DATA-020-representative-measurement-before-material-compute-claims.md", "default Doctrine"),
         ("DOC-DATA-021", "doctrines/DOC-DATA-021-measured-data-compute-promotion-ladder.md", "default Doctrine"),
-        ("WG-DATA-001", "guides/WG-DATA-001-analytical-engine-selection.md", "Wargame"),
-        ("WG-DATA-002", "guides/WG-DATA-002-representation-boundary.md", "Wargame"),
-        ("WG-DATA-003", "guides/WG-DATA-003-acceleration-ladder.md", "Wargame"),
+        ("WG-DATA-001", "wargames/WG-DATA-001-analytical-engine-selection.md", "Wargame"),
+        ("WG-DATA-002", "wargames/WG-DATA-002-representation-boundary.md", "Wargame"),
+        ("WG-DATA-003", "wargames/WG-DATA-003-acceleration-ladder.md", "Wargame"),
     ],
     "delivery-testing": [
-        ("WG-DEL-008", "guides/WG-DEL-008-incident-hotfix.md", "Wargame"),
+        ("WG-DEL-008", "wargames/WG-DEL-008-incident-hotfix.md", "Wargame"),
     ],
     "devops-reliability": [
-        ("WG-OPS-005", "guides/WG-OPS-005-honest-degradation.md", "Wargame"),
-        ("WG-OPS-006", "guides/WG-OPS-006-observability-and-privacy.md", "Wargame"),
+        ("WG-DEVOPS-006", "wargames/WG-DEVOPS-006-honest-degradation.md", "Wargame"),
+        ("WG-DEVOPS-007", "wargames/WG-DEVOPS-007-observability-and-privacy.md", "Wargame"),
     ],
     "ui-ux": [
         ("DOC-UIUX-023", "doctrines/DOC-UIUX-023-native-semantics-before-custom-interaction.md", "default Doctrine"),
-        ("WG-UIUX-001", "guides/WG-UIUX-001-web-delivery-shape.md", "Wargame"),
-        ("WG-UIUX-002", "guides/WG-UIUX-002-semantic-or-custom-interaction.md", "Wargame"),
+        ("WG-UIUX-001", "wargames/WG-UIUX-001-web-delivery-shape.md", "Wargame"),
+        ("WG-UIUX-002", "wargames/WG-UIUX-002-semantic-or-custom-interaction.md", "Wargame"),
     ],
 }
 
@@ -463,10 +464,17 @@ def _statement(value: str) -> str:
     return value
 
 
-def _slug(value: str) -> str:
+def _slug(value: str, maximum: int) -> str:
     value = value.lower().replace("'", "")
     value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
-    return (value[:64].rstrip("-") or "doctrine")
+    if len(value) <= maximum:
+        return value or "doctrine"
+    prefix = value[:maximum + 1]
+    if "-" in prefix:
+        prefix = prefix.rsplit("-", 1)[0]
+    else:
+        prefix = value[:maximum]
+    return prefix.rstrip("-") or "doctrine"
 
 
 def _ev_ids(text: str) -> list[str]:
@@ -654,8 +662,9 @@ def _make_definitions(
                     accepted_adr=accepted_adr,
                     contributors=[block],
                 )
+                slug_limit = 72 - len(identifier) - 1
                 definition.filename = (
-                    f"{identifier}-{_slug(definition.statement)}.md"
+                    f"{identifier}-{_slug(definition.statement, slug_limit)}.md"
                 )
                 definitions[identifier] = definition
                 targets.append(identifier)
@@ -926,6 +935,39 @@ def _build_alias_registry(ledger: dict) -> dict:
     return {"version": 1, "aliases": dict(sorted(aliases.items()))}
 
 
+def _load_naming_contract(root: Path) -> dict:
+    path = Path(root) / NAMING_BASELINE_PATH
+    try:
+        contract = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        raise DoctrineMigrationError(
+            f"Cannot read the frozen naming contract at {NAMING_BASELINE_PATH}: {exc}"
+        ) from exc
+    packs = contract.get("packs") if isinstance(contract, dict) else None
+    aliases = contract.get("identifier_migration") if isinstance(contract, dict) else None
+    if not isinstance(packs, dict) or set(packs) != set(PACK_CODES):
+        raise DoctrineMigrationError("Naming contract does not cover the 25 packs")
+    if not isinstance(aliases, dict) or len(aliases) != 103:
+        raise DoctrineMigrationError("Naming contract does not carry 103 Wargame aliases")
+    for slug, spec in packs.items():
+        if spec.get("id_namespace") != PACK_CODES[slug]:
+            raise DoctrineMigrationError(
+                f"Naming namespace for {slug} disagrees with its Doctrine allocation"
+            )
+    return contract
+
+
+def _build_current_alias_registry(ledger: dict, naming: dict) -> dict:
+    document = _build_alias_registry(ledger)
+    aliases = dict(document["aliases"])
+    aliases.update({
+        str(old): str(new)
+        for old, new in naming["identifier_migration"].items()
+    })
+    document["aliases"] = dict(sorted(aliases.items()))
+    return document
+
+
 def _synthetic_anchor(block: SourceBlock, inventory_row: dict) -> str | None:
     legacy = inventory_row.get("legacy_anchor")
     if legacy:
@@ -1013,15 +1055,21 @@ def _render_voice_scopes(
 def _render_pack(
     pack: PackSource, inventory_rows: dict[str, dict], ledger: dict,
     definitions: dict[str, DoctrineDefinition], row_targets: dict[str, list[str]],
+    naming: dict,
 ) -> str:
     parsed = parse_frontmatter(pack.text)
     metadata = dict(parsed.data)
+    naming_spec = naming["packs"][pack.slug]
     metadata.update({
         "summary": (
             f"Activation, outcomes and decision map for the {pack.slug} "
             "Doctrine and Wargames"
         ),
         "kind": "record",
+        "type": "pack",
+        "display_name": naming_spec["display_name"],
+        "category": naming_spec["category"],
+        "id_namespace": naming_spec["id_namespace"],
         "authority": "none",
         "basis": "decision",
         "evidence_grade": "not-applicable",
@@ -1041,6 +1089,9 @@ def _render_pack(
     body = re.sub(
         r"\bdecision guide\b", "Wargame", body,
         flags=re.IGNORECASE,
+    )
+    body = re.sub(
+        r"(?m)^# [^\n]+$", f"# {naming_spec['display_name']}", body, count=1,
     )
     for old, new in PACK_PROSE_REPLACEMENTS.get(pack.slug, ()):
         if old not in body:
@@ -1088,6 +1139,7 @@ def build_migration(root: Path) -> dict[str, str]:
     """Return every generated output path and its deterministic content."""
 
     root = Path(root).resolve()
+    naming = _load_naming_contract(root)
     packs, inventory_rows = _load_sources(root)
     definitions, row_targets = _make_definitions(packs, inventory_rows)
     ledger = _build_ledger(
@@ -1102,13 +1154,13 @@ def build_migration(root: Path) -> dict[str, str]:
     }
     for pack in packs.values():
         outputs[pack.path] = _render_pack(
-            pack, inventory_rows, ledger, definitions, row_targets,
+            pack, inventory_rows, ledger, definitions, row_targets, naming,
         )
     outputs[LEDGER_PATH] = json.dumps(
         ledger, indent=2, ensure_ascii=False,
     ) + "\n"
     outputs[ALIASES_PATH] = json.dumps(
-        _build_alias_registry(ledger), indent=2, ensure_ascii=False,
+        _build_current_alias_registry(ledger, naming), indent=2, ensure_ascii=False,
     ) + "\n"
     return dict(sorted(outputs.items()))
 
