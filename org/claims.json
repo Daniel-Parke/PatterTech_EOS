@@ -1,6 +1,21 @@
 {
  "version": 1,
- "assigned": "2026-08-15",
- "lanes": [],
- "note": "No live claims. T-0026 closed after the independent semantic, performance and clean-clone gates passed."
+ "assigned": "2026-08-16",
+ "lanes": [
+  {
+   "lane_id": "lane/t0028-oracle",
+   "task_id": "T-0028",
+   "session_id": "naming-oracle-author",
+   "host": "NUCBOX_M6ULTRA",
+   "harness_task_id": "/root/pr_description",
+   "path_claims": [
+    "tests/test_naming_oracle.py",
+    "org/migration/NAMING_BASELINE.json",
+    "org/reports/NAMING_AUDIT_2026-08-16.md"
+   ],
+   "acquired": "2026-08-16T00:27:00Z",
+   "expires": "2026-08-17T00:27:00Z"
+  }
+ ],
+ "note": "T-0028 oracle phase. The independent author freezes the current naming inventory and target acceptance rules before implementation."
 }

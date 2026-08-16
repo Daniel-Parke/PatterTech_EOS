@@ -1,0 +1,54 @@
+{
+  "id": "T-0028",
+  "intent": "Harmonise the EOS naming system so current Doctrine, Wargame, pack and supporting-file names use one clear public vocabulary. Migrate historical GD identities and guides paths to canonical WG identities and wargames paths, preserve old IDs and pinned history through explicit aliases, give every pack a professional display name and category, update checks and documentation, then push dev and refresh PR 10. Rollback: revert the migration commit as one unit; historical commits and alias records remain the recovery source. No venture, release, tag or sealed benchmark is changed.",
+  "declared": {
+    "capabilities": [
+      "filesystem",
+      "network"
+    ],
+    "side_effects": [
+      "migrates-schema",
+      "sends-external"
+    ]
+  },
+  "mode": "high-assurance",
+  "tier_proposed": "R3",
+  "tier_ruled": "R2",
+  "reasons": [
+    {
+      "factor": "schema-change",
+      "tier_floor": "R2",
+      "source": "declared",
+      "evidence": "declared side effect: migrates-schema"
+    },
+    {
+      "factor": "boundary-contact",
+      "tier_floor": "R1",
+      "source": "declared",
+      "evidence": "declared side effect: sends-external"
+    }
+  ],
+  "status": "active",
+  "owner_session": "naming-harmonisation-integrator",
+  "claims": [
+    "GOVERNANCE.md",
+    "INDEX.md",
+    "README.md",
+    "TOUR.md",
+    "OPERATORS_GUIDE.md",
+    "archive/",
+    "examples/",
+    "inception/",
+    "kernel/",
+    "org/",
+    "packs/",
+    "registry/",
+    "tests/",
+    "tools/"
+  ],
+  "timestamps": {
+    "opened": "2026-08-16T00:26:00Z",
+    "updated": "2026-08-16T00:26:00Z"
+  },
+  "hypothesis_ledger": []
+}
