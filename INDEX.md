@@ -126,6 +126,7 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0012-doctrine-and-wargame-ontology.md | decision | eos wargame | First-class graded Doctrine and one semantic Wargame model over stable procedure identities |  |
 | org/decisions/ADR-0013-knowledge-compatibility-and-venture-rulings.md | decision | eos wargame | One commit-aware resolver, pressure-selected Wargaming and structured venture-owned Rulings |  |
 | org/decisions/ADR-0014-pressure-led-content-admission.md | decision | eos wargame | Evidence-led admission for new Doctrine, Wargames, relations and candidate packs |  |
+| org/decisions/ADR-0015-one-language-for-doctrine-wargames-and-packs.md | decision | eos wargame | One current vocabulary for Doctrine, Wargames, relations, Rulings and packs, with explicit historical compatibility |  |
 | org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |

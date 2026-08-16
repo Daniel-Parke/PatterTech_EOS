@@ -3,6 +3,7 @@ summary: One commit-aware resolver, pressure-selected Wargaming and structured v
 type: decision
 tags: [eos, wargame]
 status: accepted
+superseded_by: ADR-0015
 decided_by: Daniel Parke
 date: 2026-08-15
 ---

@@ -3,6 +3,7 @@ summary: First-class graded Doctrine and one semantic Wargame model over stable 
 type: decision
 tags: [eos, wargame]
 status: accepted
+superseded_by: ADR-0015
 decided_by: Daniel Parke
 date: 2026-08-15
 ---
