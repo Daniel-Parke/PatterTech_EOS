@@ -1,9 +1,9 @@
-"""Canonical Doctrine, Wargame, relation and Ruling semantics.
+"""Canonical Doctrine, Wargame, Relation and Ruling semantics.
 
 One resolver is shared by repository checks, generated views, the CLI and
-seed validation.  Existing ``GD-*`` and ``WG-*`` values are identities.  The
-prefix never decides the semantic kind and a historical lookup never falls
-back to the worktree.
+seed validation. Current Wargames use ``WG-*`` identities. Historical
+``GD-*`` values remain readable aliases or commit-local definitions, and a
+historical lookup never falls back to the worktree.
 """
 
 from __future__ import annotations
@@ -149,6 +149,7 @@ class TreeView:
                 "packs/*/doctrines/**/*.json",
                 "packs/*/guides/*.md",
                 "packs/*/wargames/*.md",
+                "packs/*/relations/DREL-*.json",
                 "inception/wargames/*.md",
             )
             for pattern in patterns:
@@ -237,9 +238,13 @@ def _is_wargame(path: str) -> bool:
 
 def _is_relation(path: str) -> bool:
     parts = PurePosixPath(path).parts
-    return (path.endswith(".json") and len(parts) >= 5 and
-            parts[0] == "packs" and parts[2:4] == ("doctrines", "relations")
-            and parts[-1].startswith("DREL-"))
+    if not path.endswith(".json") or parts[0] != "packs" or not parts[-1].startswith(
+        "DREL-"
+    ):
+        return False
+    current = len(parts) == 4 and parts[2] == "relations"
+    historical = len(parts) >= 5 and parts[2:4] == ("doctrines", "relations")
+    return current or historical
 
 
 class KnowledgeResolver:
@@ -347,6 +352,9 @@ class KnowledgeResolver:
         self._packs[name] = {
             "path": path,
             "summary": str(parsed.data.get("summary") or ""),
+            "display_name": str(parsed.data.get("display_name") or name),
+            "category": str(parsed.data.get("category") or ""),
+            "id_namespace": str(parsed.data.get("id_namespace") or ""),
             "applies_when": _values(parsed.data.get("applies_when")),
             "depends_on": _values(parsed.data.get("depends_on")),
         }
@@ -367,6 +375,21 @@ class KnowledgeResolver:
             return
         self._aliases = {str(k): str(v) for k, v in aliases.items()}
         for start in sorted(self._aliases):
+            if start in self._definitions:
+                self._problem(
+                    "alias-live-collision", path, start,
+                    f"alias source {start} is also a live definition",
+                )
+            if start in self._retired:
+                self._problem(
+                    "alias-retired-collision", path, start,
+                    f"alias source {start} is also a retired definition",
+                )
+            if self._aliases[start] in self._aliases:
+                self._problem(
+                    "alias-chain", path, start,
+                    f"alias {start} must point directly to its canonical definition",
+                )
             seen: list[str] = []
             current = start
             while current in self._aliases:
@@ -378,9 +401,24 @@ class KnowledgeResolver:
                 seen.append(current)
                 current = self._aliases[current]
             else:
-                if current not in self._definitions and current not in self._retired:
+                if current in self._retired:
+                    self._problem(
+                        "alias-retired-target", path, start,
+                        f"alias target is retired: {current}",
+                    )
+                elif current not in self._definitions:
                     self._problem("alias-target", path, start,
                                   f"alias target does not resolve: {current}")
+                elif WARGAME_ID.fullmatch(start) and self._definitions[current].kind != "wargame":
+                    self._problem(
+                        "alias-kind", path, start,
+                        f"Wargame alias {start} targets {self._definitions[current].kind} {current}",
+                    )
+                elif DOC_ID.fullmatch(start) and self._definitions[current].kind != "doctrine":
+                    self._problem(
+                        "alias-kind", path, start,
+                        f"Doctrine alias {start} targets {self._definitions[current].kind} {current}",
+                    )
 
     def _load_retired(self) -> None:
         path = "archive/RETIRED_IDS.json"
@@ -720,18 +758,38 @@ def match_knowledge(
     bad = sorted(f"{k}={v}" for k, v in normalised.items() if v not in TRI_STATES)
     if bad:
         raise ValueError("facts must be true, false or unknown: " + ", ".join(bad))
-    include = dict(include or {})
-    omit = dict(omit or {})
-    for action, rows in (("include", include), ("omit", omit)):
-        for identifier, reason in rows.items():
+    def canonical_actions(
+        action: str, rows: Mapping[str, str] | None
+    ) -> dict[str, str]:
+        canonical: dict[str, str] = {}
+        requested: dict[str, str] = {}
+        for identifier, reason in dict(rows or {}).items():
             if not str(reason).strip():
                 raise ValueError(f"operator {action} of {identifier} needs a reason")
             row = resolver.require_live(identifier, {"wargame"})
+            target = row.canonical_id
+            if target in canonical:
+                raise ValueError(
+                    f"operator {action} names {requested[target]} and {identifier}, "
+                    f"which both resolve to {target}"
+                )
             if action == "omit" and str(
                     row.metadata.get("always_walk") or "").lower() == "true":
                 raise ValueError(
                     f"operator omit of always-walk Wargame {identifier} is not allowed"
                 )
+            canonical[target] = str(reason)
+            requested[target] = str(identifier)
+        return canonical
+
+    include = canonical_actions("include", include)
+    omit = canonical_actions("omit", omit)
+    conflict = sorted(set(include) & set(omit))
+    if conflict:
+        raise ValueError(
+            "operator cannot both include and omit the same Wargame: "
+            + ", ".join(conflict)
+        )
 
     doctrines = []
     active_packs: set[str] = set()
@@ -819,7 +877,12 @@ def match_knowledge(
             "pressure": pressure_name,
             "disposition": disposition,
             "state": state,
-            "wargames": list(row.get("wargames") or []),
+            "wargames": [
+                resolved.canonical_id if (
+                    resolved := resolver.resolve(str(identifier))
+                ) is not None else str(identifier)
+                for identifier in row.get("wargames") or []
+            ],
             "relations": list(row.get("relations") or []),
             "fallback": row.get("fallback"),
             "reopen_trigger": row.get("reopen_trigger"),
@@ -828,16 +891,18 @@ def match_knowledge(
 
     for identifier, reason in include.items():
         row = resolver.require_live(identifier, {"wargame"})
-        required[identifier] = _summary(row)
-        candidates.pop(identifier, None)
-        omitted_rows.pop(identifier, None)
-        reasons[identifier] = [f"operator include: {reason}"]
+        canonical = row.canonical_id
+        required[canonical] = _summary(row)
+        candidates.pop(canonical, None)
+        omitted_rows.pop(canonical, None)
+        reasons[canonical] = [f"operator include: {reason}"]
     for identifier, reason in omit.items():
         row = resolver.require_live(identifier, {"wargame"})
-        omitted_rows[identifier] = _summary(row)
-        required.pop(identifier, None)
-        candidates.pop(identifier, None)
-        reasons[identifier] = [f"operator omit: {reason}"]
+        canonical = row.canonical_id
+        omitted_rows[canonical] = _summary(row)
+        required.pop(canonical, None)
+        candidates.pop(canonical, None)
+        reasons[canonical] = [f"operator omit: {reason}"]
 
     # A declared true/unknown pressure with no Wargame engagement edge is
     # coverage debt. Applicability predicates are excluded because they say
@@ -885,6 +950,7 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                                  "rulings must be a list"),)
     seen: set[str] = set()
     rulings_by_id: dict[str, dict] = {}
+    ruling_wargames: dict[str, str] = {}
     for row in rows:
         if not isinstance(row, dict):
             add("ruling-shape", "", "ruling is not an object")
@@ -906,6 +972,8 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                 f"Wargame {wid} is retired and cannot receive a live Ruling")
         elif resolved.kind != "wargame":
             add("ruling-wargame", wid, f"{wid} is not a Wargame")
+        else:
+            ruling_wargames.setdefault(identifier, resolved.canonical_id)
         for doctrine in _values(row.get("doctrines")):
             target = resolver.resolve(doctrine)
             if target is None or target.state != "live" or target.kind != "doctrine":
@@ -962,22 +1030,25 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                 add("selection-shape", "", "selection row must be an object")
                 continue
             wid = str(row.get("wargame") or "")
-            if wid in selection_seen:
-                add("duplicate-selection", wid,
-                    f"duplicate selection row for Wargame {wid}")
-            selection_seen.add(wid)
             target = resolver.resolve(wid)
             if target is None or target.state != "live" or target.kind != "wargame":
                 state = "retired" if target and target.state == "retired" else "unresolved"
                 add("selection-wargame", wid,
                     f"selection Wargame {wid} is {state}")
+                canonical_wid = wid
+            else:
+                canonical_wid = target.canonical_id
+            if canonical_wid in selection_seen:
+                add("duplicate-selection", canonical_wid,
+                    f"duplicate selection row for Wargame {canonical_wid}")
+            selection_seen.add(canonical_wid)
             if not str(row.get("reason") or "").strip():
                 add("selection-reason", wid,
                     f"selection or omission of {wid} needs a reason")
             disposition = str(row.get("disposition") or "")
             ruling_id = str(row.get("ruling") or "")
             if disposition == "selected":
-                selected_wargames.add(wid)
+                selected_wargames.add(canonical_wid)
                 if not ruling_id:
                     add("selection-ruling", wid,
                         f"selected Wargame {wid} needs a linked Ruling")
@@ -986,7 +1057,7 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                 if ruling is None:
                     add("selection-ruling", ruling_id,
                         f"selection Ruling {ruling_id} does not exist in this document")
-                elif str(ruling.get("wargame") or "") != wid:
+                elif ruling_wargames.get(ruling_id) != canonical_wid:
                     add("selection-ruling", ruling_id,
                         f"selection Ruling {ruling_id} belongs to "
                         f"{ruling.get('wargame')}, not {wid}")
@@ -994,7 +1065,7 @@ def validate_rulings(document: dict, resolver: KnowledgeResolver) \
                     add("duplicate-ruling-reference", ruling_id,
                         f"Ruling {ruling_id} is linked from more than one selection row")
                 else:
-                    referenced_rulings[ruling_id] = wid
+                    referenced_rulings[ruling_id] = canonical_wid
             elif ruling_id:
                 add("selection-ruling", ruling_id,
                     f"{disposition or 'non-selected'} Wargame {wid} cannot link a Ruling")
