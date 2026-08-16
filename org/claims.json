@@ -5,9 +5,9 @@
   {
    "lane_id": "lane/t0028-oracle",
    "task_id": "T-0028",
-   "session_id": "naming-oracle-author",
+   "session_id": "naming-oracle-author-2",
    "host": "NUCBOX_M6ULTRA",
-   "harness_task_id": "/root/pr_description",
+   "harness_task_id": "/root/release_preflight",
    "path_claims": [
     "tests/test_naming_oracle.py",
     "org/migration/NAMING_BASELINE.json",
@@ -17,5 +17,5 @@
    "expires": "2026-08-17T00:27:00Z"
   }
  ],
- "note": "T-0028 oracle phase. The independent author freezes the current naming inventory and target acceptance rules before implementation."
+ "note": "T-0028 oracle phase. The first oracle author was interrupted after writing only the baseline inventory. The reassigned independent author reviews that file and completes the target oracle before implementation."
 }
