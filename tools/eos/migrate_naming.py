@@ -27,7 +27,7 @@ GENERATOR = "tools.eos.migrate_naming"
 TASK = "T-0028"
 PLAN_VERSION = 1
 
-_SKIP_DIRS = {".git", ".mypy_cache", ".pytest_cache", "__pycache__"}
+_SKIP_DIRS = {".git", ".mypy_cache", ".pytest_cache", ".venv", "__pycache__"}
 _SELF_PATH = "tools/eos/migrate_naming.py"
 _IDENTIFIER_BOUNDARY = r"[A-Z0-9]"
 

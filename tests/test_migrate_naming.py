@@ -134,6 +134,7 @@ def _fixture_repo(tmp_path: Path) -> tuple[Path, dict, bytes]:
         _write(root, source, f"# {PurePosixPath(source).name}\n")
     _write(root, "packs/GUIDE_INDEX.md", "# Compatibility pointer\n")
     _write(root, "packs/WARGAME_INDEX.md", "# Canonical index\n")
+    _write(root, ".venv/lib/tool.py", 'path = "guides/topic"\n')
     _write(
         root,
         "registry/identifier-aliases.json",
@@ -261,6 +262,9 @@ def test_plan_apply_and_check_are_safe_exact_and_idempotent(tmp_path: Path) -> N
     assert "https://example.test/guides/topic" in research_text
     assert "refs/heads/main" in research_text
     assert "refs/notes/review" in research_text
+    assert (root / ".venv" / "lib" / "tool.py").read_text(encoding="utf-8") == (
+        'path = "guides/topic"\n'
+    )
 
     aliases = json.loads(
         (root / "registry" / "identifier-aliases.json").read_text(encoding="utf-8")

@@ -53,8 +53,8 @@
   ],
   "timestamps": {
     "opened": "2026-08-16T00:26:00Z",
-    "updated": "2026-08-16T02:54:54Z",
-    "closed": "2026-08-16T02:54:54Z"
+    "updated": "2026-08-16T03:00:23Z",
+    "closed": "2026-08-16T03:00:23Z"
   },
   "hypothesis_ledger": [
     {
@@ -74,6 +74,12 @@
       "test": "Run an independent whole-tree semantic scan after the structural migration and strengthen the oracle where live provenance escapes its original delimiters.",
       "result": "Falsified. The review found 15 research provenance files with bare retired paths and further plain-language self-references; the migration and oracle were extended, rerun to fixpoint and independently verified.",
       "learning": "Path migration needs raw relative-path coverage plus reviewed semantic replacements, while external guides, URLs and Git ref namespaces remain protected from mechanical rewriting."
+    },
+    {
+      "hypothesis": "The naming migration ignores tool-managed workspace directories during a clean-clone verification run.",
+      "test": "Create an in-repository virtual environment in the remote clone and run the naming fixpoint check before the full suite.",
+      "result": "Falsified. The first clean-clone run inspected a pip source file inside .venv; the traversal now excludes .venv and the fixture proves retired-looking text there remains untouched.",
+      "learning": "Repository migrations must exclude common local environments as well as Git and test caches, or they can mistake third-party tooling for governed source."
     }
   ],
   "verdicts": [
