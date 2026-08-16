@@ -1,6 +1,6 @@
 ---
 summary: What a reviewer or a script can verify about identity, authorisation and tenancy work, executable today versus judgement
-type: guide
+type: checks
 tags: [auth, testing, data]
 review: 2028-09
 kind: record
@@ -39,20 +39,18 @@ adopting the job of implementing them.
 | C13 | The cross-tenant refusal is the standard refusal | Request another tenant's identifier and a non-existent identifier; the two responses must be identical in status and body | B2, Defaults |
 | C14 | Every source cited in this pack's front matter resolves to a row in the evidence ledger | Each id in front matter looked up in `registry/evidence.json` | Pack hygiene |
 
-C14 cannot pass yet. The front matter of every file in this pack carries
-`pending-fragment-import` where the evidence ids will go, because this
-pack was written before the integrator imported
-`packs/identity-access/research/sources.fragment.json` and assigned
-them. That is the integrator's step, not this pack's, and the body cites
-sources by name in the meantime so that nothing has to be rewritten
-twice.
+C14 is live. The fragment import assigned `EV-0517` through `EV-0531`,
+and the pack's front matter cites those canonical rows. S014 refuses an
+unresolved placeholder or an evidence identity absent from the ledger;
+S016 keeps the ledger's derived `cited_by` view aligned with the read
+surface.
 
 ## Judgement
 
 | # | Criterion | What the reviewer looks for | Binds to |
 | --- | --- | --- | --- |
-| J1 | The model was argued, not inherited | A ruling on GD-IDENT-001 exists, names what the rules actually depend on, and says why the chosen model expresses them. "We used roles" with no reason fails | Decision map |
-| J2 | No role is an attribute in disguise | Read the role names. One that encodes a region, a department, a record type or a customer is an attribute that was made into a role because the model could not carry it | GD-IDENT-001 |
+| J1 | The model was argued, not inherited | A ruling on WG-IDENT-001 exists, names what the rules actually depend on, and says why the chosen model expresses them. "We used roles" with no reason fails | Decision map |
+| J2 | No role is an attribute in disguise | Read the role names. One that encodes a region, a department, a record type or a customer is an attribute that was made into a role because the model could not carry it | WG-IDENT-001 |
 | J3 | There is one mechanism that can grant a permission, not two | Two independent paths to the same grant means every audit has to check both, and one will drift | B1 |
 | J4 | The tenant boundary claim matches the mechanism | The lock-book says which layer holds the guarantee. "The application filters by tenant" and "the database refuses" are different promises | B2 |
 | J5 | Propagation reaches the places that are usually forgotten | Background jobs, scheduled tasks, migrations, exports, admin tooling. A boundary that holds only on the request path is a boundary with office hours | B2 |

@@ -14,7 +14,8 @@ mechanical judge of the result.
 
 ## Inputs, all of them
 
-The ruled lock-book (scale, stack, packs adopted, add-ons, rulings);
+The ruled lock-book (scale, stack, packs adopted and add-ons), the
+structured Wargame selection log and Rulings in `docs/RULINGS.json`;
 the venture brief content from the interview; the risk-surface map from
 phase B; kernel/SCALE_MATRIX.md at the pinned EOS commit; and the
 templates and schemas that matrix names, at the same commit.
@@ -125,7 +126,9 @@ Compiled files drop template and extracted_from, gain compiled_from
 naming the template path, and keep a summary, type and tags that read
 true for the venture. The lock-book header carries the machine pins:
 eos_root, eos_version, eos_commit, scale, stack, policy_profile,
-packs_adopted, addons, compiled and the rulings rows.
+packs_adopted, addons, compiled and `rulings_record`. Wargame selections
+and outcomes live in `docs/RULINGS.json`, never as delimiter rows in the
+header.
 
 ## Deferrals
 
@@ -194,12 +197,12 @@ files.
 
 ## Distil
 
-For each argued ruling whose guide cites a binding requirement,
-condense the venture-facing consequence into the lock-book's contract
-sections, where the templates leave room. Distillation quotes or
-condenses the cited pack and never adds rules the pack does not hold.
-List every distillation in the report with the ruling that pulled it
-in. None is a valid answer and the usual one at S.
+For each argued Ruling whose Wargame cites a binding Doctrine, condense
+the venture-facing consequence into the lock-book's contract sections,
+where the templates leave room. Distillation quotes or condenses the
+Doctrine atom and never adds a rule it does not hold. List every
+distillation in the report with the `RUL-*` identity that pulled it in.
+None is a valid answer and the usual one at S.
 
 ## Report
 
@@ -207,9 +210,10 @@ Fill docs/COMPILE_REPORT.md from its template. The report records, in
 its own order: the seed identity; one ancestry row per compiled file,
 the JSON files included, in the row kinds the template itself defines;
 the deferral fills with where each gets ruled; the distillations; the
-deviations from the matrix; the check results, with the pair of ruling
-counts inception/WALK_ORDER.md asks for beside them; and the sign-off
-block.
+deviations from the matrix; the check results; and the Wargame selection
+totals from inception/WALK_ORDER.md, split into required,
+candidate-included, candidate-omitted and uncovered pressure. It then
+carries the sign-off block.
 
 The sign-off block is the operator's rather than the compiler's.
 Besides the five human rubric items it carries two lines the compiler

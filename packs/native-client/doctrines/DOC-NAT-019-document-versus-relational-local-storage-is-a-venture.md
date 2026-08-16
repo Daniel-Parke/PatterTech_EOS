@@ -1,0 +1,34 @@
+---
+summary: Document versus relational local storage is a venture preference.
+type: doctrine
+tags: [eos]
+id: DOC-NAT-019
+statement: Document versus relational local storage is a venture preference.
+kind: doctrine
+authority: preference
+basis: decision
+evidence_grade: observational
+scope: venture
+applies_when: [has_local_write_store]
+challenge_triggers: [operator_requests_doctrine_review]
+sources: [EV-0386]
+review: on-change-of:EN-301-549-v4-publication
+lifecycle: active
+verification_refs: [packs/native-client/CHECKS.md]
+migration_sources: [packs/native-client/PACK.md:preferences:001]
+generated_by: tools.eos.migrate_doctrines
+---
+
+# DOC-NAT-019
+
+The `statement` field is the canonical standing proposition.
+
+## Reasoning and limits
+
+Depart freely, no reason needed. document store or relational store whether a companion watch or TV surface exists at all, noting only that those targets carry lower stability grades (EV-0386).
+
+## Migration provenance
+
+This Doctrine was reviewed from the following frozen source blocks:
+
+- `packs/native-client/PACK.md:preferences:001`, lines 252-257, SHA-256 `308279cefce0824e76ee479cc3dc710ccb83b050d412d202d9c0b700fc9fb387`.

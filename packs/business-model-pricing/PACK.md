@@ -1,21 +1,26 @@
 ---
-summary: How a venture chooses what it sells and what it charges, three pricing practices under one legal and accounting floor
-type: playbook
+summary: Activation, outcomes and decision map for the business-model-pricing Doctrine and Wargames
+type: pack
 tags: [money, product, eos]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: law
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [sets_a_price, publishes_a_price, sells_to_consumers, sells_by_subscription, sells_to_public_sector, bundles_or_discounts, reports_commercial_metrics]
 activation_paths: [**/pricing/**, **/*pricing*.md, **/plans/**, **/tiers/**, **/*subscription*, **/*checkout*, **/*invoice*]
 volatility: event-driven
-review: on-change-of:DMCC-Part-4-Chapter-2-commencement
+review: none
 sources: [EV-0287, EV-0288, EV-0289, EV-0290, EV-0291, EV-0292, EV-0293, EV-0294, EV-0295, EV-0296, EV-0297, EV-0298, EV-0299, EV-0300, EV-0301, EV-0302, EV-0303, EV-0304, EV-0055, EV-0059, EV-0095, EV-0096, EV-0197, EV-0199, EV-0210]
+display_name: Business Models and Pricing
+category: product-commercial
+id_namespace: BMP
+depends_on: [product-discovery, legal-licensing]
 ---
 
-# business-model-pricing
+
+# Business Models and Pricing
 
 This pack covers what a venture sells, what it charges for it, and what
 the price then obliges it to do. It activates on any task that sets or
@@ -77,206 +82,61 @@ allocation rather than producing it. Experiment plumbing sits in
 data-analytics. This pack sets no number for any venture, and it is not
 a substitute for an accountant.
 
-## Binding requirements
+## Doctrine
 
-Four requirements bind. Each is law or an accounting standard at the
-access date, and a venture does not get to prefer otherwise. Everything
-else in this pack is a default or a preference, which is the honest
-position for a domain whose commercial evidence is mostly single-firm
-field experiments and surveys.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The authority audit under ADR-0008 moved two of the original six to
-defaults. Writing payment terms down is now D9, because the statute
-supplies the term whether or not anyone writes it, so the rule's own
-contribution is a record rather than a duty. The regulator's
-almost-always-harmful list is now D10, because it is an evidence review
-rather than a prohibition, and the unlawful part of it is already bound
-by B1. The four that stayed keep their numbers, so the citations in the
-refs, checks and exemplar still resolve, which is why the list below
-runs B1, B2, B4, B5.
-
-**B1. The headline price includes every unavoidable charge.**
-Predicates: publishes_a_price, sells_to_consumers. Any charge the buyer
-cannot avoid appears in the advertised number, not at the end of the
-journey. Prevents drip pricing, which the CMA now enforces against
-directly under the commenced consumer provisions of the DMCC Act, with
-penalties reported up to ten per cent of global turnover (EV-0299). The
-contested boundary is between unavoidable and genuinely optional; record
-which side each charge sits and why. See
-`packs/business-model-pricing/refs/UK_OBLIGATIONS.md`.
-
-**B2. A consumer subscription can be entered knowingly and left
-easily.** Predicates: sells_to_consumers, sells_by_subscription. Key
-pre-contract information given separately, an express acknowledgement of
-the payment obligation at the final step, reminder notices before
-renewal payments, a straightforward online exit route, and cooling-off
-on entry and on specified renewals (EV-0298). Prevents the renewal flow
-that treats silence as consent, which is the pattern the statute was
-written to stop. Scope note: the DMCC subscription chapter was enacted
-in 2024 and was still awaiting commencement regulations at the cutoff,
-with commercial commentary putting it near spring 2027. Build to the
-principles; do not hard-code section detail into product copy.
-
-**B4. Revenue is recognised, never counted at the bank.** Predicates:
-bundles_or_discounts, reports_commercial_metrics. Follow the five-step
-model, and decompose every bundle, discount and add-on into distinct
-performance obligations with defensible stand-alone selling prices
-(EV-0297). Prevents the tier invented for the pricing page that nobody
-can allocate a transaction price to later. Scope note: IFRS 15 applies
-where the entity reports under IFRS; a UK micro-entity may sit under FRS
-102 or FRS 105 and a US filer under ASC 606. Name your framework in the
-decision record.
-
-**B5. Tax thresholds are watched as pricing events.** Predicates:
-sets_a_price, reports_commercial_metrics. VAT registration is compulsory
-once taxable turnover over any rolling twelve months exceeds ninety
-thousand pounds, or is expected to within thirty days (EV-0303). Making
-Tax Digital for Income Tax starts 6 April 2026 above fifty thousand
-pounds of qualifying income, 2027 above thirty thousand and 2028 above
-twenty thousand (EV-0304). Prevents crossing the VAT threshold and
-discovering the effective consumer price has fallen by the VAT rate
-overnight. Both are dated policy numbers with refresh triggers, held in
-`packs/business-model-pricing/refs/UK_OBLIGATIONS.md`, never inlined
-elsewhere.
-
-Guarded actions stay outside this pack. Taking money, refunding money
-and changing a live price are ruled by `kernel/GUARD_SPEC.md` and its
-non-waivable floors. No pricing argument changes a guard verdict.
-
-## Defaults
-
-Each applies unless the venture's lock-book overrides it with a recorded
-reason.
-
-**D1. Open on a named practice with its condition and a revisit date.**
-Say whether the price is value-informed, competition-informed or
-cost-informed, and say what makes that the right anchor here. Reason:
-more than four fifths of surveyed firms priced from cost or competitor
-levels while agreeing value pricing works, and the blockers were all
-capability rather than belief (EV-0287); later work finds the three
-practices pay off under different conditions rather than ranking
-(EV-0288). Scope note: both are self-reported surveys of mid-size and
-large firms, pre-SaaS, with no causal identification. See
-`packs/business-model-pricing/guides/GD-BMP-001-price-anchor.md`.
-
-**D2. A price change is announced with its cause, and the cause is cost
-or delivered value.** Reason: buyers judge a rise that protects an
-existing margin against a cost increase as fair, and a rise that
-exploits a demand shift as unfair (EV-0292). Scope note: 1986
-telephone-survey fairness judgements, not observed churn; the paper puts
-no number on what a violation costs. Override where you can show the
-retention consequence in your own cohorts. See
-`packs/business-model-pricing/guides/GD-BMP-004-repricing-trigger.md`.
-
-**D3. Trial length starts near a week and is tested across the whole
-funnel.** Reason: one SaaS firm found seven days beat fourteen and
-thirty (EV-0294) while another found seven beat three (EV-0295), which
-together support an interior optimum rather than a direction. The second
-study also moved delayed conversion and trial adoption while immediate
-conversion stayed flat, so a test judged on the first stage alone reads
-as a null and gets abandoned wrongly. A trial length that ships without
-a test plan is a number the evidence does not support. See
-`packs/business-model-pricing/guides/GD-BMP-003-try-before-paying.md`.
-
-**D4. Retention is reported as a cohort curve, and lifetime value is
-never revenue over blended churn.** Reason: the observed period-over-
-period retention rate of a cohort rises with age purely because
-high-churn customers leave first, so a single average churn projected
-forward is wrong in a knowable direction (EV-0296). Scope note: the
-model needs several periods of contractual cohort data, which a
-first-year venture does not have; until then report the observed curve
-and refuse the single number. See
-`packs/business-model-pricing/refs/RETENTION_AND_LTV.md`.
-
-**D5. Every commercial number travels with its definition.** The formula
-sits next to the number, and a definition change is stated in the report
-where it happens. Reason: this mirrors the metric hygiene the DORA and
-SPACE work insists on (EV-0199, EV-0210), and no primary source was
-found at the cutoff that fixes ARR, net revenue retention or churn.
-Honest weakness: an attempt to anchor this in the SEC release on key
-performance indicators failed because the source could not be fetched,
-so D5 rests on internal reasoning and is weaker than it should be. See
-`packs/business-model-pricing/refs/METRIC_DEFINITIONS.md`.
-
-**D6. A survey-derived price is a bracket, never the decision.** Reason:
-only incentive-compatible elicitation passed against real purchase
-behaviour, and hypothetical answers overstate willingness to pay
-(EV-0289); the vendor selling the price sensitivity meter lists its own
-limits, including no competitive context and no volume prediction
-(EV-0290). Treat the range as an upper bound until a real transaction
-tests it.
-
-**D7. Unit cost is allocated before a margin is claimed.** Every charged
-unit carries an allocated cost to serve, using the FinOps allocation the
-devops-reliability pack owns (EV-0197). Reason: a margin percentage
-without an allocation is a guess wearing a decimal point.
-
-**D8. The repricing trigger is written before it fires.** Agree in
-advance what movement in cost or delivered value opens a price change,
-and what the response is, in the shape of a pre-agreed error budget
-policy (EV-0096). Reason: a trigger written after the pressure arrives
-is negotiated under the pressure.
-
-**D9. Payment terms are written down, because they exist either way.**
-Predicates: sets_a_price, sells_to_public_sector. Where nothing is
-agreed, a commercial payment is late thirty days after the later of
-invoice receipt and delivery; terms may run to sixty days between
-businesses where fair, and public authorities pay within thirty
-(EV-0301). Every public contract carries an implied thirty-day term that
-no clause can override, and a valid invoice needs the supplier name, a
-description, the amount and a unique identifier (EV-0302). Those are the
-law and they apply whatever this pack says. What is a default is writing
-the term into the quote, and the reason is that a quote shipped with no
-term invites the belief that nothing is therefore late. Departing means
-recording that the statutory default is the term you are relying on.
-
-**D10. No pattern from the regulator's almost-always-harmful list.**
-Predicates: publishes_a_price, sells_to_consumers. Drip pricing, sludge,
-dark nudges, decoys, choice overload, sensory manipulation and
-information overload are classified by the CMA's own evidence review as
-practices the literature finds almost always harmful (EV-0300). Reason:
-building a conversion tactic from that list is an enforcement exposure.
-This is a default rather than binding because EV-0300 is an evidence
-review rather than a prohibition, and because its unlawful core, drip
-pricing, is already bound by B1 on the statute. Departing means
-recording the argument, and legal advice is the sensible shape for that
-record. Note the separation: whether a pattern is harmful and whether it
-works are different questions, and the decoy evidence answers the second
-one badly (EV-0293).
-
-## Preferences
-
-Taste. Record them, do not gate on them, override them without asking.
-
-- **Price endings.** Nine endings raised demand in three field
-  experiments, most for items new to the buyer and least where sale cues
-  were present (EV-0291). That was US catalogue retail of physical goods
-  in the late 1990s, and it does not transplant to a subscription list
-  price as a rule.
-- **Tier count and tier names.** Nothing in the evidence sets a number.
-- **Whether a public price exists at all**, and how currency and
-  rounding are displayed.
-- **Publishing the commercial policy in a public handbook**, as the
-  GitLab and PostHog handbooks do (EV-0055, EV-0095). Useful discipline,
-  not an obligation.
+<a id="B1"></a>
+- `B1` to [DOC-BMP-001](doctrines/DOC-BMP-001-the-headline-price-includes-every-unavoidable-charge.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-BMP-002](doctrines/DOC-BMP-002-a-consumer-subscription-can-be-entered-knowingly-and-left.md) (binding)
+<a id="B4"></a>
+- `B4` to [DOC-BMP-003](doctrines/DOC-BMP-003-revenue-is-recognised-never-counted-at-the-bank.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-BMP-004](doctrines/DOC-BMP-004-tax-thresholds-are-watched-as-pricing-events.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-BMP-005](doctrines/DOC-BMP-005-open-on-a-named-practice-with-its-condition-and-a-revisit.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-BMP-006](doctrines/DOC-BMP-006-a-price-change-is-announced-with-its-cause-and-the-cause-is.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-BMP-007](doctrines/DOC-BMP-007-trial-length-starts-near-a-week-and-is-tested-across-the.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-BMP-008](doctrines/DOC-BMP-008-retention-is-reported-as-a-cohort-curve-and-lifetime-value.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-BMP-009](doctrines/DOC-BMP-009-every-commercial-number-travels-with-its-definition.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-BMP-010](doctrines/DOC-BMP-010-a-survey-derived-price-is-a-bracket-never-the-decision.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-BMP-011](doctrines/DOC-BMP-011-unit-cost-is-allocated-before-a-margin-is-claimed.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-BMP-012](doctrines/DOC-BMP-012-the-repricing-trigger-is-written-before-it-fires.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-BMP-013](doctrines/DOC-BMP-013-payment-terms-are-written-down-because-they-exist-either-way.md) (default)
+<a id="D10"></a>
+- `D10` to [DOC-BMP-014](doctrines/DOC-BMP-014-no-pattern-from-the-regulators-almost-always-harmful-list.md) (default)
+- source `preferences:001` to [DOC-BMP-015](doctrines/DOC-BMP-015-price-endings.md) (preference)
+- source `preferences:002` to [DOC-BMP-016](doctrines/DOC-BMP-016-tier-count-and-tier-names.md) (preference)
+- source `preferences:003` to [DOC-BMP-017](doctrines/DOC-BMP-017-whether-a-public-price-exists-at-all.md) (preference)
+- source `preferences:004` to [DOC-BMP-018](doctrines/DOC-BMP-018-publishing-the-commercial-policy-in-a-public-handbook.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| What is this price anchored to? | `packs/business-model-pricing/guides/GD-BMP-001-price-anchor.md` | Cost-informed or competition-informed opening, with a dated move to value evidence |
-| What is the unit of charge? | `packs/business-model-pricing/guides/GD-BMP-002-charging-unit.md` | The simplest unit the buyer can forecast |
-| How does someone try this before paying? | `packs/business-model-pricing/guides/GD-BMP-003-try-before-paying.md` | A time-boxed trial near a week, with a test plan |
-| When and how does the price change? | `packs/business-model-pricing/guides/GD-BMP-004-repricing-trigger.md` | A written cost-or-value trigger, announced with its cause |
+| What is this price anchored to? | `packs/business-model-pricing/wargames/WG-BMP-001-price-anchor.md` | Cost-informed or competition-informed opening, with a dated move to value evidence |
+| What is the unit of charge? | `packs/business-model-pricing/wargames/WG-BMP-002-charging-unit.md` | The simplest unit the buyer can forecast |
+| How does someone try this before paying? | `packs/business-model-pricing/wargames/WG-BMP-003-try-before-paying.md` | A time-boxed trial near a week, with a test plan |
+| When and how does the price change? | `packs/business-model-pricing/wargames/WG-BMP-004-repricing-trigger.md` | A written cost-or-value trigger, announced with its cause |
 
 Level-three detail: the artefacts a decision has to emit are in
-`packs/business-model-pricing/refs/DECISION_RECORD.md`, the dated duties
-in `packs/business-model-pricing/refs/UK_OBLIGATIONS.md`, the cohort
-method in `packs/business-model-pricing/refs/RETENTION_AND_LTV.md`, the
+`packs/business-model-pricing/references/DECISION_RECORD.md`, the dated duties
+in `packs/business-model-pricing/references/UK_OBLIGATIONS.md`, the cohort
+method in `packs/business-model-pricing/references/RETENTION_AND_LTV.md`, the
 house metrics in
-`packs/business-model-pricing/refs/METRIC_DEFINITIONS.md`, and a worked
+`packs/business-model-pricing/references/METRIC_DEFINITIONS.md`, and a worked
 run in
-`packs/business-model-pricing/exemplars/EX-BMP-001-first-consumer-subscription.md`.
+`packs/business-model-pricing/examples/EX-BMP-001-first-consumer-subscription.md`.
 
 ## Failure modes and anti-patterns
 
@@ -364,7 +224,7 @@ estate research rather than this pack's sweep: the two public handbooks
 (EV-0055, EV-0095), the error budget policy (EV-0096), the FinOps
 allocation (EV-0197), the two engineering-metric sources behind D5
 (EV-0199, EV-0210) and the experiment decision framework the trial
-guide uses (EV-0059). The synthesis is in
+Wargame uses (EV-0059). The synthesis is in
 `packs/business-model-pricing/research/NOTES.md`, and the licence and
 quotation sweep is at
 `packs/business-model-pricing/research/provenance.fragment.json`. That

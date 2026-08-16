@@ -5,22 +5,22 @@
  "task": "T-0018",
  "swept_on": "2026-08-10",
  "swept_by": "eos-v21-L5",
- "scope": "packs/delivery-testing read surface: PACK.md, CHECKS.md, guides/, refs/, exemplars/. research/ excluded, because it is the pre-import record and not a read surface.",
+ "scope": "packs/delivery-testing read surface: PACK.md, CHECKS.md, wargames/, references/, examples/. research/ excluded, because it is the pre-import record and not a read surface.",
  "method": {
   "expression": "Mechanical scan of the read surface for quoted spans of twelve characters or more, then a read of every passage that restates a source under a no-derivatives or all-rights-reserved licence. No source was re-fetched, so no passage was diffed against its original. This finds carried quotation and close restatement of the passages we already knew were at risk. It cannot find carried expression from a source nobody flagged.",
   "licences": "Every EV id cited in the read surface was read out of registry/evidence.json and sorted by whether its licence line carries a licence_evidence field. A licence_evidence line is a recorded fact: somebody looked at the page and wrote down what it said. A licence value with no evidence line is an assertion, whatever it says."
  },
  "expression_findings": [
   {
-   "finding": "Two quoted spans in the read surface, both self-referential rather than carried: a definition of the word partly in CHECKS.md, and a code token in refs/CONTRACT_SUITES.md. Nothing quoted from a source.",
+   "finding": "Two quoted spans in the read surface, both self-referential rather than carried: a definition of the word partly in CHECKS.md, and a code token in references/CONTRACT_SUITES.md. Nothing quoted from a source.",
    "status": "clear"
   },
   {
-   "finding": "The highest-risk restatements were read in full. WG-DEL-005 restates the test-double taxonomy from EV-0184 and EV-0185, both all rights reserved with no reuse licence stated, and the preference order from EV-0187, CC BY-NC-ND 4.0. What is carried is the taxonomy and the ordering, which are ideas and facts about a field. The sentences are ours: the guide argues each rung by what it buys and what it costs, which the sources do not do in that form.",
+   "finding": "The highest-risk restatements were read in full. WG-DEL-005 restates the test-double taxonomy from EV-0184 and EV-0185, both all rights reserved with no reuse licence stated, and the preference order from EV-0187, CC BY-NC-ND 4.0. What is carried is the taxonomy and the ordering, which are ideas and facts about a field. The sentences are ours: the Wargame argues each rung by what it buys and what it costs, which the sources do not do in that form.",
    "status": "clear"
   },
   {
-   "finding": "refs/QUALITY_SIGNALS.md restates the affordability techniques from EV-0192 as a five-item list. The techniques are the source's findings; the list is our compression and the wording is ours. Same reading for the fit conditions from EV-0091 and EV-0193.",
+   "finding": "references/QUALITY_SIGNALS.md restates the affordability techniques from EV-0192 as a five-item list. The techniques are the source's findings; the list is our compression and the wording is ours. Same reading for the fit conditions from EV-0091 and EV-0193.",
    "status": "clear"
   },
   {

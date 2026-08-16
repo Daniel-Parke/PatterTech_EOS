@@ -1,10 +1,11 @@
 ---
 summary: Evaluation criteria for the test pack
-type: doctrine
+kind: record
+scope: eos-internal
+type: checks
 tags: [eos]
-review: 2030-01
 ---
 
 # CHECKS
 
-Executable: the guide ids resolve. Judgement: the worked ruling is honest.
+Executable: the Wargame IDs resolve. Judgement: the worked ruling is honest.

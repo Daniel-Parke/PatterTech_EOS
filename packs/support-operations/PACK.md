@@ -1,21 +1,26 @@
 ---
-summary: Customer support as an operating function, triage before backlog, honest incident communication, and the loop from inbox back into the product
-kind: rule
-authority: binding
+summary: Activation, outcomes and decision map for the support-operations Doctrine and Wargames
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [has_customer_inbound, has_paying_customers, has_customer_visible_incident, runs_public_tracker, reports_support_metric, single_responder]
 activation_paths: [**/support/**, **/tickets/**, **/status/**, **/incidents/**, **/*complaint*, **/*feedback*]
 volatility: slow
-review: on-change-of:ISO-10002-revision
+review: none
 sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233, EV-0421, EV-0422, EV-0423, EV-0424, EV-0425, EV-0426, EV-0427, EV-0428, EV-0429, EV-0430, EV-0431, EV-0432]
-type: playbook
+type: pack
 tags: [eos, ops, product, pii]
+display_name: Customer Support Operations
+category: product-commercial
+id_namespace: SUPPORT
+depends_on: [product-discovery, devops-reliability]
 ---
 
-# support-operations
+
+# Customer Support Operations
 
 This pack covers customer support as an operating function: what
 arrives, how it is classified, how a customer-visible incident is run
@@ -88,235 +93,58 @@ authority. It sets no response-time target, because no source in this
 pack supports a number and inventing one would be the exact failure the
 pack warns about.
 
-## Binding requirements
+## Doctrine
 
-Two requirements bind. One rests on law, one on a protected-set floor
-this pack restates for customer messages. The rest of this pack is
-defaults and preferences, which is the honest shape for a domain where
-most published practice is convention that nobody has measured.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The 2026-08 authority audit under ADR-0008 put one test to all seven
-requirements this pack used to bind: a rule binds only where it prevents
-a concrete failure that is serious or hard to reverse **and** its basis
-is law, a standard, empirical evidence or a protected-set floor. Five
-failed it and are now defaults, keeping their B numbers because
-`packs/support-operations/CHECKS.md`, the guides and the exemplar cite
-them. A default is departed from in writing, never in silence.
-
-**Evidence note.** The twelve sources researched for this pack were
-imported into `registry/evidence.json` as EV-0421 to EV-0432, and every
-citation here uses the ledger id. Each row carries its version, licence,
-access date, maintenance state and review trigger. The frozen batch the
-import was made from stays at
-`packs/support-operations/research/sources.fragment.json`, and the
-synthesis behind the pack is in
-`packs/support-operations/research/NOTES.md`. Several sources are
-paywalled and paraphrased only, so nothing here quotes them.
-
-**B4. A customer-facing message never reports a bypassed check as
-passing.** `has_customer_visible_incident`. If a gate was skipped,
-waived or run under an emergency route to get the fix out, the incident
-record and any all-clear say so in those words. A status update states
-what has been verified and by what, and "not yet verified" and "cause
-unknown" are legal things to publish. No update asserts a cause the
-incident record does not support. Basis: decision, and it binds as a
-protected-set floor rather than on the support literature:
-`kernel/GUARD_SPEC.md` records a bypassed gate as bypassed and lets no
-emergency overlay lower it, and this is that rule pointed at the people
-outside the venture. Prevents the two failures that cost the most trust:
-an all-clear resting on verification nobody performed, and a second
-outage from an unverified fix that the record made look verified. A
-published all-clear cannot be unpublished, which is the hard-to-reverse
-half.
-
-**B6. A support inbox is a personal-data store and is run as one.**
-`has_customer_inbound`, `exports_ticket_text`. Retention, access and
-lawful basis follow `packs/security-privacy/`, and the ICO guidance the
-estate already cites (EV-0041). No export of ticket text into a
-synthesis, analytics or model tool without the recorded basis. Derived
-artefacts such as triage files, theme reports and public postmortems
-carry ids or hashes, never names, addresses or account numbers. Basis:
-law, and data protection is a protected-set item under `GOVERNANCE.md`.
-Prevents a support archive becoming an unrecorded personal-data store,
-and prevents a convenience export becoming an unlawful transfer. An
-export into a synthesis or model tool cannot be recalled, which is the
-hard-to-reverse half.
-
-**What deliberately does not bind.** Acknowledging a complaint on
-receipt and closing it only once the complainant has been told the
-outcome is the core of the complaints standard
-(EV-0425). It sits below as the D3 default rather
-than as a binding rule, because that standard is guidance written for
-organisations large enough to run a quality management system, and the
-research graded it accordingly. It is the default this pack expects the
-fewest ventures to depart from.
-
-## Defaults
-
-Followed unless the task records a reason to depart.
-
-### Demoted from binding, 2026-08
-
-Five rules that used to bind. Each still names the failure it prevents,
-and each says which leg of the ADR-0008 test it failed. Numbers are
-unchanged so the checks, guides and exemplar that cite them still
-resolve.
-
-**B1. Nothing enters a backlog without a classification, and untriaged
-is a state rather than an absence.** `has_customer_inbound`. Every
-inbound item carries four independent values before it is ranked:
-kind, priority, owning queue, and a triage state that is either
-accepted or needs-info (EV-0424). Classification
-comes before prioritisation, not after
-(EV-0426). Where one cause explains several reports,
-they carry one shared incident or defect id and get one answer
-(EV-0425). A needs-info item carries the date its
-next action is due. Basis: standard. Prevents three failures: work that
-is invisible because nobody can query for it, a priority argued from
-whoever wrote most recently, and five people receiving five different
-accounts of one bug. Failed the seriousness leg: a misfiled item is
-refiled, and the queue is recoverable at any point.
-
-**B2. The severity ladder is written before the incident, and one band
-changes what the organisation does.** `has_customer_visible_incident`.
-The ladder is ordered, each band has a written impact criterion, it
-states that the higher band is taken when the call is unclear, and at
-least one threshold switches the response mode rather than only the
-wording (EV-0421). The band is not litigated during
-the incident; the argument goes in the postmortem. Basis: decision,
-taken on exemplar practice with no outcome data behind it. Prevents
-severity being assigned afterwards to justify the response that already
-happened. Failed the basis leg, which the pack already said out loud.
-
-**B3. A customer-visible incident records a communication owner
-separately from the person changing the system.**
-`has_customer_visible_incident`. Both fields are filled even when the
-two values are the same name, because the record has to show the
-decision was taken (EV-0423,
-EV-0422). Basis: decision. Prevents the fixer's
-attention being spent on updates, and prevents an incident closing with
-nobody accountable for having told anyone. Failed the basis leg.
-Nothing else in this pack catches an incident that closed with nobody
-accountable for telling anyone, so this is the default a venture should
-think hardest before departing from.
-
-**B5. No target and no published figure is the mean of a duration
-distribution.** `reports_support_metric`. Incident and response
-durations are reported as percentiles, as raw counts, or not at all
-(EV-0211). Per-band time targets are not set, because the corpus that
-looked found no correlation between duration and severity. Basis:
-empirical-evidence. Prevents a target that describes no incident that
-ever happened, and prevents a skewed distribution being summarised by
-the one statistic it defeats. Failed the seriousness leg: a bad metric
-is replaced by a better one at no cost, and the number itself harms
-nobody.
-
-**B7. A loyalty or satisfaction score is a trend about one population,
-never a cross-firm benchmark.** `reports_support_metric`. The score is
-reported with its population, its n and its date range, and it is never
-used to claim a position relative to another company or an industry
-figure (EV-0428). Basis: empirical-evidence.
-Prevents an instrument being sold internally as evidence it has been
-tested for and failed to provide. Scope note: the replication that
-settles this covered 21 firms and more than 15,500 interviews from one
-national panel, in industries and an era that predate subscription
-software. It refutes a superiority claim; it does not show the score is
-useless, and it says nothing about behaviour at the sample sizes a
-venture with sixty customers actually has. Failed the seriousness leg
-by the same reasoning as B5. Publishing the comparison outside the
-venture is a marketing claim and belongs to `packs/marketing-growth/`.
-
-### Standing defaults
-
-- **D1. Two queues, incident and request, with separate targets and no
-  item in both.** Restoring an interrupted service and fulfilling a
-  routine ask have different clocks, so one target describes neither
-  (EV-0426). The queue axis in B1 carries the split.
-- **D2. Three severity bands while one person responds, five once there
-  is a rota.** A rung that changes nothing is theatre, and five levels
-  in a venture with one responder is five ways to write the same
-  sentence (EV-0421).
-- **D3. Acknowledge on receipt, close on answer, and never on silence,
-  for anyone who pays.** The route to complain is visible and free to
-  use, and the loop closes when the complainant has been told the
-  outcome (EV-0425).
-- **D4. Auto-close and stale timers on public trackers only.**
-  Unreproducible reports close on a timer where the reporter is a
-  volunteer and closing costs nothing contractual
-  (EV-0424). Recorded counter-evidence: maintainers
-  of the project that runs that bot have filed complaints that it
-  closes real bugs.
-- **D5. One priority band reserved for plausible but unevidenced.**
-  Keeps opinion out of the roadmap without throwing it away
-  (EV-0424).
-- **D6. Declaration runs on written objective triggers.** A second
-  person is needed, the failure is visible to customers, or an hour of
-  focused work has not closed it (EV-0423). Scope
-  note: that hour is calibrated to a very large service estate and is
-  not evidence for any threshold here; it is a starting number to argue
-  with.
-- **D7. A weekly synthesis pass with the coding stance declared before
-  coding.** What the data set is, whether coding is inductive or driven
-  by an existing frame, whether it reads the surface or the meaning
-  underneath, and what counts as a theme, all written down first.
-  Prevalence is reported against a stated denominator, because a count
-  of tickets mentioning a thing means nothing without the population it
-  came from (EV-0431). Themes are constructed by the
-  analyst, so "a theme emerged" is not an available sentence.
-- **D8. Single-responder utilisation held below seventy per cent.**
-  Waiting time in a single-server queue rises as utilisation over one
-  minus utilisation, so the wait is roughly two and a third service
-  times at seventy per cent, five and two thirds at eighty-five, and
-  nineteen at ninety-five (EV-0430). The levers that
-  work are reducing arrival variability and holding deliberate slack.
-  Scope note: that is a heavy-traffic approximation for one server,
-  first come first served, with no priority classes and nobody giving
-  up, so a severity-prioritised desk differs in detail while keeping
-  the same shape of collapse.
-- **D9. A postmortem due date is recorded at the moment of resolution**
-  for any customer-visible incident, no more than five days after
-  resolution, with a named owner. The clock and the ownership come from
-  the exemplar (EV-0200); the number five is the estate's, and it is a
-  default rather than a finding.
-- **D10. Self-service counts as deflection only when it resolves.**
-  Measure resolution and onward contacts, not page views, because a
-  self-service layer that does not answer converts into an assisted
-  contact with the customer's effort already spent
-  (EV-0429).
-- **D11. Founder-delivered support is the opening posture and carries a
-  written exit signal** recorded on the day it starts
-  (EV-0432).
-
-## Preferences
-
-Taste. Depart freely, no reason needed.
-
-- The helpdesk, the status page tool and the survey instrument.
-- The label vocabulary, so long as the four axes in B1 stay separable.
-- One inbox rather than one per channel while volume is low.
-- A public changelog as the standing answer to "did you ever fix it"
-  (EV-0055, EV-0095).
-- Writing the customer-facing message inside the incident record rather
-  than in a separate document.
-- Machine-readable error identifiers in product errors so a ticket can
-  be matched to a cause without a screenshot (EV-0122).
-- Templates for the three commonest replies, rewritten by hand whenever
-  the template does not fit.
+<a id="B4"></a>
+- `B4` to [DOC-SUPPORT-001](doctrines/DOC-SUPPORT-001-a-customer-facing-message-never-reports-a-bypassed-check.md) (default)
+<a id="B6"></a>
+- `B6` to [DOC-SUPPORT-002](doctrines/DOC-SUPPORT-002-a-support-inbox-is-a-personal-data-store-and-is-run-as.md) (binding)
+<a id="B1"></a>
+- `B1` to [DOC-SUPPORT-003](doctrines/DOC-SUPPORT-003-nothing-enters-a-backlog-without-a-classification-and.md) (default)
+<a id="B2"></a>
+- `B2` to [DOC-SUPPORT-004](doctrines/DOC-SUPPORT-004-the-severity-ladder-is-written-before-the-incident-and.md) (default)
+<a id="B3"></a>
+- `B3` to [DOC-SUPPORT-005](doctrines/DOC-SUPPORT-005-a-customer-visible-incident-records-a-communication.md) (default)
+<a id="B5"></a>
+- `B5` to [DOC-SUPPORT-006](doctrines/DOC-SUPPORT-006-no-target-and-no-published-figure-is-the-mean-of-a.md) (default)
+<a id="B7"></a>
+- `B7` to [DOC-SUPPORT-007](doctrines/DOC-SUPPORT-007-a-loyalty-or-satisfaction-score-is-a-trend-about-one.md) (default)
+- source `defaults:006` to [DOC-SUPPORT-008](doctrines/DOC-SUPPORT-008-two-queues-incident-and-request-with-separate-targets.md) (default)
+- source `defaults:007` to [DOC-SUPPORT-009](doctrines/DOC-SUPPORT-009-three-severity-bands-while-one-person-responds-five-once.md) (default)
+- source `defaults:008` to [DOC-SUPPORT-010](doctrines/DOC-SUPPORT-010-acknowledge-on-receipt-close-on-answer-and-never-on.md) (default)
+- source `defaults:009` to [DOC-SUPPORT-011](doctrines/DOC-SUPPORT-011-auto-close-and-stale-timers-on-public-trackers-only.md) (default)
+- source `defaults:010` to [DOC-SUPPORT-012](doctrines/DOC-SUPPORT-012-one-priority-band-reserved-for-plausible-but-unevidenced.md) (default)
+- source `defaults:011` to [DOC-SUPPORT-013](doctrines/DOC-SUPPORT-013-declaration-runs-on-written-objective-triggers.md) (default)
+- source `defaults:012` to [DOC-SUPPORT-014](doctrines/DOC-SUPPORT-014-a-weekly-synthesis-pass-with-the-coding-stance-declared.md) (default)
+- source `defaults:013` to [DOC-SUPPORT-015](doctrines/DOC-SUPPORT-015-single-responder-utilisation-held-below-seventy-per-cent.md) (default)
+- source `defaults:014` to [DOC-SUPPORT-016](doctrines/DOC-SUPPORT-016-a-postmortem-due-date-is-recorded-at-the-moment-of.md) (default)
+- source `defaults:015` to [DOC-SUPPORT-017](doctrines/DOC-SUPPORT-017-self-service-counts-as-deflection-only-when-it-resolves.md) (default)
+- source `defaults:016` to [DOC-SUPPORT-018](doctrines/DOC-SUPPORT-018-founder-delivered-support-is-the-opening-posture-and.md) (default)
+- source `preferences:001` to [DOC-SUPPORT-019](doctrines/DOC-SUPPORT-019-the-helpdesk-the-status-page-tool-and-the-survey.md) (preference)
+- source `preferences:002` to [DOC-SUPPORT-020](doctrines/DOC-SUPPORT-020-the-label-vocabulary-so-long-as-the-four-axes-in-b1-stay.md) (preference)
+- source `preferences:003` to [DOC-SUPPORT-021](doctrines/DOC-SUPPORT-021-one-inbox-rather-than-one-per-channel-while-volume-is.md) (preference)
+- source `preferences:004` to [DOC-SUPPORT-022](doctrines/DOC-SUPPORT-022-a-public-changelog-as-the-standing-answer-to-did-you.md) (preference)
+- source `preferences:005` to [DOC-SUPPORT-023](doctrines/DOC-SUPPORT-023-writing-the-customer-facing-message-inside-the-incident.md) (preference)
+- source `preferences:006` to [DOC-SUPPORT-024](doctrines/DOC-SUPPORT-024-machine-readable-error-identifiers-in-product-errors-so.md) (preference)
+- source `preferences:007` to [DOC-SUPPORT-025](doctrines/DOC-SUPPORT-025-templates-for-the-three-commonest-replies-rewritten-by.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| How does inbound get classified, and what keeps the queue finite | Triage pattern, cost per item, what the queue teaches | `packs/support-operations/guides/GD-SUPPORT-001-triage-pattern.md` |
-| May an item close without an answer | Auto-close policy per channel, contractual exposure | `packs/support-operations/guides/GD-SUPPORT-002-close-policy.md` |
-| Who declares a customer-visible incident, on what signal | False-alarm cost against late-notice cost | `packs/support-operations/guides/GD-SUPPORT-003-declaration-route.md` |
-| What do we measure, and what may the number be used for | Which metric, which population, which decision | `packs/support-operations/guides/GD-SUPPORT-004-support-measurement.md` |
+| How does inbound get classified, and what keeps the queue finite | Triage pattern, cost per item, what the queue teaches | `packs/support-operations/wargames/WG-SUPPORT-001-triage-pattern.md` |
+| May an item close without an answer | Auto-close policy per channel, contractual exposure | `packs/support-operations/wargames/WG-SUPPORT-002-close-policy.md` |
+| Who declares a customer-visible incident, on what signal | False-alarm cost against late-notice cost | `packs/support-operations/wargames/WG-SUPPORT-003-declaration-route.md` |
+| What do we measure, and what may the number be used for | Which metric, which population, which decision | `packs/support-operations/wargames/WG-SUPPORT-004-support-measurement.md` |
 
-Level-three detail sits in `packs/support-operations/refs/`: the triage
+Level-three detail sits in `packs/support-operations/references/`: the triage
 record shape, the severity ladder and declaration form, the incident
 communication contract, and the synthesis pass. A full worked week is
 in
-`packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md`.
+`packs/support-operations/examples/EX-SUPPORT-001-one-inbox-week.md`.
 
 ## Failure modes and anti-patterns
 
@@ -386,12 +214,12 @@ in
 - **Manual against automatic declaration has no outcome data on either
   side.** One exemplar wants a human page to a named person
   (EV-0422); common practice auto-declares on a burn
-  alert (EV-0020, EV-0096). GD-SUPPORT-003 forces the choice and
+  alert (EV-0020, EV-0096). WG-SUPPORT-003 forces the choice and
   records it rather than pretending the evidence settles it.
 - **The two standards conflict on closing.** Timed closure of
   unreproducible reports (EV-0424) against a loop
   that closes only on answer (EV-0425). Both are
-  defensible for different relationships, so GD-SUPPORT-002 forces the
+  defensible for different relationships, so WG-SUPPORT-002 forces the
   choice per channel instead of letting a tool default decide.
 - **B2 and B3 used to bind above their evidence grade.** Both come from
   exemplar practice with no comparative measurement, and the 2026-08

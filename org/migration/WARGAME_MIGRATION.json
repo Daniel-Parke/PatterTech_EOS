@@ -1,0 +1,2328 @@
+{
+  "version": 1,
+  "kind": "wargame-migration",
+  "baseline_commit": "7f56e4e22378323cf58318fe051d26b5afa8c35f",
+  "frozen_inventory_sha256": "2d532914db4bc3ce91459f055656e54da31b69cfc54fe8fd269726d766052dda",
+  "doctrine_inventory_sha256": "a7fcfb117a2e973a3cf6758c985cd35c3ba7a5730dccc8569ca7be326cfb646d",
+  "generator": "tools.eos.migrate_wargames",
+  "procedure_count": 114,
+  "retired_count": 22,
+  "procedures": [
+    {
+      "id": "GD-AGENT-001",
+      "path": "packs/agentic-development/guides/GD-AGENT-001-topology-selection.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AGENT-006",
+        "DOC-AGENT-008",
+        "DOC-SWARM-012",
+        "DOC-SWARM-013",
+        "DOC-SWARM-024"
+      ],
+      "engages_when": [
+        "agent_coordination_cost_is_material"
+      ],
+      "relations": [
+        "DREL-AGENT-001"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AGENT-002",
+      "path": "packs/agentic-development/guides/GD-AGENT-002-context-engineering.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AGENT-010",
+        "DOC-AGENT-012"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AGENT-003",
+      "path": "packs/agentic-development/guides/GD-AGENT-003-spawn-a-subagent.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-AGENT-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AGENT-004",
+      "path": "packs/agentic-development/guides/GD-AGENT-004-verification-oracle.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-AGENT-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AIML-001",
+      "path": "packs/ai-ml-llm/guides/GD-AIML-001-acceptance-evidence.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-AIML-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AIML-002",
+      "path": "packs/ai-ml-llm/guides/GD-AIML-002-knowledge-source.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AIML-008"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AIML-003",
+      "path": "packs/ai-ml-llm/guides/GD-AIML-003-who-grades-the-output.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AIML-004",
+        "DOC-AIML-006",
+        "DOC-AGENT-003",
+        "DOC-COD-001"
+      ],
+      "engages_when": [
+        "evaluation_oracle_is_undecided"
+      ],
+      "relations": [
+        "DREL-AIML-002"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AIML-004",
+      "path": "packs/ai-ml-llm/guides/GD-AIML-004-prompt-maintenance.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AIML-016"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-AIML-005",
+      "path": "packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AIML-003",
+        "DOC-AIML-017"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-API-001",
+      "path": "packs/api-integration/guides/GD-API-001-contract-authoring.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-API-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-API-002",
+      "path": "packs/api-integration/guides/GD-API-002-versioning-and-breaking-change.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-API-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-API-003",
+      "path": "packs/api-integration/guides/GD-API-003-webhook-trust.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-API-003",
+        "DOC-API-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-API-004",
+      "path": "packs/api-integration/guides/GD-API-004-boundary-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-API-013"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-API-005",
+      "path": "packs/api-integration/guides/GD-API-005-collection-traversal.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-API-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-ARCH-001",
+      "path": "packs/architecture/guides/GD-ARCH-001-deployment-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-001",
+        "DOC-ARCH-004",
+        "DOC-ARCH-005"
+      ],
+      "engages_when": [
+        "requires_independent_deployability"
+      ],
+      "relations": [
+        "DREL-ARCH-003"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BLM-001",
+      "path": "packs/business-logic-modelling/guides/GD-BLM-001-model-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BLM-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BLM-002",
+      "path": "packs/business-logic-modelling/guides/GD-BLM-002-rule-placement.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BLM-008"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BLM-003",
+      "path": "packs/business-logic-modelling/guides/GD-BLM-003-money-representation.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BLM-001",
+        "DOC-BLM-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BLM-004",
+      "path": "packs/business-logic-modelling/guides/GD-BLM-004-time-modelling.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-BLM-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BLM-005",
+      "path": "packs/business-logic-modelling/guides/GD-BLM-005-state-or-events.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BLM-012"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BMP-001",
+      "path": "packs/business-model-pricing/guides/GD-BMP-001-price-anchor.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BMP-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BMP-002",
+      "path": "packs/business-model-pricing/guides/GD-BMP-002-charging-unit.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BMP-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BMP-003",
+      "path": "packs/business-model-pricing/guides/GD-BMP-003-try-before-paying.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BMP-007"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-BMP-004",
+      "path": "packs/business-model-pricing/guides/GD-BMP-004-repricing-trigger.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-BMP-012"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-COD-001",
+      "path": "packs/coding/guides/GD-COD-001-oracle-strategy.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-COD-013",
+        "DOC-COD-001",
+        "DOC-COD-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-COD-002",
+      "path": "packs/coding/guides/GD-COD-002-review-gate.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-COD-006",
+        "DOC-COD-007"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-COD-003",
+      "path": "packs/coding/guides/GD-COD-003-failure-mode-contract.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-COD-005",
+        "DOC-COD-015",
+        "DOC-COD-004"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-COD-004",
+      "path": "packs/coding/guides/GD-COD-004-pin-then-change.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-COD-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-COD-005",
+      "path": "packs/coding/guides/GD-COD-005-repo-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-COD-009",
+        "DOC-COD-010"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATA-001",
+      "path": "packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATA-012",
+        "DOC-DATA-013"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATA-002",
+      "path": "packs/data-analytics/guides/GD-DATA-002-model-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATA-014"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATA-003",
+      "path": "packs/data-analytics/guides/GD-DATA-003-experiment-stopping.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATA-002",
+        "DOC-DATA-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATA-004",
+      "path": "packs/data-analytics/guides/GD-DATA-004-storage-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATA-008"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATA-005",
+      "path": "packs/data-analytics/guides/GD-DATA-005-event-contract.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATA-012"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATAENG-001",
+      "path": "packs/data-engineering/guides/GD-DATAENG-001-ingestion-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATAENG-001",
+        "DOC-DATAENG-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATAENG-002",
+      "path": "packs/data-engineering/guides/GD-DATAENG-002-idempotent-reprocess.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATAENG-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATAENG-003",
+      "path": "packs/data-engineering/guides/GD-DATAENG-003-processing-window.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATAENG-005",
+        "DOC-DATAENG-004"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DATAENG-004",
+      "path": "packs/data-engineering/guides/GD-DATAENG-004-late-arrivals.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DATAENG-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DEVOPS-001",
+      "path": "packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEVOPS-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DEVOPS-002",
+      "path": "packs/devops-reliability/guides/GD-DEVOPS-002-release-control.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception",
+        "conflict"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEVOPS-008",
+        "DOC-SUPPLY-005"
+      ],
+      "engages_when": [
+        "dependency_update_changes_known_good"
+      ],
+      "relations": [
+        "DREL-SUPPLY-002"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DEVOPS-003",
+      "path": "packs/devops-reliability/guides/GD-DEVOPS-003-error-budget-dial.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEVOPS-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DEVOPS-004",
+      "path": "packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEVOPS-004"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DISC-001",
+      "path": "packs/product-discovery/guides/GD-DISC-001-discovery-depth.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DISC-002",
+        "DOC-DISC-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DISC-002",
+      "path": "packs/product-discovery/guides/GD-DISC-002-user-evidence-source.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DISC-007",
+        "DOC-DISC-015",
+        "DOC-DISC-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DISC-003",
+      "path": "packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DISC-002",
+        "DOC-DISC-010",
+        "DOC-DISC-011"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DISC-004",
+      "path": "packs/product-discovery/guides/GD-DISC-004-acceptance-criteria-form.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DISC-003",
+        "DOC-DISC-005",
+        "DOC-DISC-017"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DOCS-001",
+      "path": "packs/docs-dx/guides/GD-DOCS-001-truth-location.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DOCS-004"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DOCS-002",
+      "path": "packs/docs-dx/guides/GD-DOCS-002-executable-examples.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DOCS-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DOCS-003",
+      "path": "packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DOCS-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DOCS-004",
+      "path": "packs/docs-dx/guides/GD-DOCS-004-failure-messages.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DOCS-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-DOCS-005",
+      "path": "packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DOCS-001",
+        "DOC-DOCS-011"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-HOUSE-001",
+      "path": "packs/pattertech-house/guides/GD-HOUSE-001-light-posture.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-HOUSE-010"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-HOUSE-002",
+      "path": "packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-HOUSE-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-HOUSE-003",
+      "path": "packs/pattertech-house/guides/GD-HOUSE-003-polarity-register.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-HOUSE-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-HOUSE-004",
+      "path": "packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-HOUSE-007",
+        "DOC-HOUSE-008"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-IDENT-001",
+      "path": "packs/identity-access/guides/GD-IDENT-001-authorisation-model.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-IDENT-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-IDENT-002",
+      "path": "packs/identity-access/guides/GD-IDENT-002-session-or-token.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-IDENT-015"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-IDENT-003",
+      "path": "packs/identity-access/guides/GD-IDENT-003-provider-or-self-hosted.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-IDENT-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-IDENT-004",
+      "path": "packs/identity-access/guides/GD-IDENT-004-tenant-isolation.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-IDENT-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-LEGAL-001",
+      "path": "packs/legal-licensing/guides/GD-LEGAL-001-copyleft-trigger.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-LEGAL-007"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-LEGAL-002",
+      "path": "packs/legal-licensing/guides/GD-LEGAL-002-compliance-posture.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-LEGAL-008",
+        "DOC-LEGAL-009",
+        "DOC-LEGAL-010"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-LEGAL-003",
+      "path": "packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-LEGAL-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-LEGAL-004",
+      "path": "packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-LEGAL-006",
+        "DOC-LEGAL-007",
+        "DOC-LEGAL-012"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-LEGAL-005",
+      "path": "packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-LEGAL-016",
+        "DOC-LEGAL-017",
+        "DOC-LEGAL-012",
+        "DOC-LEGAL-002",
+        "DOC-LEGAL-007"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-MKTG-001",
+      "path": "packs/marketing-growth/guides/GD-MKTG-001-growth-philosophy.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-MKTG-004",
+        "DOC-MKTG-013"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-MKTG-002",
+      "path": "packs/marketing-growth/guides/GD-MKTG-002-consent-route.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-MKTG-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-MKTG-003",
+      "path": "packs/marketing-growth/guides/GD-MKTG-003-effect-measurement.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-MKTG-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-MKTG-004",
+      "path": "packs/marketing-growth/guides/GD-MKTG-004-content-provenance.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-MKTG-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-NAT-001",
+      "path": "packs/native-client/guides/GD-NAT-001-client-architecture.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-NAT-008"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-NAT-002",
+      "path": "packs/native-client/guides/GD-NAT-002-offline-write-model.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-NAT-001",
+        "DOC-NAT-002",
+        "DOC-NAT-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-NAT-003",
+      "path": "packs/native-client/guides/GD-NAT-003-release-path.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-NAT-004",
+        "DOC-NAT-010"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-NAT-004",
+      "path": "packs/native-client/guides/GD-NAT-004-a11y-profile.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-NAT-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-RESEARCH-001",
+      "path": "packs/research-knowledge/guides/GD-RESEARCH-001-when-to-stop.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-RESEARCH-010",
+        "DOC-RESEARCH-015"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-RESEARCH-002",
+      "path": "packs/research-knowledge/guides/GD-RESEARCH-002-where-the-base-lives.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-RESEARCH-020"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-RESEARCH-003",
+      "path": "packs/research-knowledge/guides/GD-RESEARCH-003-superseding-a-source.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-RESEARCH-004"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-RESEARCH-004",
+      "path": "packs/research-knowledge/guides/GD-RESEARCH-004-a-source-that-speaks-to-you.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-RESEARCH-001",
+        "DOC-RESEARCH-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SEC-001",
+      "path": "packs/security-privacy/guides/GD-SEC-001-injection-defence.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SEC-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SEC-002",
+      "path": "packs/security-privacy/guides/GD-SEC-002-secret-protection.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SEC-018"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SEC-003",
+      "path": "packs/security-privacy/guides/GD-SEC-003-assurance-grading.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SEC-011"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SEC-004",
+      "path": "packs/security-privacy/guides/GD-SEC-004-external-action-approval.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SEC-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPLY-001",
+      "path": "packs/supply-chain-integrity/guides/GD-SUPPLY-001-provenance-and-verification.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPLY-002",
+        "DOC-SUPPLY-003",
+        "DOC-SEC-014"
+      ],
+      "engages_when": [
+        "producer_trust_is_unproved"
+      ],
+      "relations": [
+        "DREL-SUPPLY-001"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPLY-002",
+      "path": "packs/supply-chain-integrity/guides/GD-SUPPLY-002-signing-identity.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPLY-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPLY-003",
+      "path": "packs/supply-chain-integrity/guides/GD-SUPPLY-003-pinning-cadence.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception",
+        "conflict"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPLY-005",
+        "DOC-DEVOPS-005",
+        "DOC-DEVOPS-008"
+      ],
+      "engages_when": [
+        "dependency_update_changes_known_good"
+      ],
+      "relations": [
+        "DREL-SUPPLY-002"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPLY-004",
+      "path": "packs/supply-chain-integrity/guides/GD-SUPPLY-004-vendor-or-depend.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPLY-011"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPORT-001",
+      "path": "packs/support-operations/guides/GD-SUPPORT-001-triage-pattern.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPORT-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPORT-002",
+      "path": "packs/support-operations/guides/GD-SUPPORT-002-close-policy.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPORT-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPORT-003",
+      "path": "packs/support-operations/guides/GD-SUPPORT-003-declaration-route.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPORT-004",
+        "DOC-SUPPORT-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SUPPORT-004",
+      "path": "packs/support-operations/guides/GD-SUPPORT-004-support-measurement.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-SUPPORT-003",
+        "DOC-SUPPORT-007",
+        "DOC-SUPPORT-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SWARM-001",
+      "path": "packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-AGENT-008",
+        "DOC-SWARM-012",
+        "DOC-SWARM-013",
+        "DOC-SWARM-024"
+      ],
+      "engages_when": [
+        "agent_coordination_cost_is_material"
+      ],
+      "relations": [
+        "DREL-AGENT-001"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SWARM-002",
+      "path": "packs/agentic-swarm/guides/GD-SWARM-002-cut-the-partition.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SWARM-001"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SWARM-003",
+      "path": "packs/agentic-swarm/guides/GD-SWARM-003-who-holds-the-plan.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-SWARM-025"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-SWARM-004",
+      "path": "packs/agentic-swarm/guides/GD-SWARM-004-verifying-a-lane.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-SWARM-004"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-UIUX-001",
+      "path": "packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception",
+        "conflict"
+      ],
+      "applicable_doctrines": [
+        "DOC-UIUX-008",
+        "DOC-UIUX-009",
+        "DOC-DISC-016",
+        "DOC-HOUSE-004",
+        "DOC-HOUSE-015",
+        "DOC-UIUX-011",
+        "DOC-UIUX-014"
+      ],
+      "engages_when": [
+        "serves_novice_and_expert_users",
+        "house_style_costs_access_or_performance"
+      ],
+      "relations": [
+        "DREL-UIUX-001",
+        "DREL-HOUSE-002"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-UIUX-002",
+      "path": "packs/ui-ux/guides/GD-UIUX-002-component-sourcing.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-UIUX-003",
+        "DOC-UIUX-010"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-UIUX-003",
+      "path": "packs/ui-ux/guides/GD-UIUX-003-a11y-assurance.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception",
+        "conflict"
+      ],
+      "applicable_doctrines": [
+        "DOC-UIUX-002",
+        "DOC-UIUX-007",
+        "DOC-HOUSE-004",
+        "DOC-HOUSE-015",
+        "DOC-UIUX-011",
+        "DOC-UIUX-014"
+      ],
+      "engages_when": [
+        "house_style_costs_access_or_performance"
+      ],
+      "relations": [
+        "DREL-HOUSE-001"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-UIUX-004",
+      "path": "packs/ui-ux/guides/GD-UIUX-004-token-source.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-UIUX-006"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-WRIT-001",
+      "path": "packs/writing-content/guides/GD-WRIT-001-clarity-philosophy.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-WRIT-001",
+        "DOC-WRIT-002"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-WRIT-002",
+      "path": "packs/writing-content/guides/GD-WRIT-002-message-structure.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-WRIT-001",
+        "DOC-WRIT-002",
+        "DOC-WRIT-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-WRIT-003",
+      "path": "packs/writing-content/guides/GD-WRIT-003-voice-scope.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-WRIT-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "GD-WRIT-004",
+      "path": "packs/writing-content/guides/GD-WRIT-004-prose-gate.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-WRIT-010",
+        "DOC-WRIT-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-001",
+      "path": "packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-001",
+        "DOC-ARCH-004",
+        "DOC-ARCH-005"
+      ],
+      "engages_when": [
+        "requires_independent_deployability"
+      ],
+      "relations": [
+        "DREL-ARCH-003"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-002",
+      "path": "packs/architecture/guides/WG-ARCH-002-orm-or-raw-sql.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-002",
+        "DOC-ARCH-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-003",
+      "path": "packs/architecture/guides/WG-ARCH-003-derived-state.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-008"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-004",
+      "path": "packs/architecture/guides/WG-ARCH-004-job-execution.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-009"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-005",
+      "path": "packs/architecture/guides/WG-ARCH-005-contract-seam.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-002",
+        "DOC-ARCH-003"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-006",
+      "path": "packs/architecture/guides/WG-ARCH-006-change-proof.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-013"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-007",
+      "path": "packs/architecture/guides/WG-ARCH-007-vendor-seams.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-API-002",
+        "DOC-ARCH-010"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-ARCH-008",
+      "path": "packs/architecture/guides/WG-ARCH-008-database-topology.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-ARCH-011",
+        "DOC-ARCH-012"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-DEL-005",
+      "path": "packs/delivery-testing/guides/WG-DEL-005-test-doubles.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEL-002",
+        "DOC-DEL-006",
+        "DOC-COD-001"
+      ],
+      "engages_when": [
+        "test_fidelity_changes_outcome"
+      ],
+      "relations": [
+        "DREL-DEL-002"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-DEL-006",
+      "path": "packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEL-002",
+        "DOC-DEL-006",
+        "DOC-COD-001"
+      ],
+      "engages_when": [
+        "test_fidelity_changes_outcome",
+        "evaluation_oracle_is_undecided"
+      ],
+      "relations": [
+        "DREL-DEL-002",
+        "DREL-AIML-002"
+      ],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-DEL-007",
+      "path": "packs/delivery-testing/guides/WG-DEL-007-test-timing.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "exception"
+      ],
+      "applicable_doctrines": [
+        "DOC-DISC-009",
+        "DOC-DISC-013",
+        "DOC-DEL-008"
+      ],
+      "engages_when": [
+        "riskiest_assumption_is_unproved"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-EOS-001",
+      "path": "inception/wargames/WG-EOS-001-venture-scale.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "gap"
+      ],
+      "gap_domain": "inception",
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-EOS-002",
+      "path": "inception/wargames/WG-EOS-002-repo-shape.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection",
+        "gap"
+      ],
+      "gap_domain": "inception",
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    },
+    {
+      "id": "WG-OPS-003",
+      "path": "packs/devops-reliability/guides/WG-OPS-003-restore-proof.md",
+      "disposition": "live-convert",
+      "scenario_modes": [
+        "selection"
+      ],
+      "applicable_doctrines": [
+        "DOC-DEVOPS-005"
+      ],
+      "engages_when": [
+        "operator_requests_wargame"
+      ],
+      "relations": [],
+      "ruling_disposition": "not-extracted",
+      "ruling_reason": "The baseline worked notes record selections but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. Historical provenance remains at the pinned baseline."
+    }
+  ],
+  "retired": [
+    {
+      "id": "WG-DEL-001",
+      "historical_path": "doctrine/delivery/wargames/WG-DEL-001-coverage-level.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-DEL-002",
+      "historical_path": "doctrine/delivery/wargames/WG-DEL-002-e2e-weighting.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-DEL-003",
+      "historical_path": "doctrine/delivery/wargames/WG-DEL-003-vrt-scope.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-DEL-004",
+      "historical_path": "doctrine/delivery/wargames/WG-DEL-004-flake-policy.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-OPS-001",
+      "historical_path": "doctrine/devops/wargames/WG-OPS-001-hosting.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-OPS-002",
+      "historical_path": "doctrine/devops/wargames/WG-OPS-002-containers.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-OPS-004",
+      "historical_path": "doctrine/devops/wargames/WG-OPS-004-cost-ceilings.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-VOX-001",
+      "historical_path": "doctrine/voice/wargames/WG-VOX-001-audience-register.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-WRIT-003"
+      ]
+    },
+    {
+      "id": "WG-WEB-001",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-001-surface-register.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-UIUX-001"
+      ]
+    },
+    {
+      "id": "WG-WEB-002",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-002-page-archetype.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-WEB-003",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-003-container-choice.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-HOUSE-002"
+      ]
+    },
+    {
+      "id": "WG-WEB-004",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-004-motion-budget.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-WEB-005",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-005-ornament-budget.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-HOUSE-001"
+      ]
+    },
+    {
+      "id": "WG-WEB-006",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-006-density-and-audience.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-UIUX-001"
+      ]
+    },
+    {
+      "id": "WG-WEB-007",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-007-static-vs-server.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-WEB-008",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-008-media-pipeline.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-WEB-009",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-009-brand-family-accents.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-WEB-010",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-010-type-pairing.md",
+      "disposition": "historical-only",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths"
+    },
+    {
+      "id": "WG-WEB-011",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-011-surface-reactivity-budget.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-HOUSE-001"
+      ]
+    },
+    {
+      "id": "WG-WEB-012",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-012-literal-vs-generated-imagery.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-HOUSE-004"
+      ]
+    },
+    {
+      "id": "WG-WEB-013",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-UIUX-002",
+        "GD-UIUX-004"
+      ]
+    },
+    {
+      "id": "WG-WEB-014",
+      "historical_path": "doctrine/web-design/wargames/WG-WEB-014-media-in-longform.md",
+      "disposition": "semantic-duplicate-retired-superseded",
+      "active_ruling_allowed": false,
+      "operational_reference_status": "none-in-claimed-paths",
+      "superseded_by": [
+        "GD-HOUSE-004"
+      ]
+    }
+  ]
+}

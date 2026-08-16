@@ -1,0 +1,133 @@
+{
+  "id": "T-0028",
+  "intent": "Harmonise the EOS naming system so current Doctrine, Wargame, pack and supporting-file names use one clear public vocabulary. Migrate historical GD identities and guides paths to canonical WG identities and wargames paths, preserve old IDs and pinned history through explicit aliases, give every pack a professional display name and category, update checks and documentation, then push dev and refresh PR 10. Rollback: revert the migration commit as one unit; historical commits and alias records remain the recovery source. No venture, release, tag or sealed benchmark is changed. Closed: the current tree now uses canonical WG identities and wargames, examples, references and relations collections; 103 direct Wargame aliases and commit-scoped resolution preserve historical identity, all 25 pack slugs remain stable with explicit display, category and namespace metadata, and independent semantic and release reviews passed.",
+  "declared": {
+    "capabilities": [
+      "filesystem",
+      "network"
+    ],
+    "side_effects": [
+      "migrates-schema",
+      "sends-external"
+    ]
+  },
+  "mode": "high-assurance",
+  "tier_proposed": "R3",
+  "tier_ruled": "R3",
+  "reasons": [
+    {
+      "factor": "protected-set-contact",
+      "tier_floor": "R3",
+      "source": "derived",
+      "evidence": "The operator-authorised naming migration supersedes accepted ontology decisions, adds a protected ADR and updates GOVERNANCE.md."
+    },
+    {
+      "factor": "schema-change",
+      "tier_floor": "R2",
+      "source": "declared",
+      "evidence": "declared side effect: migrates-schema"
+    },
+    {
+      "factor": "boundary-contact",
+      "tier_floor": "R1",
+      "source": "declared",
+      "evidence": "declared side effect: sends-external"
+    }
+  ],
+  "status": "done",
+  "owner_session": "naming-harmonisation-integrator",
+  "claims": [
+    "GOVERNANCE.md",
+    "INDEX.md",
+    "README.md",
+    "TOUR.md",
+    "OPERATORS_GUIDE.md",
+    "examples/",
+    "inception/",
+    "kernel/",
+    "org/",
+    "packs/",
+    "registry/",
+    "tests/",
+    "tools/"
+  ],
+  "timestamps": {
+    "opened": "2026-08-16T00:26:00Z",
+    "updated": "2026-08-16T03:00:23Z",
+    "closed": "2026-08-16T03:00:23Z"
+  },
+  "hypothesis_ledger": [
+    {
+      "hypothesis": "The split GD and Guide vocabulary makes semantic Wargames look absent or secondary to a reader.",
+      "test": "Inventory every live procedure, its public name, identifier, collection and reader-facing reference before choosing the target vocabulary.",
+      "result": "Confirmed. All 127 procedures were Wargames, but 100 used GD identities and 125 pack procedures lived under guides, while reader surfaces still taught Guide as a current entity.",
+      "learning": "One semantic entity needs one current public name even when compatibility requires historical aliases."
+    },
+    {
+      "hypothesis": "Direct identifier aliases and commit-scoped resolution can preserve historical meaning without retaining misleading redirect files in the current tree.",
+      "test": "Freeze the exact collision-aware map, resolve every old identity at current HEAD and historical pins, and test that current raw-path redirects are absent.",
+      "result": "Confirmed. All 103 old Wargame identities resolve directly to unique canonical targets at HEAD, historical pins retain their original identities and paths, and no redirect stub remains live.",
+      "learning": "Identifier compatibility, pinned history and current filesystem paths are separate promises and must be stated separately."
+    },
+    {
+      "hypothesis": "The first delimiter-bound naming oracle and migration substitutions cover every live retired collection or entity term.",
+      "test": "Run an independent whole-tree semantic scan after the structural migration and strengthen the oracle where live provenance escapes its original delimiters.",
+      "result": "Falsified. The review found 15 research provenance files with bare retired paths and further plain-language self-references; the migration and oracle were extended, rerun to fixpoint and independently verified.",
+      "learning": "Path migration needs raw relative-path coverage plus reviewed semantic replacements, while external guides, URLs and Git ref namespaces remain protected from mechanical rewriting."
+    },
+    {
+      "hypothesis": "The naming migration ignores tool-managed workspace directories during a clean-clone verification run.",
+      "test": "Create an in-repository virtual environment in the remote clone and run the naming fixpoint check before the full suite.",
+      "result": "Falsified. The first clean-clone run inspected a pip source file inside .venv; the traversal now excludes .venv and the fixture proves retired-looking text there remains untouched.",
+      "learning": "Repository migrations must exclude common local environments as well as Git and test caches, or they can mistake third-party tooling for governed source."
+    }
+  ],
+  "verdicts": [
+    {
+      "role": "ORACLE",
+      "session": "final-semantic-review",
+      "verdict": "pass",
+      "notes": "The active naming oracle passed 8 tests, all three migrations reached fixpoint, resolver, CLI and seed suites passed, all 643 aliases resolved exactly, and no live naming misuse remained.",
+      "date": "2026-08-16T02:54:54Z"
+    },
+    {
+      "role": "REVIEWER",
+      "session": "release-audit",
+      "verdict": "pass",
+      "notes": "ADR-0015 remained byte-identical after acceptance, ancestry and oracle provenance were coherent, repository check passed with no findings, performance stayed within its ceiling, and scope and secret scans were clean.",
+      "date": "2026-08-16T02:54:54Z"
+    }
+  ],
+  "oracle_provenance": {
+    "files": [
+      "org/migration/NAMING_BASELINE.json",
+      "tests/test_naming_oracle.py"
+    ],
+    "hashes": {
+      "org/migration/NAMING_BASELINE.json": "985680c6841323b506919cc18540212c0438712a5c911b8b57bb595f5454ae6a",
+      "tests/test_naming_oracle.py": "114c7ac3f9c16eff592f6a6a05c76ea5b40854ee6539484d10fedd010c240ee7"
+    },
+    "author_session": "naming-oracle-author-2",
+    "independence_method": "separate-model",
+    "amendments": [
+      {
+        "reason": "ADR-0015 must name the historical identifiers and paths that its accepted migration decision retires.",
+        "change": "Allow only the exact ADR-0015 path to retain retired naming literals while preserving every other live-surface prohibition.",
+        "old_hash": "114c7ac3f9c16eff592f6a6a05c76ea5b40854ee6539484d10fedd010c240ee7",
+        "new_hash": "39f4948260fecc202597d176e04cdc25dcfb3718b9bf30114bfd2803d424f538",
+        "author_session": "final-semantic-review",
+        "authorised_by": "Daniel Parke",
+        "date": "2026-08-16T02:22:50Z"
+      },
+      {
+        "reason": "Live research provenance used bare retired collection paths that the original delimiter-bound oracle did not detect.",
+        "change": "Detect bare retired collection paths across live text while excluding URL segments, recognised Git ref namespaces and the exact ADR-0015 migration decision.",
+        "old_hash": "39f4948260fecc202597d176e04cdc25dcfb3718b9bf30114bfd2803d424f538",
+        "new_hash": "77dff63db838b887b7f5cb4cbe289291ff80ba88ffadd65b08dee72b3077894a",
+        "author_session": "final-semantic-review",
+        "authorised_by": "Daniel Parke",
+        "date": "2026-08-16T02:34:14Z"
+      }
+    ]
+  }
+}

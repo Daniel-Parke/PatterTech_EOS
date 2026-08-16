@@ -1,21 +1,26 @@
 ---
-summary: Documentation and developer experience, where a document's truth lives and which documents can be made to fail a build
-type: playbook
+summary: Activation, outcomes and decision map for the docs-dx Doctrine and Wargames
+type: pack
 tags: [content, voice, delivery, ci, tooling]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: empirical-evidence
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [publishes_docs, documents_executable_surface, emits_user_visible_failure, renames_or_deletes_documented_page]
 activation_paths: [**/README.md, **/docs/**, **/*.md, **/CONTRIBUTING.md, **/CHANGELOG.md, **/Makefile]
 volatility: slow
-review: 2028-04
+review: none
 sources: [EV-0023, EV-0044, EV-0095, EV-0102, EV-0136, EV-0137, EV-0170, EV-0171, EV-0175, EV-0189, EV-0322, EV-0323, EV-0324, EV-0325, EV-0326, EV-0327, EV-0328, EV-0329, EV-0330, EV-0331, EV-0332, EV-0333, EV-0334, EV-0335, EV-0336]
+display_name: Documentation Engineering
+category: experience-content
+id_namespace: DOCS
+depends_on: [writing-content, coding]
 ---
 
-# docs-dx
+
+# Documentation Engineering
 
 This pack covers documentation and the developer experience around it:
 where a document's truth lives, which documents can be made to fail a
@@ -85,208 +90,55 @@ opinion about where explanation lives relative to reference. It does
 not measure documentation with a productivity number, for the reason in
 Open questions.
 
-## Requirements
+## Doctrine
 
-Six numbered requirements. One binds and five are defaults, after the
-authority audit under ADR-0008: a rule stays binding only where it
-prevents a serious or hard-to-reverse failure and rests on law, a
-standard or evidence. Almost every documentation defect is undone by a
-later commit, which is why five moved. A default is not a suggestion.
-Departing from one leaves a written reason, and every check in
-`packs/docs-dx/CHECKS.md` still runs. The numbers do not move, because
-the checks, the guides and the worked example cite them.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-| Id | Authority | Basis | Why it landed there |
-| --- | --- | --- | --- |
-| B1 | default | standard | a dead cross-reference is repaired by a commit |
-| B2 | default | decision | the inbound links can be fixed after the move |
-| B3 | default | standard | a drifted snippet is corrected in place |
-| B4 | binding | standard | the correct fix is silently undone by the next run |
-| B5 | default | empirical-evidence | a bad message is rewritten in one commit |
-| B6 | default | decision | the estate ruled it; the convention measures presence |
-
-All six exist because documentation failure decomposes into named,
-detectable categories rather than being one quality judgement
-(EV-0325), and a convention is worth writing down only once it is
-executable (EV-0137).
-
-**Evidence pointer.** Every `EV-` id resolves in
-`registry/evidence.json`, which carries each source's version, licence,
-access date, maintenance state and review trigger. Of the sixteen
-sources researched for this pack, fifteen were imported as EV-0322 to
-EV-0336 and one was already in the ledger as EV-0044; the rest cited
-here are shared estate rows. The frozen batch the import was made from
-stays at `packs/docs-dx/research/sources.fragment.json`, and the
-synthesis behind the pack is in `packs/docs-dx/research/NOTES.md`.
-
-**B1. Internal links and anchors resolve, checked in CI, and the check
-blocks.** The check runs offline over the repository, validates
-fragments and not just paths, and distinguishes a broken link from a
-broken checker so a tool failure is never read as a clean run
-(EV-0331). Reason: an internal cross-reference to `#install-it` keeps
-pointing at nothing the moment someone retitles the heading, and nobody
-notices until a reader does. Depart where the repository has no
-cross-references worth the CI minute, and say so. Authority: default.
-Basis: standard, plus the exemplar at EV-0332 where the same check
-gates merges across sibling repositories. See
-`packs/docs-dx/refs/DOC_GATE.md`.
-
-**B2. A renamed or deleted page leaves a redirect, or every reference
-to it is updated in the same change.** One or the other, verified, in
-the commit that does the moving (EV-0332). Reason: the half-move, where
-the page is renamed, the inbound links are found later, and the reader
-in between gets a dead end with no clue what replaced it. Authority:
-default. Basis: decision, taken on that exemplar.
-
-**B3. Every executable snippet either runs in CI or carries an explicit
-declaration of why it does not.** A fenced block that names a command,
-flag or API call is executed by the documentation gate, or it carries a
-marker saying it is illustrative, environment-bound or expected to
-fail. Absence of the marker is itself the finding (EV-0330). Reason:
-the drifted quickstart. A flag is renamed, the shell block in the
-quickstart still names the old spelling, and nothing anywhere knows.
-Depart where nothing in the tree can execute the block, and record
-which blocks that covers. Authority: default. Basis: standard, from a
-toolchain that has run this way for a decade. Scope note: executing a
-snippet proves it runs, never that it is the right snippet to show, and
-the prose around it stays unverified. See
-`packs/docs-dx/guides/GD-DOCS-002-executable-examples.md`.
-
-**B4. Generated reference is verified as regenerated, not hand-edited.**
-Where reference material is produced from a schema, model or interface
-document, CI regenerates it and fails on any difference (EV-0332,
-EV-0102, EV-0023). Authority: binding. Basis: standard. Prevents the
-patched artefact: someone fixes a wrong line in the generated file, the
-generator keeps producing the wrong line, and the next regeneration
-reverts the fix. It is the one requirement here the audit left binding,
-because the repair does not hold. The person who made it believes it
-landed, and the wrong line ships again on the next run. ADR-0008 names
-the never-hand-edit-a-derived-file rule among the things it does not
-loosen, and this is that rule stated for a venture. Annotations in code
-comments do not satisfy it, because proximity is not accuracy and
-nothing fails when a docstring is wrong about the function beneath it.
-
-**B5. Every user-visible failure names the condition, the
-caller-relevant identity, and what to do next.** The message says what
-was wrong, shows or names the offending input, and points at the
-accepted alternative. Detail beyond that goes behind an explicit
-request rather than inline (EV-0328). Which failures a caller may tell
-apart is an interface decision and is declared, not inferred
-(EV-0175). Reason: the dead stop. A user does the wrong thing, gets
-`error` and exit 1, and cannot tell whether they mistyped, hit a bug or
-lack a permission. Authority: default. Basis: empirical-evidence. Scope
-note: the read-rate and time-to-fix evidence is an eye-tracking study
-of 56 students fixing planted Java defects in Eclipse in 2017
-(EV-0327). The direction transfers, the percentages are not a target,
-and nothing there tested an agent reader. See
-`packs/docs-dx/guides/GD-DOCS-004-failure-messages.md`.
-
-**B6. Every repository carries an agent entry file at the conventional
-root path, and the commands it names are covered by B3.** The
-convention fixes location and nothing else, which is why it was adopted
-across vendors that agree on very little (EV-0044). Reason: an agent
-guessing at build and test commands, and the softer failure where the
-file exists, is never checked, and confidently names a command removed
-two releases ago. Adoption counts measure file existence, so presence
-alone is worth nothing without the second half. Authority: default.
-Basis: decision.
-
-## Defaults
-
-Each applies unless a venture's lock-book overrides it with a recorded
-reason.
-
-**D1. Use the four documentation forms as a diagnostic, never as a
-folder layout.** When a page has become confusing, ask which of
-tutorial, how-to, reference and explanation it is trying to be, and
-split it (EV-0322). Reason: the load-bearing claim is that mixing forms
-inside one page is what makes it unusable, because a reader trying to
-get something done cannot use a page that keeps stopping to teach. The
-framework has no research base beyond its author's practice, and four
-empty directories on day one produce a tutorial nobody wrote (EV-0323).
-See `packs/docs-dx/refs/DOC_FORMS.md`.
-
-**D2. A README answers five questions: what it is, why it exists, how
-to use it, what state it is in, and where to go next.** The wording and
-the order sit in `packs/docs-dx/refs/DOC_FORMS.md`, which owns the set,
-and C-18 checks against that file rather than against this sentence.
-Reason: sampled READMEs cluster on what and how and systematically omit
-why and state, which are the questions a reader cannot answer any other
-way (EV-0329). Scope note: that is a descriptive study of open-source
-READMEs sampled before 2018, and it never linked section presence to an
-outcome.
-
-**D3. A curated changelog with a running Unreleased section.** One
-entry per version, newest first, dated, grouped into added, changed,
-deprecated, removed, fixed and security, with deprecations announced
-before removal (EV-0333). Derive from commit history only where a
-commit grammar is enforced at write time (EV-0170, EV-0171). Reason: a
-consumer needs the consequence of upgrading, and a raw log is full of
-merges and internal churn nobody can act on. Override for an internal
-service whose only consumers are two other services of the same estate,
-where a machine-readable compatibility diff (EV-0136) carries more than
-prose. See `packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md`.
-
-**D4. A failure that suggests a fix declares how confident it is.**
-Four tiers work: safe to apply automatically, contains placeholders,
-possibly wrong, unstated (EV-0328). Reason: a caller, human or agent,
-needs to know whether to apply the suggestion without reading further.
-Override where nothing can act on the suggestion automatically, in
-which case the tier is decoration.
-
-**D5. External link checking is advisory, never blocking.** Reason:
-external checking fails against rate limits and transient outages, so
-making it blocking buys false failures and then gets turned off
-(EV-0331). The blocking half of the check runs offline over internal
-links and anchors only, which is also what makes it reproducible.
-
-**D6. Coverage before style.** When attention is scarce, a missing
-install or deployment instruction outranks every style finding.
-Practitioners rate absence as both the most damaging and the most
-frequent documentation problem, ahead of prose quality (EV-0326).
-Reason: a linter that consumes the attention which would have written
-the missing runbook is a net loss. Scope note: that is perception data
-from 146 practitioners across two surveys, a ranking of felt pain
-rather than a measured defect rate.
-
-**D7. Prose rules ship as suggestions and are promoted on evidence.** A
-new house rule enters as a non-blocking severity, is observed against
-real changes, and only then becomes an error (EV-0335). Reason: a rule
-that blocks on its first day blocks the wrong things and teaches people
-to route around the checker.
-
-## Preferences
-
-These are taste. Record them, do not gate on them, and override them
-without asking.
-
-- **House prose rules beyond the mechanical subset.** Second person,
-  active voice, present tense, sentence case headings, code font for
-  code, unambiguous dates and alt text on images are cheap to check and
-  worth having (EV-0334). Everything past that is a preference, and
-  that guide is American English written for a different house, so take
-  the enforceable-subset principle rather than the guide.
-- **Which static site generator, or none.** A repository of Markdown
-  read on the forge is a legitimate documentation site.
-- **Whether explanation lives beside reference or apart**, and which
-  prose-linter severities apply to which rule (EV-0335).
-- **Whether documentation lives with the code or in its own
-  repository.** Edit-on-encounter (EV-0095) argues for beside the code
-  and this repository takes that bet, but it is not evidenced.
+<a id="B1"></a>
+- `B1` to [DOC-DOCS-001](doctrines/DOC-DOCS-001-internal-links-and-anchors-resolve-checked-in-ci-and-the.md) (default)
+<a id="B2"></a>
+- `B2` to [DOC-DOCS-002](doctrines/DOC-DOCS-002-a-renamed-or-deleted-page-leaves-a-redirect-or-every.md) (default)
+<a id="B3"></a>
+- `B3` to [DOC-DOCS-003](doctrines/DOC-DOCS-003-every-executable-snippet-either-runs-in-ci-or-carries-an.md) (default)
+<a id="B4"></a>
+- `B4` to [DOC-DOCS-004](doctrines/DOC-DOCS-004-generated-reference-is-verified-as-regenerated-not-hand.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-DOCS-005](doctrines/DOC-DOCS-005-every-user-visible-failure-names-the-condition-the-caller.md) (default)
+<a id="B6"></a>
+- `B6` to [DOC-DOCS-006](doctrines/DOC-DOCS-006-every-repository-carries-an-agent-entry-file-at-the.md) (default)
+<a id="D1"></a>
+- `D1` to [DOC-DOCS-007](doctrines/DOC-DOCS-007-use-the-four-documentation-forms-as-a-diagnostic-never-as-a.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-DOCS-008](doctrines/DOC-DOCS-008-a-readme-answers-five-questions-what-it-is-why-it-exists.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-DOCS-009](doctrines/DOC-DOCS-009-a-curated-changelog-with-a-running-unreleased-section.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-DOCS-010](doctrines/DOC-DOCS-010-a-failure-that-suggests-a-fix-declares-how-confident-it-is.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-DOCS-011](doctrines/DOC-DOCS-011-external-link-checking-is-advisory-never-blocking.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-DOCS-012](doctrines/DOC-DOCS-012-coverage-before-style.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-DOCS-013](doctrines/DOC-DOCS-013-prose-rules-ship-as-suggestions-and-are-promoted-on.md) (default)
+- source `preferences:001` to [DOC-DOCS-014](doctrines/DOC-DOCS-014-house-prose-rules-beyond-the-mechanical-subset.md) (preference)
+- source `preferences:002` to [DOC-DOCS-015](doctrines/DOC-DOCS-015-which-static-site-generator-or-none.md) (preference)
+- source `preferences:003` to [DOC-DOCS-016](doctrines/DOC-DOCS-016-whether-explanation-lives-beside-reference-or-apart.md) (preference)
+- source `preferences:004` to [DOC-DOCS-017](doctrines/DOC-DOCS-017-whether-documentation-lives-with-the-code-or-in-its-own.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| Where does this document's truth live? | `packs/docs-dx/guides/GD-DOCS-001-truth-location.md` | Generate it where a machine-readable source exists |
-| How does a code example stop lying? | `packs/docs-dx/guides/GD-DOCS-002-executable-examples.md` | Run it in CI, or make it declare why not |
-| Who writes the changelog? | `packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md` | Curated, with a derived first draft |
-| What does a failure message owe its reader? | `packs/docs-dx/guides/GD-DOCS-004-failure-messages.md` | Condition, offending input, accepted alternative |
-| Which documentation checks may block? | `packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md` | Internal and structural block, prose and external advise |
+| Where does this document's truth live? | `packs/docs-dx/wargames/WG-DOCS-001-truth-location.md` | Generate it where a machine-readable source exists |
+| How does a code example stop lying? | `packs/docs-dx/wargames/WG-DOCS-002-executable-examples.md` | Run it in CI, or make it declare why not |
+| Who writes the changelog? | `packs/docs-dx/wargames/WG-DOCS-003-changelog-ownership.md` | Curated, with a derived first draft |
+| What does a failure message owe its reader? | `packs/docs-dx/wargames/WG-DOCS-004-failure-messages.md` | Condition, offending input, accepted alternative |
+| Which documentation checks may block? | `packs/docs-dx/wargames/WG-DOCS-005-blocking-checks.md` | Internal and structural block, prose and external advise |
 
-Level-3 detail sits in `packs/docs-dx/refs/DOC_GATE.md` and
-`packs/docs-dx/refs/DOC_FORMS.md`. The worked repair of a broken
-quickstart is `packs/docs-dx/exemplars/EX-DOCS-001-stale-quickstart.md`.
+Level-3 detail sits in `packs/docs-dx/references/DOC_GATE.md` and
+`packs/docs-dx/references/DOC_FORMS.md`. The worked repair of a broken
+quickstart is `packs/docs-dx/examples/EX-DOCS-001-stale-quickstart.md`.
 
 ## Failure modes and anti-patterns
 

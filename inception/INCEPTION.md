@@ -16,9 +16,9 @@ needs while they are present.
 
 Ground rules. The agent transcribes and challenges; it never invents,
 and an unanswered question is a recorded question. A fork the walk hits
-that no guide covers takes the draft-guide route of
+that no Wargame covers takes the uncovered-pressure route in
 inception/WALK_ORDER.md and Session 0 carries on, because a missing
-guide is the estate's gap and not the venture's blocker. If the session
+Wargame is the estate's gap and not the venture's blocker. If the session
 dies mid-way, the files written so far are the resume state.
 
 Two paths exist: the full one below, and inception/EXPRESS_INCEPTION.md
@@ -55,10 +55,10 @@ strictly smaller version.
 
 ## Phase B · Scale, shape and risk surface
 
-Three rulings, taken with the operator.
+Three Rulings, taken with the operator.
 
 1. Scale, WG-EOS-001: S or ORG.
-2. Repo shape, WG-EOS-002. Create or claim the repo per the ruling and
+2. Repo shape, WG-EOS-002. Create or claim the repo per the Ruling and
    put `* text=auto eol=lf` in .gitattributes before anything else
    lands.
 3. The risk surface. The interview's answers on money, personal data,
@@ -69,7 +69,9 @@ Three rulings, taken with the operator.
    code yet names the paths its stack profile creates, and the
    first-build task corrects them if the stack lands differently.
 
-All three go in the lock-book header, argued, with one-line notes. The
+The scale and repository-shape outcomes go into `docs/RULINGS.json` as
+argued `RUL-*` records with one-line reasons. The lock-book header carries
+the resulting scale and repository pin, not duplicate Ruling rows. The
 risk-surface map carries to phase D as the fill for the policy's
 path_patterns lists. A path pattern never sets a tier by itself; it is
 a signal the factor table cites, per kernel/POLICY_SPEC.md.
@@ -77,13 +79,17 @@ a signal the factor table cites, per kernel/POLICY_SPEC.md.
 ## Phase C · Pack activation walk
 
 Build and order the walk per inception/WALK_ORDER.md, which owns the
-method, the always-walk set, the canonical order and the two budgets.
-At Session 0 it is done by hand, because the venture has no history for
-a tool to read. Rule every guide the activated packs name.
+tri-state facts, the always-walk set, dependency order and selection
+gate. Match the interview facts through `eos doctrine match` or
+`eos wargame match`. Applicable Doctrine summaries load automatically;
+full atoms load only when the operator needs their reasoning. Run a
+Wargame only when a pressure, conflict, gap or explicit operator request
+engages it.
 
-Each ruling lands as one row in the lock-book header, in the form that
-file sets out. The activated packs go in the lock-book's packs_adopted
-list, and house style activates only by adoption there.
+Every candidate Wargame receives a selected, omitted or candidate entry
+with a reason in `docs/RULINGS.json`; only executed Wargames receive a
+`RUL-*` outcome. The activated packs go in the lock-book's
+`packs_adopted` list, and house style activates only by adoption there.
 
 ## Phase D · Compile
 

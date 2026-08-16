@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/identifier-aliases.schema.json",
+  "title": "Explicit compatibility aliases for EOS knowledge identities",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "aliases"],
+  "properties": {
+    "version": {"const": 1},
+    "aliases": {
+      "type": "object",
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {"type": "string", "minLength": 1}
+    }
+  }
+}

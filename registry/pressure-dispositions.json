@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "kind": "pressure-dispositions",
+  "source": "org/reports/DOCTRINE_WARGAME_RESEARCH_2026-08-15.md",
+  "accepted_by": "Operator instruction for T-0026, 2026-08-15",
+  "governed_by": "ADR-0014",
+  "review": "2027-02",
+  "rows": [
+    {
+      "case": 1,
+      "name": "Polars/pandas/DuckDB/Spark",
+      "pressure": "requires_tabular_engine_choice",
+      "disposition": "new-wargame",
+      "consequence": "routine",
+      "wargames": ["WG-DATA-001"],
+      "relations": [],
+      "fallback": "Keep the current proved engine and run one representative query or pipeline before changing it."
+    },
+    {
+      "case": 2,
+      "name": "dataframe-to-array or solver boundary",
+      "pressure": "crosses_dataframe_array_boundary",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-DATA-002"],
+      "relations": [],
+      "fallback": "Keep the higher-level representation until dtype, layout, copy, memory and result tolerance are proved at the boundary."
+    },
+    {
+      "case": 3,
+      "name": "NumPy/Numba/native/GPU",
+      "pressure": "has_profiled_numeric_kernel",
+      "disposition": "new-wargame",
+      "consequence": "routine",
+      "wargames": ["WG-DATA-003"],
+      "relations": [],
+      "fallback": "Retain the correctness-checked baseline until compile-inclusive and steady-state measurements justify one promotion."
+    },
+    {
+      "case": 4,
+      "name": "eager/lazy/streaming/out-of-core and reproducibility",
+      "pressure": "working_set_exceeds_memory",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-DATA-001"],
+      "relations": [],
+      "fallback": "Use the simplest repeatable plan that fits; record spill, ordering, peak memory and output agreement before promotion."
+    },
+    {
+      "case": 5,
+      "name": "static/SSR/CSR/islands/PWA/native",
+      "pressure": "requires_rendering_mode_choice",
+      "disposition": "new-wargame",
+      "consequence": "routine",
+      "wargames": ["WG-UIUX-001"],
+      "relations": [],
+      "fallback": "Keep meaningful content available without client execution and add runtime only for a measured interaction or offline need."
+    },
+    {
+      "case": 6,
+      "name": "novice versus expert density",
+      "pressure": "serves_novice_and_expert_users",
+      "disposition": "relation-only",
+      "consequence": "routine",
+      "wargames": ["WG-UIUX-003"],
+      "relations": ["DREL-UIUX-001"],
+      "fallback": "Choose density from representative novice and expert task evidence for this surface."
+    },
+    {
+      "case": 7,
+      "name": "semantic DOM/ARIA versus canvas/custom controls",
+      "pressure": "requires_non_semantic_custom_control",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-UIUX-002"],
+      "relations": ["DREL-UIUX-002"],
+      "fallback": "Keep a meaningful native control or content route until equivalent semantics and interaction behaviour are proved."
+    },
+    {
+      "case": 8,
+      "name": "house style and motion versus audience, accessibility and performance",
+      "pressure": "house_style_costs_access_or_performance",
+      "disposition": "relation-only",
+      "consequence": "high",
+      "wargames": ["WG-UIUX-003", "WG-UIUX-005"],
+      "relations": ["DREL-HOUSE-001", "DREL-HOUSE-002"],
+      "fallback": "Audience, accessibility and measured target-device performance override optional house styling."
+    },
+    {
+      "case": 9,
+      "name": "modular monolith versus services",
+      "pressure": "requires_independent_deployability",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "high",
+      "wargames": ["WG-ARCH-013", "WG-ARCH-001"],
+      "relations": ["DREL-ARCH-003"],
+      "fallback": "Keep one deployable with enforced module seams until a measured ownership, release, isolation or capacity signal earns a split."
+    },
+    {
+      "case": 10,
+      "name": "synchronous versus queue/event/stream",
+      "pressure": "requires_asynchronous_delivery",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-ARCH-009"],
+      "relations": [],
+      "fallback": "Keep the call synchronous unless waiting is unsafe; when asynchronous, make acknowledgement, retry, ordering and replay explicit."
+    },
+    {
+      "case": 11,
+      "name": "storage-engine selection",
+      "pressure": "requires_storage_engine_choice",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-ARCH-010"],
+      "relations": ["DREL-ARCH-001"],
+      "fallback": "Keep one proved store until a representative access trace and recovery path justify another engine."
+    },
+    {
+      "case": 12,
+      "name": "local/cloud/hybrid/offline and consistency",
+      "pressure": "requires_offline_or_hybrid_consistency",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-ARCH-011"],
+      "relations": ["DREL-NAT-001"],
+      "fallback": "Remain online-first and reject invariant-bearing offline writes until conflict and recovery behaviour are proved."
+    },
+    {
+      "case": 13,
+      "name": "spike versus hardened vertical slice",
+      "pressure": "riskiest_assumption_is_unproved",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "routine",
+      "wargames": ["WG-DEL-007"],
+      "relations": [],
+      "fallback": "Use the cheapest representative spike with a named deletion or hardening boundary."
+    },
+    {
+      "case": 14,
+      "name": "doubles/sandbox/live and oracle independence",
+      "pressure": "test_fidelity_changes_outcome",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "high",
+      "wargames": ["WG-DEL-005", "WG-DEL-006"],
+      "relations": ["DREL-DEL-002"],
+      "fallback": "Use the highest-fidelity affordable boundary and prove a double against the real contract with an independent oracle."
+    },
+    {
+      "case": 15,
+      "name": "incident hotfix versus normal gates",
+      "pressure": "incident_needs_gate_exception",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-DEL-008"],
+      "relations": ["DREL-DEL-001"],
+      "fallback": "Use the normal path unless active user harm justifies a bounded route that retains non-waivable checks and rollback."
+    },
+    {
+      "case": 16,
+      "name": "build/buy/managed service versus portability and incident access",
+      "pressure": "managed_service_changes_exit_or_access",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-ARCH-012"],
+      "relations": ["DREL-ARCH-002"],
+      "fallback": "Retain the smallest owned interface and proved export, diagnosis and recovery route."
+    },
+    {
+      "case": 17,
+      "name": "fail closed versus honest degradation",
+      "pressure": "integrity_floor_reduces_availability",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-DEVOPS-006"],
+      "relations": ["DREL-OPS-001"],
+      "fallback": "Fail closed for protected properties and degrade only a truthful journey that preserves them."
+    },
+    {
+      "case": 18,
+      "name": "observability versus privacy",
+      "pressure": "observability_collects_sensitive_data",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-DEVOPS-007"],
+      "relations": ["DREL-OPS-002", "DREL-OPS-003"],
+      "fallback": "Collect the minimum redacted signal that diagnoses the named journey and reject secret or cross-tenant telemetry."
+    },
+    {
+      "case": 19,
+      "name": "provenance/SBOM versus producer trust",
+      "pressure": "producer_trust_is_unproved",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "high",
+      "wargames": ["WG-SUPPLY-001"],
+      "relations": ["DREL-SUPPLY-001"],
+      "fallback": "Verify producer and policy trust separately from provenance and inventory evidence."
+    },
+    {
+      "case": 20,
+      "name": "dependency freshness versus known-good deployment",
+      "pressure": "dependency_update_changes_known_good",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "high",
+      "wargames": ["WG-SUPPLY-003", "WG-DEVOPS-002"],
+      "relations": ["DREL-SUPPLY-002"],
+      "fallback": "Keep known-good during routine pressure and use a proved staged security exception when delay is riskier."
+    },
+    {
+      "case": 21,
+      "name": "deterministic workflow/single agent/swarm",
+      "pressure": "agent_coordination_cost_is_material",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "routine",
+      "wargames": ["WG-AGENT-001", "WG-SWARM-001"],
+      "relations": ["DREL-AGENT-001"],
+      "fallback": "Start with one bounded agent and an external oracle; add the smallest measured decomposition."
+    },
+    {
+      "case": 22,
+      "name": "local/hosted/hybrid models",
+      "pressure": "model_residency_or_hosting_is_constrained",
+      "disposition": "new-wargame",
+      "consequence": "high",
+      "wargames": ["WG-AIML-001"],
+      "relations": ["DREL-AIML-001"],
+      "fallback": "Keep protected data on the proved route and retain a deterministic or human outage fallback."
+    },
+    {
+      "case": 23,
+      "name": "deterministic/human/model judges",
+      "pressure": "evaluation_oracle_is_undecided",
+      "disposition": "existing-wargame-refreshed",
+      "consequence": "high",
+      "wargames": ["WG-AIML-004", "WG-DEL-006"],
+      "relations": ["DREL-AIML-002"],
+      "fallback": "Use deterministic external truth where possible; calibrate any human or model judge before it gates work."
+    },
+    {
+      "case": 24,
+      "name": "golden path versus autonomy",
+      "pressure": "golden_path_needs_escape",
+      "disposition": "rejected",
+      "consequence": "routine",
+      "wargames": [],
+      "relations": [],
+      "fallback": "Use existing stack profiles, seed routes and domain Wargames with their tested local escape decisions.",
+      "reopen_trigger": "on-change-of:estate-gaining-a-second-team"
+    },
+    {
+      "case": 25,
+      "name": "local exception versus doctrine promotion",
+      "pressure": "local_exception_may_generalise",
+      "disposition": "relation-only",
+      "consequence": "high",
+      "wargames": [],
+      "relations": ["DREL-RESEARCH-001"],
+      "fallback": "Keep the exception venture-local until two argued rulings overlap and an accepted Doctrine review changes estate scope."
+    }
+  ]
+}

@@ -124,7 +124,7 @@
             "worked-exemplar",
             "implementation-reference",
             "experimental-guidance",
-            "decision-guide",
+            "wargame",
             "estate-default",
             "binding-candidate",
             "rejected",
@@ -161,7 +161,7 @@
           "items": {
             "$ref": "#/$defs/ref"
           },
-          "description": "Live rules, guides or lessons this one contradicts. Named at intake rather than found after adoption."
+          "description": "Live Doctrine, Wargames or lessons this one contradicts. Named at intake rather than found after adoption."
         },
         "conflict_resolutions": {
           "type": "object",

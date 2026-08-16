@@ -78,7 +78,7 @@ carries its own ruled mode and its own claim.
 
 1. Rule the fork before anything is dispatched. The question is whether
    this work wants lanes at all, and
-   `packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md`
+   `packs/agentic-swarm/wargames/WG-SWARM-001-swarm-or-single-agent.md`
    answers it. Do not run wide over work one session already does well,
    and do not run wide over a chain.
 2. Then run the method in org/GRAPH_BUILD.md: cut the partition, write

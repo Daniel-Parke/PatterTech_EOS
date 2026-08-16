@@ -1,0 +1,13 @@
+{
+  "id": "DREL-DEL-001",
+  "owner_doctrine": "DOC-SUPPLY-012",
+  "relation": "supports",
+  "target": "DOC-DEL-001",
+  "conditions": ["incident_needs_gate_exception"],
+  "status": "covered",
+  "evidence": ["EV-0038", "EV-0204", "EV-0580"],
+  "fallback": "Use the normal release path; if delay causes greater active harm, retain non-waivable checks, known-good state, impact observation and rollback.",
+  "wargame": "WG-DEL-008",
+  "owner": "supply-chain-integrity",
+  "review": "2027-02"
+}

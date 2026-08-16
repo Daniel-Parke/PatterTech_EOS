@@ -1,21 +1,26 @@
 ---
-summary: Binding devops and reliability practice, migrations, restore proof, SLOs and error budgets, rollout, flags, incidents and cost
-type: guide
+summary: Activation, outcomes and decision map for the devops-reliability Doctrine and Wargames
+type: pack
 tags: [ops, data, infra]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [deploys_to_environment, stores_persistent_data, runs_schema_migrations]
 activation_paths: [**/migrations/**, **/.github/workflows/**, **/terraform/**, **/k8s/**, **/helm/**, **/Dockerfile*, **/docker-compose*, **/*.tf, **/ops/**, **/runbooks/**, **/*slo*, **/*alert*]
 volatility: slow
-review: 2027-04
+review: none
 sources: [EV-0020, EV-0026, EV-0043, EV-0058, EV-0059, EV-0071, EV-0096, EV-0197, EV-0198, EV-0199, EV-0200, EV-0201, EV-0202, EV-0203, EV-0204, EV-0205, EV-0206, EV-0207, EV-0208, EV-0209, EV-0210, EV-0211]
+display_name: Reliability Engineering and Operations
+category: reliability-trust
+id_namespace: DEVOPS
+depends_on: [delivery-testing, security-privacy]
 ---
 
-# DevOps and reliability
+
+# Reliability Engineering and Operations
 
 This pack governs how a venture changes and operates a running system:
 schema migrations, restore proof, service level objectives and error
@@ -108,189 +113,62 @@ non-requirements below.
   of SPACE, which makes the temptation to use the telemetry half as a
   personal score stronger and worse.
 
-## Binding requirements
+## Doctrine
 
-Seven. Each names the failure it prevents, the evidence that earns it
-and the basis it rests on. Departure needs an accepted ADR, not a
-task-level judgement.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The 2026-08 authority audit under ADR-0008 did not run over this
-section, and this paragraph is the note saying so. ADR-0008 excludes
-"the production-safety rules in `packs/devops-reliability`", naming
-them that way rather than by number. Requirements 1, 2, 3 and 5 are
-production safety past argument: the first three govern what a change
-does to live data, and the fourth is the only evidence that lost data
-is recoverable at all. Requirements 4, 6 and 7 are process rules, and
-the exclusion does not plainly reach them, so read those three as
-untested against the two-limb test rather than as tested and upheld.
-All seven stay binding meanwhile. An untested rule is not a demoted
-one, and only an accepted ADR moves them.
+<a id="B1"></a>
+- `B1` to [DOC-DEVOPS-001](doctrines/DOC-DEVOPS-001-backwards-incompatible-schema-change-ships-as-expand.md) (binding)
+<a id="B2"></a>
+- `B2` to [DOC-DEVOPS-002](doctrines/DOC-DEVOPS-002-recovery-is-forward-only-and-the-change-record-says-so.md) (binding)
+<a id="B3"></a>
+- `B3` to [DOC-DEVOPS-003](doctrines/DOC-DEVOPS-003-ci-runs-a-migration-linter-that-fails-the-build-on.md) (binding)
+<a id="B4"></a>
+- `B4` to [DOC-DEVOPS-004](doctrines/DOC-DEVOPS-004-every-service-carries-at-least-one-sli-and-slo-as-a.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-DEVOPS-005](doctrines/DOC-DEVOPS-005-a-restore-drill-runs-on-cadence-and-produces-a-dated.md) (binding)
+<a id="B6"></a>
+- `B6` to [DOC-DEVOPS-006](doctrines/DOC-DEVOPS-006-every-incident-above-the-agreed-threshold-gets-an-owned.md) (binding)
+<a id="B7"></a>
+- `B7` to [DOC-DEVOPS-007](doctrines/DOC-DEVOPS-007-every-feature-flag-declares-an-owner-and-an-expiry-date.md) (binding)
+- source `defaults:001` to [DOC-DEVOPS-008](doctrines/DOC-DEVOPS-008-progressive-rollout-with-an-automated-abort-condition-for.md) (default)
+- source `defaults:002` to [DOC-DEVOPS-009](doctrines/DOC-DEVOPS-009-an-error-budget-policy-in-the-shape-the-sre-workbook.md) (default)
+- source `defaults:003` to [DOC-DEVOPS-010](doctrines/DOC-DEVOPS-010-cost-allocation-tags-on-every-deployed-resource.md) (default)
+- source `defaults:004` to [DOC-DEVOPS-011](doctrines/DOC-DEVOPS-011-a-golden-path-scaffold-for-new-services-registering.md) (default)
+- source `defaults:005` to [DOC-DEVOPS-012](doctrines/DOC-DEVOPS-012-migrations-applied-before-application-start-idempotent.md) (default)
+- source `defaults:006` to [DOC-DEVOPS-013](doctrines/DOC-DEVOPS-013-policy-checks-expressed-as-code-where-the-inputs-are.md) (default)
+- source `preferences:001` to [DOC-DEVOPS-014](doctrines/DOC-DEVOPS-014-failure-drills-beyond-restore-once-restore-itself-is.md) (preference)
+- source `preferences:002` to [DOC-DEVOPS-015](doctrines/DOC-DEVOPS-015-unit-economics-reporting-cost-per-active-user-or-per-job.md) (preference)
+- source `preferences:003` to [DOC-DEVOPS-016](doctrines/DOC-DEVOPS-016-a-periodic-platform-self-assessment-across-investment.md) (preference)
+- source `preferences:004` to [DOC-DEVOPS-017](doctrines/DOC-DEVOPS-017-automated-flag-removal-that-rewrites-the-syntax-tree-when.md) (preference)
+- source `preferences:005` to [DOC-DEVOPS-018](doctrines/DOC-DEVOPS-018-experiment-flags-governed-by-asymmetric-gating-where-goal.md) (preference)
 
-**Evidence pointer.** Every `EV-` id resolves in
-`registry/evidence.json`, which carries each source's version, licence,
-access date, maintenance state and review trigger. The fifteen sources
-researched for this pack were imported as EV-0197 to EV-0211, and the
-seven others cited here are shared estate rows. The frozen batch the
-import was made from stays at
-`packs/devops-reliability/research/sources.fragment.json`, and the
-synthesis behind the pack is in
-`packs/devops-reliability/research/NOTES.md`. This pack cites ids and
-never restates the versioned facts.
+### Later evidence-led admissions
 
-1. **Backwards-incompatible schema change ships as expand, migrate,
-   contract, in separate deploys.** Add the new shape, move every caller
-   and row, delete the old shape only once nothing reads it. No deploy
-   may break the application version still running beside it (EV-0206,
-   EV-0207). *Prevents*: an application rollback that needs a database
-   change to go with it, at the exact moment nobody can think straight.
-   *Basis*: decision, on one practitioner write-up and one maintainer
-   document. It binds as a production-safety floor rather than on that.
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
 
-2. **Recovery is forward-only and the change record says so.** No down
-   or undo scripts. The maintainer of the most used migration tool says
-   plainly that undo cannot reverse destructive data change and cannot
-   recover a script that failed on statement seven of ten (EV-0207).
-   Corrections are new migrations. *Prevents*: a down function that has
-   never executed against production-shaped data being treated as a
-   safety net. *Basis*: decision, on a maintainer argument the pack
-   notes below is not disinterested. Binds as a production-safety floor.
-
-3. **CI runs a migration linter that fails the build on destructive and
-   backwards-incompatible findings, and the change record names the risk
-   class of every migration in the change.** The four classes are
-   destructive, backwards-incompatible, data-dependent and non-linear
-   history; only the first two are reliably decidable before running, so
-   those two fail and the rest warn (EV-0202). *Prevents*: an
-   irreversible DDL reaching production because the diff looked small.
-   *Basis*: decision, on one analyzer's documented class taxonomy. Binds
-   as a production-safety floor.
-
-   **How the contract step gets through this gate.** The contract phase
-   requirement 1 mandates is a destructive migration, so this linter is
-   built to fail the one step the pack requires. A drill found that the
-   pack never said how both hold, and an agent obeying them in order
-   stalls at the drop. The route through is evidence, not an override.
-   A destructive migration passes only when it declares itself the
-   contract phase of a named expand, migrate, contract sequence, names
-   the two earlier migrations by id, and names the deploy in which the
-   last reader of the old shape went away. The linter fails a
-   destructive finding carrying no such declaration, and fails one whose
-   named predecessors are not both already deployed. There is no bare
-   skip flag, because what makes the drop safe is the sequence, and the
-   sequence is a fact CI can check. A drop with nothing behind it is
-   the failure this gate is for, and it still fails.
-
-4. **Every service carries at least one SLI and SLO as a
-   machine-readable object.** OpenSLO gives a vendor-neutral declarative
-   shape for SLI, SLO, error budget and alert policy, so the target is
-   checkable rather than prose in a wiki (EV-0020). *Prevents*:
-   reliability arguments with no shared referent, where whoever speaks
-   last wins. *Basis*: standard. Not tested by the audit, see above.
-
-5. **A restore drill runs on cadence and produces a dated evidence
-   record with a measured elapsed time, a validation query and a
-   result.** Backup job status is not evidence. Define validation
-   criteria per data source, restore into a fresh location, measure
-   elapsed against RTO and loss against RPO, alert when either is missed
-   (EV-0201), and state the steady-state hypothesis before the drill so
-   the run can falsify something (EV-0203). *Prevents*: the four named
-   assumptions, that a backup exists, that it is uncorrupted, that
-   restore fits the RTO, and that a restored snapshot holds the data
-   without anybody querying it back out. *Basis*: standard, from the
-   reliability pillar's own practice. Binds as a production-safety
-   floor.
-
-6. **Every incident above the agreed threshold gets an owned postmortem
-   with a deadline, a timeline reconstructed from evidence, and
-   follow-ups filed as tickets.** The incident commander names the
-   owner; the owner files the actions and does not then chase them
-   (EV-0200, which is Apache-2.0 and so reusable directly). *Prevents*:
-   the same outage twice, and a timeline reconstructed from memory that
-   flatters everyone in it. *Basis*: decision, on one exemplar's process
-   documentation. Not tested by the audit, see above.
-
-7. **Every feature flag declares an owner and an expiry date at
-   creation, and long-term dependencies are taken only on stable
-   observability signals.** Flag removal is only mechanisable if a flag
-   declares an expiry and terminal value up front (EV-0209); the flag
-   API standard itself does not address lifecycle (EV-0026). Signal
-   stability is a per-signal contract, and anything below stable is
-   pinned and schema-mapped (EV-0198). *Prevents*: permanent dead
-   branches nobody owns, and dashboards and alerts silently emptying on
-   a minor version bump. *Basis*: decision on the flag half, standard on
-   the signal-stability half. Not tested by the audit, see above.
-
-## Defaults
-
-Sensible starting positions. Override any of them with a reason
-recorded in the change record or the lock-book; an unrecorded override
-is the finding, not the override itself.
-
-- **Progressive rollout with an automated abort condition for
-  user-facing change.** Promotion is a machine decision against a
-  declared query with a failure limit, and breaching it shifts traffic
-  back to the last stable version without a human in the loop (EV-0204).
-  *Reason to depart*: no traffic router or metrics backend exists yet,
-  in which case say so and use a flag with a manual kill.
-- **An error budget policy in the shape the SRE Workbook describes,
-  paraphrased.** Budget remaining means ship with low ceremony; budget
-  spent means changes halt except P0 and security until back inside the
-  SLO (EV-0096). That source is CC BY-NC-ND, so this pack paraphrases it
-  and never quotes it. *Reason to depart*: pre-production, or a venture
-  where the operator is also the only user.
-- **Cost allocation tags on every deployed resource.** Allocation is the
-  precondition that makes optimisation and chargeback mean anything;
-  without an owner per unit of spend the rest is theatre (EV-0197,
-  CC BY 4.0, attribution to the FinOps Foundation). *Reason to depart*:
-  a single-resource estate where allocation is trivially the whole bill.
-- **A golden-path scaffold for new services, registering ownership at
-  creation.** The scaffolder stamps a compliant skeleton and records the
-  owner as a side effect of creating the thing (EV-0058). Voluntary
-  uptake is the quality signal: people routing around the path means the
-  path is wrong (EV-0205). *Reason to depart*: fewer than three services,
-  where the scaffold costs more than it saves.
-- **Migrations applied before application start, idempotent,
-  advisory-locked, failing closed.** A failed migration fails the
-  deploy. Nobody edits an applied migration. This carries forward from
-  the v1 devops doctrine and is unchanged by the new evidence.
-- **Policy checks expressed as code where the inputs are already
-  machine-readable.** A decision engine queried with structured input
-  beats a prose checklist, but only where structured input exists
-  (EV-0071).
-
-## Preferences
-
-Taste. Freely overridable, no reason required, no authority claimed.
-
-- Failure drills beyond restore, once restore itself is boring.
-- Unit-economics reporting, cost per active user or per job.
-- A periodic platform self-assessment across investment, adoption,
-  interfaces, operations and measurement, treating the improvement list
-  as the output and the level as noise (EV-0205).
-- Automated flag removal that rewrites the syntax tree when a flag
-  reaches its terminal state (EV-0209). A scheduled report of flags past
-  their expiry gets most of the value in a small codebase.
-- Experiment flags governed by asymmetric gating, where goal metrics
-  drive the ship decision and guardrails block only on significant harm
-  (EV-0059).
+- [WG-DEVOPS-006](wargames/WG-DEVOPS-006-honest-degradation.md) (Wargame)
+- [WG-DEVOPS-007](wargames/WG-DEVOPS-007-observability-and-privacy.md) (Wargame)
 
 ## Decision map
 
-The material forks in this domain, each argued in a guide.
+The material forks in this domain, each argued in a Wargame.
 
-| Fork | Guide |
+| Fork | Wargame |
 | --- | --- |
-| How a backwards-incompatible schema change is made safe | `packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md` |
-| How a change reaches users once it is deployed | `packs/devops-reliability/guides/GD-DEVOPS-002-release-control.md` |
-| What governs the release rate when reliability slips | `packs/devops-reliability/guides/GD-DEVOPS-003-error-budget-dial.md` |
-| Which reliability and delivery numbers are kept | `packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md` |
-| What proves the backups work | `packs/devops-reliability/guides/WG-OPS-003-restore-proof.md` |
+| How a backwards-incompatible schema change is made safe | `packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md` |
+| How a change reaches users once it is deployed | `packs/devops-reliability/wargames/WG-DEVOPS-002-release-control.md` |
+| What governs the release rate when reliability slips | `packs/devops-reliability/wargames/WG-DEVOPS-003-error-budget-dial.md` |
+| Which reliability and delivery numbers are kept | `packs/devops-reliability/wargames/WG-DEVOPS-004-reliability-measures.md` |
+| What proves the backups work | `packs/devops-reliability/wargames/WG-DEVOPS-005-restore-proof.md` |
 
-Level-three detail sits in `packs/devops-reliability/refs/`: the four
+Level-three detail sits in `packs/devops-reliability/references/`: the four
 migration risk classes, the restore-drill evidence record, the SLO and
 error-budget shapes, the flag and rollout lifecycle, and signal
 stability with cost allocation. A full worked application is in
-`packs/devops-reliability/exemplars/EX-DEVOPS-001-email-to-contacts.md`.
+`packs/devops-reliability/examples/EX-DEVOPS-001-email-to-contacts.md`.
 The pack's own evaluation criteria are in
 `packs/devops-reliability/CHECKS.md`.
 

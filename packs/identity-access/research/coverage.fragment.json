@@ -10,10 +10,10 @@
     "activation": "Authenticating people, deciding what each may do, and serving more than one tenant from one system. Predicates: authenticates_people, serves_multiple_tenants, has_privileged_access_path, changes_authorisation_rule.",
     "evidence_sources": [],
     "worked_example": [
-      "packs/identity-access/exemplars/EX-IDENT-001-cross-tenant-share.md"
+      "packs/identity-access/examples/EX-IDENT-001-cross-tenant-share.md"
     ],
     "evaluation_method": "packs/identity-access/CHECKS.md, fourteen executable criteria and twelve judgement criteria. None of the executable set runs in this repository, which has no runtime, no users and no tenants; they are criteria for a venture's pipeline and the file says so. A frozen acceptance drill exists at benchmark/drills/identity-access.md and this lane did not read or write it, so it remains an independent oracle and carries no verdict.",
-    "estate_relevance": "The hosted web application archetype needs this and previously got architecture and security-privacy, which answer a different question. Any venture with a second kind of user meets GD-IDENT-001, and any venture with a second customer meets GD-IDENT-004.",
+    "estate_relevance": "The hosted web application archetype needs this and previously got architecture and security-privacy, which answer a different question. Any venture with a second kind of user meets WG-IDENT-001, and any venture with a second customer meets WG-IDENT-004.",
     "owner": "EOS integrator",
     "review_trigger": "2027-08"
   }

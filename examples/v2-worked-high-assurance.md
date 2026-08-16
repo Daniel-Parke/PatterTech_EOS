@@ -82,7 +82,7 @@ implementation in context. That separation is the one v1 rule v2 kept
 whole, and the reason is measured: tests written after seeing the code
 catch roughly half as many faults. The charter is
 benchmark/fixtures/seed-v2-ORG/org/roles/ORACLE.md and the argument is
-`packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md`.
+`packs/delivery-testing/wargames/WG-DEL-006-oracle-independence.md`.
 
 The independence method is property-based rather than the clean-context
 default, because auth invariants state better as properties than as

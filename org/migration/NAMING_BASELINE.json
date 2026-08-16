@@ -1,0 +1,562 @@
+{
+  "schema_version": 1,
+  "task": "T-0028",
+  "frozen_from": {
+    "commit": "b6f6a2b1861c64804ca9a7524d19e588e2e6901c",
+    "claims_commit": "ca1a2d2e86bc98f1810bf68a6889eef37b5cadc0",
+    "date": "2026-08-16"
+  },
+  "hash_contract": {
+    "algorithm": "sha256",
+    "line_ending": "LF",
+    "wargame_rows": "ID<TAB>path<LF>, sorted by ID",
+    "relation_rows": "ID<TAB>path<LF>, sorted by ID",
+    "combined_rows": "kind<TAB>ID<TAB>path<LF>, sorted lexically"
+  },
+  "counts": {
+    "tracked_files": 1985,
+    "packs": 25,
+    "doctrine_records": 516,
+    "wargames": 127,
+    "wargames_with_gd_id": 100,
+    "wargames_with_wg_id": 27,
+    "relations": 19,
+    "pack_guides_files": 125,
+    "pack_exemplar_files": 26,
+    "pack_reference_files": 79,
+    "pack_research_files": 97
+  },
+  "current_path_id_hashes": {
+    "wargames": "9ad902bc0785c1bd416cfd3be83fc27e0d1076335a7529e5723734bb0308f591",
+    "relations": "74e711329ee2f27d543ac95604620564e7f58eba585be40afee34015dcc32773",
+    "wargames_and_relations": "7391522c25d563eb69f3c356814ec12315d5b5572e5530c7559554a4f7ee92ad"
+  },
+  "stable_roots": [
+    "org",
+    "kernel",
+    "packs"
+  ],
+  "canonical_collections": [
+    "doctrines",
+    "wargames",
+    "examples",
+    "references",
+    "research"
+  ],
+  "optional_collections": [
+    "relations"
+  ],
+  "retired_collection_paths": [
+    "guides",
+    "exemplars",
+    "refs",
+    "doctrines/relations"
+  ],
+  "categories": {
+    "data-ai": "Data and AI",
+    "practice-governance": "Practice and Governance",
+    "engineering": "Engineering",
+    "product-commercial": "Product and Commercial",
+    "reliability-trust": "Reliability and Trust",
+    "experience-content": "Experience and Content"
+  },
+  "packs": {
+    "agentic-development": {
+      "display_name": "Agent Systems",
+      "category": "data-ai",
+      "id_namespace": "AGENT"
+    },
+    "agentic-swarm": {
+      "display_name": "Agent Build Orchestration",
+      "category": "practice-governance",
+      "id_namespace": "SWARM"
+    },
+    "ai-ml-llm": {
+      "display_name": "AI Systems and Evaluation",
+      "category": "data-ai",
+      "id_namespace": "AIML"
+    },
+    "api-integration": {
+      "display_name": "APIs and Integrations",
+      "category": "engineering",
+      "id_namespace": "API"
+    },
+    "architecture": {
+      "display_name": "Software Architecture",
+      "category": "engineering",
+      "id_namespace": "ARCH"
+    },
+    "business-logic-modelling": {
+      "display_name": "Business Logic and Domain Modelling",
+      "category": "engineering",
+      "id_namespace": "BLM"
+    },
+    "business-model-pricing": {
+      "display_name": "Business Models and Pricing",
+      "category": "product-commercial",
+      "id_namespace": "BMP"
+    },
+    "coding": {
+      "display_name": "Software Construction",
+      "category": "engineering",
+      "id_namespace": "COD"
+    },
+    "data-analytics": {
+      "display_name": "Data Analytics and Computation",
+      "category": "data-ai",
+      "id_namespace": "DATA"
+    },
+    "data-engineering": {
+      "display_name": "Data Engineering",
+      "category": "data-ai",
+      "id_namespace": "DATAENG"
+    },
+    "delivery-testing": {
+      "display_name": "Testing and Delivery Assurance",
+      "category": "engineering",
+      "id_namespace": "DEL"
+    },
+    "devops-reliability": {
+      "display_name": "Reliability Engineering and Operations",
+      "category": "reliability-trust",
+      "id_namespace": "DEVOPS"
+    },
+    "docs-dx": {
+      "display_name": "Documentation Engineering",
+      "category": "experience-content",
+      "id_namespace": "DOCS"
+    },
+    "identity-access": {
+      "display_name": "Identity, Access and Tenancy",
+      "category": "reliability-trust",
+      "id_namespace": "IDENT"
+    },
+    "legal-licensing": {
+      "display_name": "Licensing and Legal Boundaries",
+      "category": "practice-governance",
+      "id_namespace": "LEGAL"
+    },
+    "marketing-growth": {
+      "display_name": "Marketing and Growth",
+      "category": "product-commercial",
+      "id_namespace": "MKTG"
+    },
+    "native-client": {
+      "display_name": "Native Clients",
+      "category": "engineering",
+      "id_namespace": "NAT"
+    },
+    "pattertech-house": {
+      "display_name": "PatterTech Visual Language",
+      "category": "experience-content",
+      "id_namespace": "HOUSE"
+    },
+    "product-discovery": {
+      "display_name": "Product Discovery",
+      "category": "product-commercial",
+      "id_namespace": "DISC"
+    },
+    "research-knowledge": {
+      "display_name": "Research and Knowledge",
+      "category": "practice-governance",
+      "id_namespace": "RESEARCH"
+    },
+    "security-privacy": {
+      "display_name": "Security, Privacy and Safety",
+      "category": "reliability-trust",
+      "id_namespace": "SEC"
+    },
+    "supply-chain-integrity": {
+      "display_name": "Supply Chain and Release Integrity",
+      "category": "reliability-trust",
+      "id_namespace": "SUPPLY"
+    },
+    "support-operations": {
+      "display_name": "Customer Support Operations",
+      "category": "product-commercial",
+      "id_namespace": "SUPPORT"
+    },
+    "ui-ux": {
+      "display_name": "Interface Design and Accessibility",
+      "category": "experience-content",
+      "id_namespace": "UIUX"
+    },
+    "writing-content": {
+      "display_name": "Content Design and Writing",
+      "category": "experience-content",
+      "id_namespace": "WRIT"
+    }
+  },
+  "identifier_migration": {
+    "GD-AGENT-001": "WG-AGENT-001",
+    "GD-AGENT-002": "WG-AGENT-002",
+    "GD-AGENT-003": "WG-AGENT-003",
+    "GD-AGENT-004": "WG-AGENT-004",
+    "GD-AIML-001": "WG-AIML-002",
+    "GD-AIML-002": "WG-AIML-003",
+    "GD-AIML-003": "WG-AIML-004",
+    "GD-AIML-004": "WG-AIML-005",
+    "GD-AIML-005": "WG-AIML-006",
+    "GD-API-001": "WG-API-001",
+    "GD-API-002": "WG-API-002",
+    "GD-API-003": "WG-API-003",
+    "GD-API-004": "WG-API-004",
+    "GD-API-005": "WG-API-005",
+    "GD-ARCH-001": "WG-ARCH-013",
+    "GD-BLM-001": "WG-BLM-001",
+    "GD-BLM-002": "WG-BLM-002",
+    "GD-BLM-003": "WG-BLM-003",
+    "GD-BLM-004": "WG-BLM-004",
+    "GD-BLM-005": "WG-BLM-005",
+    "GD-BMP-001": "WG-BMP-001",
+    "GD-BMP-002": "WG-BMP-002",
+    "GD-BMP-003": "WG-BMP-003",
+    "GD-BMP-004": "WG-BMP-004",
+    "GD-COD-001": "WG-COD-001",
+    "GD-COD-002": "WG-COD-002",
+    "GD-COD-003": "WG-COD-003",
+    "GD-COD-004": "WG-COD-004",
+    "GD-COD-005": "WG-COD-005",
+    "GD-DATA-001": "WG-DATA-004",
+    "GD-DATA-002": "WG-DATA-005",
+    "GD-DATA-003": "WG-DATA-006",
+    "GD-DATA-004": "WG-DATA-007",
+    "GD-DATA-005": "WG-DATA-008",
+    "GD-DATAENG-001": "WG-DATAENG-001",
+    "GD-DATAENG-002": "WG-DATAENG-002",
+    "GD-DATAENG-003": "WG-DATAENG-003",
+    "GD-DATAENG-004": "WG-DATAENG-004",
+    "GD-DEVOPS-001": "WG-DEVOPS-001",
+    "GD-DEVOPS-002": "WG-DEVOPS-002",
+    "GD-DEVOPS-003": "WG-DEVOPS-003",
+    "GD-DEVOPS-004": "WG-DEVOPS-004",
+    "GD-DISC-001": "WG-DISC-001",
+    "GD-DISC-002": "WG-DISC-002",
+    "GD-DISC-003": "WG-DISC-003",
+    "GD-DISC-004": "WG-DISC-004",
+    "GD-DOCS-001": "WG-DOCS-001",
+    "GD-DOCS-002": "WG-DOCS-002",
+    "GD-DOCS-003": "WG-DOCS-003",
+    "GD-DOCS-004": "WG-DOCS-004",
+    "GD-DOCS-005": "WG-DOCS-005",
+    "GD-HOUSE-001": "WG-HOUSE-001",
+    "GD-HOUSE-002": "WG-HOUSE-002",
+    "GD-HOUSE-003": "WG-HOUSE-003",
+    "GD-HOUSE-004": "WG-HOUSE-004",
+    "GD-IDENT-001": "WG-IDENT-001",
+    "GD-IDENT-002": "WG-IDENT-002",
+    "GD-IDENT-003": "WG-IDENT-003",
+    "GD-IDENT-004": "WG-IDENT-004",
+    "GD-LEGAL-001": "WG-LEGAL-001",
+    "GD-LEGAL-002": "WG-LEGAL-002",
+    "GD-LEGAL-003": "WG-LEGAL-003",
+    "GD-LEGAL-004": "WG-LEGAL-004",
+    "GD-LEGAL-005": "WG-LEGAL-005",
+    "GD-MKTG-001": "WG-MKTG-001",
+    "GD-MKTG-002": "WG-MKTG-002",
+    "GD-MKTG-003": "WG-MKTG-003",
+    "GD-MKTG-004": "WG-MKTG-004",
+    "GD-NAT-001": "WG-NAT-001",
+    "GD-NAT-002": "WG-NAT-002",
+    "GD-NAT-003": "WG-NAT-003",
+    "GD-NAT-004": "WG-NAT-004",
+    "GD-RESEARCH-001": "WG-RESEARCH-001",
+    "GD-RESEARCH-002": "WG-RESEARCH-002",
+    "GD-RESEARCH-003": "WG-RESEARCH-003",
+    "GD-RESEARCH-004": "WG-RESEARCH-004",
+    "GD-SEC-001": "WG-SEC-001",
+    "GD-SEC-002": "WG-SEC-002",
+    "GD-SEC-003": "WG-SEC-003",
+    "GD-SEC-004": "WG-SEC-004",
+    "GD-SUPPLY-001": "WG-SUPPLY-001",
+    "GD-SUPPLY-002": "WG-SUPPLY-002",
+    "GD-SUPPLY-003": "WG-SUPPLY-003",
+    "GD-SUPPLY-004": "WG-SUPPLY-004",
+    "GD-SUPPORT-001": "WG-SUPPORT-001",
+    "GD-SUPPORT-002": "WG-SUPPORT-002",
+    "GD-SUPPORT-003": "WG-SUPPORT-003",
+    "GD-SUPPORT-004": "WG-SUPPORT-004",
+    "GD-SWARM-001": "WG-SWARM-001",
+    "GD-SWARM-002": "WG-SWARM-002",
+    "GD-SWARM-003": "WG-SWARM-003",
+    "GD-SWARM-004": "WG-SWARM-004",
+    "GD-UIUX-001": "WG-UIUX-003",
+    "GD-UIUX-002": "WG-UIUX-004",
+    "GD-UIUX-003": "WG-UIUX-005",
+    "GD-UIUX-004": "WG-UIUX-006",
+    "GD-WRIT-001": "WG-WRIT-001",
+    "GD-WRIT-002": "WG-WRIT-002",
+    "GD-WRIT-003": "WG-WRIT-003",
+    "GD-WRIT-004": "WG-WRIT-004",
+    "WG-OPS-003": "WG-DEVOPS-005",
+    "WG-OPS-005": "WG-DEVOPS-006",
+    "WG-OPS-006": "WG-DEVOPS-007"
+  },
+  "target_wargames": {
+    "WG-AGENT-001": "packs/agentic-development/wargames/WG-AGENT-001-topology-selection.md",
+    "WG-AGENT-002": "packs/agentic-development/wargames/WG-AGENT-002-context-engineering.md",
+    "WG-AGENT-003": "packs/agentic-development/wargames/WG-AGENT-003-spawn-a-subagent.md",
+    "WG-AGENT-004": "packs/agentic-development/wargames/WG-AGENT-004-verification-oracle.md",
+    "WG-AIML-002": "packs/ai-ml-llm/wargames/WG-AIML-002-acceptance-evidence.md",
+    "WG-AIML-003": "packs/ai-ml-llm/wargames/WG-AIML-003-knowledge-source.md",
+    "WG-AIML-004": "packs/ai-ml-llm/wargames/WG-AIML-004-who-grades-the-output.md",
+    "WG-AIML-005": "packs/ai-ml-llm/wargames/WG-AIML-005-prompt-maintenance.md",
+    "WG-AIML-006": "packs/ai-ml-llm/wargames/WG-AIML-006-model-lifecycle-and-cost.md",
+    "WG-API-001": "packs/api-integration/wargames/WG-API-001-contract-authoring.md",
+    "WG-API-002": "packs/api-integration/wargames/WG-API-002-versioning-and-breaking-change.md",
+    "WG-API-003": "packs/api-integration/wargames/WG-API-003-webhook-trust.md",
+    "WG-API-004": "packs/api-integration/wargames/WG-API-004-boundary-shape.md",
+    "WG-API-005": "packs/api-integration/wargames/WG-API-005-collection-traversal.md",
+    "WG-ARCH-013": "packs/architecture/wargames/WG-ARCH-013-deployment-shape.md",
+    "WG-BLM-001": "packs/business-logic-modelling/wargames/WG-BLM-001-model-shape.md",
+    "WG-BLM-002": "packs/business-logic-modelling/wargames/WG-BLM-002-rule-placement.md",
+    "WG-BLM-003": "packs/business-logic-modelling/wargames/WG-BLM-003-money-representation.md",
+    "WG-BLM-004": "packs/business-logic-modelling/wargames/WG-BLM-004-time-modelling.md",
+    "WG-BLM-005": "packs/business-logic-modelling/wargames/WG-BLM-005-state-or-events.md",
+    "WG-BMP-001": "packs/business-model-pricing/wargames/WG-BMP-001-price-anchor.md",
+    "WG-BMP-002": "packs/business-model-pricing/wargames/WG-BMP-002-charging-unit.md",
+    "WG-BMP-003": "packs/business-model-pricing/wargames/WG-BMP-003-try-before-paying.md",
+    "WG-BMP-004": "packs/business-model-pricing/wargames/WG-BMP-004-repricing-trigger.md",
+    "WG-COD-001": "packs/coding/wargames/WG-COD-001-oracle-strategy.md",
+    "WG-COD-002": "packs/coding/wargames/WG-COD-002-review-gate.md",
+    "WG-COD-003": "packs/coding/wargames/WG-COD-003-failure-mode-contract.md",
+    "WG-COD-004": "packs/coding/wargames/WG-COD-004-pin-then-change.md",
+    "WG-COD-005": "packs/coding/wargames/WG-COD-005-repo-shape.md",
+    "WG-DATA-004": "packs/data-analytics/wargames/WG-DATA-004-quality-gate-placement.md",
+    "WG-DATA-005": "packs/data-analytics/wargames/WG-DATA-005-model-shape.md",
+    "WG-DATA-006": "packs/data-analytics/wargames/WG-DATA-006-experiment-stopping.md",
+    "WG-DATA-007": "packs/data-analytics/wargames/WG-DATA-007-storage-shape.md",
+    "WG-DATA-008": "packs/data-analytics/wargames/WG-DATA-008-event-contract.md",
+    "WG-DATAENG-001": "packs/data-engineering/wargames/WG-DATAENG-001-ingestion-shape.md",
+    "WG-DATAENG-002": "packs/data-engineering/wargames/WG-DATAENG-002-idempotent-reprocess.md",
+    "WG-DATAENG-003": "packs/data-engineering/wargames/WG-DATAENG-003-processing-window.md",
+    "WG-DATAENG-004": "packs/data-engineering/wargames/WG-DATAENG-004-late-arrivals.md",
+    "WG-DEVOPS-001": "packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md",
+    "WG-DEVOPS-002": "packs/devops-reliability/wargames/WG-DEVOPS-002-release-control.md",
+    "WG-DEVOPS-003": "packs/devops-reliability/wargames/WG-DEVOPS-003-error-budget-dial.md",
+    "WG-DEVOPS-004": "packs/devops-reliability/wargames/WG-DEVOPS-004-reliability-measures.md",
+    "WG-DISC-001": "packs/product-discovery/wargames/WG-DISC-001-discovery-depth.md",
+    "WG-DISC-002": "packs/product-discovery/wargames/WG-DISC-002-user-evidence-source.md",
+    "WG-DISC-003": "packs/product-discovery/wargames/WG-DISC-003-choosing-between-opportunities.md",
+    "WG-DISC-004": "packs/product-discovery/wargames/WG-DISC-004-acceptance-criteria-form.md",
+    "WG-DOCS-001": "packs/docs-dx/wargames/WG-DOCS-001-truth-location.md",
+    "WG-DOCS-002": "packs/docs-dx/wargames/WG-DOCS-002-executable-examples.md",
+    "WG-DOCS-003": "packs/docs-dx/wargames/WG-DOCS-003-changelog-ownership.md",
+    "WG-DOCS-004": "packs/docs-dx/wargames/WG-DOCS-004-failure-messages.md",
+    "WG-DOCS-005": "packs/docs-dx/wargames/WG-DOCS-005-blocking-checks.md",
+    "WG-HOUSE-001": "packs/pattertech-house/wargames/WG-HOUSE-001-light-posture.md",
+    "WG-HOUSE-002": "packs/pattertech-house/wargames/WG-HOUSE-002-container-choice.md",
+    "WG-HOUSE-003": "packs/pattertech-house/wargames/WG-HOUSE-003-polarity-register.md",
+    "WG-HOUSE-004": "packs/pattertech-house/wargames/WG-HOUSE-004-figure-austerity.md",
+    "WG-IDENT-001": "packs/identity-access/wargames/WG-IDENT-001-authorisation-model.md",
+    "WG-IDENT-002": "packs/identity-access/wargames/WG-IDENT-002-session-or-token.md",
+    "WG-IDENT-003": "packs/identity-access/wargames/WG-IDENT-003-provider-or-self-hosted.md",
+    "WG-IDENT-004": "packs/identity-access/wargames/WG-IDENT-004-tenant-isolation.md",
+    "WG-LEGAL-001": "packs/legal-licensing/wargames/WG-LEGAL-001-copyleft-trigger.md",
+    "WG-LEGAL-002": "packs/legal-licensing/wargames/WG-LEGAL-002-compliance-posture.md",
+    "WG-LEGAL-003": "packs/legal-licensing/wargames/WG-LEGAL-003-outbound-licence.md",
+    "WG-LEGAL-004": "packs/legal-licensing/wargames/WG-LEGAL-004-inbound-rights.md",
+    "WG-LEGAL-005": "packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md",
+    "WG-MKTG-001": "packs/marketing-growth/wargames/WG-MKTG-001-growth-philosophy.md",
+    "WG-MKTG-002": "packs/marketing-growth/wargames/WG-MKTG-002-consent-route.md",
+    "WG-MKTG-003": "packs/marketing-growth/wargames/WG-MKTG-003-effect-measurement.md",
+    "WG-MKTG-004": "packs/marketing-growth/wargames/WG-MKTG-004-content-provenance.md",
+    "WG-NAT-001": "packs/native-client/wargames/WG-NAT-001-client-architecture.md",
+    "WG-NAT-002": "packs/native-client/wargames/WG-NAT-002-offline-write-model.md",
+    "WG-NAT-003": "packs/native-client/wargames/WG-NAT-003-release-path.md",
+    "WG-NAT-004": "packs/native-client/wargames/WG-NAT-004-a11y-profile.md",
+    "WG-RESEARCH-001": "packs/research-knowledge/wargames/WG-RESEARCH-001-when-to-stop.md",
+    "WG-RESEARCH-002": "packs/research-knowledge/wargames/WG-RESEARCH-002-where-the-base-lives.md",
+    "WG-RESEARCH-003": "packs/research-knowledge/wargames/WG-RESEARCH-003-superseding-a-source.md",
+    "WG-RESEARCH-004": "packs/research-knowledge/wargames/WG-RESEARCH-004-a-source-that-speaks-to-you.md",
+    "WG-SEC-001": "packs/security-privacy/wargames/WG-SEC-001-injection-defence.md",
+    "WG-SEC-002": "packs/security-privacy/wargames/WG-SEC-002-secret-protection.md",
+    "WG-SEC-003": "packs/security-privacy/wargames/WG-SEC-003-assurance-grading.md",
+    "WG-SEC-004": "packs/security-privacy/wargames/WG-SEC-004-external-action-approval.md",
+    "WG-SUPPLY-001": "packs/supply-chain-integrity/wargames/WG-SUPPLY-001-provenance-and-verification.md",
+    "WG-SUPPLY-002": "packs/supply-chain-integrity/wargames/WG-SUPPLY-002-signing-identity.md",
+    "WG-SUPPLY-003": "packs/supply-chain-integrity/wargames/WG-SUPPLY-003-pinning-cadence.md",
+    "WG-SUPPLY-004": "packs/supply-chain-integrity/wargames/WG-SUPPLY-004-vendor-or-depend.md",
+    "WG-SUPPORT-001": "packs/support-operations/wargames/WG-SUPPORT-001-triage-pattern.md",
+    "WG-SUPPORT-002": "packs/support-operations/wargames/WG-SUPPORT-002-close-policy.md",
+    "WG-SUPPORT-003": "packs/support-operations/wargames/WG-SUPPORT-003-declaration-route.md",
+    "WG-SUPPORT-004": "packs/support-operations/wargames/WG-SUPPORT-004-support-measurement.md",
+    "WG-SWARM-001": "packs/agentic-swarm/wargames/WG-SWARM-001-swarm-or-single-agent.md",
+    "WG-SWARM-002": "packs/agentic-swarm/wargames/WG-SWARM-002-cut-the-partition.md",
+    "WG-SWARM-003": "packs/agentic-swarm/wargames/WG-SWARM-003-who-holds-the-plan.md",
+    "WG-SWARM-004": "packs/agentic-swarm/wargames/WG-SWARM-004-verifying-a-lane.md",
+    "WG-UIUX-003": "packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md",
+    "WG-UIUX-004": "packs/ui-ux/wargames/WG-UIUX-004-component-sourcing.md",
+    "WG-UIUX-005": "packs/ui-ux/wargames/WG-UIUX-005-a11y-assurance.md",
+    "WG-UIUX-006": "packs/ui-ux/wargames/WG-UIUX-006-token-source.md",
+    "WG-WRIT-001": "packs/writing-content/wargames/WG-WRIT-001-clarity-philosophy.md",
+    "WG-WRIT-002": "packs/writing-content/wargames/WG-WRIT-002-message-structure.md",
+    "WG-WRIT-003": "packs/writing-content/wargames/WG-WRIT-003-voice-scope.md",
+    "WG-WRIT-004": "packs/writing-content/wargames/WG-WRIT-004-prose-gate.md",
+    "WG-AIML-001": "packs/ai-ml-llm/wargames/WG-AIML-001-model-hosting.md",
+    "WG-ARCH-001": "packs/architecture/wargames/WG-ARCH-001-boundary-enforcement.md",
+    "WG-ARCH-002": "packs/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md",
+    "WG-ARCH-003": "packs/architecture/wargames/WG-ARCH-003-derived-state.md",
+    "WG-ARCH-004": "packs/architecture/wargames/WG-ARCH-004-job-execution.md",
+    "WG-ARCH-005": "packs/architecture/wargames/WG-ARCH-005-contract-seam.md",
+    "WG-ARCH-006": "packs/architecture/wargames/WG-ARCH-006-change-proof.md",
+    "WG-ARCH-007": "packs/architecture/wargames/WG-ARCH-007-vendor-seams.md",
+    "WG-ARCH-008": "packs/architecture/wargames/WG-ARCH-008-database-topology.md",
+    "WG-ARCH-009": "packs/architecture/wargames/WG-ARCH-009-messaging-and-flow.md",
+    "WG-ARCH-010": "packs/architecture/wargames/WG-ARCH-010-storage-engine-selection.md",
+    "WG-ARCH-011": "packs/architecture/wargames/WG-ARCH-011-locality-and-consistency.md",
+    "WG-ARCH-012": "packs/architecture/wargames/WG-ARCH-012-capability-ownership.md",
+    "WG-DATA-001": "packs/data-analytics/wargames/WG-DATA-001-analytical-engine-selection.md",
+    "WG-DATA-002": "packs/data-analytics/wargames/WG-DATA-002-representation-boundary.md",
+    "WG-DATA-003": "packs/data-analytics/wargames/WG-DATA-003-acceleration-ladder.md",
+    "WG-DEL-005": "packs/delivery-testing/wargames/WG-DEL-005-test-doubles.md",
+    "WG-DEL-006": "packs/delivery-testing/wargames/WG-DEL-006-oracle-independence.md",
+    "WG-DEL-007": "packs/delivery-testing/wargames/WG-DEL-007-test-timing.md",
+    "WG-DEL-008": "packs/delivery-testing/wargames/WG-DEL-008-incident-hotfix.md",
+    "WG-EOS-001": "inception/wargames/WG-EOS-001-venture-scale.md",
+    "WG-EOS-002": "inception/wargames/WG-EOS-002-repo-shape.md",
+    "WG-DEVOPS-005": "packs/devops-reliability/wargames/WG-DEVOPS-005-restore-proof.md",
+    "WG-DEVOPS-006": "packs/devops-reliability/wargames/WG-DEVOPS-006-honest-degradation.md",
+    "WG-DEVOPS-007": "packs/devops-reliability/wargames/WG-DEVOPS-007-observability-and-privacy.md",
+    "WG-UIUX-001": "packs/ui-ux/wargames/WG-UIUX-001-web-delivery-shape.md",
+    "WG-UIUX-002": "packs/ui-ux/wargames/WG-UIUX-002-semantic-or-custom-interaction.md"
+  },
+  "relations": {
+    "DREL-AGENT-001": {
+      "baseline_path": "packs/agentic-development/doctrines/relations/DREL-AGENT-001.json",
+      "target_path": "packs/agentic-development/relations/DREL-AGENT-001.json"
+    },
+    "DREL-AIML-001": {
+      "baseline_path": "packs/ai-ml-llm/doctrines/relations/DREL-AIML-001.json",
+      "target_path": "packs/ai-ml-llm/relations/DREL-AIML-001.json"
+    },
+    "DREL-AIML-002": {
+      "baseline_path": "packs/agentic-development/doctrines/relations/DREL-AIML-002.json",
+      "target_path": "packs/agentic-development/relations/DREL-AIML-002.json"
+    },
+    "DREL-ARCH-001": {
+      "baseline_path": "packs/architecture/doctrines/relations/DREL-ARCH-001.json",
+      "target_path": "packs/architecture/relations/DREL-ARCH-001.json"
+    },
+    "DREL-ARCH-002": {
+      "baseline_path": "packs/architecture/doctrines/relations/DREL-ARCH-002.json",
+      "target_path": "packs/architecture/relations/DREL-ARCH-002.json"
+    },
+    "DREL-ARCH-003": {
+      "baseline_path": "packs/architecture/doctrines/relations/DREL-ARCH-003.json",
+      "target_path": "packs/architecture/relations/DREL-ARCH-003.json"
+    },
+    "DREL-DEL-001": {
+      "baseline_path": "packs/supply-chain-integrity/doctrines/relations/DREL-DEL-001.json",
+      "target_path": "packs/supply-chain-integrity/relations/DREL-DEL-001.json"
+    },
+    "DREL-DEL-002": {
+      "baseline_path": "packs/delivery-testing/doctrines/relations/DREL-DEL-002.json",
+      "target_path": "packs/delivery-testing/relations/DREL-DEL-002.json"
+    },
+    "DREL-HOUSE-001": {
+      "baseline_path": "packs/pattertech-house/doctrines/relations/DREL-HOUSE-001.json",
+      "target_path": "packs/pattertech-house/relations/DREL-HOUSE-001.json"
+    },
+    "DREL-HOUSE-002": {
+      "baseline_path": "packs/pattertech-house/doctrines/relations/DREL-HOUSE-002.json",
+      "target_path": "packs/pattertech-house/relations/DREL-HOUSE-002.json"
+    },
+    "DREL-NAT-001": {
+      "baseline_path": "packs/native-client/doctrines/relations/DREL-NAT-001.json",
+      "target_path": "packs/native-client/relations/DREL-NAT-001.json"
+    },
+    "DREL-OPS-001": {
+      "baseline_path": "packs/supply-chain-integrity/doctrines/relations/DREL-OPS-001.json",
+      "target_path": "packs/supply-chain-integrity/relations/DREL-OPS-001.json"
+    },
+    "DREL-OPS-002": {
+      "baseline_path": "packs/devops-reliability/doctrines/relations/DREL-OPS-002.json",
+      "target_path": "packs/devops-reliability/relations/DREL-OPS-002.json"
+    },
+    "DREL-OPS-003": {
+      "baseline_path": "packs/devops-reliability/doctrines/relations/DREL-OPS-003.json",
+      "target_path": "packs/devops-reliability/relations/DREL-OPS-003.json"
+    },
+    "DREL-RESEARCH-001": {
+      "baseline_path": "packs/research-knowledge/doctrines/relations/DREL-RESEARCH-001.json",
+      "target_path": "packs/research-knowledge/relations/DREL-RESEARCH-001.json"
+    },
+    "DREL-SUPPLY-001": {
+      "baseline_path": "packs/supply-chain-integrity/doctrines/relations/DREL-SUPPLY-001.json",
+      "target_path": "packs/supply-chain-integrity/relations/DREL-SUPPLY-001.json"
+    },
+    "DREL-SUPPLY-002": {
+      "baseline_path": "packs/supply-chain-integrity/doctrines/relations/DREL-SUPPLY-002.json",
+      "target_path": "packs/supply-chain-integrity/relations/DREL-SUPPLY-002.json"
+    },
+    "DREL-UIUX-001": {
+      "baseline_path": "packs/ui-ux/doctrines/relations/DREL-UIUX-001.json",
+      "target_path": "packs/ui-ux/relations/DREL-UIUX-001.json"
+    },
+    "DREL-UIUX-002": {
+      "baseline_path": "packs/ui-ux/doctrines/relations/DREL-UIUX-002.json",
+      "target_path": "packs/ui-ux/relations/DREL-UIUX-002.json"
+    }
+  },
+  "public_file_migration": {
+    "packs/PACK_SHAPE.md": "packs/PACK_CONTRACT.md",
+    "registry/ID_ALIASES.md": "registry/IDENTIFIER_ALIASES.md"
+  },
+  "allowed_legacy_surfaces": [
+    "archive/**",
+    "benchmark/**",
+    "org/migration/**",
+    "tests/**",
+    "registry/identifier-aliases.json",
+    "registry/IDENTIFIER_ALIASES.md"
+  ],
+  "pre_t0028_snapshot_surfaces": [
+    "org/decisions/**",
+    "org/reports/**"
+  ],
+  "target_metadata": {
+    "pack": {
+      "kind": "record",
+      "type": "pack"
+    },
+    "checks": {
+      "kind": "record",
+      "type": "checks"
+    },
+    "example": {
+      "kind": "example",
+      "type": "example"
+    }
+  },
+  "lesson_disposition_migration": {
+    "decision-guide": "wargame"
+  },
+  "doctrine_basename_max": 72,
+  "baseline_metadata": {
+    "pack_kind_type": {
+      "record|guide": 11,
+      "record|playbook": 14
+    },
+    "checks_kind_type": {
+      "fact|implementation": 5,
+      "guide|guide": 13,
+      "recipe|guide": 2,
+      "record|example": 1,
+      "record|guide": 4
+    },
+    "example_kind_type": {
+      "exemplar|example": 26
+    },
+    "lesson_dispositions": {
+      "dated-registry-fact": 3,
+      "decision-guide": 23,
+      "deferred": 2,
+      "estate-default": 18,
+      "implementation-reference": 7,
+      "reference-only": 4,
+      "rejected": 3,
+      "venture-ruling": 4
+    }
+  }
+}

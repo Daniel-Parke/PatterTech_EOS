@@ -103,13 +103,18 @@ def test_no_front_matter_is_named_not_invented(tmp_path):
 def _pack(root, name, *, paths, predicates):
     d = root / "packs" / name
     d.mkdir(parents=True, exist_ok=True)
+    display_name = name.replace("-", " ").title()
+    namespace = name.replace("-", "").upper()
     (d / "PACK.md").write_text(
         "---\n"
         f"summary: The {name} pack\n"
         f"applies_when: [{', '.join(predicates)}]\n"
         f"activation_paths: [{', '.join(paths)}]\n"
-        "type: guide\ntags: [eos]\nreview: 2030-01\n---\n\n"
-        f"# {name}\n\nBody.\n",
+        "kind: record\ntype: pack\ntags: [eos]\nreview: 2030-01\n"
+        f"display_name: {display_name}\n"
+        "category: engineering\n"
+        f"id_namespace: {namespace}\n---\n\n"
+        f"# {display_name}\n\nBody.\n",
         encoding="utf-8", newline="\n")
 
 
@@ -172,7 +177,7 @@ def test_undeclared_predicates_are_returned_for_confirmation(tmp_path):
 
 
 def test_every_live_pack_declares_a_path_trigger():
-    """PACK_SHAPE requires a non-keyword trigger on every pack, because
+    """PACK_CONTRACT requires a non-keyword trigger on every pack, because
     routing has to be deterministic given the same inputs.
 
     Counted against the packs on disk rather than against a number

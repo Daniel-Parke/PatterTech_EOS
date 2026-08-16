@@ -27,6 +27,41 @@ belongs to the architecture this line replaced, archived at
 `archive/v1-final`. 1.0 is reserved for the eight-item gate in ADR-0009.
 No tag is cut here, so this section keeps no version heading.
 
+### Doctrine, Wargaming and naming rebuild
+
+- **Knowledge model**: standing propositions are now atomic Doctrine with
+  binding, default, advisory or preference authority. Recurring selections,
+  conflicts, exceptions and gaps use one Wargame schema, while venture
+  outcomes remain separate structured Rulings.
+- **Selection**: Session 0 inherits applicable Doctrine and runs Wargames only
+  when an always-walk rule, pressure, conflict, gap or operator request engages
+  them. Tri-state matching records required, candidate and omitted procedures,
+  unresolved facts and uncovered pressure without choosing the outcome.
+- **Names**: every live Wargame has a canonical `WG-*` identity under
+  `wargames/`. Packs use `doctrines/`, `wargames/`, `examples/`, `references/`
+  and `research/`, with `relations/` where needed. The pack contract and alias
+  view now have unambiguous public filenames.
+- **Packs**: the 25 stable directory keys now carry distinct `display_name`,
+  `category` and `id_namespace` fields. The generated pack index groups them
+  into six reader-facing categories without changing activation or dependency
+  order.
+- **Compatibility**: 103 earlier decision-procedure identities remain direct
+  aliases to collision-free canonical targets. Explicit Git pins retain their
+  historical definitions and paths. The current tree carries no redirect
+  stubs for retired collection paths, so latest-branch URLs using those paths
+  must be updated.
+- **Interfaces**: the shared commit-aware resolver drives checks, indexes,
+  matching, structured Ruling validation and migration. The CLI exposes
+  Doctrine and Wargame list, show and match operations plus identity
+  resolution at the current tree or an explicit commit.
+- **Governance**: `kernel/NAMING_SPEC.md` records the current language, ID and
+  file rules. `packs/PACK_CONTRACT.md` records the canonical pack shape, and
+  the metadata contract distinguishes packs, checks, Doctrine, Wargames and
+  worked examples explicitly.
+
+No release, tag, venture rewrite or sealed benchmark run is part of this
+change.
+
 ### The audit and expansion pass, 0.4.0
 
 Behaviour changes. `task new` distinguishes a tier ruled from an empty
@@ -87,7 +122,7 @@ ADR-0007 makes none, so nothing here is measured.
   carried a copy of the same git helper. Both now call the canonical one.
   Then three real bugs, all found by reading rather than by a failing
   test. `remote_tracking_heads` filtered the remote's symbolic HEAD on the
-  short refname, which renders `refs/remotes/origin/HEAD` as plain
+  short refname, which renders Git's remote-tracking HEAD reference as plain
   `origin`, so the filter never matched once and the pointer entered
   the result as a remote with no branch. `migrate apply` took its seed
   path from a key the migration-state schema does not permit, so the
@@ -391,7 +426,7 @@ produced it fifty times. See org/reports/V2_FINAL_REPORT.md.
   than a directory, and that a file marked derived must have a live
   generator. packs/INDEX.md had listed eight of twenty packs, so twelve
   packs were unreachable through the sanctioned activation path;
-  packs/GUIDE_INDEX.md had omitted 79 of 86 guides. Both now generate,
+  the procedure index then in use had omitted 79 of 86 guides. Both now generate,
   scoped to live material. registry/coverage.json's twelve stale Wave B
   rows are repaired and S013 validates the matrix against its schema and
   against the packs on disk.

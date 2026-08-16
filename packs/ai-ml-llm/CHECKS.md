@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a script can verify about model-backed work, split into executable today and judgement
-type: guide
+type: checks
 tags: [testing, delivery, tooling]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision

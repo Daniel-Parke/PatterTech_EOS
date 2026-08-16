@@ -1,5 +1,5 @@
 ---
-summary: Derived index of every built pack, the always-loaded metadata surface
+summary: Derived index of every built pack, grouped by its reader-facing category
 type: index
 tags: [eos]
 derived: true
@@ -7,8 +7,9 @@ derived: true
 
 # PACK INDEX
 
-The always-loaded knowledge surface. One row per built pack: what
-it covers, the predicates that gate it, and how big its body is.
+The always-loaded knowledge surface. Stable directory slugs are
+machine keys; display names and categories are reader-facing.
+Each row says what a pack covers, what gates it and its body size.
 Nothing else in `packs/` is loaded until a row here activates.
 
 Derived file. Edit `PACK.md` front-matter and its first paragraph,
@@ -18,10 +19,38 @@ Domains without a pack are not omissions here. Every domain, built
 or not, carries an honest row in `registry/CAPABILITIES.md`,
 generated from `registry/coverage.json`.
 
-| Pack | What it covers, and when it activates | Predicates | Authority | Body lines |
-| --- | --- | --- | --- | --- |
-| `packs/testmod/PACK.md` | Keep fixture files small and plain. A test that needs a bigger repo builds one in tmp_path rather than growing this one. | does_a_fixture_thing |  | 6 |
+## Data and AI
+
+| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |
+| --- | --- | --- | --- | --- | --- |
+
+## Engineering
+
+| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |
+| --- | --- | --- | --- | --- | --- |
+
+## Experience and Content
+
+| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |
+| --- | --- | --- | --- | --- | --- |
+
+## Practice and Governance
+
+| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |
+| --- | --- | --- | --- | --- | --- |
+| [Fixture Testing](testmod/PACK.md) | `testmod` | Keep fixture files small and plain. A test that needs a bigger repo builds one in tmp_path rather than growing this one. | does_a_fixture_thing | TST | 6 |
+
+## Product and Commercial
+
+| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |
+| --- | --- | --- | --- | --- | --- |
+
+## Reliability and Trust
+
+| Pack | Stable key | What it covers and when it activates | Predicates | Namespace | Body lines |
+| --- | --- | --- | --- | --- | --- |
+
 
 1 built packs, 6 body lines. The pack contract is
-`packs/PACK_SHAPE.md`; a domain that cannot meet its definition of
+`packs/PACK_CONTRACT.md`; a domain that cannot meet its definition of
 done stays a registry row and is never described as implemented.

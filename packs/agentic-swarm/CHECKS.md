@@ -1,9 +1,9 @@
 ---
 summary: What a reviewer or a script can verify about a graph build, split into executable today and judgement
-kind: recipe
+kind: record
 scope: estate
 sources: [EV-0006, EV-0053, EV-0108, EV-0109, EV-0111]
-type: guide
+type: checks
 tags: [eos, arch, delivery, testing]
 review: on-change-of:agent-harness-major-release
 ---

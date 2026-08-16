@@ -2,7 +2,7 @@
  "pack": "agentic-swarm",
  "checked": "2026-08-10",
  "checked_by": "The provenance sweep under ADR-0006 decision 7. The other twenty packs swept their own read surface inside their pack lane; T-0022 closed without filing one, so this sweep was run afterwards, against the pack as it stands and against registry/evidence.json after the fragment import.",
- "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, the four guides, the three refs and the exemplar; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, the four Wargames, the three references and the example; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
  "ev_ids_checked": [
   "EV-0006",
   "EV-0010",
@@ -74,7 +74,7 @@
    "state": "unconfirmed",
    "inspected": false,
    "licence_checked": null,
-   "cited_for": "GD-SWARM-004 notes, increment size rather than ordering as the ingredient the older test-first evidence supports"
+   "cited_for": "WG-SWARM-004 notes, increment size rather than ordering as the ingredient the older test-first evidence supports"
   },
   {
    "ev": "EV-0482",
@@ -101,28 +101,28 @@
    "resolution": "Not a concern. There are no quotation marks and no quoted span: the sentence is a report in our own words, and what it reports is a finding rather than a form of words. The framing invites a verbatim reading it does not deliver, so if anyone ever tightens it towards the source's wording, mark it as a quotation and keep it short."
   },
   {
-   "file": "packs/agentic-swarm/guides/GD-SWARM-002-cut-the-partition.md",
+   "file": "packs/agentic-swarm/wargames/WG-SWARM-002-cut-the-partition.md",
    "line": 108,
-   "concern": "The notes restate the two largest failure categories from EV-0109, which is CC BY-NC-ND 4.0. No-derivatives is the sharpest term in this pack's source set, and the same taxonomy is restated in PACK.md B3 and in GD-SWARM-003 option D.",
+   "concern": "The notes restate the two largest failure categories from EV-0109, which is CC BY-NC-ND 4.0. No-derivatives is the sharpest term in this pack's source set, and the same taxonomy is restated in PACK.md B3 and in WG-SWARM-003 option D.",
    "resolution": "Not a concern. Category names are identifiers a reader has to recognise rather than authored expression, the surrounding sentences are ours, and no passage of the source is adapted. This is the file to re-read first if the sweep is ever repeated, and the second place to look is PACK.md B3."
   },
   {
-   "file": "packs/agentic-swarm/refs/RISK_REGISTER.md",
+   "file": "packs/agentic-swarm/references/RISK_REGISTER.md",
    "line": 92,
    "concern": "R11 restates a normative protocol requirement from EV-0474, that a server must not accept a token not issued for it. The ledger records that source as stating no licence on the page, and nobody has inspected it.",
    "resolution": "Not a concern. The requirement is the fact and there is very little room to state it differently; the sentence structure, the rationale about the audit trail and the exfiltration proxy phrasing are ours. Attribution is by evidence id at the point of use."
   },
   {
-   "file": "packs/agentic-swarm/refs/MERGE_AND_REVIEW.md",
+   "file": "packs/agentic-swarm/references/MERGE_AND_REVIEW.md",
    "line": 150,
    "concern": "The two merge-debt metrics come from EV-0494, which is CC BY-NC-SA 4.0. Non-commercial and share-alike both bear on a repository published under Apache-2.0 if any expression were adapted rather than restated. The same two metrics appear in PACK.md D14.",
    "resolution": "Not a concern. Both definitions are stated in our own words, both places attribute them, and both say in the same breath that they are one practitioner's unvalidated definitions. Nothing is adapted, so the share-alike term is not engaged."
   },
   {
-   "file": "packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md",
+   "file": "packs/agentic-swarm/examples/EX-SWARM-001-eos-v2-1-partition.md",
    "line": 80,
    "concern": "The only two block quotations in the whole read surface sit here, at lines 80 and 88: the write-set clause and the escape clause, quoted verbatim.",
-   "resolution": "Not a concern. Both are our own packet text from the run this exemplar records, so they carry no third-party licence. Every other quoted span in the pack is a coined phrase or an anti-pattern label of our own, such as the auth module, Make it good and all three lanes agree."
+   "resolution": "Not a concern. Both are our own packet text from the run this example records, so they carry no third-party licence. Every other quoted span in the pack is a coined phrase or an anti-pattern label of our own, such as the auth module, Make it good and all three lanes agree."
   }
  ],
  "notes": "Sixty-two ids are cited across the read surface. Ten carry a licence_evidence line, all recorded on 2026-08-08, and fifty-two do not. The split falls along one line: every one of the forty-six rows imported for this pack on 2026-08-10 is an assertion with no observation behind it, and all ten observations belong to older rows the pack shares with its neighbours. Eighteen rows record that the source states no licence, six of them confirmed by an observation (EV-0053, EV-0107, EV-0108, EV-0112, EV-0219, EV-0244) and twelve never looked at, which is the largest single block of unlooked-at absences in the ledger and is this pack's doing. Three rows do not determine a licence at all and are listed above. One of the twelve unconfirmed absences is written as not-stated on page rather than not-stated (EV-0474), which is spelling drift rather than a different fact. Eight rows carry terms that restrict reuse of wording rather than of facts: EV-0010 all rights reserved, EV-0109 CC BY-NC-ND, EV-0472 and EV-0490 CC BY-SA, EV-0477, EV-0488 and EV-0494 CC BY-NC-SA, and EV-0484 ACM copyright with no open reuse terms. Every one is used for a figure or a finding and none is quoted. The quotation scan returned no carried expression: the only block quotations in the pack are its own packet text, and every other quoted span is a phrase the pack coined to name a failure. Nothing here asks for a change to the pack."

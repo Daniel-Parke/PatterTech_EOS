@@ -176,7 +176,7 @@ JetBrains, Google and more than twenty-five agents (EV-0042), and a
 platform layer is forming above it to govern asynchronous fleets of
 heterogeneous agents (EV-0072). Neither binds anything: the estate runs
 one harness and a protocol for swapping harnesses buys it nothing
-today. They are recorded because the guide's topology forks assume the
+today. They are recorded because the Wargame's topology forks assume the
 boundary stays local, and that assumption now has a date on it.
 
 **Durability belongs to the boundary.** Superstep checkpoints with a

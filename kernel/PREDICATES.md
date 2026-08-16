@@ -6,9 +6,10 @@ tags: [eos]
 
 # PREDICATES
 
-Every name a pack may put in `applies_when`. Check S021 holds pack
-front-matter to this file, so a pack cannot invent a predicate without
-adding it here first.
+Every name a pack, Doctrine or Wargame may put in `applies_when`,
+`challenge_triggers` or `engages_when`. Checks S021 and S022 hold those
+surfaces to this file, so none can invent a predicate without adding it
+here first.
 
 The point is not bookkeeping. A predicate is a fact, and two packs
 naming one fact differently split the estate: a venture recording one
@@ -25,7 +26,7 @@ see them.
 
 ## Venture facts and task facts
 
-The third column says what settles a predicate, and it takes one of two
+The third column says what settles a predicate, and it takes one of four
 shapes.
 
 A number is a question in `inception/INTERVIEW.md`. Those are **venture
@@ -39,8 +40,9 @@ a documented page is not knowable at Session 0 and is not stable
 afterwards. Those are settled per task, from the record or the diff,
 which is what `eos context` reads.
 
-Of the 101 predicates here, 67 are venture facts, 33 are task facts and
-one is always true. That split is worth knowing before anyone builds a
+Of the 128 predicates here, 67 are venture facts, 33 are task facts, one
+is always true, two are explicit operator requests and 25 are pressure
+facts. That split is worth knowing before anyone builds a
 Session 0 flow expecting to settle all of them: it cannot, and a flow
 that pretends otherwise asks the operator questions that have no answer
 yet. A pack activating only on task facts does not belong in a venture's
@@ -48,6 +50,15 @@ compiled walk at all; it activates when the work arrives.
 
 `always` means true of every governed venture by construction, so
 nothing has to settle it.
+
+`operator` means an explicit request in the current session. It defaults
+false and is never inferred from prose.
+
+`pressure` means a Wargame engagement fact. It is settled when that fork
+enters scope: at Session 0 if a confirmed workstream already requires the
+choice, otherwise on the task that reaches it. Unknown high-consequence
+pressure is asked or included; unknown routine pressure remains a
+candidate.
 
 ## How to add one
 
@@ -61,6 +72,13 @@ about the world.
 A predicate should be a fact somebody can answer yes or no about, not a
 judgement about the work. `has_database` is a fact.
 `needs_careful_design` is not.
+
+An `applies_when` list names alternative entrances to the same surface: one
+true fact makes it applicable, all false facts make it inapplicable, and no
+true fact with at least one unknown keeps it unknown. `engages_when` uses the
+same any-of rule for decision pressure. A rule that genuinely needs two facts
+together gets one named compound predicate whose settling question proves
+both; a list does not silently mean `and`.
 
 Every row needs all four cells, including what settles it. A predicate
 nobody can settle activates nothing and cannot be tested.
@@ -238,6 +256,42 @@ spelling silently activates nothing, which is the expensive direction.
 | `has_customer_visible_incident` | support-operations | 10 | a failure was visible to somebody outside the venture |
 | `reports_support_metric` | support-operations | 12 | support performance is reported |
 | `single_responder` | support-operations | 11 | one person carries the response |
+
+## Doctrine and Wargame pressure
+
+These rows engage a decision procedure; they do not decide its outcome.
+The two operator rows default false. A pressure row stays unknown until the
+fork enters scope, then the operator or task evidence records true or false.
+
+| predicate | packs | settled by | true when |
+| --- | --- | --- | --- |
+| `operator_requests_doctrine_review` | all | operator | the operator explicitly asks to challenge or review a standing Doctrine |
+| `operator_requests_wargame` | all | operator | the operator explicitly asks to run a named Wargame despite no matched pressure |
+| `requires_tabular_engine_choice` | data-analytics, data-engineering | pressure | the work must choose between dataframe, analytical SQL or distributed tabular engines |
+| `crosses_dataframe_array_boundary` | data-analytics, ai-ml-llm | pressure | tabular data must cross into an array, optimiser, solver or model interface |
+| `has_profiled_numeric_kernel` | data-analytics, ai-ml-llm | pressure | measurement identifies a numeric kernel whose implementation materially affects the target |
+| `working_set_exceeds_memory` | data-analytics, data-engineering | pressure | the measured working set does not fit the memory available to one process |
+| `requires_rendering_mode_choice` | ui-ux, native-client, architecture | pressure | the product must choose among static, server-rendered, client-rendered, islands, installed or progressive delivery |
+| `serves_novice_and_expert_users` | ui-ux | pressure | the same task surface must serve both first-time and frequent expert users |
+| `requires_non_semantic_custom_control` | ui-ux | pressure | a required interaction cannot be expressed with a meaningful native HTML control alone |
+| `house_style_costs_access_or_performance` | pattertech-house, ui-ux | pressure | a house-style choice measurably conflicts with audience need, accessibility or performance |
+| `requires_independent_deployability` | architecture | pressure | separately owned parts must release, scale or fail independently |
+| `requires_asynchronous_delivery` | architecture, api-integration, data-engineering | pressure | the producer cannot safely wait for the consumer to finish in the same call |
+| `requires_storage_engine_choice` | architecture, data-engineering, data-analytics | pressure | materially different access, consistency or operational needs make the storage engine an open decision |
+| `requires_offline_or_hybrid_consistency` | architecture, native-client | pressure | writes or reads must remain useful across offline, local, cloud or hybrid partitions |
+| `riskiest_assumption_is_unproved` | product-discovery, delivery-testing | pressure | the cheapest next step is governed by an assumption with no representative evidence |
+| `test_fidelity_changes_outcome` | delivery-testing | pressure | a double, sandbox or live dependency can produce materially different evidence for the decision |
+| `incident_needs_gate_exception` | delivery-testing, devops-reliability | pressure | an active incident makes the normal delivery path too slow for the user harm underway |
+| `managed_service_changes_exit_or_access` | architecture, devops-reliability | pressure | buying or managing a service changes portability, evidence access or incident control materially |
+| `integrity_floor_reduces_availability` | security-privacy, devops-reliability | pressure | failing closed would remove a user journey that could otherwise degrade honestly |
+| `observability_collects_sensitive_data` | devops-reliability, security-privacy | pressure | a proposed telemetry signal contains personal, confidential or authentication data |
+| `producer_trust_is_unproved` | supply-chain-integrity, security-privacy | pressure | provenance exists or can exist but the producer's trustworthiness remains materially uncertain |
+| `dependency_update_changes_known_good` | supply-chain-integrity, devops-reliability | pressure | a freshness update would replace a deployment whose behaviour and restoration path are already proved |
+| `agent_coordination_cost_is_material` | agentic-development, agentic-swarm | pressure | the task could use more than one agent and coordination, merge or verification cost may dominate |
+| `model_residency_or_hosting_is_constrained` | ai-ml-llm, security-privacy | pressure | data residency, latency, cost, capability or availability makes local versus hosted model execution material |
+| `evaluation_oracle_is_undecided` | ai-ml-llm, delivery-testing | pressure | the work has no agreed deterministic, human or model-based judge for the claimed behaviour |
+| `golden_path_needs_escape` | devops-reliability, agentic-development | pressure | the supported path cannot meet a material requirement without an escape route |
+| `local_exception_may_generalise` | all | pressure | a venture departure has evidence that may justify changing Doctrine scope or admitting a reusable exception |
 
 ## Retired
 

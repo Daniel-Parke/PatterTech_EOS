@@ -15,6 +15,7 @@ that stops the silent version walk.
 import re
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -29,6 +30,7 @@ LOCKS = ("tools/requirements.txt", "tools/requirements-dev.txt")
 # A package with compiled wheels cannot honestly carry one hash across a
 # multi-platform matrix. Naming it keeps the regression specific.
 COMPILED = "rpds-py"
+PYTHON_311_COMPAT = "typing-extensions"
 
 
 def _blocks(text):
@@ -81,6 +83,117 @@ def test_targets_cover_what_ci_builds():
     assert {"linux-x86_64", "windows-amd64"} <= labels
     for version in ("3.11", "3.14"):
         assert version in ci and version in pythons
+
+
+@pytest.mark.parametrize("label", [
+    "linux-x86_64", "windows-amd64", "macos-arm64",
+])
+def test_python_version_marker_uses_the_declared_target(label):
+    requirement = "typing-extensions>=4.4.0; python_version < '3.13'"
+    assert gen_lock._active_requirement(requirement, label, "3.11") == (
+        "typing-extensions>=4.4.0")
+    assert gen_lock._active_requirement(requirement, label, "3.14") is None
+
+
+@pytest.mark.parametrize("python", ["3.11", "3.14"])
+def test_platform_marker_uses_the_declared_target(python):
+    requirement = "colorama; sys_platform == 'win32'"
+    assert gen_lock._active_requirement(
+        requirement, "windows-amd64", python) == "colorama"
+    assert gen_lock._active_requirement(
+        requirement, "linux-x86_64", python) is None
+    assert gen_lock._active_requirement(
+        requirement, "macos-arm64", python) is None
+
+
+def test_unrequested_extra_is_not_in_the_target_closure():
+    assert gen_lock._active_requirement(
+        "sphinx; extra == 'docs'", "linux-x86_64", "3.11") is None
+
+
+def test_requested_extra_is_refused_until_its_closure_is_modelled():
+    with pytest.raises(SystemExit, match="extras are not supported"):
+        gen_lock._active_requirement(
+            "jsonschema[format]==4.23.0", "linux-x86_64", "3.11")
+
+
+def test_patch_sensitive_marker_is_refused_without_a_patch_target():
+    with pytest.raises(SystemExit, match="patch-sensitive"):
+        gen_lock._active_requirement(
+            "compat; python_full_version < '3.11.5'",
+            "linux-x86_64", "3.11")
+
+
+def test_marker_environment_contains_no_host_release_values():
+    environment = gen_lock._marker_environment("linux-x86_64", "3.11")
+    assert environment["os_name"] == "posix"
+    assert environment["platform_machine"] == "x86_64"
+    assert environment["platform_release"] == ""
+    assert environment["platform_system"] == "Linux"
+    assert environment["platform_version"] == ""
+    assert environment["sys_platform"] == "linux"
+    assert environment["python_version"] == "3.11"
+
+
+def test_target_resolution_reaches_marker_correct_fixed_point(monkeypatch):
+    calls = []
+
+    def download(requirements, _dest, _label, _platforms, _python):
+        calls.append(set(requirements))
+        artefacts = [Path("root-1.0-py3-none-any.whl")]
+        if "typing-extensions>=4.4.0" in requirements:
+            artefacts.append(Path("typing_extensions-4.16.0-py3-none-any.whl"))
+        # This represents a package pip selected from the host marker
+        # environment. It must not seed the declared target's closure.
+        artefacts.append(Path("ambient_only-1.0-py3-none-any.whl"))
+        return artefacts
+
+    def requirements(path):
+        if path.name.startswith("root-"):
+            return [
+                "typing-extensions>=4.4.0; python_version < '3.13'",
+            ]
+        if path.name.startswith("ambient_only-"):
+            return ["pollution>=1"]
+        return []
+
+    monkeypatch.setattr(gen_lock, "_download", download)
+    monkeypatch.setattr(gen_lock, "_wheel_requirements", requirements)
+    monkeypatch.setattr(gen_lock, "_hash", lambda path: "sha256:" + path.name)
+
+    resolved = gen_lock._resolve_target(
+        ["root==1.0"], "linux-x86_64", ["manylinux2014_x86_64"], "3.11")
+
+    assert len(calls) == 2
+    assert "typing-extensions>=4.4.0" in calls[-1]
+    assert "pollution>=1" not in calls[-1]
+    assert set(resolved) == {"root", "typing-extensions"}
+
+
+def test_download_leaves_dependency_closure_to_the_target_resolver(
+        tmp_path, monkeypatch):
+    seen = {}
+
+    def run(command, **kwargs):
+        seen["command"] = command
+        seen["kwargs"] = kwargs
+        return SimpleNamespace(returncode=0, stderr="")
+
+    monkeypatch.setattr(gen_lock.subprocess, "run", run)
+    assert gen_lock._download(
+        {"root==1.0"}, tmp_path, "linux-x86_64",
+        ["manylinux2014_x86_64"], "3.11") == []
+    assert "--no-deps" in seen["command"]
+    assert seen["kwargs"] == {"capture_output": True, "text": True}
+
+
+@pytest.mark.parametrize("rel", LOCKS)
+def test_python_311_compat_dependency_is_hash_locked(rel):
+    digests = _blocks((REPO / rel).read_text(encoding="utf-8")).get(
+        PYTHON_311_COMPAT)
+    assert digests, (
+        f"{PYTHON_311_COMPAT} is absent from {rel}; Python 3.11 cannot "
+        "install this file with --require-hashes")
 
 
 @pytest.mark.parametrize("filename,expected", [

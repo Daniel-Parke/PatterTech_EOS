@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/hypothesis-registry.schema.json",
+  "title": "Expiring non-authoritative hypothesis registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "authority",
+    "observed_on",
+    "expires",
+    "source_scope",
+    "source_fingerprint",
+    "promotion_rule",
+    "expiry_action",
+    "rows"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "kind": {"const": "hypothesis-registry"},
+    "authority": {"const": "none"},
+    "observed_on": {"type": "string", "format": "date"},
+    "expires": {"type": "string", "format": "date"},
+    "source_scope": {"type": "string", "minLength": 1},
+    "source_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "promotion_rule": {"type": "string", "minLength": 1},
+    "expiry_action": {"enum": ["archive-or-refresh"]},
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "domain",
+          "question",
+          "status",
+          "observed_ventures",
+          "required_ventures",
+          "admission_state"
+        ],
+        "properties": {
+          "id": {"type": "string", "pattern": "^HYP-[A-Z0-9]+-\\d{3}$"},
+          "domain": {"type": "string", "minLength": 1},
+          "question": {"type": "string", "minLength": 1},
+          "status": {"const": "candidate"},
+          "observed_ventures": {"const": 1},
+          "required_ventures": {"type": "integer", "minimum": 2},
+          "admission_state": {"const": "unresearched"}
+        }
+      }
+    }
+  }
+}

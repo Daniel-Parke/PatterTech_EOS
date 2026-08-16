@@ -1,0 +1,678 @@
+{
+  "schema_version": 1,
+  "kind": "naming-migration",
+  "task": "T-0028",
+  "status": "reviewed-contract",
+  "application_state": "verified by tools.eos.migrate_naming check",
+  "generator": "tools.eos.migrate_naming",
+  "baseline": {
+    "path": "org/migration/NAMING_BASELINE.json",
+    "sha256": "985680c6841323b506919cc18540212c0438712a5c911b8b57bb595f5454ae6a",
+    "frozen_from": {
+      "commit": "b6f6a2b1861c64804ca9a7524d19e588e2e6901c",
+      "claims_commit": "ca1a2d2e86bc98f1810bf68a6889eef37b5cadc0",
+      "date": "2026-08-16"
+    }
+  },
+  "counts": {
+    "identity_mappings": 103,
+    "target_wargames": 127,
+    "relations": 19,
+    "packs": 25,
+    "doctrines": 516
+  },
+  "identity_migration": {
+    "GD-AGENT-001": "WG-AGENT-001",
+    "GD-AGENT-002": "WG-AGENT-002",
+    "GD-AGENT-003": "WG-AGENT-003",
+    "GD-AGENT-004": "WG-AGENT-004",
+    "GD-AIML-001": "WG-AIML-002",
+    "GD-AIML-002": "WG-AIML-003",
+    "GD-AIML-003": "WG-AIML-004",
+    "GD-AIML-004": "WG-AIML-005",
+    "GD-AIML-005": "WG-AIML-006",
+    "GD-API-001": "WG-API-001",
+    "GD-API-002": "WG-API-002",
+    "GD-API-003": "WG-API-003",
+    "GD-API-004": "WG-API-004",
+    "GD-API-005": "WG-API-005",
+    "GD-ARCH-001": "WG-ARCH-013",
+    "GD-BLM-001": "WG-BLM-001",
+    "GD-BLM-002": "WG-BLM-002",
+    "GD-BLM-003": "WG-BLM-003",
+    "GD-BLM-004": "WG-BLM-004",
+    "GD-BLM-005": "WG-BLM-005",
+    "GD-BMP-001": "WG-BMP-001",
+    "GD-BMP-002": "WG-BMP-002",
+    "GD-BMP-003": "WG-BMP-003",
+    "GD-BMP-004": "WG-BMP-004",
+    "GD-COD-001": "WG-COD-001",
+    "GD-COD-002": "WG-COD-002",
+    "GD-COD-003": "WG-COD-003",
+    "GD-COD-004": "WG-COD-004",
+    "GD-COD-005": "WG-COD-005",
+    "GD-DATA-001": "WG-DATA-004",
+    "GD-DATA-002": "WG-DATA-005",
+    "GD-DATA-003": "WG-DATA-006",
+    "GD-DATA-004": "WG-DATA-007",
+    "GD-DATA-005": "WG-DATA-008",
+    "GD-DATAENG-001": "WG-DATAENG-001",
+    "GD-DATAENG-002": "WG-DATAENG-002",
+    "GD-DATAENG-003": "WG-DATAENG-003",
+    "GD-DATAENG-004": "WG-DATAENG-004",
+    "GD-DEVOPS-001": "WG-DEVOPS-001",
+    "GD-DEVOPS-002": "WG-DEVOPS-002",
+    "GD-DEVOPS-003": "WG-DEVOPS-003",
+    "GD-DEVOPS-004": "WG-DEVOPS-004",
+    "GD-DISC-001": "WG-DISC-001",
+    "GD-DISC-002": "WG-DISC-002",
+    "GD-DISC-003": "WG-DISC-003",
+    "GD-DISC-004": "WG-DISC-004",
+    "GD-DOCS-001": "WG-DOCS-001",
+    "GD-DOCS-002": "WG-DOCS-002",
+    "GD-DOCS-003": "WG-DOCS-003",
+    "GD-DOCS-004": "WG-DOCS-004",
+    "GD-DOCS-005": "WG-DOCS-005",
+    "GD-HOUSE-001": "WG-HOUSE-001",
+    "GD-HOUSE-002": "WG-HOUSE-002",
+    "GD-HOUSE-003": "WG-HOUSE-003",
+    "GD-HOUSE-004": "WG-HOUSE-004",
+    "GD-IDENT-001": "WG-IDENT-001",
+    "GD-IDENT-002": "WG-IDENT-002",
+    "GD-IDENT-003": "WG-IDENT-003",
+    "GD-IDENT-004": "WG-IDENT-004",
+    "GD-LEGAL-001": "WG-LEGAL-001",
+    "GD-LEGAL-002": "WG-LEGAL-002",
+    "GD-LEGAL-003": "WG-LEGAL-003",
+    "GD-LEGAL-004": "WG-LEGAL-004",
+    "GD-LEGAL-005": "WG-LEGAL-005",
+    "GD-MKTG-001": "WG-MKTG-001",
+    "GD-MKTG-002": "WG-MKTG-002",
+    "GD-MKTG-003": "WG-MKTG-003",
+    "GD-MKTG-004": "WG-MKTG-004",
+    "GD-NAT-001": "WG-NAT-001",
+    "GD-NAT-002": "WG-NAT-002",
+    "GD-NAT-003": "WG-NAT-003",
+    "GD-NAT-004": "WG-NAT-004",
+    "GD-RESEARCH-001": "WG-RESEARCH-001",
+    "GD-RESEARCH-002": "WG-RESEARCH-002",
+    "GD-RESEARCH-003": "WG-RESEARCH-003",
+    "GD-RESEARCH-004": "WG-RESEARCH-004",
+    "GD-SEC-001": "WG-SEC-001",
+    "GD-SEC-002": "WG-SEC-002",
+    "GD-SEC-003": "WG-SEC-003",
+    "GD-SEC-004": "WG-SEC-004",
+    "GD-SUPPLY-001": "WG-SUPPLY-001",
+    "GD-SUPPLY-002": "WG-SUPPLY-002",
+    "GD-SUPPLY-003": "WG-SUPPLY-003",
+    "GD-SUPPLY-004": "WG-SUPPLY-004",
+    "GD-SUPPORT-001": "WG-SUPPORT-001",
+    "GD-SUPPORT-002": "WG-SUPPORT-002",
+    "GD-SUPPORT-003": "WG-SUPPORT-003",
+    "GD-SUPPORT-004": "WG-SUPPORT-004",
+    "GD-SWARM-001": "WG-SWARM-001",
+    "GD-SWARM-002": "WG-SWARM-002",
+    "GD-SWARM-003": "WG-SWARM-003",
+    "GD-SWARM-004": "WG-SWARM-004",
+    "GD-UIUX-001": "WG-UIUX-003",
+    "GD-UIUX-002": "WG-UIUX-004",
+    "GD-UIUX-003": "WG-UIUX-005",
+    "GD-UIUX-004": "WG-UIUX-006",
+    "GD-WRIT-001": "WG-WRIT-001",
+    "GD-WRIT-002": "WG-WRIT-002",
+    "GD-WRIT-003": "WG-WRIT-003",
+    "GD-WRIT-004": "WG-WRIT-004",
+    "WG-OPS-003": "WG-DEVOPS-005",
+    "WG-OPS-005": "WG-DEVOPS-006",
+    "WG-OPS-006": "WG-DEVOPS-007"
+  },
+  "identity_path_migration": {
+    "GD-AGENT-001": {
+      "target_id": "WG-AGENT-001",
+      "baseline_path": "packs/agentic-development/guides/GD-AGENT-001-topology-selection.md",
+      "target_path": "packs/agentic-development/wargames/WG-AGENT-001-topology-selection.md"
+    },
+    "GD-AGENT-002": {
+      "target_id": "WG-AGENT-002",
+      "baseline_path": "packs/agentic-development/guides/GD-AGENT-002-context-engineering.md",
+      "target_path": "packs/agentic-development/wargames/WG-AGENT-002-context-engineering.md"
+    },
+    "GD-AGENT-003": {
+      "target_id": "WG-AGENT-003",
+      "baseline_path": "packs/agentic-development/guides/GD-AGENT-003-spawn-a-subagent.md",
+      "target_path": "packs/agentic-development/wargames/WG-AGENT-003-spawn-a-subagent.md"
+    },
+    "GD-AGENT-004": {
+      "target_id": "WG-AGENT-004",
+      "baseline_path": "packs/agentic-development/guides/GD-AGENT-004-verification-oracle.md",
+      "target_path": "packs/agentic-development/wargames/WG-AGENT-004-verification-oracle.md"
+    },
+    "GD-AIML-001": {
+      "target_id": "WG-AIML-002",
+      "baseline_path": "packs/ai-ml-llm/guides/GD-AIML-001-acceptance-evidence.md",
+      "target_path": "packs/ai-ml-llm/wargames/WG-AIML-002-acceptance-evidence.md"
+    },
+    "GD-AIML-002": {
+      "target_id": "WG-AIML-003",
+      "baseline_path": "packs/ai-ml-llm/guides/GD-AIML-002-knowledge-source.md",
+      "target_path": "packs/ai-ml-llm/wargames/WG-AIML-003-knowledge-source.md"
+    },
+    "GD-AIML-003": {
+      "target_id": "WG-AIML-004",
+      "baseline_path": "packs/ai-ml-llm/guides/GD-AIML-003-who-grades-the-output.md",
+      "target_path": "packs/ai-ml-llm/wargames/WG-AIML-004-who-grades-the-output.md"
+    },
+    "GD-AIML-004": {
+      "target_id": "WG-AIML-005",
+      "baseline_path": "packs/ai-ml-llm/guides/GD-AIML-004-prompt-maintenance.md",
+      "target_path": "packs/ai-ml-llm/wargames/WG-AIML-005-prompt-maintenance.md"
+    },
+    "GD-AIML-005": {
+      "target_id": "WG-AIML-006",
+      "baseline_path": "packs/ai-ml-llm/guides/GD-AIML-005-model-lifecycle-and-cost.md",
+      "target_path": "packs/ai-ml-llm/wargames/WG-AIML-006-model-lifecycle-and-cost.md"
+    },
+    "GD-API-001": {
+      "target_id": "WG-API-001",
+      "baseline_path": "packs/api-integration/guides/GD-API-001-contract-authoring.md",
+      "target_path": "packs/api-integration/wargames/WG-API-001-contract-authoring.md"
+    },
+    "GD-API-002": {
+      "target_id": "WG-API-002",
+      "baseline_path": "packs/api-integration/guides/GD-API-002-versioning-and-breaking-change.md",
+      "target_path": "packs/api-integration/wargames/WG-API-002-versioning-and-breaking-change.md"
+    },
+    "GD-API-003": {
+      "target_id": "WG-API-003",
+      "baseline_path": "packs/api-integration/guides/GD-API-003-webhook-trust.md",
+      "target_path": "packs/api-integration/wargames/WG-API-003-webhook-trust.md"
+    },
+    "GD-API-004": {
+      "target_id": "WG-API-004",
+      "baseline_path": "packs/api-integration/guides/GD-API-004-boundary-shape.md",
+      "target_path": "packs/api-integration/wargames/WG-API-004-boundary-shape.md"
+    },
+    "GD-API-005": {
+      "target_id": "WG-API-005",
+      "baseline_path": "packs/api-integration/guides/GD-API-005-collection-traversal.md",
+      "target_path": "packs/api-integration/wargames/WG-API-005-collection-traversal.md"
+    },
+    "GD-ARCH-001": {
+      "target_id": "WG-ARCH-013",
+      "baseline_path": "packs/architecture/guides/GD-ARCH-001-deployment-shape.md",
+      "target_path": "packs/architecture/wargames/WG-ARCH-013-deployment-shape.md"
+    },
+    "GD-BLM-001": {
+      "target_id": "WG-BLM-001",
+      "baseline_path": "packs/business-logic-modelling/guides/GD-BLM-001-model-shape.md",
+      "target_path": "packs/business-logic-modelling/wargames/WG-BLM-001-model-shape.md"
+    },
+    "GD-BLM-002": {
+      "target_id": "WG-BLM-002",
+      "baseline_path": "packs/business-logic-modelling/guides/GD-BLM-002-rule-placement.md",
+      "target_path": "packs/business-logic-modelling/wargames/WG-BLM-002-rule-placement.md"
+    },
+    "GD-BLM-003": {
+      "target_id": "WG-BLM-003",
+      "baseline_path": "packs/business-logic-modelling/guides/GD-BLM-003-money-representation.md",
+      "target_path": "packs/business-logic-modelling/wargames/WG-BLM-003-money-representation.md"
+    },
+    "GD-BLM-004": {
+      "target_id": "WG-BLM-004",
+      "baseline_path": "packs/business-logic-modelling/guides/GD-BLM-004-time-modelling.md",
+      "target_path": "packs/business-logic-modelling/wargames/WG-BLM-004-time-modelling.md"
+    },
+    "GD-BLM-005": {
+      "target_id": "WG-BLM-005",
+      "baseline_path": "packs/business-logic-modelling/guides/GD-BLM-005-state-or-events.md",
+      "target_path": "packs/business-logic-modelling/wargames/WG-BLM-005-state-or-events.md"
+    },
+    "GD-BMP-001": {
+      "target_id": "WG-BMP-001",
+      "baseline_path": "packs/business-model-pricing/guides/GD-BMP-001-price-anchor.md",
+      "target_path": "packs/business-model-pricing/wargames/WG-BMP-001-price-anchor.md"
+    },
+    "GD-BMP-002": {
+      "target_id": "WG-BMP-002",
+      "baseline_path": "packs/business-model-pricing/guides/GD-BMP-002-charging-unit.md",
+      "target_path": "packs/business-model-pricing/wargames/WG-BMP-002-charging-unit.md"
+    },
+    "GD-BMP-003": {
+      "target_id": "WG-BMP-003",
+      "baseline_path": "packs/business-model-pricing/guides/GD-BMP-003-try-before-paying.md",
+      "target_path": "packs/business-model-pricing/wargames/WG-BMP-003-try-before-paying.md"
+    },
+    "GD-BMP-004": {
+      "target_id": "WG-BMP-004",
+      "baseline_path": "packs/business-model-pricing/guides/GD-BMP-004-repricing-trigger.md",
+      "target_path": "packs/business-model-pricing/wargames/WG-BMP-004-repricing-trigger.md"
+    },
+    "GD-COD-001": {
+      "target_id": "WG-COD-001",
+      "baseline_path": "packs/coding/guides/GD-COD-001-oracle-strategy.md",
+      "target_path": "packs/coding/wargames/WG-COD-001-oracle-strategy.md"
+    },
+    "GD-COD-002": {
+      "target_id": "WG-COD-002",
+      "baseline_path": "packs/coding/guides/GD-COD-002-review-gate.md",
+      "target_path": "packs/coding/wargames/WG-COD-002-review-gate.md"
+    },
+    "GD-COD-003": {
+      "target_id": "WG-COD-003",
+      "baseline_path": "packs/coding/guides/GD-COD-003-failure-mode-contract.md",
+      "target_path": "packs/coding/wargames/WG-COD-003-failure-mode-contract.md"
+    },
+    "GD-COD-004": {
+      "target_id": "WG-COD-004",
+      "baseline_path": "packs/coding/guides/GD-COD-004-pin-then-change.md",
+      "target_path": "packs/coding/wargames/WG-COD-004-pin-then-change.md"
+    },
+    "GD-COD-005": {
+      "target_id": "WG-COD-005",
+      "baseline_path": "packs/coding/guides/GD-COD-005-repo-shape.md",
+      "target_path": "packs/coding/wargames/WG-COD-005-repo-shape.md"
+    },
+    "GD-DATA-001": {
+      "target_id": "WG-DATA-004",
+      "baseline_path": "packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md",
+      "target_path": "packs/data-analytics/wargames/WG-DATA-004-quality-gate-placement.md"
+    },
+    "GD-DATA-002": {
+      "target_id": "WG-DATA-005",
+      "baseline_path": "packs/data-analytics/guides/GD-DATA-002-model-shape.md",
+      "target_path": "packs/data-analytics/wargames/WG-DATA-005-model-shape.md"
+    },
+    "GD-DATA-003": {
+      "target_id": "WG-DATA-006",
+      "baseline_path": "packs/data-analytics/guides/GD-DATA-003-experiment-stopping.md",
+      "target_path": "packs/data-analytics/wargames/WG-DATA-006-experiment-stopping.md"
+    },
+    "GD-DATA-004": {
+      "target_id": "WG-DATA-007",
+      "baseline_path": "packs/data-analytics/guides/GD-DATA-004-storage-shape.md",
+      "target_path": "packs/data-analytics/wargames/WG-DATA-007-storage-shape.md"
+    },
+    "GD-DATA-005": {
+      "target_id": "WG-DATA-008",
+      "baseline_path": "packs/data-analytics/guides/GD-DATA-005-event-contract.md",
+      "target_path": "packs/data-analytics/wargames/WG-DATA-008-event-contract.md"
+    },
+    "GD-DATAENG-001": {
+      "target_id": "WG-DATAENG-001",
+      "baseline_path": "packs/data-engineering/guides/GD-DATAENG-001-ingestion-shape.md",
+      "target_path": "packs/data-engineering/wargames/WG-DATAENG-001-ingestion-shape.md"
+    },
+    "GD-DATAENG-002": {
+      "target_id": "WG-DATAENG-002",
+      "baseline_path": "packs/data-engineering/guides/GD-DATAENG-002-idempotent-reprocess.md",
+      "target_path": "packs/data-engineering/wargames/WG-DATAENG-002-idempotent-reprocess.md"
+    },
+    "GD-DATAENG-003": {
+      "target_id": "WG-DATAENG-003",
+      "baseline_path": "packs/data-engineering/guides/GD-DATAENG-003-processing-window.md",
+      "target_path": "packs/data-engineering/wargames/WG-DATAENG-003-processing-window.md"
+    },
+    "GD-DATAENG-004": {
+      "target_id": "WG-DATAENG-004",
+      "baseline_path": "packs/data-engineering/guides/GD-DATAENG-004-late-arrivals.md",
+      "target_path": "packs/data-engineering/wargames/WG-DATAENG-004-late-arrivals.md"
+    },
+    "GD-DEVOPS-001": {
+      "target_id": "WG-DEVOPS-001",
+      "baseline_path": "packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md"
+    },
+    "GD-DEVOPS-002": {
+      "target_id": "WG-DEVOPS-002",
+      "baseline_path": "packs/devops-reliability/guides/GD-DEVOPS-002-release-control.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-002-release-control.md"
+    },
+    "GD-DEVOPS-003": {
+      "target_id": "WG-DEVOPS-003",
+      "baseline_path": "packs/devops-reliability/guides/GD-DEVOPS-003-error-budget-dial.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-003-error-budget-dial.md"
+    },
+    "GD-DEVOPS-004": {
+      "target_id": "WG-DEVOPS-004",
+      "baseline_path": "packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-004-reliability-measures.md"
+    },
+    "GD-DISC-001": {
+      "target_id": "WG-DISC-001",
+      "baseline_path": "packs/product-discovery/guides/GD-DISC-001-discovery-depth.md",
+      "target_path": "packs/product-discovery/wargames/WG-DISC-001-discovery-depth.md"
+    },
+    "GD-DISC-002": {
+      "target_id": "WG-DISC-002",
+      "baseline_path": "packs/product-discovery/guides/GD-DISC-002-user-evidence-source.md",
+      "target_path": "packs/product-discovery/wargames/WG-DISC-002-user-evidence-source.md"
+    },
+    "GD-DISC-003": {
+      "target_id": "WG-DISC-003",
+      "baseline_path": "packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md",
+      "target_path": "packs/product-discovery/wargames/WG-DISC-003-choosing-between-opportunities.md"
+    },
+    "GD-DISC-004": {
+      "target_id": "WG-DISC-004",
+      "baseline_path": "packs/product-discovery/guides/GD-DISC-004-acceptance-criteria-form.md",
+      "target_path": "packs/product-discovery/wargames/WG-DISC-004-acceptance-criteria-form.md"
+    },
+    "GD-DOCS-001": {
+      "target_id": "WG-DOCS-001",
+      "baseline_path": "packs/docs-dx/guides/GD-DOCS-001-truth-location.md",
+      "target_path": "packs/docs-dx/wargames/WG-DOCS-001-truth-location.md"
+    },
+    "GD-DOCS-002": {
+      "target_id": "WG-DOCS-002",
+      "baseline_path": "packs/docs-dx/guides/GD-DOCS-002-executable-examples.md",
+      "target_path": "packs/docs-dx/wargames/WG-DOCS-002-executable-examples.md"
+    },
+    "GD-DOCS-003": {
+      "target_id": "WG-DOCS-003",
+      "baseline_path": "packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md",
+      "target_path": "packs/docs-dx/wargames/WG-DOCS-003-changelog-ownership.md"
+    },
+    "GD-DOCS-004": {
+      "target_id": "WG-DOCS-004",
+      "baseline_path": "packs/docs-dx/guides/GD-DOCS-004-failure-messages.md",
+      "target_path": "packs/docs-dx/wargames/WG-DOCS-004-failure-messages.md"
+    },
+    "GD-DOCS-005": {
+      "target_id": "WG-DOCS-005",
+      "baseline_path": "packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md",
+      "target_path": "packs/docs-dx/wargames/WG-DOCS-005-blocking-checks.md"
+    },
+    "GD-HOUSE-001": {
+      "target_id": "WG-HOUSE-001",
+      "baseline_path": "packs/pattertech-house/guides/GD-HOUSE-001-light-posture.md",
+      "target_path": "packs/pattertech-house/wargames/WG-HOUSE-001-light-posture.md"
+    },
+    "GD-HOUSE-002": {
+      "target_id": "WG-HOUSE-002",
+      "baseline_path": "packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md",
+      "target_path": "packs/pattertech-house/wargames/WG-HOUSE-002-container-choice.md"
+    },
+    "GD-HOUSE-003": {
+      "target_id": "WG-HOUSE-003",
+      "baseline_path": "packs/pattertech-house/guides/GD-HOUSE-003-polarity-register.md",
+      "target_path": "packs/pattertech-house/wargames/WG-HOUSE-003-polarity-register.md"
+    },
+    "GD-HOUSE-004": {
+      "target_id": "WG-HOUSE-004",
+      "baseline_path": "packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md",
+      "target_path": "packs/pattertech-house/wargames/WG-HOUSE-004-figure-austerity.md"
+    },
+    "GD-IDENT-001": {
+      "target_id": "WG-IDENT-001",
+      "baseline_path": "packs/identity-access/guides/GD-IDENT-001-authorisation-model.md",
+      "target_path": "packs/identity-access/wargames/WG-IDENT-001-authorisation-model.md"
+    },
+    "GD-IDENT-002": {
+      "target_id": "WG-IDENT-002",
+      "baseline_path": "packs/identity-access/guides/GD-IDENT-002-session-or-token.md",
+      "target_path": "packs/identity-access/wargames/WG-IDENT-002-session-or-token.md"
+    },
+    "GD-IDENT-003": {
+      "target_id": "WG-IDENT-003",
+      "baseline_path": "packs/identity-access/guides/GD-IDENT-003-provider-or-self-hosted.md",
+      "target_path": "packs/identity-access/wargames/WG-IDENT-003-provider-or-self-hosted.md"
+    },
+    "GD-IDENT-004": {
+      "target_id": "WG-IDENT-004",
+      "baseline_path": "packs/identity-access/guides/GD-IDENT-004-tenant-isolation.md",
+      "target_path": "packs/identity-access/wargames/WG-IDENT-004-tenant-isolation.md"
+    },
+    "GD-LEGAL-001": {
+      "target_id": "WG-LEGAL-001",
+      "baseline_path": "packs/legal-licensing/guides/GD-LEGAL-001-copyleft-trigger.md",
+      "target_path": "packs/legal-licensing/wargames/WG-LEGAL-001-copyleft-trigger.md"
+    },
+    "GD-LEGAL-002": {
+      "target_id": "WG-LEGAL-002",
+      "baseline_path": "packs/legal-licensing/guides/GD-LEGAL-002-compliance-posture.md",
+      "target_path": "packs/legal-licensing/wargames/WG-LEGAL-002-compliance-posture.md"
+    },
+    "GD-LEGAL-003": {
+      "target_id": "WG-LEGAL-003",
+      "baseline_path": "packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md",
+      "target_path": "packs/legal-licensing/wargames/WG-LEGAL-003-outbound-licence.md"
+    },
+    "GD-LEGAL-004": {
+      "target_id": "WG-LEGAL-004",
+      "baseline_path": "packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md",
+      "target_path": "packs/legal-licensing/wargames/WG-LEGAL-004-inbound-rights.md"
+    },
+    "GD-LEGAL-005": {
+      "target_id": "WG-LEGAL-005",
+      "baseline_path": "packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md",
+      "target_path": "packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md"
+    },
+    "GD-MKTG-001": {
+      "target_id": "WG-MKTG-001",
+      "baseline_path": "packs/marketing-growth/guides/GD-MKTG-001-growth-philosophy.md",
+      "target_path": "packs/marketing-growth/wargames/WG-MKTG-001-growth-philosophy.md"
+    },
+    "GD-MKTG-002": {
+      "target_id": "WG-MKTG-002",
+      "baseline_path": "packs/marketing-growth/guides/GD-MKTG-002-consent-route.md",
+      "target_path": "packs/marketing-growth/wargames/WG-MKTG-002-consent-route.md"
+    },
+    "GD-MKTG-003": {
+      "target_id": "WG-MKTG-003",
+      "baseline_path": "packs/marketing-growth/guides/GD-MKTG-003-effect-measurement.md",
+      "target_path": "packs/marketing-growth/wargames/WG-MKTG-003-effect-measurement.md"
+    },
+    "GD-MKTG-004": {
+      "target_id": "WG-MKTG-004",
+      "baseline_path": "packs/marketing-growth/guides/GD-MKTG-004-content-provenance.md",
+      "target_path": "packs/marketing-growth/wargames/WG-MKTG-004-content-provenance.md"
+    },
+    "GD-NAT-001": {
+      "target_id": "WG-NAT-001",
+      "baseline_path": "packs/native-client/guides/GD-NAT-001-client-architecture.md",
+      "target_path": "packs/native-client/wargames/WG-NAT-001-client-architecture.md"
+    },
+    "GD-NAT-002": {
+      "target_id": "WG-NAT-002",
+      "baseline_path": "packs/native-client/guides/GD-NAT-002-offline-write-model.md",
+      "target_path": "packs/native-client/wargames/WG-NAT-002-offline-write-model.md"
+    },
+    "GD-NAT-003": {
+      "target_id": "WG-NAT-003",
+      "baseline_path": "packs/native-client/guides/GD-NAT-003-release-path.md",
+      "target_path": "packs/native-client/wargames/WG-NAT-003-release-path.md"
+    },
+    "GD-NAT-004": {
+      "target_id": "WG-NAT-004",
+      "baseline_path": "packs/native-client/guides/GD-NAT-004-a11y-profile.md",
+      "target_path": "packs/native-client/wargames/WG-NAT-004-a11y-profile.md"
+    },
+    "GD-RESEARCH-001": {
+      "target_id": "WG-RESEARCH-001",
+      "baseline_path": "packs/research-knowledge/guides/GD-RESEARCH-001-when-to-stop.md",
+      "target_path": "packs/research-knowledge/wargames/WG-RESEARCH-001-when-to-stop.md"
+    },
+    "GD-RESEARCH-002": {
+      "target_id": "WG-RESEARCH-002",
+      "baseline_path": "packs/research-knowledge/guides/GD-RESEARCH-002-where-the-base-lives.md",
+      "target_path": "packs/research-knowledge/wargames/WG-RESEARCH-002-where-the-base-lives.md"
+    },
+    "GD-RESEARCH-003": {
+      "target_id": "WG-RESEARCH-003",
+      "baseline_path": "packs/research-knowledge/guides/GD-RESEARCH-003-superseding-a-source.md",
+      "target_path": "packs/research-knowledge/wargames/WG-RESEARCH-003-superseding-a-source.md"
+    },
+    "GD-RESEARCH-004": {
+      "target_id": "WG-RESEARCH-004",
+      "baseline_path": "packs/research-knowledge/guides/GD-RESEARCH-004-a-source-that-speaks-to-you.md",
+      "target_path": "packs/research-knowledge/wargames/WG-RESEARCH-004-a-source-that-speaks-to-you.md"
+    },
+    "GD-SEC-001": {
+      "target_id": "WG-SEC-001",
+      "baseline_path": "packs/security-privacy/guides/GD-SEC-001-injection-defence.md",
+      "target_path": "packs/security-privacy/wargames/WG-SEC-001-injection-defence.md"
+    },
+    "GD-SEC-002": {
+      "target_id": "WG-SEC-002",
+      "baseline_path": "packs/security-privacy/guides/GD-SEC-002-secret-protection.md",
+      "target_path": "packs/security-privacy/wargames/WG-SEC-002-secret-protection.md"
+    },
+    "GD-SEC-003": {
+      "target_id": "WG-SEC-003",
+      "baseline_path": "packs/security-privacy/guides/GD-SEC-003-assurance-grading.md",
+      "target_path": "packs/security-privacy/wargames/WG-SEC-003-assurance-grading.md"
+    },
+    "GD-SEC-004": {
+      "target_id": "WG-SEC-004",
+      "baseline_path": "packs/security-privacy/guides/GD-SEC-004-external-action-approval.md",
+      "target_path": "packs/security-privacy/wargames/WG-SEC-004-external-action-approval.md"
+    },
+    "GD-SUPPLY-001": {
+      "target_id": "WG-SUPPLY-001",
+      "baseline_path": "packs/supply-chain-integrity/guides/GD-SUPPLY-001-provenance-and-verification.md",
+      "target_path": "packs/supply-chain-integrity/wargames/WG-SUPPLY-001-provenance-and-verification.md"
+    },
+    "GD-SUPPLY-002": {
+      "target_id": "WG-SUPPLY-002",
+      "baseline_path": "packs/supply-chain-integrity/guides/GD-SUPPLY-002-signing-identity.md",
+      "target_path": "packs/supply-chain-integrity/wargames/WG-SUPPLY-002-signing-identity.md"
+    },
+    "GD-SUPPLY-003": {
+      "target_id": "WG-SUPPLY-003",
+      "baseline_path": "packs/supply-chain-integrity/guides/GD-SUPPLY-003-pinning-cadence.md",
+      "target_path": "packs/supply-chain-integrity/wargames/WG-SUPPLY-003-pinning-cadence.md"
+    },
+    "GD-SUPPLY-004": {
+      "target_id": "WG-SUPPLY-004",
+      "baseline_path": "packs/supply-chain-integrity/guides/GD-SUPPLY-004-vendor-or-depend.md",
+      "target_path": "packs/supply-chain-integrity/wargames/WG-SUPPLY-004-vendor-or-depend.md"
+    },
+    "GD-SUPPORT-001": {
+      "target_id": "WG-SUPPORT-001",
+      "baseline_path": "packs/support-operations/guides/GD-SUPPORT-001-triage-pattern.md",
+      "target_path": "packs/support-operations/wargames/WG-SUPPORT-001-triage-pattern.md"
+    },
+    "GD-SUPPORT-002": {
+      "target_id": "WG-SUPPORT-002",
+      "baseline_path": "packs/support-operations/guides/GD-SUPPORT-002-close-policy.md",
+      "target_path": "packs/support-operations/wargames/WG-SUPPORT-002-close-policy.md"
+    },
+    "GD-SUPPORT-003": {
+      "target_id": "WG-SUPPORT-003",
+      "baseline_path": "packs/support-operations/guides/GD-SUPPORT-003-declaration-route.md",
+      "target_path": "packs/support-operations/wargames/WG-SUPPORT-003-declaration-route.md"
+    },
+    "GD-SUPPORT-004": {
+      "target_id": "WG-SUPPORT-004",
+      "baseline_path": "packs/support-operations/guides/GD-SUPPORT-004-support-measurement.md",
+      "target_path": "packs/support-operations/wargames/WG-SUPPORT-004-support-measurement.md"
+    },
+    "GD-SWARM-001": {
+      "target_id": "WG-SWARM-001",
+      "baseline_path": "packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md",
+      "target_path": "packs/agentic-swarm/wargames/WG-SWARM-001-swarm-or-single-agent.md"
+    },
+    "GD-SWARM-002": {
+      "target_id": "WG-SWARM-002",
+      "baseline_path": "packs/agentic-swarm/guides/GD-SWARM-002-cut-the-partition.md",
+      "target_path": "packs/agentic-swarm/wargames/WG-SWARM-002-cut-the-partition.md"
+    },
+    "GD-SWARM-003": {
+      "target_id": "WG-SWARM-003",
+      "baseline_path": "packs/agentic-swarm/guides/GD-SWARM-003-who-holds-the-plan.md",
+      "target_path": "packs/agentic-swarm/wargames/WG-SWARM-003-who-holds-the-plan.md"
+    },
+    "GD-SWARM-004": {
+      "target_id": "WG-SWARM-004",
+      "baseline_path": "packs/agentic-swarm/guides/GD-SWARM-004-verifying-a-lane.md",
+      "target_path": "packs/agentic-swarm/wargames/WG-SWARM-004-verifying-a-lane.md"
+    },
+    "GD-UIUX-001": {
+      "target_id": "WG-UIUX-003",
+      "baseline_path": "packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md",
+      "target_path": "packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md"
+    },
+    "GD-UIUX-002": {
+      "target_id": "WG-UIUX-004",
+      "baseline_path": "packs/ui-ux/guides/GD-UIUX-002-component-sourcing.md",
+      "target_path": "packs/ui-ux/wargames/WG-UIUX-004-component-sourcing.md"
+    },
+    "GD-UIUX-003": {
+      "target_id": "WG-UIUX-005",
+      "baseline_path": "packs/ui-ux/guides/GD-UIUX-003-a11y-assurance.md",
+      "target_path": "packs/ui-ux/wargames/WG-UIUX-005-a11y-assurance.md"
+    },
+    "GD-UIUX-004": {
+      "target_id": "WG-UIUX-006",
+      "baseline_path": "packs/ui-ux/guides/GD-UIUX-004-token-source.md",
+      "target_path": "packs/ui-ux/wargames/WG-UIUX-006-token-source.md"
+    },
+    "GD-WRIT-001": {
+      "target_id": "WG-WRIT-001",
+      "baseline_path": "packs/writing-content/guides/GD-WRIT-001-clarity-philosophy.md",
+      "target_path": "packs/writing-content/wargames/WG-WRIT-001-clarity-philosophy.md"
+    },
+    "GD-WRIT-002": {
+      "target_id": "WG-WRIT-002",
+      "baseline_path": "packs/writing-content/guides/GD-WRIT-002-message-structure.md",
+      "target_path": "packs/writing-content/wargames/WG-WRIT-002-message-structure.md"
+    },
+    "GD-WRIT-003": {
+      "target_id": "WG-WRIT-003",
+      "baseline_path": "packs/writing-content/guides/GD-WRIT-003-voice-scope.md",
+      "target_path": "packs/writing-content/wargames/WG-WRIT-003-voice-scope.md"
+    },
+    "GD-WRIT-004": {
+      "target_id": "WG-WRIT-004",
+      "baseline_path": "packs/writing-content/guides/GD-WRIT-004-prose-gate.md",
+      "target_path": "packs/writing-content/wargames/WG-WRIT-004-prose-gate.md"
+    },
+    "WG-OPS-003": {
+      "target_id": "WG-DEVOPS-005",
+      "baseline_path": "packs/devops-reliability/guides/WG-OPS-003-restore-proof.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-005-restore-proof.md"
+    },
+    "WG-OPS-005": {
+      "target_id": "WG-DEVOPS-006",
+      "baseline_path": "packs/devops-reliability/guides/WG-OPS-005-honest-degradation.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-006-honest-degradation.md"
+    },
+    "WG-OPS-006": {
+      "target_id": "WG-DEVOPS-007",
+      "baseline_path": "packs/devops-reliability/guides/WG-OPS-006-observability-and-privacy.md",
+      "target_path": "packs/devops-reliability/wargames/WG-DEVOPS-007-observability-and-privacy.md"
+    }
+  },
+  "contract_hashes": {
+    "identity_migration": "698c4c825418fcd36db74ff6a86be9834ba2e9793bbafca40bacae9e4553d129",
+    "target_wargames": "ae92671019bf6a0025dd4cc21c6c5da2dab08e09dacebe47a6ba3e13a7f62299",
+    "relations": "1fe05e598674f1b7471914ed23e3ce1868559c183933c6bcc448e82ccb4cd6f0"
+  },
+  "collection_migration": {
+    "guides": "wargames",
+    "exemplars": "examples",
+    "refs": "references",
+    "doctrines/relations": "relations"
+  },
+  "public_file_migration": {
+    "packs/PACK_SHAPE.md": "packs/PACK_CONTRACT.md",
+    "registry/ID_ALIASES.md": "registry/IDENTIFIER_ALIASES.md"
+  },
+  "removed_compatibility_files": [
+    "packs/GUIDE_INDEX.md"
+  ],
+  "doctrine_basename": {
+    "maximum_characters": 72,
+    "truncation": "whole-word"
+  },
+  "excluded_surfaces": [
+    "archive/**",
+    "benchmark/**",
+    "org/decisions/**",
+    "org/migration/**",
+    "org/reports/**",
+    "registry/IDENTIFIER_ALIASES.md",
+    "registry/identifier-aliases.json",
+    "tests/**"
+  ]
+}

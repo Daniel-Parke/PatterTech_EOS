@@ -1,20 +1,20 @@
 ---
 summary: What a reviewer or a script can verify about house work, split into executable today and judgement
-kind: guide
+kind: record
 authority: preference
 basis: decision
 evidence_grade: not-applicable
 scope: brand:pattertech
 sources: [EV-0027, EV-0236]
 review: 2028-11
-type: guide
+type: checks
 tags: [web, testing, tooling, a11y]
 ---
 
 # House checks
 
 Evaluation criteria for work in an adopting venture. Each row says what
-is verified, which house requirement or guide it answers to, and whether
+is verified, which house Doctrine or Wargame it answers to, and whether
 a machine can settle it today. "Executable" means a script decides it
 without a person reading the output. "Judgement" means a person rules
 and the record is the evidence.
@@ -42,7 +42,7 @@ owns them.
 | C9 | No element at or below body size with a long text run carries a text shadow | H5 | computed style over text nodes |
 | C10 | Reading matter has no entry animation | H5 | assert paragraphs, lists and tables carry no animation name |
 | C11 | Contrast measured from rendered colours, not from the token file | H6 | script computes foreground against resolved background per text node (EV-0027, EV-0236) |
-| C12 | Kicker and caption tiers clear the house target, not only the floor | H6 | same run, compared against the tier table in `packs/pattertech-house/refs/BUDGETS.md` |
+| C12 | Kicker and caption tiers clear the house target, not only the floor | H6 | same run, compared against the tier table in `packs/pattertech-house/references/BUDGETS.md` |
 | C13 | Every figure node sits on its datapoint within tolerance | H7 | compare rendered node positions against the source data through the kit's scale helpers |
 | C14 | No label or box intersects a line, and at most one endpoint accent per figure | H7 | geometry check over the rendered figure |
 | C15 | No house number appears outside the budgets file | H8 | source scan for the named values, with an allowlist for the budgets file itself |
@@ -62,12 +62,12 @@ pack.
 
 | # | Check | Verifies | What good looks like |
 | --- | --- | --- | --- |
-| J1 | The container matches what the content is | H1, GD-HOUSE-002 | the reviewer can say in one sentence what the content is, and the container follows from it |
-| J2 | A first-time reader can name a moment on the page | GD-HOUSE-001 | someone who has not seen the page names one, unprompted |
-| J3 | No single component looks glowing in a screenshot | GD-HOUSE-001 | light is visible in the periphery and deniable up close |
-| J4 | The light posture matches the brand's physics | GD-HOUSE-001 | the posture is named in the lock-book with the reason |
-| J5 | The register decision is recorded with its cost | GD-HOUSE-003 | the ruling names what the polarity choice costs the smallest type |
-| J6 | At most one figure per piece carries a distinguishing device | GD-HOUSE-004 | the promoted figure is named, and the device is outside the plot area |
+| J1 | The container matches what the content is | H1, WG-HOUSE-002 | the reviewer can say in one sentence what the content is, and the container follows from it |
+| J2 | A first-time reader can name a moment on the page | WG-HOUSE-001 | someone who has not seen the page names one, unprompted |
+| J3 | No single component looks glowing in a screenshot | WG-HOUSE-001 | light is visible in the periphery and deniable up close |
+| J4 | The light posture matches the brand's physics | WG-HOUSE-001 | the posture is named in the lock-book with the reason |
+| J5 | The register decision is recorded with its cost | WG-HOUSE-003 | the ruling names what the polarity choice costs the smallest type |
+| J6 | At most one figure per piece carries a distinguishing device | WG-HOUSE-004 | the promoted figure is named, and the device is outside the plot area |
 | J7 | The section would not survive being dropped into a generated site unchanged | anti-patterns | the reviewer names what is specific to this venture |
 | J8 | Copy reads as though a person wrote it | voice law | read aloud before shipping |
 | J9 | Departures from this pack are written in the lock-book | authority | one line naming the rule and the reason, no waiver machinery |

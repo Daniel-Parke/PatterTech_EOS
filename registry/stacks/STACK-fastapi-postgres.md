@@ -63,9 +63,9 @@ implementation: Venture B (its `pyproject.toml`, `docker/` and
 No server state: profile 01.
 
 Where heavy telemetry goes is not this profile's question to answer.
-`packs/architecture/guides/WG-ARCH-008-database-topology.md` owns it and
+`packs/architecture/wargames/WG-ARCH-008-database-topology.md` owns it and
 D8 of `packs/architecture/PACK.md` carries the live default, which is
 one database with private tables and distinct credentials, and two
 stores only once a second real owner or a genuinely volume-asymmetric
 feed appears. This profile used to answer it with a blanket separate
-stores, which was v1's answer and predates that guide.
+stores, which was v1's answer and predates that Wargame.

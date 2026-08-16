@@ -45,6 +45,10 @@ V1_MATRIX = {
 }
 
 _QUEUE_ROW_RE = re.compile(r"^###\s+(WO-\d{4})\s+·\s+(.+)$")
+_LEGACY_RULING_RE = re.compile(
+    r"^\s*-\s+((?:GD|WG)-[A-Z0-9]+-\d{3})\s*·\s*(.*?)\s*·\s*"
+    r"(argued|inherited)\s*·\s*(.*?)\s*$"
+)
 _ROLE_NOTE = (
     "# %s\n\n"
     "This role charter is superseded in EOS v2. Sessions are routed by\n"
@@ -61,6 +65,101 @@ def _venture_name(seed_root, lockbook_text):
         if m:
             return m.group(1)
     return Path(seed_root).name
+
+
+def _legacy_rulings(lockbook_text):
+    """Parsed legacy header rows, retaining each row byte-for-byte as text."""
+    rows = []
+    lines = lockbook_text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return rows
+    end = next((i for i, line in enumerate(lines[1:60], 1)
+                if line.strip() == "---"), None)
+    if end is None:
+        return rows
+    for line in lines[1:end]:
+        match = _LEGACY_RULING_RE.match(line)
+        if match:
+            rows.append({
+                "wargame": match.group(1),
+                "decision": match.group(2),
+                "execution": match.group(3),
+                "note": match.group(4),
+                "legacy_text": line,
+            })
+    return rows
+
+
+def _ruling_code(venture):
+    code = re.sub(r"[^A-Za-z0-9]", "", str(venture)).upper()
+    return code or "VENTURE"
+
+
+def _structured_rulings(venture, eos_commit, rows, today):
+    code = _ruling_code(venture)
+    rulings = []
+    selection = []
+    for number, row in enumerate(rows, 1):
+        ruling_id = "RUL-%s-%03d" % (code, number)
+        reason = row["note"] or "Migrated from the legacy lock-book row."
+        rulings.append({
+            "id": ruling_id,
+            "wargame": row["wargame"],
+            "doctrines": [],
+            "decision": row["decision"],
+            "execution": ("argued" if row["execution"] == "argued"
+                          else "legacy-inherited"),
+            "reason": reason,
+            "decided": today,
+            "review": "on-change-of:eos-pin",
+            "departures": [],
+            "binding_scope_changes": [],
+            "legacy_text": row["legacy_text"],
+        })
+        selection.append({
+            "wargame": row["wargame"],
+            "disposition": "selected",
+            "reason": reason,
+            "ruling": ruling_id,
+            "facts": [],
+        })
+    return {
+        "version": 1,
+        "venture": venture,
+        "eos_commit": eos_commit,
+        "selection_log": selection,
+        "rulings": rulings,
+        "legacy_migration": {
+            "source": "docs/LOCKBOOK.md front-matter rulings",
+            "migrated_at": "%sT00:00:00Z" % today,
+            "unparsed_rows": [],
+        },
+    }
+
+
+def _replace_legacy_rulings_header(text):
+    """Replace the delimiter list with one pointer to structured JSON."""
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return text
+    end = next((i for i, line in enumerate(lines[1:60], 1)
+                if line.strip() == "---"), None)
+    if end is None:
+        return text
+    header = lines[1:end]
+    out = []
+    skipping = False
+    for line in header:
+        if line.strip() == "rulings:":
+            skipping = True
+            continue
+        if skipping and re.match(r"^\s+-\s+", line):
+            continue
+        skipping = False
+        out.append(line)
+    if not any(line.startswith("rulings_record:") for line in out):
+        out.append("rulings_record: docs/RULINGS.json")
+    return "\n".join([lines[0], *out, lines[end], *lines[end + 1:]]) + "\n"
 
 
 def plan(seed_root):
@@ -112,6 +211,11 @@ def plan(seed_root):
         {"id": "pin-policy", "status": "pending",
          "desc": "lock-book header gains the v2 policy pin"},
     ]
+    if _legacy_rulings(lockbook_text) and not (
+            seed_root / "docs" / "RULINGS.json").is_file():
+        steps.append({"id": "structured-rulings", "status": "pending",
+                      "desc": "losslessly convert legacy lock-book rows to "
+                              "docs/RULINGS.json"})
     if any((seed_root / "org" / "roles" / n).is_file()
            for n in ("PLAN.md", "WORK.md", "VERIFY.md")):
         steps.append({"id": "roles-to-tier-note", "status": "pending",
@@ -178,21 +282,41 @@ def apply(seed_root, plan_doc, *, dry_run=True, today=None):
             if step["id"] == step_id:
                 step["status"] = status
 
-    # 1. Lock-book header gains the policy pin.
+    # 1. Lock-book header gains the policy pin and structured Rulings pointer.
     lockbook = seed_root / "docs" / "LOCKBOOK.md"
     if lockbook.is_file():
         text = lockbook.read_text(encoding="utf-8")
+        changed_text = text
         if "policy_pin:" not in text:
             changes.append("docs/LOCKBOOK.md: add policy_pin to the header")
+            lines = changed_text.splitlines()
+            for i in range(1, min(len(lines), 60)):
+                if lines[i].strip() == "---":
+                    lines.insert(i, "policy_pin: kernel/POLICY_SPEC.md@v2")
+                    break
+            changed_text = "\n".join(lines) + "\n"
+
+        legacy_rows = _legacy_rulings(changed_text)
+        rulings_path = seed_root / "docs" / "RULINGS.json"
+        if legacy_rows and not rulings_path.is_file():
+            changes.append(
+                "docs/LOCKBOOK.md rulings -> docs/RULINGS.json: %d rows"
+                % len(legacy_rows))
+            document = _structured_rulings(
+                result["venture"],
+                parse_front_matter(changed_text).data.get("eos_commit", "unknown"),
+                legacy_rows,
+                today,
+            )
+            changed_text = _replace_legacy_rulings_header(changed_text)
             if not dry_run:
-                lines = text.splitlines()
-                for i in range(1, min(len(lines), 60)):
-                    if lines[i].strip() == "---":
-                        lines.insert(i, "policy_pin: kernel/POLICY_SPEC.md@v2")
-                        break
-                lockbook.write_text("\n".join(lines) + "\n",
-                                    encoding="utf-8", newline="\n")
+                rulings_path.write_text(
+                    json.dumps(document, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8", newline="\n")
+                mark("structured-rulings", "done")
         if not dry_run:
+            if changed_text != text:
+                lockbook.write_text(changed_text, encoding="utf-8", newline="\n")
             mark("pin-policy", "done")
 
     # 2. Role charters swap for the tier policy note.

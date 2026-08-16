@@ -1,0 +1,13 @@
+{
+  "id": "DREL-ARCH-002",
+  "owner_doctrine": "DOC-ARCH-010",
+  "relation": "depends_on",
+  "target": "DOC-SUPPLY-009",
+  "conditions": ["managed_service_changes_exit_or_access"],
+  "status": "covered",
+  "evidence": ["EV-0154", "EV-0564"],
+  "fallback": "Keep capability ownership and the smallest proved exit route with the venture until provider diagnosis, export and restoration are demonstrated.",
+  "wargame": "WG-ARCH-012",
+  "owner": "architecture",
+  "review": "2027-02"
+}

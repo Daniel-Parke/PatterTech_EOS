@@ -2,7 +2,7 @@
  "pack": "legal-licensing",
  "checked": "2026-08-10",
  "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
- "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, wargames/, references/, examples/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
  "ev_ids_checked": [
   "EV-0041",
   "EV-0069",
@@ -60,22 +60,22 @@
  ],
  "quotation_concerns": [
   {
-   "file": "packs/legal-licensing/guides/GD-LEGAL-001-copyleft-trigger.md",
+   "file": "packs/legal-licensing/wargames/WG-LEGAL-001-copyleft-trigger.md",
    "line": 58,
    "concern": "Option C states the compatibility principle from EV-0340, which is CC BY-ND 4.0. No-derivatives restricts distributing an adaptation of the text, and a close paraphrase is the shape that would test it.",
-   "resolution": "Not a concern. The guide states the principle in its own words and adapts no text. Line 98 in the same file repeats the caution in the evidence boundary. This is the sharpest licence constraint in the pack and the place to re-read first."
+   "resolution": "Not a concern. The Wargame states the principle in its own words and adapts no text. Line 98 in the same file repeats the caution in the evidence boundary. This is the sharpest licence constraint in the pack and the place to re-read first."
   },
   {
-   "file": "packs/legal-licensing/refs/UK_DATA_ROUTING.md",
+   "file": "packs/legal-licensing/references/UK_DATA_ROUTING.md",
    "line": 32,
    "concern": "The Article 13 checklist follows the structure of the statutory text at EV-0349, which is Open Government Licence v3.0 and needs attribution on reuse.",
    "resolution": "Not a concern. The items are statutory requirements rather than authored expression, the checklist is our own wording, and attribution is by evidence id."
   },
   {
-   "file": "packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md",
+   "file": "packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md",
    "line": 127,
-   "concern": "The new extraction guide rests on decided cases and on one advocacy organisation's practice, all of which are now in registry/evidence.json. The rows landed as EV-0496 to EV-0504, were carried from a secondary research report rather than read at source, and two of the nine are tertiary summaries.",
-   "resolution": "Open. Verify each row against its URL before assigning an EV id, and mark the tertiary rows as tertiary. The guide's own evidence boundary states the gap, and the pack's open questions repeat it."
+   "concern": "The new extraction Wargame rests on decided cases and on one advocacy organisation's practice, all of which are now in registry/evidence.json. The rows landed as EV-0496 to EV-0504, were carried from a secondary research report rather than read at source, and two of the nine are tertiary summaries.",
+   "resolution": "Open. Verify each row against its URL before assigning an EV id, and mark the tertiary rows as tertiary. The Wargame's own evidence boundary states the gap, and the pack's open questions repeat it."
   }
  ],
  "notes": "Four of nineteen cited rows carry an unknown licence, three of them because the publisher states no reuse terms on the page at all, and none of the four carries a licence_checked date. Three further rows are known and restrictive rather than unknown: EV-0340 is CC BY-ND, and EV-0341 and EV-0345 permit verbatim copying but forbid modification, which the pack respects by paraphrasing rather than adapting. The quotation scan returned nothing at all for this pack, which is the expected result for a pack whose own evidence pointer says several of its sources are readable and not reusable. The one open item is EV-0496 to EV-0504, every row of which records that it was not read at source."

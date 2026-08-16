@@ -90,8 +90,9 @@ Read AGENTS.md, entry mode 3. The new venture is <one line>. Repo at <path>.
 ```
 
 It ends with the seed rubric in front of you and the launch decision in
-your hands. The pack walk comes from the venture's declared facts, which
-is what `python -m tools.eos activate` computes.
+your hands. Pack activation comes from the venture's declared facts.
+Applicable Doctrine is inherited, and only always-walk or pressure-matched
+Wargames are argued.
 
 **L3 · Genesis.** The venture's repository, after the seed gate.
 
@@ -190,9 +191,14 @@ codes.
 | Command | What it does |
 | --- | --- |
 | `check` | the gate. Exit 1 on any error-severity finding |
-| `check --write-index` | regenerates the five derived indexes and views, and is the only sanctioned way |
+| `check --write-index` | regenerates every derived index and registry view owned by the repository checker |
 | `task views` | regenerates `org/TASKS.md` and `org/STATE.md`. Integrator only |
 | `activate --brief PATH`, `--facts FILE`, `--predicate NAME` | the Session 0 pack walk from a venture's declared facts, plus the packs it did not activate. Exit 1 on a predicate no pack owns |
+| `doctrine list`, `show ID`, `match --facts FILE` | lists or resolves standing rules and matches applicable Doctrine plus Wargame pressure without choosing an outcome |
+| `wargame list`, `show ID`, `match --facts FILE` | lists or resolves unified Wargames and returns required, candidate and omitted procedures with reasons |
+| `id resolve ID --commit REF` | resolves live, aliased, retired and historically pinned identities through one resolver |
+| `migrate plan --seed PATH` | produces a lossless migration plan for a legacy delimiter-row seed without changing it |
+| `migrate apply --seed PATH --state FILE --no-dry-run` | applies an inspected migration state to an in-repository fixture; dry-run is the default |
 | `task claims-verify --lane ID --paths ...` | compares a lane's diff against its claims at the merge, and reports C001 to C005 |
 | `guard eval` | rules one action: allow, require-approval, manual-only or deny |
 | `route --adr ADR-####` | acknowledges a protected-set touch, which otherwise exits 3 |
@@ -202,6 +208,12 @@ codes.
 The three flags on `activate` may be given together and they union. Its
 `not_activated` rows are the record of what was considered and left out,
 which nothing kept before.
+
+For Session 0, pass the same fact file to either matcher. Both match commands
+return the same selection result. Ask about an unknown
+high-consequence pressure or include its Wargame. Leave an unknown routine
+pressure visible as a candidate. The operator may include or omit a candidate
+only with a recorded reason, and the matcher never decides the Ruling.
 
 ## What only you can approve
 
@@ -305,7 +317,7 @@ So when you assign a lane that will open a record, write `org/tasks/`
 into its claims alongside its product paths.
 
 No lane claim covers anything derived. You alone regenerate those, with
-`python -m tools.eos check --write-index` for the five indexes and views
+`python -m tools.eos check --write-index` for the indexes and registry views
 and `python -m tools.eos task views` for `org/TASKS.md` and
 `org/STATE.md`.
 
@@ -409,12 +421,11 @@ The pack drills report no verdict either. All twenty-two ran on
 marked `graded: scenario-baseline`. That is the criteria proving they
 discriminate, and it is not a judgement on a pack.
 
-### What green looked like on 2026-08-15
+### What green means
 
-The checker reported 0 errors and one warning, the known E004 voice tell
-in `registry/LICENCE_RESIDUALS.md`. The suite was 576 tests. Both are
-facts of that day rather than standing claims, so run them again rather
-than citing these.
+Run the checker and the full suite. This file does not copy their counts or
+last result because that would create a second live-state claim. The release
+receipt records the exact run it approved.
 
 ## When something looks wrong
 

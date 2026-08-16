@@ -4,7 +4,7 @@
   "authority": "ADR-0006 decision 7",
   "task": "research-knowledge pack lane",
   "swept": "2026-08-15",
-  "method": "Every source the pack cites was resolved: the seventeen fetched for this pack were read at source on 2026-08-15 and their licence taken off the page or the repository as fetched, and the fourteen already in registry/evidence.json were read back from the ledger without re-fetching, so their licence_state is the ledger's own recorded value. Carried expression was checked by reading the whole read surface (PACK.md, CHECKS.md, four guides, two references, one exemplar) and scanning every span that could have come from a source. licence_state takes five values here: verified means the licence line was read off the source page or repository on the access date; stated-unverified means the source reports a licence but the exact statement was not read directly; not-stated means the source publishes a copyright line or nothing and no reuse licence at all; not-read-at-source means the recorded licence rests on the publisher's class rather than on anything read on the page, which this pack's own B1 forbids and which is recorded rather than hidden; ledger-recorded means the value was carried from registry/evidence.json unchanged.",
+  "method": "Every source the pack cites was resolved: the seventeen fetched for this pack were read at source on 2026-08-15 and their licence taken off the page or the repository as fetched, and the fourteen already in registry/evidence.json were read back from the ledger without re-fetching, so their licence_state is the ledger's own recorded value. Carried expression was checked by reading the whole read surface (PACK.md, CHECKS.md, four Wargames, two references, one example) and scanning every span that could have come from a source. licence_state takes five values here: verified means the licence line was read off the source page or repository on the access date; stated-unverified means the source reports a licence but the exact statement was not read directly; not-stated means the source publishes a copyright line or nothing and no reuse licence at all; not-read-at-source means the recorded licence rests on the publisher's class rather than on anything read on the page, which this pack's own B1 forbids and which is recorded rather than hidden; ledger-recorded means the value was carried from registry/evidence.json unchanged.",
   "carried_expression": {
     "verdict": "clean",
     "longest_quoted_span_words": 4,
@@ -42,7 +42,7 @@
       "url": "https://www.bmj.com/content/384/bmj-2023-076335",
       "wanted_for": "the 2024 Cochrane rapid review methods recommendations",
       "refusal": "HTTP 403",
-      "resolution": "not worked around and no substitute found; no record exists, and packs/research-knowledge/PACK.md and GD-RESEARCH-001 both state which conclusion is weaker because of it"
+      "resolution": "not worked around and no substitute found; no record exists, and packs/research-knowledge/PACK.md and WG-RESEARCH-001 both state which conclusion is weaker because of it"
     }
   ],
   "reader_addressed_by_source": [
@@ -50,7 +50,7 @@
       "url": "https://llmstxt.org/",
       "what": "the page tells whoever reads it that a machine reader should take the file first and then go to whichever of its links suit the question",
       "acted_on": false,
-      "recorded_as": "FRAG-RESEARCH-KNOWLEDGE-16, and the worked example at packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md"
+      "recorded_as": "FRAG-RESEARCH-KNOWLEDGE-16, and the worked example at packs/research-knowledge/examples/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md"
     },
     {
       "url": "https://llmstxt.org/llms.txt",

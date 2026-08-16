@@ -8,8 +8,9 @@ review: 2027-01
 
 # Stack profile 01: Next.js static export
 
-The default stack for marketing, editorial and research sites (ruled by
-WG-WEB-007). Reference implementation: PatterTech_Website.
+The default stack for marketing, editorial and research sites. Delivery-shape
+departures are ruled through WG-UIUX-001. Reference implementation:
+PatterTech_Website.
 
 ## Shape
 
@@ -27,8 +28,8 @@ WG-WEB-007). Reference implementation: PatterTech_Website.
 
 ## Constraints to design around
 
-- No runtime image optimisation: variants are pre-generated and committed
-  (WG-WEB-008).
+- No runtime image optimisation: variants are pre-generated and committed;
+  see `packs/ui-ux/references/PERFORMANCE_AND_MOTION.md`.
 - No runtime headers/redirects: set them in the host config (with a strict
   CSP; a static export cannot use nonces, so plan for `unsafe-inline` and
   keep third-party scripts out).
@@ -43,5 +44,4 @@ WG-WEB-007). Reference implementation: PatterTech_Website.
 ## When not to use this profile
 
 Auth, personalisation, forms with server handling, frequently changing data,
-or previewable CMS workflows: rule through WG-WEB-007 before reaching for a
-server.
+or previewable CMS workflows: run WG-UIUX-001 before adding a server.

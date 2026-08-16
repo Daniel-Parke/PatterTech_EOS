@@ -58,11 +58,12 @@ a prefix match on an unknown letter selects no checks at all, so a typo
 reported a clean tree.
 
 `--write-index` regenerates every derived index to a fixpoint and is the
-only sanctioned way to update them. Three are always written:
-`INDEX.md`, `packs/INDEX.md` and `packs/GUIDE_INDEX.md`. Two are
-written only where their source exists, because a view of a file that
-is not there is a file with no generator: `registry/CAPABILITIES.md`
-needs `registry/coverage.json` and `registry/LESSONS.md` needs
+only sanctioned way to update them. Two are always written:
+`INDEX.md` and `packs/INDEX.md`. Where atomic Doctrine exists it also writes
+`packs/DOCTRINE_INDEX.md`, `packs/WARGAME_INDEX.md` and
+`registry/DOCTRINE_PRESSURE_MATRIX.md`; the alias view additionally needs
+`registry/identifier-aliases.json`. `registry/CAPABILITIES.md` needs
+`registry/coverage.json` and `registry/LESSONS.md` needs
 `registry/lessons.json`. Exit 1 on any error-severity finding.
 
 `--seed PATH` exits 2 rather than 1 when the run could not happen at
@@ -139,6 +140,67 @@ Exit 1 when a declared predicate is owned by no pack. A misspelled fact
 activates nothing and reads exactly like a fact that is false, so the
 pack it should have loaded stays out and the seed ships without the
 ruling. That is the expensive direction, so it fails rather than warns.
+
+## doctrine
+
+Operations are `list`, `show ID` and `match`. `--commit REF` reads the
+same contracts from a pinned Git tree rather than the worktree. `list`
+returns a compact catalogue with id, path, statement, authority,
+applicability, challenge triggers and review; it deliberately omits bodies
+and full metadata. `show` returns the complete metadata and body for one live
+or aliased Doctrine identity. An unknown or wrong-kind identity exits 1.
+
+`match` needs `--facts FILE` or at least one repeatable
+`--fact NAME=true|false|unknown`. A facts file is an object, optionally under
+a `facts` key. It returns applicable Doctrine summaries, required, candidate
+and omitted Wargames, unresolved facts, uncovered pressures, the reason for
+each selection and dependency-ordered packs. It never chooses the outcome.
+Required and candidate rows are summaries. False omissions are compact
+`{id, reason}` rows; use `show ID` when their full metadata is needed. This
+keeps a selective result smaller than loading every Wargame it chose not to
+run.
+`--include WG-ID=reason` and `--omit WG-ID=reason` record an operator override;
+the reason is required. Exit 1 when the resolver has an integrity problem or
+a true or unknown declared pressure has no covering Wargame.
+
+## wargame
+
+The operations and flags are the same as `doctrine`: `list`, `show ID`,
+`match`, `--commit`, `--facts`, repeatable `--fact`, `--include` and
+`--omit`. `list` is a compact catalogue of canonical `WG-*` identities.
+`show` returns one full
+procedure. `match` returns the shared Doctrine and Wargame selection result,
+because selective Session 0 needs both halves of the same decision surface.
+An earlier decision-procedure identity remains a direct lookup alias, but it
+does not appear as a second live Wargame.
+
+Pressure matching is tri-state. True engages the procedure. False records an
+omission. Unknown high-consequence pressure engages or asks; unknown routine
+pressure remains a candidate. An operator include or omission is preserved in
+`selection_reasons`. A binding Doctrine is never waived by a Wargame result.
+
+## id
+
+`id resolve ID [--commit REF] [--rulings FILE]` resolves a canonical estate
+identity, a compatibility alias or a retired definition through the same
+commit-aware resolver used by checks, Session 0 and migration. Output is
+`{id, resolved, canonical, kind, state, path, commit}`. Retired history
+resolves with `state: retired` so provenance remains readable, but the
+Rulings validator refuses it as a live selection. An unknown identity returns
+`{id, resolved: false}` and exits 1.
+
+At the current tree, a legacy alias resolves to its canonical identity and
+reports the requested alias. With `--commit`, resolution uses the definitions
+and paths in that Git tree and never falls forward to current aliases. Identity
+aliases do not redirect old latest-branch paths; callers with such URLs must
+update them to the canonical collection path.
+
+`RUL-*` identity is document-scoped because ventures may use the same local
+identifier without creating an estate collision. For a RUL identity the
+command reads `docs/RULINGS.json` below the current directory, or the explicit
+`--rulings FILE`, validates the whole document against its `eos_commit`, and
+returns `scope: venture-document`. `--commit`, when supplied, must resolve to
+that same EOS pin. Raw venture Rulings are not added to an EOS registry.
 
 ## study
 

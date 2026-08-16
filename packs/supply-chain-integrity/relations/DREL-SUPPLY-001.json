@@ -1,0 +1,13 @@
+{
+  "id": "DREL-SUPPLY-001",
+  "owner_doctrine": "DOC-SUPPLY-002",
+  "relation": "depends_on",
+  "target": "DOC-SEC-014",
+  "conditions": ["producer_trust_is_unproved"],
+  "status": "covered",
+  "evidence": ["EV-0038", "EV-0549", "EV-0582"],
+  "fallback": "Treat provenance as identity and build-path evidence, then verify producer and policy trust separately before admission.",
+  "wargame": "WG-SUPPLY-001",
+  "owner": "supply-chain-integrity",
+  "review": "on-change-of:SLSA-specification"
+}

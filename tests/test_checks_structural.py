@@ -12,12 +12,13 @@ import subprocess
 import sys
 from datetime import date
 
-from conftest import REPO_ROOT, make_repo
+from conftest import REPO_ROOT, git, make_repo
 from tools.eos.checks import run_all
 from tools.eos.checks.structural import (
-    build_guide_index,
     build_index,
     build_pack_index,
+    build_pressure_matrix,
+    build_wargame_index,
     write_indexes,
 )
 from tools.eos.repo import RepoModel
@@ -93,7 +94,6 @@ def test_index_golden_byte_round_trip(tmp_path):
     want = {
         "INDEX.md": build_index(model),
         "packs/INDEX.md": build_pack_index(model),
-        "packs/GUIDE_INDEX.md": build_guide_index(model),
     }
     for rel, text in want.items():
         assert model.read(rel) == text
@@ -129,31 +129,40 @@ def test_e001_catches_an_unindexed_pack(tmp_path):
     assert ("error", "packs/INDEX.md", "stale, run --write-index") in only(run_e(root), "E001")
 
 
-def test_guide_index_covers_gd_guides_not_only_wargames(tmp_path):
-    """79 of 86 guides were invisible because the generator selected on
-    type: wargame and the guides carry type: guide."""
+def test_wargame_index_covers_current_wg_identities(tmp_path):
+    """Current Wargame definitions have one WG identity vocabulary."""
     root = make_repo(tmp_path)
-    guide = root / "packs" / "testmod" / "guides" / "GD-TST-001-a-fork.md"
-    guide.write_text(
+    wargame = root / "packs" / "testmod" / "wargames" / "WG-TST-002-a-fork.md"
+    wargame.write_text(
         "---\nsummary: Which of two ways should the fixture go?\n"
-        "type: guide\ntags: [eos]\nauthority: default\nreview: 2030-01\n"
-        "review_by: 2030-01\n---\n\n# GD-TST-001\n\nBody.\n",
+        "type: wargame\ntags: [eos, wargame]\nreview: 2030-01\n"
+        "lifecycle: active\n---\n\n# WG-TST-002\n\nBody.\n",
         encoding="utf-8", newline="\n")
     model = RepoModel.load(root, today=TODAY)
-    assert "GD-TST-001" in build_guide_index(model)
+    assert "WG-TST-002" in build_wargame_index(model)
+
+
+def test_pressure_matrix_renders_the_accepted_backlog_from_canonical_rows():
+    model = RepoModel.load(REPO_ROOT, today=TODAY)
+    text = build_pressure_matrix(model)
+
+    assert "| 1 | Polars/pandas/DuckDB/Spark | requires_tabular_engine_choice |" in text
+    assert "| 24 | golden path versus autonomy | golden_path_needs_escape |" in text
+    assert "on-change-of:estate-gaining-a-second-team" in text
+    assert text.count("| new-wargame |") == 14
 
 
 def test_indexes_exclude_frozen_trees(tmp_path):
     """A benchmark fixture's wargames are not EOS guidance."""
     root = make_repo(tmp_path)
-    fixture = root / "benchmark" / "fixtures" / "mini" / "guides" / "WG-FIX-001-x.md"
+    fixture = root / "benchmark" / "fixtures" / "mini" / "wargames" / "WG-FIX-001-x.md"
     fixture.parent.mkdir(parents=True)
     fixture.write_text(
         "---\nsummary: A fixture wargame that must never reach an agent\n"
         "type: wargame\ntags: [eos]\nstatus: active\nreview_by: 2030-01\n---\n\n# WG-FIX-001\n",
         encoding="utf-8", newline="\n")
     model = RepoModel.load(root, today=TODAY)
-    assert "WG-FIX-001" not in build_guide_index(model)
+    assert "WG-FIX-001" not in build_wargame_index(model)
     assert "benchmark/fixtures" not in build_index(model)
 
 
@@ -181,14 +190,14 @@ def test_e002_unknown_type(tmp_path):
     assert ("error", "org/STATE.md", "unknown type: mystery") in only(fs, "E002")
 
 
-def test_e002_type_requires_status_and_review(tmp_path):
+def test_e002_wargame_requires_review_but_uses_lifecycle_not_status(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "status: active\n", "")
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md", "review: 2030-01\n", "")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md", "lifecycle: active\n", "")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md", "review: 2030-01\n", "")
     fs = run_e(root)
     got = only(fs, "E002")
-    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires status") in got
-    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md", "type requires review") in got
+    assert ("error", "packs/testmod/wargames/WG-TST-001-sample.md", "type requires status") not in got
+    assert ("error", "packs/testmod/wargames/WG-TST-001-sample.md", "type requires review") in got
 
 
 def test_e002_unterminated_block_reported(tmp_path):
@@ -260,39 +269,39 @@ def test_e004_judges_prose_and_not_code(tmp_path):
 
 def test_e005_wargame_without_id(tmp_path):
     root = make_repo(tmp_path)
-    (root / "packs" / "testmod" / "guides" / "nameless.md").write_text(
+    (root / "packs" / "testmod" / "wargames" / "nameless.md").write_text(
         "---\nsummary: A nameless wargame\ntype: wargame\ntags: [eos, wargame]\n"
-        "status: active\nreview_by: 2030-01\n---\n\nBody.\n", encoding="utf-8")
+        "lifecycle: active\nreview: 2030-01\n---\n\nBody.\n", encoding="utf-8")
     fs = run_e(root)
     assert only(fs, "E005") == [(
-        "error", "packs/testmod/guides/nameless.md",
-        "wargame filename lacks a WG-<MOD>-NNN id")]
+        "error", "packs/testmod/wargames/nameless.md",
+        "current Wargame filename lacks a WG-<NAMESPACE>-NNN identity")]
 
 
 def test_e005_duplicate_id(tmp_path):
     root = make_repo(tmp_path)
-    src = root / "packs" / "testmod" / "guides" / "WG-TST-001-sample.md"
+    src = root / "packs" / "testmod" / "wargames" / "WG-TST-001-sample.md"
     shutil.copy(src, src.with_name("WG-TST-001-copy.md"))
     fs = run_e(root)
-    assert ("error", "packs/testmod/guides/WG-TST-001-sample.md",
-            "duplicate wargame id WG-TST-001") in only(fs, "E005")
+    assert ("error", "packs/testmod/wargames/WG-TST-001-sample.md",
+            "duplicate live definition for WG-TST-001; first at "
+            "packs/testmod/wargames/WG-TST-001-copy.md") in only(fs, "E005")
 
 
-def test_e005_undefined_reference(tmp_path):
+def test_e005_leaves_undefined_prose_references_to_s004(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/PACK.md",
-         "The single ruling surface is WG-TST-001.",
-         "The single ruling surface is WG-TST-001. See also WG-TST-999.")
+         "The single Wargame is WG-TST-001.",
+         "The single Wargame is WG-TST-001. See also WG-TST-999.")
     fs = run_e(root)
-    assert only(fs, "E005") == [("warn", "packs/testmod/PACK.md",
-                                 "reference to undefined wargame WG-TST-999")]
+    assert only(fs, "E005") == []
 
 
 def test_e005_zero_suffix_reference_allowed(tmp_path):
     root = make_repo(tmp_path)
     edit(root, "packs/testmod/PACK.md",
-         "The single ruling surface is WG-TST-001.",
-         "The single ruling surface is WG-TST-001, described in WG-TST-000.")
+         "The single Wargame is WG-TST-001.",
+         "The single Wargame is WG-TST-001, described in WG-TST-000.")
     fs = run_e(root)
     assert only(fs, "E005") == []
 
@@ -353,15 +362,15 @@ def test_e007_budget_warns_and_the_waiver_records_why(tmp_path):
     """
     root = make_repo(tmp_path)
     p = root / "packs" / "testmod" / "PACK.md"
-    filler = "".join(f"Filler line {i}.\n" for i in range(150))
+    filler = "".join(f"Filler line {i}.\n" for i in range(500))
     p.write_text(p.read_text(encoding="utf-8") + filler, encoding="utf-8")
     n = len(p.read_text(encoding="utf-8").splitlines())
     fs = run_e(root)
     assert only(fs, "E007") == [("warn", "packs/testmod/PACK.md",
-                                 f"{n} lines over the 150 budget, "
+                                 f"{n} lines over the 500 budget, "
                                  f"prune it or record a length_waiver")]
-    edit(root, "packs/testmod/PACK.md", "review: 2030-01",
-         "review_by: 2030-01\nlength_waiver: agreed for the test")
+    edit(root, "packs/testmod/PACK.md", "review: none",
+         "review: none\nlength_waiver: agreed for the test")
     fs = run_e(root)
     n2 = n + 1
     assert only(fs, "E007") == [("warn", "packs/testmod/PACK.md",
@@ -374,11 +383,11 @@ def test_e007_silent_inside_the_budget_and_off_it(tmp_path):
     root = make_repo(tmp_path)
     p = root / "packs" / "testmod" / "PACK.md"
     text = p.read_text(encoding="utf-8")
-    pad = 150 - len(text.splitlines())
+    pad = 500 - len(text.splitlines())
     assert pad > 0
     p.write_text(text + "".join(f"Filler line {i}.\n" for i in range(pad)),
                  encoding="utf-8")
-    assert len(p.read_text(encoding="utf-8").splitlines()) == 150
+    assert len(p.read_text(encoding="utf-8").splitlines()) == 500
     # org/STATE.md is type: org, which has no budget, so length says
     # nothing about it however far it runs.
     s = root / "org" / "STATE.md"
@@ -386,6 +395,26 @@ def test_e007_silent_inside_the_budget_and_off_it(tmp_path):
                  + "".join(f"State filler line {i}.\n" for i in range(200)),
                  encoding="utf-8")
     assert only(run_e(root), "E007") == []
+
+
+def test_e007_gives_advanced_wargames_their_ten_section_budget(tmp_path):
+    root = make_repo(tmp_path)
+    path = root / "packs" / "testmod" / "wargames" / "WG-TST-001-sample.md"
+    text = path.read_text(encoding="utf-8")
+    pad = 220 - len(text.splitlines())
+    assert pad > 0
+    path.write_text(
+        text + "".join(f"Wargame detail {i}.\n" for i in range(pad)),
+        encoding="utf-8",
+    )
+    assert only(run_e(root), "E007") == []
+
+    path.write_text(path.read_text(encoding="utf-8") + "Over budget.\n",
+                    encoding="utf-8")
+    assert only(run_e(root), "E007") == [(
+        "warn", "packs/testmod/wargames/WG-TST-001-sample.md",
+        "221 lines over the 220 budget, prune it or record a length_waiver",
+    )]
 
 
 # --- E008 ---------------------------------------------------------------
@@ -654,13 +683,13 @@ def test_lessons_view_renders_a_conflict_and_how_it_was_settled(tmp_path):
     write_ledger(root, {"version": 1, "rows": [
         {"id": "LES-0006", "title": "Platform-native beats containers",
          "lesson": "On a sovereign LAN", "disposition": "venture-ruling",
-         "conflicts_with": ["WG-OPS-002"],
-         "conflict_resolutions": {"WG-OPS-002": {
+         "conflicts_with": ["WG-OPS-005"],
+         "conflict_resolutions": {"WG-OPS-005": {
              "resolution": "scoped-differently",
              "note": "The container default holds where parity is in play"}}}]})
     text = build_lessons(RepoModel.load(root, today=TODAY))
-    assert "- **Conflicts with**: WG-OPS-002" in text
-    assert ("- **Conflict resolutions**: WG-OPS-002: resolution: "
+    assert "- **Conflicts with**: WG-OPS-005" in text
+    assert ("- **Conflict resolutions**: WG-OPS-005: resolution: "
             "scoped-differently; note: The container default holds where "
             "parity is in play") in text
 
@@ -694,6 +723,16 @@ def test_retired_ids_resolve_but_do_not_duplicate(tmp_path):
     a provenance reference to it is not dangling. Retiring archive/v1
     without this turned 33 real ids into 79 findings overnight."""
     root = make_repo(tmp_path)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.email", "suite@example.invalid")
+    git(root, "config", "user.name", "Test Suite")
+    gone = root / "doctrine" / "gone" / "WG-GONE-001-x.md"
+    gone.parent.mkdir(parents=True)
+    gone.write_text("retired definition\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "archive source")
+    git(root, "tag", "archive/v1-final")
+    gone.unlink()
     (root / "archive").mkdir(exist_ok=True)
     (root / "archive" / "RETIRED_IDS.json").write_text(
         '{"version": 1, "tag": "archive/v1-final",'
@@ -709,8 +748,8 @@ def test_retired_ids_resolve_but_do_not_duplicate(tmp_path):
     assert [f for f in fs if f.check_id == "E005"] == []
 
 
-def test_a_genuinely_undefined_id_still_reports(tmp_path):
-    """The exemption is for ids that moved, not for ids that never were."""
+def test_e005_does_not_duplicate_a_genuinely_undefined_reference(tmp_path):
+    """S004 reports prose references; E005 reports identity integrity."""
     root = make_repo(tmp_path)
     write = root / "org" / "STATE.md"
     write.write_text(
@@ -719,8 +758,7 @@ def test_a_genuinely_undefined_id_still_reports(tmp_path):
             "The fixture repo is at rest. See WG-NEVER-001."),
         encoding="utf-8", newline="\n")
     fs = run_e(root)
-    assert ("warn", "org/STATE.md",
-            "reference to undefined wargame WG-NEVER-001") in only(fs, "E005")
+    assert only(fs, "E005") == []
 
 
 # --- B001 benchmark freeze ----------------------------------------------

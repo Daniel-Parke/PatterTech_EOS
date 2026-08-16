@@ -1,21 +1,26 @@
 ---
-summary: Analytics data, event taxonomy, model shape, quality gates, experiment statistics and what the analytics layer may hold about a person
-type: playbook
+summary: Activation, outcomes and decision map for the data-analytics Doctrine and Wargames
+type: pack
 tags: [eos, data, testing, pii]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
 basis: decision
-evidence_grade: observational
+evidence_grade: not-applicable
 scope: estate
 applies_when: [publishes_analytics_table, defines_events, runs_experiment, reads_for_decision, handles_analytics_identifier]
 activation_paths: [**/analytics/**, **/dbt/**, **/models/marts/**, **/events/**, **/*event*.json, **/*experiment*, **/dashboards/**, **/*metric*.sql, **/*.sql]
 volatility: slow
-review: 2027-11
+review: none
 sources: [EV-0041, EV-0056, EV-0057, EV-0059, EV-0138, EV-0139, EV-0225, EV-0240, EV-0305, EV-0306, EV-0307, EV-0308, EV-0309, EV-0310, EV-0311, EV-0312, EV-0313, EV-0315, EV-0316, EV-0317, EV-0318, EV-0319, EV-0320, EV-0321]
+display_name: Data Analytics and Computation
+category: data-ai
+id_namespace: DATA
+depends_on: [product-discovery]
 ---
 
-# Data and analytics pack
+
+# Data Analytics and Computation
 
 This pack covers analytics data: how product events are named and
 validated, how analytics models are shaped and gated, how an experiment
@@ -74,7 +79,7 @@ the analytics layer identifies a person unless someone recorded why it
 may.
 
 **Non-goals.** Migration mechanics and schema rollout sit in
-`packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md`.
+`packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md`.
 Transport, envelope and API contract shape sit in
 `packs/api-integration/PACK.md`. Threat modelling, secret handling and
 access control sit in `packs/security-privacy/PACK.md`. Dashboard visual
@@ -91,183 +96,70 @@ verb is "changed alongside", not "caused". This is the most common way
 an analytics stack produces confident nonsense, and it is a discipline
 of wording before it is one of statistics.
 
-## Binding requirements
+## Doctrine
 
-Three requirements bind. Each names the predicate that turns it on, the
-evidence behind it, and the failure it prevents. Most rules in this
-domain are defaults or preferences, and that is correct for a field this
-young.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The authority audit under ADR-0008 moved three of the original six to
-defaults, and the reason is the same in all three: each gave its basis
-as a decision, and a rule the estate merely chose is a default. The
-one-document ownership rule is now D9, the blocking quality gate is D10,
-and the grain declaration is D11, which puts it back at the grade the
-research gave it. The three that stayed keep their numbers, so the
-citations in the guides, refs, checks and exemplar still resolve, which
-is why the list below runs B3, B4, B5.
+<a id="B3"></a>
+- `B3` to [DOC-DATA-001](doctrines/DOC-DATA-001-no-column-that-can-identify-a-living-person-lands-in-the.md) (binding)
+<a id="B4"></a>
+- `B4` to [DOC-DATA-002](doctrines/DOC-DATA-002-the-randomisation-unit-the-primary-metric-and-the-stopping.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-DATA-003](doctrines/DOC-DATA-003-sample-ratio-mismatch-is-checked-and-reported-before-any.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-DATA-004](doctrines/DOC-DATA-004-object-action-event-names-with-anything-varying-per.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-DATA-005](doctrines/DOC-DATA-005-staging-intermediate-and-marts-layering-one-prefix-per.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-DATA-006](doctrines/DOC-DATA-006-fixed-horizon-unless-a-sequential-method-is-chosen.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-DATA-007](doctrines/DOC-DATA-007-below-the-traffic-for-a-properly-powered-test-do-not-run.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-DATA-008](doctrines/DOC-DATA-008-one-managed-warehouse-until-the-working-set-argues.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-DATA-009](doctrines/DOC-DATA-009-contracts-on-public-models-only.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-DATA-010](doctrines/DOC-DATA-010-use-pre-experiment-covariates-where-a-stable-unit-was.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-DATA-011](doctrines/DOC-DATA-011-identify-by-surrogate-or-hashed-key-in-the-analytics-layer.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-DATA-012](doctrines/DOC-DATA-012-every-published-table-and-every-tracked-event-has-one-named.md) (default)
+<a id="D10"></a>
+- `D10` to [DOC-DATA-013](doctrines/DOC-DATA-013-a-quality-gate-failure-blocks-publication.md) (default)
+<a id="D11"></a>
+- `D11` to [DOC-DATA-014](doctrines/DOC-DATA-014-a-fact-model-declares-its-grain-in-words-before-it-declares.md) (default)
+- source `preferences:001` to [DOC-DATA-015](doctrines/DOC-DATA-015-the-contract-file-format.md) (preference)
+- source `preferences:002` to [DOC-DATA-016](doctrines/DOC-DATA-016-the-casing-convention-for-event-names-and-columns-ev-0319.md) (preference)
+- source `preferences:003` to [DOC-DATA-017](doctrines/DOC-DATA-017-the-quality-tool.md) (preference)
+- source `preferences:004` to [DOC-DATA-018](doctrines/DOC-DATA-018-whether-marts-are-wide-entities-or-star-shaped-and-whether.md) (preference)
+- source `preferences:005` to [DOC-DATA-019](doctrines/DOC-DATA-019-the-dashboard-method-as-long-as-one-is-committed-to-and-the.md) (preference)
 
-**B3. No column that can identify a living person lands in the analytics
-layer without a recorded lawful basis and a named complaints path.**
-`handles_analytics_identifier`. UK duties are statutory: a recorded
-lawful basis and a statutory complaints route are duties, not good
-practice (EV-0225), with the ceremony around them proportionate to the
-risk to people (EV-0041). Prevents source columns being copied forward
-because they were in the source, which is how an email address ends up
-in a marts table nobody meant to hold one. Basis: law.
+### Later evidence-led admissions
 
-**B4. The randomisation unit, the primary metric and the stopping rule
-are written down before traffic starts.** `runs_experiment`. Prevents
-the failure that no later analysis can repair: choosing the metric and
-the stopping point after seeing the data. The dominant experimentation
-errors are interpretive rather than computational, and monitoring a
-fixed-horizon test continuously can push the false positive rate far
-above its nominal five per cent (EV-0313). Scope note: that finding
-comes from platforms running hundreds of concurrent experiments for
-millions of users. The mechanism transfers to one experiment; the base
-rates do not. Basis: empirical-evidence.
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
 
-**B5. Sample ratio mismatch is checked and reported before any
-experiment result is read, and a failed check voids the result.**
-`runs_experiment`. A gap between the assignment ratio you asked for and
-the ratio you observed means something interfered, and whatever
-interfered almost certainly also moved the metric, so the result is not
-usable at any confidence level (EV-0316). Prevents the worst outcome in
-this domain: computing the check, seeing it fail, and reporting the win
-anyway. Basis: empirical-evidence.
-
-Guarded actions sit outside this pack. Deletion of production data,
-secret access and the rest keep their floors under
-`kernel/GUARD_SPEC.md` whatever an analytics task concludes.
-
-## Defaults
-
-Each applies unless the venture's lock-book records a reason to depart.
-
-**D1. Object-action event names, with anything varying per occurrence in
-a property.** Names are generated from the product's objects and the
-actions available on them rather than enumerated one at a time, and no
-identifier, number or variant goes in the name (EV-0319). Reason: a
-generated taxonomy stays finite, an enumerated one grows to thousands of
-near-duplicates. The evidence is vendor assertion, and the casing is
-taste.
-
-**D2. Staging, intermediate and marts layering, one prefix per layer.**
-Staging is one to one with sources and only cleans and renames, joins
-and logic sit in intermediate models, marts hold business entities
-(EV-0307). Reason: the prefix tells a reviewer what a model may do, so
-review is mechanical. Costs model count and build time. Override for a
-project small enough that the layers are ceremony.
-
-**D3. Fixed horizon, unless a sequential method is chosen deliberately
-and written into the stopping rule.** Reason: a correctly powered
-fixed-horizon test left alone is the most powerful option per unit of
-traffic (EV-0313). Where people will look anyway, fix the statistic
-rather than the operator: always-valid and group sequential methods make
-monitoring supported (EV-0312) and ship in a maintained Apache-2.0
-library, so this is not a reason to buy a platform (EV-0317).
-
-**D4. Below the traffic for a properly powered test, do not run one.**
-An underpowered test launders a coin flip as evidence and is worse than
-an argued decision with an instrumented rollout. Reason: with a low
-prior on any idea working, a bare significant result from a small sample
-is more likely false than a naive reading suggests (EV-0313). No source
-says this plainly, because none was written for a venture. Decide by
-argument, ship behind a flag, watch a guardrail (EV-0059).
-
-**D5. One managed warehouse until the working set argues otherwise.**
-Size the stack to the query working set rather than the storage total
-(EV-0311). Reason: below a few terabytes the catalogue, compaction and
-snapshot maintenance an open format asks for usually exceeds the
-coupling it avoids (EV-0310).
-
-**D6. Contracts on public models only.** Freeze the interface of models
-other people read, leave private models uncontracted (EV-0057). Reason:
-contract discipline on a model with one caller buys rigidity and no
-coordination.
-
-**D7. Use pre-experiment covariates where a stable unit was observed
-before the test.** Variance reduction from pre-period behaviour bought
-roughly half the variance at Bing, which is the same power at half the
-users (EV-0315). Reason: sensitivity is cheaper than traffic. It does
-nothing for new users, first-session funnels or anonymous traffic, so
-the default holds only where the precondition does.
-
-**D8. Identify by surrogate or hashed key in the analytics layer.** The
-join key is a surrogate or a salted hash rather than the natural
-identifier, so B3 has a cheap default answer. Reason: collecting less is
-the cheapest privacy control and the sources barely mention it.
-Differentially private aggregates (EV-0321) are a later step, never a
-substitute for collecting less.
-
-**D9. Every published table and every tracked event has one named owner,
-and its schema, quality rules, freshness expectation and owner live in
-one document.** `publishes_analytics_table`, `defines_events`. Reason:
-the unowned gap. A schema contract with no freshness rule and a
-freshness monitor with no owner produce the same outage, and the
-structural point behind the data-contract standard is that they belong
-in one document with a named team, not that the document uses a
-particular format (EV-0305). This is a default rather than binding
-because the estate chose it: no law, standard or measurement says the
-five elements must sit in one file, and the outage it prevents is one a
-rerun fixes. Departing means saying who owns the gap instead.
-
-**D10. A quality gate failure blocks publication.**
-`publishes_analytics_table`. A rule that raises a ticket while the table
-publishes is monitoring, not a gate. Quality rules run inside the
-pipeline as part of the build, not as a separate audit afterwards
-(EV-0306, EV-0056). Reason: the documented-gate failure, a contract
-written and never executed, which is documentation wearing a gate's
-clothes. This is a default rather than binding because the evidence
-behind it shows that in-pipeline checking works at scale, not that
-blocking beats alerting; that comparison has not been run. Departing
-means recording what stops bad data reaching a decision instead, and
-saying it out loud, because a gate demoted to a monitor is the thing
-this pack most often finds.
-
-**D11. A fact model declares its grain in words before it declares
-columns.** `publishes_analytics_table`. One sentence naming what one row
-is. Reason: the unauditable table. Without a stated grain nobody can say
-whether a count is double-counting, and every downstream number inherits
-the ambiguity. Grain-first is the first of the three ordered dimensional
-decisions and survives every argument about physical shape (EV-0308).
-This is the grade the research gave it, and the ADR-0008 audit returned
-it there: EV-0308 is a practice body with no measurement behind it, and
-the failure is a number nobody can audit rather than one nobody can
-undo.
-
-## Preferences
-
-Taste. Record them, do not gate on them, and override them without
-asking.
-
-- The contract file format. A dedicated standard, a transformation
-  tool's schema file and an expectation suite all satisfy D9, and the
-  format war is unsettled (EV-0305).
-- The casing convention for event names and columns (EV-0319). Only
-  consistency matters.
-- The quality tool. Declared expectations (EV-0056) and computed metrics
-  with anomaly detection (EV-0306) both work.
-- Whether marts are wide entities or star-shaped, and whether dimensions
-  carry surrogate keys. The sources disagree and neither argues it
-  (EV-0307, EV-0308).
-- The dashboard method, as long as one is committed to and the panels
-  answer a named question (EV-0240).
+- [DOC-DATA-020](doctrines/DOC-DATA-020-representative-measurement-before-material-compute-claims.md) (default Doctrine)
+- [DOC-DATA-021](doctrines/DOC-DATA-021-measured-data-compute-promotion-ladder.md) (default Doctrine)
+- [WG-DATA-001](wargames/WG-DATA-001-analytical-engine-selection.md) (Wargame)
+- [WG-DATA-002](wargames/WG-DATA-002-representation-boundary.md) (Wargame)
+- [WG-DATA-003](wargames/WG-DATA-003-acceleration-ladder.md) (Wargame)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| Where does the quality rule live, and what does it stop? | `packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md` | Contract on public models, computed metrics behind them |
-| What shape does the analytics model take? | `packs/data-analytics/guides/GD-DATA-002-model-shape.md` | Layered staging to marts, grain declared per fact |
-| How is an experiment allowed to end? | `packs/data-analytics/guides/GD-DATA-003-experiment-stopping.md` | Fixed horizon, or no experiment at all |
-| Where does the data sit? | `packs/data-analytics/guides/GD-DATA-004-storage-shape.md` | One managed warehouse |
-| How are events named and validated? | `packs/data-analytics/guides/GD-DATA-005-event-contract.md` | Object-action convention plus review |
+| Where does the quality rule live, and what does it stop? | `packs/data-analytics/wargames/WG-DATA-004-quality-gate-placement.md` | Contract on public models, computed metrics behind them |
+| What shape does the analytics model take? | `packs/data-analytics/wargames/WG-DATA-005-model-shape.md` | Layered staging to marts, grain declared per fact |
+| How is an experiment allowed to end? | `packs/data-analytics/wargames/WG-DATA-006-experiment-stopping.md` | Fixed horizon, or no experiment at all |
+| Where does the data sit? | `packs/data-analytics/wargames/WG-DATA-007-storage-shape.md` | One managed warehouse |
+| How are events named and validated? | `packs/data-analytics/wargames/WG-DATA-008-event-contract.md` | Object-action convention plus review |
 
-Level-three detail: `packs/data-analytics/refs/EXPERIMENT_STATS.md`,
-`packs/data-analytics/refs/DATA_CONTRACT.md` and
-`packs/data-analytics/refs/PRIVACY_IN_ANALYTICS.md`. Worked run:
-`packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md`.
+Level-three detail: `packs/data-analytics/references/EXPERIMENT_STATS.md`,
+`packs/data-analytics/references/DATA_CONTRACT.md` and
+`packs/data-analytics/references/PRIVACY_IN_ANALYTICS.md`. Worked run:
+`packs/data-analytics/examples/EX-DATA-001-gated-model-honest-experiment.md`.
 
 ## Failure modes and anti-patterns
 
@@ -318,7 +210,7 @@ population.
 
 **Model shape is contested and neither side argues it.** Dimensional
 practice keeps facts narrow and joins to conformed dimensions (EV-0308);
-the transformation-tool guide lands on wide entities and does not
+the transformation-tool Wargame lands on wide entities and does not
 mention star schemas at all (EV-0307). The dimensional source has not
 been substantially maintained since its authors wound down, and its
 physical prescriptions assume hardware nobody runs. Grain-first and one

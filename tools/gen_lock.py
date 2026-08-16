@@ -7,7 +7,7 @@ API change), so this stdlib generator produces the equivalent lock:
 exact pins for the full transitive tree with sha256 hashes, via
 pip download + pip hash.
 
-It downloads once per entry in TARGETS and carries every hash it finds,
+It resolves once per entry in TARGETS and carries every hash it finds,
 because a lock with one hash per package is a lock for one machine. The
 first version of this generator ran a bare `pip download`, which takes
 whatever wheel suits the interpreter running it. That pinned rpds-py to
@@ -18,6 +18,14 @@ each with its own digest, and `--require-hashes` accepts a requirement
 carrying several `--hash` lines and matches the artefact against any of
 them. So the fix is to ask for every platform we claim to support and
 write all the digests down.
+
+`pip download --python-version` selects a compatible wheel, but pip
+evaluates dependency environment markers against the interpreter running
+this generator. A lock generated on Python 3.14 therefore missed
+`typing-extensions`, which `referencing` requires on Python 3.11. The
+resolver below reads each downloaded wheel's `Requires-Dist` metadata,
+evaluates those markers against the declared target and feeds the active
+requirements back to pip until the target dependency closure stops moving.
 
 TARGETS covers what CI builds (ubuntu and windows, CPython 3.11 and
 3.14) plus the two macOS architectures a developer is likely to be on.
@@ -33,7 +41,16 @@ import subprocess
 import sys
 import tempfile
 import tomllib
+import zipfile
+from email.parser import BytesParser
 from pathlib import Path
+
+try:
+    from packaging.markers import default_environment
+    from packaging.requirements import Requirement
+except ImportError:  # pragma: no cover - pip supplies the bootstrap fallback
+    from pip._vendor.packaging.markers import default_environment
+    from pip._vendor.packaging.requirements import Requirement
 
 TOOLS = Path(__file__).resolve().parent
 
@@ -60,6 +77,37 @@ TARGETS = [
 
 ARTEFACT = re.compile(r"([A-Za-z0-9_.]+)-(\d[^-]*)-")
 SDIST = re.compile(r"([A-Za-z0-9_.]+)-(\d[^-]*)\.tar\.gz")
+
+MARKER_PLATFORMS = {
+    "linux-x86_64": {
+        "os_name": "posix",
+        "platform_machine": "x86_64",
+        "platform_release": "",
+        "platform_system": "Linux",
+        "platform_version": "",
+        "sys_platform": "linux",
+    },
+    "windows-amd64": {
+        "os_name": "nt",
+        "platform_machine": "AMD64",
+        "platform_release": "",
+        "platform_system": "Windows",
+        "platform_version": "",
+        "sys_platform": "win32",
+    },
+    "macos-arm64": {
+        "os_name": "posix",
+        "platform_machine": "arm64",
+        "platform_release": "",
+        "platform_system": "Darwin",
+        "platform_version": "",
+        "sys_platform": "darwin",
+    },
+}
+
+MAX_CLOSURE_PASSES = 20
+PATCH_MARKERS = re.compile(
+    r"\b(?:python_full_version|implementation_version)\b")
 
 
 def _pip_version():
@@ -91,7 +139,136 @@ def _name_version(filename):
     m = ARTEFACT.match(filename) or SDIST.match(filename)
     if not m:
         raise SystemExit(f"cannot parse artefact name: {filename}")
-    return m.group(1).replace("_", "-").lower(), m.group(2)
+    return _canonical_name(m.group(1)), m.group(2)
+
+
+def _canonical_name(name):
+    return re.sub(r"[-_.]+", "-", name).lower()
+
+
+def _marker_environment(label, python):
+    """Return the PEP 508 environment for one declared lock target."""
+    try:
+        platform = MARKER_PLATFORMS[label]
+    except KeyError as exc:
+        raise SystemExit(f"no marker environment for target {label}") from exc
+    env = default_environment()
+    env.update(platform)
+    env.update({
+        "implementation_name": "cpython",
+        "implementation_version": f"{python}.0",
+        "platform_python_implementation": "CPython",
+        "python_full_version": f"{python}.0",
+        "python_version": python,
+        "extra": "",
+    })
+    return env
+
+
+def _active_requirement(raw, label, python):
+    """Render one requirement without its marker when it applies."""
+    requirement = Requirement(raw)
+    if requirement.marker:
+        marker = str(requirement.marker)
+        if PATCH_MARKERS.search(marker):
+            raise SystemExit(
+                "cannot evaluate a patch-sensitive dependency marker "
+                f"against target {python}, which declares no patch version: "
+                f"{raw}")
+        if not requirement.marker.evaluate(
+                environment=_marker_environment(label, python)):
+            return None
+    if requirement.extras:
+        raise SystemExit(
+            "dependency extras are not supported by the target marker "
+            f"closure: {raw}")
+    if requirement.url:
+        return f"{requirement.name} @ {requirement.url}"
+    return f"{requirement.name}{requirement.specifier}"
+
+
+def _wheel_requirements(path):
+    """Read Requires-Dist rows from a downloaded wheel."""
+    if path.suffix != ".whl":
+        return []
+    with zipfile.ZipFile(path) as wheel:
+        metadata = [name for name in wheel.namelist()
+                    if name.endswith(".dist-info/METADATA")]
+        if len(metadata) != 1:
+            raise SystemExit(
+                f"expected one METADATA file in {path.name}, found "
+                f"{len(metadata)}")
+        message = BytesParser().parsebytes(wheel.read(metadata[0]))
+    return message.get_all("Requires-Dist") or []
+
+
+def _download(requirements, dest, label, platforms, python):
+    cmd = [sys.executable, "-m", "pip", "download", "--quiet",
+           "--disable-pip-version-check", "--dest", str(dest),
+           "--only-binary=:all:", "--no-deps",
+           "--python-version", python]
+    for tag in platforms:
+        cmd += ["--platform", tag]
+    cmd += sorted(requirements)
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise SystemExit(
+            f"pip download failed for {label} on CPython {python}. "
+            f"Either a dependency publishes no wheel for it, or the "
+            f"target is wrong.\n{proc.stderr.strip()}")
+    return sorted(Path(dest).iterdir())
+
+
+def _resolve_target(requirements, label, platforms, python):
+    """Resolve and hash the marker-correct closure for one target."""
+    active = {
+        rendered
+        for raw in requirements
+        if (rendered := _active_requirement(raw, label, python))
+    }
+    if not active:
+        return {}
+    for _ in range(MAX_CLOSURE_PASSES):
+        with tempfile.TemporaryDirectory() as td:
+            artefacts = _download(active, td, label, platforms, python)
+            active_names = {
+                _canonical_name(Requirement(raw).name) for raw in active
+            }
+            downloaded_names = {
+                _name_version(artefact.name)[0] for artefact in artefacts
+            }
+            missing = active_names - downloaded_names
+            if missing:
+                raise SystemExit(
+                    f"pip omitted active requirements for {label} on "
+                    f"CPython {python}: {', '.join(sorted(missing))}")
+            discovered = set()
+            for artefact in artefacts:
+                name, _ = _name_version(artefact.name)
+                if name not in active_names:
+                    continue
+                for raw in _wheel_requirements(artefact):
+                    rendered = _active_requirement(raw, label, python)
+                    if rendered:
+                        discovered.add(rendered)
+            if not discovered.issubset(active):
+                active.update(discovered)
+                continue
+
+            found = {}
+            for artefact in artefacts:
+                name, version = _name_version(artefact.name)
+                # pip may add a dependency selected by the host marker
+                # environment. The target closure above decides whether it
+                # belongs in this target's lock contribution.
+                if name not in active_names:
+                    continue
+                found.setdefault(name, {}).setdefault(version, set()).add(
+                    _hash(artefact))
+            return found
+    raise SystemExit(
+        f"dependency closure did not settle for {label} on CPython {python} "
+        f"after {MAX_CLOSURE_PASSES} passes")
 
 
 def lock(requirements, out_name):
@@ -99,23 +276,11 @@ def lock(requirements, out_name):
     # versions across the matrix is visible rather than silently merged.
     found = {}
     for label, platforms, python in TARGETS:
-        with tempfile.TemporaryDirectory() as td:
-            cmd = [sys.executable, "-m", "pip", "download", "--quiet",
-                   "--disable-pip-version-check", "--dest", td,
-                   "--only-binary=:all:", "--python-version", python]
-            for tag in platforms:
-                cmd += ["--platform", tag]
-            cmd += list(requirements)
-            proc = subprocess.run(cmd, capture_output=True, text=True)
-            if proc.returncode != 0:
-                raise SystemExit(
-                    f"pip download failed for {label} on CPython {python}. "
-                    f"Either a dependency publishes no wheel for it, or the "
-                    f"target is wrong.\n{proc.stderr.strip()}")
-            for artefact in sorted(Path(td).iterdir()):
-                name, version = _name_version(artefact.name)
-                found.setdefault(name, {}).setdefault(version, set()).add(
-                    _hash(artefact))
+        target = _resolve_target(requirements, label, platforms, python)
+        for name, versions in target.items():
+            for version, digests in versions.items():
+                found.setdefault(name, {}).setdefault(version, set()).update(
+                    digests)
 
     split = {n: sorted(v) for n, v in found.items() if len(v) > 1}
     if split:

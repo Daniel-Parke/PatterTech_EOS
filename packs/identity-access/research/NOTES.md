@@ -14,17 +14,14 @@ verbatim from a source.
 The gap this pack fills is recorded in `registry/coverage.json` under
 the capability `identity-authorisation-and-tenancy`: no guide anywhere
 in `packs/` argued role-based against attribute-based against
-relationship-based authorisation. That is the fork GD-IDENT-001 settles.
+relationship-based authorisation. That is the fork WG-IDENT-001 settles.
 
-**How the pack cites these.** Fragment ids are used in this file and in
-the two fragments, and nowhere else. Check S014 refuses a pack-local
-fragment id anywhere in the read surface, and the evidence ids that
-would replace them do not exist until the integrator runs the import, so
-the read surface cites sources by name and the front matter carries
-`pending-fragment-import` where the id list goes. The mapping from name
-to source is a table in `packs/identity-access/PACK.md`. Nothing in the
-read surface has to be rewritten when the ids arrive; the front-matter
-line does.
+**How the pack cites these.** Fragment ids remain in this pre-import
+record and its fragments. The completed import assigned `EV-0517`
+through `EV-0531`; the read surface now cites those canonical identities
+and check S014 refuses a fragment identity or unresolved placeholder
+there. The mapping from readable name to source remains in
+`packs/identity-access/PACK.md`.
 
 ## Why the pack exists at all
 
@@ -226,7 +223,7 @@ look does not reopen it:
 - `hosts_service` (5) is true of every networked venture, including one
   with no login at all. Using it would activate this pack for work that
   has no authorisation question in it, which is the over-activation
-  `packs/PACK_SHAPE.md` is trying to prevent.
+  `packs/PACK_CONTRACT.md` is trying to prevent.
 - `holds_credentials` (14) is about the venture holding key material. A
   venture can authenticate thousands of people through a provider and
   hold no secret of its own beyond a client credential, and a venture

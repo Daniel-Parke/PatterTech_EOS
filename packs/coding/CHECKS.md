@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a checker can verify about coding work, split into executable today and judgement
-type: guide
+type: checks
 tags: [delivery, ci, tooling]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision

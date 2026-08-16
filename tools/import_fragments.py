@@ -45,17 +45,12 @@ CITE = re.compile(r"EV-\d{4}")
 # Areas whose files can cite evidence on their own account.
 CITING_AREAS = ("packs", "registry", "kernel", "org", "inception")
 
-# Derived files are excluded. Each one mirrors text it did not write,
-# so counting it as a citer double-counts the original and, for the
-# ledger itself, makes every record look cited because every record
-# names its own id. INDEX.md quotes first paragraphs, which is how a
-# dead record acquires a citation it never earned.
+# The evidence ledger is JSON and names every one of its own IDs. Markdown
+# views declare ``derived: true`` in front matter and are excluded generically
+# by ``_is_derived_markdown`` below. Counting either kind as a citer would let
+# copied text create evidence support it never earned.
 NOT_A_CITER = frozenset({
     "registry/evidence.json",
-    "registry/CAPABILITIES.md",
-    "INDEX.md",
-    "packs/INDEX.md",
-    "packs/GUIDE_INDEX.md",
 })
 
 # Task records name evidence ids as work to be done, not as an argument
@@ -63,6 +58,21 @@ NOT_A_CITER = frozenset({
 # twelve records nothing cites" makes those twelve cited, and the
 # problem disappears the moment somebody files a ticket about it.
 NOT_A_CITING_TREE = ("org/tasks/",)
+
+
+def _is_derived_markdown(text):
+    """Read only the opening front matter and recognise a derived view."""
+
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return False
+    for line in lines[1:]:
+        stripped = line.strip()
+        if stripped == "---":
+            return False
+        if re.fullmatch(r"derived:\s*true", stripped, re.IGNORECASE):
+            return True
+    return False
 
 
 def scan_citations(repo_root=None):
@@ -90,6 +100,8 @@ def scan_citations(repo_root=None):
             # cross-reference.
             citer = parts[0] if base == "packs" and len(parts) > 1 else base
             text = path.read_text(encoding="utf-8", errors="replace")
+            if path.suffix == ".md" and _is_derived_markdown(text):
+                continue
             for ev in CITE.findall(text):
                 citations.setdefault(ev, set()).add(citer)
     return citations

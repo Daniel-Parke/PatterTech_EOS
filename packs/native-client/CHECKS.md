@@ -1,11 +1,11 @@
 ---
 summary: What a reviewer or checker can verify about client work, split into executable today and judgement
-kind: fact
+kind: record
 scope: estate
 sources: [EV-0026, EV-0027, EV-0206, EV-0235, EV-0236]
 volatility: slow
 review: on-change-of:EN-301-549-v4-publication
-type: implementation
+type: checks
 tags: [testing, a11y, delivery]
 ---
 
@@ -66,7 +66,7 @@ is why C17 exists and why the judgement rows below carry real weight.
 | J3 | Clause 11 obligations were checked deliberately | B6 | the app driven end to end with the platform screen reader, and user preference settings honoured, both recorded |
 | J4 | Compensation is visible to the user who lost | B2 | the person is told what happened and what to do, in the interface, not only in a log |
 | J5 | The degraded state message is usable | B3 | it names what is stuck and what the user can still do |
-| J6 | The architecture ruling names its runner-up | GD-NAT-001 | the runner-up and the cost of not taking it are both written down |
+| J6 | The architecture ruling names its runner-up | WG-NAT-001 | the runner-up and the cost of not taking it are both written down |
 | J7 | The halt trigger is decidable during the ramp | B4, D3 | the metric exists in telemetry, the threshold is a number, and someone is named to watch it |
 | J8 | The over-the-air envelope is presentation only | B5 | a reviewer can say what changed and it is copy, styling, assets or layout |
 | J9 | Defaults departed from carry a recorded reason | defaults section | the reason is in the task record, not in a commit message alone |
@@ -79,7 +79,7 @@ is why C17 exists and why the judgement rows below carry real weight.
   defect rate, so no check claims it.
 - **Whether the app is accessible.** C16 to C19 gate what a machine can
   see. The rest is J2, J3 and, above a certain risk, testing with
-  disabled users under GD-NAT-004 option D.
+  disabled users under WG-NAT-004 option D.
 - **Whether a release was safe.** Neither store can take a version
   back, so the only evidence is the kill switch working and the metric
   holding.

@@ -13,38 +13,37 @@ policy_profile: {{POLICY_PROFILE}}
 packs_adopted: []
 addons: []
 compiled: {{COMPILED_DATE}}
-rulings:
-  - WG-EOS-001 · {{SCALE}} · argued · the scale ruling, triggers engaged at Session 0
+rulings_record: docs/RULINGS.json
 ---
 
 # {{VENTURE_NAME}} lock-book
 
 The venture's contract with the EOS. This file wins on specifics; EOS
-doctrine wins on principles. The YAML header above is machine-read: the
-seed check validates it, the harvest counts its rulings, upgrades diff
-against its pins. `policy_profile` names the compiled policy instance;
-`packs_adopted` lists the knowledge packs this venture activates, and
-house style activates only by adoption here. Rulings rows are one line
-each, `WG-ID · ruling · argued|inherited · note`; argued means the
-triggers were engaged afresh, inherited means the default was taken
-without new argument. Only argued rulings are promotion evidence.
+Doctrine wins on standing rules. The YAML header above is machine-read:
+the seed check validates it, the harvest reads the structured Rulings
+record, and upgrades diff against the pins. `policy_profile` names the
+compiled policy instance; `packs_adopted` lists the knowledge packs this
+venture activates, and house style activates only by adoption here.
+`docs/RULINGS.json` records why each candidate Wargame was selected or
+omitted and holds the argued outcomes. Inherited Doctrine is carried by
+the EOS pin and adopted packs, so it is not expanded into empty rows.
 
 ## Identity
 
 - One-word feel: {{FEEL}}
 - Signature motif (promoted everywhere): {{MOTIF}}
 - Signature animated pieces (the sanctioned exceptions, by name): {{SIGNATURE_PIECES}}
-- Voice register ruling (WG-VOX-001): in the header; banned list per
-  the voice module.
+- Voice register: rule through `WG-WRIT-003` when its pressure engages;
+  the result belongs in `docs/RULINGS.json`.
 
 ## Narrative brief
 
 The one-paragraph story the design must tell without saying it: what
 the visitor should feel, what stays concealed, what escapes anyway.
 Name the physics or motifs the brand draws from and how each becomes a
-mechanism, not a mood board. This paragraph drives the light budget
-(WG-WEB-005), the reactivity ruling (WG-WEB-011) and the imagery ruling
-(WG-WEB-012).
+mechanism, not a mood board. This paragraph informs the live house-style
+Wargames `WG-HOUSE-001`, `WG-HOUSE-003` and `WG-HOUSE-004` when that pack
+has been adopted.
 
 {{NARRATIVE}}
 
@@ -81,7 +80,8 @@ the command gets ruled.
 
 ## Deviations from doctrine
 
-None, or one entry each: the doctrine deviated from, the trigger that
-justifies it, the wargame that argued it (a draft wargame in
-docs/EOS_FEEDBACK.md if none exists), and the operator's approval.
-Deviations are harvested as contrary rulings.
+This section is a human-readable pointer only. The canonical entry is in
+`docs/RULINGS.json`: the Doctrine departed from, the pressure, the Wargame
+that argued it, the reason and any approval reference. If no Wargame covers
+the pressure, record the gap in `docs/EOS_FEEDBACK.md` and keep the venture
+Ruling local until EOS admits a reusable scenario.

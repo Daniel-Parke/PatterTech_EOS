@@ -61,7 +61,7 @@ the router's ruling, never from choice.
 2. The acceptance oracle is authored first, hashed and frozen. At R2 it
    may be written in the same session provided no implementation exists
    in context yet; at R3 it is a separate author
-   (`packs/delivery-testing/guides/WG-DEL-006-oracle-independence.md`).
+   (`packs/delivery-testing/wargames/WG-DEL-006-oracle-independence.md`).
 3. Independent review, and a person for anything irreversible. The
    guard rules every consequential action at the moment it runs.
 4. Amendments to a frozen oracle are append-only and authored by
@@ -73,7 +73,7 @@ the router's ruling, never from choice.
 ### parallel
 
 A wrapper, not a mode. Cut the partition first: `packs/agentic-swarm`
-holds the method and the evidence, and its GD-SWARM-001 rules whether
+holds the method and the evidence, and its WG-SWARM-001 rules whether
 the work wants lanes at all. Do not run wide over work one session
 already does well.
 
@@ -116,12 +116,13 @@ or the sign-off block carries one line saying why not.
 ## PB-E02 · Harvest
 
 Section one of the monthly pass. For every governed venture in
-`registry/PROJECTS.md`: read its feedback file and its lock-book rulings
-since the last pass. Fold argued rulings into the packs and guides that
+`registry/PROJECTS.md`: read its feedback file and any privacy-reviewed Ruling
+summaries the venture explicitly offered since the last pass. Never ingest its
+raw `docs/RULINGS.json`. Fold argued summaries into the packs and Wargames that
 own the decision, as graded evidence with one ledger row per source.
 Queue promotion candidates for section two.
 
-A folded ruling appends a row to `registry/lessons.json` with origin
+A folded Ruling appends a row to `registry/lessons.json` with origin
 harvest, naming the venture it came from. `registry/LESSONS.md` is the
 derived view of that file and is never hand-edited. The row shape is
 fixed by the ledger's schema, not restated here; a harvest row carries
@@ -140,12 +141,13 @@ Nothing found: record checked and clean, and stop.
 
 ## PB-E03 · Pack and kernel authoring
 
-The graded evidence path replaces wargame-first. Start with a fresh
-research batch, one evidence row per source with licence and access
-date. Argue guides before any doctrine line cites them; write binding
-rules only where basis and evidence grade earn them. Respect the pack
-definition of done and the per-kind metadata minima. Finish with
-checks green and the derived views regenerated.
+The graded evidence path comes before Wargaming. Start with a fresh research
+batch, one evidence row per source with licence and access date. Reconcile each
+proposed Doctrine atom with the current catalogue and give it only the
+authority its basis and evidence earn. Add a Wargame only for a recurring fork,
+conflict, exception or gap. Respect the pack definition of done and the
+per-kind metadata minima. Finish with checks green and the derived views
+regenerated.
 
 ## PB-E04 · Promotion review
 
@@ -155,10 +157,10 @@ expire experiments past their 90-day window. A standing tier exception
 is an accepted ADR carrying an expiry date (ADR-0004), and no check
 reads that date, so this sample is the only thing that catches one that
 has run out. Promotion: default to binding candidate on two argued
-rulings from two ventures, or one plus a source with basis standard or
+Rulings from two ventures, or one plus a source with basis standard or
 evidence grade controlled; binding requires an ADR and the operator. Contrary
-rulings against binding rules trigger review, never automatic demotion;
-law and standard based rules change only through an ADR citing the
+Rulings against binding Doctrine trigger review, never automatic demotion;
+Doctrine based on law or standards changes only through an ADR citing the
 changed source.
 
 ## PB-E05 · Release
@@ -291,8 +293,8 @@ change a decision. A study that changes nothing says so in one line and
 stops there.
 
 **4. Run the conflict pass, before the operator sees anything.** Map the
-findings against the packs and everything inside them, guides, wargames,
-refs and exemplars alike; the registries; `org/policy.json` and
+findings against the packs and everything inside them, Doctrine, Wargames,
+Relations, references and examples alike; the registries; `org/policy.json` and
 `GOVERNANCE.md`; the inception and seed process; and the lessons already
 recorded. List duplicates, tensions and contradictions explicitly. A
 finding that contradicts a live rule names that rule. Doing this after
@@ -314,7 +316,8 @@ it can do is propose a binding candidate, and the ladder in
 `GOVERNANCE.md` is unchanged.
 
 **7. Integrate approved lessons only,** through the paths that already
-exist: a pack edit, a guide, a registry fact, a template change. Each
+exist: a Doctrine atom, a Wargame, a Relation, a registry fact or a template
+change. Each
 edit lands in the same commit as its lesson row, so the artefact and the
 reason for it never come apart. Where actual code is carried, tag it per
 `packs/legal-licensing` D5.
@@ -334,9 +337,9 @@ venture.
 1. Take the request: which venture, which slice, and what it wants
    looked at. A whole repository is a valid slice and so is one file.
    If the venture has not said what it wants, ask before reading.
-2. Read the venture's lock-book first: its pin, its scale, its rulings.
+2. Read the venture's lock-book first: its pin, its scale, its Rulings.
    Guidance newer than that pin is context, not a violation, and a
-   venture ruling that argued its fork is that venture's law.
+   venture Ruling that argued its fork is that venture's law.
 3. Read the slice against current EOS guidance: the packs the lock-book
    activates, plus anything newer that bears on the slice.
 4. Return findings. Each one names what diverges, what the divergence

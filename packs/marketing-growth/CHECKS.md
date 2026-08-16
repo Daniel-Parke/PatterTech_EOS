@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a script can verify about marketing and growth work, split into executable today and judgement
-type: guide
+type: checks
 tags: [content, seo, pii, testing]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision
@@ -42,7 +42,7 @@ need no human input.
 | C-14 | Sitemap agrees with the site | Every page appears exactly once, every listed URL returns 200, no listed URL is disallowed | D8 |
 | C-15 | No bare effect number escapes | Every conversion or lift figure in the decision record carries a holdout design or the literal token UNVERIFIED | D3 |
 | C-16 | Funnel definitions ship as configuration | Ordering mode, exclusion steps and conversion denominator stored machine-readably beside each number | D5 |
-| C-17 | The philosophy record exists and cites evidence | The decision record names one philosophy from the guide list and one measurement method, each with at least one evidence id | D1 |
+| C-17 | The philosophy record exists and cites evidence | The decision record names one philosophy from WG-MKTG-001's option set and one measurement method, each with at least one evidence id | D1 |
 | C-18 | Field performance budget is measured, not asserted | Field data collected against a written budget for public surfaces | D12 |
 
 ## Judgement today
@@ -56,7 +56,7 @@ later; none is executable now.
 | J-02 | A soft opt-in transaction really was a sale or a negotiation with that person | Reviewer, and the similar-products scope is a judgement about what a buyer would expect | B1 |
 | J-03 | The subscriber_type classification is right | Reviewer, since the individual and corporate line lives in regulator guidance rather than in the regulation | B1 |
 | J-04 | The suppression store is genuinely portable | Reviewer, at any change of sending provider | B3 |
-| J-05 | The chosen philosophy fits the category | Reviewer, against the fit conditions in the guide, which are argued and not measured | D1 |
+| J-05 | The chosen philosophy fits the category | Reviewer, against the fit conditions in the Wargame, which are argued and not measured | D1 |
 | J-06 | The named reinvestment step is a mechanism rather than an arrow | Reviewer, and this is where a spending plan gets called a growth plan | D2 |
 | J-07 | A page has a real reader | Reviewer, by name of need rather than by keyword | D6 |
 | J-08 | Substantial automation is evident to the visitor | Reviewer, because the guidance is a questionnaire and two honest people can answer it the same way about very different pages | D6 |

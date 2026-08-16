@@ -1,0 +1,13 @@
+{
+  "id": "DREL-OPS-001",
+  "owner_doctrine": "DOC-SUPPLY-003",
+  "relation": "tensions_with",
+  "target": "DOC-DEVOPS-004",
+  "conditions": ["integrity_floor_reduces_availability"],
+  "status": "covered",
+  "evidence": ["EV-0020", "EV-0581"],
+  "fallback": "Fail closed for privacy, authorisation, integrity and approval; degrade only a journey that preserves those properties and tells the truth.",
+  "wargame": "WG-DEVOPS-006",
+  "owner": "supply-chain-integrity",
+  "review": "2027-02"
+}

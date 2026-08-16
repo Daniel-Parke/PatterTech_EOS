@@ -1,4 +1,4 @@
-"""Semantic checks S001-S007 and S009-S021.
+"""Semantic checks S001-S007 and S009-S022.
 
 S008 asked that a fact declared canonical in one file was not restated
 in another. No file ever declared canonical_facts, so it had no
@@ -34,9 +34,8 @@ Exemptions, applied uniformly unless a check says otherwise:
 - template: true files document syntax (placeholder enums, slot
   values) and are exempt from value-level semantic checks.
 
-WG id references are checked by both E005, which also covers the frozen
-fixtures, and S004, which generalises to every id scheme, so an
-undefined WG reference in a live file reports twice.
+Knowledge identity integrity is checked by E005. S004 checks live prose
+references once across every supported id scheme.
 """
 
 from __future__ import annotations
@@ -44,19 +43,20 @@ from __future__ import annotations
 import json
 import re
 from datetime import date
+from fnmatch import fnmatchcase
 from pathlib import PurePosixPath
 
 from .. import gitfacts
 from ..findings import Finding
 from ..repo import RepoModel
 from . import register
-from .structural import strip_code
+from .structural import PACK_CATEGORIES, strip_code
 
 V1_STATUS = {"draft", "active", "contested", "superseded", "accepted",
              "proposed", "archived"}
 
 V2_AXES = {
-    "kind": {"rule", "guide", "recipe", "exemplar", "stack-profile", "fact", "record"},
+    "kind": {"rule", "guide", "doctrine", "wargame", "recipe", "example", "stack-profile", "fact", "record"},
     "authority": {"binding", "default", "advisory", "preference", "none"},
     "lifecycle": {"draft", "experimental", "active", "contested", "superseded", "archived"},
     "basis": {"decision", "law", "standard", "empirical-evidence", "local-observation"},
@@ -66,8 +66,11 @@ V2_AXES = {
 V2_SCOPES = {"estate", "venture", "eos-internal"}
 
 DERIVED_GENERATED = {"INDEX.md",
-                     "packs/GUIDE_INDEX.md", "packs/INDEX.md",
+                     "packs/INDEX.md",
+                     "packs/DOCTRINE_INDEX.md", "packs/WARGAME_INDEX.md",
                      "registry/CAPABILITIES.md", "registry/LESSONS.md",
+                     "registry/DOCTRINE_PRESSURE_MATRIX.md",
+                     "registry/IDENTIFIER_ALIASES.md",
                      "org/TASKS.md", "org/STATE.md"}
 
 PATH_EXTS = (".md", ".py", ".json", ".yaml")
@@ -76,16 +79,25 @@ PATH_BAD_CHARS = set("*<>{}$#()\\ \t")
 PLACEHOLDER_SEGMENT = re.compile(r"(?<![A-Za-z0-9])(YYYY|MM|DD|WW|HH|NNN?N?)(?![A-Za-z0-9])")
 
 ID_SCHEMES = {
-    "WG": re.compile(r"\bWG-[A-Z]+-\d{3}\b"),
+    "DOC": re.compile(r"\bDOC-[A-Z0-9]+-\d{3}\b"),
+    "DREL": re.compile(r"\bDREL-[A-Z0-9]+-\d{3}\b"),
+    "GD": re.compile(r"\bGD-[A-Z0-9]+-\d{3}\b"),
+    "WG": re.compile(r"\bWG-[A-Z0-9]+-\d{3}\b"),
     "ADR": re.compile(r"\bADR-\d{4}\b"),
     "PB": re.compile(r"\bPB-E\d{2}\b"),
     "S": re.compile(r"\bS-\d{4}\b"),
 }
+ID_REFERENCE = re.compile("|".join(
+    f"(?P<{scheme}>{pattern.pattern})"
+    for scheme, pattern in ID_SCHEMES.items()
+))
 
 # An id whose number is all zeros is the documented placeholder shape.
 ZERO_ID = re.compile(r"-0+$")
 # A possessive immediately before an id gives it to another venture.
-OWNED_ELSEWHERE = re.compile(r"(?:\w+'s|\bits|\btheir)\s+$", re.I)
+# `_owned_elsewhere` reads only that adjacent token. Searching an ever-growing
+# prefix for every identity makes the check quadratic as generated catalogues
+# grow.
 
 ESTATE_ROW_REQUIRED = ("role", "status")
 ESTATE_ROW_ALLOWED = {
@@ -278,9 +290,35 @@ def check_s003_path_references(ctx: dict) -> list:
             if not _anchored(model, token):
                 continue
             if not model.exists(token):
+                if _historical_naming_reference(model, rec.path, token):
+                    continue
                 out.append(_f(ctx, "S003", rec.path,
                               f"path reference does not resolve: {token}"))
     return out
+
+
+def _historical_naming_reference(
+    model: RepoModel, source: str, token: str,
+) -> bool:
+    """Recognise pre-T-0028 paths only inside declared historical records."""
+
+    raw = model.read("org/migration/NAMING_BASELINE.json")
+    if not raw:
+        return False
+    try:
+        baseline = json.loads(raw)
+    except ValueError:
+        return False
+    snapshots = baseline.get("pre_t0028_snapshot_surfaces") or []
+    if not any(
+        isinstance(pattern, str) and fnmatchcase(source, pattern)
+        for pattern in snapshots
+    ):
+        return False
+    migrations = dict(baseline.get("public_file_migration") or {})
+    migrations["packs/" + "GUIDE" + "_INDEX.md"] = "packs/WARGAME_INDEX.md"
+    target = migrations.get(token)
+    return isinstance(target, str) and model.exists(target)
 
 
 def retired_paths(model: RepoModel) -> list:
@@ -313,7 +351,7 @@ def _id_definitions(model: RepoModel) -> dict:
     indexes reference it, so excluding it here would report the index
     as broken when it is exactly right.
     """
-    defs: dict = {"WG": set(), "ADR": set(), "PB": set(), "S": set()}
+    defs: dict = {name: set() for name in ID_SCHEMES}
     for rec in model.files:
         stem = PurePosixPath(rec.path).stem
         # The filename carries the id. Keying on type: wargame missed
@@ -321,9 +359,10 @@ def _id_definitions(model: RepoModel) -> dict:
         # type: guide, so their ids read as undefined the moment the
         # archived originals left the tree.
         if rec.fm.present:
-            m = re.match(r"WG-[A-Z]+-\d{3}", stem)
-            if m:
-                defs["WG"].add(m.group(0))
+            for scheme in ("DOC", "DREL", "GD", "WG"):
+                m = ID_SCHEMES[scheme].match(stem)
+                if m:
+                    defs[scheme].add(m.group(0))
         if rec.path.startswith("org/decisions/"):
             m = re.match(r"ADR-\d{4}", stem)
             if m:
@@ -355,25 +394,34 @@ def check_s004_id_references(ctx: dict) -> list:
     dangling references, and the only fix would have been rewording
     every provenance line in the repository.
     """
-    from .structural import retired_ids
+    from ..ontology import KnowledgeResolver
 
     model: RepoModel = ctx["model"]
     defs = _id_definitions(model)
-    defs["WG"] = set(defs.get("WG") or set()) | retired_ids(model)
+    resolver = ctx.get("ontology") or KnowledgeResolver.open(model.root)
+    knowledge_schemes = {"DOC", "DREL", "GD", "WG"}
     out = []
     for rec in model.files:
         if not _semantic_scope(rec):
             continue
         prose = strip_code(rec.text)
-        for scheme, pattern in ID_SCHEMES.items():
+        references: set[tuple[str, str]] = set()
+        for match in ID_REFERENCE.finditer(prose):
+            scheme = str(match.lastgroup)
             if scheme == "PB" and rec.path == "org/PLAYBOOKS.md":
                 continue
-            for ref in sorted(_unqualified_refs(prose, pattern)):
-                if ZERO_ID.search(ref):
-                    continue
-                if ref not in defs[scheme]:
-                    out.append(_f(ctx, "S004", rec.path,
-                                  f"reference to undefined id {ref}"))
+            if not _owned_elsewhere(prose, match.start()):
+                references.add((scheme, match.group(0)))
+        for scheme, ref in sorted(references):
+            if ZERO_ID.search(ref):
+                continue
+            if scheme in knowledge_schemes:
+                defined = resolver.resolve(ref) is not None or ref in defs[scheme]
+            else:
+                defined = ref in defs[scheme]
+            if not defined:
+                out.append(_f(ctx, "S004", rec.path,
+                              f"reference to undefined id {ref}"))
     return out
 
 
@@ -381,10 +429,32 @@ def _unqualified_refs(prose: str, pattern) -> set:
     """Ids cited without a possessive naming another venture as owner."""
     found = set()
     for m in pattern.finditer(prose):
-        if OWNED_ELSEWHERE.search(prose[:m.start()]):
+        if _owned_elsewhere(prose, m.start()):
             continue
         found.add(m.group(0))
     return found
+
+
+def _owned_elsewhere(prose: str, position: int) -> bool:
+    """Whether the adjacent token is ``its``, ``their`` or ``word's``."""
+
+    end = position
+    while end and prose[end - 1].isspace():
+        end -= 1
+    start = end
+    while start:
+        char = prose[start - 1]
+        if not (char.isalnum() or char in {"_", "'"}):
+            break
+        start -= 1
+    token = prose[start:end].lower()
+    if token in {"its", "their"}:
+        return True
+    return (
+        token.endswith("'s")
+        and bool(token[:-2])
+        and all(char.isalnum() or char == "_" for char in token[:-2])
+    )
 
 
 # --- S005 derived files need a registered generator --------------------
@@ -416,9 +486,9 @@ def check_s005_derived(ctx: dict) -> list:
 def check_s006_module_organs(ctx: dict) -> list:
     """Every built pack carries its invariant organs.
 
-    packs/PACK_SHAPE.md fixes the contract: PACK.md (whose first
-    paragraph is the always-loaded metadata), guides/ for the decision
-    guides, and CHECKS.md for the evaluation criteria. Archived v1
+    packs/PACK_CONTRACT.md fixes the contract: PACK.md (whose first
+    paragraph is the always-loaded metadata), five named collections,
+    and CHECKS.md for the evaluation criteria. Archived v1
     modules under archive/ are history and are not held to it.
     """
     model: RepoModel = ctx["model"]
@@ -428,6 +498,9 @@ def check_s006_module_organs(ctx: dict) -> list:
         if parts[0] == "packs" and len(parts) >= 3:
             packs.setdefault(parts[1], set()).add(rec.path)
     out = []
+    namespaces: dict[str, str] = {}
+    display_names: dict[str, str] = {}
+    categories = {key for key, _ in PACK_CATEGORIES}
     for pack in sorted(packs):
         base = f"packs/{pack}"
         paths = packs[pack]
@@ -437,8 +510,86 @@ def check_s006_module_organs(ctx: dict) -> list:
         for organ in ("PACK.md", "CHECKS.md"):
             if f"{base}/{organ}" not in paths:
                 out.append(_f(ctx, "S006", base, f"pack missing {organ}"))
-        if not any(p.startswith(f"{base}/guides/") for p in paths):
-            out.append(_f(ctx, "S006", base, "pack missing guides/"))
+        pack_record = model.get(f"{base}/PACK.md")
+        if pack_record is not None:
+            fm = pack_record.fm.data
+            if fm.get("kind") != "record" or fm.get("type") != "pack":
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    "PACK.md must be kind: record and type: pack",
+                ))
+            display = str(fm.get("display_name") or "").strip()
+            category = str(fm.get("category") or "").strip()
+            namespace = str(fm.get("id_namespace") or "").strip()
+            if not display:
+                out.append(_f(ctx, "S006", pack_record.path,
+                              "PACK.md needs display_name"))
+            elif display in display_names:
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    f"display_name duplicates {display_names[display]}",
+                ))
+            else:
+                display_names[display] = pack_record.path
+            if category not in categories:
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    f"unknown pack category: {category or '(missing)'}",
+                ))
+            if not re.fullmatch(r"[A-Z][A-Z0-9]*", namespace) or namespace == "EOS":
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    "id_namespace must be uppercase alphanumeric and EOS is reserved",
+                ))
+            elif namespace in namespaces:
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    f"id_namespace duplicates {namespaces[namespace]}",
+                ))
+            else:
+                namespaces[namespace] = pack_record.path
+            heading = re.search(r"(?m)^# ([^\n]+)$", pack_record.fm.body)
+            if display and (heading is None or heading.group(1).strip() != display):
+                out.append(_f(
+                    ctx, "S006", pack_record.path,
+                    "PACK.md H1 must equal display_name",
+                ))
+        checks_record = model.get(f"{base}/CHECKS.md")
+        if checks_record is not None and (
+            checks_record.fm.data.get("kind") != "record"
+            or checks_record.fm.data.get("type") != "checks"
+        ):
+            out.append(_f(
+                ctx, "S006", checks_record.path,
+                "CHECKS.md must be kind: record and type: checks",
+            ))
+        for collection in (
+            "doctrines", "wargames", "examples", "references", "research",
+        ):
+            if not any(p.startswith(f"{base}/{collection}/") for p in paths):
+                out.append(_f(
+                    ctx, "S006", base, f"pack missing {collection}/",
+                ))
+        for retired in (
+            "guides", "exemplars", "refs", "doctrines/relations",
+        ):
+            if any(p.startswith(f"{base}/{retired}/") for p in paths):
+                out.append(_f(
+                    ctx, "S006", base,
+                    f"pack retains retired collection {retired}/",
+                ))
+        for path in sorted(paths):
+            if not path.startswith(f"{base}/examples/"):
+                continue
+            record = model.get(path)
+            if record is not None and (
+                record.fm.data.get("kind") != "example"
+                or record.fm.data.get("type") != "example"
+            ):
+                out.append(_f(
+                    ctx, "S006", path,
+                    "worked example must be kind: example and type: example",
+                ))
     return out
 
 
@@ -669,9 +820,23 @@ def check_s010_cross_registry(ctx: dict) -> list:
                   for row in repos.values() if isinstance(row, dict)}
     reach_targets = list(gitfacts.tags(model.root).values())
     reach_targets += list(gitfacts.remote_tracking_heads(model.root).values())
-    remote = gitfacts.remote_heads(model.root, offline)
-    if remote:
-        reach_targets += list(remote.values())
+    remote_checked = offline
+
+    def reaches_a_pushed_ref(sha: str) -> bool:
+        nonlocal remote_checked
+        if any(gitfacts.is_ancestor(model.root, sha, target)
+               for target in reach_targets):
+            return True
+        # A current network read buys nothing when a local pushed tag or
+        # remote-tracking head already proves reachability. Defer it to the
+        # only case where it can change the verdict.
+        if not remote_checked:
+            remote_checked = True
+            remote = gitfacts.remote_heads(model.root, offline=False)
+            if remote:
+                reach_targets.extend(remote.values())
+        return any(gitfacts.is_ancestor(model.root, sha, target)
+                   for target in reach_targets)
     for cells in _table_rows(projects):
         if len(cells) < 4 or cells[0] in ("Venture", "---") or cells[0].startswith("-"):
             continue
@@ -685,8 +850,7 @@ def check_s010_cross_registry(ctx: dict) -> list:
             if not gitfacts.object_exists(model.root, f"{sha}^{{commit}}"):
                 out.append(_f(ctx, "S010", "registry/PROJECTS.md",
                               f"venture {venture} pin {sha} does not resolve"))
-            elif reach_targets and not any(
-                    gitfacts.is_ancestor(model.root, sha, t) for t in reach_targets):
+            elif not reaches_a_pushed_ref(sha) and reach_targets:
                 out.append(_f(ctx, "S010", "registry/PROJECTS.md",
                               f"venture {venture} pin {sha} not reachable from a pushed tag or origin head"))
     return out
@@ -863,6 +1027,7 @@ def check_s013_coverage_matrix(ctx: dict) -> list:
 # --- S014 pack-local fragment ids in the read surface --------------------
 
 FRAG_ID = re.compile(r"\bFRAG-[A-Z0-9-]+-\d{2}\b")
+EVIDENCE_ID = re.compile(r"^EV-\d{4}$")
 
 
 @register("S014")
@@ -881,6 +1046,17 @@ def check_s014_fragment_citations(ctx: dict) -> list:
     """
     model: RepoModel = ctx["model"]
     out = []
+    known_evidence = set()
+    ledger_raw = model.read("registry/evidence.json")
+    if ledger_raw:
+        try:
+            known_evidence = {
+                str(row["id"])
+                for row in json.loads(ledger_raw).get("records", [])
+                if isinstance(row, dict) and row.get("id")
+            }
+        except (ValueError, TypeError):
+            known_evidence = set()
     for rec in model.files:
         if not rec.path.startswith("packs/") or RESEARCH_SEGMENT.match(rec.path):
             continue
@@ -889,6 +1065,22 @@ def check_s014_fragment_citations(ctx: dict) -> list:
             out.append(_f(ctx, "S014", rec.path,
                           f"pack-local fragment id in the read surface: {hit}; "
                           f"cite the EV id the import assigned"))
+        sources = rec.fm.data.get("sources") if rec.fm.present else []
+        if isinstance(sources, str):
+            sources = [sources]
+        for source in sources or []:
+            value = str(source)
+            if value.startswith("pending-"):
+                out.append(_f(
+                    ctx, "S014", rec.path,
+                    f"unresolved evidence placeholder in sources: {value}",
+                ))
+            elif (known_evidence and EVIDENCE_ID.fullmatch(value)
+                  and value not in known_evidence):
+                out.append(_f(
+                    ctx, "S014", rec.path,
+                    f"evidence id in sources is not in the ledger: {value}",
+                ))
     return out
 
 
@@ -899,7 +1091,7 @@ def check_s014_fragment_citations(ctx: dict) -> list:
 def check_s015_activation_triggers(ctx: dict) -> list:
     """Every built pack carries a machine-readable, non-keyword trigger.
 
-    packs/PACK_SHAPE.md requires it, because routing has to be
+    packs/PACK_CONTRACT.md requires it, because routing has to be
     deterministic given the same inputs. Twenty packs stated their
     triggers in prose only, so nothing could evaluate them, and
     contextgen returned a hardcoded empty list: progressive disclosure,
@@ -922,7 +1114,7 @@ def check_s015_activation_triggers(ctx: dict) -> list:
         if not fm.get("applies_when"):
             out.append(_f(ctx, "S015", rec.path,
                           "no applies_when: predicates are the real gate "
-                          "under packs/PACK_SHAPE.md"))
+                          "under packs/PACK_CONTRACT.md"))
     return out
 
 
@@ -998,7 +1190,7 @@ def check_s017_evidence_matches_its_schema(ctx: dict) -> list:
     that the schema forbade, and a record whose publication_status was
     outside the enum. A schema nobody validates against is a comment.
 
-    Also holds the licence floor of packs/PACK_SHAPE.md item 11. A
+    Also holds the licence floor of packs/PACK_CONTRACT.md item 11. A
     record may say what the source states, including that the source
     states nothing, but "unknown" means nobody looked and is a gap
     rather than a value.
@@ -1038,7 +1230,7 @@ def check_s017_evidence_matches_its_schema(ctx: dict) -> list:
         out.append(_f(ctx, "S017", "registry/evidence.json",
                       "%d record(s) carry licence 'unknown' (%s%s): read the "
                       "licence off the source, or record that the source "
-                      "states none. PACK_SHAPE item 11 wants a fact here."
+                      "states none. PACK_CONTRACT item 11 wants a fact here."
                       % (len(unknown), ", ".join(unknown[:5]),
                          ", ..." if len(unknown) > 5 else "")))
     return out
@@ -1134,7 +1326,7 @@ def check_s018_lesson_conflicts(ctx: dict) -> list:
     with later.
 
     What this does not do: it does not check that the thing a row
-    conflicts with exists. Conflicts are named against packs, guides,
+    conflicts with exists. Conflicts are named against packs, Wargames,
     policies and prior lessons, which live in four different id spaces,
     and a reference check across all four is a different check from
     this one.
@@ -1378,4 +1570,248 @@ def check_s021_predicate_vocabulary(ctx: dict) -> list:
                               "after checking no existing predicate is "
                               "already true in the same circumstances"
                               % (name, PREDICATES_PATH)))
+    return out
+
+
+# --- S022 Doctrine, Wargame and relation contracts ---------------------
+
+
+KNOWLEDGE_SCHEMAS = {
+    "doctrine": "kernel/schemas/doctrine.schema.json",
+    "wargame": "kernel/schemas/wargame.schema.json",
+}
+KNOWLEDGE_JSON_SCHEMAS = {
+    "org/migration/DOCTRINE_SOURCE_INVENTORY.json":
+        "kernel/schemas/doctrine-source-inventory.schema.json",
+    "org/migration/DOCTRINE_MIGRATION.json":
+        "kernel/schemas/knowledge-migration.schema.json",
+    "registry/identifier-aliases.json":
+        "kernel/schemas/identifier-aliases.schema.json",
+    "registry/hypotheses/creative-os.json":
+        "kernel/schemas/hypothesis-registry.schema.json",
+    "registry/stacks/probes/STACK-data-compute-2026-08-15.json":
+        "kernel/schemas/stack-probe.schema.json",
+    "registry/pressure-dispositions.json":
+        "kernel/schemas/pressure-dispositions.schema.json",
+}
+WARGAME_HEADINGS = (
+    "Decision question and stakes",
+    "Doctrines or coverage gap under pressure",
+    "Preconditions and engagement triggers",
+    "Options",
+    "Failure premises",
+    "Decision rule",
+    "Safe default",
+    "Cheapest discriminating test",
+    "Fallback, exit and revisit",
+    "Counter-evidence and transfer limits",
+)
+_BINDING_DECISION_EXEMPT = (
+    "packs/security-privacy/",
+    "packs/devops-reliability/",
+)
+
+
+def _naming_slug(value: str) -> str:
+    value = str(value).lower().replace("'", "")
+    return re.sub(r"[^a-z0-9]+", "-", value).strip("-")
+
+
+def _schema_errors(model, schema_path: str, instance, path: str, ctx: dict) -> list:
+    cache = ctx.setdefault("_s022_schema_validators", {})
+    cached = cache.get(schema_path)
+    if cached is None:
+        raw = model.read(schema_path)
+        if raw is None:
+            cached = (None, "%s is missing, so this knowledge record was not "
+                      "validated" % schema_path)
+        else:
+            try:
+                import jsonschema
+            except ImportError:
+                cached = (
+                    None,
+                    "jsonschema is not installed, so this knowledge record "
+                    "was not validated against %s" % schema_path,
+                )
+            else:
+                try:
+                    schema = json.loads(raw)
+                except ValueError as exc:
+                    cached = (None, "invalid schema JSON: %s" % exc)
+                else:
+                    cached = (jsonschema.Draft202012Validator(schema), None)
+        cache[schema_path] = cached
+    validator, setup_error = cached
+    if setup_error:
+        error_path = schema_path if setup_error.startswith("invalid schema") else path
+        return [_f(ctx, "S022", error_path, setup_error)]
+    errors = sorted(
+        validator.iter_errors(instance),
+        key=lambda err: (list(err.path), err.message),
+    )
+    out = []
+    for err in errors[:20]:
+        where = "/".join(str(part) for part in err.path) or "(root)"
+        out.append(_f(ctx, "S022", path,
+                      "schema: %s: %s" % (where, err.message)))
+    return out
+
+
+def _knowledge_predicates(fm: dict) -> set[str]:
+    names = set()
+    for key in ("applies_when", "challenge_triggers", "engages_when"):
+        values = fm.get(key) or []
+        if isinstance(values, str):
+            values = [values]
+        names.update(str(value) for value in values if str(value))
+    return names
+
+
+@register("S022")
+def check_s022_knowledge_contracts(ctx: dict) -> list:
+    """The accepted ontology is executable, not a prose convention.
+
+    Existing v1 records are deliberately ignored until they declare the new
+    kind.  Once a record declares itself Doctrine or Wargame it crosses the
+    compatibility boundary atomically and every part of the new contract is
+    checked on that run.
+    """
+    from ..ontology import KnowledgeResolver
+
+    model: RepoModel = ctx["model"]
+    resolver = ctx.get("ontology") or KnowledgeResolver.open(model.root)
+    live_predicates, retired_predicates = _predicate_vocabulary(model)
+    live_predicates = live_predicates or {}
+    out = []
+    statements: dict[str, str] = {}
+
+    for rec in model.files:
+        if not _semantic_scope(rec):
+            continue
+        fm = rec.fm.data
+        kind = str(fm.get("kind") or "")
+        if kind not in KNOWLEDGE_SCHEMAS:
+            continue
+        out.extend(_schema_errors(
+            model, KNOWLEDGE_SCHEMAS[kind], fm, rec.path, ctx,
+        ))
+
+        for name in sorted(_knowledge_predicates(fm)):
+            if name in retired_predicates:
+                out.append(_f(ctx, "S022", rec.path,
+                              "knowledge metadata carries retired predicate %s; "
+                              "use %s" % (name, retired_predicates[name])))
+            elif name not in live_predicates:
+                out.append(_f(ctx, "S022", rec.path,
+                              "knowledge metadata carries %s, which is not in %s"
+                              % (name, PREDICATES_PATH)))
+
+        identifier = str(fm.get("id") or "")
+        if kind == "doctrine":
+            statement = " ".join(str(fm.get("statement") or "").lower().split())
+            stem = PurePosixPath(rec.path).stem
+            prefix = f"{identifier}-"
+            filename_slug = stem.removeprefix(prefix)
+            statement_slug = _naming_slug(fm.get("statement") or "")
+            if len(stem) > 72:
+                out.append(_f(
+                    ctx, "S022", rec.path,
+                    f"Doctrine basename is {len(stem)} characters; maximum is 72",
+                ))
+            if not stem.startswith(prefix) or not filename_slug or not (
+                statement_slug == filename_slug
+                or statement_slug.startswith(filename_slug + "-")
+            ):
+                out.append(_f(
+                    ctx, "S022", rec.path,
+                    "Doctrine filename must be a whole-word prefix of its statement",
+                ))
+            if statement:
+                first = statements.get(statement)
+                if first:
+                    out.append(_f(ctx, "S022", rec.path,
+                                  "exact normalised doctrine statement duplicates %s"
+                                  % first))
+                else:
+                    statements[statement] = identifier or rec.path
+            if (fm.get("authority") == "binding"
+                    and fm.get("basis") == "decision"
+                    and not fm.get("accepted_adr")
+                    and not rec.path.startswith(_BINDING_DECISION_EXEMPT)):
+                out.append(_f(ctx, "S022", rec.path,
+                              "decision-only binding Doctrine needs an accepted_adr "
+                              "or must be authority: default"))
+            continue
+
+        body = rec.fm.body
+        for heading in WARGAME_HEADINGS:
+            if not re.search(r"(?m)^## %s\s*$" % re.escape(heading), body):
+                out.append(_f(ctx, "S022", rec.path,
+                              "Wargame is missing section: %s" % heading))
+        options = re.search(
+            r"(?ms)^## Options\s*$\n(.*?)(?=^## |\Z)", body,
+        )
+        if options is None or len(re.findall(r"(?m)^### ", options.group(1))) < 2:
+            out.append(_f(ctx, "S022", rec.path,
+                          "Wargame needs at least two materially different options"))
+
+        doctrines = fm.get("applicable_doctrines") or []
+        if isinstance(doctrines, str):
+            doctrines = [doctrines]
+        relations = fm.get("relations") or []
+        if isinstance(relations, str):
+            relations = [relations]
+        for target, expected in [
+            *[(value, "doctrine") for value in doctrines],
+            *[(value, "relation") for value in relations],
+        ]:
+            resolved = resolver.resolve(str(target))
+            if resolved is None or resolved.state != "live" or resolved.kind != expected:
+                out.append(_f(ctx, "S022", rec.path,
+                              "%s reference does not resolve to a live %s: %s"
+                              % (kind, expected, target)))
+        modes = set(fm.get("scenario_modes") or [])
+        if "conflict" in modes and (len(doctrines) < 2 or not relations):
+            out.append(_f(ctx, "S022", rec.path,
+                          "conflict Wargame needs at least two Doctrines and one DREL"))
+        if "gap" in modes and not fm.get("gap_domain"):
+            out.append(_f(ctx, "S022", rec.path,
+                          "gap Wargame needs gap_domain"))
+
+    relation_schema = "kernel/schemas/doctrine-relation.schema.json"
+    relation_root = model.root / "packs"
+    if relation_root.is_dir():
+        for path in sorted(relation_root.glob("*/relations/DREL-*.json")):
+            rel = path.relative_to(model.root).as_posix()
+            try:
+                document = json.loads(path.read_text(encoding="utf-8"))
+            except ValueError as exc:
+                out.append(_f(ctx, "S022", rel,
+                              "invalid relation JSON: %s" % exc))
+                continue
+            out.extend(_schema_errors(model, relation_schema, document, rel, ctx))
+
+    for document_path, schema_path in KNOWLEDGE_JSON_SCHEMAS.items():
+        raw = model.read(document_path)
+        if raw is None:
+            continue
+        try:
+            document = json.loads(raw)
+        except ValueError as exc:
+            out.append(_f(ctx, "S022", document_path,
+                          "invalid JSON: %s" % exc))
+            continue
+        out.extend(_schema_errors(model, schema_path, document,
+                                  document_path, ctx))
+
+    rulings_schema = "kernel/schemas/rulings.schema.json"
+    for path in sorted(model.root.glob("examples/**/docs/RULINGS.json")):
+        rel = path.relative_to(model.root).as_posix()
+        try:
+            document = json.loads(path.read_text(encoding="utf-8"))
+        except ValueError as exc:
+            out.append(_f(ctx, "S022", rel, "invalid Rulings JSON: %s" % exc))
+            continue
+        out.extend(_schema_errors(model, rulings_schema, document, rel, ctx))
     return out

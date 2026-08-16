@@ -1,21 +1,30 @@
 ---
+id: WG-EOS-001
 summary: What scale of organisational machinery does this venture compile, S or ORG?
-kind: guide
+kind: wargame
+type: wargame
+tags: [eos, wargame]
+scenario_modes: [selection, gap]
+gap_domain: inception
+applies_when: [runs_agents]
+engages_when: [operator_requests_wargame]
+consequence: high
+relations: []
+always_walk: true
 scope: eos-internal
 authority: default
-lifecycle: active
 basis: local-observation
 evidence_grade: observational
 volatility: slow
+sources: [kernel/SCALE_MATRIX.md]
 review: 2027-07
-type: wargame
-tags: [eos, wargame]
-status: active
+lifecycle: active
+generated_by: tools.eos.migrate_wargames
 ---
 
 # WG-EOS-001: What scale of organisational machinery does this venture compile?
 
-## The question
+## Decision question and stakes
 
 Every Session 0 compiles a seed from the kernel, and the seed's size is
 the single largest ceremony decision the venture ever takes. Too small
@@ -24,7 +33,11 @@ ceremony kills small work (the failure mode the EOS was built against).
 The scale is ruled once at inception and re-ruled only through rescale
 when a trigger changes.
 
-## It depends on
+## Doctrines or coverage gap under pressure
+
+This inception fork covers a gap before pack Doctrine is activated. It is always walked because venture scale and repository shape decide which later rules can be loaded safely.
+
+## Preconditions and engagement triggers
 
 - Lifespan: a weekend artefact or a going concern?
 - Server state or auth: does anything persist or log in?
@@ -33,32 +46,35 @@ when a trigger changes.
 - Ops burden: does anything need deploying, monitoring, backing up?
 - A second human: does anyone besides the operator hold decisions?
 
+Applicability is `runs_agents`. Engagement is `operator_requests_wargame`. This is an always-walk decision.
+
 ## Options
 
-### S. Fourteen files, no org
-Routers, operators guide, brief, lock-book, feedback, compile report,
-policy and task list, plus the five blank Genesis forms. Seven of the
-fourteen are operating surface; kernel/SCALE_MATRIX.md holds the list
-and the accounting. One human, one task surface, no charters, no
-integrator tooling. Costs nothing to run; offers no separation of
-duties and no compliance machinery.
+### S. Small venture shape
 
-### ORG. The full shape
-Twenty-five files. Adds the constitution, the boot file, the testing
-law, the artefact shapes, the questions file, the playbooks, the
-wide-build file, the three situational charters (EXECUTOR, ORACLE,
-REVIEWER), the cadence file and the claims file. Work becomes task
-records with derived views; separation of duties exists where the
-router asks for it. Verification bandwidth becomes the limiting
-resource.
+The S column in `kernel/SCALE_MATRIX.md` defines the seed and operating
+surface. It carries one human and one task surface without organisational
+charters or integrator tooling. It costs little to run, but offers no
+separation of duties or compliance machinery.
 
-## Why two options and not four
+### ORG. Organisational shape
 
-v1 offered S, M and L. The live matrix, kernel/SCALE_MATRIX.md, carries
-S and ORG only, so the fork is two-way and an existing M or L venture
-reads as ORG at its next recompile. The trigger set and the decision
-rule below are unchanged; only the destination of the heavier answers
-moved. That is why two of the worked rulings still say L and M.
+The ORG column in `kernel/SCALE_MATRIX.md` defines the larger seed and
+operating surface. It adds the constitution, boot and testing law,
+artefact shapes, questions, playbooks, graph build, situational roles,
+cadence and claims. Work becomes task records with derived views and can
+separate duties where the router requires it. Verification bandwidth
+becomes the limiting resource.
+
+## Failure premises
+
+### Premortem for S. Small venture shape
+
+Assume `S. Small venture shape` was selected and the outcome failed. Test this option's stated failure mechanism first: little to run, but offers no separation of duties or compliance machinery.
+
+### Premortem for ORG. Organisational shape
+
+Assume `ORG. Organisational shape` was selected and the outcome failed. Test this option's stated failure mechanism first: The ORG column in `kernel/SCALE_MATRIX.md` defines the larger seed and operating surface. It adds the constitution, boot and testing law, artefact shapes, questions, playbooks, graph build, situational roles, cadence and claims. Work becomes task records with derived views and can separate duties where the router requires it. Verification bandwidth becomes the limiting resource.
 
 ## Decision rule
 
@@ -73,22 +89,35 @@ moment regulated data appears; see the matrix). Torn between the two,
 take S and write the rescale condition into the lock-book; rescale is
 cheap and deliberate, over-ceremony is a standing tax.
 
-## Default
+## Safe default
 
 The smallest scale the triggers allow. Ceremony must be earned by
 risk, never by ambition.
 
-## Worked rulings
+## Cheapest discriminating test
 
-- **Venture A (2026-07, argued)**: L. All six triggers fire: contracted
-  money, live UK data duties, auth and server state, an AWS estate, a
-  second human joined and held decisions, multi-year lifespan. Landed in
-  the reseed lock-book header, and reads as ORG at its v2 recompile.
-- **PatterTech_Website (2026-07, argued)**: S. Static brochure and
-  journal, no state, no money, one human; ruled retroactively at EOS
-  creation, recorded in registry/PROJECTS.md. Rescale condition: any
-  server-handled form or reader accounts.
-- **Venture C (2026-07, argued)**: M. Standing ops fires because the LAN
-  rig deploys from the tree; personal data stays silent because the only
-  recordings are the operator's own. Reads as ORG at its v2 recompile
-  with no change of argument.
+Settle this question with the smallest representative probe: **Lifespan: a weekend artefact or a going concern?** Compare only the option branches that answer changes, using the decision rule above as the oracle. Stop when the result rules at least one credible option in or out.
+
+## Fallback, exit and revisit
+
+**Fallback `safe-default`:** The smallest scale the triggers allow. Ceremony must be earned by risk, never by ambition.
+
+**Exit condition:** Stop or roll back the selected branch when little to run, but offers no separation of duties or compliance machinery, or when its stated preconditions cease to hold.
+
+**Revisit trigger:** Run this Wargame again when the answer to this question changes: Lifespan: a weekend artefact or a going concern?
+
+## Counter-evidence and transfer limits
+
+### Preserved reasoning: Why two options and not four
+
+v1 offered S, M and L. The live matrix, kernel/SCALE_MATRIX.md, carries
+S and ORG only, so the fork is two-way and an existing M or L venture
+reads as ORG at its next recompile. The trigger set and the decision
+rule below are unchanged; only the destination of the heavier answers
+moved. That is why two of the worked rulings still say L and M.
+### Historical ruling boundary
+
+The baseline file carried 3 worked ruling notes. They are not copied into this live Wargame because they record a selection but do not carry both a privacy-reviewed harvest and an independently verifiable execution outcome. The immutable source remains available at commit `7f56e4e22378323cf58318fe051d26b5afa8c35f` for historical provenance. No `RUL-*` record was admitted from this procedure.
+### Transfer limit
+
+Use this decision rule only where its applicability holds and the representative test matches the venture's users, scale and failure cost. The cited evidence and prior arguments establish decision factors, not a universal outcome. Revisit on contrary evidence, a changed pressure fact or a changed Doctrine lifecycle.

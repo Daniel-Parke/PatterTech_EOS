@@ -1,21 +1,26 @@
 ---
-summary: Licensing, inbound provenance and UK data-protection routing for a venture, and the four situations that stop and go to a lawyer
-type: playbook
+summary: Activation, outcomes and decision map for the legal-licensing Doctrine and Wargames
+type: pack
 tags: [security, pii, delivery]
-kind: rule
-authority: binding
+kind: record
+authority: none
 lifecycle: active
-basis: standard
-evidence_grade: observational
+basis: decision
+evidence_grade: not-applicable
 scope: estate
 applies_when: [adds_dependency, vendors_code, publishes_code, hosts_service, accepts_contribution, handles_personal_data, studies_external_source]
 activation_paths: [**/LICENCE*, **/LICENSE*, **/NOTICE*, **/requirements*.txt, **/package-lock.json, **/uv.lock, **/Cargo.lock, **/pyproject.toml, **/*privacy*, **/*terms*]
 volatility: slow
-review: 2027-04
+review: none
 sources: [EV-0041, EV-0069, EV-0225, EV-0337, EV-0338, EV-0339, EV-0340, EV-0341, EV-0342, EV-0343, EV-0344, EV-0345, EV-0346, EV-0347, EV-0348, EV-0349, EV-0350, EV-0351, EV-0352]
+display_name: Licensing and Legal Boundaries
+category: practice-governance
+id_namespace: LEGAL
+depends_on: [security-privacy]
 ---
 
-# legal-licensing
+
+# Licensing and Legal Boundaries
 
 This pack routes a venture's legal and licensing questions: what a
 dependency's licence lets us ship, what our repositories declare, where
@@ -108,246 +113,65 @@ EV-0343). It does not own the Study workflow: how a source is chosen,
 read and turned into a lesson belongs to that playbook, and this pack
 owns only what may lawfully be carried out of it.
 
-## Requirements
+## Doctrine
 
-Seven numbered requirements. Four bind and three are defaults, after the
-authority audit under ADR-0008: a rule stays binding only where it
-prevents a serious or hard-to-reverse failure and rests on law, a
-standard, evidence or a safety floor. A default is not a suggestion.
-Departing from one leaves a written reason in the venture's lock-book,
-and the monthly pass samples those reasons. The numbers do not move,
-because `packs/legal-licensing/CHECKS.md`, the guides and the worked
-example all cite them.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-| Id | Authority | Basis | Why it landed there |
-| --- | --- | --- | --- |
-| B1 | default | standard | a missing licence file is fixed by a later commit |
-| B2 | binding | standard | code shipped with no right to ship it cannot be un-shipped |
-| B3 | default | standard | an unresolved choice can be resolved later |
-| B4 | binding | standard | the remedy is relicensing or removing a load-bearing component |
-| B5 | binding | law | data collected without a lawful notice stays collected |
-| B6 | default | decision | the estate ruled it; no source measures the alternatives |
-| B7 | binding | safety floor | consequential external actions and data protection |
-
-Three artefacts are named, because a rule pointing at an unnamed
-document is not checkable. The **inventory** is the machine-produced
-list of components and their licence expressions. `LICENCE_DECISION.md`
-at the venture root is the **decision record**, one dated entry per
-finding. The **privacy notice** is a file in the repository, published
-where the person giving the data can read it.
-
-**B1. Every repository declares its own licence.** `publishes_code`. A
-licence file at the root and a declared SPDX expression in the project
-manifest, using an identifier from the list or an explicit `LicenseRef`
-(EV-0337). Reason: silence means exclusive copyright, and the hosting
-platform's terms grant no right to use or redistribute (EV-0348), so a
-repository published without one is unusable by the people it was
-published for. Depart only where nothing is published. Authority:
-default, because the repair is a later commit adding the file. Basis:
-standard.
-
-**B2. No dependency enters without a recorded licence expression, and
-absence is a blocking finding.** `adds_dependency`, `vendors_code`. Each
-component in the inventory carries an SPDX expression. A value of
-`NOASSERTION`, `NONE` or empty blocks the merge until it is resolved or
-named in `LICENCE_DECISION.md` (EV-0338). The entry
-names the path, states that no licence was found, and states that this
-means exclusive copyright rather than an unknown to fill in later
-(EV-0348). Authority: binding. Basis: standard.
-
-**B3. An OR expression is resolved to one identifier before merge.**
-`adds_dependency`. `MIT OR GPL-2.0-only` is a choice the project has to
-make and record; the raw expression never survives into the inventory
-verdict column (EV-0338). Reason: an unmade choice carried into a
-shipped artefact leaves the obligations that apply undetermined, and
-nobody can tell later which branch was relied on. Depart only where the
-expression is still being negotiated, and say so in the entry.
-Authority: default, because the choice can still be made after the
-merge. Basis: standard.
-
-**B4. Copyleft entering anything we ship or host takes a written
-decision before merge, not at release.** `hosts_service`,
-`publishes_code`, `adds_dependency`. The entry in `LICENCE_DECISION.md`
-names the component, its exact identifier, the event that would fire the
-obligation, in the words distribution, network interaction or
-combination, and the disposition.
-
-Where the same component also trips an escalation trigger under B7, and
-copyleft entering something we host in modified form trips both, the
-disposition is the single word `referred` plus the handover reference.
-The entry is still written and still names the component, the identifier
-and the event, because those are facts the agent can establish; what it
-must not do is supply the answer. Read on its own, B4 asks for a
-disposition and B7 forbids the agent from reaching one, and an agent
-obeying each in turn fails whichever check it satisfies second. The
-`referred` disposition is what satisfies both, and the lawyer's answer
-replaces it when it arrives. A drill found the collision.
-
-AGPL section 13 attaches to a modified
-version reached by users remotely over a network, with nothing
-distributed (EV-0341). Prevents
-the standard miss: a policy written around source and binary
-distribution is silent on a hosted service, which is the shape most
-ventures ship (EV-0342, scoped to one foundation's
-promise about its own releases). Authority: binding. Basis: standard.
-
-**B5. Before any personal data is processed, the notice and the
-registration are both done.** `handles_personal_data`. The privacy
-notice file exists before the collecting surface ships, and carries
-every Article 13 item, including both statutory complaint routes, to
-the controller and to the Commissioner
-(EV-0349, EV-0225). Separately, the registration
-self-assessment is run and its outcome recorded, either the charge paid
-or the schedule exemption named (EV-0350). Prevents two
-independent failures: collecting data with no lawful notice, and
-missing a charge duty that exists whatever the notice says. Authority:
-binding. Basis: law.
-
-**B6. Inbound work carries a provenance assertion.**
-`accepts_contribution`. One sign-off line per commit, in the form the
-certification defines, a real name and a reachable address, checked by
-a hook (EV-0345). Agent-written commits are included, because
-authorship of machine output is unsettled and provenance is the part we
-can record (EV-0352). Reason: code of unknown origin becomes
-load-bearing before anyone asks where it came from, and the history is
-the only place the answer keeps. Depart where every contributor is
-covered by an engagement that already grants the rights, and record
-that in the lock-book. Authority: default, because the estate ruled
-this and no source compares the alternatives on outcomes; see the open
-question about contributor agreements below. Basis: decision.
-
-**B7. Consequential questions stop here and go to a lawyer.** All
-predicates. Four triggers, all cheap to detect: copyleft code entering
-something we distribute or host in modified form; any relicensing,
-licence change or transfer of contributor rights; any personal data
-leaving the UK, or any regulator contact including a data subject
-complaint that escalates; and any letter alleging infringement. On a
-trigger the agent records the facts, stops, and routes to a human
-lawyer. Prevents a confident wrong answer in the one place where being
-wrong is expensive and no source read settles it. Authority: binding,
-and the audit under ADR-0008 kept it there as a safety floor rather
-than on its basis field: three of the four triggers are consequential
-external actions or data protection, and `kernel/GUARD_SPEC.md` already
-rules accepting legal terms manual-only. Basis: decision. See
-`packs/legal-licensing/refs/ESCALATION.md`.
-
-## Defaults
-
-Each applies unless the venture's lock-book records a reason to depart.
-B1, B3 and B6 above are defaults too. They keep their B numbers because
-the checks, the guides and the worked example cite them by number, and
-renaming an id to record a change of authority breaks every reference
-to buy nothing.
-
-**D1. A three-bucket allowlist keyed on identifiers, with the reason
-written next to each bucket.** Freely usable, usable under stated
-conditions, never. Decided once, applied mechanically, enforced in CI.
-Reason: high volume and low stakes per item is exactly what a standing
-verdict is for (EV-0342). Import the shape, not the
-categories: the published example bans a licence family outright to
-keep a promise about permissive releases, and a venture that makes no
-such promise inherits a rule that blocks safe dependencies. See
-`packs/legal-licensing/refs/LICENCE_CLASSES.md`.
-
-**D2. The scanner produces the inventory and a person produces the
-verdict.** A licence scan is wired as an inventory step routed to a
-human, never as a gate that passes silently
-(EV-0346). Reason: detection compares texts against a
-curated database and reports what a file claims about itself, which is
-not a compliance result. Scope note: the accuracy claim on that project
-is a vendor claim with no published figure, and accuracy is not
-portable between codebases anyway.
-
-**D3. Per-file declaration for anything published.** Tags in file
-headers, a sibling file where a comment cannot go, full texts in a
-`LICENSES/` directory, bulk cases by glob, and a lint step in CI
-(EV-0344). Reason: it is the only pattern here a cold
-agent satisfies without judgement. Cost: real per-file overhead on a
-small repository, which is why repository-level declaration is the
-default for anything unpublished. A green lint proves declarations are
-present and consistent, never that they are correct.
-
-**D4. Permissive outbound unless there is a stated reason to
-reciprocate**, chosen against the ten criteria first
-(EV-0339) and the drafting rating second
-(EV-0343). Reason: the outbound licence is a promise,
-and the cheapest promise to keep has the fewest conditions. See
-`packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md`.
-
-**D5. Vendored code carries its licence text and a provenance note at
-the moment it is copied.** Where it came from, which revision, which
-licence, who copied it. Reason: nothing later reconstructs this, and a
-directory with no licence file is the hardest finding to clear
-(EV-0348).
-
-**D6. Ceremony scales with risk to people.** A full impact assessment is
-for high-risk processing (EV-0041). Reason: a venture that writes one
-for every form stops writing them.
-
-**D7. Record the EU market position once, with the reasoning, and
-re-check it before 2026-09-11 and before 2027-12-11**
-(EV-0351).
-
-**D8. The routing loop has a budget, and the run records what it
-spent.** One inventory pass, one decision pass, one re-check after the
-fix. A run that has not converged inside that budget escalates rather
-than iterating. Reason: this is a decision rather than evidence, and it
-prevents exhaustive flailing that reads as diligence.
-
-**D9. Nothing is studied until how it was acquired, the terms attached
-to it and the governing law are written down.** `studies_external_source`.
-One row per source, before it is read: what the artefact is and at
-which version, how we got it, the licence or terms of service that came
-with it, and which country's law those terms are read under. Reason:
-how the source was acquired is what decides whether the study was
-lawful, and a public repository being forkable grants no right to use
-what is in it (EV-0348). Record the identifier where the source carries
-one (EV-0337). See
-`packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md`.
-
-**D10. The session that reads the source and the lanes that build are
-different, and the build lanes get the lesson, never the source.**
-`studies_external_source`. Reason: similarity plus access is what an
-infringement argument is made of, so the cheapest defence is that the
-people who wrote the replacement never saw the original. A machine
-reimplementation is not presumed clean either, because the model may
-have been trained on the source and authorship of machine output is
-unsettled (EV-0352). Where real code is carried rather than a lesson,
-it is declared per file at the moment it lands (EV-0344) and it stops
-being a study and becomes a vendored dependency under D5 and B2.
-
-## Preferences
-
-Taste. Depart freely, no reason needed.
-
-- MIT for a small library with no patent exposure, Apache-2.0 where
-  patents matter, with the drafting rating as the tiebreak between
-  otherwise equal candidates (EV-0343).
-- Which scanner. The inventory matters, the tool does not
-  (EV-0346).
-- The process-certification checklist read once as a prompt about
-  sustainability, which is the only part of it a one-person venture
-  cannot answer trivially (EV-0347).
-- Notice wording and reading level. The checklist is fixed, the prose is
-  not (EV-0349).
-- Whether the repository's own automated health checks watch for the
-  licence file, which reads the repository's actual state rather than
-  its self-description (EV-0069).
+<a id="B1"></a>
+- `B1` to [DOC-LEGAL-001](doctrines/DOC-LEGAL-001-every-repository-declares-its-own-licence.md) (default)
+<a id="B2"></a>
+- `B2` to [DOC-LEGAL-002](doctrines/DOC-LEGAL-002-no-dependency-enters-without-a-recorded-licence-expression.md) (binding)
+<a id="B3"></a>
+- `B3` to [DOC-LEGAL-003](doctrines/DOC-LEGAL-003-an-or-expression-is-resolved-to-one-identifier-before.md) (default)
+<a id="B4"></a>
+- `B4` to [DOC-LEGAL-004](doctrines/DOC-LEGAL-004-copyleft-entering-anything-we-ship-or-host-takes-a-written.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-LEGAL-005](doctrines/DOC-LEGAL-005-before-any-personal-data-is-processed-the-notice-and-the.md) (binding)
+<a id="B6"></a>
+- `B6` to [DOC-LEGAL-006](doctrines/DOC-LEGAL-006-inbound-work-carries-a-provenance-assertion.md) (default)
+<a id="B7"></a>
+- `B7` to [DOC-LEGAL-007](doctrines/DOC-LEGAL-007-consequential-questions-stop-here-and-go-to-a-lawyer.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-LEGAL-008](doctrines/DOC-LEGAL-008-a-three-bucket-allowlist-keyed-on-identifiers-with-the.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-LEGAL-009](doctrines/DOC-LEGAL-009-the-scanner-produces-the-inventory-and-a-person-produces.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-LEGAL-010](doctrines/DOC-LEGAL-010-per-file-declaration-for-anything-published.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-LEGAL-011](doctrines/DOC-LEGAL-011-permissive-outbound-unless-there-is-a-stated-reason-to.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-LEGAL-012](doctrines/DOC-LEGAL-012-vendored-code-carries-its-licence-text-and-a-provenance.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-LEGAL-013](doctrines/DOC-LEGAL-013-ceremony-scales-with-risk-to-people.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-LEGAL-014](doctrines/DOC-LEGAL-014-record-the-eu-market-position-once-with-the-reasoning-and.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-LEGAL-015](doctrines/DOC-LEGAL-015-the-routing-loop-has-a-budget-and-the-run-records-what-it.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-LEGAL-016](doctrines/DOC-LEGAL-016-nothing-is-studied-until-how-it-was-acquired-the-terms.md) (default)
+<a id="D10"></a>
+- `D10` to [DOC-LEGAL-017](doctrines/DOC-LEGAL-017-the-session-that-reads-the-source-and-the-lanes-that-build.md) (default)
+- source `preferences:001` to [DOC-LEGAL-018](doctrines/DOC-LEGAL-018-mit-for-a-small-library-with-no-patent-exposure-apache-2-0.md) (preference)
+- source `preferences:002` to [DOC-LEGAL-019](doctrines/DOC-LEGAL-019-which-scanner.md) (preference)
+- source `preferences:003` to [DOC-LEGAL-020](doctrines/DOC-LEGAL-020-the-process-certification-checklist-read-once-as-a-prompt.md) (preference)
+- source `preferences:004` to [DOC-LEGAL-021](doctrines/DOC-LEGAL-021-notice-wording-and-reading-level.md) (preference)
+- source `preferences:005` to [DOC-LEGAL-022](doctrines/DOC-LEGAL-022-whether-the-repositorys-own-automated-health-checks-watch.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| Can we use this dependency for what we actually ship | Whether copyleft triggers here at all | `packs/legal-licensing/guides/GD-LEGAL-001-copyleft-trigger.md` |
-| How does this venture decide licence questions at all | Standing verdict, per-file declaration, certified process, or scan and review | `packs/legal-licensing/guides/GD-LEGAL-002-compliance-posture.md` |
-| What licence does this repository carry outbound | The promise we make downstream | `packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md` |
-| How do inbound rights arrive | Sign-off, agreement, employment, or nothing | `packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md` |
-| What may a study carry away from a source we do not own | Black box, filtered reading, licensed carriage, or nothing | `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md` |
+| Can we use this dependency for what we actually ship | Whether copyleft triggers here at all | `packs/legal-licensing/wargames/WG-LEGAL-001-copyleft-trigger.md` |
+| How does this venture decide licence questions at all | Standing verdict, per-file declaration, certified process, or scan and review | `packs/legal-licensing/wargames/WG-LEGAL-002-compliance-posture.md` |
+| What licence does this repository carry outbound | The promise we make downstream | `packs/legal-licensing/wargames/WG-LEGAL-003-outbound-licence.md` |
+| How do inbound rights arrive | Sign-off, agreement, employment, or nothing | `packs/legal-licensing/wargames/WG-LEGAL-004-inbound-rights.md` |
+| What may a study carry away from a source we do not own | Black box, filtered reading, licensed carriage, or nothing | `packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md` |
 
-Level-three detail sits in `packs/legal-licensing/refs/`: the licence
+Level-three detail sits in `packs/legal-licensing/references/`: the licence
 classes and their buckets, the escalation triggers and the handover,
 and UK data routing. A worked run is in
-`packs/legal-licensing/exemplars/`.
+`packs/legal-licensing/examples/`.
 
 ## Failure modes and anti-patterns
 
@@ -423,14 +247,14 @@ not finished (EV-0352). No equivalent UK determination
 was located at this cutoff, so this is unresolved rather than unread.
 Record provenance; do not assume authorship.
 
-**The extraction guide rests on case law, not on measurement.** D9, D10
-and `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md`
+**The extraction Wargame rests on case law, not on measurement.** D9, D10
+and `packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md`
 turn on decided cases and on one advocacy organisation's clean-room
 practice, now ledgered as EV-0496 to EV-0504 with court, year and
 holding. Two of the nine are tertiary summaries rather than the
 opinions, most are United States authority, and none has been tested
 against a United Kingdom judgment. That is weaker than the rest of the
-pack and the guide says so.
+pack and the Wargame says so.
 
 **Scanner accuracy is unmeasured.** No figure was found for any
 detector, and scanning a repository that declares per file is a

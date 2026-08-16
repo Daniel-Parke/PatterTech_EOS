@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/stack-probe.schema.json",
+  "title": "Dated stack interoperability probe",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "run_id", "task", "executed", "environment", "probes"],
+  "properties": {
+    "version": {"const": 1},
+    "run_id": {"type": "string", "pattern": "^STACK-PROBE-[A-Z0-9-]+$"},
+    "task": {"type": "string", "pattern": "^T-\\d{4}$"},
+    "executed": {"type": "string", "format": "date"},
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "platform"],
+      "properties": {
+        "python": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1}
+      }
+    },
+    "probes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "script", "command", "versions", "assertions", "result_sha256", "timings_ns", "limits"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "script": {"type": "string", "pattern": "^registry/stacks/probes/.+\\.py$"},
+          "command": {"type": "string", "minLength": 1},
+          "versions": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string"}},
+          "assertions": {"type": "object", "minProperties": 1, "additionalProperties": {"const": true}},
+          "result_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "timings_ns": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "integer", "minimum": 1}},
+          "limits": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

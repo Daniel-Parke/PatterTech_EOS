@@ -1,21 +1,26 @@
 ---
-summary: Architecture pack for boundaries declared and machine-checked, generated contracts drift-gated, webhooks verified over raw bytes, and one deployable with one database until measured evidence says otherwise
-kind: rule
-authority: binding
+summary: Activation, outcomes and decision map for the architecture Doctrine and Wargames
+kind: record
+authority: none
 lifecycle: active
 basis: decision
-evidence_grade: observational
+evidence_grade: not-applicable
 scope: estate
 applies_when: [has_server_code, has_multiple_modules, has_database, has_cross_language_contract, has_vendor_holding_identity_or_money]
 activation_paths: [**/.importlinter, **/.dependency-cruiser*, **/adr/**, **/decisions/**, **/migrations/**, **/*arc42*, **/*c4*, **/services/**, **/modules/**]
 volatility: slow
-review: 2027-02
+review: none
 sources: [EV-0010, EV-0023, EV-0024, EV-0025, EV-0057, EV-0097, EV-0098, EV-0099, EV-0100, EV-0101, EV-0102, EV-0146, EV-0147, EV-0148, EV-0149, EV-0150, EV-0151, EV-0152, EV-0153, EV-0154, EV-0155, EV-0156, EV-0157, EV-0158, EV-0159, EV-0160, EV-0161, EV-0162, EV-0163]
-type: guide
+type: pack
 tags: [arch, data, infra, tooling, ci]
+display_name: Software Architecture
+category: engineering
+id_namespace: ARCH
+depends_on: [business-logic-modelling]
 ---
 
-# Architecture
+
+# Software Architecture
 
 This pack covers structure inside a venture's own code: where module
 boundaries live and how they are enforced, which decisions get written
@@ -81,185 +86,75 @@ infrastructure, rule on test strategy or deployment platform, or design
 your domain model for you. It does not claim a shape is right; it claims
 a declared shape must be enforced and a closed door must be recorded.
 
-## Binding requirements
+## Doctrine
 
-Three. Each names the failure it prevents and the evidence it stands on.
-Everything else in this pack is a default or a preference and can be
-argued with in a paragraph.
+Standing rules are atomic Doctrine files. The labels below are stable
+compatibility anchors; they do not encode authority.
 
-The authority audit under ADR-0008 moved two of the original five to
-defaults. The decision-record rule is now D11, because its own format
-source records that no measurement shows decision records improve
-outcomes. The reproducible-build rule is now D12, because what it named
-was a missing capability rather than a serious or irreversible failure.
-The three that stayed keep their numbers, so the citations in the
-guides, refs, checks and exemplar still resolve, which is why the list
-below runs B1, B4, B5.
+<a id="B1"></a>
+- `B1` to [DOC-ARCH-001](doctrines/DOC-ARCH-001-a-declared-boundary-is-machine-checked-in-ci-from-the-first.md) (binding)
+<a id="B4"></a>
+- `B4` to [DOC-ARCH-002](doctrines/DOC-ARCH-002-generated-contract-artefacts-are-produced-deterministically.md) (binding), [DOC-ARCH-003](doctrines/DOC-ARCH-003-a-typed-client-verifies-that-a-response-succeeded-before.md) (binding)
+<a id="B5"></a>
+- `B5` to [DOC-API-002](../api-integration/doctrines/DOC-API-002-webhook-receivers-authenticate-the-exact-raw-request-before.md) (binding)
+<a id="D1"></a>
+- `D1` to [DOC-ARCH-004](doctrines/DOC-ARCH-004-one-deployable-one-database-modules-enforced-in-the-build.md) (default)
+<a id="D2"></a>
+- `D2` to [DOC-ARCH-005](doctrines/DOC-ARCH-005-split-only-on-a-measured-signal-never-on-a-label.md) (default)
+<a id="D3"></a>
+- `D3` to [DOC-ARCH-006](doctrines/DOC-ARCH-006-boundary-tool-matched-to-the-stack.md) (default)
+<a id="D4"></a>
+- `D4` to [DOC-ARCH-007](doctrines/DOC-ARCH-007-c4-container-and-component-views-authored-in-structurizr.md) (default)
+<a id="D5"></a>
+- `D5` to [DOC-ARCH-008](doctrines/DOC-ARCH-008-derived-values-are-computed-not-stored.md) (default)
+<a id="D6"></a>
+- `D6` to [DOC-ARCH-009](doctrines/DOC-ARCH-009-background-jobs-run-on-a-durable-database-claim-queue.md) (default)
+<a id="D7"></a>
+- `D7` to [DOC-ARCH-010](doctrines/DOC-ARCH-010-identity-money-and-handover-bound-vendors-sit-behind-an.md) (default)
+<a id="D8"></a>
+- `D8` to [DOC-ARCH-011](doctrines/DOC-ARCH-011-one-database-until-a-second-real-owner-or-a-volume.md) (default)
+<a id="D9"></a>
+- `D9` to [DOC-ARCH-012](doctrines/DOC-ARCH-012-every-persisted-table-names-its-consumer-and-its-retention.md) (default)
+<a id="D10"></a>
+- `D10` to [DOC-ARCH-013](doctrines/DOC-ARCH-013-proof-of-harmless-change-is-a-byte-stable-output-canary.md) (default)
+<a id="D11"></a>
+- `D11` to [DOC-ARCH-014](doctrines/DOC-ARCH-014-a-decision-that-closes-a-door-is-recorded-as-a-madr-record.md) (default)
+<a id="D12"></a>
+- `D12` to [DOC-ARCH-015](doctrines/DOC-ARCH-015-builds-are-reproducible-from-pinned-inputs-and-verified-by.md) (default)
+- source `preferences:001` to [DOC-ARCH-016](doctrines/DOC-ARCH-016-run-a-bounded-context-canvas-and-a-context-mapping-pass.md) (preference)
+- source `preferences:002` to [DOC-ARCH-017](doctrines/DOC-ARCH-017-create-a-port-only-where-a-second-driver-or-a-second-device.md) (preference)
+- source `preferences:003` to [DOC-ARCH-018](doctrines/DOC-ARCH-018-name-the-specific-event-pattern-in-use-rather-than-saying.md) (preference)
+- source `preferences:004` to [DOC-ARCH-019](doctrines/DOC-ARCH-019-raw-sql-behind-a-repository-layer-over-an-orm-when-the-data.md) (preference)
+- source `preferences:005` to [DOC-ARCH-020](doctrines/DOC-ARCH-020-defer-domain-grouping-and-per-domain-gateways-until-service.md) (preference)
 
-**B1. A declared boundary is machine-checked in CI from the first
-week.** The contract lives in a committed file and a crossing fails the
-build. Evidence: import-linter (EV-0147), dependency-cruiser (EV-0148)
-and ArchUnit (EV-0146) all show the same thing, that the contract file
-makes the intended architecture reviewable rather than folklore.
-Prevents: quiet, one-way boundary erosion. MacCormack et al. (EV-0154)
-is the mechanism, since structure mirrors the communication structure
-that built it, and for a one-person or agent-run codebase the untreated
-prediction is a single tightly coupled artefact. The ADR-0008 audit kept
-this one binding on a close call: erosion is genuinely hard to reverse,
-which is the test, and EV-0154 is peer-reviewed empirical evidence for
-the mechanism. What it is not is evidence that the intervention works in
-a codebase this small, and the open questions below say so. If the audit
-runs again, this is the rule most likely to move.
+### Later evidence-led admissions
 
-**B4. Generated contract artefacts are committed with a drift gate.**
-Schemas, types and clients are generated offline and deterministically,
-committed, and a CI check fails when the committed copy lags its source.
-A typed client checks the response succeeded or it is not a client.
-Evidence: OpenAPI (EV-0023), AsyncAPI (EV-0024), JSON Schema (EV-0025),
-dbt model contracts (EV-0057). Prevents: the silent failure, where a
-renamed field makes a mutation fail and the caller reports success.
+These records were admitted after the frozen source migration.
+Their own metadata is canonical; this map does not restate it.
 
-**B5. A vendor webhook is verified over the raw request bytes, with a
-bounded recency window, before anything parses it.** No framework body
-parsing ahead of verification, non-zero replay tolerance, idempotency
-keys on the handler, and the payload version pinned. Evidence: Stripe
-webhook documentation (EV-0161), paraphrased. Prevents: a forged or
-replayed event accepted as truth, and the specific defect where
-middleware re-serialises the body and destroys the signature. The
-ADR-0008 audit left this one alone even though its only source is
-vendor documentation: verifying the authenticity of an inbound message
-is a security floor, and a floor stays binding whatever its basis field
-says. This is BR-4 of `packs/api-integration/PACK.md`, stated in both
-because the two packs activate on different triggers and a floor cannot
-depend on which one fired. The mechanics belong to that pack and are
-not repeated here: the order of operations, the tolerance, rotation and
-the provider variance that defeats one implementation are in
-`packs/api-integration/refs/webhook-verification.md`.
-
-## Defaults
-
-Chosen unless a recorded decision argues otherwise. Departing is normal;
-departing without writing down why is the finding.
-
-**D1. One deployable, one database, modules enforced in the build.**
-Reason: the module decomposition and the process decomposition are
-separate decisions, and forcing them to be one buys the wrong boundary
-at the highest price (EV-0152, EV-0153). Shopify (EV-0159) is the
-existence proof that a very large codebase can hold boundaries inside
-one process.
-
-**D2. Split only on a measured signal, never on a label.** The signals
-are DORA's: changes needing approval outside the owner, inability to
-test in isolation, and unplanned work caused by upstream change
-(EV-0151). DORA is explicit that the label does not determine the
-outcome.
-
-**D3. Boundary tool matched to the stack.** import-linter for Python,
-dependency-cruiser for TypeScript, ArchUnit for the JVM. Reason: each
-runs in the build the venture already has. See
-`packs/architecture/refs/boundary-tooling.md` for what each one cannot
-see.
-
-**D4. C4 container and component views authored in Structurizr DSL.**
-Reason: one text model generates many views that cannot drift from each
-other (EV-0101, EV-0102). Borrow arc42 headings (EV-0149) only for the
-non-diagram content actually needed, and reach for ISO 42010 vocabulary
-(EV-0158) only when a stakeholder demands that rigour.
-
-**D5. Derived values are computed, not stored.** The two sanctioned
-exceptions are a cache with a named invalidation owner and an immutable
-snapshot carrying its input digest. Reason: a stored derivation drifts
-from its source silently, and a cache without an owner is a slow bug.
-Argued at `packs/architecture/guides/WG-ARCH-003-derived-state.md`.
-
-**D6. Background jobs run on a durable database claim queue.** Reason:
-one store, exactly the database's guarantees, and jobs survive a deploy.
-Argued at `packs/architecture/guides/WG-ARCH-004-job-execution.md`.
-Where a state change must also produce a message, use an outbox in the
-same transaction and make every consumer idempotent (EV-0157).
-
-**D7. Identity, money and handover-bound vendors sit behind an adapter
-the venture owns, with a written exit route.** The venture's own
-database stays the authorisation truth. Reason: the exit cost grows with
-every import site.
-
-**D8. One database until a second real owner or a volume-asymmetric feed
-appears, and records never mingle with readings.** Reason: ownership and
-physical separation are different decisions, and private tables with
-distinct credentials enforce ownership without paying for sagas and
-cross-database joins (EV-0162).
-
-**D9. Every persisted table names its consumer and its retention plan
-before it lands.** Reason: local observation across three ventures that
-unowned tables become unbounded ones. Grade: anecdotal, and it is a
-default for exactly that reason.
-
-**D10. Proof of harmless change is a byte-stable output canary where
-output is deterministic.** Otherwise pin behaviour with characterisation
-tests over the touched surface before changing it. Argued at
-`packs/architecture/guides/WG-ARCH-006-change-proof.md`.
-
-**D11. A decision that closes a door is recorded as a MADR record with
-two or more considered options.** Options, why each lost, consequences
-accepted. Immutable once accepted; reversal is a superseding record.
-MADR (EV-0097) supplies the format, which scales from three lines to
-three pages so ceremony stays opt-in. Reason: silent reversal and
-re-litigation, which cost argument time rather than correctness. This is
-a default rather than binding because its basis is an estate decision
-and MADR itself notes there is no measured evidence that decision
-records improve outcomes. Departing means writing down why this
-particular door can be closed without a record, which is close enough to
-writing the record that most changes will just write it.
-
-**D12. Builds are reproducible from pinned inputs, and verified by
-rebuilding.** Tools are versioned dependencies rather than host
-installations, inputs are identified by content, and where a timestamp
-is embedded the SOURCE_DATE_EPOCH rules apply exactly as written
-(EV-0155, EV-0156). Reason: without it a change cannot be proved
-harmless, because the output was never stable to begin with. This is a
-default rather than binding because what it names is a missing
-capability rather than a serious or irreversible failure, and because
-both sources specify how to reach reproducibility rather than measuring
-what goes wrong without it. Both also state the limit: clamping
-timestamps does not buy reproducibility on its own. Where the build
-produces something a third party installs, the artefact verification
-default in `packs/security-privacy/PACK.md` is the neighbouring rule.
-
-## Preferences
-
-Taste. Argue freely, no record needed.
-
-- Run a Bounded Context Canvas and a Context Mapping pass before
-  declaring a boundary (EV-0098, EV-0099, EV-0100).
-- Create a port only where a second driver or a second device is
-  genuinely plausible. Cockburn's 2005 statement (EV-0150) never bounded
-  this, and an adapter per dependency is ceremony.
-- Name the specific event pattern in use rather than saying
-  event-driven. The four have different costs (EV-0163).
-- Raw SQL behind a repository layer, over an ORM, when the data is hot.
-  Argued at `packs/architecture/guides/WG-ARCH-002-orm-or-raw-sql.md`.
-- Defer domain grouping and per-domain gateways until service count
-  makes them a real problem. Uber reached for them at roughly 2,200
-  services (EV-0160).
+- [WG-ARCH-009](wargames/WG-ARCH-009-messaging-and-flow.md) (Wargame)
+- [WG-ARCH-010](wargames/WG-ARCH-010-storage-engine-selection.md) (Wargame)
+- [WG-ARCH-011](wargames/WG-ARCH-011-locality-and-consistency.md) (Wargame)
+- [WG-ARCH-012](wargames/WG-ARCH-012-capability-ownership.md) (Wargame)
 
 ## Decision map
 
 | Fork | Question | Argued at | Default |
 | --- | --- | --- | --- |
-| Deployment shape | One deployable, several, or contract-shaped seams inside one? | `packs/architecture/guides/GD-ARCH-001-deployment-shape.md` | One deployable, modules enforced |
-| Boundary enforcement | Convention, machine contract, or the tree itself? | `packs/architecture/guides/WG-ARCH-001-boundary-enforcement.md` | Machine contract, rising to tree |
-| Vendor depth | SDK throughout, owned adapter, or raw protocol? | `packs/architecture/guides/WG-ARCH-007-vendor-seams.md` | Owned adapter, raw protocol at webhooks |
-| Data topology | One database, one per service, or records plus readings? | `packs/architecture/guides/WG-ARCH-008-database-topology.md` | One, until a second real owner |
-| Derived state | Computed, cached, or snapshotted? | `packs/architecture/guides/WG-ARCH-003-derived-state.md` | Computed |
-| Job substrate | In-process, database queue, or broker? | `packs/architecture/guides/WG-ARCH-004-job-execution.md` | Database claim queue |
-| Contract seam | Hand-maintained, generated and gated, or one language? | `packs/architecture/guides/WG-ARCH-005-contract-seam.md` | Generated, committed, gated |
-| Change proof | Green suite, pinned behaviour, or byte-stable output? | `packs/architecture/guides/WG-ARCH-006-change-proof.md` | Output canary where deterministic |
-| ORM or SQL | ORM, raw SQL behind repositories, or a builder? | `packs/architecture/guides/WG-ARCH-002-orm-or-raw-sql.md` | Raw SQL behind repositories |
+| Deployment shape | One deployable, several, or contract-shaped seams inside one? | `packs/architecture/wargames/WG-ARCH-013-deployment-shape.md` | One deployable, modules enforced |
+| Boundary enforcement | Convention, machine contract, or the tree itself? | `packs/architecture/wargames/WG-ARCH-001-boundary-enforcement.md` | Machine contract, rising to tree |
+| Vendor depth | SDK throughout, owned adapter, or raw protocol? | `packs/architecture/wargames/WG-ARCH-007-vendor-seams.md` | Owned adapter, raw protocol at webhooks |
+| Data topology | One database, one per service, or records plus readings? | `packs/architecture/wargames/WG-ARCH-008-database-topology.md` | One, until a second real owner |
+| Derived state | Computed, cached, or snapshotted? | `packs/architecture/wargames/WG-ARCH-003-derived-state.md` | Computed |
+| Job substrate | In-process, database queue, or broker? | `packs/architecture/wargames/WG-ARCH-004-job-execution.md` | Database claim queue |
+| Contract seam | Hand-maintained, generated and gated, or one language? | `packs/architecture/wargames/WG-ARCH-005-contract-seam.md` | Generated, committed, gated |
+| Change proof | Green suite, pinned behaviour, or byte-stable output? | `packs/architecture/wargames/WG-ARCH-006-change-proof.md` | Output canary where deterministic |
+| ORM or SQL | ORM, raw SQL behind repositories, or a builder? | `packs/architecture/wargames/WG-ARCH-002-orm-or-raw-sql.md` | Raw SQL behind repositories |
 
 Every fork in this map is argued inside the pack. The five that used to
 delegate into the archived v1 module (derived state, job substrate,
 contract seam, change proof, ORM or SQL) were re-graded against the 2026
-evidence sweep and written as guides here, so a reader following this
+evidence sweep and written as Wargames here, so a reader following this
 table no longer lands on a file stamped `status: archived`. Their v1
 originals are at `archive/v1-final:doctrine/architecture/wargames/` for
 provenance, and are not guidance.
@@ -367,15 +262,15 @@ likely to move next.
 
 ## Where the rest lives
 
-- Decision guides: `packs/architecture/guides/`
+- Wargames: `packs/architecture/wargames/`
 - Reference material: what each boundary tool cannot see,
-  `packs/architecture/refs/boundary-tooling.md`; how much description a
+  `packs/architecture/references/boundary-tooling.md`; how much description a
   system earns and in what form,
-  `packs/architecture/refs/architecture-description.md`
+  `packs/architecture/references/architecture-description.md`
 - Worked example: a boundary declared, enforced and then crossed,
-  `packs/architecture/exemplars/EX-ARCH-001-billing-catalogue-boundary.md`
+  `packs/architecture/examples/EX-ARCH-001-billing-catalogue-boundary.md`
 - Evaluation criteria: `packs/architecture/CHECKS.md`
-- Evidence pointer: `packs/architecture/refs/evidence-map.md`, which
+- Evidence pointer: `packs/architecture/references/evidence-map.md`, which
   maps every claim above to its ledger row, its population limit and its
   licence constraint. The eighteen rows from this pack's own sweep were
   imported into `registry/evidence.json` as EV-0146 to EV-0163; the rest

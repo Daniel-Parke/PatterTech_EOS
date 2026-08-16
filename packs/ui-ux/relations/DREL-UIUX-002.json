@@ -1,0 +1,13 @@
+{
+  "id": "DREL-UIUX-002",
+  "owner_doctrine": "DOC-UIUX-015",
+  "relation": "tensions_with",
+  "target": "DOC-UIUX-003",
+  "conditions": ["requires_non_semantic_custom_control"],
+  "status": "covered",
+  "evidence": ["EV-0027", "EV-0576", "EV-0577"],
+  "fallback": "Keep a meaningful native control or content route until the custom interaction proves equivalent semantics and behaviour.",
+  "wargame": "WG-UIUX-002",
+  "owner": "ui-ux",
+  "review": "on-change-of:WCAG-2.2-or-WAI-ARIA-APG"
+}

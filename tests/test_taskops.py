@@ -261,6 +261,23 @@ def test_derived_files_are_integrator_only(tmp_path):
     assert "integrator" in findings.errors[0].message
 
 
+@pytest.mark.parametrize(
+    "path",
+    [
+        "packs/DOCTRINE_INDEX.md",
+        "packs/WARGAME_INDEX.md",
+        "registry/DOCTRINE_PRESSURE_MATRIX.md",
+        "registry/IDENTIFIER_ALIASES.md",
+    ],
+)
+def test_current_knowledge_views_are_integrator_only(tmp_path, path):
+    doc = _claims_doc(path_claims=[path])
+    findings = taskops.verify_claims(
+        tmp_path, doc, "lane/t2", [path], now=NOW,
+    )
+    assert "integrator" in findings.errors[0].message
+
+
 def test_integrator_may_touch_derived_files(tmp_path):
     doc = _claims_doc(lane_id="integrator", path_claims=["INDEX.md"])
     findings = taskops.verify_claims(

@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "venture": "Current-HEAD seed",
+  "eos_commit": "563c85bfd7aa431ccf76fbbc5649cb27128b2592",
+  "selection_log": [
+    {
+      "wargame": "WG-EOS-001",
+      "disposition": "selected",
+      "reason": "Scale is always walked at Session 0.",
+      "ruling": "RUL-EOS-001",
+      "facts": ["runs_agents=true"]
+    },
+    {
+      "wargame": "WG-EOS-002",
+      "disposition": "selected",
+      "reason": "Repository shape is always walked; this validation fixture is a minor surface of EOS with no independent handover.",
+      "ruling": "RUL-EOS-002",
+      "facts": [
+        "runs_agents=true",
+        "independent_lifespan=false",
+        "independent_handover=false"
+      ]
+    },
+    {
+      "wargame": "WG-SEC-001",
+      "disposition": "selected",
+      "reason": "Injection defence is an always-walk floor for agent runs, and this fixture has no validated deterministic monitor.",
+      "ruling": "RUL-SEC-001",
+      "facts": [
+        "runs_agents=true",
+        "deterministic_monitor_validated=false"
+      ]
+    },
+    {
+      "wargame": "WG-SEC-002",
+      "disposition": "selected",
+      "reason": "Agents may commit to a GitHub-backed repository, so staged and push-path protection are both required before credential-bearing use.",
+      "ruling": "RUL-SEC-002",
+      "facts": [
+        "runs_agents=true",
+        "agents_commit=true",
+        "repository_public_adjacent=true"
+      ]
+    },
+    {
+      "wargame": "WG-SEC-003",
+      "disposition": "selected",
+      "reason": "The committed fixture may outlive a quarter, so it needs a declared entry bar even though it holds no sensitive data.",
+      "ruling": "RUL-SEC-003",
+      "facts": [
+        "runs_agents=true",
+        "long_lived=true",
+        "handles_personal_data=false",
+        "moves_money=false",
+        "holds_third_party_credentials=false"
+      ]
+    },
+    {
+      "wargame": "WG-SEC-004",
+      "disposition": "selected",
+      "reason": "The seed declares a manual, unvalidated guard adapter, so consequential actions must fall closed to manual execution.",
+      "ruling": "RUL-SEC-004",
+      "facts": [
+        "runs_agents=true",
+        "guard.adapter=manual",
+        "guard.validated=false"
+      ]
+    },
+    {
+      "wargame": "WG-ARCH-013",
+      "disposition": "selected",
+      "reason": "requires_independent_deployability is true for one owned boundary.",
+      "ruling": "RUL-ARCH-001",
+      "facts": [
+        "has_server_code=true",
+        "requires_independent_deployability=true"
+      ]
+    }
+  ],
+  "rulings": [
+    {
+      "id": "RUL-EOS-001",
+      "wargame": "WG-EOS-001",
+      "doctrines": [],
+      "decision": "Compile the S seed.",
+      "execution": "argued",
+      "reason": "One operator and one small venture do not require ORG machinery.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:venture-scale",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-EOS-002",
+      "wargame": "WG-EOS-002",
+      "doctrines": [],
+      "decision": "Keep the validation fixture adjacent inside the EOS repository.",
+      "execution": "argued",
+      "reason": "It has no independent life, owner, remote or handover boundary, so option C applies.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:contractual-boundary-or-independent-lifespan",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-SEC-001",
+      "wargame": "WG-SEC-001",
+      "doctrines": ["DOC-SEC-003"],
+      "decision": "Use filesystem and egress containment as the floor, with a configuration rule that prevents private data, untrusted content and outbound communication from coexisting. Treat in-band detection only as a tripwire.",
+      "execution": "argued",
+      "reason": "The task class is not proven plannable and no deterministic monitor is validated, so option B on top of D is the safe rule.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:task-plannability-or-validated-monitor",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-SEC-002",
+      "wargame": "WG-SEC-002",
+      "doctrines": ["DOC-SEC-018"],
+      "decision": "Require a staged pre-commit secret scan and a push-path scan before this agent-written repository may hold credentials.",
+      "execution": "argued",
+      "reason": "Agents can commit and the GitHub path is public-adjacent, so options B and C must be used together. The ruling sets an admission condition rather than claiming those controls are already installed.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:credential-storage-or-scanner-maintenance",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-SEC-003",
+      "wargame": "WG-SEC-003",
+      "doctrines": ["DOC-SEC-011"],
+      "decision": "Use option C: apply ASVS level 1 as the entry bar, require level 2 only if the surface starts holding personal data, money or another party's credentials, and record exclusions per surface.",
+      "execution": "argued",
+      "reason": "The committed fixture may persist beyond a quarter, while its current data sensitivity requires level 1 rather than level 2.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:data-sensitivity-or-external-assurance-audience",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-SEC-004",
+      "wargame": "WG-SEC-004",
+      "doctrines": ["DOC-SEC-006"],
+      "decision": "Classify consequential actions through option C and fall closed to option D: the agent proposes and the operator executes manually until a validated enforcement adapter exists.",
+      "execution": "argued",
+      "reason": "The declared guard adapter is manual and unvalidated, which the decision rule treats as a valid fail-closed working state.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:guard-validation-or-action-reversibility",
+      "departures": [],
+      "binding_scope_changes": []
+    },
+    {
+      "id": "RUL-ARCH-001",
+      "wargame": "WG-ARCH-013",
+      "doctrines": ["DOC-ARCH-004"],
+      "decision": "Split only the independently owned boundary and retain the remaining system as one deployable.",
+      "execution": "argued",
+      "reason": "The named boundary must release independently; no other boundary has earned distribution.",
+      "decided": "2026-08-15",
+      "review": "on-change-of:deployment-ownership",
+      "departures": [
+        {
+          "doctrine": "DOC-ARCH-004",
+          "reason": "Independent release ownership requires one scoped exception to the one-deployable default."
+        }
+      ],
+      "binding_scope_changes": []
+    }
+  ]
+}

@@ -212,6 +212,95 @@ def test_the_package_and_its_metadata_report_one_version():
     assert tools.eos.__version__ == declared
 
 
+def test_knowledge_list_is_a_summary_and_show_is_full(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "REPO", REPO)
+    assert cli.main(["doctrine", "list"]) == 0
+    listed = json.loads(capsys.readouterr().out)
+    assert listed["count"] >= 513
+    assert "metadata" not in listed["records"][0]
+    assert "body" not in listed["records"][0]
+    identifier = listed["records"][0]["id"]
+
+    assert cli.main(["doctrine", "show", identifier]) == 0
+    shown = json.loads(capsys.readouterr().out)
+    assert shown["metadata"]["id"] == identifier
+    assert shown["body"]
+
+
+def test_wargame_show_refuses_a_retired_identity(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "REPO", REPO)
+
+    assert cli.main(["wargame", "show", "WG-DEL-001"]) == 1
+
+    captured = capsys.readouterr()
+    assert "retired" in captured.err
+    assert "id resolve" in captured.err
+
+
+def test_id_resolves_ruling_only_inside_its_venture_document(
+        tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(cli, "REPO", REPO)
+    rulings = REPO / "examples" / "current-head-seed" / "docs" / "RULINGS.json"
+
+    assert cli.main([
+        "id", "resolve", "RUL-EOS-001", "--rulings", str(rulings),
+    ]) == 0
+
+    resolved = json.loads(capsys.readouterr().out)
+    assert resolved["canonical"] == "RUL-EOS-001"
+    assert resolved["kind"] == "ruling"
+    assert resolved["scope"] == "venture-document"
+    assert resolved["path"].endswith("RULINGS.json#/rulings/0")
+
+    monkeypatch.chdir(tmp_path)
+    assert cli.main(["id", "resolve", "RUL-EOS-001"]) == 1
+    missing = json.loads(capsys.readouterr().out)
+    assert missing["resolved"] is False
+    assert missing["scope"] == "venture-document"
+
+
+def test_id_refuses_schema_invalid_rulings_document(
+        tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(cli, "REPO", REPO)
+    source = REPO / "examples" / "current-head-seed" / "docs" / "RULINGS.json"
+    document = json.loads(source.read_text(encoding="utf-8"))
+    document["version"] = 999
+    invalid = tmp_path / "RULINGS.json"
+    invalid.write_text(json.dumps(document), encoding="utf-8")
+
+    assert cli.main([
+        "id", "resolve", "RUL-EOS-001", "--rulings", str(invalid),
+    ]) == 1
+
+    result = json.loads(capsys.readouterr().out)
+    assert result["resolved"] is False
+    assert any("version" in problem for problem in result["problems"])
+
+
+def test_id_refuses_invalid_ruling_date(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(cli, "REPO", REPO)
+    source = REPO / "examples" / "current-head-seed" / "docs" / "RULINGS.json"
+    document = json.loads(source.read_text(encoding="utf-8"))
+    document["rulings"][0]["decided"] = "not-a-date"
+    invalid = tmp_path / "RULINGS.json"
+    invalid.write_text(json.dumps(document), encoding="utf-8")
+
+    assert cli.main([
+        "id", "resolve", "RUL-EOS-001", "--rulings", str(invalid),
+    ]) == 1
+
+    result = json.loads(capsys.readouterr().out)
+    assert any("not a 'date'" in problem for problem in result["problems"])
+
+
+def test_a_closed_output_pipe_is_a_successful_short_read(monkeypatch):
+    def closed_pipe(_args):
+        raise BrokenPipeError
+
+    monkeypatch.setattr(cli, "cmd_knowledge", closed_pipe)
+    assert cli.main(["doctrine", "list"]) == 0
+
+
 def _subcommands(parser):
     import argparse
 

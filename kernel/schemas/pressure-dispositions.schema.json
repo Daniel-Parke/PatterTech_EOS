@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/pressure-dispositions.schema.json",
+  "title": "Accepted disposition of the first Doctrine pressure backlog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "kind", "source", "accepted_by", "governed_by", "review", "rows"],
+  "properties": {
+    "version": {"const": 1},
+    "kind": {"const": "pressure-dispositions"},
+    "source": {"type": "string", "minLength": 1},
+    "accepted_by": {"type": "string", "minLength": 1},
+    "governed_by": {"type": "string", "pattern": "^ADR-[0-9]{4}$"},
+    "review": {"type": "string", "minLength": 1},
+    "rows": {
+      "type": "array",
+      "minItems": 25,
+      "maxItems": 25,
+      "items": {"$ref": "#/$defs/row"}
+    }
+  },
+  "$defs": {
+    "ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case",
+        "name",
+        "pressure",
+        "disposition",
+        "consequence",
+        "wargames",
+        "relations",
+        "fallback"
+      ],
+      "properties": {
+        "case": {"type": "integer", "minimum": 1, "maximum": 25},
+        "name": {"type": "string", "minLength": 1},
+        "pressure": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "disposition": {
+          "enum": ["new-wargame", "existing-wargame-refreshed", "relation-only", "rejected"]
+        },
+        "consequence": {"enum": ["routine", "high"]},
+        "wargames": {
+          "allOf": [
+            {"$ref": "#/$defs/ids"},
+            {"items": {"pattern": "^(GD|WG)-[A-Z0-9]+-[0-9]{3}$"}}
+          ]
+        },
+        "relations": {
+          "allOf": [
+            {"$ref": "#/$defs/ids"},
+            {"items": {"pattern": "^DREL-[A-Z0-9]+-[0-9]{3}$"}}
+          ]
+        },
+        "fallback": {"type": "string", "minLength": 1},
+        "reopen_trigger": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"disposition": {"enum": ["new-wargame", "existing-wargame-refreshed"]}}},
+          "then": {"properties": {"wargames": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"disposition": {"const": "relation-only"}}},
+          "then": {"properties": {"relations": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"disposition": {"const": "rejected"}}},
+          "then": {
+            "required": ["reopen_trigger"],
+            "properties": {
+              "wargames": {"maxItems": 0},
+              "relations": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

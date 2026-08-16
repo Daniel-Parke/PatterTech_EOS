@@ -46,12 +46,14 @@ def _read_json(path, what):
 
 
 def _ctx(args):
+    from .ontology import KnowledgeResolver
     from .repo import RepoModel
 
     today = _dt.date.today()
     model = RepoModel.load(REPO, today=today)
     return {
         "model": model,
+        "ontology": KnowledgeResolver.open(REPO),
         "root": REPO,
         "today": today,
         "offline": getattr(args, "offline", False),
@@ -230,6 +232,188 @@ def cmd_activate(args):
             print("error: no pack declares %s, so it activates nothing" % p,
                   file=sys.stderr)
         return 1
+    return 0
+
+
+def _resolution_document(row, resolver, *, include_body=False):
+    result = {
+        "id": row.canonical_id,
+        "requested_id": row.requested_id,
+        "kind": row.kind,
+        "state": row.state,
+        "path": row.path,
+        "summary": row.summary,
+        "metadata": dict(row.metadata),
+    }
+    if include_body and row.state == "live":
+        text = resolver.view.read_text(row.path)
+        if text is not None:
+            from .frontmatter import parse
+            result["body"] = parse(text).body
+    return result
+
+
+def _resolution_summary(row):
+    """The progressive-disclosure shape used by knowledge list commands."""
+
+    result = {
+        "id": row.canonical_id,
+        "kind": row.kind,
+        "state": row.state,
+        "path": row.path,
+        "summary": row.summary,
+    }
+    metadata = row.metadata
+    if row.kind == "doctrine":
+        for key in ("authority", "applies_when", "challenge_triggers", "review"):
+            if key in metadata:
+                result[key] = metadata[key]
+    elif row.kind == "wargame":
+        for key in ("scenario_modes", "engages_when", "consequence", "review"):
+            if key in metadata:
+                result[key] = metadata[key]
+    return result
+
+
+def _parse_assignments(values, what):
+    result = {}
+    for raw in values or []:
+        if "=" not in raw:
+            raise CannotRun(f"{what} must be NAME=VALUE: {raw}")
+        name, value = raw.split("=", 1)
+        name, value = name.strip(), value.strip()
+        if not name or not value:
+            raise CannotRun(f"{what} must be NAME=VALUE: {raw}")
+        result[name] = value
+    return result
+
+
+def _knowledge_facts(args):
+    facts = {}
+    if args.facts:
+        doc = _read_json(Path(args.facts), "the knowledge facts file")
+        supplied = doc.get("facts", doc)
+        if not isinstance(supplied, dict):
+            raise CannotRun("the knowledge facts file must be an object, or carry a facts object")
+        facts.update({str(k): str(v).lower() for k, v in supplied.items()})
+    facts.update({k: v.lower() for k, v in
+                  _parse_assignments(args.fact, "--fact").items()})
+    if not facts:
+        raise CannotRun("match needs --facts or at least one --fact NAME=STATE")
+    return facts
+
+
+def cmd_knowledge(args):
+    from .ontology import KnowledgeResolver, match_knowledge
+
+    resolver = KnowledgeResolver.open(REPO, args.commit)
+    if args.op == "list":
+        rows = [_resolution_summary(row)
+                for row in resolver.list(args.entity)]
+        print(json.dumps({"kind": args.entity, "count": len(rows), "records": rows}, indent=1))
+        return 1 if resolver.problems else 0
+    if args.op == "show":
+        row = resolver.resolve(args.identifier)
+        if row is None or row.kind != args.entity:
+            print(f"error: {args.identifier} does not resolve as {args.entity}", file=sys.stderr)
+            return 1
+        if row.state != "live":
+            print(
+                f"error: {args.identifier} is retired and is not an operational "
+                f"{args.entity}; use id resolve for provenance",
+                file=sys.stderr,
+            )
+            return 1
+        print(json.dumps(_resolution_document(row, resolver, include_body=True), indent=1))
+        return 0
+    facts = _knowledge_facts(args)
+    include = _parse_assignments(args.include, "--include")
+    omit = _parse_assignments(args.omit, "--omit")
+    result = match_knowledge(resolver, facts, include=include, omit=omit)
+    print(json.dumps(result, indent=1))
+    return 1 if resolver.problems or result["uncovered_pressures"] else 0
+
+
+def cmd_id(args):
+    from .ontology import (
+        RULING_ID,
+        KnowledgeResolver,
+        resolve_ruling,
+        validate_rulings_document,
+    )
+
+    if RULING_ID.fullmatch(args.identifier):
+        rulings_path = Path(args.rulings) if args.rulings else \
+            Path.cwd() / "docs" / "RULINGS.json"
+        if not rulings_path.is_file():
+            print(json.dumps({
+                "id": args.identifier,
+                "resolved": False,
+                "scope": "venture-document",
+                "rulings": str(rulings_path),
+            }, indent=1))
+            return 1
+        document = _read_json(rulings_path, "the Rulings document")
+        declared_ref = str(document.get("eos_commit") or "").strip()
+        if not declared_ref:
+            raise CannotRun("the Rulings document has no eos_commit")
+        resolver = KnowledgeResolver.open(REPO, declared_ref)
+        if args.commit:
+            requested = KnowledgeResolver.open(REPO, args.commit)
+            if requested.view.commit != resolver.view.commit:
+                raise CannotRun(
+                    "--commit does not match the Rulings document eos_commit"
+                )
+        try:
+            display_path = rulings_path.resolve().relative_to(
+                Path.cwd().resolve()).as_posix()
+        except ValueError:
+            display_path = str(rulings_path.resolve())
+        problems = validate_rulings_document(document, resolver)
+        if problems:
+            print(json.dumps({
+                "id": args.identifier,
+                "resolved": False,
+                "scope": "venture-document",
+                "problems": [problem.message for problem in problems],
+            }, indent=1))
+            return 1
+        row, _ = resolve_ruling(
+            document, args.identifier, resolver, path=display_path)
+        if row is None:
+            print(json.dumps({
+                "id": args.identifier,
+                "resolved": False,
+                "scope": "venture-document",
+                "rulings": display_path,
+            }, indent=1))
+            return 1
+        print(json.dumps({
+            "id": args.identifier,
+            "resolved": True,
+            "canonical": row.canonical_id,
+            "kind": row.kind,
+            "state": row.state,
+            "path": row.path,
+            "commit": resolver.view.commit or "WORKTREE",
+            "scope": "venture-document",
+        }, indent=1))
+        return 0
+
+    resolver = KnowledgeResolver.open(REPO, args.commit)
+    row = resolver.resolve(args.identifier)
+    if row is None:
+        print(json.dumps({"id": args.identifier, "resolved": False}, indent=1))
+        return 1
+    print(json.dumps({
+        "id": args.identifier,
+        "resolved": True,
+        "canonical": row.canonical_id,
+        "kind": row.kind,
+        "state": row.state,
+        "path": row.path,
+        "commit": resolver.view.commit or "WORKTREE",
+    }, indent=1))
     return 0
 
 
@@ -550,6 +734,32 @@ def build_parser():
                    help="a declared predicate, repeatable")
     a.set_defaults(fn=cmd_activate)
 
+    for command, entity in (("doctrine", "doctrine"),
+                            ("wargame", "wargame")):
+        knowledge = sub.add_parser(
+            command,
+            description=f"List, show or pressure-match {command} records through the shared resolver.")
+        knowledge.add_argument("op", choices=["list", "show", "match"])
+        knowledge.add_argument("identifier", nargs="?")
+        knowledge.add_argument("--commit")
+        knowledge.add_argument("--facts")
+        knowledge.add_argument("--fact", action="append", default=[])
+        knowledge.add_argument("--include", action="append", default=[])
+        knowledge.add_argument("--omit", action="append", default=[])
+        knowledge.set_defaults(fn=cmd_knowledge, entity=entity)
+
+    identity = sub.add_parser(
+        "id", description="Resolve one knowledge identity in the worktree or at a pinned commit.")
+    identity.add_argument("op", choices=["resolve"])
+    identity.add_argument("identifier")
+    identity.add_argument("--commit")
+    identity.add_argument(
+        "--rulings",
+        help="venture RULINGS.json for a document-scoped RUL identity; "
+             "defaults to docs/RULINGS.json below the current directory",
+    )
+    identity.set_defaults(fn=cmd_id)
+
     st = sub.add_parser(
         "study",
         description="Scaffold a lens contract for the Study workflow "
@@ -633,6 +843,11 @@ def main(argv=None):
     args = build_parser().parse_args(argv)
     try:
         return args.fn(args)
+    except BrokenPipeError:
+        # A caller piping a long catalogue through `head` has consumed the
+        # output it asked for. That is a successful short read, not a broken
+        # knowledge query and not a reason to print a traceback.
+        return 0
     except (CannotRun, FileNotFoundError, RuntimeError, ValueError) as exc:
         # A run that could not happen, which is exit 2: a file the
         # caller named is not there, a --diff ref git cannot resolve

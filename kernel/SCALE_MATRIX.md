@@ -12,12 +12,12 @@ parses the matrix. The v1 matrix it replaced, with its S, M and L
 columns, is at archive/v1-final:kernel/SCALE_MATRIX.md, and a seed
 resolves whichever matrix its pinned commit carries.
 
-Reading the numbers honestly: S is fourteen files, of which CLAUDE.md
+Reading the numbers honestly: S is fifteen files, of which CLAUDE.md
 is a byte copy, the compile report is meta and five are blank Genesis
-forms, so the operating surface is seven. A blank form is not operating
+forms, so the operating surface is eight. A blank form is not operating
 surface: nobody reads it until the venture decides to run Genesis. ORG
-is twenty-five files on the same accounting, an operating surface of
-eighteen.
+is twenty-six files on the same accounting, an operating surface of
+nineteen.
 
 The scale is ruled at Session 0 by WG-EOS-001 and recorded in the
 lock-book header. A rescale from S to ORG recompiles the delta
@@ -37,6 +37,7 @@ AGENTS.md as a byte copy, and JSON files trace like any other.
 | OPERATORS_GUIDE.md | kernel/templates/OPERATORS_GUIDE.tpl.md | x | x |
 | docs/VENTURE_BRIEF.md | kernel/templates/VENTURE_BRIEF.tpl.md | x | x |
 | docs/LOCKBOOK.md | kernel/templates/LOCKBOOK.tpl.md | x | x |
+| docs/RULINGS.json | kernel/templates/RULINGS.tpl.json | x | x |
 | docs/EOS_FEEDBACK.md | kernel/templates/EOS_FEEDBACK.tpl.md | x | x |
 | docs/COMPILE_REPORT.md | kernel/templates/COMPILE_REPORT.tpl.md | x | x |
 | docs/PRODUCT_MAP.md | kernel/templates/PRODUCT_MAP.tpl.md | x | x |

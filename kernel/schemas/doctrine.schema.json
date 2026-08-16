@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pattertech.eos/doctrine.schema.json",
+  "title": "Atomic EOS Doctrine metadata",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "statement",
+    "kind",
+    "type",
+    "authority",
+    "basis",
+    "evidence_grade",
+    "scope",
+    "applies_when",
+    "challenge_triggers",
+    "sources",
+    "review",
+    "lifecycle",
+    "verification_refs"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^DOC-[A-Z0-9]+-[0-9]{3}$"},
+    "statement": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "kind": {"const": "doctrine"},
+    "type": {"const": "doctrine"},
+    "authority": {
+      "enum": ["binding", "default", "advisory", "preference"]
+    },
+    "basis": {
+      "enum": ["decision", "law", "standard", "empirical-evidence", "local-observation"]
+    },
+    "evidence_grade": {
+      "enum": ["controlled", "observational", "anecdotal", "asserted", "not-applicable"]
+    },
+    "scope": {
+      "type": "string",
+      "pattern": "^(estate|venture|eos-internal|brand:[A-Za-z0-9._-]+)$"
+    },
+    "applies_when": {"$ref": "#/$defs/nonEmptyStrings"},
+    "challenge_triggers": {"$ref": "#/$defs/nonEmptyStrings"},
+    "sources": {"$ref": "#/$defs/nonEmptyStrings"},
+    "review": {"type": "string", "minLength": 1},
+    "lifecycle": {
+      "enum": ["draft", "experimental", "active", "contested", "superseded", "archived"]
+    },
+    "verification_refs": {"$ref": "#/$defs/nonEmptyStrings"},
+    "supersedes": {"$ref": "#/$defs/strings"},
+    "superseded_by": {"$ref": "#/$defs/strings"}
+  },
+  "$defs": {
+    "strings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "nonEmptyStrings": {
+      "allOf": [
+        {"$ref": "#/$defs/strings"},
+        {"minItems": 1}
+      ]
+    }
+  }
+}

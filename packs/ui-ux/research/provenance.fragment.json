@@ -4,7 +4,7 @@
   "authority": "ADR-0006 decision 7",
   "task": "T-0024",
   "swept": "2026-08-10",
-  "method": "Every EV id cited anywhere in packs/ui-ux/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, guides, refs, exemplars) and by scanning every quoted span in it.",
+  "method": "Every EV id cited anywhere in packs/ui-ux/ was read back from registry/evidence.json. No source was re-fetched and no licence was inferred: licence_state is derived from the ledger row's own licence text and from whether that row carries a licence_evidence line. Carried expression was checked by reading the pack's read surface (PACK.md, CHECKS.md, Wargames, references, examples) and by scanning every quoted span in it.",
   "carried_expression": {
     "verdict": "clean",
     "longest_quoted_span_words": 2,

@@ -97,6 +97,22 @@ def test_apply_transforms_fixture_seed(tmp_path):
     lockbook = (seed / "docs" / "LOCKBOOK.md").read_text(encoding="utf-8")
     header = lockbook.split("\n---", 2)[0]
     assert "policy_pin:" in header
+    assert "rulings_record: docs/RULINGS.json" in header
+    assert "\nrulings:" not in header
+
+    # Legacy delimiter rows are preserved byte-for-byte inside the new,
+    # schema-valid venture-owned record.
+    rulings = json.loads(
+        (seed / "docs" / "RULINGS.json").read_text(encoding="utf-8"))
+    assert len(rulings["rulings"]) == 6
+    assert rulings["rulings"][0]["id"] == "RUL-FIELDKIT-001"
+    assert rulings["rulings"][0]["execution"] == "argued"
+    assert rulings["rulings"][2]["execution"] == "legacy-inherited"
+    assert rulings["rulings"][0]["legacy_text"].startswith("  - WG-EOS-001 · M")
+    schema = json.loads(
+        (REPO / "kernel" / "schemas" / "rulings.schema.json")
+        .read_text(encoding="utf-8"))
+    pytest.importorskip("jsonschema").Draft202012Validator(schema).validate(rulings)
 
     # Role charters swap for the tier policy note.
     for name in ("PLAN.md", "WORK.md", "VERIFY.md"):
@@ -136,6 +152,19 @@ def test_apply_is_idempotent_on_the_pin(tmp_path):
     assert lockbook.count("policy_pin:") == 1
     assert lockbook_after.count("policy_pin:") == 1
     assert not any("policy_pin" in c for c in result["changes"])
+    assert lockbook_after.count("rulings_record:") == 1
+    assert not any("RULINGS.json" in c for c in result["changes"])
+
+
+def test_rulings_migration_is_lossless_for_every_legacy_row(tmp_path):
+    seed = _copy_seed("seed-v1-M", tmp_path)
+    lockbook = seed / "docs" / "LOCKBOOK.md"
+    before = [line for line in lockbook.read_text(encoding="utf-8").splitlines()
+              if line.lstrip().startswith("- WG-")]
+    migrate.apply(seed, migrate.plan(seed), dry_run=False, today="2026-08-03")
+    document = json.loads(
+        (seed / "docs" / "RULINGS.json").read_text(encoding="utf-8"))
+    assert [row["legacy_text"] for row in document["rulings"]] == before
 
 
 def test_apply_refuses_a_git_repository(tmp_path):

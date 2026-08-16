@@ -178,15 +178,84 @@ def test_f003_ten_files_is_not_a_smell(tmp_path):
     assert only(run_f(root), "F003") == []
 
 
+def test_f003_counts_migrated_doctrines_as_one_pack_review(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"packs/testmod/doctrines/DOC-TEST-{i:03d}.md",
+              "---\nsummary: Atomic Doctrine\ntype: doctrine\ntags: [eos]\n"
+              "kind: doctrine\nreview: 2029-01\n"
+              "generated_by: tools.eos.migrate_doctrines\n---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+def test_f003_keeps_separate_pack_review_cohorts(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"packs/mod{i:02d}/doctrines/DOC-MOD-{i:03d}.md",
+              "---\nsummary: Atomic Doctrine\ntype: doctrine\ntags: [eos]\n"
+              "kind: doctrine\nreview: 2029-01\n"
+              "generated_by: tools.eos.migrate_doctrines\n---\nBody.\n")
+    fs = only(run_f(root), "F003")
+    assert len(fs) == 1
+    assert fs[0][0] == "warn"
+    assert fs[0][2] == "review date 2029-01 shared by 11 files, bulk-set smell"
+
+
+def test_f003_does_not_count_derived_views_as_separate_reviews(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"derived/view{i:02d}.md",
+              "---\nsummary: Derived view\ntype: index\ntags: [eos]\n"
+              "derived: true\nreview: 2029-01\n---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+def test_f003_counts_an_explicit_joint_review_cohort_once(tmp_path):
+    root = make_repo(tmp_path)
+    for i in range(11):
+        write(root, f"packs/testmod/wargames/WG-TEST-{i:03d}.md",
+              "---\nsummary: Cohort Wargame\ntype: wargame\ntags: [eos]\n"
+              "review: 2029-01\nreview_cohort: T-0001-pressure-wargames\n"
+              "---\nBody.\n")
+    assert only(run_f(root), "F003") == []
+
+
+def test_f003_rejects_a_single_file_review_cohort(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/testmod/wargames/WG-TEST-001.md",
+          "---\nsummary: Lone cohort\ntype: wargame\ntags: [eos]\n"
+          "review: 2029-01\nreview_cohort: T-0001-pressure-wargames\n"
+          "---\nBody.\n")
+    assert only(run_f(root), "F003") == [
+        ("error", "packs/testmod/wargames/WG-TEST-001.md",
+         "review cohort T-0001-pressure-wargames has one file; "
+         "schedule it independently")
+    ]
+
+
+def test_f003_rejects_inconsistent_cohort_dates(tmp_path):
+    root = make_repo(tmp_path)
+    for i, month in enumerate(("2029-01", "2029-02")):
+        write(root, f"packs/testmod/wargames/WG-TEST-{i:03d}.md",
+              "---\nsummary: Cohort Wargame\ntype: wargame\ntags: [eos]\n"
+              f"review: {month}\n"
+              "review_cohort: T-0001-pressure-wargames\n---\nBody.\n")
+    assert only(run_f(root), "F003") == [
+        ("error", "packs/testmod/wargames/WG-TEST-000.md",
+         "review cohort T-0001-pressure-wargames must share one YYYY-MM "
+         "date, found 2029-01, 2029-02")
+    ]
+
+
 # --- F004 ---------------------------------------------------------------
 
 
 def test_f004_previously_exempt_type_without_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/README.md", "review: 2030-01\n", "")
+    edit(root, "packs/testmod/doctrines/README.md", "review: 2030-01\n", "")
     fs = run_f(root)
-    assert only(fs, "F004") == [("warn", "packs/testmod/README.md",
-                                 "type doctrine carries no review_by or review date")]
+    assert only(fs, "F004") == [("warn", "packs/testmod/doctrines/README.md",
+                                 "type foundation carries no review_by or review date")]
 
 
 def test_f004_v2_review_field_counts_as_coverage(tmp_path):
