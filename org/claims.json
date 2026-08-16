@@ -1,21 +1,6 @@
 {
  "version": 1,
  "assigned": "2026-08-16",
- "lanes": [
-  {
-   "lane_id": "lane/t0028-oracle",
-   "task_id": "T-0028",
-   "session_id": "naming-oracle-author-2",
-   "host": "NUCBOX_M6ULTRA",
-   "harness_task_id": "/root/release_preflight",
-   "path_claims": [
-    "tests/test_naming_oracle.py",
-    "org/migration/NAMING_BASELINE.json",
-    "org/reports/NAMING_AUDIT_2026-08-16.md"
-   ],
-   "acquired": "2026-08-16T00:27:00Z",
-   "expires": "2026-08-17T00:27:00Z"
-  }
- ],
- "note": "T-0028 oracle phase. The first oracle author was interrupted after writing only the baseline inventory. The reassigned independent author reviews that file and completes the target oracle before implementation."
+ "lanes": [],
+ "note": "T-0028 oracle frozen at c1dfa84. Implementation is now integrator-owned; no parallel author holds a writable claim."
 }

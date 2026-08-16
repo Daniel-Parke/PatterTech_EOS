@@ -13,8 +13,14 @@
   },
   "mode": "high-assurance",
   "tier_proposed": "R3",
-  "tier_ruled": "R2",
+  "tier_ruled": "R3",
   "reasons": [
+    {
+      "factor": "protected-set-contact",
+      "tier_floor": "R3",
+      "source": "derived",
+      "evidence": "The operator-authorised naming migration supersedes accepted ontology decisions, adds a protected ADR and updates GOVERNANCE.md."
+    },
     {
       "factor": "schema-change",
       "tier_floor": "R2",
@@ -36,7 +42,6 @@
     "README.md",
     "TOUR.md",
     "OPERATORS_GUIDE.md",
-    "archive/",
     "examples/",
     "inception/",
     "kernel/",
@@ -48,7 +53,19 @@
   ],
   "timestamps": {
     "opened": "2026-08-16T00:26:00Z",
-    "updated": "2026-08-16T00:26:00Z"
+    "updated": "2026-08-16T00:58:14Z"
   },
-  "hypothesis_ledger": []
+  "hypothesis_ledger": [],
+  "oracle_provenance": {
+    "files": [
+      "org/migration/NAMING_BASELINE.json",
+      "tests/test_naming_oracle.py"
+    ],
+    "hashes": {
+      "org/migration/NAMING_BASELINE.json": "985680c6841323b506919cc18540212c0438712a5c911b8b57bb595f5454ae6a",
+      "tests/test_naming_oracle.py": "114c7ac3f9c16eff592f6a6a05c76ea5b40854ee6539484d10fedd010c240ee7"
+    },
+    "author_session": "naming-oracle-author-2",
+    "independence_method": "separate-model"
+  }
 }

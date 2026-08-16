@@ -1,7 +1,7 @@
 ---
 summary: Independent frozen-baseline and red-oracle audit for the T-0028 naming migration
 type: org
-tags: [eos, verification]
+tags: [eos, testing]
 ---
 
 # T-0028 naming audit

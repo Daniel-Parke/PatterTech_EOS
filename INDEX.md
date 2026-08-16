@@ -158,6 +158,7 @@ file. Frozen trees are not indexed.
 | org/reports/DOCTRINE_WARGAME_BASELINE_2026-08-15.md | org | eos wargame | Frozen inventory and performance baseline before the Doctrine and Wargaming rebuild |  |
 | org/reports/DOCTRINE_WARGAME_RESEARCH_2026-08-15.md | org | eos wargame | Fixed-lens research packet for the first Doctrine and Wargame pressure backlog |  |
 | org/reports/DOCTRINE_WARGAME_SPIKE_2026-08-15.md | org | eos wargame arch data | Non-merging architecture and data-analytics spike for the Doctrine and Wargaming ontology |  |
+| org/reports/NAMING_AUDIT_2026-08-16.md | org | eos testing | Independent frozen-baseline and red-oracle audit for the T-0028 naming migration |  |
 | org/reports/NEXT_TRANCHE.md | org | eos | What the audit and expansion mission completed, what it deliberately did not, and the dependency-ordered work that follows |  |
 | org/reports/V2_FINAL_REPORT.md | org | eos | The v2 build's final report, measured results, residual risks and the release decision the operator owns |  |
 | org/studies/LENS-0002.md | org | eos | Fixed contract and acquisition record for the first Doctrine and Wargame evidence programme |  |
