@@ -1,21 +1,6 @@
 {
  "version": 1,
  "assigned": "2026-08-16",
- "lanes": [
-  {
-   "lane_id": "lane/t0028-migration-code",
-   "task_id": "T-0028",
-   "session_id": "naming-migration-author",
-   "host": "NUCBOX_M6ULTRA",
-   "harness_task_id": "/root/ci_lock_debug",
-   "path_claims": [
-    "tools/eos/migrate_naming.py",
-    "tests/test_migrate_naming.py",
-    "org/migration/NAMING_MIGRATION.json"
-   ],
-   "acquired": "2026-08-16T01:00:00Z",
-   "expires": "2026-08-17T01:00:00Z"
-  }
- ],
- "note": "T-0028 implementation. One bounded author owns the new migration utility, its ledger and focused tests; the integrator owns shared contracts and application."
+ "lanes": [],
+ "note": "T-0028 migration utility integrated at 450ab21. The remaining migration and shared contracts are integrator-owned."
 }
