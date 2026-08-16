@@ -1,7 +1,7 @@
 {
   "version": 1,
   "venture": "Current-HEAD seed",
-  "eos_commit": "72824e6378982ba5d656d9252d4f7e8c771a18b4",
+  "eos_commit": "563c85bfd7aa431ccf76fbbc5649cb27128b2592",
   "selection_log": [
     {
       "wargame": "WG-EOS-001",
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "wargame": "GD-SEC-001",
+      "wargame": "WG-SEC-001",
       "disposition": "selected",
       "reason": "Injection defence is an always-walk floor for agent runs, and this fixture has no validated deterministic monitor.",
       "ruling": "RUL-SEC-001",
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "wargame": "GD-SEC-002",
+      "wargame": "WG-SEC-002",
       "disposition": "selected",
       "reason": "Agents may commit to a GitHub-backed repository, so staged and push-path protection are both required before credential-bearing use.",
       "ruling": "RUL-SEC-002",
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "wargame": "GD-SEC-003",
+      "wargame": "WG-SEC-003",
       "disposition": "selected",
       "reason": "The committed fixture may outlive a quarter, so it needs a declared entry bar even though it holds no sensitive data.",
       "ruling": "RUL-SEC-003",
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "wargame": "GD-SEC-004",
+      "wargame": "WG-SEC-004",
       "disposition": "selected",
       "reason": "The seed declares a manual, unvalidated guard adapter, so consequential actions must fall closed to manual execution.",
       "ruling": "RUL-SEC-004",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "wargame": "GD-ARCH-001",
+      "wargame": "WG-ARCH-013",
       "disposition": "selected",
       "reason": "requires_independent_deployability is true for one owned boundary.",
       "ruling": "RUL-ARCH-001",
@@ -104,7 +104,7 @@
     },
     {
       "id": "RUL-SEC-001",
-      "wargame": "GD-SEC-001",
+      "wargame": "WG-SEC-001",
       "doctrines": ["DOC-SEC-003"],
       "decision": "Use filesystem and egress containment as the floor, with a configuration rule that prevents private data, untrusted content and outbound communication from coexisting. Treat in-band detection only as a tripwire.",
       "execution": "argued",
@@ -116,7 +116,7 @@
     },
     {
       "id": "RUL-SEC-002",
-      "wargame": "GD-SEC-002",
+      "wargame": "WG-SEC-002",
       "doctrines": ["DOC-SEC-018"],
       "decision": "Require a staged pre-commit secret scan and a push-path scan before this agent-written repository may hold credentials.",
       "execution": "argued",
@@ -128,7 +128,7 @@
     },
     {
       "id": "RUL-SEC-003",
-      "wargame": "GD-SEC-003",
+      "wargame": "WG-SEC-003",
       "doctrines": ["DOC-SEC-011"],
       "decision": "Use option C: apply ASVS level 1 as the entry bar, require level 2 only if the surface starts holding personal data, money or another party's credentials, and record exclusions per surface.",
       "execution": "argued",
@@ -140,7 +140,7 @@
     },
     {
       "id": "RUL-SEC-004",
-      "wargame": "GD-SEC-004",
+      "wargame": "WG-SEC-004",
       "doctrines": ["DOC-SEC-006"],
       "decision": "Classify consequential actions through option C and fall closed to option D: the agent proposes and the operator executes manually until a validated enforcement adapter exists.",
       "execution": "argued",
@@ -152,7 +152,7 @@
     },
     {
       "id": "RUL-ARCH-001",
-      "wargame": "GD-ARCH-001",
+      "wargame": "WG-ARCH-013",
       "doctrines": ["DOC-ARCH-004"],
       "decision": "Split only the independently owned boundary and retain the remaining system as one deployable.",
       "execution": "argued",

@@ -10,4 +10,4 @@ compiled_from: kernel/templates/VENTURE_BRIEF.tpl.md
 This fixture adopts the architecture pack.
 
 - `has_server_code=true` activates `DOC-ARCH-004`.
-- `requires_independent_deployability=true` engages `GD-ARCH-001`.
+- `requires_independent_deployability=true` engages `WG-ARCH-013`.
