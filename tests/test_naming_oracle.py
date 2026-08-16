@@ -22,6 +22,9 @@ from tools.eos.ontology import KnowledgeResolver
 
 REPO = Path(__file__).resolve().parents[1]
 BASELINE_PATH = REPO / "org/migration/NAMING_BASELINE.json"
+NAMING_MIGRATION_DECISION = (
+    "org/decisions/ADR-0015-one-language-for-doctrine-wargames-and-packs.md"
+)
 WG_ID = re.compile(r"^WG-[A-Z0-9]+-\d{3}$")
 ANY_WARGAME_ID = re.compile(r"^(?:GD|WG)-[A-Z0-9]+-\d{3}$")
 DEFINITION_ID = re.compile(r"((?:DOC|DREL|GD|WG)-[A-Z0-9]+-\d{3})")
@@ -428,6 +431,9 @@ def test_target_doctrine_basenames_end_on_word_boundaries() -> None:
 
 
 def _legacy_allowed(path: str, baseline: dict, baseline_paths: set[str]) -> bool:
+    # The accepted migration decision must name the forms it retires.
+    if path == NAMING_MIGRATION_DECISION:
+        return True
     if any(fnmatch.fnmatch(path, pattern) for pattern in baseline["allowed_legacy_surfaces"]):
         return True
     return path in baseline_paths and any(

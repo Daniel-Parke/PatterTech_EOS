@@ -66,6 +66,17 @@
       "tests/test_naming_oracle.py": "114c7ac3f9c16eff592f6a6a05c76ea5b40854ee6539484d10fedd010c240ee7"
     },
     "author_session": "naming-oracle-author-2",
-    "independence_method": "separate-model"
+    "independence_method": "separate-model",
+    "amendments": [
+      {
+        "reason": "ADR-0015 must name the historical identifiers and paths that its accepted migration decision retires.",
+        "change": "Allow only the exact ADR-0015 path to retain retired naming literals while preserving every other live-surface prohibition.",
+        "old_hash": "114c7ac3f9c16eff592f6a6a05c76ea5b40854ee6539484d10fedd010c240ee7",
+        "new_hash": "39f4948260fecc202597d176e04cdc25dcfb3718b9bf30114bfd2803d424f538",
+        "author_session": "final-semantic-review",
+        "authorised_by": "Daniel Parke",
+        "date": "2026-08-16T02:22:50Z"
+      }
+    ]
   }
 }
