@@ -19,7 +19,7 @@ def test_loads_minirepo_files(tmp_path):
     model = RepoModel.load(root, today=TODAY)
     paths = [f.path for f in model.files]
     assert "AGENTS.md" in paths
-    assert "packs/testmod/guides/WG-TST-001-sample.md" in paths
+    assert "packs/testmod/wargames/WG-TST-001-sample.md" in paths
     # traversal order is deterministic: a reload sees the same order
     assert paths == [f.path for f in RepoModel.load(root, today=TODAY).files]
 
@@ -47,7 +47,9 @@ def test_file_order_is_the_same_on_every_platform(tmp_path):
         "---\nsummary: s\ntype: index\ntags: [eos]\n---\n", encoding="utf-8")
     (root / "packs" / "agentic-swarm").mkdir(parents=True, exist_ok=True)
     (root / "packs" / "agentic-swarm" / "PACK.md").write_text(
-        "---\nsummary: s\ntype: guide\ntags: [eos]\n---\n", encoding="utf-8")
+        "---\nsummary: s\nkind: record\ntype: pack\ntags: [eos]\n"
+        "display_name: Agentic Swarm\ncategory: engineering\n"
+        "id_namespace: AGENT\n---\n", encoding="utf-8")
     paths = [f.path for f in RepoModel.load(root, today=TODAY).files]
     assert paths == sorted(paths), "records must come back in POSIX byte order"
     assert paths.index("packs/INDEX.md") < paths.index(

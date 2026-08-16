@@ -29,7 +29,7 @@ PLAN_VERSION = 1
 
 _SKIP_DIRS = {".git", ".mypy_cache", ".pytest_cache", "__pycache__"}
 _SELF_PATH = "tools/eos/migrate_naming.py"
-_IDENTIFIER_BOUNDARY = r"[A-Z0-9-]"
+_IDENTIFIER_BOUNDARY = r"[A-Z0-9]"
 
 
 class NamingMigrationError(RuntimeError):
@@ -199,7 +199,8 @@ def expected_ledger(
         "schema_version": PLAN_VERSION,
         "kind": "naming-migration",
         "task": TASK,
-        "status": "planned-not-applied",
+        "status": "reviewed-contract",
+        "application_state": "verified by tools.eos.migrate_naming check",
         "generator": GENERATOR,
         "baseline": {
             "path": BASELINE_PATH,
@@ -524,7 +525,6 @@ def _rewrite_alias_registry(
     aliases = document.get("aliases") if isinstance(document, dict) else None
     if not isinstance(aliases, dict):
         raise NamingMigrationError("identifier alias registry has no aliases object")
-    migration = _mapping(baseline["identifier_migration"], "identifier_migration")
     migration = _mapping(baseline["identifier_migration"], "identifier_migration")
     updated = dict(aliases)
     replacements: dict[str, str] = {}

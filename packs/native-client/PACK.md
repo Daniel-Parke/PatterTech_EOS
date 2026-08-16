@@ -11,13 +11,16 @@ activation_paths: [**/ios/**, **/android/**, **/*.swift, **/*.kt, **/*.xcodeproj
 volatility: fast
 review: none
 sources: [EV-0026, EV-0027, EV-0104, EV-0171, EV-0204, EV-0206, EV-0230, EV-0235, EV-0236, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0375, EV-0376, EV-0377, EV-0378, EV-0379, EV-0380, EV-0381, EV-0382, EV-0383, EV-0386, EV-0387, EV-0388]
-type: playbook
+type: pack
 tags: [eos, a11y, delivery, ops, state]
+display_name: Native Clients
+category: engineering
+id_namespace: NAT
 depends_on: [ui-ux, architecture]
 ---
 
 
-# native-client
+# Native Clients
 
 This pack covers software that ships as a binary to a device: iOS and
 Android apps, and desktop clients. It activates when work touches
@@ -92,50 +95,50 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-NAT-001](doctrines/DOC-NAT-001-a-conflict-policy-per-write-class-named-before-a-sync-library-is.md) (default)
+- `B1` to [DOC-NAT-001](doctrines/DOC-NAT-001-a-conflict-policy-per-write-class-named-before-a-sync.md) (default)
 <a id="B2"></a>
-- `B2` to [DOC-NAT-002](doctrines/DOC-NAT-002-no-offline-acceptance-of-an-invariant-bearing-write-without-a-re.md) (default)
+- `B2` to [DOC-NAT-002](doctrines/DOC-NAT-002-no-offline-acceptance-of-an-invariant-bearing-write-without.md) (default)
 <a id="B3"></a>
-- `B3` to [DOC-NAT-003](doctrines/DOC-NAT-003-the-outbox-is-durable-ordered-and-idempotent-and-its-blocked-sta.md) (default)
+- `B3` to [DOC-NAT-003](doctrines/DOC-NAT-003-the-outbox-is-durable-ordered-and-idempotent-and-its-blocked.md) (default)
 <a id="B4"></a>
 - `B4` to [DOC-NAT-004](doctrines/DOC-NAT-004-release-is-forward-only.md) (binding)
 <a id="B5"></a>
-- `B5` to [DOC-NAT-005](doctrines/DOC-NAT-005-a-remote-update-channel-changes-presentation-and-content-never-c.md) (binding)
+- `B5` to [DOC-NAT-005](doctrines/DOC-NAT-005-a-remote-update-channel-changes-presentation-and-content.md) (binding)
 <a id="B6"></a>
-- `B6` to [DOC-NAT-006](doctrines/DOC-NAT-006-non-web-accessibility-conformance-is-stated-per-screen-declared.md) (binding)
+- `B6` to [DOC-NAT-006](doctrines/DOC-NAT-006-non-web-accessibility-conformance-is-stated-per-screen.md) (binding)
 <a id="B7"></a>
-- `B7` to [DOC-NAT-007](doctrines/DOC-NAT-007-client-and-server-contracts-change-by-expand-migrate-contract.md) (default)
+- `B7` to [DOC-NAT-007](doctrines/DOC-NAT-007-client-and-server-contracts-change-by-expand-migrate.md) (default)
 <a id="D1"></a>
 - `D1` to [DOC-NAT-008](doctrines/DOC-NAT-008-shared-logic-with-a-native-user-interface.md) (default)
 <a id="D2"></a>
-- `D2` to [DOC-NAT-009](doctrines/DOC-NAT-009-online-first-with-a-read-cache-until-an-offline-write-is-a-named.md) (default)
+- `D2` to [DOC-NAT-009](doctrines/DOC-NAT-009-online-first-with-a-read-cache-until-an-offline-write-is-a.md) (default)
 <a id="D3"></a>
-- `D3` to [DOC-NAT-010](doctrines/DOC-NAT-010-a-one-per-cent-first-slice-on-play-with-the-halt-trigger-written.md) (default)
+- `D3` to [DOC-NAT-010](doctrines/DOC-NAT-010-a-one-per-cent-first-slice-on-play-with-the-halt-trigger.md) (default)
 <a id="D4"></a>
 - `D4` to [DOC-NAT-011](doctrines/DOC-NAT-011-budget-one-rejection-cycle-into-every-release-calendar.md) (default)
 <a id="D5"></a>
 - `D5` to [DOC-NAT-012](doctrines/DOC-NAT-012-the-annual-target-sdk-bump-is-fixed-roadmap-work.md) (default)
 <a id="D6"></a>
-- `D6` to [DOC-NAT-013](doctrines/DOC-NAT-013-plan-against-a-low-automated-accessibility-catch-rate-and-put-th.md) (default)
+- `D6` to [DOC-NAT-013](doctrines/DOC-NAT-013-plan-against-a-low-automated-accessibility-catch-rate-and.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-NAT-014](doctrines/DOC-NAT-014-storage-and-compaction-are-budgeted-on-day-one-wherever-a-conver.md) (default)
+- `D7` to [DOC-NAT-014](doctrines/DOC-NAT-014-storage-and-compaction-are-budgeted-on-day-one-wherever-a.md) (default)
 <a id="D8"></a>
 - `D8` to [DOC-NAT-015](doctrines/DOC-NAT-015-start-from-the-platforms-own-control-with-its-own-behaviour.md) (default)
-- source `preferences:001` to [DOC-NAT-016](doctrines/DOC-NAT-016-framework-family-within-the-selected-client-architecture-is-a-ve.md) (preference), [DOC-NAT-017](doctrines/DOC-NAT-017-language-for-a-shared-client-core-is-a-venture-preference.md) (preference), [DOC-NAT-018](doctrines/DOC-NAT-018-the-crdt-or-synchronisation-vendor-is-a-preference-after-the-con.md) (preference), [DOC-NAT-019](doctrines/DOC-NAT-019-document-versus-relational-local-storage-is-a-venture-preference.md) (preference), [DOC-NAT-020](doctrines/DOC-NAT-020-release-cadence-beyond-store-constraints-is-a-venture-preference.md) (preference), [DOC-NAT-021](doctrines/DOC-NAT-021-whether-to-ship-a-companion-watch-or-television-surface-is-a-ven.md) (preference)
+- source `preferences:001` to [DOC-NAT-016](doctrines/DOC-NAT-016-framework-family-within-the-selected-client-architecture-is.md) (preference), [DOC-NAT-017](doctrines/DOC-NAT-017-language-for-a-shared-client-core-is-a-venture-preference.md) (preference), [DOC-NAT-018](doctrines/DOC-NAT-018-the-crdt-or-synchronisation-vendor-is-a-preference-after-the.md) (preference), [DOC-NAT-019](doctrines/DOC-NAT-019-document-versus-relational-local-storage-is-a-venture.md) (preference), [DOC-NAT-020](doctrines/DOC-NAT-020-release-cadence-beyond-store-constraints-is-a-venture.md) (preference), [DOC-NAT-021](doctrines/DOC-NAT-021-whether-to-ship-a-companion-watch-or-television-surface-is-a.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| Which client architecture | Team shape, platform feel, accessibility cost, migration surface | `packs/native-client/guides/GD-NAT-001-client-architecture.md` |
-| What happens to a write made offline | Conflict policy, storage growth, blocking behaviour | `packs/native-client/guides/GD-NAT-002-offline-write-model.md` |
-| How a fix reaches a user | Containment lever, calendar risk, OTA envelope | `packs/native-client/guides/GD-NAT-003-release-path.md` |
-| How much non-web accessibility assurance | What a passing build may claim, and against which instrument | `packs/native-client/guides/GD-NAT-004-a11y-profile.md` |
+| Which client architecture | Team shape, platform feel, accessibility cost, migration surface | `packs/native-client/wargames/WG-NAT-001-client-architecture.md` |
+| What happens to a write made offline | Conflict policy, storage growth, blocking behaviour | `packs/native-client/wargames/WG-NAT-002-offline-write-model.md` |
+| How a fix reaches a user | Containment lever, calendar risk, OTA envelope | `packs/native-client/wargames/WG-NAT-003-release-path.md` |
+| How much non-web accessibility assurance | What a passing build may claim, and against which instrument | `packs/native-client/wargames/WG-NAT-004-a11y-profile.md` |
 
-Detail sits in `packs/native-client/refs/`: the write classes, the
+Detail sits in `packs/native-client/references/`: the write classes, the
 store release mechanics, and the non-web accessibility profile. A
 worked example is in
-`packs/native-client/exemplars/EX-NAT-001-offline-booking-client.md`,
+`packs/native-client/examples/EX-NAT-001-offline-booking-client.md`,
 and evaluation criteria in `packs/native-client/CHECKS.md`.
 
 ## Failure modes and anti-patterns
@@ -171,7 +174,7 @@ and evaluation criteria in `packs/native-client/CHECKS.md`.
 
 - **No serious comparison of client architectures exists.** Nothing
   retrievable on performance, energy or defect rate at this cutoff, so
-  framework performance claims are unevidenced and GD-NAT-001 decides
+  framework performance claims are unevidenced and WG-NAT-001 decides
   on team shape, platform feel and the documented properties.
 - **Apple's rules 2.5.2 and 4.7 are in visible tension.** One forbids
   downloaded code that introduces or changes features, the other

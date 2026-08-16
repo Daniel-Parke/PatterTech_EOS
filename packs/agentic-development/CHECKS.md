@@ -1,9 +1,9 @@
 ---
 summary: What a reviewer or checker can verify about agent workflow design, split into executable today and judgement
-kind: recipe
+kind: record
 scope: estate
 sources: [EV-0051, EV-0079, EV-0087, EV-0107, EV-0111, EV-0118, EV-0121]
-type: guide
+type: checks
 tags: [eos, arch, delivery]
 review: 2027-10
 ---

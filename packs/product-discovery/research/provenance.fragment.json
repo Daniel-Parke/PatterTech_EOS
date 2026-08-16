@@ -8,7 +8,7 @@
   "carried_expression": {
     "verdict": "clean",
     "longest_quoted_span_words": 8,
-    "note": "Two quoted spans of six words or more in the read surface, both the pack's own illustrative questions in GD-DISC-002 rather than source text. Findings are restated in the pack's own words throughout and the numeric claims are attributed to their EV ids. No table, list or figure is carried from a source."
+    "note": "Two quoted spans of six words or more in the read surface, both the pack's own illustrative questions in WG-DISC-002 rather than source text. Findings are restated in the pack's own words throughout and the numeric claims are attributed to their EV ids. No table, list or figure is carried from a source."
   },
   "counts": {
     "sources_cited": 23,

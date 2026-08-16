@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a script can verify about a discovery record, split into executable today and judgement
-type: guide
+type: checks
 tags: [product, testing, tooling]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision
@@ -19,7 +19,7 @@ today. A check that needs a person is still a check.
 
 Most of these run against a single file, the `discovery.md` for the
 decision, whose shape is fixed in
-`packs/product-discovery/refs/DISCOVERY_RECORD.md`.
+`packs/product-discovery/references/DISCOVERY_RECORD.md`.
 
 ## Executable today
 
@@ -73,7 +73,7 @@ the three that most often decide whether the work was worth doing.
 
 - Any prioritisation score. No framework located has a controlled
   evaluation, so gating on a score would gate on a convention. See
-  `packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md`.
+  `packs/product-discovery/wargames/WG-DISC-003-choosing-between-opportunities.md`.
 - Interview or participant counts as a target. The recruitment frame
   decides whether a discovery is wrong, and the count decides how much
   of the truth you got.

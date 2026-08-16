@@ -213,7 +213,7 @@ def test_f003_does_not_count_derived_views_as_separate_reviews(tmp_path):
 def test_f003_counts_an_explicit_joint_review_cohort_once(tmp_path):
     root = make_repo(tmp_path)
     for i in range(11):
-        write(root, f"packs/testmod/guides/WG-TEST-{i:03d}.md",
+        write(root, f"packs/testmod/wargames/WG-TEST-{i:03d}.md",
               "---\nsummary: Cohort Wargame\ntype: wargame\ntags: [eos]\n"
               "review: 2029-01\nreview_cohort: T-0001-pressure-wargames\n"
               "---\nBody.\n")
@@ -222,12 +222,12 @@ def test_f003_counts_an_explicit_joint_review_cohort_once(tmp_path):
 
 def test_f003_rejects_a_single_file_review_cohort(tmp_path):
     root = make_repo(tmp_path)
-    write(root, "packs/testmod/guides/WG-TEST-001.md",
+    write(root, "packs/testmod/wargames/WG-TEST-001.md",
           "---\nsummary: Lone cohort\ntype: wargame\ntags: [eos]\n"
           "review: 2029-01\nreview_cohort: T-0001-pressure-wargames\n"
           "---\nBody.\n")
     assert only(run_f(root), "F003") == [
-        ("error", "packs/testmod/guides/WG-TEST-001.md",
+        ("error", "packs/testmod/wargames/WG-TEST-001.md",
          "review cohort T-0001-pressure-wargames has one file; "
          "schedule it independently")
     ]
@@ -236,12 +236,12 @@ def test_f003_rejects_a_single_file_review_cohort(tmp_path):
 def test_f003_rejects_inconsistent_cohort_dates(tmp_path):
     root = make_repo(tmp_path)
     for i, month in enumerate(("2029-01", "2029-02")):
-        write(root, f"packs/testmod/guides/WG-TEST-{i:03d}.md",
+        write(root, f"packs/testmod/wargames/WG-TEST-{i:03d}.md",
               "---\nsummary: Cohort Wargame\ntype: wargame\ntags: [eos]\n"
               f"review: {month}\n"
               "review_cohort: T-0001-pressure-wargames\n---\nBody.\n")
     assert only(run_f(root), "F003") == [
-        ("error", "packs/testmod/guides/WG-TEST-000.md",
+        ("error", "packs/testmod/wargames/WG-TEST-000.md",
          "review cohort T-0001-pressure-wargames must share one YYYY-MM "
          "date, found 2029-01, 2029-02")
     ]
@@ -252,10 +252,10 @@ def test_f003_rejects_inconsistent_cohort_dates(tmp_path):
 
 def test_f004_previously_exempt_type_without_review(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/README.md", "review: 2030-01\n", "")
+    edit(root, "packs/testmod/doctrines/README.md", "review: 2030-01\n", "")
     fs = run_f(root)
-    assert only(fs, "F004") == [("warn", "packs/testmod/README.md",
-                                 "type doctrine carries no review_by or review date")]
+    assert only(fs, "F004") == [("warn", "packs/testmod/doctrines/README.md",
+                                 "type foundation carries no review_by or review date")]
 
 
 def test_f004_v2_review_field_counts_as_coverage(tmp_path):

@@ -1,13 +1,13 @@
 ---
 summary: What a reviewer or checker can verify about API and integration work, split into what runs today and what needs judgement
-kind: guide
+kind: record
 authority: advisory
 basis: decision
 evidence_grade: not-applicable
 scope: estate
 sources: [EV-0136, EV-0137, EV-0143, EV-0125, EV-0133]
 review: 2028-02
-type: guide
+type: checks
 tags: [delivery, ci, testing]
 ---
 

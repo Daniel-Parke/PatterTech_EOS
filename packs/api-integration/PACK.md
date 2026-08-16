@@ -10,14 +10,17 @@ applies_when: [exposes_service_boundary, consumes_external_api, receives_webhook
 activation_paths: [**/api/**, **/routes/**, **/handlers/**, **/webhooks/**, **/openapi*.y*ml, **/openapi*.json, **/asyncapi*.y*ml, **/*.proto, **/schemas/**, **/endpoints/**]
 volatility: slow
 review: none
-type: guide
+type: pack
 tags: [arch, security, money]
 sources: [EV-0023, EV-0024, EV-0061, EV-0091, EV-0122, EV-0124, EV-0125, EV-0126, EV-0127, EV-0128, EV-0129, EV-0130, EV-0131, EV-0132, EV-0133, EV-0135, EV-0136, EV-0137, EV-0138, EV-0139, EV-0140, EV-0141, EV-0142, EV-0143, EV-0144, EV-0145]
+display_name: APIs and Integrations
+category: engineering
+id_namespace: API
 depends_on: [architecture, security-privacy]
 ---
 
 
-# API and integration
+# APIs and Integrations
 
 This pack governs work at a service boundary: the HTTP and RPC APIs we
 publish or consume, webhook receivers, event contracts, and the way any
@@ -85,13 +88,13 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="BR-2"></a>
-- `BR-2` to [DOC-API-001](doctrines/DOC-API-001-a-breaking-change-check-runs-in-ci-against-a-committed-baseline.md) (binding)
+- `BR-2` to [DOC-API-001](doctrines/DOC-API-001-a-breaking-change-check-runs-in-ci-against-a-committed.md) (binding)
 <a id="BR-4"></a>
-- `BR-4` to [DOC-API-002](doctrines/DOC-API-002-webhook-receivers-authenticate-the-exact-raw-request-before-pars.md) (binding)
+- `BR-4` to [DOC-API-002](doctrines/DOC-API-002-webhook-receivers-authenticate-the-exact-raw-request-before.md) (binding)
 <a id="BR-5"></a>
-- `BR-5` to [DOC-API-003](doctrines/DOC-API-003-money-touching-mutating-endpoints-define-all-four-idempotency-pa.md) (binding)
+- `BR-5` to [DOC-API-003](doctrines/DOC-API-003-money-touching-mutating-endpoints-define-all-four.md) (binding)
 <a id="BR-6"></a>
-- `BR-6` to [DOC-API-004](doctrines/DOC-API-004-deprecation-and-removal-are-two-dated-events-and-removal-is-neve.md) (binding)
+- `BR-6` to [DOC-API-004](doctrines/DOC-API-004-deprecation-and-removal-are-two-dated-events-and-removal-is.md) (binding)
 - source `defaults:001` to [DOC-API-005](doctrines/DOC-API-005-errors-use-application-problem-json.md) (default)
 - source `defaults:002` to [DOC-API-006](doctrines/DOC-API-006-cursor-pagination-with-opaque-tokens-no-offset.md) (default)
 - source `defaults:003` to [DOC-API-007](doctrines/DOC-API-007-idempotency-key-as-the-header-name.md) (default)
@@ -99,37 +102,37 @@ compatibility anchors; they do not encode authority.
 - source `defaults:005` to [DOC-API-009](doctrines/DOC-API-009-backward-transitive-for-any-log-a-consumer-can-rewind.md) (default)
 - source `defaults:006` to [DOC-API-010](doctrines/DOC-API-010-schema-derived-property-tests-against-the-contract.md) (default)
 - source `defaults:007` to [DOC-API-011](doctrines/DOC-API-011-rate-limit-policy-advertised-separately-from-the-live-budget.md) (default)
-- source `defaults:008` to [DOC-API-012](doctrines/DOC-API-012-webhook-signatures-over-the-triple-id-timestamp-payload-with-a-v.md) (default)
+- source `defaults:008` to [DOC-API-012](doctrines/DOC-API-012-webhook-signatures-over-the-triple-id-timestamp-payload-with.md) (default)
 - source `defaults:009` to [DOC-API-013](doctrines/DOC-API-013-the-contract-is-machine-readable-and-lives-in-the-repo.md) (default)
-- source `defaults:010` to [DOC-API-014](doctrines/DOC-API-014-the-compatibility-promise-is-declared-before-the-first-change.md) (default)
-- source `preferences:001` to [DOC-API-015](doctrines/DOC-API-015-contract-first-with-a-definition-language-such-as-typespec-ev-01.md) (preference)
-- source `preferences:002` to [DOC-API-016](doctrines/DOC-API-016-an-executable-ruleset-ev-0137-rather-than-a-style-document-notin.md) (preference)
-- source `preferences:003` to [DOC-API-017](doctrines/DOC-API-017-graphql-only-where-selection-based-delivery-solves-a-demonstrate.md) (preference)
-- source `preferences:004` to [DOC-API-018](doctrines/DOC-API-018-one-problem-type-uri-namespace-per-venture-so-error-types-are-gr.md) (preference)
+- source `defaults:010` to [DOC-API-014](doctrines/DOC-API-014-the-compatibility-promise-is-declared-before-the-first.md) (default)
+- source `preferences:001` to [DOC-API-015](doctrines/DOC-API-015-contract-first-with-a-definition-language-such-as-typespec.md) (preference)
+- source `preferences:002` to [DOC-API-016](doctrines/DOC-API-016-an-executable-ruleset-ev-0137-rather-than-a-style-document.md) (preference)
+- source `preferences:003` to [DOC-API-017](doctrines/DOC-API-017-graphql-only-where-selection-based-delivery-solves-a.md) (preference)
+- source `preferences:004` to [DOC-API-018](doctrines/DOC-API-018-one-problem-type-uri-namespace-per-venture-so-error-types.md) (preference)
 
 ## Decision map
 
-| Fork | Options | Guide |
+| Fork | Options | Wargame |
 | --- | --- | --- |
-| Who authors the contract, and when | hand-written spec, definition language, code-first generation, none | `packs/api-integration/guides/GD-API-001-contract-authoring.md` |
-| How the boundary is allowed to change | add-only, declared tier plus gate, explicit version parameter, pinned date with transformers | `packs/api-integration/guides/GD-API-002-versioning-and-breaking-change.md` |
-| How a webhook is trusted | bare-body HMAC, signed triple, RFC 9421, asymmetric or provider-native | `packs/api-integration/guides/GD-API-003-webhook-trust.md` |
-| What shape the boundary takes | REST, RPC, events, GraphQL | `packs/api-integration/guides/GD-API-004-boundary-shape.md` |
-| How a collection is traversed | offset, opaque cursor, keyset, hybrid | `packs/api-integration/guides/GD-API-005-collection-traversal.md` |
+| Who authors the contract, and when | hand-written spec, definition language, code-first generation, none | `packs/api-integration/wargames/WG-API-001-contract-authoring.md` |
+| How the boundary is allowed to change | add-only, declared tier plus gate, explicit version parameter, pinned date with transformers | `packs/api-integration/wargames/WG-API-002-versioning-and-breaking-change.md` |
+| How a webhook is trusted | bare-body HMAC, signed triple, RFC 9421, asymmetric or provider-native | `packs/api-integration/wargames/WG-API-003-webhook-trust.md` |
+| What shape the boundary takes | REST, RPC, events, GraphQL | `packs/api-integration/wargames/WG-API-004-boundary-shape.md` |
+| How a collection is traversed | offset, opaque cursor, keyset, hybrid | `packs/api-integration/wargames/WG-API-005-collection-traversal.md` |
 
 Level-three detail the body defers to: what counts as breaking and how
 the gate is wired,
-`packs/api-integration/refs/breaking-change-catalogue.md`;
+`packs/api-integration/references/breaking-change-catalogue.md`;
 the verification order a receiver needs,
-`packs/api-integration/refs/webhook-verification.md`; the four
+`packs/api-integration/references/webhook-verification.md`; the four
 decisions a header does not make,
-`packs/api-integration/refs/idempotency-parameters.md`; the error
+`packs/api-integration/references/idempotency-parameters.md`; the error
 envelope, rate limit and deprecation signals,
-`packs/api-integration/refs/error-and-limits.md`. Worked cases: a week
+`packs/api-integration/references/error-and-limits.md`. Worked cases: a week
 of changes to a live API in
-`packs/api-integration/exemplars/EX-API-001-invoices-api-change.md`,
+`packs/api-integration/examples/EX-API-001-invoices-api-change.md`,
 and dated versioning read properly in
-`packs/api-integration/exemplars/EX-API-002-stripe-versioning.md`.
+`packs/api-integration/examples/EX-API-002-stripe-versioning.md`.
 Evaluation criteria are in `packs/api-integration/CHECKS.md`.
 
 ## Failure modes and anti-patterns

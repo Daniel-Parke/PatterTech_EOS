@@ -27,7 +27,7 @@ The `statement` field is the canonical standing proposition.
 ## Reasoning and limits
 
 `has_user_interface`. The record names the philosophy from the list in
-`packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md` and cites at
+`packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md` and cites at
 least one evidence id; C10 and C11 settle those two. "Before pixel
 work" is settled by the record's first commit preceding the first
 commit that touches the surface's styles, which is a question the

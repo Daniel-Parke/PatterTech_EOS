@@ -28,7 +28,7 @@ The `statement` field is the canonical standing proposition.
 (EV-0130).
   Tokens bind to the filter and ordering of the issuing call and carry
   no authorisation. Override for a table UI that needs page numbers, see
-  `packs/api-integration/guides/GD-API-005-collection-traversal.md`.
+  `packs/api-integration/wargames/WG-API-005-collection-traversal.md`.
 
 ## Migration provenance
 

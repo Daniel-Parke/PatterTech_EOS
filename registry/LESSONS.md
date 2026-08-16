@@ -98,11 +98,11 @@ and a guide written for it would be speculation with a filename.
 - **Venture**: PatterTech_Website
 - **Source note**: The v4 pass.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
-- **Outcome**: WG-WEB-013 filed by the operator, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/guides/GD-UIUX-004-token-source.md`.
+- **Disposition**: wargame
+- **Outcome**: WG-WEB-013 filed by the operator, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/wargames/WG-UIUX-006-token-source.md`.
 - **Scope**: estate
 - **Applies when**: Products with a design system whose tokens are enforced somewhere other than the code that consumes them.
-- **Informs**: GD-UIUX-004, packs/ui-ux/guides/GD-UIUX-004-token-source.md
+- **Informs**: WG-UIUX-006, packs/ui-ux/wargames/WG-UIUX-006-token-source.md
 - **Decided**: 2026-07
 
 ### LES-0005 · Uniform ceremony kills small work
@@ -141,10 +141,10 @@ and a guide written for it would be speculation with a filename.
 - **Source note**: Reseed feedback.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
-- **Outcome**: Argued ruling appended to WG-WEB-001, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-001-surface-register.md`. One argued ruling from one venture, so it is not yet promotion evidence; the philosophy question it raises is carried by `packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md`.
+- **Outcome**: Argued ruling appended to WG-WEB-001, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-001-surface-register.md`. One argued ruling from one venture, so it is not yet promotion evidence; the philosophy question it raises is carried by `packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md`.
 - **Scope**: estate
 - **Applies when**: Brands with a print-native or institutional register. One argued ruling from one venture, which under the ladder in GOVERNANCE.md is short of promotion evidence.
-- **Informs**: GD-UIUX-001, packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md
+- **Informs**: WG-UIUX-003, packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md
 - **Decided**: 2026-07
 
 ### LES-0008 · Ancestry tables need preserved rows, not only compiled ones
@@ -256,10 +256,10 @@ and a guide written for it would be speculation with a filename.
 - **Source note**: WG-VOX-001 ruled split.
 - **Evidence class**: observational
 - **Disposition**: venture-ruling
-- **Outcome**: Early supporting evidence for the three-way voice scope in `packs/writing-content/guides/GD-WRIT-003-voice-scope.md`, which already sanctions per-surface splits.
+- **Outcome**: Early supporting evidence for the three-way voice scope in `packs/writing-content/wargames/WG-WRIT-003-voice-scope.md`, which already sanctions per-surface splits.
 - **Scope**: estate
 - **Applies when**: Products carrying both in-app coaching copy and reference documentation, where one register would have to serve both.
-- **Informs**: packs/writing-content/guides/GD-WRIT-003-voice-scope.md
+- **Informs**: packs/writing-content/wargames/WG-WRIT-003-voice-scope.md
 - **Decided**: 2026-08
 
 ### LES-0025 · Local-first is seven ideals, and a product names the subset it buys
@@ -323,7 +323,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Accepted for integration as one scoped Doctrine under UI and UX, linked to the custom-interaction Wargame and existing accessibility assurance.
 - **Scope**: estate
 - **Applies when**: Browser interfaces and embedded web surfaces. A canvas, spatial editor or specialised control may depart where native controls cannot express the task and an accessible alternative or equivalent behaviour is proved.
-- **Informs**: packs/ui-ux/PACK.md, GD-UIUX-003
+- **Informs**: packs/ui-ux/PACK.md, WG-UIUX-005
 - **Decided**: 2026-08-15
 - **Reasoning**: The standards make native semantics the cheaper starting point and make clear that adding a role does not add its required behaviour.
 
@@ -339,7 +339,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Merged into the existing design-philosophy Wargame and normalised Doctrine rather than authored as a second visual rule.
 - **Scope**: estate
 - **Applies when**: Every user-facing surface. Brand preferences activate only through explicit adoption and cannot override accessibility or target-device evidence.
-- **Informs**: GD-UIUX-001, packs/ui-ux/PACK.md
+- **Informs**: WG-UIUX-003, packs/ui-ux/PACK.md
 - **Decided**: 2026-08-15
 - **Reasoning**: The W3C Note supports a user-first philosophy but is not a conformance standard, so the rule remains a scoped default rather than a binding aesthetic.
 
@@ -355,7 +355,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Linked to the existing architecture Doctrine and deployment-shape procedures; no duplicate monolith rule was admitted.
 - **Scope**: estate
 - **Applies when**: A new deployable or an existing system considering a service split. Regulatory, isolation, capacity and independent ownership pressure can earn an earlier split.
-- **Informs**: packs/architecture/PACK.md, GD-ARCH-001, WG-ARCH-001
+- **Informs**: packs/architecture/PACK.md, WG-ARCH-013, WG-ARCH-001
 - **Decided**: 2026-08-15
 - **Reasoning**: Existing EOS evidence already settles the default and its exceptions, while the retained source set adds no independent outcome evidence that warrants another rule.
 
@@ -371,7 +371,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Merged into existing discovery and test-timing guidance, with a relation between reversibility and the spike-to-hardened boundary.
 - **Scope**: estate
 - **Applies when**: Exploratory changes, vertical slices and normal delivery. Consequential or difficult-to-reverse effects earn stronger evidence even when the diff is small.
-- **Informs**: GD-DISC-001, WG-DEL-007
+- **Informs**: WG-DISC-001, WG-DEL-007
 - **Decided**: 2026-08-15
 - **Reasoning**: The source sharpens a boundary already present in EOS and does not justify a second general delivery rule.
 
@@ -387,7 +387,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Merged into three existing reliability atoms and their procedures rather than one compound Doctrine.
 - **Scope**: estate
 - **Applies when**: A user-facing or data-bearing service. Safety and integrity floors remain non-spendable even when an error-budget policy permits ordinary reliability trade-offs.
-- **Informs**: GD-DEVOPS-003, GD-DEVOPS-004, WG-OPS-003
+- **Informs**: WG-DEVOPS-003, WG-DEVOPS-004, WG-DEVOPS-005
 - **Decided**: 2026-08-15
 - **Reasoning**: The propositions activate under different conditions and would become harder to challenge if collapsed into one broad reliability statement.
 
@@ -403,7 +403,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Normalised the existing threat-shaped rule and retained the binding security floors; domain disputes route to Wargames.
 - **Scope**: estate
 - **Applies when**: Security and supply-chain assurance decisions after applicable statutory, privacy, authorisation, integrity and human-approval floors have been identified.
-- **Informs**: packs/security-privacy/PACK.md, GD-SEC-003
+- **Informs**: packs/security-privacy/PACK.md, WG-SEC-003
 - **Decided**: 2026-08-15
 - **Reasoning**: SSDF supports outcome and risk tailoring, while SLSA's own threat model shows that assurance schemes leave explicit non-goals.
 
@@ -419,7 +419,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Refreshed the evidence behind the existing agent and swarm topology procedures; no second swarm Doctrine was admitted.
 - **Scope**: estate
 - **Applies when**: Agentic work with a stable task set and an external oracle. The paper's benchmark magnitudes do not transfer as universal thresholds to repository engineering.
-- **Informs**: GD-AGENT-001, GD-SWARM-001
+- **Informs**: WG-AGENT-001, WG-SWARM-001
 - **Decided**: 2026-08-15
 - **Reasoning**: Version 3 shows large gains and large losses under different task structures, which supports a Wargame and rejects a universal swarm preference.
 
@@ -435,7 +435,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Merged into existing evaluation-harness, judge and oracle procedures; no new procedure was admitted because the current routes own the pressure.
 - **Scope**: estate
 - **Applies when**: Any comparative model, agent, retrieval or automated-evaluation claim used to select or govern a system.
-- **Informs**: GD-AIML-001, GD-AIML-003, GD-AGENT-004, WG-DEL-006
+- **Informs**: WG-AIML-002, WG-AIML-004, WG-AGENT-004, WG-DEL-006
 - **Decided**: 2026-08-15
 - **Reasoning**: The apparent effect can change with model family, task graph, tool load and verifier placement, so those facts must travel with the result.
 
@@ -447,7 +447,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new analytical engine-selection Wargame under the existing data surface; it may share an advanced procedure with execution mode if both rulings stay separate.
 - **Scope**: estate
 - **Applies when**: A local or distributed analytical workload choosing or materially changing its dataframe or SQL execution engine.
@@ -463,7 +463,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new representation-boundary Wargame under the existing data surface.
 - **Scope**: estate
 - **Applies when**: A dataframe, array, solver or device boundary where representation movement can affect memory, performance or correctness.
@@ -479,7 +479,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new acceleration Wargame under the existing data surface; current package routes remain dated stack facts.
 - **Scope**: estate
 - **Applies when**: A measured numerical hotspot whose cost matters to the stated objective and whose correctness can be compared under explicit tolerances.
@@ -495,7 +495,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted execution mode as a distinct ruling surface, either in its own Wargame or as an independently ruleable part of analytical engine selection.
 - **Scope**: estate
 - **Applies when**: An analytical pipeline choosing how and where its plan executes, especially when ordering, memory, spill or reproducibility is material.
@@ -511,11 +511,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new web-delivery Wargame under the UI surface, related to the existing native-client architecture procedure without reviving retired web IDs.
 - **Scope**: estate
 - **Applies when**: A public or internal web surface choosing its primary rendering and delivery architecture, including a comparison with native delivery where device integration is material.
-- **Informs**: packs/ui-ux/PACK.md, GD-NAT-001
+- **Informs**: packs/ui-ux/PACK.md, WG-NAT-001
 - **Decided**: 2026-08-15
 - **Reasoning**: The current estate has a native-client procedure but no live procedure that owns the complete web-delivery fork.
 
@@ -531,7 +531,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Covered by a Doctrine relation to the existing design-philosophy Wargame; no duplicate density procedure was admitted.
 - **Scope**: estate
 - **Applies when**: A surface used by people with materially different familiarity, frequency or task complexity.
-- **Informs**: GD-UIUX-001
+- **Informs**: WG-UIUX-003
 - **Decided**: 2026-08-15
 - **Reasoning**: The existing procedure already asks the deciding audience, task, session and failure-cost questions.
 
@@ -543,11 +543,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new semantic-versus-custom-interaction Wargame linked to component sourcing and accessibility assurance.
 - **Scope**: estate
 - **Applies when**: A browser interaction considering canvas, a custom widget or an ARIA reconstruction because native controls appear insufficient.
-- **Informs**: GD-UIUX-002, GD-UIUX-003, packs/ui-ux/PACK.md
+- **Informs**: WG-UIUX-004, WG-UIUX-005, packs/ui-ux/PACK.md
 - **Decided**: 2026-08-15
 - **Reasoning**: A role is a promise rather than an implementation, and copied authoring patterns do not prove product behaviour.
 
@@ -563,7 +563,7 @@ and a guide written for it would be speculation with a filename.
 - **Outcome**: Covered by explicit relations among the existing design, accessibility and house-style procedures; no new Wargame was admitted.
 - **Scope**: estate
 - **Applies when**: A venture that explicitly adopts PatterTech house style or proposes motion and visual treatments on a user-facing surface.
-- **Informs**: GD-UIUX-001, GD-UIUX-003, GD-HOUSE-001
+- **Informs**: WG-UIUX-003, WG-UIUX-005, WG-HOUSE-001
 - **Decided**: 2026-08-15
 - **Reasoning**: The live procedures already separate optional taste from audience, accessibility and performance evidence.
 
@@ -575,11 +575,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed the existing deployment-shape procedures with forces, affected qualities, sensitivity and reversal fields while preserving their IDs.
 - **Scope**: estate
 - **Applies when**: A modular monolith considering a service boundary or a distributed system considering consolidation.
-- **Informs**: GD-ARCH-001, WG-ARCH-001
+- **Informs**: WG-ARCH-013, WG-ARCH-001
 - **Decided**: 2026-08-15
 - **Reasoning**: ATAM contributes lightweight trade-off structure, while the estate's current evidence already owns the one-deployable default.
 
@@ -591,11 +591,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new messaging-and-flow Wargame in architecture, related to background-work and ingestion procedures.
 - **Scope**: estate
 - **Applies when**: A boundary choosing its interaction contract where latency, ordering, retries, consistency or replay affects correctness or user experience.
-- **Informs**: WG-ARCH-004, GD-DATAENG-001, packs/architecture/PACK.md
+- **Informs**: WG-ARCH-004, WG-DATAENG-001, packs/architecture/PACK.md
 - **Decided**: 2026-08-15
 - **Reasoning**: Existing procedures choose background machinery or ingestion shape but do not own the general interaction contract.
 
@@ -607,7 +607,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new storage-engine Wargame under architecture with data-analytics activation.
 - **Scope**: estate
 - **Applies when**: A durable data surface choosing or replacing its primary engine or adding a specialised secondary engine.
@@ -623,11 +623,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new locality-and-consistency Wargame under architecture and related it to the existing offline-write procedure.
 - **Scope**: estate
 - **Applies when**: A system placing state across local devices, hosted services or both, especially where writes continue during disconnection.
-- **Informs**: GD-NAT-002, packs/architecture/PACK.md, packs/native-client/PACK.md
+- **Informs**: WG-NAT-002, packs/architecture/PACK.md, packs/native-client/PACK.md
 - **Decided**: 2026-08-15
 - **Reasoning**: The native procedure owns client writes but not whole-system placement, data ownership and cross-location consistency.
 
@@ -639,11 +639,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed the existing test-timing Wargame and its discovery relation with explicit deletion, promotion and evidence boundaries.
 - **Scope**: estate
 - **Applies when**: Exploratory work deciding between a disposable spike and a hardened vertical slice.
-- **Informs**: WG-DEL-007, GD-DISC-001
+- **Informs**: WG-DEL-007, WG-DISC-001
 - **Decided**: 2026-08-15
 - **Reasoning**: A small exploratory artefact can quietly become production, so retention is a separate decision from building it.
 
@@ -655,7 +655,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: controlled
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed and related the existing test-double and oracle-independence Wargames; no third procedure was admitted.
 - **Scope**: estate
 - **Applies when**: A test strategy selecting a fake, sandbox or live system and deciding what independent truth will detect contract drift or a mutually consistent defect.
@@ -671,11 +671,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new incident-hotfix versus normal-gate Wargame under delivery and reliability.
 - **Scope**: estate
 - **Applies when**: A declared incident where waiting for the normal delivery path causes greater user harm, and a rollback or known-good recovery route exists.
-- **Informs**: packs/delivery-testing/PACK.md, packs/devops-reliability/PACK.md, GD-DEVOPS-002
+- **Informs**: packs/delivery-testing/PACK.md, packs/devops-reliability/PACK.md, WG-DEVOPS-002
 - **Decided**: 2026-08-15
 - **Reasoning**: Existing release controls assume normal delivery, while incident practice supports mitigation first without supporting an unbounded bypass.
 
@@ -687,11 +687,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new capability-ownership Wargame in architecture with supply-chain relations.
 - **Scope**: estate
 - **Applies when**: A material capability choosing between owned implementation, purchased software or a managed service, especially where provider failure can block diagnosis or recovery.
-- **Informs**: WG-ARCH-007, GD-SUPPLY-004, packs/architecture/PACK.md
+- **Informs**: WG-ARCH-007, WG-SUPPLY-004, packs/architecture/PACK.md
 - **Decided**: 2026-08-15
 - **Reasoning**: Vendor seams and code vendoring do not by themselves decide capability ownership or prove incident access.
 
@@ -703,7 +703,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new fail-closed versus honest-degradation Wargame under reliability with security activation and protected-set disqualifiers.
 - **Scope**: estate
 - **Applies when**: A dependency or subsystem failure where some useful service might continue without weakening a protected property.
@@ -719,7 +719,7 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new observability-and-privacy Wargame under reliability with security activation.
 - **Scope**: estate
 - **Applies when**: A service adding or changing logs, traces, metrics or diagnostic event capture where records can contain personal, secret or tenant-specific context.
@@ -735,11 +735,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed the existing provenance Wargame and added the relation between verified provenance and separate producer and dependency admission.
 - **Scope**: estate
 - **Applies when**: Admission or deployment of an artefact carrying provenance, an SBOM or both.
-- **Informs**: GD-SUPPLY-001
+- **Informs**: WG-SUPPLY-001
 - **Decided**: 2026-08-15
 - **Reasoning**: The SLSA provenance and threat pages state different assurance surfaces and explicit non-goals, so attestation cannot be used as a safety proxy.
 
@@ -751,11 +751,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed and related the existing dependency-cadence and release-control Wargames; no duplicate update procedure was admitted.
 - **Scope**: estate
 - **Applies when**: A dependency update, especially an urgent security update, where the currently deployed version is known good and the replacement is not yet observed in production shape.
-- **Informs**: GD-SUPPLY-003, GD-DEVOPS-002
+- **Informs**: WG-SUPPLY-003, WG-DEVOPS-002
 - **Decided**: 2026-08-15
 - **Reasoning**: Freshness and deployment confidence are separate assurance axes, and neither should silently erase the other.
 
@@ -767,11 +767,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: controlled
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed the existing topology Wargames with version 3 evidence, tool-load pressure and central-verification checks.
 - **Scope**: estate
 - **Applies when**: Agentic work considering topology beyond a direct bounded agent or replacing deterministic orchestration with an agent loop.
-- **Informs**: GD-AGENT-001, GD-SWARM-001
+- **Informs**: WG-AGENT-001, WG-SWARM-001
 - **Decided**: 2026-08-15
 - **Reasoning**: The controlled study shows topology effects reverse with task structure, so the baseline and harness must remain fixed during comparison.
 
@@ -783,11 +783,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Admitted a new model-hosting Wargame under AI and ML, related to the existing model-lifecycle procedure.
 - **Scope**: estate
 - **Applies when**: An AI feature deciding whether inference runs on the target device, through a provider or across a hybrid fallback path.
-- **Informs**: GD-AIML-005, packs/ai-ml-llm/PACK.md
+- **Informs**: WG-AIML-006, packs/ai-ml-llm/PACK.md
 - **Decided**: 2026-08-15
 - **Reasoning**: The live model-choice procedure covers cost and retirement but not inference locality, data route, device capacity or provider outage.
 
@@ -799,11 +799,11 @@ and a guide written for it would be speculation with a filename.
 - **Lens**: LENS-0002
 - **Source note**: The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.
 - **Evidence class**: controlled
-- **Disposition**: decision-guide
+- **Disposition**: wargame
 - **Outcome**: Refreshed and related the existing judge-selection and oracle-independence Wargames; no new judge procedure was admitted.
 - **Scope**: estate
 - **Applies when**: An evaluation choosing deterministic, human or model scoring for an output that affects acceptance or comparison.
-- **Informs**: GD-AIML-003, WG-DEL-006
+- **Informs**: WG-AIML-004, WG-DEL-006
 - **Decided**: 2026-08-15
 - **Reasoning**: Judge families can share error and self-preference with the system under test, so calibration and independence are part of the result.
 
@@ -1026,11 +1026,11 @@ and a guide written for it would be speculation with a filename.
 - **Venture**: Venture B
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
-- **Disposition**: decision-guide
-- **Outcome**: Now owned by `packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md`.
+- **Disposition**: wargame
+- **Outcome**: Now owned by `packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md`.
 - **Scope**: estate
 - **Applies when**: Relational schema changes shipped with the application that reads them.
-- **Informs**: packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md
+- **Informs**: packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md
 - **Decided**: 2026-07
 - **Pruned**: 2026-08-03
 
@@ -1042,10 +1042,10 @@ and a guide written for it would be speculation with a filename.
 - **Source note**: Estate survey at EOS creation.
 - **Evidence class**: observational
 - **Disposition**: estate-default
-- **Outcome**: Now owned by `packs/delivery-testing/refs/QUALITY_SIGNALS.md` and its CHECKS rows.
+- **Outcome**: Now owned by `packs/delivery-testing/references/QUALITY_SIGNALS.md` and its CHECKS rows.
 - **Scope**: estate
 - **Applies when**: Tightening quality gates on a codebase that does not pass them yet.
-- **Informs**: packs/delivery-testing/refs/QUALITY_SIGNALS.md
+- **Informs**: packs/delivery-testing/references/QUALITY_SIGNALS.md
 - **Decided**: 2026-07
 - **Pruned**: 2026-08-03
 

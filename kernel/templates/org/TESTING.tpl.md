@@ -143,7 +143,7 @@ record.
 ## Where these defaults come from
 
 The timing table is argued, with its figures, in
-`packs/delivery-testing/guides/WG-DEL-007-test-timing.md` at the EOS
+`packs/delivery-testing/wargames/WG-DEL-007-test-timing.md` at the EOS
 commit this venture pins. The short of it: a timing ablation run in the
 EOS on 2026-08-03 found every arm passing, so the cells stand on cost
 and on independence and say nothing about which timing catches more

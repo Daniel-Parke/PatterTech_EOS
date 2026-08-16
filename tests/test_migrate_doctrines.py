@@ -278,7 +278,7 @@ def test_every_legacy_anchor_has_a_resolving_full_and_short_alias():
         if row.get("legacy_anchor") and row.get("targets")
     ]
     assert len(anchored) == 270
-    assert len(aliases) == 540
+    assert len(aliases) == 643
     resolver = KnowledgeResolver.open(REPO)
     assert resolver.problems == ()
     for row in anchored:
@@ -292,6 +292,17 @@ def test_every_legacy_anchor_has_a_resolving_full_and_short_alias():
             resolved = resolver.resolve(alias)
             assert resolved is not None
             assert resolved.canonical_id == primary
+
+    naming = json.loads(
+        (REPO / "org" / "migration" / "NAMING_BASELINE.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for old, new in naming["identifier_migration"].items():
+        assert aliases[old] == new
+        resolved = resolver.resolve(old)
+        assert resolved is not None
+        assert resolved.canonical_id == new
 
 
 def test_applied_generation_is_a_fixpoint():

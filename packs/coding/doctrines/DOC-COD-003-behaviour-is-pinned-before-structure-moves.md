@@ -32,7 +32,7 @@ characterisation or approval test captures current behaviour. Prevents
 the silent behaviour change sold as a tidy-up, which is the failure
 mode inherited and agent-written code both carry, because nobody can
 say what the code was supposed to do (EV-0180, EV-0177). See
-`packs/coding/guides/GD-COD-004-pin-then-change.md`.
+`packs/coding/wargames/WG-COD-004-pin-then-change.md`.
 
 ## Migration provenance
 

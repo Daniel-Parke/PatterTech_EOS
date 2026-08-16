@@ -36,7 +36,7 @@ The path is exercised on a schedule so that it is known to work before
 it is needed. Predicate: `has_privileged_access_path`. Prevents: the
 account that is outside every other control and that nobody watches
 (Entra emergency access guidance). Detail in
-`packs/identity-access/refs/break-glass.md`.
+`packs/identity-access/references/break-glass.md`.
 
 ## Migration provenance
 

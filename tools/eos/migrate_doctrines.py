@@ -26,6 +26,7 @@ from tools.eos.knowledge_migration import (
     inventory_sha256,
     read_baseline,
 )
+from tools.eos.migrate_naming import _replace_text as _apply_naming_replacements
 
 
 INVENTORY_PATH = "org/migration/DOCTRINE_SOURCE_INVENTORY.json"
@@ -1093,6 +1094,7 @@ def _render_pack(
     body = re.sub(
         r"(?m)^# [^\n]+$", f"# {naming_spec['display_name']}", body, count=1,
     )
+    body = _canonicalise_pack_wargame_terms(body)
     for old, new in PACK_PROSE_REPLACEMENTS.get(pack.slug, ()):
         if old not in body:
             raise DoctrineMigrationError(
@@ -1135,6 +1137,45 @@ def _render_pack(
     return "\n".join(front + rendered).rstrip() + "\n"
 
 
+def _canonicalise_pack_wargame_terms(body: str) -> str:
+    """Use Wargame for decision procedures while keeping real guides named."""
+
+    body = re.sub(r"(?<=\| )Guide(?= \|)", "Wargame", body)
+    replacements = (
+        (r"\bThe guides\b", "The Wargames"),
+        (r"\bthe guides\b", "the Wargames"),
+        (r"\bGuides sit\b", "Wargames sit"),
+        (r"\bwritten as guides here\b", "written as Wargames here"),
+        (r"\beach argued in a guide\b", "each argued in a Wargame"),
+        (r"\bargued in a guide\b", "argued in a Wargame"),
+        (r"\bfork with a guide behind\b", "fork with a Wargame behind"),
+        (r"\btransformation-tool guide\b", "transformation-tool Wargame"),
+        (r"\bextraction guide\b", "extraction Wargame"),
+        (r"\bthe guide says\b", "the Wargame says"),
+        (r"\bguide uses\b", "Wargame uses"),
+    )
+    for pattern, replacement in replacements:
+        body = re.sub(pattern, replacement, body)
+    return body
+
+
+def _canonicalise_generated_text(
+    text: str, relative: str, naming: dict,
+) -> str:
+    """Apply the reviewed T-0028 vocabulary to replayed live prose.
+
+    The Doctrine migration deliberately reads its frozen T-0026 source tree.
+    Replaying that source must not restore superseded Wargame identities or
+    collection names into the current tree. Exact file moves are unnecessary
+    here because generated Doctrine paths are already canonical.
+    """
+
+    rendered, _ = _apply_naming_replacements(
+        text.encode("utf-8"), relative, naming, {},
+    )
+    return rendered.decode("utf-8")
+
+
 def build_migration(root: Path) -> dict[str, str]:
     """Return every generated output path and its deterministic content."""
 
@@ -1149,12 +1190,18 @@ def build_migration(root: Path) -> dict[str, str]:
         raise DoctrineMigrationError("Migration ledger does not cover 501 rows")
 
     outputs = {
-        definition.path: _render_doctrine(definition, row_targets)
+        definition.path: _canonicalise_generated_text(
+            _render_doctrine(definition, row_targets), definition.path, naming,
+        )
         for definition in definitions.values()
     }
     for pack in packs.values():
-        outputs[pack.path] = _render_pack(
-            pack, inventory_rows, ledger, definitions, row_targets, naming,
+        outputs[pack.path] = _canonicalise_generated_text(
+            _render_pack(
+                pack, inventory_rows, ledger, definitions, row_targets, naming,
+            ),
+            pack.path,
+            naming,
         )
     outputs[LEDGER_PATH] = json.dumps(
         ledger, indent=2, ensure_ascii=False,

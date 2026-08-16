@@ -89,16 +89,16 @@
    "file": "packs/pattertech-house/PACK.md",
    "line": 142,
    "concern": "H6 rests on EV-0393 and EV-0394. EV-0394 is Nielsen Norman Group, all rights reserved, paraphrase only, and EV-0393 was read as an abstract record rather than as the paper.",
-   "resolution": "Not a concern. What is carried is a direction and a scope note, not a passage. GD-HOUSE-003 line 61 cites the same source the same way."
+   "resolution": "Not a concern. What is carried is a direction and a scope note, not a passage. WG-HOUSE-003 line 61 cites the same source the same way."
   },
   {
-   "file": "packs/pattertech-house/refs/LIGHT_MECHANICS.md",
+   "file": "packs/pattertech-house/references/LIGHT_MECHANICS.md",
    "line": 97,
    "concern": "The custom-property registration mechanics come from EV-0398, one of four W3C rows here that the ledger records as paraphrase-only with no verbatim copying of specification text.",
    "resolution": "Not a concern. The mechanics are described in our own words and no clause is quoted."
   },
   {
-   "file": "packs/pattertech-house/exemplars/EX-HOUSE-001-services-section.md",
+   "file": "packs/pattertech-house/examples/EX-HOUSE-001-services-section.md",
    "line": 49,
    "concern": "The exemplar carries a block of HTML and CSS, which is where carried expression would most easily hide.",
    "resolution": "Not a concern. The markup and styles are ours, written for this pack against its own budgets, and no fragment was taken from a studied source."

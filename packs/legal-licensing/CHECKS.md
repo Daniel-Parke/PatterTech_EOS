@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a checker can verify about licensing and data-protection routing, split into executable today and judgement
-type: guide
+type: checks
 tags: [security, pii, delivery]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision

@@ -56,7 +56,7 @@ def output(root, *args: str) -> str:
 
 
 def remote_tracking_heads(root) -> dict:
-    """Locally known remote-tracking heads (refs/remotes), no network.
+    """Locally known remote-tracking heads (references/remotes), no network.
 
     The remote's symbolic HEAD is skipped. It is filtered on the full
     refname, because %(refname:short) renders refs/remotes/origin/HEAD

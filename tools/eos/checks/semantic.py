@@ -43,6 +43,7 @@ from __future__ import annotations
 import json
 import re
 from datetime import date
+from fnmatch import fnmatchcase
 from pathlib import PurePosixPath
 
 from .. import gitfacts
@@ -289,9 +290,35 @@ def check_s003_path_references(ctx: dict) -> list:
             if not _anchored(model, token):
                 continue
             if not model.exists(token):
+                if _historical_naming_reference(model, rec.path, token):
+                    continue
                 out.append(_f(ctx, "S003", rec.path,
                               f"path reference does not resolve: {token}"))
     return out
+
+
+def _historical_naming_reference(
+    model: RepoModel, source: str, token: str,
+) -> bool:
+    """Recognise pre-T-0028 paths only inside declared historical records."""
+
+    raw = model.read("org/migration/NAMING_BASELINE.json")
+    if not raw:
+        return False
+    try:
+        baseline = json.loads(raw)
+    except ValueError:
+        return False
+    snapshots = baseline.get("pre_t0028_snapshot_surfaces") or []
+    if not any(
+        isinstance(pattern, str) and fnmatchcase(source, pattern)
+        for pattern in snapshots
+    ):
+        return False
+    migrations = dict(baseline.get("public_file_migration") or {})
+    migrations["packs/" + "GUIDE" + "_INDEX.md"] = "packs/WARGAME_INDEX.md"
+    target = migrations.get(token)
+    return isinstance(target, str) and model.exists(target)
 
 
 def retired_paths(model: RepoModel) -> list:
@@ -1299,7 +1326,7 @@ def check_s018_lesson_conflicts(ctx: dict) -> list:
     with later.
 
     What this does not do: it does not check that the thing a row
-    conflicts with exists. Conflicts are named against packs, guides,
+    conflicts with exists. Conflicts are named against packs, Wargames,
     policies and prior lessons, which live in four different id spaces,
     and a reference check across all four is a different check from
     this one.

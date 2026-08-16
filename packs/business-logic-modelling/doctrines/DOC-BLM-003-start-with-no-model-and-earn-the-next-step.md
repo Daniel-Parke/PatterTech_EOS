@@ -31,7 +31,7 @@ functions until a named invariant spans more than one object. Reason: a
 speculative model charges build cost, delay cost, carry cost on every
 later change, and repair cost when the guess proves wrong (EV-0273). The
 threshold is ours rather than any source's, and it is argued in
-`packs/business-logic-modelling/guides/GD-BLM-001-model-shape.md`.
+`packs/business-logic-modelling/wargames/WG-BLM-001-model-shape.md`.
 
 ## Migration provenance
 

@@ -1,11 +1,11 @@
 ---
 summary: What a reviewer or checker can verify about interface work, split into executable today and judgement
-kind: fact
+kind: record
 scope: estate
 sources: [EV-0027, EV-0028, EV-0030, EV-0065, EV-0233, EV-0235, EV-0236, EV-0237]
 volatility: slow
 review: on-change-of:WCAG-2.2
-type: implementation
+type: checks
 tags: [a11y, testing, tooling]
 ---
 
@@ -24,7 +24,7 @@ the evidence.
 | C1 | Token source parses and validates against the pinned format version | B6 | schema validation of the source file |
 | C2 | Generated token outputs exist for every consuming platform | B6 | file existence per configured platform |
 | C3 | Regeneration produces no diff | B6 | run the build, then a clean-tree assertion |
-| C4 | One shared implementation per component across surfaces | default in GD-UIUX-002 | grep or import graph, fail on duplicates |
+| C4 | One shared implementation per component across surfaces | default in WG-UIUX-004 | grep or import graph, fail on duplicates |
 | C5 | Zero scanner violations, tags pinned to the claimed version and levels, real browser | B1, B2 | scanner run per route in CI |
 | C6 | Manual verdict file entry count equals the scanner incomplete count | B2 | compare counts, fail on mismatch |
 | C7 | Six failure classes asserted individually | B3 | one test each: contrast, image alternatives, form labels, empty links, empty buttons, page language |
@@ -52,7 +52,7 @@ record has not claimed anything.
 | # | Check | Verifies | What good looks like |
 | --- | --- | --- | --- |
 | J1 | Each scanner incomplete has a real verdict | B2 | a sentence naming what was inspected and the conclusion, not "looks fine" |
-| J2 | The philosophy fits the surface | B8, GD-UIUX-001 | triggers named, runner-up named, cost of not taking it stated |
+| J2 | The philosophy fits the surface | B8, WG-UIUX-003 | triggers named, runner-up named, cost of not taking it stated |
 | J3 | Pattern deviations are justified | B4 | the deviation, the reason, and the test that pins the shipped behaviour |
 | J4 | Alternative text says what the image is for | B3 | a caption-like test: would the sentence still work with the image removed |
 | J5 | Error messages say what to do next | B7, forms | plain language, at the summary and at the field |
@@ -73,7 +73,7 @@ following them improves outcomes.
   this pack supports that comparison, so no check claims it.
 - Whether the surface is accessible. The machine checks find a minority
   of defects (EV-0236, EV-0104 disagree on how small a minority), and
-  assistive-technology and user testing sit in GD-UIUX-003 option D.
+  assistive-technology and user testing sit in WG-UIUX-005 option D.
 - Whether a performance improvement caused a business outcome. That
   needs an experiment (EV-0241).
 

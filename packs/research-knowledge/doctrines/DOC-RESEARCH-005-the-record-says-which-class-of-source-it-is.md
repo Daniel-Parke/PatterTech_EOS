@@ -34,7 +34,7 @@ own statement about it: the specification, the source, the release
 notes, the licence file, the API response. Interpretation of a primary
 source is a finding of ours and is recorded as ours, not attributed to
 the source. The ladder for common source types is in
-`packs/research-knowledge/refs/source-classes.md`. Predicate:
+`packs/research-knowledge/references/source-classes.md`. Predicate:
 `records_external_claim`. Prevents: a chain of secondary readings
 circulating as a fact, where every link cites the link before it and
 none of them read the specification.

@@ -42,7 +42,7 @@ DORA capability: loosely coupled teams and architecture (EV-0151)
 
 DORA, the five key metrics guide (EV-0199)
     Copyright Google LLC, CC BY 4.0.
-    packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md
+    packs/devops-reliability/wargames/WG-DEVOPS-004-reliability-measures.md
     carries the five metric names as terminology.
 
 FinOps Framework (EV-0197)
@@ -60,12 +60,12 @@ architecture and consumer and competition harm (EV-0300)
 UK GDPR Article 13 (EV-0349)
     Crown copyright, Open Government Licence v3.0, with material reused
     from EUR-Lex under Commission Decision 2011/833/EU.
-    packs/legal-licensing/refs/UK_DATA_ROUTING.md follows the structure
+    packs/legal-licensing/references/UK_DATA_ROUTING.md follows the structure
     of the statutory text.
 
 Diataxis documentation framework (EV-0322)
     CC BY-SA 4.0.
-    packs/docs-dx/refs/DOC_FORMS.md carries the four form names. Only
+    packs/docs-dx/references/DOC_FORMS.md carries the four form names. Only
     the names are carried. Share-alike would bite if a passage ever
     were, which is why the sweep names that file as the first one to
     re-read.

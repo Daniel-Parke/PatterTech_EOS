@@ -27,6 +27,7 @@ FROZEN_INVENTORY_SHA256 = (
 )
 DOCTRINE_LEDGER = "org/migration/DOCTRINE_MIGRATION.json"
 WARGAME_LEDGER = "org/migration/WARGAME_MIGRATION.json"
+NAMING_BASELINE = "org/migration/NAMING_BASELINE.json"
 GENERATOR = "tools.eos.migrate_wargames"
 
 WARGAME_HEADINGS = (
@@ -46,6 +47,11 @@ _PROCEDURE_PATH = re.compile(
     r"^(?:packs/[^/]+/guides|inception/wargames)/"
     r"((?:GD|WG)-[A-Z0-9]+-[0-9]{3})-[^/]+\.md$"
 )
+_CANONICAL_PROCEDURE_PATH = re.compile(
+    r"^(?:packs/[^/]+/wargames|inception/wargames)/"
+    r"(WG-[A-Z0-9]+-[0-9]{3})-[^/]+\.md$"
+)
+_IDENTIFIER_BOUNDARY = r"[A-Z0-9]"
 _LEGACY_LABEL = re.compile(
     r"(?<![A-Z0-9-])(?:B[0-9]+|D[0-9]+|BR-[0-9]+|H[0-9]+)"
     r"(?![A-Z0-9-])"
@@ -71,6 +77,8 @@ class Doctrine:
 class Procedure:
     identifier: str
     path: str
+    source_identifier: str
+    source_path: str
     text: str
     metadata: Mapping[str, object]
     body: str
@@ -85,61 +93,61 @@ class Procedure:
 # reviewed against the final Doctrine ledger, rather than guessed at runtime.
 # Explicit legacy labels always take precedence over this table.
 DOC_OVERRIDES: dict[str, tuple[str, ...]] = {
-    "GD-AGENT-002": ("DOC-AGENT-010", "DOC-AGENT-012"),
-    "GD-SWARM-001": (
+    "WG-AGENT-002": ("DOC-AGENT-010", "DOC-AGENT-012"),
+    "WG-SWARM-001": (
         "DOC-AGENT-008", "DOC-SWARM-012", "DOC-SWARM-013", "DOC-SWARM-024",
     ),
-    "GD-SWARM-003": ("DOC-SWARM-025",),
-    "GD-AIML-002": ("DOC-AIML-008",),
-    "GD-AIML-003": (
+    "WG-SWARM-003": ("DOC-SWARM-025",),
+    "WG-AIML-003": ("DOC-AIML-008",),
+    "WG-AIML-004": (
         "DOC-AIML-004", "DOC-AIML-006", "DOC-AGENT-003", "DOC-COD-001",
     ),
-    "GD-AIML-004": ("DOC-AIML-016",),
-    "GD-AIML-005": ("DOC-AIML-003", "DOC-AIML-017"),
-    "GD-API-004": ("DOC-API-013",),
-    "GD-API-005": ("DOC-API-006",),
-    "GD-ARCH-001": ("DOC-ARCH-001", "DOC-ARCH-004", "DOC-ARCH-005"),
-    "GD-BLM-001": ("DOC-BLM-003",),
-    "GD-BLM-002": ("DOC-BLM-008",),
-    "GD-BMP-001": ("DOC-BMP-005",),
-    "GD-BMP-002": ("DOC-BMP-009",),
-    "GD-BMP-003": ("DOC-BMP-007",),
-    "GD-BMP-004": ("DOC-BMP-012",),
-    "GD-COD-002": ("DOC-COD-006", "DOC-COD-007"),
-    "GD-COD-005": ("DOC-COD-009", "DOC-COD-010"),
-    "GD-DATA-004": ("DOC-DATA-008",),
-    "GD-DATAENG-002": ("DOC-DATAENG-002",),
+    "WG-AIML-005": ("DOC-AIML-016",),
+    "WG-AIML-006": ("DOC-AIML-003", "DOC-AIML-017"),
+    "WG-API-004": ("DOC-API-013",),
+    "WG-API-005": ("DOC-API-006",),
+    "WG-ARCH-013": ("DOC-ARCH-001", "DOC-ARCH-004", "DOC-ARCH-005"),
+    "WG-BLM-001": ("DOC-BLM-003",),
+    "WG-BLM-002": ("DOC-BLM-008",),
+    "WG-BMP-001": ("DOC-BMP-005",),
+    "WG-BMP-002": ("DOC-BMP-009",),
+    "WG-BMP-003": ("DOC-BMP-007",),
+    "WG-BMP-004": ("DOC-BMP-012",),
+    "WG-COD-002": ("DOC-COD-006", "DOC-COD-007"),
+    "WG-COD-005": ("DOC-COD-009", "DOC-COD-010"),
+    "WG-DATA-007": ("DOC-DATA-008",),
+    "WG-DATAENG-002": ("DOC-DATAENG-002",),
     "WG-DEL-005": ("DOC-DEL-002", "DOC-DEL-006", "DOC-COD-001"),
     "WG-DEL-006": ("DOC-DEL-002", "DOC-DEL-006", "DOC-COD-001"),
     "WG-DEL-007": ("DOC-DISC-009", "DOC-DISC-013", "DOC-DEL-008"),
-    "GD-DEVOPS-001": ("DOC-DEVOPS-001",),
-    "GD-DEVOPS-002": ("DOC-DEVOPS-008",),
-    "GD-DEVOPS-003": ("DOC-DEVOPS-009",),
-    "GD-DEVOPS-004": ("DOC-DEVOPS-004",),
-    "WG-OPS-003": ("DOC-DEVOPS-005",),
-    "GD-DOCS-001": ("DOC-DOCS-004",),
-    "GD-DOCS-003": ("DOC-DOCS-009",),
-    "GD-DOCS-005": ("DOC-DOCS-001", "DOC-DOCS-011"),
-    "GD-IDENT-002": ("DOC-IDENT-015",),
-    "GD-NAT-001": ("DOC-NAT-008",),
-    "GD-NAT-003": ("DOC-NAT-004", "DOC-NAT-010"),
-    "GD-HOUSE-001": ("DOC-HOUSE-010",),
-    "GD-HOUSE-002": ("DOC-HOUSE-001",),
-    "GD-HOUSE-004": ("DOC-HOUSE-007", "DOC-HOUSE-008"),
-    "GD-RESEARCH-001": ("DOC-RESEARCH-010", "DOC-RESEARCH-015"),
-    "GD-RESEARCH-002": ("DOC-RESEARCH-020",),
-    "GD-SEC-001": ("DOC-SEC-003",),
-    "GD-SEC-002": ("DOC-SEC-018",),
-    "GD-SEC-003": ("DOC-SEC-011",),
-    "GD-SEC-004": ("DOC-SEC-006",),
-    "GD-SUPPLY-001": (
+    "WG-DEVOPS-001": ("DOC-DEVOPS-001",),
+    "WG-DEVOPS-002": ("DOC-DEVOPS-008",),
+    "WG-DEVOPS-003": ("DOC-DEVOPS-009",),
+    "WG-DEVOPS-004": ("DOC-DEVOPS-004",),
+    "WG-DEVOPS-005": ("DOC-DEVOPS-005",),
+    "WG-DOCS-001": ("DOC-DOCS-004",),
+    "WG-DOCS-003": ("DOC-DOCS-009",),
+    "WG-DOCS-005": ("DOC-DOCS-001", "DOC-DOCS-011"),
+    "WG-IDENT-002": ("DOC-IDENT-015",),
+    "WG-NAT-001": ("DOC-NAT-008",),
+    "WG-NAT-003": ("DOC-NAT-004", "DOC-NAT-010"),
+    "WG-HOUSE-001": ("DOC-HOUSE-010",),
+    "WG-HOUSE-002": ("DOC-HOUSE-001",),
+    "WG-HOUSE-004": ("DOC-HOUSE-007", "DOC-HOUSE-008"),
+    "WG-RESEARCH-001": ("DOC-RESEARCH-010", "DOC-RESEARCH-015"),
+    "WG-RESEARCH-002": ("DOC-RESEARCH-020",),
+    "WG-SEC-001": ("DOC-SEC-003",),
+    "WG-SEC-002": ("DOC-SEC-018",),
+    "WG-SEC-003": ("DOC-SEC-011",),
+    "WG-SEC-004": ("DOC-SEC-006",),
+    "WG-SUPPLY-001": (
         "DOC-SUPPLY-002", "DOC-SUPPLY-003", "DOC-SEC-014",
     ),
-    "GD-SUPPLY-003": (
+    "WG-SUPPLY-003": (
         "DOC-SUPPLY-005", "DOC-DEVOPS-005", "DOC-DEVOPS-008",
     ),
-    "GD-SUPPLY-004": ("DOC-SUPPLY-011",),
-    "GD-UIUX-002": ("DOC-UIUX-003", "DOC-UIUX-010"),
+    "WG-SUPPLY-004": ("DOC-SUPPLY-011",),
+    "WG-UIUX-004": ("DOC-UIUX-003", "DOC-UIUX-010"),
 }
 
 
@@ -147,10 +155,10 @@ DOC_OVERRIDES: dict[str, tuple[str, ...]] = {
 # 2026-08-15 research packet receive pressure predicates here.  The admitted
 # new Wargames own the other pressure rows.
 PRESSURE_MAP: dict[str, tuple[str, ...]] = {
-    "GD-AGENT-001": ("agent_coordination_cost_is_material",),
-    "GD-SWARM-001": ("agent_coordination_cost_is_material",),
-    "GD-AIML-003": ("evaluation_oracle_is_undecided",),
-    "GD-ARCH-001": ("requires_independent_deployability",),
+    "WG-AGENT-001": ("agent_coordination_cost_is_material",),
+    "WG-SWARM-001": ("agent_coordination_cost_is_material",),
+    "WG-AIML-004": ("evaluation_oracle_is_undecided",),
+    "WG-ARCH-013": ("requires_independent_deployability",),
     "WG-ARCH-001": ("requires_independent_deployability",),
     "WG-DEL-005": ("test_fidelity_changes_outcome",),
     "WG-DEL-006": (
@@ -158,78 +166,78 @@ PRESSURE_MAP: dict[str, tuple[str, ...]] = {
         "evaluation_oracle_is_undecided",
     ),
     "WG-DEL-007": ("riskiest_assumption_is_unproved",),
-    "GD-SUPPLY-001": ("producer_trust_is_unproved",),
-    "GD-SUPPLY-003": ("dependency_update_changes_known_good",),
-    "GD-DEVOPS-002": ("dependency_update_changes_known_good",),
-    "GD-UIUX-001": (
+    "WG-SUPPLY-001": ("producer_trust_is_unproved",),
+    "WG-SUPPLY-003": ("dependency_update_changes_known_good",),
+    "WG-DEVOPS-002": ("dependency_update_changes_known_good",),
+    "WG-UIUX-003": (
         "serves_novice_and_expert_users",
         "house_style_costs_access_or_performance",
     ),
-    "GD-UIUX-003": ("house_style_costs_access_or_performance",),
+    "WG-UIUX-005": ("house_style_costs_access_or_performance",),
 }
 
 
 # Pressure-specific Doctrines supplement an explicitly cited legacy label.
 # This is needed where the new pressure crosses pack boundaries.
 PRESSURE_DOC_ADDITIONS: dict[str, tuple[str, ...]] = {
-    "GD-AGENT-001": (
+    "WG-AGENT-001": (
         "DOC-AGENT-008", "DOC-SWARM-012", "DOC-SWARM-013", "DOC-SWARM-024",
     ),
-    "GD-UIUX-001": (
+    "WG-UIUX-003": (
         "DOC-UIUX-009", "DOC-DISC-016", "DOC-HOUSE-004", "DOC-HOUSE-015",
         "DOC-UIUX-011", "DOC-UIUX-014",
     ),
-    "GD-UIUX-003": (
+    "WG-UIUX-005": (
         "DOC-HOUSE-004", "DOC-HOUSE-015", "DOC-UIUX-011", "DOC-UIUX-014",
     ),
     "WG-ARCH-001": ("DOC-ARCH-004", "DOC-ARCH-005"),
-    "GD-DEVOPS-002": ("DOC-SUPPLY-005",),
+    "WG-DEVOPS-002": ("DOC-SUPPLY-005",),
 }
 
 
 CONSEQUENCE_OVERRIDES = {
-    "GD-AIML-003",
-    "GD-ARCH-001",
+    "WG-AIML-004",
+    "WG-ARCH-013",
     "WG-ARCH-001",
-    "GD-DEVOPS-002",
-    "GD-SUPPLY-001",
-    "GD-SUPPLY-003",
-    "GD-UIUX-001",
-    "GD-UIUX-003",
+    "WG-DEVOPS-002",
+    "WG-SUPPLY-001",
+    "WG-SUPPLY-003",
+    "WG-UIUX-003",
+    "WG-UIUX-005",
     "WG-DEL-005",
     "WG-DEL-006",
 }
 
 
 RELATION_CANDIDATES: dict[str, tuple[str, ...]] = {
-    "GD-AGENT-001": ("DREL-AGENT-001",),
-    "GD-SWARM-001": ("DREL-AGENT-001",),
-    "GD-AIML-003": ("DREL-AIML-002",),
-    "GD-ARCH-001": ("DREL-ARCH-003",),
+    "WG-AGENT-001": ("DREL-AGENT-001",),
+    "WG-SWARM-001": ("DREL-AGENT-001",),
+    "WG-AIML-004": ("DREL-AIML-002",),
+    "WG-ARCH-013": ("DREL-ARCH-003",),
     "WG-ARCH-001": ("DREL-ARCH-003",),
     "WG-DEL-005": ("DREL-DEL-002",),
     "WG-DEL-006": ("DREL-DEL-002", "DREL-AIML-002"),
-    "GD-SUPPLY-001": ("DREL-SUPPLY-001",),
-    "GD-SUPPLY-003": ("DREL-SUPPLY-002",),
-    "GD-DEVOPS-002": ("DREL-SUPPLY-002",),
-    "GD-UIUX-001": ("DREL-UIUX-001", "DREL-HOUSE-002"),
-    "GD-UIUX-003": ("DREL-HOUSE-001",),
+    "WG-SUPPLY-001": ("DREL-SUPPLY-001",),
+    "WG-SUPPLY-003": ("DREL-SUPPLY-002",),
+    "WG-DEVOPS-002": ("DREL-SUPPLY-002",),
+    "WG-UIUX-003": ("DREL-UIUX-001", "DREL-HOUSE-002"),
+    "WG-UIUX-005": ("DREL-HOUSE-001",),
 }
 
 
 CONFLICT_WHEN_RELATED = {
-    "GD-DEVOPS-002", "GD-SUPPLY-003", "GD-UIUX-001", "GD-UIUX-003",
+    "WG-DEVOPS-002", "WG-SUPPLY-003", "WG-UIUX-003", "WG-UIUX-005",
 }
 
 
 SOURCE_ADDITIONS: dict[str, tuple[str, ...]] = {
-    "GD-AGENT-001": ("EV-0452",),
-    "GD-SWARM-001": ("EV-0452",),
-    "GD-ARCH-001": ("EV-0564",),
+    "WG-AGENT-001": ("EV-0452",),
+    "WG-SWARM-001": ("EV-0452",),
+    "WG-ARCH-013": ("EV-0564",),
     "WG-ARCH-001": ("EV-0564",),
     "WG-DEL-007": ("EV-0579",),
-    "GD-DISC-001": ("EV-0579",),
-    "GD-SUPPLY-001": ("EV-0549", "EV-0582"),
+    "WG-DISC-001": ("EV-0579",),
+    "WG-SUPPLY-001": ("EV-0549", "EV-0582"),
 }
 
 
@@ -238,38 +246,38 @@ SOURCE_ADDITIONS: dict[str, tuple[str, ...]] = {
 # evidence that bears on each decision, rather than citing every source in the
 # pack indiscriminately.
 SOURCE_OVERRIDES: dict[str, tuple[str, ...]] = {
-    "GD-DATAENG-001": ("EV-0505", "EV-0507", "EV-0509", "EV-0510"),
-    "GD-DATAENG-002": (
+    "WG-DATAENG-001": ("EV-0505", "EV-0507", "EV-0509", "EV-0510"),
+    "WG-DATAENG-002": (
         "EV-0511", "EV-0513", "EV-0514", "EV-0515", "EV-0516",
     ),
-    "GD-DATAENG-003": (
+    "WG-DATAENG-003": (
         "EV-0506", "EV-0508", "EV-0512", "EV-0513", "EV-0514",
     ),
-    "GD-DATAENG-004": ("EV-0506", "EV-0508", "EV-0514"),
-    "GD-IDENT-001": (
+    "WG-DATAENG-004": ("EV-0506", "EV-0508", "EV-0514"),
+    "WG-IDENT-001": (
         "EV-0517", "EV-0518", "EV-0519", "EV-0520", "EV-0521",
         "EV-0522", "EV-0523",
     ),
-    "GD-IDENT-002": ("EV-0524", "EV-0525", "EV-0526", "EV-0527"),
-    "GD-IDENT-003": (
+    "WG-IDENT-002": ("EV-0524", "EV-0525", "EV-0526", "EV-0527"),
+    "WG-IDENT-003": (
         "EV-0524", "EV-0525", "EV-0526", "EV-0527", "EV-0531",
     ),
-    "GD-IDENT-004": ("EV-0528", "EV-0529", "EV-0530"),
+    "WG-IDENT-004": ("EV-0528", "EV-0529", "EV-0530"),
 }
 
 
 RESEARCH_NOTES: dict[str, str] = {
-    "GD-AGENT-001": (
+    "WG-AGENT-001": (
         "EV-0452 is benchmark evidence across stated models, harnesses and task "
         "graphs. It supports decomposability, tool load and verifier placement as "
         "pressures, not a universal topology ranking or cut-off."
     ),
-    "GD-SWARM-001": (
+    "WG-SWARM-001": (
         "EV-0452 reports gains on decomposable work and losses on sequential, "
         "tool-heavy work. Transfer the direction only: coordination cost, baseline "
         "capability and central verification still need measurement on this task."
     ),
-    "GD-ARCH-001": (
+    "WG-ARCH-013": (
         "EV-0564 contributes quality-attribute scenarios, sensitivity points and "
         "trade-off points. Its multi-day facilitated method does not transfer as "
         "mandatory ceremony for a small venture."
@@ -279,12 +287,12 @@ RESEARCH_NOTES: dict[str, str] = {
         "does not make every small change reversible: a spike still needs a named "
         "deletion or hardening boundary."
     ),
-    "GD-DISC-001": (
+    "WG-DISC-001": (
         "EV-0579 supports a narrow exploratory path only while its deletion or "
         "promotion boundary remains explicit. Copying or retaining the result "
         "moves it back through the normal evidence gate."
     ),
-    "GD-SUPPLY-001": (
+    "WG-SUPPLY-001": (
         "EV-0582 says what provenance can establish about where, when and how an "
         "artefact was produced. EV-0549 preserves the hard limit: accurate "
         "provenance can still describe a malicious or flawed producer, so producer "
@@ -294,7 +302,7 @@ RESEARCH_NOTES: dict[str, str] = {
 
 
 CHEAPEST_TEST_OVERRIDES = {
-    "GD-ARCH-001": (
+    "WG-ARCH-013": (
         "Map change coupling, deployment cadence, isolation, ownership and "
         "capacity from recent work. Test one proposed seam without splitting "
         "deployment, then ask whether the measured pressure still requires an "
@@ -315,47 +323,47 @@ CHEAPEST_TEST_OVERRIDES = {
         "independently authored reference. Seed one plausible shared mistake; "
         "the test discriminates only if the independent path rejects it."
     ),
-    "GD-SUPPLY-001": (
+    "WG-SUPPLY-001": (
         "Verify a correctly attested artefact whose source or selected "
         "dependency is deliberately policy-bad. Record what provenance proves, "
         "what the admission verifier rejects, and which trust claim remains open."
     ),
-    "GD-SUPPLY-003": (
+    "WG-SUPPLY-003": (
         "Take one representative security update through the cooldown exception, "
         "suite, staged release, rollback and incident reconstruction path. Compare "
         "that proof with the known-good deployment it would replace."
     ),
-    "GD-AGENT-001": (
+    "WG-AGENT-001": (
         "Compare one bounded single-agent baseline with the smallest justified "
         "decomposition under the same task set, model budget and external "
         "verifier. Measure useful accepted work and coordination cost separately."
     ),
-    "GD-SWARM-001": (
+    "WG-SWARM-001": (
         "Compare one bounded single-agent baseline with the smallest justified "
         "lane split under the same task set, model budget and external verifier. "
         "Include merge and verification time in the result."
     ),
-    "GD-AIML-003": (
+    "WG-AIML-004": (
         "Calibrate each proposed judge against the same human-labelled sample. "
         "Report agreement, disagreement, order effects, abstention and cost before "
         "allowing any judge to decide the claimed behaviour."
     ),
-    "GD-UIUX-001": (
+    "WG-UIUX-003": (
         "Run the same representative task with novice and frequent users. Record "
         "completion, error and search time, then repeat on the lowest supported "
         "device if house treatment or density changes performance."
     ),
-    "GD-DISC-001": (
+    "WG-DISC-001": (
         "Build the narrowest representative path and list the assumptions it can "
         "actually test. Name its deletion or promotion boundary, then list the "
         "hardening evidence required before any retained artefact reaches users."
     ),
-    "GD-UIUX-003": (
+    "WG-UIUX-005": (
         "Exercise the hardest representative journey with reduced motion and on "
         "the lowest supported device, then inspect the accessibility tree and "
         "named assistive-technology path for the claimed criteria."
     ),
-    "GD-HOUSE-001": (
+    "WG-HOUSE-001": (
         "Test one representative task with the intended audience under reduced "
         "motion and on the lowest supported device. Measure loading and frame "
         "behaviour before spending the optional house treatment."
@@ -364,15 +372,15 @@ CHEAPEST_TEST_OVERRIDES = {
 
 
 RETIRED_SUCCESSORS: dict[str, tuple[str, ...]] = {
-    "WG-VOX-001": ("GD-WRIT-003",),
-    "WG-WEB-001": ("GD-UIUX-001",),
-    "WG-WEB-003": ("GD-HOUSE-002",),
-    "WG-WEB-005": ("GD-HOUSE-001",),
-    "WG-WEB-006": ("GD-UIUX-001",),
-    "WG-WEB-011": ("GD-HOUSE-001",),
-    "WG-WEB-012": ("GD-HOUSE-004",),
-    "WG-WEB-013": ("GD-UIUX-002", "GD-UIUX-004"),
-    "WG-WEB-014": ("GD-HOUSE-004",),
+    "WG-VOX-001": ("WG-WRIT-003",),
+    "WG-WEB-001": ("WG-UIUX-003",),
+    "WG-WEB-003": ("WG-HOUSE-002",),
+    "WG-WEB-005": ("WG-HOUSE-001",),
+    "WG-WEB-006": ("WG-UIUX-003",),
+    "WG-WEB-011": ("WG-HOUSE-001",),
+    "WG-WEB-012": ("WG-HOUSE-004",),
+    "WG-WEB-013": ("WG-UIUX-004", "WG-UIUX-006"),
+    "WG-WEB-014": ("WG-HOUSE-004",),
 }
 
 
@@ -435,6 +443,234 @@ def _inventory_hash(rows: Mapping[str, str]) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def _string_mapping(value: object, field: str) -> dict[str, str]:
+    if not isinstance(value, dict) or not all(
+        isinstance(key, str) and isinstance(item, str)
+        for key, item in value.items()
+    ):
+        raise WargameMigrationError(
+            f"naming baseline field {field} must be a string mapping"
+        )
+    return dict(value)
+
+
+def _string_list(value: object, field: str) -> list[str]:
+    if not isinstance(value, list) or not all(
+        isinstance(item, str) for item in value
+    ):
+        raise WargameMigrationError(
+            f"naming baseline field {field} must be a string list"
+        )
+    return list(value)
+
+
+def _load_naming_contract(root: Path) -> dict[str, object]:
+    path = root / NAMING_BASELINE
+    try:
+        contract = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, ValueError) as exc:
+        raise WargameMigrationError(
+            f"cannot read naming baseline: {NAMING_BASELINE}"
+        ) from exc
+    if not isinstance(contract, dict):
+        raise WargameMigrationError("naming baseline must contain an object")
+    if contract.get("schema_version") != 1 or contract.get("task") != "T-0028":
+        raise WargameMigrationError("unsupported naming baseline contract")
+    identifiers = _string_mapping(
+        contract.get("identifier_migration"), "identifier_migration"
+    )
+    targets = _string_mapping(contract.get("target_wargames"), "target_wargames")
+    counts = contract.get("counts")
+    if not isinstance(counts, dict):
+        raise WargameMigrationError("naming baseline counts must contain an object")
+    if len(identifiers) != 103:
+        raise WargameMigrationError("naming baseline must contain 103 ID aliases")
+    if len(targets) != int(counts.get("wargames", -1)):
+        raise WargameMigrationError(
+            "naming baseline Wargame count does not match its target paths"
+        )
+    if len(set(identifiers.values())) != len(identifiers):
+        raise WargameMigrationError("naming baseline ID aliases are not one-to-one")
+    if set(identifiers.values()) - set(targets):
+        raise WargameMigrationError(
+            "a naming baseline ID alias has no canonical Wargame target"
+        )
+    _string_list(contract.get("canonical_collections"), "canonical_collections")
+    _string_list(
+        contract.get("retired_collection_paths"), "retired_collection_paths"
+    )
+    _string_list(contract.get("optional_collections"), "optional_collections")
+    _string_mapping(
+        contract.get("public_file_migration"), "public_file_migration"
+    )
+    _string_mapping(
+        contract.get("lesson_disposition_migration"),
+        "lesson_disposition_migration",
+    )
+    return contract
+
+
+def canonical_procedures(root: Path) -> dict[str, str]:
+    """Map the frozen 114 source identities to their reviewed current targets."""
+
+    root = Path(root).resolve()
+    frozen = frozen_procedures(root)
+    contract = _load_naming_contract(root)
+    return _canonical_inventory(frozen, contract)
+
+
+def _canonical_inventory(
+    frozen: Mapping[str, str], contract: Mapping[str, object]
+) -> dict[str, str]:
+    identifiers = _string_mapping(
+        contract["identifier_migration"], "identifier_migration"
+    )
+    targets = _string_mapping(contract["target_wargames"], "target_wargames")
+    result: dict[str, str] = {}
+    for source_identifier, source_path in sorted(frozen.items()):
+        identifier = identifiers.get(source_identifier, source_identifier)
+        target_path = targets.get(identifier)
+        if target_path is None:
+            raise WargameMigrationError(
+                f"frozen Wargame has no canonical target: {source_identifier}"
+            )
+        match = _CANONICAL_PROCEDURE_PATH.fullmatch(target_path)
+        if not match or match.group(1) != identifier:
+            raise WargameMigrationError(
+                f"invalid canonical Wargame target: {identifier}: {target_path}"
+            )
+        source_parts = PurePosixPath(source_path).parts
+        target_parts = PurePosixPath(target_path).parts
+        if source_parts[0] == "packs" and (
+            target_parts[0] != "packs" or target_parts[1] != source_parts[1]
+        ):
+            raise WargameMigrationError(
+                f"Wargame target changes owning pack: {source_path} -> {target_path}"
+            )
+        if identifier in result:
+            raise WargameMigrationError(
+                f"two frozen Wargames map to current ID {identifier}"
+            )
+        result[identifier] = target_path
+    if len(result) != FROZEN_COUNT:
+        raise WargameMigrationError(
+            f"canonical inventory has {len(result)} rows, expected {FROZEN_COUNT}"
+        )
+    return result
+
+
+def _source_target_paths(contract: Mapping[str, object]) -> dict[str, str]:
+    identifiers = _string_mapping(
+        contract["identifier_migration"], "identifier_migration"
+    )
+    targets = _string_mapping(contract["target_wargames"], "target_wargames")
+    inverse = {current: legacy for legacy, current in identifiers.items()}
+    paths: dict[str, str] = {}
+    for identifier, target in targets.items():
+        source_identifier = inverse.get(identifier, identifier)
+        pure = PurePosixPath(target)
+        if len(pure.parts) >= 4 and pure.parts[0] == "packs":
+            parts = list(pure.parts)
+            if parts[2] != "wargames":
+                raise WargameMigrationError(
+                    f"pack Wargame target is outside wargames/: {target}"
+                )
+            parts[2] = "guides"
+            name = parts[-1]
+            if not name.startswith(identifier + "-"):
+                raise WargameMigrationError(
+                    f"Wargame target basename does not begin with its ID: {target}"
+                )
+            parts[-1] = source_identifier + name[len(identifier) :]
+            source = PurePosixPath(*parts).as_posix()
+        else:
+            source = target
+        if source in paths:
+            raise WargameMigrationError(
+                f"two canonical Wargames share historical path {source}"
+            )
+        paths[source] = target
+    return paths
+
+
+def _canonicalise_text(text: str, contract: Mapping[str, object]) -> str:
+    """Apply the reviewed naming substitutions to generated historical text."""
+
+    for old, new in sorted(
+        _source_target_paths(contract).items(),
+        key=lambda item: (-len(item[0]), item[0]),
+    ):
+        text = text.replace(old, new)
+
+    identifiers = _string_mapping(
+        contract["identifier_migration"], "identifier_migration"
+    )
+    for old, new in sorted(identifiers.items()):
+        pattern = re.compile(
+            rf"(?<!{_IDENTIFIER_BOUNDARY}){re.escape(old)}"
+            rf"(?!{_IDENTIFIER_BOUNDARY})"
+        )
+        text = pattern.sub(new, text)
+
+    retired = _string_list(
+        contract["retired_collection_paths"], "retired_collection_paths"
+    )
+    canonical = _string_list(
+        contract["canonical_collections"], "canonical_collections"
+    )
+    optional = _string_list(
+        contract["optional_collections"], "optional_collections"
+    )
+    if len(retired) != 4 or len(canonical) < 4 or len(optional) != 1:
+        raise WargameMigrationError("unsupported collection naming contract")
+    collection_pairs = (
+        (retired[0], canonical[1]),
+        (retired[1], canonical[2]),
+        (retired[2], canonical[3]),
+        (retired[3], optional[0]),
+    )
+    packs = contract.get("packs")
+    if not isinstance(packs, dict) or not all(isinstance(key, str) for key in packs):
+        raise WargameMigrationError("naming baseline packs must contain an object")
+    for old, new in collection_pairs:
+        for prefix in ("(", "`"):
+            text = text.replace(prefix + old + "/", prefix + new + "/")
+        for pack in packs:
+            text = text.replace(
+                f"packs/{pack}/{old}/", f"packs/{pack}/{new}/"
+            )
+
+    public = _string_mapping(
+        contract["public_file_migration"], "public_file_migration"
+    )
+    for old, new in public.items():
+        text = text.replace(PurePosixPath(old).name, PurePosixPath(new).name)
+    text = text.replace("GUIDE" + "_INDEX.md", "WARGAME_INDEX.md")
+    dispositions = _string_mapping(
+        contract["lesson_disposition_migration"],
+        "lesson_disposition_migration",
+    )
+    for old, new in dispositions.items():
+        pattern = re.compile(rf"(?<![a-z-]){re.escape(old)}(?![a-z-])")
+        text = pattern.sub(new, text)
+
+    # The frozen procedures predate the public Wargame vocabulary. Preserve
+    # genuine qualified documents such as style guides and interview guides,
+    # but do not let a live Wargame call itself a guide on replay.
+    entity_terms = (
+        (r"\bThis\s+guide\b", "This Wargame"),
+        (r"\bthis\s+guide\b", "this Wargame"),
+        (r"\bThe\s+guide\b", "The Wargame"),
+        (r"\bthe\s+guide\b", "the Wargame"),
+        (r"\btopology\s+guide\b", "topology Wargame"),
+        (r"\boracle-strategy\s+guide\b", "oracle-strategy Wargame"),
+        (r"\btransformation-tool\s+guide\b", "transformation-tool Wargame"),
+    )
+    for pattern, replacement in entity_terms:
+        text = re.sub(pattern, replacement, text)
+    return text
+
+
 def frozen_procedures(root: Path) -> dict[str, str]:
     """Reconstruct and verify the independent 114-item identity freeze."""
 
@@ -472,14 +708,28 @@ def frozen_procedures(root: Path) -> dict[str, str]:
     return rows
 
 
-def _read_frozen(root: Path, inventory: Mapping[str, str]) -> dict[str, Procedure]:
+def _read_frozen(
+    root: Path,
+    inventory: Mapping[str, str],
+    canonical: Mapping[str, str],
+    contract: Mapping[str, object],
+) -> dict[str, Procedure]:
+    identifiers = _string_mapping(
+        contract["identifier_migration"], "identifier_migration"
+    )
     procedures: dict[str, Procedure] = {}
-    for identifier, path in sorted(inventory.items()):
-        text = _normalise(_git(root, "show", f"{BASELINE_COMMIT}:{path}"))
+    for source_identifier, source_path in sorted(inventory.items()):
+        identifier = identifiers.get(source_identifier, source_identifier)
+        path = canonical[identifier]
+        text = _normalise(
+            _git(root, "show", f"{BASELINE_COMMIT}:{source_path}")
+        )
         parsed = parse_frontmatter(text)
         procedures[identifier] = Procedure(
             identifier=identifier,
             path=path,
+            source_identifier=source_identifier,
+            source_path=source_path,
             text=text,
             metadata=dict(parsed.data),
             body=parsed.body.strip(),
@@ -489,11 +739,11 @@ def _read_frozen(root: Path, inventory: Mapping[str, str]) -> dict[str, Procedur
 
 def _check_live_identity(root: Path, inventory: Mapping[str, str]) -> None:
     seen: dict[str, list[str]] = {}
-    candidates = sorted(root.glob("packs/*/guides/*.md"))
+    candidates = sorted(root.glob("packs/*/wargames/*.md"))
     candidates.extend(sorted(root.glob("inception/wargames/*.md")))
     for path in candidates:
         rel = path.relative_to(root).as_posix()
-        match = _PROCEDURE_PATH.fullmatch(rel)
+        match = _CANONICAL_PROCEDURE_PATH.fullmatch(rel)
         if not match:
             continue
         identifier = match.group(1)
@@ -504,11 +754,11 @@ def _check_live_identity(root: Path, inventory: Mapping[str, str]) -> None:
             raise WargameMigrationError(
                 f"procedure path declares a different ID: {rel}: {declared}"
             )
-    for identifier, expected in inventory.items():
+    for identifier, expected in sorted(inventory.items()):
         paths = seen.get(identifier, [])
         if paths != [expected]:
             raise WargameMigrationError(
-                f"frozen identity/path drift: {identifier}: {paths!r}, "
+                f"canonical identity/path drift: {identifier}: {paths!r}, "
                 f"expected {[expected]!r}"
             )
 
@@ -753,7 +1003,7 @@ def _metadata(
             sources.append(identifier)
     always_walk = procedure.identifier in {
         "WG-EOS-001", "WG-EOS-002",
-        "GD-SEC-001", "GD-SEC-002", "GD-SEC-003", "GD-SEC-004",
+        "WG-SEC-001", "WG-SEC-002", "WG-SEC-003", "WG-SEC-004",
     }
     if procedure.pack is None:
         applies_when = ["runs_agents"]
@@ -987,14 +1237,18 @@ def render_procedure(
     doctrines: Mapping[str, Doctrine],
     labels: Mapping[tuple[str, str], tuple[str, ...]],
     live_relations: set[str],
+    naming_contract: Mapping[str, object],
 ) -> tuple[str, dict]:
     targets = _procedure_targets(procedure, labels, doctrines)
     metadata = _metadata(procedure, doctrines, targets, live_relations)
     body = _render_body(procedure, doctrines, targets, metadata)
-    text = _render_frontmatter(metadata) + "\n\n" + body
+    text = _canonicalise_text(
+        _render_frontmatter(metadata) + "\n\n" + body,
+        naming_contract,
+    )
     return text, {
-        "id": procedure.identifier,
-        "path": procedure.path,
+        "id": procedure.source_identifier,
+        "path": procedure.source_path,
         "disposition": "live-convert",
         "scenario_modes": metadata["scenario_modes"],
         **(
@@ -1012,7 +1266,9 @@ def render_procedure(
     }
 
 
-def _retired_rows(root: Path) -> list[dict]:
+def _retired_rows(
+    root: Path, naming_contract: Mapping[str, object]
+) -> list[dict]:
     manifest = json.loads((root / "archive/RETIRED_IDS.json").read_text(encoding="utf-8"))
     identifiers = manifest.get("ids") or {}
     if len(identifiers) != 22:
@@ -1020,8 +1276,15 @@ def _retired_rows(root: Path) -> list[dict]:
             f"retired Wargame inventory has {len(identifiers)} rows, expected 22"
         )
     rows = []
+    aliases = _string_mapping(
+        naming_contract["identifier_migration"], "identifier_migration"
+    )
+    historical = {current: legacy for legacy, current in aliases.items()}
     for identifier, path in sorted(identifiers.items()):
-        successors = RETIRED_SUCCESSORS.get(identifier, ())
+        successors = tuple(
+            historical.get(successor, successor)
+            for successor in RETIRED_SUCCESSORS.get(identifier, ())
+        )
         row = {
             "id": identifier,
             "historical_path": path,
@@ -1040,7 +1303,7 @@ def _retired_rows(root: Path) -> list[dict]:
 
 def _live_relation_ids(root: Path) -> set[str]:
     identifiers: set[str] = set()
-    for path in sorted(root.glob("packs/*/doctrines/relations/DREL-*.json")):
+    for path in sorted(root.glob("packs/*/relations/DREL-*.json")):
         try:
             document = json.loads(path.read_text(encoding="utf-8"))
         except ValueError as exc:
@@ -1059,21 +1322,30 @@ def build_migration(root: Path) -> tuple[dict[str, str], dict]:
 
     root = Path(root).resolve()
     inventory = frozen_procedures(root)
-    _check_live_identity(root, inventory)
-    procedures = _read_frozen(root, inventory)
+    naming_contract = _load_naming_contract(root)
+    canonical = _canonical_inventory(inventory, naming_contract)
+    _check_live_identity(root, canonical)
+    procedures = _read_frozen(root, inventory, canonical, naming_contract)
     doctrines, labels, doctrine_ledger = _load_doctrines(root)
     live_relations = _live_relation_ids(root)
 
     rendered: dict[str, str] = {}
     rows = []
-    for identifier in sorted(procedures):
+    ordered = sorted(
+        procedures.values(), key=lambda procedure: procedure.source_identifier
+    )
+    for procedure in ordered:
         text, row = render_procedure(
-            procedures[identifier], doctrines, labels, live_relations,
+            procedure,
+            doctrines,
+            labels,
+            live_relations,
+            naming_contract,
         )
-        rendered[row["path"]] = text
+        rendered[procedure.path] = text
         rows.append(row)
 
-    retired = _retired_rows(root)
+    retired = _retired_rows(root, naming_contract)
     retired_ids = {row["id"] for row in retired}
     for path, text in rendered.items():
         present = sorted(identifier for identifier in retired_ids if identifier in text)

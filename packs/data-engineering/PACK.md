@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the data-engineering Doctrine and Wargames
-type: playbook
+type: pack
 tags: [data, ops, state, realtime]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/pipelines/**, **/ingest/**, **/ingestion/**, **/etl/**, **
 volatility: slow
 review: none
 sources: [EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0513, EV-0514, EV-0515, EV-0516]
+display_name: Data Engineering
+category: data-ai
+id_namespace: DATAENG
 depends_on: [architecture, security-privacy]
 ---
 
 
-# Data engineering
+# Data Engineering
 
 This pack covers how data gets in and how it is put right: ingestion by
 batch, stream or change capture, delivery guarantees, idempotent
@@ -113,48 +116,48 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-DATAENG-001](doctrines/DOC-DATAENG-001-every-hop-between-two-systems-states-its-delivery-guarantee-and.md) (binding)
+- `B1` to [DOC-DATAENG-001](doctrines/DOC-DATAENG-001-every-hop-between-two-systems-states-its-delivery.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-DATAENG-002](doctrines/DOC-DATAENG-002-reprocessing-a-window-replaces-a-bounded-unit-or-merges-on-a-dec.md) (binding)
+- `B2` to [DOC-DATAENG-002](doctrines/DOC-DATAENG-002-reprocessing-a-window-replaces-a-bounded-unit-or-merges.md) (binding)
 <a id="B3"></a>
-- `B3` to [DOC-DATAENG-003](doctrines/DOC-DATAENG-003-a-pipeline-over-event-time-data-declares-its-lateness-horizon-an.md) (binding)
+- `B3` to [DOC-DATAENG-003](doctrines/DOC-DATAENG-003-a-pipeline-over-event-time-data-declares-its-lateness.md) (binding)
 <a id="D1"></a>
-- `D1` to [DOC-DATAENG-004](doctrines/DOC-DATAENG-004-the-processing-window-comes-from-the-scheduler-or-from-the-data.md) (default)
+- `D1` to [DOC-DATAENG-004](doctrines/DOC-DATAENG-004-the-processing-window-comes-from-the-scheduler-or-from.md) (default)
 <a id="D2"></a>
 - `D2` to [DOC-DATAENG-005](doctrines/DOC-DATAENG-005-backfill-is-the-scheduled-pipeline-given-different-dates.md) (default)
 <a id="D3"></a>
-- `D3` to [DOC-DATAENG-006](doctrines/DOC-DATAENG-006-log-based-change-capture-over-polling-where-the-venture-is-allow.md) (default)
+- `D3` to [DOC-DATAENG-006](doctrines/DOC-DATAENG-006-log-based-change-capture-over-polling-where-the-venture.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-DATAENG-007](doctrines/DOC-DATAENG-007-the-partition-value-is-derived-by-the-engine-from-a-real-column.md) (default)
+- `D4` to [DOC-DATAENG-007](doctrines/DOC-DATAENG-007-the-partition-value-is-derived-by-the-engine-from-a-real.md) (default)
 <a id="D5"></a>
-- `D5` to [DOC-DATAENG-008](doctrines/DOC-DATAENG-008-one-bounded-window-per-run-sized-so-a-single-window-can-be-repro.md) (default)
+- `D5` to [DOC-DATAENG-008](doctrines/DOC-DATAENG-008-one-bounded-window-per-run-sized-so-a-single-window-can.md) (default)
 <a id="D6"></a>
-- `D6` to [DOC-DATAENG-009](doctrines/DOC-DATAENG-009-start-in-batch-move-a-step-to-streaming-only-when-a-named-decisi.md) (default)
+- `D6` to [DOC-DATAENG-009](doctrines/DOC-DATAENG-009-start-in-batch-move-a-step-to-streaming-only-when-a.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-DATAENG-010](doctrines/DOC-DATAENG-010-every-run-records-its-window-the-input-position-it-read-to-the-r.md) (default)
+- `D7` to [DOC-DATAENG-010](doctrines/DOC-DATAENG-010-every-run-records-its-window-the-input-position-it-read.md) (default)
 <a id="D8"></a>
-- `D8` to [DOC-DATAENG-011](doctrines/DOC-DATAENG-011-rejected-and-very-late-records-go-to-a-quarantine-table-with-the.md) (default)
+- `D8` to [DOC-DATAENG-011](doctrines/DOC-DATAENG-011-rejected-and-very-late-records-go-to-a-quarantine-table.md) (default)
 - source `preferences:001` to [DOC-DATAENG-012](doctrines/DOC-DATAENG-012-the-table-format.md) (preference)
-- source `preferences:002` to [DOC-DATAENG-013](doctrines/DOC-DATAENG-013-whether-the-merge-key-is-the-sources-natural-key-or-a-hash-of-it.md) (preference)
-- source `preferences:003` to [DOC-DATAENG-014](doctrines/DOC-DATAENG-014-the-orchestrator-and-whether-the-window-arrives-as-a-cli-flag-or.md) (preference)
-- source `preferences:004` to [DOC-DATAENG-015](doctrines/DOC-DATAENG-015-compaction-cadence-and-small-file-policy-until-the-read-time-com.md) (preference)
-- source `preferences:005` to [DOC-DATAENG-016](doctrines/DOC-DATAENG-016-whether-quarantine-is-a-table-per-source-or-one-table-with-a-sou.md) (preference)
+- source `preferences:002` to [DOC-DATAENG-013](doctrines/DOC-DATAENG-013-whether-the-merge-key-is-the-sources-natural-key-or-a.md) (preference)
+- source `preferences:003` to [DOC-DATAENG-014](doctrines/DOC-DATAENG-014-the-orchestrator-and-whether-the-window-arrives-as-a-cli.md) (preference)
+- source `preferences:004` to [DOC-DATAENG-015](doctrines/DOC-DATAENG-015-compaction-cadence-and-small-file-policy-until-the-read.md) (preference)
+- source `preferences:005` to [DOC-DATAENG-016](doctrines/DOC-DATAENG-016-whether-quarantine-is-a-table-per-source-or-one-table.md) (preference)
 
 ## Decision map
 
-The material forks, each argued in a guide.
+The material forks, each argued in a Wargame.
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| How does the data get here: batch, stream or change capture | `packs/data-engineering/guides/GD-DATAENG-001-ingestion-shape.md` | Scheduled batch, change capture where the log is readable |
-| How is a reprocess made idempotent | `packs/data-engineering/guides/GD-DATAENG-002-idempotent-reprocess.md` | Replace a bounded unit |
-| Where does the processing date come from | `packs/data-engineering/guides/GD-DATAENG-003-processing-window.md` | The scheduler's interval, or the event time in the data |
-| How are late and out-of-order arrivals handled | `packs/data-engineering/guides/GD-DATAENG-004-late-arrivals.md` | A declared lookback, with a quarantine beyond it |
+| How does the data get here: batch, stream or change capture | `packs/data-engineering/wargames/WG-DATAENG-001-ingestion-shape.md` | Scheduled batch, change capture where the log is readable |
+| How is a reprocess made idempotent | `packs/data-engineering/wargames/WG-DATAENG-002-idempotent-reprocess.md` | Replace a bounded unit |
+| Where does the processing date come from | `packs/data-engineering/wargames/WG-DATAENG-003-processing-window.md` | The scheduler's interval, or the event time in the data |
+| How are late and out-of-order arrivals handled | `packs/data-engineering/wargames/WG-DATAENG-004-late-arrivals.md` | A declared lookback, with a quarantine beyond it |
 
-Level-three detail sits in `packs/data-engineering/refs/`: the per-hop
+Level-three detail sits in `packs/data-engineering/references/`: the per-hop
 guarantee table, the run ledger fields, and partition choice and
 evolution. A full worked application is in
-`packs/data-engineering/exemplars/EX-DATAENG-001-orders-backfill.md`.
+`packs/data-engineering/examples/EX-DATAENG-001-orders-backfill.md`.
 The pack's own evaluation criteria are in
 `packs/data-engineering/CHECKS.md`.
 
@@ -242,7 +245,7 @@ comparing partition replacement against merge for correctness or cost at
 any scale. The cost claims in the maintainer documentation carry no
 numbers, and the case where the two genuinely disagree, a correction
 that moves a row from one partition to another, is addressed by no
-source found. GD-DATAENG-002 argues it from mechanism, which is weaker
+source found. WG-DATAENG-002 argues it from mechanism, which is weaker
 than evidence and is labelled as such.
 
 **Every lateness horizon in this pack is declared, not derived.** No

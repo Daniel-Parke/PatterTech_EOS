@@ -1,6 +1,6 @@
 ---
 summary: What a reviewer or a checker can verify about supply chain and release integrity work, executable today versus judgement
-type: guide
+type: checks
 tags: [security, delivery, testing, ci]
 review: 2027-03
 kind: record
@@ -44,7 +44,7 @@ exists to tell them what to look for.
 | J6 | The urgent release used the ordinary path | A hotfix published by hand, outside the release workflow, is the finding, however good the reason felt | B4 |
 | J7 | The bill of materials is used for something | It is generated and read, or generated and filed. The second is a cost with no benefit | Defaults |
 | J8 | Alerts were triaged, not counted | Findings have a disposition. A dashboard number with no dispositions is not triage | Defaults |
-| J9 | A vendored tree has a reader | Somebody named reads the diff on every update, and there is evidence they did | B1, GD-SUPPLY-004 |
+| J9 | A vendored tree has a reader | Somebody named reads the diff on every update, and there is evidence they did | B1, WG-SUPPLY-004 |
 | J10 | Registry-specific gaps are named | Which of rollback, freeze and mix-and-match the venture's registry leaves open, and what is done about it | Open questions |
 | J11 | Preferences are recorded as preferences | A taste choice presented as binding is a finding, and the reverse too | Pack hygiene |
 | J12 | Thin evidence is admitted | Where the pack says the evidence is thin, work relying on it says so rather than borrowing confidence | Open questions |

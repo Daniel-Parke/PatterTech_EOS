@@ -1,11 +1,11 @@
 ---
 summary: What a reviewer or a script can verify about domain modelling work, split into executable today and judgement
-kind: fact
+kind: record
 scope: estate
 sources: [EV-0017, EV-0157, EV-0188, EV-0269, EV-0270, EV-0277, EV-0281, EV-0283, EV-0284, EV-0285]
 volatility: slow
 review: 2027-11
-type: implementation
+type: checks
 tags: [testing, money, data]
 ---
 
@@ -25,7 +25,7 @@ evidence.
 | C2 | The money type's amount is an integer | B1 | construct one and assert the internal type |
 | C3 | Formatting is exponent-driven, not fixed at two | B1 | the same integer renders differently in a two-decimal and a zero-decimal currency |
 | C4 | Cross-currency arithmetic raises | B1 | add, subtract and compare two different codes, expect a raise each time |
-| C5 | Allocation is exact | GD-BLM-003 | property test: for any amount and weights, the parts sum to the input (EV-0017, EV-0188) |
+| C5 | Allocation is exact | WG-BLM-003 | property test: for any amount and weights, the parts sum to the input (EV-0017, EV-0188) |
 | C6 | Currency table version is recorded | ref MONEY_AND_CURRENCY | the pinned list version exists in the repo and is referenced by the lookup |
 | C7 | External money quirks live only in an adapter | D7 | the domain tree contains no provider-specific currency case |
 | C8 | No naive datetime in the domain tree | B2 | scan for datetime construction without a zone, and for storage of an offset where a zone was meant |
@@ -52,11 +52,11 @@ the legal path proves nothing about what the lifecycle refuses.
 | J1 | The invariant is a real invariant | D2 | one sentence, no "usually", spanning more than one object (EV-0269) |
 | J2 | The boundary is written up | D2 | the field set is filled in and dated, and the corrective policy list is short (EV-0270) |
 | J3 | The model grew against a named trigger | D1 | the change record names what forced the step, not a preference |
-| J4 | The odd minor unit rule is a business decision | GD-BLM-003 | somebody who sells the product answered it, and the answer is in the change record |
+| J4 | The odd minor unit rule is a business decision | WG-BLM-003 | somebody who sells the product answered it, and the answer is in the change record |
 | J5 | Each duration is declared elapsed or wall-clock | D5 | the declaration sits next to the rule, not in a library default |
 | J6 | The event pattern is named | D11 | one of notification, state transfer, sourcing, CQRS, named in the change record |
 | J7 | The rule lives on the right clock | D6 | who edits it and how often, stated, and the home follows |
-| J8 | An event log holding personal data has an erasure story | GD-BLM-005 | the story exists and `packs/security-privacy/PACK.md` has seen it |
+| J8 | An event log holding personal data has an erasure story | WG-BLM-005 | the story exists and `packs/security-privacy/PACK.md` has seen it |
 | J9 | Departures from a default carry a reason | defaults | the reason is in the task record, not in a commit message alone |
 
 ## Not verifiable here

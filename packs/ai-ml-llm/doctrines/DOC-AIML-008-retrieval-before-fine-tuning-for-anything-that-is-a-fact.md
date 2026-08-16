@@ -32,7 +32,7 @@ had never seen (EV-0248). Fine-tuning is for form, task shape and format
 adherence. Reason: facts move faster than training runs. Scope note:
 seven-billion-parameter open models and multiple-choice evaluation, and
 parameter-efficient tuning is a real trade rather than a free lunch
-(EV-0249). See `packs/ai-ml-llm/guides/GD-AIML-002-knowledge-source.md`.
+(EV-0249). See `packs/ai-ml-llm/wargames/WG-AIML-003-knowledge-source.md`.
 
 ## Migration provenance
 

@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a checker can verify about analytics, modelling and experiment work, split into executable today and judgement
-type: guide
+type: checks
 tags: [data, testing, delivery]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision
@@ -58,7 +58,7 @@ later; none is executable now.
 | J-02 | The quality rules cover the failures this table can actually have | Reviewer, because a suite checks what you declared, not what you forgot (EV-0056) | D9, D10 |
 | J-03 | A suggested constraint does not encode a current bug as the norm | Reviewer, on every derived rule before it is accepted | D10 |
 | J-04 | Semantic drift has not happened under a passing contract | Reviewer, on any unexplained metric step change | D10 |
-| J-05 | The identifier rung chosen is the lowest that answers the question | Reviewer, against the ladder in `packs/data-analytics/refs/PRIVACY_IN_ANALYTICS.md` | B3, D8 |
+| J-05 | The identifier rung chosen is the lowest that answers the question | Reviewer, against the ladder in `packs/data-analytics/references/PRIVACY_IN_ANALYTICS.md` | B3, D8 |
 | J-06 | The minimum effect worth detecting is the one that would change a decision | Reviewer, before the sample size is computed | B4 |
 | J-07 | The experiment was reachable at all | Reviewer, comparing required sample size to assignable traffic and to the window in which the answer matters | D4 |
 | J-08 | The stopping rule was followed, not chosen afterwards | Reviewer, against the pre-declaration from C-12 | B4 |
@@ -96,7 +96,7 @@ at staging and expensive to fix after six months of history.
 - Dashboard layout and visual design, which sit in
   `packs/ui-ux/PACK.md`.
 - Migration mechanics for a schema change, which sit in
-  `packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md`.
+  `packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md`.
 - Which contract format, quality tool or dashboard method was used. All
   preferences.
 - Absolute model count or layer count. Only the discipline within them.

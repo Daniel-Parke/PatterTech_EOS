@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the supply-chain-integrity Doctrine and Wargames
-type: guide
+type: pack
 tags: [security, delivery, ci, tooling]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/*.lock, **/package-lock.json, **/pnpm-lock.yaml, **/go.sum
 volatility: fast
 review: none
 sources: [EV-0038, EV-0068, EV-0069, EV-0155, EV-0156, EV-0549, EV-0550, EV-0551, EV-0552, EV-0553, EV-0554, EV-0555, EV-0556, EV-0557, EV-0558, EV-0559, EV-0560, EV-0561, EV-0562]
+display_name: Supply Chain and Release Integrity
+category: reliability-trust
+id_namespace: SUPPLY
 depends_on: [security-privacy, devops-reliability]
 ---
 
 
-# Supply chain and release integrity
+# Supply Chain and Release Integrity
 
 This pack owns whether an artefact is what it claims to be: provenance,
 signing identity, bill-of-materials shape, pinning cadence, and what a
@@ -110,41 +113,41 @@ compatibility anchors; they do not encode authority.
 <a id="B1"></a>
 - `B1` to [DOC-SUPPLY-001](doctrines/DOC-SUPPLY-001-third-party-artefacts-resolve-by-digest.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-SUPPLY-002](doctrines/DOC-SUPPLY-002-published-artefacts-carry-provenance-from-the-system-that-built.md) (binding)
+- `B2` to [DOC-SUPPLY-002](doctrines/DOC-SUPPLY-002-published-artefacts-carry-provenance-from-the-system-that.md) (binding)
 <a id="B3"></a>
-- `B3` to [DOC-SUPPLY-003](doctrines/DOC-SUPPLY-003-verification-exists-on-the-consuming-side-and-fails-closed.md) (binding)
+- `B3` to [DOC-SUPPLY-003](doctrines/DOC-SUPPLY-003-verification-exists-on-the-consuming-side-and-fails.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-SUPPLY-004](doctrines/DOC-SUPPLY-004-the-publish-path-is-separate-and-nothing-untrusted-shares-it.md) (binding)
-- source `defaults:001` to [DOC-SUPPLY-005](doctrines/DOC-SUPPLY-005-a-cooldown-window-before-adopting-a-newly-published-version-with.md) (default)
-- source `defaults:002` to [DOC-SUPPLY-006](doctrines/DOC-SUPPLY-006-generate-the-bill-of-materials-from-the-lock-file-not-by-scannin.md) (default)
+- `B4` to [DOC-SUPPLY-004](doctrines/DOC-SUPPLY-004-the-publish-path-is-separate-and-nothing-untrusted-shares.md) (binding)
+- source `defaults:001` to [DOC-SUPPLY-005](doctrines/DOC-SUPPLY-005-a-cooldown-window-before-adopting-a-newly-published.md) (default)
+- source `defaults:002` to [DOC-SUPPLY-006](doctrines/DOC-SUPPLY-006-generate-the-bill-of-materials-from-the-lock-file-not-by.md) (default)
 - source `defaults:003` to [DOC-SUPPLY-007](doctrines/DOC-SUPPLY-007-record-what-the-bill-of-materials-could-not-see.md) (default)
-- source `defaults:004` to [DOC-SUPPLY-008](doctrines/DOC-SUPPLY-008-short-lived-signing-identity-where-the-ecosystem-supports-it.md) (default)
+- source `defaults:004` to [DOC-SUPPLY-008](doctrines/DOC-SUPPLY-008-short-lived-signing-identity-where-the-ecosystem-supports.md) (default)
 - source `defaults:005` to [DOC-SUPPLY-009](doctrines/DOC-SUPPLY-009-check-the-release-path-for-discontinuity-at-admission.md) (default)
 - source `defaults:006` to [DOC-SUPPLY-010](doctrines/DOC-SUPPLY-010-reproducibility-where-the-toolchain-gives-it-cheaply.md) (default)
-- source `defaults:007` to [DOC-SUPPLY-011](doctrines/DOC-SUPPLY-011-read-the-repository-not-its-self-description-before-depending-on.md) (default)
-- source `defaults:008` to [DOC-SUPPLY-012](doctrines/DOC-SUPPLY-012-one-release-path-used-for-every-release-including-the-urgent-one.md) (default)
+- source `defaults:007` to [DOC-SUPPLY-011](doctrines/DOC-SUPPLY-011-read-the-repository-not-its-self-description-before.md) (default)
+- source `defaults:008` to [DOC-SUPPLY-012](doctrines/DOC-SUPPLY-012-one-release-path-used-for-every-release-including-the.md) (default)
 - source `preferences:001` to [DOC-SUPPLY-013](doctrines/DOC-SUPPLY-013-which-bill-of-materials-format.md) (preference)
-- source `preferences:002` to [DOC-SUPPLY-014](doctrines/DOC-SUPPLY-014-where-attestations-are-stored-so-long-as-a-consumer-can-find-the.md) (preference)
-- source `preferences:003` to [DOC-SUPPLY-015](doctrines/DOC-SUPPLY-015-whether-the-cooldown-sits-in-the-install-client-or-the-update-bo.md) (preference)
-- source `preferences:004` to [DOC-SUPPLY-016](doctrines/DOC-SUPPLY-016-how-long-the-window-is-beyond-being-non-zero-and-written-down.md) (preference)
-- source `preferences:005` to [DOC-SUPPLY-017](doctrines/DOC-SUPPLY-017-whether-release-notes-list-dependency-changes-or-a-generated-dif.md) (preference)
+- source `preferences:002` to [DOC-SUPPLY-014](doctrines/DOC-SUPPLY-014-where-attestations-are-stored-so-long-as-a-consumer-can.md) (preference)
+- source `preferences:003` to [DOC-SUPPLY-015](doctrines/DOC-SUPPLY-015-whether-the-cooldown-sits-in-the-install-client-or-the.md) (preference)
+- source `preferences:004` to [DOC-SUPPLY-016](doctrines/DOC-SUPPLY-016-how-long-the-window-is-beyond-being-non-zero-and-written.md) (preference)
+- source `preferences:005` to [DOC-SUPPLY-017](doctrines/DOC-SUPPLY-017-whether-release-notes-list-dependency-changes-or-a.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| What provenance to generate, and who verifies it | GD-SUPPLY-001 | Build-platform provenance at publish, digest-and-signature verification at admission |
-| Short-lived identity or a long-lived key | GD-SUPPLY-002 | Short-lived identity where the ecosystem supports it, a custodied key only where it does not |
-| How far to pin, and how often to move | GD-SUPPLY-003 | Exact pins with digests, batched moves on a schedule, a cooldown window, security fixes exempt |
-| Vendor it or depend on it | GD-SUPPLY-004 | Depend with a pin; vendor only for a named reason with a named person reading the diff |
+| What provenance to generate, and who verifies it | WG-SUPPLY-001 | Build-platform provenance at publish, digest-and-signature verification at admission |
+| Short-lived identity or a long-lived key | WG-SUPPLY-002 | Short-lived identity where the ecosystem supports it, a custodied key only where it does not |
+| How far to pin, and how often to move | WG-SUPPLY-003 | Exact pins with digests, batched moves on a schedule, a cooldown window, security fixes exempt |
+| Vendor it or depend on it | WG-SUPPLY-004 | Depend with a pin; vendor only for a named reason with a named person reading the diff |
 
-Guides sit in `packs/supply-chain-integrity/guides/`. Level-three
+Wargames sit in `packs/supply-chain-integrity/wargames/`. Level-three
 detail sits in two refs: what a check at admission consists of, in
-`packs/supply-chain-integrity/refs/admission-checklist.md`, and what a
+`packs/supply-chain-integrity/references/admission-checklist.md`, and what a
 compromised build can reach, in
-`packs/supply-chain-integrity/refs/build-system-reach.md`. The worked
+`packs/supply-chain-integrity/references/build-system-reach.md`. The worked
 example is
-`packs/supply-chain-integrity/exemplars/EX-SUPPLY-001-first-published-release.md`.
+`packs/supply-chain-integrity/examples/EX-SUPPLY-001-first-published-release.md`.
 
 ## Failure modes and anti-patterns
 

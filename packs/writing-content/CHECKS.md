@@ -1,11 +1,11 @@
 ---
 summary: What a reviewer or a script can verify about writing and content work, split into executable today and judgement
-kind: fact
+kind: record
 scope: estate
 sources: [EV-0027, EV-0062, EV-0122, EV-0436, EV-0441, EV-0443, EV-0445, EV-0446]
 volatility: slow
 review: on-change-of:CLDR-plural-categories
-type: implementation
+type: checks
 tags: [content, forms, testing]
 ---
 
@@ -58,9 +58,9 @@ does not exist in a simulated DOM.
 
 | # | Check | What good looks like | Against |
 | --- | --- | --- | --- |
-| J1 | The philosophy for this body of text is named and recorded | One of the four in GD-WRIT-001, with a reason tied to reader and consequence, written before the copy | GD-WRIT-001 |
-| J2 | The message format decision is recorded with its version pinned and its risk stated | A named format, a pinned version, and a sentence on what happens if the ecosystem moves | GD-WRIT-002 |
-| J3 | The voice scope is correct for the file | Repository decides EOS-internal against venture; brand applies only where adopted; literal register overrides on anything the reader must act on | GD-WRIT-003 |
+| J1 | The philosophy for this body of text is named and recorded | One of the four in WG-WRIT-001, with a reason tied to reader and consequence, written before the copy | WG-WRIT-001 |
+| J2 | The message format decision is recorded with its version pinned and its risk stated | A named format, a pinned version, and a sentence on what happens if the ecosystem moves | WG-WRIT-002 |
+| J3 | The voice scope is correct for the file | Repository decides EOS-internal against venture; brand applies only where adopted; literal register overrides on anything the reader must act on | WG-WRIT-003 |
 | J4 | Error wording states the shape of a correct answer rather than a diagnosis | A reader who has never seen the field can produce a valid value from the message alone | B4 |
 | J5 | Error severity matches consequence, and colour is not the only signal | A recoverable field error and an irreversible failure look different | ERROR_CONTRACT |
 | J6 | Terminology list covers the terms that matter and no more | Every entry traceable to a real drift or a real ambiguity, not a style opinion | B7 |

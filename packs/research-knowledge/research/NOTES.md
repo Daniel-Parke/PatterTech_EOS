@@ -148,7 +148,7 @@ partly inverts, because the specification and the source code are
 primary and the secondary reading is where the error enters. The pack
 takes the classification and the rule about attributing interpretation,
 and explicitly refuses the preference ordering, with the reason in
-`packs/research-knowledge/refs/source-classes.md`. That is an
+`packs/research-knowledge/references/source-classes.md`. That is an
 adaptation and not a finding, and both files say so.
 
 **Whether search limits cost anything.** One chapter states that
@@ -175,7 +175,7 @@ cutting attack success substantially (EV-0214) and name structural
 patterns that fix the action set before untrusted text is seen
 (EV-0473), while both official taxonomies still decline to claim a
 complete defence. The pack does not re-argue this; it points at
-`packs/security-privacy` GD-SEC-001, which does.
+`packs/security-privacy` WG-SEC-001, which does.
 
 ## Questions the research could not close
 
@@ -189,7 +189,7 @@ complete defence. The pack does not re-argue this; it points at
    regulators reveal what was not written up. A venture has none of
    that. No source evidences that the discipline survives the move.
 3. **The rapid-review literature was not readable.** That is where the
-   best empirical answer to GD-RESEARCH-001 lives, because it measures
+   best empirical answer to WG-RESEARCH-001 lives, because it measures
    what abbreviating a full search actually costs. The publisher
    returned 403 to automated access on the day of the sweep, so no
    record exists and the fork is argued without it. This is the first
@@ -236,7 +236,7 @@ is weaker as a result.
 Two live pages addressed AI readers in the imperative during the sweep.
 Neither was acted on, both were recorded, and the encounter is written
 up at
-`packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md`.
+`packs/research-knowledge/examples/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md`.
 
 ## Citation state, and what the import did
 
@@ -279,7 +279,7 @@ lightly edited, and the `research-and-knowledge-base` row in
 Two things about that coverage row are worth a second look and are not
 this lane's to change. It carries no `worked_example`, which check S013
 reports as an error and which
-`packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md`
+`packs/research-knowledge/examples/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md`
 answers. Its `evidence_sources` list holds the fourteen pre-existing EV
 ids the pack reuses plus EV-0214, which the pack does not cite directly,
 and none of the seventeen rows the pack's own research contributed.

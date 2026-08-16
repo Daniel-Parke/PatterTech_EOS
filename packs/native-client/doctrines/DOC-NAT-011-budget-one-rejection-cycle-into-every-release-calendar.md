@@ -31,7 +31,7 @@ one submission in four was rejected in the 2025 reporting year, the
 largest bucket by a wide margin being Performance (EV-0373).
 That is a vendor census of its own decisions and sizes a calendar risk
 only; the scope note sits in
-`packs/native-client/refs/RELEASE_MECHANICS.md`.
+`packs/native-client/references/RELEASE_MECHANICS.md`.
 
 ## Migration provenance
 

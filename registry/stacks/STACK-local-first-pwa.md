@@ -70,7 +70,7 @@ Code is the only thing that crosses the wire, so the gate sits in CI:
 - Cross-target golden byte-identity: goldens generated on one target and
   compared on the other, with the analyser version embedded in the
   format. This is the change-proof pattern of
-  `packs/architecture/guides/WG-ARCH-006-change-proof.md` applied to a
+  `packs/architecture/wargames/WG-ARCH-006-change-proof.md` applied to a
   dual-target core.
 - libFuzzer smoke on every parser and kernel entry point.
 - App typecheck and static build, plus the schema drift gate.

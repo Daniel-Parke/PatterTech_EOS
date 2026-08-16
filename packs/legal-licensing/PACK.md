@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the legal-licensing Doctrine and Wargames
-type: playbook
+type: pack
 tags: [security, pii, delivery]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/LICENCE*, **/LICENSE*, **/NOTICE*, **/requirements*.txt, *
 volatility: slow
 review: none
 sources: [EV-0041, EV-0069, EV-0225, EV-0337, EV-0338, EV-0339, EV-0340, EV-0341, EV-0342, EV-0343, EV-0344, EV-0345, EV-0346, EV-0347, EV-0348, EV-0349, EV-0350, EV-0351, EV-0352]
+display_name: Licensing and Legal Boundaries
+category: practice-governance
+id_namespace: LEGAL
 depends_on: [security-privacy]
 ---
 
 
-# legal-licensing
+# Licensing and Legal Boundaries
 
 This pack routes a venture's legal and licensing questions: what a
 dependency's licence lets us ship, what our repositories declare, where
@@ -118,57 +121,57 @@ compatibility anchors; they do not encode authority.
 <a id="B1"></a>
 - `B1` to [DOC-LEGAL-001](doctrines/DOC-LEGAL-001-every-repository-declares-its-own-licence.md) (default)
 <a id="B2"></a>
-- `B2` to [DOC-LEGAL-002](doctrines/DOC-LEGAL-002-no-dependency-enters-without-a-recorded-licence-expression-and-a.md) (binding)
+- `B2` to [DOC-LEGAL-002](doctrines/DOC-LEGAL-002-no-dependency-enters-without-a-recorded-licence-expression.md) (binding)
 <a id="B3"></a>
-- `B3` to [DOC-LEGAL-003](doctrines/DOC-LEGAL-003-an-or-expression-is-resolved-to-one-identifier-before-merge.md) (default)
+- `B3` to [DOC-LEGAL-003](doctrines/DOC-LEGAL-003-an-or-expression-is-resolved-to-one-identifier-before.md) (default)
 <a id="B4"></a>
-- `B4` to [DOC-LEGAL-004](doctrines/DOC-LEGAL-004-copyleft-entering-anything-we-ship-or-host-takes-a-written-decis.md) (binding)
+- `B4` to [DOC-LEGAL-004](doctrines/DOC-LEGAL-004-copyleft-entering-anything-we-ship-or-host-takes-a-written.md) (binding)
 <a id="B5"></a>
-- `B5` to [DOC-LEGAL-005](doctrines/DOC-LEGAL-005-before-any-personal-data-is-processed-the-notice-and-the-registr.md) (binding)
+- `B5` to [DOC-LEGAL-005](doctrines/DOC-LEGAL-005-before-any-personal-data-is-processed-the-notice-and-the.md) (binding)
 <a id="B6"></a>
 - `B6` to [DOC-LEGAL-006](doctrines/DOC-LEGAL-006-inbound-work-carries-a-provenance-assertion.md) (default)
 <a id="B7"></a>
 - `B7` to [DOC-LEGAL-007](doctrines/DOC-LEGAL-007-consequential-questions-stop-here-and-go-to-a-lawyer.md) (binding)
 <a id="D1"></a>
-- `D1` to [DOC-LEGAL-008](doctrines/DOC-LEGAL-008-a-three-bucket-allowlist-keyed-on-identifiers-with-the-reason-wr.md) (default)
+- `D1` to [DOC-LEGAL-008](doctrines/DOC-LEGAL-008-a-three-bucket-allowlist-keyed-on-identifiers-with-the.md) (default)
 <a id="D2"></a>
-- `D2` to [DOC-LEGAL-009](doctrines/DOC-LEGAL-009-the-scanner-produces-the-inventory-and-a-person-produces-the-ver.md) (default)
+- `D2` to [DOC-LEGAL-009](doctrines/DOC-LEGAL-009-the-scanner-produces-the-inventory-and-a-person-produces.md) (default)
 <a id="D3"></a>
 - `D3` to [DOC-LEGAL-010](doctrines/DOC-LEGAL-010-per-file-declaration-for-anything-published.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-LEGAL-011](doctrines/DOC-LEGAL-011-permissive-outbound-unless-there-is-a-stated-reason-to-reciproca.md) (default)
+- `D4` to [DOC-LEGAL-011](doctrines/DOC-LEGAL-011-permissive-outbound-unless-there-is-a-stated-reason-to.md) (default)
 <a id="D5"></a>
-- `D5` to [DOC-LEGAL-012](doctrines/DOC-LEGAL-012-vendored-code-carries-its-licence-text-and-a-provenance-note-at.md) (default)
+- `D5` to [DOC-LEGAL-012](doctrines/DOC-LEGAL-012-vendored-code-carries-its-licence-text-and-a-provenance.md) (default)
 <a id="D6"></a>
 - `D6` to [DOC-LEGAL-013](doctrines/DOC-LEGAL-013-ceremony-scales-with-risk-to-people.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-LEGAL-014](doctrines/DOC-LEGAL-014-record-the-eu-market-position-once-with-the-reasoning-and-re-che.md) (default)
+- `D7` to [DOC-LEGAL-014](doctrines/DOC-LEGAL-014-record-the-eu-market-position-once-with-the-reasoning-and.md) (default)
 <a id="D8"></a>
-- `D8` to [DOC-LEGAL-015](doctrines/DOC-LEGAL-015-the-routing-loop-has-a-budget-and-the-run-records-what-it-spent.md) (default)
+- `D8` to [DOC-LEGAL-015](doctrines/DOC-LEGAL-015-the-routing-loop-has-a-budget-and-the-run-records-what-it.md) (default)
 <a id="D9"></a>
-- `D9` to [DOC-LEGAL-016](doctrines/DOC-LEGAL-016-nothing-is-studied-until-how-it-was-acquired-the-terms-attached.md) (default)
+- `D9` to [DOC-LEGAL-016](doctrines/DOC-LEGAL-016-nothing-is-studied-until-how-it-was-acquired-the-terms.md) (default)
 <a id="D10"></a>
-- `D10` to [DOC-LEGAL-017](doctrines/DOC-LEGAL-017-the-session-that-reads-the-source-and-the-lanes-that-build-are-d.md) (default)
-- source `preferences:001` to [DOC-LEGAL-018](doctrines/DOC-LEGAL-018-mit-for-a-small-library-with-no-patent-exposure-apache-2-0-where.md) (preference)
+- `D10` to [DOC-LEGAL-017](doctrines/DOC-LEGAL-017-the-session-that-reads-the-source-and-the-lanes-that-build.md) (default)
+- source `preferences:001` to [DOC-LEGAL-018](doctrines/DOC-LEGAL-018-mit-for-a-small-library-with-no-patent-exposure-apache-2-0.md) (preference)
 - source `preferences:002` to [DOC-LEGAL-019](doctrines/DOC-LEGAL-019-which-scanner.md) (preference)
-- source `preferences:003` to [DOC-LEGAL-020](doctrines/DOC-LEGAL-020-the-process-certification-checklist-read-once-as-a-prompt-about.md) (preference)
+- source `preferences:003` to [DOC-LEGAL-020](doctrines/DOC-LEGAL-020-the-process-certification-checklist-read-once-as-a-prompt.md) (preference)
 - source `preferences:004` to [DOC-LEGAL-021](doctrines/DOC-LEGAL-021-notice-wording-and-reading-level.md) (preference)
-- source `preferences:005` to [DOC-LEGAL-022](doctrines/DOC-LEGAL-022-whether-the-repositorys-own-automated-health-checks-watch-for-th.md) (preference)
+- source `preferences:005` to [DOC-LEGAL-022](doctrines/DOC-LEGAL-022-whether-the-repositorys-own-automated-health-checks-watch.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| Can we use this dependency for what we actually ship | Whether copyleft triggers here at all | `packs/legal-licensing/guides/GD-LEGAL-001-copyleft-trigger.md` |
-| How does this venture decide licence questions at all | Standing verdict, per-file declaration, certified process, or scan and review | `packs/legal-licensing/guides/GD-LEGAL-002-compliance-posture.md` |
-| What licence does this repository carry outbound | The promise we make downstream | `packs/legal-licensing/guides/GD-LEGAL-003-outbound-licence.md` |
-| How do inbound rights arrive | Sign-off, agreement, employment, or nothing | `packs/legal-licensing/guides/GD-LEGAL-004-inbound-rights.md` |
-| What may a study carry away from a source we do not own | Black box, filtered reading, licensed carriage, or nothing | `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md` |
+| Can we use this dependency for what we actually ship | Whether copyleft triggers here at all | `packs/legal-licensing/wargames/WG-LEGAL-001-copyleft-trigger.md` |
+| How does this venture decide licence questions at all | Standing verdict, per-file declaration, certified process, or scan and review | `packs/legal-licensing/wargames/WG-LEGAL-002-compliance-posture.md` |
+| What licence does this repository carry outbound | The promise we make downstream | `packs/legal-licensing/wargames/WG-LEGAL-003-outbound-licence.md` |
+| How do inbound rights arrive | Sign-off, agreement, employment, or nothing | `packs/legal-licensing/wargames/WG-LEGAL-004-inbound-rights.md` |
+| What may a study carry away from a source we do not own | Black box, filtered reading, licensed carriage, or nothing | `packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md` |
 
-Level-three detail sits in `packs/legal-licensing/refs/`: the licence
+Level-three detail sits in `packs/legal-licensing/references/`: the licence
 classes and their buckets, the escalation triggers and the handover,
 and UK data routing. A worked run is in
-`packs/legal-licensing/exemplars/`.
+`packs/legal-licensing/examples/`.
 
 ## Failure modes and anti-patterns
 
@@ -244,14 +247,14 @@ not finished (EV-0352). No equivalent UK determination
 was located at this cutoff, so this is unresolved rather than unread.
 Record provenance; do not assume authorship.
 
-**The extraction guide rests on case law, not on measurement.** D9, D10
-and `packs/legal-licensing/guides/GD-LEGAL-005-lawful-extraction.md`
+**The extraction Wargame rests on case law, not on measurement.** D9, D10
+and `packs/legal-licensing/wargames/WG-LEGAL-005-lawful-extraction.md`
 turn on decided cases and on one advocacy organisation's clean-room
 practice, now ledgered as EV-0496 to EV-0504 with court, year and
 holding. Two of the nine are tertiary summaries rather than the
 opinions, most are United States authority, and none has been tested
 against a United Kingdom judgment. That is weaker than the rest of the
-pack and the guide says so.
+pack and the Wargame says so.
 
 **Scanner accuracy is unmeasured.** No figure was found for any
 detector, and scanning a repository that declares per file is a

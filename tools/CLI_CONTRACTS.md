@@ -58,9 +58,8 @@ a prefix match on an unknown letter selects no checks at all, so a typo
 reported a clean tree.
 
 `--write-index` regenerates every derived index to a fixpoint and is the
-only sanctioned way to update them. Three are always written:
-`INDEX.md`, `packs/INDEX.md` and the compatibility pointer
-`packs/GUIDE_INDEX.md`. Where atomic Doctrine exists it also writes
+only sanctioned way to update them. Two are always written:
+`INDEX.md` and `packs/INDEX.md`. Where atomic Doctrine exists it also writes
 `packs/DOCTRINE_INDEX.md`, `packs/WARGAME_INDEX.md` and
 `registry/DOCTRINE_PRESSURE_MATRIX.md`; the alias view additionally needs
 `registry/identifier-aliases.json`. `registry/CAPABILITIES.md` needs
@@ -168,12 +167,12 @@ a true or unknown declared pressure has no covering Wargame.
 
 The operations and flags are the same as `doctrine`: `list`, `show ID`,
 `match`, `--commit`, `--facts`, repeatable `--fact`, `--include` and
-`--omit`. `list` is a compact catalogue of both immutable `GD-*` and `WG-*`
-identities, which are one semantic Wargame type. `show` returns one full
+`--omit`. `list` is a compact catalogue of canonical `WG-*` identities.
+`show` returns one full
 procedure. `match` returns the shared Doctrine and Wargame selection result,
 because selective Session 0 needs both halves of the same decision surface.
-New identities use `WG-*`; an existing `GD-*` remains valid and is never
-renamed merely to change its type.
+An earlier decision-procedure identity remains a direct lookup alias, but it
+does not appear as a second live Wargame.
 
 Pressure matching is tri-state. True engages the procedure. False records an
 omission. Unknown high-consequence pressure engages or asks; unknown routine
@@ -189,6 +188,12 @@ commit-aware resolver used by checks, Session 0 and migration. Output is
 resolves with `state: retired` so provenance remains readable, but the
 Rulings validator refuses it as a live selection. An unknown identity returns
 `{id, resolved: false}` and exits 1.
+
+At the current tree, a legacy alias resolves to its canonical identity and
+reports the requested alias. With `--commit`, resolution uses the definitions
+and paths in that Git tree and never falls forward to current aliases. Identity
+aliases do not redirect old latest-branch paths; callers with such URLs must
+update them to the canonical collection path.
 
 `RUL-*` identity is document-scoped because ventures may use the same local
 identifier without creating an estate collision. For a RUL identity the

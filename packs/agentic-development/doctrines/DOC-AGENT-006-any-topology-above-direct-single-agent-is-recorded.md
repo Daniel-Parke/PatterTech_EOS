@@ -35,9 +35,9 @@ four evidence ids of which at least two come from this pack's own set,
 and it stays under 120 lines. Prevents topology chosen by fashion, and
 prevents a design no reviewer can check. The section-by-section
 requirements are in
-`packs/agentic-development/refs/DECISION_RECORD_SHAPE.md` and a worked
+`packs/agentic-development/references/DECISION_RECORD_SHAPE.md` and a worked
 record is
-`packs/agentic-development/exemplars/EX-AGENT-001-logging-migration.md`.
+`packs/agentic-development/examples/EX-AGENT-001-logging-migration.md`.
 Failed the seriousness leg: an unrecorded topology is written down
 later at the cost of one reading.
 

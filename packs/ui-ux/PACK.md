@@ -11,13 +11,16 @@ activation_paths: [**/components/**, **/app/**, **/pages/**, **/routes/**, **/*.
 volatility: slow
 review: none
 sources: [EV-0027, EV-0028, EV-0029, EV-0030, EV-0062, EV-0063, EV-0064, EV-0065, EV-0066, EV-0067, EV-0103, EV-0104, EV-0227, EV-0228, EV-0229, EV-0230, EV-0232, EV-0234, EV-0235, EV-0236, EV-0237, EV-0238, EV-0239, EV-0240, EV-0241]
-type: guide
+type: pack
 tags: [web, a11y, layout, perf]
+display_name: Interface Design and Accessibility
+category: experience-content
+id_namespace: UIUX
 depends_on: [product-discovery]
 ---
 
 
-# ui-ux
+# Interface Design and Accessibility
 
 This pack covers interface work: what an interface must achieve for the
 people using it, and how to choose a design philosophy for a surface
@@ -88,13 +91,13 @@ compatibility anchors; they do not encode authority.
 <a id="B3"></a>
 - `B3` to [DOC-UIUX-002](doctrines/DOC-UIUX-002-the-six-cheap-failure-classes-are-gated-individually.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-UIUX-003](doctrines/DOC-UIUX-003-every-interactive-component-maps-to-an-apg-pattern-or-documents.md) (binding)
+- `B4` to [DOC-UIUX-003](doctrines/DOC-UIUX-003-every-interactive-component-maps-to-an-apg-pattern-or.md) (binding)
 <a id="B5"></a>
-- `B5` to [DOC-UIUX-004](doctrines/DOC-UIUX-004-do-not-add-a-script-that-claims-to-repair-accessibility-at-runti.md) (default), [DOC-UIUX-005](doctrines/DOC-UIUX-005-do-not-infer-assistive-technology-use-without-the-persons-consen.md) (binding)
+- `B5` to [DOC-UIUX-004](doctrines/DOC-UIUX-004-do-not-add-a-script-that-claims-to-repair-accessibility-at.md) (default), [DOC-UIUX-005](doctrines/DOC-UIUX-005-do-not-infer-assistive-technology-use-without-the-persons.md) (binding)
 <a id="B6"></a>
-- `B6` to [DOC-UIUX-006](doctrines/DOC-UIUX-006-tokens-are-defined-once-and-generated-derived-files-are-never-ha.md) (binding)
+- `B6` to [DOC-UIUX-006](doctrines/DOC-UIUX-006-tokens-are-defined-once-and-generated-derived-files-are.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-UIUX-007](doctrines/DOC-UIUX-007-the-claim-is-evidenced-by-a-real-browser-run-with-pinned-tags-pl.md) (default)
+- `B2` to [DOC-UIUX-007](doctrines/DOC-UIUX-007-the-claim-is-evidenced-by-a-real-browser-run-with-pinned.md) (default)
 <a id="B7"></a>
 - `B7` to [DOC-UIUX-008](doctrines/DOC-UIUX-008-every-component-declares-its-interaction-states.md) (default)
 <a id="B8"></a>
@@ -102,15 +105,15 @@ compatibility anchors; they do not encode authority.
 - source `defaults:004` to [DOC-UIUX-010](doctrines/DOC-UIUX-010-headless-behaviour-layer-plus-own-visual-layer.md) (default)
 - source `defaults:005` to [DOC-UIUX-011](doctrines/DOC-UIUX-011-field-performance-is-a-design-constraint-on-public-surfaces.md) (default)
 - source `defaults:006` to [DOC-UIUX-012](doctrines/DOC-UIUX-012-assume-automated-accessibility-coverage-of-roughly-a-third.md) (default)
-- source `defaults:007` to [DOC-UIUX-013](doctrines/DOC-UIUX-013-on-a-native-platform-the-system-control-with-system-behaviour-is.md) (default)
+- source `defaults:007` to [DOC-UIUX-013](doctrines/DOC-UIUX-013-on-a-native-platform-the-system-control-with-system.md) (default)
 - source `defaults:008` to [DOC-UIUX-014](doctrines/DOC-UIUX-014-honour-reduced-motion-preferences-globally.md) (default)
 - source `defaults:009` to [DOC-UIUX-015](doctrines/DOC-UIUX-015-content-stays-visible-without-javascript.md) (default)
 - source `defaults:010` to [DOC-UIUX-016](doctrines/DOC-UIUX-016-a-dashboard-commits-to-a-method.md) (default)
 - source `preferences:001` to [DOC-UIUX-017](doctrines/DOC-UIUX-017-a-small-component-surface-over-a-large-one-ev-0239.md) (preference)
-- source `preferences:002` to [DOC-UIUX-018](doctrines/DOC-UIUX-018-graded-browser-compatibility-over-binary-support-ev-0062-ev-0063.md) (preference)
-- source `preferences:003` to [DOC-UIUX-019](doctrines/DOC-UIUX-019-an-evidence-gate-before-a-component-is-admitted-to-a-shared-kit.md) (preference)
-- source `preferences:004` to [DOC-UIUX-020](doctrines/DOC-UIUX-020-written-context-carried-inside-a-dashboard-rather-than-in-a-wiki.md) (preference)
-- source `preferences:005` to [DOC-UIUX-021](doctrines/DOC-UIUX-021-a-reading-grid-with-one-default-measure-and-opt-in-wider-bleeds.md) (preference)
+- source `preferences:002` to [DOC-UIUX-018](doctrines/DOC-UIUX-018-graded-browser-compatibility-over-binary-support-ev-0062-ev.md) (preference)
+- source `preferences:003` to [DOC-UIUX-019](doctrines/DOC-UIUX-019-an-evidence-gate-before-a-component-is-admitted-to-a-shared.md) (preference)
+- source `preferences:004` to [DOC-UIUX-020](doctrines/DOC-UIUX-020-written-context-carried-inside-a-dashboard-rather-than-in-a.md) (preference)
+- source `preferences:005` to [DOC-UIUX-021](doctrines/DOC-UIUX-021-a-reading-grid-with-one-default-measure-and-opt-in-wider.md) (preference)
 - source `preferences:006` to [DOC-UIUX-022](doctrines/DOC-UIUX-022-one-tokenised-easing-curve-per-project.md) (preference)
 
 ### Later evidence-led admissions
@@ -119,28 +122,28 @@ These records were admitted after the frozen source migration.
 Their own metadata is canonical; this map does not restate it.
 
 - [DOC-UIUX-023](doctrines/DOC-UIUX-023-native-semantics-before-custom-interaction.md) (default Doctrine)
-- [WG-UIUX-001](guides/WG-UIUX-001-web-delivery-shape.md) (Wargame)
-- [WG-UIUX-002](guides/WG-UIUX-002-semantic-or-custom-interaction.md) (Wargame)
+- [WG-UIUX-001](wargames/WG-UIUX-001-web-delivery-shape.md) (Wargame)
+- [WG-UIUX-002](wargames/WG-UIUX-002-semantic-or-custom-interaction.md) (Wargame)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| Which philosophy does this surface take | Density, type scale, component inventory, tone | `packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md` |
-| Where do interactive components come from | Upstream fix flow, bundle, freedom to restyle | `packs/ui-ux/guides/GD-UIUX-002-component-sourcing.md` |
-| How much accessibility assurance | What a passing build is allowed to claim | `packs/ui-ux/guides/GD-UIUX-003-a11y-assurance.md` |
-| Where do tokens live and how do they reach platforms | Drift risk, rebrand cost, design-tool coupling | `packs/ui-ux/guides/GD-UIUX-004-token-source.md` |
+| Which philosophy does this surface take | Density, type scale, component inventory, tone | `packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md` |
+| Where do interactive components come from | Upstream fix flow, bundle, freedom to restyle | `packs/ui-ux/wargames/WG-UIUX-004-component-sourcing.md` |
+| How much accessibility assurance | What a passing build is allowed to claim | `packs/ui-ux/wargames/WG-UIUX-005-a11y-assurance.md` |
+| Where do tokens live and how do they reach platforms | Drift risk, rebrand cost, design-tool coupling | `packs/ui-ux/wargames/WG-UIUX-006-token-source.md` |
 
 Density is not a separate fork here. It falls out of the philosophy, so
-GD-UIUX-001 settles it and `packs/ui-ux/refs/LAYOUT_AND_MEASURE.md`
+WG-UIUX-003 settles it and `packs/ui-ux/references/LAYOUT_AND_MEASURE.md`
 carries the structure. Motion and ornament budgets are house taste and
 belong to whichever preference pack a venture adopts, which for us is
-`packs/pattertech-house/refs/BUDGETS.md`.
+`packs/pattertech-house/references/BUDGETS.md`.
 
-Level-three detail sits in `packs/ui-ux/refs/`: the accessibility
+Level-three detail sits in `packs/ui-ux/references/`: the accessibility
 floor, the component contract, layout and measure, performance and
 motion, and the token pipeline. A worked end-to-end example is in
-`packs/ui-ux/exemplars/`.
+`packs/ui-ux/examples/`.
 
 ## Failure modes and anti-patterns
 
@@ -171,7 +174,7 @@ motion, and the token pipeline. A worked end-to-end example is in
 ## Open questions and counter-evidence
 
 - **No philosophy is known to outperform another.** The eight in
-  GD-UIUX-001 are shapes observed in maintained systems, not a tested
+  WG-UIUX-003 are shapes observed in maintained systems, not a tested
   taxonomy. Fit conditions are argued, not measured.
 - **Expressive against restrained is a standoff of weak evidence.**
   A vendor programme reports large gains from emphasis (EV-0232);

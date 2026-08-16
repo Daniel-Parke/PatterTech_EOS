@@ -28,7 +28,7 @@ The `statement` field is the canonical standing proposition.
 
 `adopts_pattertech_house`. All house alphas, durations, duty cycles,
 measures, layer counts and weight budgets live in
-`packs/pattertech-house/refs/BUDGETS.md` and are cited, never restated.
+`packs/pattertech-house/references/BUDGETS.md` and are cited, never restated.
 Prevents the failure that produced this pack: two documents carrying the
 same budget, drifting, and an agent picking whichever it read last.
 Basis: decision.
@@ -40,7 +40,7 @@ conduit duty cycle of eighteen seconds or longer. The newer argued
 ruling in WG-WEB-005, recorded against the v4 recalibration, relaxed it
 after the verdict that v3 sat on the wrong side of the line between
 elegant and invisible. The newer ruling wins, the relaxed figure is
-written once in `packs/pattertech-house/refs/BUDGETS.md`, and the older
+written once in `packs/pattertech-house/references/BUDGETS.md`, and the older
 number is history.
 
 ## Migration provenance

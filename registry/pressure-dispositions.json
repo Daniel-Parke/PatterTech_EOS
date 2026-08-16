@@ -62,7 +62,7 @@
       "pressure": "serves_novice_and_expert_users",
       "disposition": "relation-only",
       "consequence": "routine",
-      "wargames": ["GD-UIUX-001"],
+      "wargames": ["WG-UIUX-003"],
       "relations": ["DREL-UIUX-001"],
       "fallback": "Choose density from representative novice and expert task evidence for this surface."
     },
@@ -82,7 +82,7 @@
       "pressure": "house_style_costs_access_or_performance",
       "disposition": "relation-only",
       "consequence": "high",
-      "wargames": ["GD-UIUX-001", "GD-UIUX-003"],
+      "wargames": ["WG-UIUX-003", "WG-UIUX-005"],
       "relations": ["DREL-HOUSE-001", "DREL-HOUSE-002"],
       "fallback": "Audience, accessibility and measured target-device performance override optional house styling."
     },
@@ -92,7 +92,7 @@
       "pressure": "requires_independent_deployability",
       "disposition": "existing-wargame-refreshed",
       "consequence": "high",
-      "wargames": ["GD-ARCH-001", "WG-ARCH-001"],
+      "wargames": ["WG-ARCH-013", "WG-ARCH-001"],
       "relations": ["DREL-ARCH-003"],
       "fallback": "Keep one deployable with enforced module seams until a measured ownership, release, isolation or capacity signal earns a split."
     },
@@ -172,7 +172,7 @@
       "pressure": "integrity_floor_reduces_availability",
       "disposition": "new-wargame",
       "consequence": "high",
-      "wargames": ["WG-OPS-005"],
+      "wargames": ["WG-DEVOPS-006"],
       "relations": ["DREL-OPS-001"],
       "fallback": "Fail closed for protected properties and degrade only a truthful journey that preserves them."
     },
@@ -182,7 +182,7 @@
       "pressure": "observability_collects_sensitive_data",
       "disposition": "new-wargame",
       "consequence": "high",
-      "wargames": ["WG-OPS-006"],
+      "wargames": ["WG-DEVOPS-007"],
       "relations": ["DREL-OPS-002", "DREL-OPS-003"],
       "fallback": "Collect the minimum redacted signal that diagnoses the named journey and reject secret or cross-tenant telemetry."
     },
@@ -192,7 +192,7 @@
       "pressure": "producer_trust_is_unproved",
       "disposition": "existing-wargame-refreshed",
       "consequence": "high",
-      "wargames": ["GD-SUPPLY-001"],
+      "wargames": ["WG-SUPPLY-001"],
       "relations": ["DREL-SUPPLY-001"],
       "fallback": "Verify producer and policy trust separately from provenance and inventory evidence."
     },
@@ -202,7 +202,7 @@
       "pressure": "dependency_update_changes_known_good",
       "disposition": "existing-wargame-refreshed",
       "consequence": "high",
-      "wargames": ["GD-SUPPLY-003", "GD-DEVOPS-002"],
+      "wargames": ["WG-SUPPLY-003", "WG-DEVOPS-002"],
       "relations": ["DREL-SUPPLY-002"],
       "fallback": "Keep known-good during routine pressure and use a proved staged security exception when delay is riskier."
     },
@@ -212,7 +212,7 @@
       "pressure": "agent_coordination_cost_is_material",
       "disposition": "existing-wargame-refreshed",
       "consequence": "routine",
-      "wargames": ["GD-AGENT-001", "GD-SWARM-001"],
+      "wargames": ["WG-AGENT-001", "WG-SWARM-001"],
       "relations": ["DREL-AGENT-001"],
       "fallback": "Start with one bounded agent and an external oracle; add the smallest measured decomposition."
     },
@@ -232,7 +232,7 @@
       "pressure": "evaluation_oracle_is_undecided",
       "disposition": "existing-wargame-refreshed",
       "consequence": "high",
-      "wargames": ["GD-AIML-003", "WG-DEL-006"],
+      "wargames": ["WG-AIML-004", "WG-DEL-006"],
       "relations": ["DREL-AIML-002"],
       "fallback": "Use deterministic external truth where possible; calibrate any human or model judge before it gates work."
     },

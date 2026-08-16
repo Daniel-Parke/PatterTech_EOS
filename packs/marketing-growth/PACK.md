@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the marketing-growth Doctrine and Wargames
-type: playbook
+type: pack
 tags: [content, seo, pii, brand, voice]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/content/**, **/blog/**, **/robots.txt, **/sitemap*, **/*se
 volatility: fast
 review: none
 sources: [EV-0022, EV-0041, EV-0055, EV-0059, EV-0060, EV-0095, EV-0225, EV-0241, EV-0353, EV-0354, EV-0355, EV-0356, EV-0357, EV-0358, EV-0359, EV-0360, EV-0361, EV-0362, EV-0363, EV-0364, EV-0365, EV-0366, EV-0367, EV-0368, EV-0369]
+display_name: Marketing and Growth
+category: product-commercial
+id_namespace: MKTG
 depends_on: [product-discovery, writing-content, legal-licensing]
 ---
 
 
-# marketing-growth
+# Marketing and Growth
 
 This pack covers how a venture reaches people who are not yet customers
 and keeps the ones it has: published pages, search discovery, lifecycle
@@ -90,23 +93,23 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-MKTG-001](doctrines/DOC-MKTG-001-the-lawful-basis-is-stored-with-the-address-not-asserted-about-t.md) (binding)
+- `B1` to [DOC-MKTG-001](doctrines/DOC-MKTG-001-the-lawful-basis-is-stored-with-the-address-not-asserted.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-MKTG-002](doctrines/DOC-MKTG-002-every-marketing-message-carries-a-refusal-route-that-works-witho.md) (binding)
+- `B2` to [DOC-MKTG-002](doctrines/DOC-MKTG-002-every-marketing-message-carries-a-refusal-route-that-works.md) (binding)
 <a id="B3"></a>
 - `B3` to [DOC-MKTG-003](doctrines/DOC-MKTG-003-a-refusal-suppresses-before-the-next-send-mechanically.md) (binding)
 <a id="D1"></a>
-- `D1` to [DOC-MKTG-004](doctrines/DOC-MKTG-004-one-named-growth-philosophy-per-venture-recorded-before-spend.md) (default)
+- `D1` to [DOC-MKTG-004](doctrines/DOC-MKTG-004-one-named-growth-philosophy-per-venture-recorded-before.md) (default)
 <a id="D2"></a>
 - `D2` to [DOC-MKTG-005](doctrines/DOC-MKTG-005-a-growth-plan-names-its-reinvestment-step.md) (default)
 <a id="D3"></a>
-- `D3` to [DOC-MKTG-006](doctrines/DOC-MKTG-006-effect-comes-from-a-randomised-holdout-or-the-number-is-labelled.md) (default)
+- `D3` to [DOC-MKTG-006](doctrines/DOC-MKTG-006-effect-comes-from-a-randomised-holdout-or-the-number-is.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-MKTG-007](doctrines/DOC-MKTG-007-attribution-distributes-a-measured-total-it-never-produces-one.md) (default)
+- `D4` to [DOC-MKTG-007](doctrines/DOC-MKTG-007-attribution-distributes-a-measured-total-it-never-produces.md) (default)
 <a id="D5"></a>
 - `D5` to [DOC-MKTG-008](doctrines/DOC-MKTG-008-a-funnel-number-ships-with-its-definition-as-configuration.md) (default)
 <a id="D6"></a>
-- `D6` to [DOC-MKTG-009](doctrines/DOC-MKTG-009-every-published-page-has-a-named-human-owner-and-a-stated-purpos.md) (default)
+- `D6` to [DOC-MKTG-009](doctrines/DOC-MKTG-009-every-published-page-has-a-named-human-owner-and-a-stated.md) (default)
 <a id="D7"></a>
 - `D7` to [DOC-MKTG-010](doctrines/DOC-MKTG-010-structured-data-describes-what-the-reader-can-see.md) (default)
 <a id="D8"></a>
@@ -114,32 +117,32 @@ compatibility anchors; they do not encode authority.
 <a id="D9"></a>
 - `D9` to [DOC-MKTG-012](doctrines/DOC-MKTG-012-deliverability-is-a-preflight-gate-before-a-first-send.md) (default)
 <a id="D10"></a>
-- `D10` to [DOC-MKTG-013](doctrines/DOC-MKTG-013-reach-to-category-non-buyers-is-the-opening-bet-for-a-small-bran.md) (default)
+- `D10` to [DOC-MKTG-013](doctrines/DOC-MKTG-013-reach-to-category-non-buyers-is-the-opening-bet-for-a-small.md) (default)
 <a id="D11"></a>
 - `D11` to [DOC-MKTG-014](doctrines/DOC-MKTG-014-each-activity-declares-a-time-horizon.md) (default)
 <a id="D12"></a>
-- `D12` to [DOC-MKTG-015](doctrines/DOC-MKTG-015-field-performance-is-a-marketing-constraint-on-public-surfaces.md) (default)
+- `D12` to [DOC-MKTG-015](doctrines/DOC-MKTG-015-field-performance-is-a-marketing-constraint-on-public.md) (default)
 - source `preferences:001` to [DOC-MKTG-016](doctrines/DOC-MKTG-016-channel-mix-and-whether-any-of-it-is-paid.md) (preference)
-- source `preferences:002` to [DOC-MKTG-017](doctrines/DOC-MKTG-017-pull-rather-than-push-as-in-the-public-handbook-at-ev-0095-where.md) (preference)
-- source `preferences:003` to [DOC-MKTG-018](doctrines/DOC-MKTG-018-publishing-the-marketing-handbook-itself-as-at-ev-0055-or-ev-009.md) (preference)
-- source `preferences:004` to [DOC-MKTG-019](doctrines/DOC-MKTG-019-taking-a-stance-rather-than-hedging-which-is-what-stops-machine.md) (preference)
-- source `preferences:005` to [DOC-MKTG-020](doctrines/DOC-MKTG-020-treating-documentation-and-marketing-content-as-one-artefact.md) (preference)
+- source `preferences:002` to [DOC-MKTG-017](doctrines/DOC-MKTG-017-pull-rather-than-push-as-in-the-public-handbook-at-ev-0095.md) (preference)
+- source `preferences:003` to [DOC-MKTG-018](doctrines/DOC-MKTG-018-publishing-the-marketing-handbook-itself-as-at-ev-0055-or.md) (preference)
+- source `preferences:004` to [DOC-MKTG-019](doctrines/DOC-MKTG-019-taking-a-stance-rather-than-hedging-which-is-what-stops.md) (preference)
+- source `preferences:005` to [DOC-MKTG-020](doctrines/DOC-MKTG-020-treating-documentation-and-marketing-content-as-one.md) (preference)
 - source `preferences:006` to [DOC-MKTG-021](doctrines/DOC-MKTG-021-cadence-format-length-and-tone.md) (preference)
 - source `preferences:007` to [DOC-MKTG-022](doctrines/DOC-MKTG-022-positioning-and-messaging-method.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| Which growth philosophy does this venture run | Where budget and attention go, and what counts as progress | `packs/marketing-growth/guides/GD-MKTG-001-growth-philosophy.md` |
-| Where does a lawful address come from | Capture route, stored basis, what may be sent to it | `packs/marketing-growth/guides/GD-MKTG-002-consent-route.md` |
-| How is this channel's effect measured | What may be claimed, and what the claim costs | `packs/marketing-growth/guides/GD-MKTG-003-effect-measurement.md` |
-| Who owns a published page and why does it exist | Publishing rate, provenance and review | `packs/marketing-growth/guides/GD-MKTG-004-content-provenance.md` |
+| Which growth philosophy does this venture run | Where budget and attention go, and what counts as progress | `packs/marketing-growth/wargames/WG-MKTG-001-growth-philosophy.md` |
+| Where does a lawful address come from | Capture route, stored basis, what may be sent to it | `packs/marketing-growth/wargames/WG-MKTG-002-consent-route.md` |
+| How is this channel's effect measured | What may be claimed, and what the claim costs | `packs/marketing-growth/wargames/WG-MKTG-003-effect-measurement.md` |
+| Who owns a published page and why does it exist | Publishing rate, provenance and review | `packs/marketing-growth/wargames/WG-MKTG-004-content-provenance.md` |
 
-Reference tables sit in `packs/marketing-growth/refs/`: the consent
+Reference tables sit in `packs/marketing-growth/references/`: the consent
 record, the send preflight, and the discovery surface. The pack applied
 end to end is
-`packs/marketing-growth/exemplars/EX-MKTG-001-launch-and-first-sequence.md`.
+`packs/marketing-growth/examples/EX-MKTG-001-launch-and-first-sequence.md`.
 Evaluation criteria are in `packs/marketing-growth/CHECKS.md`.
 
 ## Failure modes and anti-patterns

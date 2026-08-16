@@ -17,12 +17,21 @@ from tools.eos.migrate_wargames import (
     SOURCE_OVERRIDES,
     WARGAME_HEADINGS,
     build_migration,
+    canonical_procedures,
     frozen_procedures,
 )
 from tools.eos.ontology import KnowledgeResolver
 
 
 REPO = Path(__file__).resolve().parents[1]
+NAMING = json.loads(
+    (REPO / "org/migration/NAMING_BASELINE.json").read_text(encoding="utf-8")
+)
+IDENTIFIER_MIGRATION = NAMING["identifier_migration"]
+
+
+def _current_identifier(source_identifier: str) -> str:
+    return IDENTIFIER_MIGRATION.get(source_identifier, source_identifier)
 
 
 @pytest.fixture(scope="module")
@@ -30,9 +39,26 @@ def migration():
     return build_migration(REPO)
 
 
-def test_frozen_inventory_is_the_independent_exact_114_id_path_set():
+@pytest.fixture(scope="module")
+def canonical_inventory():
+    return canonical_procedures(REPO)
+
+
+def test_frozen_inventory_and_canonical_targets_are_both_exact(canonical_inventory):
     assert FROZEN_COUNT == 114
     assert frozen_procedures(REPO) == FROZEN_PROCEDURES
+    expected = {
+        _current_identifier(source_identifier): NAMING["target_wargames"][
+            _current_identifier(source_identifier)
+        ]
+        for source_identifier in FROZEN_PROCEDURES
+    }
+    assert canonical_inventory == expected
+    assert len(canonical_inventory) == 114
+    assert all(identifier.startswith("WG-") for identifier in canonical_inventory)
+    assert all(
+        "/wargames/" in path for path in canonical_inventory.values()
+    )
 
 
 def test_migration_is_deterministic_and_current_tree_is_a_fixpoint(migration):
@@ -47,15 +73,19 @@ def test_migration_is_deterministic_and_current_tree_is_a_fixpoint(migration):
     ) == first_ledger
 
 
-def test_all_114_wargames_pass_schema_and_complete_body_contract(migration):
+def test_all_114_wargames_pass_schema_and_complete_body_contract(
+    migration, canonical_inventory
+):
     rendered, _ledger = migration
     schema = json.loads(
         (REPO / "kernel/schemas/wargame.schema.json").read_text(encoding="utf-8")
     )
     validator = jsonschema.Draft202012Validator(schema)
-    assert set(rendered) == set(FROZEN_PROCEDURES.values())
+    assert set(rendered) == set(canonical_inventory.values())
 
-    for identifier, path in FROZEN_PROCEDURES.items():
+    for source_identifier in FROZEN_PROCEDURES:
+        identifier = _current_identifier(source_identifier)
+        path = canonical_inventory[identifier]
         text = rendered[path]
         parsed = parse_frontmatter(text)
         assert parsed.present and not parsed.errors, path
@@ -100,13 +130,17 @@ def test_every_migrated_wargame_has_substantive_counter_evidence(migration):
         assert before_history_or_transfer, path
 
 
-def test_imported_pack_placeholders_are_replaced_by_reviewed_evidence(migration):
+def test_imported_pack_placeholders_are_replaced_by_reviewed_evidence(
+    migration, canonical_inventory
+):
     rendered, _ledger = migration
     evidence = json.loads(
         (REPO / "registry/evidence.json").read_text(encoding="utf-8")
     )
     live_evidence = {row["id"] for row in evidence["records"]}
-    for identifier, path in FROZEN_PROCEDURES.items():
+    for source_identifier in FROZEN_PROCEDURES:
+        identifier = _current_identifier(source_identifier)
+        path = canonical_inventory[identifier]
         sources = parse_frontmatter(rendered[path]).data.get("sources") or []
         assert not [source for source in sources if str(source).startswith("pending-")], path
         if identifier in SOURCE_OVERRIDES:
@@ -135,34 +169,42 @@ def test_every_applicable_doctrine_reference_resolves_live(migration):
             assert resolution.kind == "relation", (path, identifier)
 
 
-def test_only_reviewed_existing_coverage_receives_pressure_predicates(migration):
+def test_only_reviewed_existing_coverage_receives_pressure_predicates(
+    migration, canonical_inventory
+):
     rendered, _ledger = migration
-    for identifier, path in FROZEN_PROCEDURES.items():
+    for source_identifier in FROZEN_PROCEDURES:
+        identifier = _current_identifier(source_identifier)
+        path = canonical_inventory[identifier]
         metadata = parse_frontmatter(rendered[path]).data
         expected = list(PRESSURE_MAP.get(identifier, ("operator_requests_wargame",)))
         assert metadata["engages_when"] == expected, path
 
 
-def test_inception_and_security_floors_are_always_walk_high_consequence(migration):
+def test_inception_and_security_floors_are_always_walk_high_consequence(
+    migration, canonical_inventory
+):
     rendered, _ledger = migration
     always = {
         "WG-EOS-001", "WG-EOS-002",
-        "GD-SEC-001", "GD-SEC-002", "GD-SEC-003", "GD-SEC-004",
+        "WG-SEC-001", "WG-SEC-002", "WG-SEC-003", "WG-SEC-004",
     }
     for identifier in always:
-        metadata = parse_frontmatter(rendered[FROZEN_PROCEDURES[identifier]]).data
+        metadata = parse_frontmatter(rendered[canonical_inventory[identifier]]).data
         assert metadata["always_walk"] == "true"
         assert metadata["consequence"] == "high"
         assert metadata["applies_when"] == ["runs_agents"]
     for identifier in ("WG-EOS-001", "WG-EOS-002"):
-        metadata = parse_frontmatter(rendered[FROZEN_PROCEDURES[identifier]]).data
+        metadata = parse_frontmatter(rendered[canonical_inventory[identifier]]).data
         assert "gap" in metadata["scenario_modes"]
         assert metadata["gap_domain"] == "inception"
 
 
-def test_scale_wargame_takes_seed_accounting_from_the_live_matrix(migration):
+def test_scale_wargame_takes_seed_accounting_from_the_live_matrix(
+    migration, canonical_inventory
+):
     rendered, _ledger = migration
-    text = rendered[FROZEN_PROCEDURES["WG-EOS-001"]]
+    text = rendered[canonical_inventory["WG-EOS-001"]]
     assert "kernel/SCALE_MATRIX.md" in text
     assert "Fourteen files" not in text
     assert "Twenty-five files" not in text
@@ -181,15 +223,20 @@ def test_retired_ids_are_reserved_and_absent_from_live_migrated_content(migratio
         assert not [identifier for identifier in retired if identifier in text], path
 
 
-def test_migration_ledger_disposes_every_live_and_retired_identity_once(migration):
+def test_historical_migration_ledger_remains_exact_and_complete(migration):
     _rendered_files, ledger = migration
-    live = ledger["procedures"]
+    historical = ledger["procedures"]
     retired = ledger["retired"]
-    assert ledger["procedure_count"] == len(live) == 114
+    assert ledger["procedure_count"] == len(historical) == 114
     assert ledger["retired_count"] == len(retired) == 22
-    assert len({row["id"] for row in live}) == 114
-    assert len({row["path"] for row in live}) == 114
-    assert all(row["disposition"] == "live-convert" for row in live)
-    assert all(row["ruling_disposition"] == "not-extracted" for row in live)
+    assert {
+        row["id"]: row["path"] for row in historical
+    } == FROZEN_PROCEDURES
+    assert all(row["disposition"] == "live-convert" for row in historical)
+    assert all(
+        row["ruling_disposition"] == "not-extracted" for row in historical
+    )
     assert len({row["id"] for row in retired}) == 22
-    assert not ({row["id"] for row in live} & {row["id"] for row in retired})
+    assert not (
+        {row["id"] for row in historical} & {row["id"] for row in retired}
+    )

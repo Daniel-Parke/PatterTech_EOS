@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the business-model-pricing Doctrine and Wargames
-type: playbook
+type: pack
 tags: [money, product, eos]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/pricing/**, **/*pricing*.md, **/plans/**, **/tiers/**, **/
 volatility: event-driven
 review: none
 sources: [EV-0287, EV-0288, EV-0289, EV-0290, EV-0291, EV-0292, EV-0293, EV-0294, EV-0295, EV-0296, EV-0297, EV-0298, EV-0299, EV-0300, EV-0301, EV-0302, EV-0303, EV-0304, EV-0055, EV-0059, EV-0095, EV-0096, EV-0197, EV-0199, EV-0210]
+display_name: Business Models and Pricing
+category: product-commercial
+id_namespace: BMP
 depends_on: [product-discovery, legal-licensing]
 ---
 
 
-# business-model-pricing
+# Business Models and Pricing
 
 This pack covers what a venture sells, what it charges for it, and what
 the price then obliges it to do. It activates on any task that sets or
@@ -87,19 +90,19 @@ compatibility anchors; they do not encode authority.
 <a id="B1"></a>
 - `B1` to [DOC-BMP-001](doctrines/DOC-BMP-001-the-headline-price-includes-every-unavoidable-charge.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-BMP-002](doctrines/DOC-BMP-002-a-consumer-subscription-can-be-entered-knowingly-and-left-easily.md) (binding)
+- `B2` to [DOC-BMP-002](doctrines/DOC-BMP-002-a-consumer-subscription-can-be-entered-knowingly-and-left.md) (binding)
 <a id="B4"></a>
 - `B4` to [DOC-BMP-003](doctrines/DOC-BMP-003-revenue-is-recognised-never-counted-at-the-bank.md) (binding)
 <a id="B5"></a>
 - `B5` to [DOC-BMP-004](doctrines/DOC-BMP-004-tax-thresholds-are-watched-as-pricing-events.md) (binding)
 <a id="D1"></a>
-- `D1` to [DOC-BMP-005](doctrines/DOC-BMP-005-open-on-a-named-practice-with-its-condition-and-a-revisit-date.md) (default)
+- `D1` to [DOC-BMP-005](doctrines/DOC-BMP-005-open-on-a-named-practice-with-its-condition-and-a-revisit.md) (default)
 <a id="D2"></a>
-- `D2` to [DOC-BMP-006](doctrines/DOC-BMP-006-a-price-change-is-announced-with-its-cause-and-the-cause-is-cost.md) (default)
+- `D2` to [DOC-BMP-006](doctrines/DOC-BMP-006-a-price-change-is-announced-with-its-cause-and-the-cause-is.md) (default)
 <a id="D3"></a>
-- `D3` to [DOC-BMP-007](doctrines/DOC-BMP-007-trial-length-starts-near-a-week-and-is-tested-across-the-whole-f.md) (default)
+- `D3` to [DOC-BMP-007](doctrines/DOC-BMP-007-trial-length-starts-near-a-week-and-is-tested-across-the.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-BMP-008](doctrines/DOC-BMP-008-retention-is-reported-as-a-cohort-curve-and-lifetime-value-is-ne.md) (default)
+- `D4` to [DOC-BMP-008](doctrines/DOC-BMP-008-retention-is-reported-as-a-cohort-curve-and-lifetime-value.md) (default)
 <a id="D5"></a>
 - `D5` to [DOC-BMP-009](doctrines/DOC-BMP-009-every-commercial-number-travels-with-its-definition.md) (default)
 <a id="D6"></a>
@@ -119,21 +122,21 @@ compatibility anchors; they do not encode authority.
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| What is this price anchored to? | `packs/business-model-pricing/guides/GD-BMP-001-price-anchor.md` | Cost-informed or competition-informed opening, with a dated move to value evidence |
-| What is the unit of charge? | `packs/business-model-pricing/guides/GD-BMP-002-charging-unit.md` | The simplest unit the buyer can forecast |
-| How does someone try this before paying? | `packs/business-model-pricing/guides/GD-BMP-003-try-before-paying.md` | A time-boxed trial near a week, with a test plan |
-| When and how does the price change? | `packs/business-model-pricing/guides/GD-BMP-004-repricing-trigger.md` | A written cost-or-value trigger, announced with its cause |
+| What is this price anchored to? | `packs/business-model-pricing/wargames/WG-BMP-001-price-anchor.md` | Cost-informed or competition-informed opening, with a dated move to value evidence |
+| What is the unit of charge? | `packs/business-model-pricing/wargames/WG-BMP-002-charging-unit.md` | The simplest unit the buyer can forecast |
+| How does someone try this before paying? | `packs/business-model-pricing/wargames/WG-BMP-003-try-before-paying.md` | A time-boxed trial near a week, with a test plan |
+| When and how does the price change? | `packs/business-model-pricing/wargames/WG-BMP-004-repricing-trigger.md` | A written cost-or-value trigger, announced with its cause |
 
 Level-three detail: the artefacts a decision has to emit are in
-`packs/business-model-pricing/refs/DECISION_RECORD.md`, the dated duties
-in `packs/business-model-pricing/refs/UK_OBLIGATIONS.md`, the cohort
-method in `packs/business-model-pricing/refs/RETENTION_AND_LTV.md`, the
+`packs/business-model-pricing/references/DECISION_RECORD.md`, the dated duties
+in `packs/business-model-pricing/references/UK_OBLIGATIONS.md`, the cohort
+method in `packs/business-model-pricing/references/RETENTION_AND_LTV.md`, the
 house metrics in
-`packs/business-model-pricing/refs/METRIC_DEFINITIONS.md`, and a worked
+`packs/business-model-pricing/references/METRIC_DEFINITIONS.md`, and a worked
 run in
-`packs/business-model-pricing/exemplars/EX-BMP-001-first-consumer-subscription.md`.
+`packs/business-model-pricing/examples/EX-BMP-001-first-consumer-subscription.md`.
 
 ## Failure modes and anti-patterns
 
@@ -221,7 +224,7 @@ estate research rather than this pack's sweep: the two public handbooks
 (EV-0055, EV-0095), the error budget policy (EV-0096), the FinOps
 allocation (EV-0197), the two engineering-metric sources behind D5
 (EV-0199, EV-0210) and the experiment decision framework the trial
-guide uses (EV-0059). The synthesis is in
+Wargame uses (EV-0059). The synthesis is in
 `packs/business-model-pricing/research/NOTES.md`, and the licence and
 quotation sweep is at
 `packs/business-model-pricing/research/provenance.fragment.json`. That

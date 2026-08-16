@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the docs-dx Doctrine and Wargames
-type: playbook
+type: pack
 tags: [content, voice, delivery, ci, tooling]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/README.md, **/docs/**, **/*.md, **/CONTRIBUTING.md, **/CHA
 volatility: slow
 review: none
 sources: [EV-0023, EV-0044, EV-0095, EV-0102, EV-0136, EV-0137, EV-0170, EV-0171, EV-0175, EV-0189, EV-0322, EV-0323, EV-0324, EV-0325, EV-0326, EV-0327, EV-0328, EV-0329, EV-0330, EV-0331, EV-0332, EV-0333, EV-0334, EV-0335, EV-0336]
+display_name: Documentation Engineering
+category: experience-content
+id_namespace: DOCS
 depends_on: [writing-content, coding]
 ---
 
 
-# docs-dx
+# Documentation Engineering
 
 This pack covers documentation and the developer experience around it:
 where a document's truth lives, which documents can be made to fail a
@@ -93,21 +96,21 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-DOCS-001](doctrines/DOC-DOCS-001-internal-links-and-anchors-resolve-checked-in-ci-and-the-check-b.md) (default)
+- `B1` to [DOC-DOCS-001](doctrines/DOC-DOCS-001-internal-links-and-anchors-resolve-checked-in-ci-and-the.md) (default)
 <a id="B2"></a>
-- `B2` to [DOC-DOCS-002](doctrines/DOC-DOCS-002-a-renamed-or-deleted-page-leaves-a-redirect-or-every-reference-t.md) (default)
+- `B2` to [DOC-DOCS-002](doctrines/DOC-DOCS-002-a-renamed-or-deleted-page-leaves-a-redirect-or-every.md) (default)
 <a id="B3"></a>
-- `B3` to [DOC-DOCS-003](doctrines/DOC-DOCS-003-every-executable-snippet-either-runs-in-ci-or-carries-an-explici.md) (default)
+- `B3` to [DOC-DOCS-003](doctrines/DOC-DOCS-003-every-executable-snippet-either-runs-in-ci-or-carries-an.md) (default)
 <a id="B4"></a>
-- `B4` to [DOC-DOCS-004](doctrines/DOC-DOCS-004-generated-reference-is-verified-as-regenerated-not-hand-edited.md) (binding)
+- `B4` to [DOC-DOCS-004](doctrines/DOC-DOCS-004-generated-reference-is-verified-as-regenerated-not-hand.md) (binding)
 <a id="B5"></a>
-- `B5` to [DOC-DOCS-005](doctrines/DOC-DOCS-005-every-user-visible-failure-names-the-condition-the-caller-releva.md) (default)
+- `B5` to [DOC-DOCS-005](doctrines/DOC-DOCS-005-every-user-visible-failure-names-the-condition-the-caller.md) (default)
 <a id="B6"></a>
-- `B6` to [DOC-DOCS-006](doctrines/DOC-DOCS-006-every-repository-carries-an-agent-entry-file-at-the-conventional.md) (default)
+- `B6` to [DOC-DOCS-006](doctrines/DOC-DOCS-006-every-repository-carries-an-agent-entry-file-at-the.md) (default)
 <a id="D1"></a>
-- `D1` to [DOC-DOCS-007](doctrines/DOC-DOCS-007-use-the-four-documentation-forms-as-a-diagnostic-never-as-a-fold.md) (default)
+- `D1` to [DOC-DOCS-007](doctrines/DOC-DOCS-007-use-the-four-documentation-forms-as-a-diagnostic-never-as-a.md) (default)
 <a id="D2"></a>
-- `D2` to [DOC-DOCS-008](doctrines/DOC-DOCS-008-a-readme-answers-five-questions-what-it-is-why-it-exists-how-to.md) (default)
+- `D2` to [DOC-DOCS-008](doctrines/DOC-DOCS-008-a-readme-answers-five-questions-what-it-is-why-it-exists.md) (default)
 <a id="D3"></a>
 - `D3` to [DOC-DOCS-009](doctrines/DOC-DOCS-009-a-curated-changelog-with-a-running-unreleased-section.md) (default)
 <a id="D4"></a>
@@ -117,25 +120,25 @@ compatibility anchors; they do not encode authority.
 <a id="D6"></a>
 - `D6` to [DOC-DOCS-012](doctrines/DOC-DOCS-012-coverage-before-style.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-DOCS-013](doctrines/DOC-DOCS-013-prose-rules-ship-as-suggestions-and-are-promoted-on-evidence.md) (default)
+- `D7` to [DOC-DOCS-013](doctrines/DOC-DOCS-013-prose-rules-ship-as-suggestions-and-are-promoted-on.md) (default)
 - source `preferences:001` to [DOC-DOCS-014](doctrines/DOC-DOCS-014-house-prose-rules-beyond-the-mechanical-subset.md) (preference)
 - source `preferences:002` to [DOC-DOCS-015](doctrines/DOC-DOCS-015-which-static-site-generator-or-none.md) (preference)
 - source `preferences:003` to [DOC-DOCS-016](doctrines/DOC-DOCS-016-whether-explanation-lives-beside-reference-or-apart.md) (preference)
-- source `preferences:004` to [DOC-DOCS-017](doctrines/DOC-DOCS-017-whether-documentation-lives-with-the-code-or-in-its-own-reposito.md) (preference)
+- source `preferences:004` to [DOC-DOCS-017](doctrines/DOC-DOCS-017-whether-documentation-lives-with-the-code-or-in-its-own.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| Where does this document's truth live? | `packs/docs-dx/guides/GD-DOCS-001-truth-location.md` | Generate it where a machine-readable source exists |
-| How does a code example stop lying? | `packs/docs-dx/guides/GD-DOCS-002-executable-examples.md` | Run it in CI, or make it declare why not |
-| Who writes the changelog? | `packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md` | Curated, with a derived first draft |
-| What does a failure message owe its reader? | `packs/docs-dx/guides/GD-DOCS-004-failure-messages.md` | Condition, offending input, accepted alternative |
-| Which documentation checks may block? | `packs/docs-dx/guides/GD-DOCS-005-blocking-checks.md` | Internal and structural block, prose and external advise |
+| Where does this document's truth live? | `packs/docs-dx/wargames/WG-DOCS-001-truth-location.md` | Generate it where a machine-readable source exists |
+| How does a code example stop lying? | `packs/docs-dx/wargames/WG-DOCS-002-executable-examples.md` | Run it in CI, or make it declare why not |
+| Who writes the changelog? | `packs/docs-dx/wargames/WG-DOCS-003-changelog-ownership.md` | Curated, with a derived first draft |
+| What does a failure message owe its reader? | `packs/docs-dx/wargames/WG-DOCS-004-failure-messages.md` | Condition, offending input, accepted alternative |
+| Which documentation checks may block? | `packs/docs-dx/wargames/WG-DOCS-005-blocking-checks.md` | Internal and structural block, prose and external advise |
 
-Level-3 detail sits in `packs/docs-dx/refs/DOC_GATE.md` and
-`packs/docs-dx/refs/DOC_FORMS.md`. The worked repair of a broken
-quickstart is `packs/docs-dx/exemplars/EX-DOCS-001-stale-quickstart.md`.
+Level-3 detail sits in `packs/docs-dx/references/DOC_GATE.md` and
+`packs/docs-dx/references/DOC_FORMS.md`. The worked repair of a broken
+quickstart is `packs/docs-dx/examples/EX-DOCS-001-stale-quickstart.md`.
 
 ## Failure modes and anti-patterns
 

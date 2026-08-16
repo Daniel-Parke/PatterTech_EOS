@@ -11,13 +11,16 @@ activation_paths: [**/*.css, **/*.scss, **/tokens/**, **/theme/**, **/tailwind.c
 volatility: slow
 review: none
 sources: [EV-0027, EV-0030, EV-0065, EV-0232, EV-0234, EV-0236, EV-0239, EV-0389, EV-0390, EV-0391, EV-0392, EV-0393, EV-0394, EV-0395, EV-0396, EV-0397, EV-0398, EV-0399, EV-0400, EV-0402]
-type: guide
+type: pack
 tags: [web, brand, colour, motion, layout, typography]
+display_name: PatterTech Visual Language
+category: experience-content
+id_namespace: HOUSE
 depends_on: [ui-ux, writing-content]
 ---
 
 
-# pattertech-house
+# PatterTech Visual Language
 
 This pack is the PatterTech house visual language: containers, section
 furniture, the graded light system, and the numbers that hold them. It
@@ -52,7 +55,7 @@ number. Keywords never override the adoption gate.
 | adopts_pattertech_house | the venture's lock-book names this pack |
 | has_longform | the surface carries reading matter over roughly one screen |
 | has_figures | the surface carries diagrams, charts or plates |
-| has_dark_register | the ground is dark under GD-HOUSE-003 |
+| has_dark_register | the ground is dark under WG-HOUSE-003 |
 
 **Authority.** Everything here is `authority: preference` under
 `kernel/METADATA_SPEC.md`, because a brand scope caps it there. The
@@ -104,38 +107,38 @@ compatibility anchors; they do not encode authority.
 <a id="H8"></a>
 - `H8` to [DOC-HOUSE-008](doctrines/DOC-HOUSE-008-every-number-has-exactly-one-home.md) (preference)
 - source `defaults:001` to [DOC-HOUSE-009](doctrines/DOC-HOUSE-009-dark-first-single-register-with-a-formal-surface-ladder.md) (default)
-- source `defaults:002` to [DOC-HOUSE-010](doctrines/DOC-HOUSE-010-the-full-graded-light-system-for-a-luminous-brand-fields-only-ot.md) (default)
-- source `defaults:003` to [DOC-HOUSE-011](doctrines/DOC-HOUSE-011-a-surface-ladder-of-four-to-six-steps-derived-in-a-perceptually.md) (default)
+- source `defaults:002` to [DOC-HOUSE-010](doctrines/DOC-HOUSE-010-the-full-graded-light-system-for-a-luminous-brand-fields.md) (default)
+- source `defaults:003` to [DOC-HOUSE-011](doctrines/DOC-HOUSE-011-a-surface-ladder-of-four-to-six-steps-derived-in-a.md) (default)
 - source `defaults:004` to [DOC-HOUSE-012](doctrines/DOC-HOUSE-012-a-reading-measure-at-the-low-end-of-the-usual-advice.md) (default)
 - source `defaults:005` to [DOC-HOUSE-013](doctrines/DOC-HOUSE-013-three-type-roles-three-families-as-the-ceiling.md) (default)
 - source `defaults:006` to [DOC-HOUSE-014](doctrines/DOC-HOUSE-014-one-delegated-pointer-listener-for-surface-reactivity.md) (default)
 - source `defaults:007` to [DOC-HOUSE-015](doctrines/DOC-HOUSE-015-spend-the-design-budget-on-the-first-screen.md) (default)
 - source `defaults:008` to [DOC-HOUSE-016](doctrines/DOC-HOUSE-016-platform-hygiene.md) (default)
-- source `preferences:001` to [DOC-HOUSE-017](doctrines/DOC-HOUSE-017-cyan-as-the-live-accent-with-the-cherenkov-story-behind-it-and-a.md) (preference)
-- source `preferences:002` to [DOC-HOUSE-018](doctrines/DOC-HOUSE-018-the-andon-line-one-accent-hairline-across-the-top-of-the-chrome.md) (preference)
-- source `preferences:003` to [DOC-HOUSE-019](doctrines/DOC-HOUSE-019-plate-numbering-as-a-mono-figure-number-joined-to-its-caption-by.md) (preference)
-- source `preferences:004` to [DOC-HOUSE-020](doctrines/DOC-HOUSE-020-a-journal-index-rather-than-a-card-grid-on-hubs-so-two-entries-r.md) (preference)
-- source `preferences:005` to [DOC-HOUSE-021](doctrines/DOC-HOUSE-021-a-colophon-rather-than-a-closing-call-to-action-slab-written-fre.md) (preference)
+- source `preferences:001` to [DOC-HOUSE-017](doctrines/DOC-HOUSE-017-cyan-as-the-live-accent-with-the-cherenkov-story-behind-it.md) (preference)
+- source `preferences:002` to [DOC-HOUSE-018](doctrines/DOC-HOUSE-018-the-andon-line-one-accent-hairline-across-the-top-of-the.md) (preference)
+- source `preferences:003` to [DOC-HOUSE-019](doctrines/DOC-HOUSE-019-plate-numbering-as-a-mono-figure-number-joined-to-its.md) (preference)
+- source `preferences:004` to [DOC-HOUSE-020](doctrines/DOC-HOUSE-020-a-journal-index-rather-than-a-card-grid-on-hubs-so-two.md) (preference)
+- source `preferences:005` to [DOC-HOUSE-021](doctrines/DOC-HOUSE-021-a-colophon-rather-than-a-closing-call-to-action-slab.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| How much light does this surface carry | Which tiers are enabled and how loud the dimmer sits | `packs/pattertech-house/guides/GD-HOUSE-001-light-posture.md` |
-| Which container does this content take | Ledger, plaque, panel, table or prose | `packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md` |
-| Which polarity register does the surface take | Dark, light, dual or mixed, and what each costs | `packs/pattertech-house/guides/GD-HOUSE-003-polarity-register.md` |
-| How austere is this figure | Whether a figure may carry a distinguishing device | `packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md` |
+| How much light does this surface carry | Which tiers are enabled and how loud the dimmer sits | `packs/pattertech-house/wargames/WG-HOUSE-001-light-posture.md` |
+| Which container does this content take | Ledger, plaque, panel, table or prose | `packs/pattertech-house/wargames/WG-HOUSE-002-container-choice.md` |
+| Which polarity register does the surface take | Dark, light, dual or mixed, and what each costs | `packs/pattertech-house/wargames/WG-HOUSE-003-polarity-register.md` |
+| How austere is this figure | Whether a figure may carry a distinguishing device | `packs/pattertech-house/wargames/WG-HOUSE-004-figure-austerity.md` |
 
-Whether a surface answers presence is not a fork with a guide behind
+Whether a surface answers presence is not a fork with a Wargame behind
 it. The default above settles it: one delegated pointer listener, fine
 pointers only, components opting in. A venture that wants an inert
 surface writes that line in its lock-book.
 
 Level-three detail: every number in
-`packs/pattertech-house/refs/BUDGETS.md`, the container and furniture
-anatomy in `packs/pattertech-house/refs/KIT.md`, the light mechanics in
-`packs/pattertech-house/refs/LIGHT_MECHANICS.md`, a worked section in
-`packs/pattertech-house/exemplars/EX-HOUSE-001-services-section.md`.
+`packs/pattertech-house/references/BUDGETS.md`, the container and furniture
+anatomy in `packs/pattertech-house/references/KIT.md`, the light mechanics in
+`packs/pattertech-house/references/LIGHT_MECHANICS.md`, a worked section in
+`packs/pattertech-house/examples/EX-HOUSE-001-services-section.md`.
 
 ## Failure modes and anti-patterns
 
@@ -170,7 +173,7 @@ anatomy in `packs/pattertech-house/refs/KIT.md`, the light mechanics in
   for it was located at the cutoff, so it is a working hypothesis and is
   deliberately absent from the requirements above.
 - **The numbers are calibration, not measurement.** Every figure in
-  `packs/pattertech-house/refs/BUDGETS.md` comes from one project's eye,
+  `packs/pattertech-house/references/BUDGETS.md` comes from one project's eye,
   and they are reproducible because they are written down rather than
   because they are correct.
 - **Restraint against memorability is a genuine standoff.** Embellished
@@ -179,7 +182,7 @@ anatomy in `packs/pattertech-house/refs/KIT.md`, the light mechanics in
   restraint improves comprehension. Scope note: one study, small sample,
   one illustrator's hand-drawn style, static print-like charts, no
   interaction and no accessibility measurement. The split the pack takes
-  is by job, argued in GD-HOUSE-004.
+  is by job, argued in WG-HOUSE-004.
 - **Contrast maths is contested and the pack refuses to pick.** A
   perceptual model argues that a ratio quoted for light text on a dark
   ground misdescribes what a reader sees (EV-0389), and

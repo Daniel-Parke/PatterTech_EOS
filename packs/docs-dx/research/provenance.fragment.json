@@ -106,7 +106,7 @@
  ],
  "quotation_concerns": [
   {
-   "file": "packs/docs-dx/refs/DOC_FORMS.md",
+   "file": "packs/docs-dx/references/DOC_FORMS.md",
    "line": 14,
    "concern": "This file is the pack's longest treatment of the four documentation forms from EV-0322, which is CC BY-SA 4.0. Share-alike would bite if any passage were carried into a repository shipping under a different licence.",
    "resolution": "Not a concern as it stands. Only the four form names are carried, and they are terms rather than text. Recorded because this is the file to re-read first if the sweep is ever repeated."
@@ -124,5 +124,5 @@
    "resolution": "Not a concern. Attribution is by evidence id, the subset is a list of mechanical rules rather than the guide's prose, and the pack says outright that the guide is written for a different house."
   }
  ],
- "notes": "Nine of twenty-five cited rows carry an unknown or not-stated licence, the highest share of the six packs in this lane. The reason is the domain's evidence: conference papers behind publisher terms and vendor research pages. Every one of the nine is cited for a finding rather than for wording. Two of the nine, EV-0044 and EV-0095, carry a licence_checked date, so somebody looked and recorded that the source states nothing; the other seven are unconfirmed and nobody has looked. EV-0102 is the cheapest to resolve, since the project historically shipped under Apache-2.0 and only the docs page is unconfirmed. The quotation scan found no carried passage: the only quoted strings in the read surface are our own, at GD-DOCS-003 line 42 and refs/DOC_GATE.md line 50."
+ "notes": "Nine of twenty-five cited rows carry an unknown or not-stated licence, the highest share of the six packs in this lane. The reason is the domain's evidence: conference papers behind publisher terms and vendor research pages. Every one of the nine is cited for a finding rather than for wording. Two of the nine, EV-0044 and EV-0095, carry a licence_checked date, so somebody looked and recorded that the source states nothing; the other seven are unconfirmed and nobody has looked. EV-0102 is the cheapest to resolve, since the project historically shipped under Apache-2.0 and only the docs page is unconfirmed. The quotation scan found no carried passage: the only quoted strings in the read surface are our own, at WG-DOCS-003 line 42 and refs/DOC_GATE.md line 50."
 }

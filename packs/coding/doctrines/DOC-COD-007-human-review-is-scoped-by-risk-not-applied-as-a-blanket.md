@@ -40,7 +40,7 @@ is answerable for it, and that gap is named as unsolved by the strongest
 argument for agent-led review (EV-0167), which is a preprint with no new
 data and should be read as a hypothesis. Override by recording which
 tier you moved and why. See
-`packs/coding/guides/GD-COD-002-review-gate.md`.
+`packs/coding/wargames/WG-COD-002-review-gate.md`.
 
 ## Migration provenance
 

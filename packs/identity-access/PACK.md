@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the identity-access Doctrine and Wargames
-type: guide
+type: pack
 tags: [auth, security, arch, state]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/auth/**, **/authz/**, **/*authoriz*/**, **/*authoris*/**, 
 volatility: slow
 review: none
 sources: [EV-0517, EV-0518, EV-0519, EV-0520, EV-0521, EV-0522, EV-0523, EV-0524, EV-0525, EV-0526, EV-0527, EV-0528, EV-0529, EV-0530, EV-0531]
+display_name: Identity, Access and Tenancy
+category: reliability-trust
+id_namespace: IDENT
 depends_on: [architecture, security-privacy]
 ---
 
 
-# Identity, authorisation and tenancy
+# Identity, Access and Tenancy
 
 This pack owns who a person is, what they may do, and whose data they
 may touch. It activates when a venture authenticates people, serves more
@@ -112,47 +115,47 @@ compatibility anchors; they do not encode authority.
 <a id="B1"></a>
 - `B1` to [DOC-IDENT-001](doctrines/DOC-IDENT-001-deny-unless-something-permitted-and-decide-at-one-layer.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-IDENT-002](doctrines/DOC-IDENT-002-the-tenant-boundary-is-enforced-below-the-code-that-serves-the-r.md) (default)
+- `B2` to [DOC-IDENT-002](doctrines/DOC-IDENT-002-the-tenant-boundary-is-enforced-below-the-code-that-serves.md) (default)
 <a id="B3"></a>
-- `B3` to [DOC-IDENT-003](doctrines/DOC-IDENT-003-validate-a-tokens-signature-issuer-audience-and-expiry-on-every.md) (binding), [DOC-IDENT-004](doctrines/DOC-IDENT-004-an-identity-token-is-never-accepted-as-an-access-token.md) (binding), [DOC-IDENT-005](doctrines/DOC-IDENT-005-a-session-identifier-is-never-forwarded-as-a-bearer-credential.md) (binding), [DOC-IDENT-006](doctrines/DOC-IDENT-006-session-identifiers-come-from-a-cryptographic-generator.md) (binding), [DOC-IDENT-007](doctrines/DOC-IDENT-007-reissue-the-session-identifier-whenever-privilege-changes.md) (binding), [DOC-IDENT-008](doctrines/DOC-IDENT-008-invalidate-the-server-side-session-at-logout.md) (binding)
+- `B3` to [DOC-IDENT-003](doctrines/DOC-IDENT-003-validate-a-tokens-signature-issuer-audience-and-expiry-on.md) (binding), [DOC-IDENT-004](doctrines/DOC-IDENT-004-an-identity-token-is-never-accepted-as-an-access-token.md) (binding), [DOC-IDENT-005](doctrines/DOC-IDENT-005-a-session-identifier-is-never-forwarded-as-a-bearer.md) (binding), [DOC-IDENT-006](doctrines/DOC-IDENT-006-session-identifiers-come-from-a-cryptographic-generator.md) (binding), [DOC-IDENT-007](doctrines/DOC-IDENT-007-reissue-the-session-identifier-whenever-privilege-changes.md) (binding), [DOC-IDENT-008](doctrines/DOC-IDENT-008-invalidate-the-server-side-session-at-logout.md) (binding)
 <a id="B4"></a>
 - `B4` to [DOC-IDENT-009](doctrines/DOC-IDENT-009-the-privileged-path-is-named-alarmed-and-reviewed.md) (default)
 <a id="B5"></a>
-- `B5` to [DOC-IDENT-010](doctrines/DOC-IDENT-010-an-authorisation-change-ships-with-the-refusal-that-proves-it.md) (binding)
-- source `defaults:001` to [DOC-IDENT-011](doctrines/DOC-IDENT-011-start-with-record-ownership-plus-a-small-fixed-role-set-move-mod.md) (default)
-- source `defaults:002` to [DOC-IDENT-012](doctrines/DOC-IDENT-012-reach-for-relationships-when-sharing-crosses-the-ownership-tree.md) (default)
-- source `defaults:003` to [DOC-IDENT-013](doctrines/DOC-IDENT-013-one-decision-point-in-process-until-latency-reuse-across-service.md) (default)
-- source `defaults:004` to [DOC-IDENT-014](doctrines/DOC-IDENT-014-delegate-authentication-to-a-provider-rather-than-storing-passwo.md) (default)
-- source `defaults:005` to [DOC-IDENT-015](doctrines/DOC-IDENT-015-server-side-sessions-in-cookies-for-a-first-party-browser-surfac.md) (default)
-- source `defaults:006` to [DOC-IDENT-016](doctrines/DOC-IDENT-016-shared-tables-with-a-tenant-key-and-a-database-enforced-predicat.md) (default)
-- source `defaults:007` to [DOC-IDENT-017](doctrines/DOC-IDENT-017-both-an-idle-limit-and-an-absolute-session-limit-inside-the-grad.md) (default)
-- source `defaults:008` to [DOC-IDENT-018](doctrines/DOC-IDENT-018-a-refusal-answers-the-same-way-everywhere-and-the-choice-between.md) (default)
-- source `defaults:009` to [DOC-IDENT-019](doctrines/DOC-IDENT-019-at-least-two-break-glass-credentials-neither-depending-on-the-id.md) (default)
+- `B5` to [DOC-IDENT-010](doctrines/DOC-IDENT-010-an-authorisation-change-ships-with-the-refusal-that-proves.md) (binding)
+- source `defaults:001` to [DOC-IDENT-011](doctrines/DOC-IDENT-011-start-with-record-ownership-plus-a-small-fixed-role-set.md) (default)
+- source `defaults:002` to [DOC-IDENT-012](doctrines/DOC-IDENT-012-reach-for-relationships-when-sharing-crosses-the-ownership.md) (default)
+- source `defaults:003` to [DOC-IDENT-013](doctrines/DOC-IDENT-013-one-decision-point-in-process-until-latency-reuse-across.md) (default)
+- source `defaults:004` to [DOC-IDENT-014](doctrines/DOC-IDENT-014-delegate-authentication-to-a-provider-rather-than-storing.md) (default)
+- source `defaults:005` to [DOC-IDENT-015](doctrines/DOC-IDENT-015-server-side-sessions-in-cookies-for-a-first-party-browser.md) (default)
+- source `defaults:006` to [DOC-IDENT-016](doctrines/DOC-IDENT-016-shared-tables-with-a-tenant-key-and-a-database-enforced.md) (default)
+- source `defaults:007` to [DOC-IDENT-017](doctrines/DOC-IDENT-017-both-an-idle-limit-and-an-absolute-session-limit-inside.md) (default)
+- source `defaults:008` to [DOC-IDENT-018](doctrines/DOC-IDENT-018-a-refusal-answers-the-same-way-everywhere-and-the-choice.md) (default)
+- source `defaults:009` to [DOC-IDENT-019](doctrines/DOC-IDENT-019-at-least-two-break-glass-credentials-neither-depending-on.md) (default)
 - source `preferences:001` to [DOC-IDENT-020](doctrines/DOC-IDENT-020-which-policy-engine-if-any.md) (preference)
 - source `preferences:002` to [DOC-IDENT-021](doctrines/DOC-IDENT-021-whether-roles-are-rows-in-a-table-or-values-in-an-enum.md) (preference)
-- source `preferences:003` to [DOC-IDENT-022](doctrines/DOC-IDENT-022-whether-the-permission-check-reads-as-a-decorator-a-middleware-o.md) (preference)
+- source `preferences:003` to [DOC-IDENT-022](doctrines/DOC-IDENT-022-whether-the-permission-check-reads-as-a-decorator-a.md) (preference)
 - source `preferences:004` to [DOC-IDENT-023](doctrines/DOC-IDENT-023-which-refusal-code-so-long-as-it-is-one-code.md) (preference)
 - source `preferences:005` to [DOC-IDENT-024](doctrines/DOC-IDENT-024-session-and-token-lifetimes-within-the-graded-ranges.md) (preference)
-- source `preferences:006` to [DOC-IDENT-025](doctrines/DOC-IDENT-025-whether-tenant-context-travels-as-a-request-scoped-variable-or-a.md) (preference)
+- source `preferences:006` to [DOC-IDENT-025](doctrines/DOC-IDENT-025-whether-tenant-context-travels-as-a-request-scoped.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| Roles against attributes against relationships | GD-IDENT-001 | Ownership plus a small role set, moving to relationships or attributes on a rule that cannot be expressed |
-| Server session against bearer token | GD-IDENT-002 | Cookie session for a first-party browser surface, sender-constrained token for anything else |
-| Identity provider against self-hosted | GD-IDENT-003 | A provider, with the sign-in surface kept thin enough to move |
-| Tenant isolation by row, schema or database | GD-IDENT-004 | Shared tables with a database-enforced tenant predicate, escalating per requirement |
+| Roles against attributes against relationships | WG-IDENT-001 | Ownership plus a small role set, moving to relationships or attributes on a rule that cannot be expressed |
+| Server session against bearer token | WG-IDENT-002 | Cookie session for a first-party browser surface, sender-constrained token for anything else |
+| Identity provider against self-hosted | WG-IDENT-003 | A provider, with the sign-in surface kept thin enough to move |
+| Tenant isolation by row, schema or database | WG-IDENT-004 | Shared tables with a database-enforced tenant predicate, escalating per requirement |
 
-Guides sit in `packs/identity-access/guides/`. Level-three detail sits
+Wargames sit in `packs/identity-access/wargames/`. Level-three detail sits
 in three references:
-`packs/identity-access/refs/decision-point-placement.md` for where the
+`packs/identity-access/references/decision-point-placement.md` for where the
 decision is made and what happens when it cannot be,
-`packs/identity-access/refs/tenant-isolation-mechanics.md` for what
+`packs/identity-access/references/tenant-isolation-mechanics.md` for what
 walks past a row policy and the checklist that catches it, and
-`packs/identity-access/refs/break-glass.md` for the emergency path. The
+`packs/identity-access/references/break-glass.md` for the emergency path. The
 worked example is
-`packs/identity-access/exemplars/EX-IDENT-001-cross-tenant-share.md`.
+`packs/identity-access/examples/EX-IDENT-001-cross-tenant-share.md`.
 
 ## Evidence
 
@@ -229,7 +232,7 @@ project). They are reconcilable: roles are an administration model,
 attributes and relationships are decision models. Notice what that costs
 a small venture, though. The strongest published argument for roles is a
 saving in an administrative process most ventures here do not have, so
-the default in GD-IDENT-001 is argued from cost of change rather than
+the default in WG-IDENT-001 is argued from cost of change rather than
 from evidence.
 
 **The relationship evidence is one company's production report.** The
@@ -239,7 +242,7 @@ consistent database, a specialised index, request hedging and per-client
 quotas, and its own lessons section reports hot spots as a critical
 availability problem. There is no independent evaluation of
 relationship-based authorisation against the alternatives. If one
-appears, GD-IDENT-001 is the first thing that should move.
+appears, WG-IDENT-001 is the first thing that should move.
 
 **The best tenancy control is the one teams skip.** Pushing the tenant
 predicate into the database is the mechanism most likely to hold, and

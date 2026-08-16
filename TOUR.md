@@ -53,7 +53,7 @@ Four things live in it.
 | **Packs** | Argued knowledge, one domain at a time. Atomic Doctrine carries standing rules; Wargames carry the forks that need argument. | `packs/INDEX.md` |
 | **The kernel** | How much ceremony a piece of work deserves, what a consequential action may do, and the templates a venture is compiled from. | `kernel/README.md` |
 | **Registries** | What is true today, with dates on it: evidence, lessons, stack profiles, coverage and pressure dispositions. | `registry/CAPABILITIES.md` |
-| **Governance** | How all of the above changes without rotting, settled across ten decision records. | `GOVERNANCE.md` |
+| **Governance** | How all of the above changes without rotting, with accepted decisions recording material changes. | `GOVERNANCE.md` |
 
 ## The vocabulary
 
@@ -71,10 +71,10 @@ so this is the definition.
 | **Seed** | The set of files Session 0 compiles into a new venture's repository. `kernel/SCALE_MATRIX.md` is the law of what it contains. |
 | **Lock-book** | The venture's pinned contract with the EOS. It names adopted packs and points at `docs/RULINGS.json`; an agent working on a venture reads it before anything here. |
 | **Tier** | R0 to R3, the risk ruling on one task. It is ruled once, when the task record is written, and read back from the record after that. |
-| **Pack** | One domain's activation, outcomes, limits and decision map, disclosed in three levels. `packs/PACK_SHAPE.md` is the contract every pack keeps. |
+| **Pack** | One domain's activation, outcomes, limits and decision map, disclosed in three levels. `packs/PACK_CONTRACT.md` is the contract every pack keeps. |
 | **Doctrine** | One atomic standing proposition with an authority grade. Binding applies whenever its scope holds; default is inherited unless pressure and an argued Ruling justify departure; advisory informs judgement; preference is optional taste or convenience. |
-| **Wargame** | One advanced decision procedure for a selection, Doctrine pressure, exception or uncovered gap. `GD-*` and `WG-*` are immutable identities of the same type; only new records use `WG-*`. |
-| **Doctrine relation** | A typed, conditional edge such as `depends_on`, `supports` or `tensions_with`, owned beside its Doctrine and shown estate-wide in the generated pressure matrix. |
+| **Wargame** | One advanced decision procedure for selection, Doctrine pressure, an exception or an uncovered gap. Every live definition uses `WG-*`; earlier decision-procedure identities remain direct aliases. |
+| **Relation** | A typed, conditional Doctrine edge such as `depends_on`, `supports` or `tensions_with`, owned at its pack root and shown estate-wide in the generated pressure matrix. |
 | **Ruling** | One venture executing one Wargame. Raw Rulings stay with the venture; EOS receives only a privacy-reviewed summary when the venture chooses to share one. |
 | **Stack profile** | A dated record of named tools, tested versions and interoperability limits. It is useful evidence, not timeless Doctrine. |
 | **Predicate** | A yes-or-no fact about a venture or a task that activates a pack. `kernel/PREDICATES.md` is the controlled list of names. |
@@ -593,11 +593,11 @@ definition anywhere are eleven words doing no work.
 | --- | --- |
 | `reference-only` | Worth knowing, owned by nothing. It changes no file and binds nobody. Recorded so the reading is not done twice. |
 | `dated-registry-fact` | A fact with a date on it. It lands in a registry, usually a stack profile, and carries a review trigger. |
-| `venture-ruling` | True for one venture, recorded in that venture's lock-book. It does not amend an estate default by existing. |
-| `worked-exemplar` | The lesson travels better as a worked example than as a rule, so it becomes an exemplar file in a pack. |
+| `venture-ruling` | True for one venture, recorded as that venture's Ruling. It does not amend an estate default by existing. |
+| `worked-exemplar` | Compatibility value for a lesson that travels best as a worked example. Its current destination is an example file in a pack. |
 | `implementation-reference` | The lesson is about how something here is built, so the code, schema or template changes and the row is the provenance. |
 | `experimental-guidance` | Adopted as a reversible default carrying its hypothesis and an expiry no more than ninety days out. The experiment sweep closes or promotes it. |
-| `decision-guide` | Historical ledger name for a recurring fork. Its admitted destination is now a Wargame with the options and decision rule argued; the value stays for schema compatibility. |
+| `wargame` | A recurring fork admitted as a Wargame with materially different options and an argued decision rule. |
 | `estate-default` | Adopted across the estate as a default: do it unless you record why not. |
 | `binding-candidate` | Proposed for binding and not binding yet. This ledger can propose and nothing more. |
 | `rejected` | Argued and declined. The row stays with its reason, so the same proposal cannot return as though it had never been argued. |
@@ -636,9 +636,9 @@ Nobody hand-edits a view. Both generators are the integrator's alone.
 | --- | --- | --- |
 | Task records under `org/tasks/` | `org/TASKS.md`, `org/STATE.md` | `python -m tools.eos task views` |
 | Front-matter across the tree | `INDEX.md`, `packs/INDEX.md` | `python -m tools.eos check --write-index` |
-| Atomic Doctrine and Wargame metadata | `packs/DOCTRINE_INDEX.md`, `packs/WARGAME_INDEX.md`; `packs/GUIDE_INDEX.md` is a compatibility pointer | `python -m tools.eos check --write-index` |
+| Atomic Doctrine and Wargame metadata | `packs/DOCTRINE_INDEX.md`, `packs/WARGAME_INDEX.md` | `python -m tools.eos check --write-index` |
 | Doctrine relations and `registry/pressure-dispositions.json` | `registry/DOCTRINE_PRESSURE_MATRIX.md` | `python -m tools.eos check --write-index` |
-| `registry/identifier-aliases.json` | `registry/ID_ALIASES.md` | `python -m tools.eos check --write-index` |
+| `registry/identifier-aliases.json` | `registry/IDENTIFIER_ALIASES.md` | `python -m tools.eos check --write-index` |
 | `registry/coverage.json` | `registry/CAPABILITIES.md` | `python -m tools.eos check --write-index` |
 | `registry/lessons.json` | `registry/LESSONS.md` | `python -m tools.eos check --write-index` |
 
@@ -659,8 +659,8 @@ between a safety floor and taste.
 | **Preference** | Optional taste or convenience, including brand-scoped house style. |
 
 ADR-0008 first asked which old rules genuinely prevented a serious or
-hard-to-undo failure. ADR-0012 and ADR-0014 then made the result atomic and
-machine-readable. A Doctrine keeps its ID when evidence or authority changes
+hard-to-undo failure. ADR-0014 and ADR-0015 then made the result atomic,
+machine-readable and consistently named. A Doctrine keeps its ID when evidence or authority changes
 without changing the proposition. A material prescription or scope change
 creates a new ID and names what it supersedes.
 
@@ -688,9 +688,11 @@ every loosened rule names what catches the failure instead.
 
 ### Wargaming only where pressure exists
 
-A Wargame is one semantic type even though its immutable identity may begin
-`GD-*` or `WG-*`. The historical `guides/` directory is a storage name, not
-a second kind. New identities use `WG-*`.
+A Wargame is one semantic type and every live definition uses a canonical
+`WG-*` identity under `wargames/`. Earlier decision-procedure identities are
+direct aliases, never a second kind or a second live file. With an explicit
+Git pin, the resolver reads the identity and path from that historical tree.
+The current tree does not carry redirect files for old collection paths.
 
 Every Wargame states the stakes, Doctrine or gap under pressure,
 preconditions, materially different options, a premortem for each credible
@@ -712,13 +714,19 @@ Knowledge is packs, and a pack discloses itself in three levels.
 
 1. A first paragraph always in context through `packs/INDEX.md`.
 2. A `PACK.md` body on activation.
-3. Full Doctrine atoms, Wargames, refs, exemplars and recipes on demand
+3. Full Doctrine atoms, Wargames, references, examples and recipes on demand
    from the body, which names what each one holds so you never have to
    list a directory.
 
-The contract is `packs/PACK_SHAPE.md`, including the eleven-point
+The contract is `packs/PACK_CONTRACT.md`, including the eleven-point
 definition of done and the pruning test that asks of every line whether
 removing it would cause an agent to make a mistake.
+
+Pack directories are stable lowercase machine keys. Each `PACK.md` supplies a
+concise `display_name`, a navigation `category` and the `id_namespace` used by
+new pack-owned identities. `packs/INDEX.md` groups those display names into six
+reader-facing categories without changing activation or dependency order.
+`kernel/NAMING_SPEC.md` is the full naming contract.
 
 ### Coverage: what is built, and what is not
 

@@ -68,13 +68,13 @@
    "venture": "PatterTech_Website",
    "source_note": "The v4 pass.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
-   "outcome": "WG-WEB-013 filed by the operator, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/guides/GD-UIUX-004-token-source.md`.",
+   "disposition": "wargame",
+   "outcome": "WG-WEB-013 filed by the operator, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-013-kit-escape-and-enforcement.md`, and carried into `packs/ui-ux/wargames/WG-UIUX-006-token-source.md`.",
    "scope": "estate",
    "applicability_conditions": "Products with a design system whose tokens are enforced somewhere other than the code that consumes them.",
    "informs": [
-    "GD-UIUX-004",
-    "packs/ui-ux/guides/GD-UIUX-004-token-source.md"
+    "WG-UIUX-006",
+    "packs/ui-ux/wargames/WG-UIUX-006-token-source.md"
    ],
    "decided": "2026-07"
   },
@@ -123,12 +123,12 @@
    "source_note": "Reseed feedback.",
    "evidence_class": "observational",
    "disposition": "venture-ruling",
-   "outcome": "Argued ruling appended to WG-WEB-001, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-001-surface-register.md`. One argued ruling from one venture, so it is not yet promotion evidence; the philosophy question it raises is carried by `packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md`.",
+   "outcome": "Argued ruling appended to WG-WEB-001, now at `archive/v1-final:doctrine/web-design/wargames/WG-WEB-001-surface-register.md`. One argued ruling from one venture, so it is not yet promotion evidence; the philosophy question it raises is carried by `packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md`.",
    "scope": "estate",
    "applicability_conditions": "Brands with a print-native or institutional register. One argued ruling from one venture, which under the ladder in GOVERNANCE.md is short of promotion evidence.",
    "informs": [
-    "GD-UIUX-001",
-    "packs/ui-ux/guides/GD-UIUX-001-design-philosophy.md"
+    "WG-UIUX-003",
+    "packs/ui-ux/wargames/WG-UIUX-003-design-philosophy.md"
    ],
    "decided": "2026-07"
   },
@@ -309,11 +309,11 @@
    "source_note": "WG-VOX-001 ruled split.",
    "evidence_class": "observational",
    "disposition": "venture-ruling",
-   "outcome": "Early supporting evidence for the three-way voice scope in `packs/writing-content/guides/GD-WRIT-003-voice-scope.md`, which already sanctions per-surface splits.",
+   "outcome": "Early supporting evidence for the three-way voice scope in `packs/writing-content/wargames/WG-WRIT-003-voice-scope.md`, which already sanctions per-surface splits.",
    "scope": "estate",
    "applicability_conditions": "Products carrying both in-app coaching copy and reference documentation, where one register would have to serve both.",
    "informs": [
-    "packs/writing-content/guides/GD-WRIT-003-voice-scope.md"
+    "packs/writing-content/wargames/WG-WRIT-003-voice-scope.md"
    ],
    "decided": "2026-08"
   },
@@ -401,12 +401,12 @@
    "venture": "Venture B",
    "source_note": "Estate survey at EOS creation.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
-   "outcome": "Now owned by `packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md`.",
+   "disposition": "wargame",
+   "outcome": "Now owned by `packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md`.",
    "scope": "estate",
    "applicability_conditions": "Relational schema changes shipped with the application that reads them.",
    "informs": [
-    "packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md"
+    "packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md"
    ],
    "decided": "2026-07",
    "pruned_on": "2026-08-03"
@@ -420,11 +420,11 @@
    "source_note": "Estate survey at EOS creation.",
    "evidence_class": "observational",
    "disposition": "estate-default",
-   "outcome": "Now owned by `packs/delivery-testing/refs/QUALITY_SIGNALS.md` and its CHECKS rows.",
+   "outcome": "Now owned by `packs/delivery-testing/references/QUALITY_SIGNALS.md` and its CHECKS rows.",
    "scope": "estate",
    "applicability_conditions": "Tightening quality gates on a codebase that does not pass them yet.",
    "informs": [
-    "packs/delivery-testing/refs/QUALITY_SIGNALS.md"
+    "packs/delivery-testing/references/QUALITY_SIGNALS.md"
    ],
    "decided": "2026-07",
    "pruned_on": "2026-08-03"
@@ -545,7 +545,7 @@
    "applicability_conditions": "Browser interfaces and embedded web surfaces. A canvas, spatial editor or specialised control may depart where native controls cannot express the task and an accessible alternative or equivalent behaviour is proved.",
    "informs": [
     "packs/ui-ux/PACK.md",
-    "GD-UIUX-003"
+    "WG-UIUX-005"
    ],
    "decided": "2026-08-15",
    "reasoning": "The standards make native semantics the cheaper starting point and make clear that adding a role does not add its required behaviour."
@@ -567,7 +567,7 @@
    "scope": "estate",
    "applicability_conditions": "Every user-facing surface. Brand preferences activate only through explicit adoption and cannot override accessibility or target-device evidence.",
    "informs": [
-    "GD-UIUX-001",
+    "WG-UIUX-003",
     "packs/ui-ux/PACK.md"
    ],
    "decided": "2026-08-15",
@@ -592,7 +592,7 @@
    "applicability_conditions": "A new deployable or an existing system considering a service split. Regulatory, isolation, capacity and independent ownership pressure can earn an earlier split.",
    "informs": [
     "packs/architecture/PACK.md",
-    "GD-ARCH-001",
+    "WG-ARCH-013",
     "WG-ARCH-001"
    ],
    "decided": "2026-08-15",
@@ -616,7 +616,7 @@
    "scope": "estate",
    "applicability_conditions": "Exploratory changes, vertical slices and normal delivery. Consequential or difficult-to-reverse effects earn stronger evidence even when the diff is small.",
    "informs": [
-    "GD-DISC-001",
+    "WG-DISC-001",
     "WG-DEL-007"
    ],
    "decided": "2026-08-15",
@@ -641,9 +641,9 @@
    "scope": "estate",
    "applicability_conditions": "A user-facing or data-bearing service. Safety and integrity floors remain non-spendable even when an error-budget policy permits ordinary reliability trade-offs.",
    "informs": [
-    "GD-DEVOPS-003",
-    "GD-DEVOPS-004",
-    "WG-OPS-003"
+    "WG-DEVOPS-003",
+    "WG-DEVOPS-004",
+    "WG-DEVOPS-005"
    ],
    "decided": "2026-08-15",
    "reasoning": "The propositions activate under different conditions and would become harder to challenge if collapsed into one broad reliability statement."
@@ -667,7 +667,7 @@
    "applicability_conditions": "Security and supply-chain assurance decisions after applicable statutory, privacy, authorisation, integrity and human-approval floors have been identified.",
    "informs": [
     "packs/security-privacy/PACK.md",
-    "GD-SEC-003"
+    "WG-SEC-003"
    ],
    "decided": "2026-08-15",
    "reasoning": "SSDF supports outcome and risk tailoring, while SLSA's own threat model shows that assurance schemes leave explicit non-goals."
@@ -690,8 +690,8 @@
    "scope": "estate",
    "applicability_conditions": "Agentic work with a stable task set and an external oracle. The paper's benchmark magnitudes do not transfer as universal thresholds to repository engineering.",
    "informs": [
-    "GD-AGENT-001",
-    "GD-SWARM-001"
+    "WG-AGENT-001",
+    "WG-SWARM-001"
    ],
    "decided": "2026-08-15",
    "reasoning": "Version 3 shows large gains and large losses under different task structures, which supports a Wargame and rejects a universal swarm preference."
@@ -716,9 +716,9 @@
    "scope": "estate",
    "applicability_conditions": "Any comparative model, agent, retrieval or automated-evaluation claim used to select or govern a system.",
    "informs": [
-    "GD-AIML-001",
-    "GD-AIML-003",
-    "GD-AGENT-004",
+    "WG-AIML-002",
+    "WG-AIML-004",
+    "WG-AGENT-004",
     "WG-DEL-006"
    ],
    "decided": "2026-08-15",
@@ -763,7 +763,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new analytical engine-selection Wargame under the existing data surface; it may share an advanced procedure with execution mode if both rulings stay separate.",
    "scope": "estate",
    "applicability_conditions": "A local or distributed analytical workload choosing or materially changing its dataframe or SQL execution engine.",
@@ -785,7 +785,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new representation-boundary Wargame under the existing data surface.",
    "scope": "estate",
    "applicability_conditions": "A dataframe, array, solver or device boundary where representation movement can affect memory, performance or correctness.",
@@ -808,7 +808,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new acceleration Wargame under the existing data surface; current package routes remain dated stack facts.",
    "scope": "estate",
    "applicability_conditions": "A measured numerical hotspot whose cost matters to the stated objective and whose correctness can be compared under explicit tolerances.",
@@ -831,7 +831,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted execution mode as a distinct ruling surface, either in its own Wargame or as an independently ruleable part of analytical engine selection.",
    "scope": "estate",
    "applicability_conditions": "An analytical pipeline choosing how and where its plan executes, especially when ordering, memory, spill or reproducibility is material.",
@@ -853,13 +853,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new web-delivery Wargame under the UI surface, related to the existing native-client architecture procedure without reviving retired web IDs.",
    "scope": "estate",
    "applicability_conditions": "A public or internal web surface choosing its primary rendering and delivery architecture, including a comparison with native delivery where device integration is material.",
    "informs": [
     "packs/ui-ux/PACK.md",
-    "GD-NAT-001"
+    "WG-NAT-001"
    ],
    "decided": "2026-08-15",
    "reasoning": "The current estate has a native-client procedure but no live procedure that owns the complete web-delivery fork."
@@ -882,7 +882,7 @@
    "scope": "estate",
    "applicability_conditions": "A surface used by people with materially different familiarity, frequency or task complexity.",
    "informs": [
-    "GD-UIUX-001"
+    "WG-UIUX-003"
    ],
    "decided": "2026-08-15",
    "reasoning": "The existing procedure already asks the deciding audience, task, session and failure-cost questions."
@@ -900,13 +900,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new semantic-versus-custom-interaction Wargame linked to component sourcing and accessibility assurance.",
    "scope": "estate",
    "applicability_conditions": "A browser interaction considering canvas, a custom widget or an ARIA reconstruction because native controls appear insufficient.",
    "informs": [
-    "GD-UIUX-002",
-    "GD-UIUX-003",
+    "WG-UIUX-004",
+    "WG-UIUX-005",
     "packs/ui-ux/PACK.md"
    ],
    "decided": "2026-08-15",
@@ -930,9 +930,9 @@
    "scope": "estate",
    "applicability_conditions": "A venture that explicitly adopts PatterTech house style or proposes motion and visual treatments on a user-facing surface.",
    "informs": [
-    "GD-UIUX-001",
-    "GD-UIUX-003",
-    "GD-HOUSE-001"
+    "WG-UIUX-003",
+    "WG-UIUX-005",
+    "WG-HOUSE-001"
    ],
    "decided": "2026-08-15",
    "reasoning": "The live procedures already separate optional taste from audience, accessibility and performance evidence."
@@ -951,12 +951,12 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed the existing deployment-shape procedures with forces, affected qualities, sensitivity and reversal fields while preserving their IDs.",
    "scope": "estate",
    "applicability_conditions": "A modular monolith considering a service boundary or a distributed system considering consolidation.",
    "informs": [
-    "GD-ARCH-001",
+    "WG-ARCH-013",
     "WG-ARCH-001"
    ],
    "decided": "2026-08-15",
@@ -976,13 +976,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new messaging-and-flow Wargame in architecture, related to background-work and ingestion procedures.",
    "scope": "estate",
    "applicability_conditions": "A boundary choosing its interaction contract where latency, ordering, retries, consistency or replay affects correctness or user experience.",
    "informs": [
     "WG-ARCH-004",
-    "GD-DATAENG-001",
+    "WG-DATAENG-001",
     "packs/architecture/PACK.md"
    ],
    "decided": "2026-08-15",
@@ -1002,7 +1002,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new storage-engine Wargame under architecture with data-analytics activation.",
    "scope": "estate",
    "applicability_conditions": "A durable data surface choosing or replacing its primary engine or adding a specialised secondary engine.",
@@ -1029,12 +1029,12 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new locality-and-consistency Wargame under architecture and related it to the existing offline-write procedure.",
    "scope": "estate",
    "applicability_conditions": "A system placing state across local devices, hosted services or both, especially where writes continue during disconnection.",
    "informs": [
-    "GD-NAT-002",
+    "WG-NAT-002",
     "packs/architecture/PACK.md",
     "packs/native-client/PACK.md"
    ],
@@ -1054,13 +1054,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed the existing test-timing Wargame and its discovery relation with explicit deletion, promotion and evidence boundaries.",
    "scope": "estate",
    "applicability_conditions": "Exploratory work deciding between a disposable spike and a hardened vertical slice.",
    "informs": [
     "WG-DEL-007",
-    "GD-DISC-001"
+    "WG-DISC-001"
    ],
    "decided": "2026-08-15",
    "reasoning": "A small exploratory artefact can quietly become production, so retention is a separate decision from building it."
@@ -1079,7 +1079,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "controlled",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed and related the existing test-double and oracle-independence Wargames; no third procedure was admitted.",
    "scope": "estate",
    "applicability_conditions": "A test strategy selecting a fake, sandbox or live system and deciding what independent truth will detect contract drift or a mutually consistent defect.",
@@ -1102,14 +1102,14 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new incident-hotfix versus normal-gate Wargame under delivery and reliability.",
    "scope": "estate",
    "applicability_conditions": "A declared incident where waiting for the normal delivery path causes greater user harm, and a rollback or known-good recovery route exists.",
    "informs": [
     "packs/delivery-testing/PACK.md",
     "packs/devops-reliability/PACK.md",
-    "GD-DEVOPS-002"
+    "WG-DEVOPS-002"
    ],
    "decided": "2026-08-15",
    "reasoning": "Existing release controls assume normal delivery, while incident practice supports mitigation first without supporting an unbounded bypass."
@@ -1126,13 +1126,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new capability-ownership Wargame in architecture with supply-chain relations.",
    "scope": "estate",
    "applicability_conditions": "A material capability choosing between owned implementation, purchased software or a managed service, especially where provider failure can block diagnosis or recovery.",
    "informs": [
     "WG-ARCH-007",
-    "GD-SUPPLY-004",
+    "WG-SUPPLY-004",
     "packs/architecture/PACK.md"
    ],
    "decided": "2026-08-15",
@@ -1150,7 +1150,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new fail-closed versus honest-degradation Wargame under reliability with security activation and protected-set disqualifiers.",
    "scope": "estate",
    "applicability_conditions": "A dependency or subsystem failure where some useful service might continue without weakening a protected property.",
@@ -1173,7 +1173,7 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new observability-and-privacy Wargame under reliability with security activation.",
    "scope": "estate",
    "applicability_conditions": "A service adding or changing logs, traces, metrics or diagnostic event capture where records can contain personal, secret or tenant-specific context.",
@@ -1197,12 +1197,12 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed the existing provenance Wargame and added the relation between verified provenance and separate producer and dependency admission.",
    "scope": "estate",
    "applicability_conditions": "Admission or deployment of an artefact carrying provenance, an SBOM or both.",
    "informs": [
-    "GD-SUPPLY-001"
+    "WG-SUPPLY-001"
    ],
    "decided": "2026-08-15",
    "reasoning": "The SLSA provenance and threat pages state different assurance surfaces and explicit non-goals, so attestation cannot be used as a safety proxy."
@@ -1221,13 +1221,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed and related the existing dependency-cadence and release-control Wargames; no duplicate update procedure was admitted.",
    "scope": "estate",
    "applicability_conditions": "A dependency update, especially an urgent security update, where the currently deployed version is known good and the replacement is not yet observed in production shape.",
    "informs": [
-    "GD-SUPPLY-003",
-    "GD-DEVOPS-002"
+    "WG-SUPPLY-003",
+    "WG-DEVOPS-002"
    ],
    "decided": "2026-08-15",
    "reasoning": "Freshness and deployment confidence are separate assurance axes, and neither should silently erase the other."
@@ -1245,13 +1245,13 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "controlled",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed the existing topology Wargames with version 3 evidence, tool-load pressure and central-verification checks.",
    "scope": "estate",
    "applicability_conditions": "Agentic work considering topology beyond a direct bounded agent or replacing deterministic orchestration with an agent loop.",
    "informs": [
-    "GD-AGENT-001",
-    "GD-SWARM-001"
+    "WG-AGENT-001",
+    "WG-SWARM-001"
    ],
    "decided": "2026-08-15",
    "reasoning": "The controlled study shows topology effects reverse with task structure, so the baseline and harness must remain fixed during comparison."
@@ -1272,12 +1272,12 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "observational",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Admitted a new model-hosting Wargame under AI and ML, related to the existing model-lifecycle procedure.",
    "scope": "estate",
    "applicability_conditions": "An AI feature deciding whether inference runs on the target device, through a provider or across a hybrid fallback path.",
    "informs": [
-    "GD-AIML-005",
+    "WG-AIML-006",
     "packs/ai-ml-llm/PACK.md"
    ],
    "decided": "2026-08-15",
@@ -1299,12 +1299,12 @@
    "lens": "LENS-0002",
    "source_note": "The operator's explicit instruction to implement T-0026 authorised this programme disposition; the research report supplied the recommendation, not the authority.",
    "evidence_class": "controlled",
-   "disposition": "decision-guide",
+   "disposition": "wargame",
    "outcome": "Refreshed and related the existing judge-selection and oracle-independence Wargames; no new judge procedure was admitted.",
    "scope": "estate",
    "applicability_conditions": "An evaluation choosing deterministic, human or model scoring for an output that affects acceptance or comparison.",
    "informs": [
-    "GD-AIML-003",
+    "WG-AIML-004",
     "WG-DEL-006"
    ],
    "decided": "2026-08-15",

@@ -24,9 +24,9 @@
    "status": "clear"
   },
   {
-   "finding": "One set of figures was added on 2026-08-10 with no id to cite: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md and in GD-COD-001. Its source was recorded in packs/coding/research/sources.fragment.json as FRAG-CODING-21, and the prose named the study instead of citing an id that did not exist.",
+   "finding": "One set of figures was added on 2026-08-10 with no id to cite: 104.15, 304.08 and 186.77 bug-revealing tests, in PACK.md and in WG-COD-001. Its source was recorded in packs/coding/research/sources.fragment.json as FRAG-CODING-21, and the prose named the study instead of citing an id that did not exist.",
    "status": "closed",
-   "closed_by": "The same day's fragment import assigned FRAG-CODING-21 the id EV-0480. packs/coding/PACK.md and packs/coding/guides/GD-COD-001-oracle-strategy.md both cite EV-0480 at the figures, so no unattributed figure is left in this read surface. EV-0480 arrived after this sweep counted the surface; it is classified in licence_findings below, and the counts there say which."
+   "closed_by": "The same day's fragment import assigned FRAG-CODING-21 the id EV-0480. packs/coding/PACK.md and packs/coding/wargames/WG-COD-001-oracle-strategy.md both cite EV-0480 at the figures, so no unattributed figure is left in this read surface. EV-0480 arrived after this sweep counted the surface; it is classified in licence_findings below, and the counts there say which."
   }
  ],
  "licence_findings": {

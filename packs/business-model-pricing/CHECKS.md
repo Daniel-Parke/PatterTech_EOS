@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a script can verify about a pricing decision, split into executable today and judgement
-type: guide
+type: checks
 tags: [money, product, ci]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision
@@ -19,7 +19,7 @@ how, and whether a machine can do it today. A check that needs a person
 is still a check.
 
 The artefacts these run against are the five files and the repricing
-script in `packs/business-model-pricing/refs/DECISION_RECORD.md`.
+script in `packs/business-model-pricing/references/DECISION_RECORD.md`.
 
 ## Executable today
 
@@ -29,7 +29,7 @@ need no human input.
 | Id | Verifies | How | Requirement |
 | --- | --- | --- | --- |
 | C-01 | The decision exists and parses | decision.json loads as JSON | B4, D1 |
-| C-02 | A practice is named with a condition | Validate decision.json against `packs/business-model-pricing/refs/pricing-decision.schema.json`: practice is one of the three enum values and condition is a non-empty string | D1 |
+| C-02 | A practice is named with a condition | Validate decision.json against `packs/business-model-pricing/references/pricing-decision.schema.json`: practice is one of the three enum values and condition is a non-empty string | D1 |
 | C-03 | The headline price is complete | headline_price_includes is non-empty and no entry in optional_charges has mandatory true | B1 |
 | C-04 | Retention is a curve | retention.csv has one row per cohort age; the projected retention_rate column is non-decreasing in cohort age, and survivor_share is non-increasing | D4 |
 | C-05 | Lifetime value did not come from blended churn | Recompute average revenue per account over blended churn from the inputs; the reported lifetime value must not land within one per cent of it | D4 |
@@ -55,7 +55,7 @@ later; none is executable now.
 | J-03 | The value case is quantified for a named segment, where the practice is value-informed | Reviewer | D1 |
 | J-04 | The stated cause of a price change is the real cause | Reviewer, because a schema can refuse a demand label and cannot detect a demand motive | D2 |
 | J-05 | No pattern from the almost-always-harmful list appears in the pricing or checkout flow | Reviewer, walking the flow (EV-0300) | D10 |
-| J-06 | The metered unit is one the buyer can forecast and control | Reviewer | GD-BMP-002 |
+| J-06 | The metered unit is one the buyer can forecast and control | Reviewer | WG-BMP-002 |
 | J-07 | The bundle decomposes into distinct performance obligations with defensible stand-alone selling prices under the declared framework | Reviewer, or an accountant (EV-0297) | B4 |
 | J-08 | A survey-derived number was treated as a bracket rather than a decision | Reviewer | D6 |
 | J-09 | An agreed payment term longer than thirty days is fair to both parties | Reviewer (EV-0301) | D9 |

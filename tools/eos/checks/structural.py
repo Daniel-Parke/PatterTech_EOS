@@ -52,7 +52,11 @@ ROUTERS = {"AGENTS.md", "CLAUDE.md"}
 ROUTER_CAP = 40
 BUDGET = 150
 WARGAME_BUDGET = 220
-BUDGET_TYPES = {"doctrine", "foundation", "pattern", "ux", "implementation", "wargame"}
+PACK_BUDGET = 500
+BUDGET_TYPES = {
+    "doctrine", "foundation", "pattern", "ux", "implementation", "wargame",
+    "pack",
+}
 TYPES = {
     "root", "governance", "decision", "doctrine", "foundation", "pattern",
     "ux", "implementation", "wargame", "template", "example", "registry",
@@ -805,8 +809,9 @@ def check_e007_line_budgets(ctx: dict) -> list:
     in packs/PACK_CONTRACT.md and by the review passes, so a long pack is a
     thing to look at rather than a build failure.
 
-    The unified ten-section Wargame contract has a 220-line review budget;
-    other budgeted records retain 150 lines. Both over-budget cases warn,
+    The unified ten-section Wargame contract has a 220-line review budget,
+    PACK.md has a 500-line navigation budget, and other budgeted records
+    retain 150 lines. All over-budget cases warn,
     and their messages stay different on
     purpose. A `length_waiver` is no longer the downgrade from error to
     warning; it is the recorded reason for the departure, which is what
@@ -823,7 +828,12 @@ def check_e007_line_budgets(ctx: dict) -> list:
         if rec.path in ROUTERS and n > ROUTER_CAP:
             out.append(_err("E007", rec.path, f"router is {n} lines, cap {ROUTER_CAP}"))
         record_type = fm.get("type", "")
-        budget = WARGAME_BUDGET if record_type == "wargame" else BUDGET
+        if record_type == "wargame":
+            budget = WARGAME_BUDGET
+        elif record_type == "pack":
+            budget = PACK_BUDGET
+        else:
+            budget = BUDGET
         if record_type in BUDGET_TYPES and n > budget:
             if "length_waiver" in fm:
                 out.append(_warn("E007", rec.path,

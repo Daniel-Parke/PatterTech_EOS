@@ -36,7 +36,7 @@ had already signalled, and about a third were visible to plain
 inspection (EV-0174). Scope note: that corpus was Java-heavy
 distributed data systems in 2014, so the direction of attention
 transfers and the exact proportion does not. See
-`packs/coding/refs/ERROR_PATH.md`.
+`packs/coding/references/ERROR_PATH.md`.
 
 ## Migration provenance
 

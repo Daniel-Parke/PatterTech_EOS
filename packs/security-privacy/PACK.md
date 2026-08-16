@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the security-privacy Doctrine and Wargames
-type: guide
+type: pack
 tags: [security, pii, tooling]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/.env*, **/secrets/**, **/auth/**, **/*auth*.py, **/*.pem, 
 volatility: fast
 review: none
 sources: [EV-0011, EV-0034, EV-0035, EV-0036, EV-0038, EV-0039, EV-0041, EV-0068, EV-0069, EV-0070, EV-0076, EV-0081, EV-0212, EV-0213, EV-0214, EV-0215, EV-0216, EV-0217, EV-0218, EV-0219, EV-0220, EV-0221, EV-0222, EV-0223, EV-0224, EV-0225, EV-0226]
+display_name: Security, Privacy and Safety
+category: reliability-trust
+id_namespace: SEC
 depends_on: []
 ---
 
 
-# Security, privacy and safety
+# Security, Privacy and Safety
 
 This pack owns how our work resists prompt injection, protects secrets,
 protects personal data, and gets approval before consequential external
@@ -105,33 +108,33 @@ compatibility anchors; they do not encode authority.
 <a id="B5"></a>
 - `B5` to [DOC-SEC-005](doctrines/DOC-SEC-005-personal-data-has-a-recorded-basis-and-a-route-out.md) (binding)
 <a id="B6"></a>
-- `B6` to [DOC-SEC-006](doctrines/DOC-SEC-006-consequential-external-actions-wait-for-a-harness-recorded-opera.md) (binding), [DOC-SEC-007](doctrines/DOC-SEC-007-an-mcp-or-tool-proxy-never-passes-a-bearer-token-through-to-anot.md) (binding), [DOC-SEC-008](doctrines/DOC-SEC-008-a-session-identifier-is-never-accepted-as-authentication.md) (binding), [DOC-SEC-009](doctrines/DOC-SEC-009-proxying-an-external-action-through-a-client-requires-consent-fo.md) (binding), [DOC-SEC-010](doctrines/DOC-SEC-010-a-local-installation-shows-the-exact-command-before-it-can-run.md) (binding)
-- source `defaults:001` to [DOC-SEC-011](doctrines/DOC-SEC-011-asvs-level-1-as-the-entry-bar-level-2-for-anything-holding-perso.md) (default)
-- source `defaults:002` to [DOC-SEC-012](doctrines/DOC-SEC-012-one-stride-pass-per-data-flow-boundary-at-design-time-timeboxed.md) (default)
-- source `defaults:003` to [DOC-SEC-013](doctrines/DOC-SEC-013-diff-aware-static-analysis-split-into-blocking-and-monitor-autof.md) (default)
-- source `defaults:004` to [DOC-SEC-014](doctrines/DOC-SEC-014-verify-artefacts-at-admission-time-against-stated-expectations-w.md) (default)
-- source `defaults:005` to [DOC-SEC-015](doctrines/DOC-SEC-015-guardrails-and-classifiers-run-in-parallel-as-a-tripwire-above-t.md) (default)
+- `B6` to [DOC-SEC-006](doctrines/DOC-SEC-006-consequential-external-actions-wait-for-a-harness-recorded.md) (binding), [DOC-SEC-007](doctrines/DOC-SEC-007-an-mcp-or-tool-proxy-never-passes-a-bearer-token-through-to.md) (binding), [DOC-SEC-008](doctrines/DOC-SEC-008-a-session-identifier-is-never-accepted-as-authentication.md) (binding), [DOC-SEC-009](doctrines/DOC-SEC-009-proxying-an-external-action-through-a-client-requires.md) (binding), [DOC-SEC-010](doctrines/DOC-SEC-010-a-local-installation-shows-the-exact-command-before-it-can.md) (binding)
+- source `defaults:001` to [DOC-SEC-011](doctrines/DOC-SEC-011-asvs-level-1-as-the-entry-bar-level-2-for-anything-holding.md) (default)
+- source `defaults:002` to [DOC-SEC-012](doctrines/DOC-SEC-012-one-stride-pass-per-data-flow-boundary-at-design-time.md) (default)
+- source `defaults:003` to [DOC-SEC-013](doctrines/DOC-SEC-013-diff-aware-static-analysis-split-into-blocking-and-monitor.md) (default)
+- source `defaults:004` to [DOC-SEC-014](doctrines/DOC-SEC-014-verify-artefacts-at-admission-time-against-stated.md) (default)
+- source `defaults:005` to [DOC-SEC-015](doctrines/DOC-SEC-015-guardrails-and-classifiers-run-in-parallel-as-a-tripwire.md) (default)
 - source `defaults:006` to [DOC-SEC-016](doctrines/DOC-SEC-016-the-ncsc-five-topic-baseline-for-the-operating-environment.md) (default)
-- source `defaults:007` to [DOC-SEC-017](doctrines/DOC-SEC-017-security-and-utility-scored-on-the-same-runs-always-reported-tog.md) (default)
-- source `defaults:008` to [DOC-SEC-018](doctrines/DOC-SEC-018-configured-secret-scan-a-redacting-history-scan-in-ci-and-a-stag.md) (default)
-- source `defaults:009` to [DOC-SEC-019](doctrines/DOC-SEC-019-runtime-budget-for-a-single-feature-agent-run-under-this-pack-th.md) (default)
+- source `defaults:007` to [DOC-SEC-017](doctrines/DOC-SEC-017-security-and-utility-scored-on-the-same-runs-always-reported.md) (default)
+- source `defaults:008` to [DOC-SEC-018](doctrines/DOC-SEC-018-configured-secret-scan-a-redacting-history-scan-in-ci-and-a.md) (default)
+- source `defaults:009` to [DOC-SEC-019](doctrines/DOC-SEC-019-runtime-budget-for-a-single-feature-agent-run-under-this.md) (default)
 - source `preferences:001` to [DOC-SEC-020](doctrines/DOC-SEC-020-which-secret-scanner.md) (preference)
 - source `preferences:002` to [DOC-SEC-021](doctrines/DOC-SEC-021-which-sandbox-implementation-so-long-as-b2-holds.md) (preference)
 - source `preferences:003` to [DOC-SEC-022](doctrines/DOC-SEC-022-whether-threat-models-live-as-diagrams-or-as-prose-ev-0223.md) (preference)
 - source `preferences:004` to [DOC-SEC-023](doctrines/DOC-SEC-023-retention-periods-beyond-any-statutory-floor.md) (preference)
-- source `preferences:005` to [DOC-SEC-024](doctrines/DOC-SEC-024-where-an-exception-is-recorded-so-long-as-the-record-is-durable.md) (preference)
+- source `preferences:005` to [DOC-SEC-024](doctrines/DOC-SEC-024-where-an-exception-is-recorded-so-long-as-the-record-is.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| How to resist indirect prompt injection | GD-SEC-001 | Configuration rule first, out-of-band enforcement when the task class allows planning |
-| Where secret protection sits | GD-SEC-002 | Both scan placements plus a managed store, short-lived credentials where available |
-| How much assurance, and graded how | GD-SEC-003 | ASVS level 1 estate-wide, level 2 for personal data, per-practice maturity only when a practice is the bottleneck |
-| Who approves consequential external actions | GD-SEC-004 | Guard-classified verdicts with harness-recorded approval |
+| How to resist indirect prompt injection | WG-SEC-001 | Configuration rule first, out-of-band enforcement when the task class allows planning |
+| Where secret protection sits | WG-SEC-002 | Both scan placements plus a managed store, short-lived credentials where available |
+| How much assurance, and graded how | WG-SEC-003 | ASVS level 1 estate-wide, level 2 for personal data, per-practice maturity only when a practice is the bottleneck |
+| Who approves consequential external actions | WG-SEC-004 | Guard-classified verdicts with harness-recorded approval |
 
-Guides sit in `packs/security-privacy/guides/`. Level-three detail
-sits in `packs/security-privacy/refs/`: the threat catalogue, the
+Wargames sit in `packs/security-privacy/wargames/`. Level-three detail
+sits in `packs/security-privacy/references/`: the threat catalogue, the
 instruction-source boundary, secret handling, and UK data protection.
 
 ## Failure modes and anti-patterns

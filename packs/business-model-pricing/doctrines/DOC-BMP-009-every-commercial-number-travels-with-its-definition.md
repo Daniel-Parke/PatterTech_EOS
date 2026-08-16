@@ -34,7 +34,7 @@ found at the cutoff that fixes ARR, net revenue retention or churn.
 Honest weakness: an attempt to anchor this in the SEC release on key
 performance indicators failed because the source could not be fetched,
 so D5 rests on internal reasoning and is weaker than it should be. See
-`packs/business-model-pricing/refs/METRIC_DEFINITIONS.md`.
+`packs/business-model-pricing/references/METRIC_DEFINITIONS.md`.
 
 ## Migration provenance
 

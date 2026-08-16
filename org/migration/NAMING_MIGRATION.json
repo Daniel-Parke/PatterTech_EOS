@@ -2,7 +2,8 @@
   "schema_version": 1,
   "kind": "naming-migration",
   "task": "T-0028",
-  "status": "planned-not-applied",
+  "status": "reviewed-contract",
+  "application_state": "verified by tools.eos.migrate_naming check",
   "generator": "tools.eos.migrate_naming",
   "baseline": {
     "path": "org/migration/NAMING_BASELINE.json",

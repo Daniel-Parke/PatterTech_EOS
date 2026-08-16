@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a script can verify about marketing and growth work, split into executable today and judgement
-type: guide
+type: checks
 tags: [content, seo, pii, testing]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision

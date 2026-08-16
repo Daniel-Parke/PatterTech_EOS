@@ -30,7 +30,7 @@ The two sanctioned
 exceptions are a cache with a named invalidation owner and an immutable
 snapshot carrying its input digest. Reason: a stored derivation drifts
 from its source silently, and a cache without an owner is a slow bug.
-Argued at `packs/architecture/guides/WG-ARCH-003-derived-state.md`.
+Argued at `packs/architecture/wargames/WG-ARCH-003-derived-state.md`.
 
 ## Migration provenance
 

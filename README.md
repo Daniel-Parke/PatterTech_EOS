@@ -25,7 +25,7 @@ that lets all of it improve without rotting.
 | --- | --- |
 | Version | 0.4.0. Nothing has been released from this line and no tag is cut |
 | What 1.0 would mean | Walk-away ready, against the eight-item gate in ADR-0009 |
-| Architecture of record | ADR-0002, extended by ADR-0006 and loosened by ADR-0008 |
+| Architecture of record | ADR-0002, extended by ADR-0006 and ADR-0015, and loosened by ADR-0008 |
 | Knowledge | Atomic Doctrine in `packs/DOCTRINE_INDEX.md`, unified Wargames in `packs/WARGAME_INDEX.md`, and honest gaps in `registry/CAPABILITIES.md` |
 | Evidence | `registry/evidence.json` is canonical and every live row must be cited |
 | Ventures seeded | 3, listed in `registry/PROJECTS.md` |
@@ -49,7 +49,7 @@ Two things to know before you read further.
 **Ventures appear under placeholders.** Most ventures cited here appear
 as Venture A, Venture B and so on, one placeholder per repository and
 never two ventures folded into one. This repository and the public
-website keep their real names. A worked ruling therefore still claims
+website keep their real names. A worked Ruling therefore still claims
 what it always claimed, that a real venture argued a real fork on a real
 date, and `registry/PROJECTS.md` carries the fuller note.
 
@@ -232,7 +232,7 @@ Each of these is `python -m tools.eos` followed by the arguments below.
 | `check --write-index` | regenerate the derived indexes after editing a source |
 | `route --facts FILE` | what tier a piece of work rules, and on which facts |
 | `activate --brief PATH` | which packs a venture's declared facts activate, and which they do not |
-| `doctrine list`, `show ID`, `match --facts FILE` | which standing rules exist, what one says, and which apply to the declared facts |
+| `doctrine list`, `show ID`, `match --facts FILE` | which Doctrine atoms exist, what one says, and which apply to the declared facts |
 | `wargame list`, `show ID`, `match --facts FILE` | which decision procedures exist and which pressures make them required or worth considering |
 | `id resolve ID --commit REF` | where an immutable live, aliased, retired or historically pinned identity resolves; `--rulings FILE` resolves a venture-local RUL record |
 | `migrate plan/apply` | plan a lossless legacy Ruling migration, then apply an inspected state explicitly; dry-run is the default |
@@ -264,22 +264,23 @@ Everything after that happens in the venture's repository, not this one.
 | `TOUR.md` | The teaching surface, rewritten by hand each release |
 | `GOVERNANCE.md` | The graded change path, precedence, promotion, the protected set |
 | `OPERATORS_GUIDE.md` | The operator's manual: launchers, approval duties, the guard, the monthly pass |
-| `packs/` | The knowledge: pack maps, atomic Doctrine, Wargames and their supporting material. `packs/INDEX.md` is the always-loaded surface |
+| `packs/` | The knowledge: pack maps, atomic Doctrine, Wargames and their supporting material. `packs/INDEX.md` is the categorised, always-loaded surface |
 | `packs/DOCTRINE_INDEX.md` | Generated catalogue of every atomic Doctrine and its authority grade |
-| `packs/WARGAME_INDEX.md` | Generated public index of every Wargame, including immutable `GD-*` identities |
-| `packs/GUIDE_INDEX.md` | Compatibility pointer for the retired Guide name |
-| `packs/PACK_SHAPE.md` | The contract a pack keeps, including the eleven-point definition of done |
-| `kernel/` | Policy, guard and metadata law, the scale matrix, the seed rubric, schemas, and the templates a seed compiles from |
+| `packs/WARGAME_INDEX.md` | The sole generated catalogue of live Wargames, all with canonical `WG-*` identities |
+| `packs/PACK_CONTRACT.md` | The contract a pack keeps, including the eleven-point definition of done |
+| `kernel/` | Policy, guard, naming and metadata law, the scale matrix, the seed rubric, schemas, and the templates a seed compiles from |
+| `kernel/NAMING_SPEC.md` | The terminology, ID, pack presentation and file naming contract |
 | `kernel/PREDICATES.md` | The controlled vocabulary of activation predicates, one name per fact (ADR-0010) |
 | `inception/` | Session 0 and Genesis: interview, scale, walk order, compile, blueprint |
 | `examples/` | Worked task runs, historical reseeds, and `current-head-seed`, which proves the current structured Ruling path |
-| `org/` | The EOS's own state: task records, claims, cadence, decision records, playbooks and historical logs |
-| `registry/` | Projects, capabilities, evidence, lessons, vendors, stack profiles |
+| `org/` | The EOS's own state and change process. `org/README.md` is the entry point |
+| `registry/` | Dated facts, evidence, lessons, coverage, aliases and stack profiles. `registry/README.md` is the map |
 | `registry/coverage.json` | The canonical domain coverage matrix, so an omission is a row rather than silence |
 | `registry/evidence.json` | The canonical source ledger; the checker refuses uncited live rows |
 | `registry/lessons.json` | What we studied, what was decided, and what was rejected and why |
 | `registry/DOCTRINE_PRESSURE_MATRIX.md` | Generated view of typed Doctrine relations and the accepted pressure backlog |
-| `estate/` | Which repos exist, which the EOS governs, and which were left out on whose ruling |
+| `registry/IDENTIFIER_ALIASES.md` | Generated view of direct legacy-to-canonical identity aliases |
+| `estate/` | Which repos exist, which the EOS governs, and which were left out on whose Ruling |
 | `benchmark/` | The frozen v1-against-v2 protocol, fixtures, drills and results |
 | `tools/` | The one executable, `python -m tools.eos`, version 0.4.0 |
 | `archive/` | A pointer to the `archive/v1-final` tag, where the whole v1 tree lives |
@@ -295,6 +296,12 @@ inherits applicable Doctrine and runs only the always-walk or
 pressure-matched Wargames. Unknown high-consequence facts are asked or
 included, not quietly treated as false. The resulting selections,
 omissions and argued outcomes live in `docs/RULINGS.json`.
+
+Current packs use `doctrines/`, `wargames/`, `examples/`, `references/` and
+`research/`, with `relations/` where needed. Legacy identities resolve through
+the shared resolver and old paths remain available at the Git commit that
+contained them. The current tree does not carry redirect files for retired
+collection paths.
 
 Session 0 then compiles the seed: a thin router, a lock-book pointing at
 that Ruling record, the distilled standards it needs and, at ORG scale,
@@ -345,7 +352,7 @@ What must stay true as the EOS grows.
 - **Agnostic core, locked-in ventures.** EOS files never assume one
   brand, stack or client. Each venture freezes its choices in its own
   lock-book. A rule that only makes sense for one venture belongs in a
-  privacy-reviewed Ruling summary or an exemplar, not in estate Doctrine.
+  privacy-reviewed Ruling summary or a worked example, not in estate Doctrine.
 - **Evidence before authority.** A rule earns its place by surviving
   argument and citing sources, not by being written confidently.
   Promotion has numbers and demotion exists (`GOVERNANCE.md`). A

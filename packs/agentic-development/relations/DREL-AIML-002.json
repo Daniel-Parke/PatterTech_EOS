@@ -1,0 +1,13 @@
+{
+  "id": "DREL-AIML-002",
+  "owner_doctrine": "DOC-AGENT-003",
+  "relation": "supports",
+  "target": "DOC-AIML-004",
+  "conditions": ["evaluation_oracle_is_undecided"],
+  "status": "covered",
+  "evidence": ["EV-0007", "EV-0251", "EV-0252", "EV-0253"],
+  "fallback": "Use deterministic external truth where the condition is decidable; otherwise calibrate a human or model judge before its score gates work.",
+  "wargame": "WG-AIML-004",
+  "owner": "agentic-development",
+  "review": "2027-02"
+}

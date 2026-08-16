@@ -20,7 +20,7 @@ still evaluated by the action-time guard.
 
 Only when more than one session may write at once. One session working
 alone follows the ordinary playbook and needs none of this. The fork is
-`packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md`, and
+`packs/agentic-swarm/wargames/WG-SWARM-001-swarm-or-single-agent.md`, and
 its answer is recorded before anything is dispatched.
 
 The wide build entry in org/PLAYBOOKS.md is the caller: it says when a
@@ -30,7 +30,7 @@ method in between, and the procedure is written here and nowhere else.
 ## 1. Cut the partition
 
 From the product map and the dependency graph, before any lane starts.
-Method and options: `packs/agentic-swarm/guides/GD-SWARM-002-cut-the-partition.md`.
+Method and options: `packs/agentic-swarm/wargames/WG-SWARM-002-cut-the-partition.md`.
 
 1. Build or refresh the dependency graph over the artefacts in scope.
 2. Pull out the hubs: the shared indexes, the generated views, the
@@ -58,7 +58,7 @@ oracle, do not.
 ## 2. Write the lane brief
 
 One closed packet per lane, nine fields, no exceptions. Field by field:
-`packs/agentic-swarm/refs/PACKET_AND_RETURN.md`.
+`packs/agentic-swarm/references/PACKET_AND_RETURN.md`.
 
 Objective · write set · read set · return contract · tools · budget ·
 stop condition · acceptance condition · escape.
@@ -102,7 +102,7 @@ being judged are outside the lane's write set.
 ## 4. Merge
 
 The integrator owns the order and records it before the first merge.
-Mechanics: `packs/agentic-swarm/refs/MERGE_AND_REVIEW.md`.
+Mechanics: `packs/agentic-swarm/references/MERGE_AND_REVIEW.md`.
 
 Per lane: diff against the claim and treat anything outside it as a
 finding; run the deterministic scanners for secrets, dependency

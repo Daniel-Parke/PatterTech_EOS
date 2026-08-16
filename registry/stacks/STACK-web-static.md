@@ -29,7 +29,7 @@ PatterTech_Website.
 ## Constraints to design around
 
 - No runtime image optimisation: variants are pre-generated and committed;
-  see `packs/ui-ux/refs/PERFORMANCE_AND_MOTION.md`.
+  see `packs/ui-ux/references/PERFORMANCE_AND_MOTION.md`.
 - No runtime headers/redirects: set them in the host config (with a strict
   CSP; a static export cannot use nonces, so plan for `unsafe-inline` and
   keep third-party scripts out).

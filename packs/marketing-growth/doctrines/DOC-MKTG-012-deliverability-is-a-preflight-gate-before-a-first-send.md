@@ -35,7 +35,7 @@ before anything ships. Scope note: one mailbox provider's rules for its
 own inboxes. Others publish overlapping but different thresholds, and
 at least one computes the spam-rate denominator differently, so no
 single number is universal. See
-`packs/marketing-growth/refs/SEND_PREFLIGHT.md`.
+`packs/marketing-growth/references/SEND_PREFLIGHT.md`.
 
 ## Migration provenance
 

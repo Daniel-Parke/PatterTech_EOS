@@ -32,7 +32,7 @@ small repository gets the monorepo benefits free, because it is small
 bespoke tooling nobody at venture scale can fund, and the pain sits in
 the middle sizes. Override when a component has its own release train
 or its own consumers. See
-`packs/coding/guides/GD-COD-005-repo-shape.md`.
+`packs/coding/wargames/WG-COD-005-repo-shape.md`.
 
 ## Migration provenance
 

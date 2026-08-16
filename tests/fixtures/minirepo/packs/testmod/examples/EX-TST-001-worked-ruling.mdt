@@ -1,0 +1,11 @@
+---
+summary: Minimal worked ruling for the fixture pack
+kind: example
+scope: eos-internal
+type: example
+tags: [eos]
+---
+
+# EX-TST-001: minimal worked ruling
+
+The fixture keeps one compact example so the collection is executable.

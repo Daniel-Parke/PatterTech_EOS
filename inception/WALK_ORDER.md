@@ -37,7 +37,7 @@ unknown.
 
 1. `WG-EOS-001`, venture scale.
 2. `WG-EOS-002`, repository shape.
-3. The live security Wargames `GD-SEC-001` to `GD-SEC-004`. They exercise
+3. The live security Wargames `WG-SEC-001` to `WG-SEC-004`. They exercise
    the injection, secret, assurance and external-action floors that no
    ordinary Ruling may waive.
 

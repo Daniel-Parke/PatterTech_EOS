@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the devops-reliability Doctrine and Wargames
-type: guide
+type: pack
 tags: [ops, data, infra]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/migrations/**, **/.github/workflows/**, **/terraform/**, *
 volatility: slow
 review: none
 sources: [EV-0020, EV-0026, EV-0043, EV-0058, EV-0059, EV-0071, EV-0096, EV-0197, EV-0198, EV-0199, EV-0200, EV-0201, EV-0202, EV-0203, EV-0204, EV-0205, EV-0206, EV-0207, EV-0208, EV-0209, EV-0210, EV-0211]
+display_name: Reliability Engineering and Operations
+category: reliability-trust
+id_namespace: DEVOPS
 depends_on: [delivery-testing, security-privacy]
 ---
 
 
-# DevOps and reliability
+# Reliability Engineering and Operations
 
 This pack governs how a venture changes and operates a running system:
 schema migrations, restore proof, service level objectives and error
@@ -116,56 +119,56 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-DEVOPS-001](doctrines/DOC-DEVOPS-001-backwards-incompatible-schema-change-ships-as-expand-migrate-con.md) (binding)
+- `B1` to [DOC-DEVOPS-001](doctrines/DOC-DEVOPS-001-backwards-incompatible-schema-change-ships-as-expand.md) (binding)
 <a id="B2"></a>
 - `B2` to [DOC-DEVOPS-002](doctrines/DOC-DEVOPS-002-recovery-is-forward-only-and-the-change-record-says-so.md) (binding)
 <a id="B3"></a>
-- `B3` to [DOC-DEVOPS-003](doctrines/DOC-DEVOPS-003-ci-runs-a-migration-linter-that-fails-the-build-on-destructive-a.md) (binding)
+- `B3` to [DOC-DEVOPS-003](doctrines/DOC-DEVOPS-003-ci-runs-a-migration-linter-that-fails-the-build-on.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-DEVOPS-004](doctrines/DOC-DEVOPS-004-every-service-carries-at-least-one-sli-and-slo-as-a-machine-read.md) (binding)
+- `B4` to [DOC-DEVOPS-004](doctrines/DOC-DEVOPS-004-every-service-carries-at-least-one-sli-and-slo-as-a.md) (binding)
 <a id="B5"></a>
-- `B5` to [DOC-DEVOPS-005](doctrines/DOC-DEVOPS-005-a-restore-drill-runs-on-cadence-and-produces-a-dated-evidence-re.md) (binding)
+- `B5` to [DOC-DEVOPS-005](doctrines/DOC-DEVOPS-005-a-restore-drill-runs-on-cadence-and-produces-a-dated.md) (binding)
 <a id="B6"></a>
-- `B6` to [DOC-DEVOPS-006](doctrines/DOC-DEVOPS-006-every-incident-above-the-agreed-threshold-gets-an-owned-postmort.md) (binding)
+- `B6` to [DOC-DEVOPS-006](doctrines/DOC-DEVOPS-006-every-incident-above-the-agreed-threshold-gets-an-owned.md) (binding)
 <a id="B7"></a>
-- `B7` to [DOC-DEVOPS-007](doctrines/DOC-DEVOPS-007-every-feature-flag-declares-an-owner-and-an-expiry-date-at-creat.md) (binding)
-- source `defaults:001` to [DOC-DEVOPS-008](doctrines/DOC-DEVOPS-008-progressive-rollout-with-an-automated-abort-condition-for-user-f.md) (default)
-- source `defaults:002` to [DOC-DEVOPS-009](doctrines/DOC-DEVOPS-009-an-error-budget-policy-in-the-shape-the-sre-workbook-describes-p.md) (default)
+- `B7` to [DOC-DEVOPS-007](doctrines/DOC-DEVOPS-007-every-feature-flag-declares-an-owner-and-an-expiry-date.md) (binding)
+- source `defaults:001` to [DOC-DEVOPS-008](doctrines/DOC-DEVOPS-008-progressive-rollout-with-an-automated-abort-condition-for.md) (default)
+- source `defaults:002` to [DOC-DEVOPS-009](doctrines/DOC-DEVOPS-009-an-error-budget-policy-in-the-shape-the-sre-workbook.md) (default)
 - source `defaults:003` to [DOC-DEVOPS-010](doctrines/DOC-DEVOPS-010-cost-allocation-tags-on-every-deployed-resource.md) (default)
-- source `defaults:004` to [DOC-DEVOPS-011](doctrines/DOC-DEVOPS-011-a-golden-path-scaffold-for-new-services-registering-ownership-at.md) (default)
-- source `defaults:005` to [DOC-DEVOPS-012](doctrines/DOC-DEVOPS-012-migrations-applied-before-application-start-idempotent-advisory.md) (default)
-- source `defaults:006` to [DOC-DEVOPS-013](doctrines/DOC-DEVOPS-013-policy-checks-expressed-as-code-where-the-inputs-are-already-mac.md) (default)
-- source `preferences:001` to [DOC-DEVOPS-014](doctrines/DOC-DEVOPS-014-failure-drills-beyond-restore-once-restore-itself-is-boring.md) (preference)
+- source `defaults:004` to [DOC-DEVOPS-011](doctrines/DOC-DEVOPS-011-a-golden-path-scaffold-for-new-services-registering.md) (default)
+- source `defaults:005` to [DOC-DEVOPS-012](doctrines/DOC-DEVOPS-012-migrations-applied-before-application-start-idempotent.md) (default)
+- source `defaults:006` to [DOC-DEVOPS-013](doctrines/DOC-DEVOPS-013-policy-checks-expressed-as-code-where-the-inputs-are.md) (default)
+- source `preferences:001` to [DOC-DEVOPS-014](doctrines/DOC-DEVOPS-014-failure-drills-beyond-restore-once-restore-itself-is.md) (preference)
 - source `preferences:002` to [DOC-DEVOPS-015](doctrines/DOC-DEVOPS-015-unit-economics-reporting-cost-per-active-user-or-per-job.md) (preference)
-- source `preferences:003` to [DOC-DEVOPS-016](doctrines/DOC-DEVOPS-016-a-periodic-platform-self-assessment-across-investment-adoption-i.md) (preference)
-- source `preferences:004` to [DOC-DEVOPS-017](doctrines/DOC-DEVOPS-017-automated-flag-removal-that-rewrites-the-syntax-tree-when-a-flag.md) (preference)
-- source `preferences:005` to [DOC-DEVOPS-018](doctrines/DOC-DEVOPS-018-experiment-flags-governed-by-asymmetric-gating-where-goal-metric.md) (preference)
+- source `preferences:003` to [DOC-DEVOPS-016](doctrines/DOC-DEVOPS-016-a-periodic-platform-self-assessment-across-investment.md) (preference)
+- source `preferences:004` to [DOC-DEVOPS-017](doctrines/DOC-DEVOPS-017-automated-flag-removal-that-rewrites-the-syntax-tree-when.md) (preference)
+- source `preferences:005` to [DOC-DEVOPS-018](doctrines/DOC-DEVOPS-018-experiment-flags-governed-by-asymmetric-gating-where-goal.md) (preference)
 
 ### Later evidence-led admissions
 
 These records were admitted after the frozen source migration.
 Their own metadata is canonical; this map does not restate it.
 
-- [WG-OPS-005](guides/WG-OPS-005-honest-degradation.md) (Wargame)
-- [WG-OPS-006](guides/WG-OPS-006-observability-and-privacy.md) (Wargame)
+- [WG-DEVOPS-006](wargames/WG-DEVOPS-006-honest-degradation.md) (Wargame)
+- [WG-DEVOPS-007](wargames/WG-DEVOPS-007-observability-and-privacy.md) (Wargame)
 
 ## Decision map
 
-The material forks in this domain, each argued in a guide.
+The material forks in this domain, each argued in a Wargame.
 
-| Fork | Guide |
+| Fork | Wargame |
 | --- | --- |
-| How a backwards-incompatible schema change is made safe | `packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md` |
-| How a change reaches users once it is deployed | `packs/devops-reliability/guides/GD-DEVOPS-002-release-control.md` |
-| What governs the release rate when reliability slips | `packs/devops-reliability/guides/GD-DEVOPS-003-error-budget-dial.md` |
-| Which reliability and delivery numbers are kept | `packs/devops-reliability/guides/GD-DEVOPS-004-reliability-measures.md` |
-| What proves the backups work | `packs/devops-reliability/guides/WG-OPS-003-restore-proof.md` |
+| How a backwards-incompatible schema change is made safe | `packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md` |
+| How a change reaches users once it is deployed | `packs/devops-reliability/wargames/WG-DEVOPS-002-release-control.md` |
+| What governs the release rate when reliability slips | `packs/devops-reliability/wargames/WG-DEVOPS-003-error-budget-dial.md` |
+| Which reliability and delivery numbers are kept | `packs/devops-reliability/wargames/WG-DEVOPS-004-reliability-measures.md` |
+| What proves the backups work | `packs/devops-reliability/wargames/WG-DEVOPS-005-restore-proof.md` |
 
-Level-three detail sits in `packs/devops-reliability/refs/`: the four
+Level-three detail sits in `packs/devops-reliability/references/`: the four
 migration risk classes, the restore-drill evidence record, the SLO and
 error-budget shapes, the flag and rollout lifecycle, and signal
 stability with cost allocation. A full worked application is in
-`packs/devops-reliability/exemplars/EX-DEVOPS-001-email-to-contacts.md`.
+`packs/devops-reliability/examples/EX-DEVOPS-001-email-to-contacts.md`.
 The pack's own evaluation criteria are in
 `packs/devops-reliability/CHECKS.md`.
 

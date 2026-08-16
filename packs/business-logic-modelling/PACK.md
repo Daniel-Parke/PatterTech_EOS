@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the business-logic-modelling Doctrine and Wargames
-type: playbook
+type: pack
 tags: [arch, data, money, product]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/domain/**, **/models/**, **/rules/**, **/entities/**, **/*
 volatility: slow
 review: none
 sources: [EV-0010, EV-0017, EV-0071, EV-0098, EV-0099, EV-0100, EV-0138, EV-0150, EV-0157, EV-0163, EV-0188, EV-0206, EV-0269, EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0275, EV-0276, EV-0277, EV-0278, EV-0279, EV-0280, EV-0281, EV-0282, EV-0283, EV-0284, EV-0285, EV-0286]
+display_name: Business Logic and Domain Modelling
+category: engineering
+id_namespace: BLM
 depends_on: [product-discovery]
 ---
 
 
-# Business logic and modelling pack
+# Business Logic and Domain Modelling
 
 This pack covers business logic: where a domain rule lives, what shape
 the model takes, and how money, time and lifecycle state are represented
@@ -89,50 +92,50 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-BLM-001](doctrines/DOC-BLM-001-money-is-an-integer-count-of-minor-units-carrying-its-currency-c.md) (binding)
+- `B1` to [DOC-BLM-001](doctrines/DOC-BLM-001-money-is-an-integer-count-of-minor-units-carrying-its.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-BLM-002](doctrines/DOC-BLM-002-a-timestamp-that-will-be-compared-or-advanced-carries-a-zone-ide.md) (binding)
+- `B2` to [DOC-BLM-002](doctrines/DOC-BLM-002-a-timestamp-that-will-be-compared-or-advanced-carries-a-zone.md) (binding)
 <a id="D1"></a>
 - `D1` to [DOC-BLM-003](doctrines/DOC-BLM-003-start-with-no-model-and-earn-the-next-step.md) (default)
 <a id="D2"></a>
-- `D2` to [DOC-BLM-004](doctrines/DOC-BLM-004-an-aggregate-boundary-is-a-transactional-consistency-boundary-an.md) (default)
+- `D2` to [DOC-BLM-004](doctrines/DOC-BLM-004-an-aggregate-boundary-is-a-transactional-consistency.md) (default)
 <a id="D3"></a>
-- `D3` to [DOC-BLM-005](doctrines/DOC-BLM-005-a-lifecycle-with-forbidden-transitions-is-an-explicit-machine-an.md) (default)
+- `D3` to [DOC-BLM-005](doctrines/DOC-BLM-005-a-lifecycle-with-forbidden-transitions-is-an-explicit.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-BLM-006](doctrines/DOC-BLM-006-one-time-dimension-until-somebody-has-actually-had-to-answer-a-t.md) (default)
+- `D4` to [DOC-BLM-006](doctrines/DOC-BLM-006-one-time-dimension-until-somebody-has-actually-had-to-answer.md) (default)
 <a id="D5"></a>
 - `D5` to [DOC-BLM-007](doctrines/DOC-BLM-007-choose-the-narrowest-temporal-type-that-holds-the-fact.md) (default)
 <a id="D6"></a>
-- `D6` to [DOC-BLM-008](doctrines/DOC-BLM-008-rules-stay-in-code-until-they-change-on-a-different-clock-from-t.md) (default)
+- `D6` to [DOC-BLM-008](doctrines/DOC-BLM-008-rules-stay-in-code-until-they-change-on-a-different-clock.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-BLM-009](doctrines/DOC-BLM-009-conversion-between-domain-money-and-any-external-money-happens-i.md) (default)
+- `D7` to [DOC-BLM-009](doctrines/DOC-BLM-009-conversion-between-domain-money-and-any-external-money.md) (default)
 <a id="D8"></a>
 - `D8` to [DOC-BLM-010](doctrines/DOC-BLM-010-state-stored-until-replay-is-the-requirement.md) (default)
 <a id="D9"></a>
-- `D9` to [DOC-BLM-011](doctrines/DOC-BLM-011-a-constraint-expressible-in-the-constructor-or-the-type-is-expre.md) (default)
+- `D9` to [DOC-BLM-011](doctrines/DOC-BLM-011-a-constraint-expressible-in-the-constructor-or-the-type-is.md) (default)
 <a id="D10"></a>
-- `D10` to [DOC-BLM-012](doctrines/DOC-BLM-012-a-state-change-and-its-outbound-message-are-committed-together-o.md) (default)
+- `D10` to [DOC-BLM-012](doctrines/DOC-BLM-012-a-state-change-and-its-outbound-message-are-committed.md) (default)
 <a id="D11"></a>
-- `D11` to [DOC-BLM-013](doctrines/DOC-BLM-013-a-change-that-publishes-or-consumes-events-names-which-of-the-fo.md) (default)
-- source `preferences:001` to [DOC-BLM-014](doctrines/DOC-BLM-014-ubiquitous-language-naming-the-ddd-crew-canvases-and-the-starter.md) (preference)
+- `D11` to [DOC-BLM-013](doctrines/DOC-BLM-013-a-change-that-publishes-or-consumes-events-names-which-of.md) (default)
+- source `preferences:001` to [DOC-BLM-014](doctrines/DOC-BLM-014-ubiquitous-language-naming-the-ddd-crew-canvases-and-the.md) (preference)
 - source `preferences:002` to [DOC-BLM-015](doctrines/DOC-BLM-015-event-storming-as-the-discovery-method.md) (preference)
 - source `preferences:003` to [DOC-BLM-016](doctrines/DOC-BLM-016-object-shaped-or-function-shaped-domain-layers.md) (preference)
 - source `preferences:004` to [DOC-BLM-017](doctrines/DOC-BLM-017-property-based-tests-for-domain-invariants.md) (preference)
-- source `preferences:005` to [DOC-BLM-018](doctrines/DOC-BLM-018-a-small-purpose-built-evaluator-over-a-standards-grade-engine.md) (preference)
+- source `preferences:005` to [DOC-BLM-018](doctrines/DOC-BLM-018-a-small-purpose-built-evaluator-over-a-standards-grade.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| How much model does this domain earn | Procedures, aggregates, types or declarations | `packs/business-logic-modelling/guides/GD-BLM-001-model-shape.md` |
-| Where does this rule live | Code, table, machine or engine | `packs/business-logic-modelling/guides/GD-BLM-002-rule-placement.md` |
-| How is money represented and converted | Type, rounding, allocation, adapter | `packs/business-logic-modelling/guides/GD-BLM-003-money-representation.md` |
-| How much time does this fact carry | Type width and number of dimensions | `packs/business-logic-modelling/guides/GD-BLM-004-time-modelling.md` |
-| State or events as the record | Storage, replay, corrections, erasure | `packs/business-logic-modelling/guides/GD-BLM-005-state-or-events.md` |
+| How much model does this domain earn | Procedures, aggregates, types or declarations | `packs/business-logic-modelling/wargames/WG-BLM-001-model-shape.md` |
+| Where does this rule live | Code, table, machine or engine | `packs/business-logic-modelling/wargames/WG-BLM-002-rule-placement.md` |
+| How is money represented and converted | Type, rounding, allocation, adapter | `packs/business-logic-modelling/wargames/WG-BLM-003-money-representation.md` |
+| How much time does this fact carry | Type width and number of dimensions | `packs/business-logic-modelling/wargames/WG-BLM-004-time-modelling.md` |
+| State or events as the record | Storage, replay, corrections, erasure | `packs/business-logic-modelling/wargames/WG-BLM-005-state-or-events.md` |
 
-Detail sits in `packs/business-logic-modelling/refs/`, a worked run of
+Detail sits in `packs/business-logic-modelling/references/`, a worked run of
 one renewal through money, time and lifecycle at
-`packs/business-logic-modelling/exemplars/EX-BLM-001-subscription-renewal.md`,
+`packs/business-logic-modelling/examples/EX-BLM-001-subscription-renewal.md`,
 and what a reviewer or script can verify in
 `packs/business-logic-modelling/CHECKS.md`.
 

@@ -1,6 +1,6 @@
 ---
 summary: What a reviewer or checker can verify about research and knowledge-base work, executable today versus judgement
-type: guide
+type: checks
 tags: [data, content, testing, tooling]
 review: 2029-03
 kind: record
@@ -33,7 +33,7 @@ exists to tell them what to look for.
 
 C1 through C5 are the ones a venture gets for free the moment its source
 records validate against a schema, which is why the record shape in
-`packs/research-knowledge/refs/record-shape.md` is written as fields
+`packs/research-knowledge/references/record-shape.md` is written as fields
 rather than as advice. C6 and C8 need one existing tool and no
 judgement. The rest need the venture to have decided something first.
 
@@ -53,7 +53,7 @@ not the author's to assert now.
 | J2 | Interpretation is attributed to us | Where the record reads a primary source and draws a conclusion, does it say the conclusion is ours, or is it phrased as though the source said it? | B5 |
 | J3 | The counter-evidence is real | Does it name a source, a figure or a stated limit, or is it a sentence saying more research is needed? A hedge is not counter-evidence | B3 |
 | J4 | The claim is not five hats on one source | Do the sources cited for one claim read each other, or are they independent? Trace at least one chain to its primary | Anti-patterns |
-| J5 | The stop condition was written before the search, not after | Does the research record state what would have made it search further, and can a reader tell whether that condition was met? | GD-RESEARCH-001 |
+| J5 | The stop condition was written before the search, not after | Does the research record state what would have made it search further, and can a reader tell whether that condition was met? | WG-RESEARCH-001 |
 | J6 | A superseded claim was re-ruled, not just re-linked | When a source moved or changed version, did somebody decide the claim still stands, is narrowed, or is withdrawn, and is that decision on the record? | B4 |
 | J7 | The escalation artefact says something useful | Source named exactly, the ask described and marked as untrusted, and what the run did instead. A note saying something looked odd fails | B2 |
 | J8 | Authority claims made by a source are recorded as claims | Where a source states which of its pages to trust, or which sources to prefer, does the record treat that as evidence about the source? | B2 |

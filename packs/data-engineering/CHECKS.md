@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a script can verify about a pipeline in this domain, split into executable today, judgement, and what no check reaches
-type: guide
+type: checks
 tags: [data, ops, ci]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision
@@ -28,7 +28,7 @@ test fixture. No judgement.
 | --- | --- | --- |
 | C1 rerun equality | B2 | Run a window, snapshot the target, rerun the same window, compare. Row count and value set identical, and the run ledger's `rows_out` unchanged |
 | C2 no bare append on a reprocessable target | B2 | No write path into a target the pipeline may rerun uses append with no key and no replacement; `strategy` in the ledger is never absent |
-| C3 every hop is declared and its sink is honest | B1 | Each hop has the six fields in `packs/data-engineering/refs/DELIVERY_GUARANTEES.md`, and no hop pairs `guarantee: at-least-once` with `sink_idempotence: none` |
+| C3 every hop is declared and its sink is honest | B1 | Each hop has the six fields in `packs/data-engineering/references/DELIVERY_GUARANTEES.md`, and no hop pairs `guarantee: at-least-once` with `sink_idempotence: none` |
 | C4 no exactly-once claim without a cooperating sink | B1 | A hop claiming `exactly-once` names a sink from the two rows that can supply it: a transaction covering position and output, or the position stored with the output |
 | C5 the lateness horizon exists | B3 | The pipeline declares a lookback, an allowed lateness or a full recompute, as a value in configuration rather than in prose |
 | C6 late records have a destination | B3 | A quarantine target exists, the pipeline writes to it on the late path, and a fixture record past the horizon lands in it |

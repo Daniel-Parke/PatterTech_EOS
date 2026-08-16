@@ -1,15 +1,24 @@
 ---
-summary: Testmod doctrine, one plain principle for the test fixture
-type: doctrine
+summary: Fixture Testing activation, outcomes and decision map
+kind: record
+authority: none
+lifecycle: active
+basis: decision
+evidence_grade: not-applicable
+scope: eos-internal
+type: pack
 tags: [eos]
 applies_when: [does_a_fixture_thing]
 activation_paths: [**/testmod/**, **/*.fixture]
-review: 2030-01
+review: none
+display_name: Fixture Testing
+category: practice-governance
+id_namespace: TST
 ---
 
-# Testmod doctrine
+# Fixture Testing
 
 Keep fixture files small and plain. A test that needs a bigger repo
 builds one in tmp_path rather than growing this one.
 
-The single ruling surface is WG-TST-001.
+The single Wargame is WG-TST-001.

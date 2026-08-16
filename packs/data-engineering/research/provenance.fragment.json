@@ -1,7 +1,7 @@
 {
  "pack": "data-engineering",
  "checked": "2026-08-15",
- "checked_by": "The authoring lane, at the time of writing, under the pack contract in packs/PACK_SHAPE.md",
+ "checked_by": "The authoring lane, at the time of writing, under the pack contract in packs/PACK_CONTRACT.md",
  "method": "This pack has not been imported into registry/evidence.json, so there are no EV ids to resolve and this is not the post-import sweep the other packs carry. What was done instead: every one of the twelve sources was fetched on 2026-08-15 and read as a document; each record's licence was established at source on the same day and the licence_evidence field says what established it; the whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/) was then read against the twelve findings, listing every quotation-marked span and checking it, and re-reading the prose that cites the one record whose licence restricts reuse of wording. What this method cannot do is prove the absence of an unmarked sentence carried from a source, and no claim of completeness is made on that. The sweep must be run again after import, against the assigned EV ids.",
  "ev_ids_checked": [],
  "fragment_ids_checked": [
@@ -25,7 +25,7 @@
    "state": "partly-confirmed",
    "inspected": true,
    "licence_checked": "2026-08-15",
-   "cited_for": "D2 and GD-DATAENG-002, the per-batch atomic replacement and the backfill path"
+   "cited_for": "D2 and WG-DATAENG-002, the per-batch atomic replacement and the backfill path"
   },
   {
    "fragment": "FRAG-DATA-ENGINEERING-11",
@@ -33,7 +33,7 @@
    "state": "partly-confirmed",
    "inspected": true,
    "licence_checked": "2026-08-15",
-   "cited_for": "B2 and GD-DATAENG-002, the three reprocessing mechanisms and their costs"
+   "cited_for": "B2 and WG-DATAENG-002, the three reprocessing mechanisms and their costs"
   },
   {
    "fragment": "FRAG-DATA-ENGINEERING-12",
@@ -41,7 +41,7 @@
    "state": "partly-confirmed",
    "inspected": true,
    "licence_checked": "2026-08-15",
-   "cited_for": "GD-DATAENG-002, the idempotent write token for payloads with no natural key"
+   "cited_for": "WG-DATAENG-002, the idempotent write token for payloads with no natural key"
   }
  ],
  "quotation_concerns": [

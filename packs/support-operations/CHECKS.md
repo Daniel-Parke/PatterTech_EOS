@@ -1,11 +1,11 @@
 ---
 summary: What a reviewer or a script can verify about support work, split into executable today and judgement
-kind: fact
+kind: record
 scope: estate
 sources: [EV-0041, EV-0200, EV-0210, EV-0211]
 volatility: slow
 review: on-change-of:ISO-10002-revision
-type: implementation
+type: checks
 tags: [ops, product, testing, tooling]
 ---
 

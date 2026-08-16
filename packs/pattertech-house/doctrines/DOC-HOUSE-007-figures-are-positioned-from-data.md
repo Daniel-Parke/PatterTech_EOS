@@ -32,7 +32,7 @@ their nodes, no glow sits on a line, and at most one endpoint accent
 marks the datum that matters. Prevents a figure that lies about where a
 value sits, which no recall gain buys back
 (EV-0391). Basis: local-observation. See
-`packs/pattertech-house/guides/GD-HOUSE-004-figure-austerity.md`.
+`packs/pattertech-house/wargames/WG-HOUSE-004-figure-austerity.md`.
 
 ## Migration provenance
 

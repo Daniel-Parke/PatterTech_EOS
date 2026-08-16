@@ -2,7 +2,7 @@
 summary: What a reviewer or checker can verify about architecture work, split into what is executable today and what stays a judgement call
 kind: record
 scope: estate
-type: example
+type: checks
 tags: [arch, ci, tooling]
 sources: [EV-0097, EV-0159]
 ---

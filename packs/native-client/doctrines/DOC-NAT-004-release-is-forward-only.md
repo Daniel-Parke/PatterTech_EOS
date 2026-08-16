@@ -35,7 +35,7 @@ stops further delivery and the documented remedy for a bad build is to
 ship another one (EV-0375). Flags are the rollback on a client
 (EV-0026). Prevents an incident plan whose first step is impossible.
 Authority: binding. Basis: standard. See
-`packs/native-client/guides/GD-NAT-003-release-path.md`.
+`packs/native-client/wargames/WG-NAT-003-release-path.md`.
 
 ## Migration provenance
 

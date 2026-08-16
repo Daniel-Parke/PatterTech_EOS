@@ -40,7 +40,7 @@ and the audit under ADR-0008 kept it there as a safety floor rather
 than on its basis field: three of the four triggers are consequential
 external actions or data protection, and `kernel/GUARD_SPEC.md` already
 rules accepting legal terms manual-only. Basis: decision. See
-`packs/legal-licensing/refs/ESCALATION.md`.
+`packs/legal-licensing/references/ESCALATION.md`.
 
 ## Migration provenance
 

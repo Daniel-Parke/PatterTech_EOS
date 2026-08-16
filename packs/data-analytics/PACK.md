@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the data-analytics Doctrine and Wargames
-type: playbook
+type: pack
 tags: [eos, data, testing, pii]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/analytics/**, **/dbt/**, **/models/marts/**, **/events/**,
 volatility: slow
 review: none
 sources: [EV-0041, EV-0056, EV-0057, EV-0059, EV-0138, EV-0139, EV-0225, EV-0240, EV-0305, EV-0306, EV-0307, EV-0308, EV-0309, EV-0310, EV-0311, EV-0312, EV-0313, EV-0315, EV-0316, EV-0317, EV-0318, EV-0319, EV-0320, EV-0321]
+display_name: Data Analytics and Computation
+category: data-ai
+id_namespace: DATA
 depends_on: [product-discovery]
 ---
 
 
-# Data and analytics pack
+# Data Analytics and Computation
 
 This pack covers analytics data: how product events are named and
 validated, how analytics models are shaped and gated, how an experiment
@@ -76,7 +79,7 @@ the analytics layer identifies a person unless someone recorded why it
 may.
 
 **Non-goals.** Migration mechanics and schema rollout sit in
-`packs/devops-reliability/guides/GD-DEVOPS-001-schema-change-strategy.md`.
+`packs/devops-reliability/wargames/WG-DEVOPS-001-schema-change-strategy.md`.
 Transport, envelope and API contract shape sit in
 `packs/api-integration/PACK.md`. Threat modelling, secret handling and
 access control sit in `packs/security-privacy/PACK.md`. Dashboard visual
@@ -99,38 +102,38 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B3"></a>
-- `B3` to [DOC-DATA-001](doctrines/DOC-DATA-001-no-column-that-can-identify-a-living-person-lands-in-the-analyti.md) (binding)
+- `B3` to [DOC-DATA-001](doctrines/DOC-DATA-001-no-column-that-can-identify-a-living-person-lands-in-the.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-DATA-002](doctrines/DOC-DATA-002-the-randomisation-unit-the-primary-metric-and-the-stopping-rule.md) (binding)
+- `B4` to [DOC-DATA-002](doctrines/DOC-DATA-002-the-randomisation-unit-the-primary-metric-and-the-stopping.md) (binding)
 <a id="B5"></a>
-- `B5` to [DOC-DATA-003](doctrines/DOC-DATA-003-sample-ratio-mismatch-is-checked-and-reported-before-any-experim.md) (binding)
+- `B5` to [DOC-DATA-003](doctrines/DOC-DATA-003-sample-ratio-mismatch-is-checked-and-reported-before-any.md) (binding)
 <a id="D1"></a>
-- `D1` to [DOC-DATA-004](doctrines/DOC-DATA-004-object-action-event-names-with-anything-varying-per-occurrence-i.md) (default)
+- `D1` to [DOC-DATA-004](doctrines/DOC-DATA-004-object-action-event-names-with-anything-varying-per.md) (default)
 <a id="D2"></a>
-- `D2` to [DOC-DATA-005](doctrines/DOC-DATA-005-staging-intermediate-and-marts-layering-one-prefix-per-layer.md) (default)
+- `D2` to [DOC-DATA-005](doctrines/DOC-DATA-005-staging-intermediate-and-marts-layering-one-prefix-per.md) (default)
 <a id="D3"></a>
-- `D3` to [DOC-DATA-006](doctrines/DOC-DATA-006-fixed-horizon-unless-a-sequential-method-is-chosen-deliberately.md) (default)
+- `D3` to [DOC-DATA-006](doctrines/DOC-DATA-006-fixed-horizon-unless-a-sequential-method-is-chosen.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-DATA-007](doctrines/DOC-DATA-007-below-the-traffic-for-a-properly-powered-test-do-not-run-one.md) (default)
+- `D4` to [DOC-DATA-007](doctrines/DOC-DATA-007-below-the-traffic-for-a-properly-powered-test-do-not-run.md) (default)
 <a id="D5"></a>
-- `D5` to [DOC-DATA-008](doctrines/DOC-DATA-008-one-managed-warehouse-until-the-working-set-argues-otherwise.md) (default)
+- `D5` to [DOC-DATA-008](doctrines/DOC-DATA-008-one-managed-warehouse-until-the-working-set-argues.md) (default)
 <a id="D6"></a>
 - `D6` to [DOC-DATA-009](doctrines/DOC-DATA-009-contracts-on-public-models-only.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-DATA-010](doctrines/DOC-DATA-010-use-pre-experiment-covariates-where-a-stable-unit-was-observed-b.md) (default)
+- `D7` to [DOC-DATA-010](doctrines/DOC-DATA-010-use-pre-experiment-covariates-where-a-stable-unit-was.md) (default)
 <a id="D8"></a>
 - `D8` to [DOC-DATA-011](doctrines/DOC-DATA-011-identify-by-surrogate-or-hashed-key-in-the-analytics-layer.md) (default)
 <a id="D9"></a>
-- `D9` to [DOC-DATA-012](doctrines/DOC-DATA-012-every-published-table-and-every-tracked-event-has-one-named-owne.md) (default)
+- `D9` to [DOC-DATA-012](doctrines/DOC-DATA-012-every-published-table-and-every-tracked-event-has-one-named.md) (default)
 <a id="D10"></a>
 - `D10` to [DOC-DATA-013](doctrines/DOC-DATA-013-a-quality-gate-failure-blocks-publication.md) (default)
 <a id="D11"></a>
-- `D11` to [DOC-DATA-014](doctrines/DOC-DATA-014-a-fact-model-declares-its-grain-in-words-before-it-declares-colu.md) (default)
+- `D11` to [DOC-DATA-014](doctrines/DOC-DATA-014-a-fact-model-declares-its-grain-in-words-before-it-declares.md) (default)
 - source `preferences:001` to [DOC-DATA-015](doctrines/DOC-DATA-015-the-contract-file-format.md) (preference)
 - source `preferences:002` to [DOC-DATA-016](doctrines/DOC-DATA-016-the-casing-convention-for-event-names-and-columns-ev-0319.md) (preference)
 - source `preferences:003` to [DOC-DATA-017](doctrines/DOC-DATA-017-the-quality-tool.md) (preference)
-- source `preferences:004` to [DOC-DATA-018](doctrines/DOC-DATA-018-whether-marts-are-wide-entities-or-star-shaped-and-whether-dimen.md) (preference)
-- source `preferences:005` to [DOC-DATA-019](doctrines/DOC-DATA-019-the-dashboard-method-as-long-as-one-is-committed-to-and-the-pane.md) (preference)
+- source `preferences:004` to [DOC-DATA-018](doctrines/DOC-DATA-018-whether-marts-are-wide-entities-or-star-shaped-and-whether.md) (preference)
+- source `preferences:005` to [DOC-DATA-019](doctrines/DOC-DATA-019-the-dashboard-method-as-long-as-one-is-committed-to-and-the.md) (preference)
 
 ### Later evidence-led admissions
 
@@ -139,24 +142,24 @@ Their own metadata is canonical; this map does not restate it.
 
 - [DOC-DATA-020](doctrines/DOC-DATA-020-representative-measurement-before-material-compute-claims.md) (default Doctrine)
 - [DOC-DATA-021](doctrines/DOC-DATA-021-measured-data-compute-promotion-ladder.md) (default Doctrine)
-- [WG-DATA-001](guides/WG-DATA-001-analytical-engine-selection.md) (Wargame)
-- [WG-DATA-002](guides/WG-DATA-002-representation-boundary.md) (Wargame)
-- [WG-DATA-003](guides/WG-DATA-003-acceleration-ladder.md) (Wargame)
+- [WG-DATA-001](wargames/WG-DATA-001-analytical-engine-selection.md) (Wargame)
+- [WG-DATA-002](wargames/WG-DATA-002-representation-boundary.md) (Wargame)
+- [WG-DATA-003](wargames/WG-DATA-003-acceleration-ladder.md) (Wargame)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| Where does the quality rule live, and what does it stop? | `packs/data-analytics/guides/GD-DATA-001-quality-gate-placement.md` | Contract on public models, computed metrics behind them |
-| What shape does the analytics model take? | `packs/data-analytics/guides/GD-DATA-002-model-shape.md` | Layered staging to marts, grain declared per fact |
-| How is an experiment allowed to end? | `packs/data-analytics/guides/GD-DATA-003-experiment-stopping.md` | Fixed horizon, or no experiment at all |
-| Where does the data sit? | `packs/data-analytics/guides/GD-DATA-004-storage-shape.md` | One managed warehouse |
-| How are events named and validated? | `packs/data-analytics/guides/GD-DATA-005-event-contract.md` | Object-action convention plus review |
+| Where does the quality rule live, and what does it stop? | `packs/data-analytics/wargames/WG-DATA-004-quality-gate-placement.md` | Contract on public models, computed metrics behind them |
+| What shape does the analytics model take? | `packs/data-analytics/wargames/WG-DATA-005-model-shape.md` | Layered staging to marts, grain declared per fact |
+| How is an experiment allowed to end? | `packs/data-analytics/wargames/WG-DATA-006-experiment-stopping.md` | Fixed horizon, or no experiment at all |
+| Where does the data sit? | `packs/data-analytics/wargames/WG-DATA-007-storage-shape.md` | One managed warehouse |
+| How are events named and validated? | `packs/data-analytics/wargames/WG-DATA-008-event-contract.md` | Object-action convention plus review |
 
-Level-three detail: `packs/data-analytics/refs/EXPERIMENT_STATS.md`,
-`packs/data-analytics/refs/DATA_CONTRACT.md` and
-`packs/data-analytics/refs/PRIVACY_IN_ANALYTICS.md`. Worked run:
-`packs/data-analytics/exemplars/EX-DATA-001-gated-model-honest-experiment.md`.
+Level-three detail: `packs/data-analytics/references/EXPERIMENT_STATS.md`,
+`packs/data-analytics/references/DATA_CONTRACT.md` and
+`packs/data-analytics/references/PRIVACY_IN_ANALYTICS.md`. Worked run:
+`packs/data-analytics/examples/EX-DATA-001-gated-model-honest-experiment.md`.
 
 ## Failure modes and anti-patterns
 
@@ -207,7 +210,7 @@ population.
 
 **Model shape is contested and neither side argues it.** Dimensional
 practice keeps facts narrow and joins to conformed dimensions (EV-0308);
-the transformation-tool guide lands on wide entities and does not
+the transformation-tool Wargame lands on wide entities and does not
 mention star schemas at all (EV-0307). The dimensional source has not
 been substantially maintained since its authors wound down, and its
 physical prescriptions assume hardware nobody runs. Grain-first and one

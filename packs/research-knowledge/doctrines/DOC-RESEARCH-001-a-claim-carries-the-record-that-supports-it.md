@@ -34,7 +34,7 @@ record is the durable artefact and outlives the source (EV-0539 A2 and
 R1.2, EV-0538). Predicate: `records_external_claim`. Prevents: a
 decision nobody can re-examine, because the only thing that knew what it
 rested on was the person who wrote it. The field list and why each field
-is there are in `packs/research-knowledge/refs/record-shape.md`.
+is there are in `packs/research-knowledge/references/record-shape.md`.
 
 ## Migration provenance
 

@@ -16,9 +16,9 @@ needs while they are present.
 
 Ground rules. The agent transcribes and challenges; it never invents,
 and an unanswered question is a recorded question. A fork the walk hits
-that no guide covers takes the draft-guide route of
+that no Wargame covers takes the uncovered-pressure route in
 inception/WALK_ORDER.md and Session 0 carries on, because a missing
-guide is the estate's gap and not the venture's blocker. If the session
+Wargame is the estate's gap and not the venture's blocker. If the session
 dies mid-way, the files written so far are the resume state.
 
 Two paths exist: the full one below, and inception/EXPRESS_INCEPTION.md
@@ -55,10 +55,10 @@ strictly smaller version.
 
 ## Phase B · Scale, shape and risk surface
 
-Three rulings, taken with the operator.
+Three Rulings, taken with the operator.
 
 1. Scale, WG-EOS-001: S or ORG.
-2. Repo shape, WG-EOS-002. Create or claim the repo per the ruling and
+2. Repo shape, WG-EOS-002. Create or claim the repo per the Ruling and
    put `* text=auto eol=lf` in .gitattributes before anything else
    lands.
 3. The risk surface. The interview's answers on money, personal data,
@@ -71,7 +71,7 @@ Three rulings, taken with the operator.
 
 The scale and repository-shape outcomes go into `docs/RULINGS.json` as
 argued `RUL-*` records with one-line reasons. The lock-book header carries
-the resulting scale and repository pin, not duplicate ruling rows. The
+the resulting scale and repository pin, not duplicate Ruling rows. The
 risk-surface map carries to phase D as the fill for the policy's
 path_patterns lists. A path pattern never sets a tier by itself; it is
 a signal the factor table cites, per kernel/POLICY_SPEC.md.

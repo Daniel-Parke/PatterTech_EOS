@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the product-discovery Doctrine and Wargames
-type: playbook
+type: pack
 tags: [eos, product, testing]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/roadmap*, **/backlog*, **/specs/**, **/*brief*.md, **/*prd
 volatility: slow
 review: none
 sources: [EV-0010, EV-0059, EV-0074, EV-0075, EV-0153, EV-0403, EV-0404, EV-0405, EV-0406, EV-0407, EV-0408, EV-0409, EV-0410, EV-0411, EV-0412, EV-0413, EV-0414, EV-0415, EV-0416, EV-0417, EV-0418, EV-0419, EV-0420]
+display_name: Product Discovery
+category: product-commercial
+id_namespace: DISC
 depends_on: []
 ---
 
 
-# Product discovery pack
+# Product Discovery
 
 This pack covers product discovery: how a request becomes a stated
 problem, what evidence is allowed to settle it, and how the verdict to
@@ -80,7 +83,7 @@ It does not own pricing, packaging or willingness to pay, which sit in
 the business-model-pricing pack. It does not own usability craft or
 interface quality, which sit in the ui-ux pack. It does not own how the
 work is then built or reviewed, which sits in the coding pack. It does
-not carry a prioritisation formula, and the guides explain why.
+not carry a prioritisation formula, and the Wargames explain why.
 
 ## Doctrine
 
@@ -88,11 +91,11 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B6"></a>
-- `B6` to [DOC-DISC-001](doctrines/DOC-DISC-001-claims-about-people-that-a-model-produced-are-labelled-unverifie.md) (binding)
+- `B6` to [DOC-DISC-001](doctrines/DOC-DISC-001-claims-about-people-that-a-model-produced-are-labelled.md) (binding)
 <a id="B7"></a>
-- `B7` to [DOC-DISC-002](doctrines/DOC-DISC-002-an-experiment-fixes-its-stopping-rule-metric-segmentation-and-sa.md) (binding)
+- `B7` to [DOC-DISC-002](doctrines/DOC-DISC-002-an-experiment-fixes-its-stopping-rule-metric-segmentation.md) (binding)
 <a id="B1"></a>
-- `B1` to [DOC-DISC-003](doctrines/DOC-DISC-003-a-discovery-record-exists-and-names-the-decision-it-unblocks.md) (default)
+- `B1` to [DOC-DISC-003](doctrines/DOC-DISC-003-a-discovery-record-exists-and-names-the-decision-it.md) (default)
 <a id="B2"></a>
 - `B2` to [DOC-DISC-004](doctrines/DOC-DISC-004-the-problem-is-stated-without-naming-the-proposed-solution.md) (default)
 <a id="B3"></a>
@@ -104,23 +107,23 @@ compatibility anchors; they do not encode authority.
 <a id="B8"></a>
 - `B8` to [DOC-DISC-008](doctrines/DOC-DISC-008-the-record-ends-in-build-test-or-kill.md) (default)
 <a id="D1"></a>
-- `D1` to [DOC-DISC-009](doctrines/DOC-DISC-009-depth-is-set-by-reversibility-not-by-the-size-of-the-request.md) (default)
+- `D1` to [DOC-DISC-009](doctrines/DOC-DISC-009-depth-is-set-by-reversibility-not-by-the-size-of-the.md) (default)
 <a id="D2"></a>
 - `D2` to [DOC-DISC-010](doctrines/DOC-DISC-010-elicit-outcomes-not-features.md) (default)
 <a id="D3"></a>
 - `D3` to [DOC-DISC-011](doctrines/DOC-DISC-011-carry-more-than-one-candidate-solution-before-committing.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-DISC-012](doctrines/DOC-DISC-012-say-whether-you-are-diverging-or-converging-and-separate-them-in.md) (default)
+- `D4` to [DOC-DISC-012](doctrines/DOC-DISC-012-say-whether-you-are-diverging-or-converging-and-separate.md) (default)
 <a id="D5"></a>
-- `D5` to [DOC-DISC-013](doctrines/DOC-DISC-013-prefer-throughput-of-cheap-reversible-tests-over-accuracy-of-ran.md) (default)
+- `D5` to [DOC-DISC-013](doctrines/DOC-DISC-013-prefer-throughput-of-cheap-reversible-tests-over-accuracy.md) (default)
 <a id="D6"></a>
-- `D6` to [DOC-DISC-014](doctrines/DOC-DISC-014-give-a-model-the-structuring-job-on-real-human-input-never-the-o.md) (default)
+- `D6` to [DOC-DISC-014](doctrines/DOC-DISC-014-give-a-model-the-structuring-job-on-real-human-input-never.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-DISC-015](doctrines/DOC-DISC-015-reason-about-the-worst-case-of-a-small-sample-not-its-average.md) (default)
+- `D7` to [DOC-DISC-015](doctrines/DOC-DISC-015-reason-about-the-worst-case-of-a-small-sample-not-its.md) (default)
 <a id="D8"></a>
 - `D8` to [DOC-DISC-016](doctrines/DOC-DISC-016-recruit-by-frame-then-by-count.md) (default)
 <a id="D9"></a>
-- `D9` to [DOC-DISC-017](doctrines/DOC-DISC-017-write-acceptance-criteria-in-ears-clause-order-once-the-problem.md) (default)
+- `D9` to [DOC-DISC-017](doctrines/DOC-DISC-017-write-acceptance-criteria-in-ears-clause-order-once-the.md) (default)
 - source `preferences:001` to [DOC-DISC-018](doctrines/DOC-DISC-018-the-specific-numbers.md) (preference)
 - source `preferences:002` to [DOC-DISC-019](doctrines/DOC-DISC-019-rice-reduced-to-its-confidence-multiplier.md) (preference)
 - source `preferences:003` to [DOC-DISC-020](doctrines/DOC-DISC-020-opportunity-solution-trees-as-the-drawing.md) (preference)
@@ -129,16 +132,16 @@ compatibility anchors; they do not encode authority.
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| How much discovery does this decision deserve? | `packs/product-discovery/guides/GD-DISC-001-discovery-depth.md` | Depth set by reversibility |
-| Where does the evidence about users come from? | `packs/product-discovery/guides/GD-DISC-002-user-evidence-source.md` | Observation of real users; experiment only above the power floor |
-| How do you choose between candidate opportunities? | `packs/product-discovery/guides/GD-DISC-003-choosing-between-opportunities.md` | Sequence by reversibility, test cheaply, do not score |
-| When is the problem settled, and in what form do criteria go? | `packs/product-discovery/guides/GD-DISC-004-acceptance-criteria-form.md` | EARS clause order, after the problem is settled |
+| How much discovery does this decision deserve? | `packs/product-discovery/wargames/WG-DISC-001-discovery-depth.md` | Depth set by reversibility |
+| Where does the evidence about users come from? | `packs/product-discovery/wargames/WG-DISC-002-user-evidence-source.md` | Observation of real users; experiment only above the power floor |
+| How do you choose between candidate opportunities? | `packs/product-discovery/wargames/WG-DISC-003-choosing-between-opportunities.md` | Sequence by reversibility, test cheaply, do not score |
+| When is the problem settled, and in what form do criteria go? | `packs/product-discovery/wargames/WG-DISC-004-acceptance-criteria-form.md` | EARS clause order, after the problem is settled |
 
-Level-three material sits in `packs/product-discovery/refs/`: the
+Level-three material sits in `packs/product-discovery/references/`: the
 discovery record shape and the sample-and-signal working rule. A worked
-run is in `packs/product-discovery/exemplars/`, and the evaluation
+run is in `packs/product-discovery/examples/`, and the evaluation
 criteria in `packs/product-discovery/CHECKS.md`.
 
 ## Failure modes and anti-patterns
@@ -237,7 +240,7 @@ analogue.
 of `EV-0405` holds for agent-generated ideas, and at
 what traffic level an experiment stops being theatre for a venture with
 hundreds rather than millions of users. No data either way at the
-cutoff. `packs/product-discovery/refs/SAMPLE_AND_SIGNAL.md` gives a
+cutoff. `packs/product-discovery/references/SAMPLE_AND_SIGNAL.md` gives a
 working rule and labels it as a working rule.
 
 **Refresh triggers.** Re-argue this pack on: results landing for

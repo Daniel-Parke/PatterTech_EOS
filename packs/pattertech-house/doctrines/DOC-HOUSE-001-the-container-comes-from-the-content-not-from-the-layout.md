@@ -31,7 +31,7 @@ plaque, prose stays prose, and a panel is reserved for a genuinely
 self-contained thing. Prevents the icon-tile card grid, the strongest
 generic-template tell and the reason the 2026-07 rebuild happened.
 Basis: local-observation, from the worked ruling in WG-WEB-003. See
-`packs/pattertech-house/guides/GD-HOUSE-002-container-choice.md`.
+`packs/pattertech-house/wargames/WG-HOUSE-002-container-choice.md`.
 
 ## Migration provenance
 

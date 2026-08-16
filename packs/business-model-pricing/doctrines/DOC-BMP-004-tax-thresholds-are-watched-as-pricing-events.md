@@ -35,7 +35,7 @@ pounds of qualifying income, 2027 above thirty thousand and 2028 above
 twenty thousand (EV-0304). Prevents crossing the VAT threshold and
 discovering the effective consumer price has fallen by the VAT rate
 overnight. Both are dated policy numbers with refresh triggers, held in
-`packs/business-model-pricing/refs/UK_OBLIGATIONS.md`, never inlined
+`packs/business-model-pricing/references/UK_OBLIGATIONS.md`, never inlined
 elsewhere.
 
 Guarded actions stay outside this pack. Taking money, refunding money

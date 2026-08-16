@@ -11,13 +11,16 @@ activation_paths: [**/support/**, **/tickets/**, **/status/**, **/incidents/**, 
 volatility: slow
 review: none
 sources: [EV-0020, EV-0041, EV-0055, EV-0095, EV-0096, EV-0122, EV-0200, EV-0210, EV-0211, EV-0233, EV-0421, EV-0422, EV-0423, EV-0424, EV-0425, EV-0426, EV-0427, EV-0428, EV-0429, EV-0430, EV-0431, EV-0432]
-type: playbook
+type: pack
 tags: [eos, ops, product, pii]
+display_name: Customer Support Operations
+category: product-commercial
+id_namespace: SUPPORT
 depends_on: [product-discovery, devops-reliability]
 ---
 
 
-# support-operations
+# Customer Support Operations
 
 This pack covers customer support as an operating function: what
 arrives, how it is classified, how a customer-visible incident is run
@@ -96,52 +99,52 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B4"></a>
-- `B4` to [DOC-SUPPORT-001](doctrines/DOC-SUPPORT-001-a-customer-facing-message-never-reports-a-bypassed-check-as-pass.md) (default)
+- `B4` to [DOC-SUPPORT-001](doctrines/DOC-SUPPORT-001-a-customer-facing-message-never-reports-a-bypassed-check.md) (default)
 <a id="B6"></a>
-- `B6` to [DOC-SUPPORT-002](doctrines/DOC-SUPPORT-002-a-support-inbox-is-a-personal-data-store-and-is-run-as-one.md) (binding)
+- `B6` to [DOC-SUPPORT-002](doctrines/DOC-SUPPORT-002-a-support-inbox-is-a-personal-data-store-and-is-run-as.md) (binding)
 <a id="B1"></a>
-- `B1` to [DOC-SUPPORT-003](doctrines/DOC-SUPPORT-003-nothing-enters-a-backlog-without-a-classification-and-untriaged.md) (default)
+- `B1` to [DOC-SUPPORT-003](doctrines/DOC-SUPPORT-003-nothing-enters-a-backlog-without-a-classification-and.md) (default)
 <a id="B2"></a>
-- `B2` to [DOC-SUPPORT-004](doctrines/DOC-SUPPORT-004-the-severity-ladder-is-written-before-the-incident-and-one-band.md) (default)
+- `B2` to [DOC-SUPPORT-004](doctrines/DOC-SUPPORT-004-the-severity-ladder-is-written-before-the-incident-and.md) (default)
 <a id="B3"></a>
-- `B3` to [DOC-SUPPORT-005](doctrines/DOC-SUPPORT-005-a-customer-visible-incident-records-a-communication-owner-separa.md) (default)
+- `B3` to [DOC-SUPPORT-005](doctrines/DOC-SUPPORT-005-a-customer-visible-incident-records-a-communication.md) (default)
 <a id="B5"></a>
-- `B5` to [DOC-SUPPORT-006](doctrines/DOC-SUPPORT-006-no-target-and-no-published-figure-is-the-mean-of-a-duration-dist.md) (default)
+- `B5` to [DOC-SUPPORT-006](doctrines/DOC-SUPPORT-006-no-target-and-no-published-figure-is-the-mean-of-a.md) (default)
 <a id="B7"></a>
-- `B7` to [DOC-SUPPORT-007](doctrines/DOC-SUPPORT-007-a-loyalty-or-satisfaction-score-is-a-trend-about-one-population.md) (default)
-- source `defaults:006` to [DOC-SUPPORT-008](doctrines/DOC-SUPPORT-008-two-queues-incident-and-request-with-separate-targets-and-no-ite.md) (default)
-- source `defaults:007` to [DOC-SUPPORT-009](doctrines/DOC-SUPPORT-009-three-severity-bands-while-one-person-responds-five-once-there-i.md) (default)
-- source `defaults:008` to [DOC-SUPPORT-010](doctrines/DOC-SUPPORT-010-acknowledge-on-receipt-close-on-answer-and-never-on-silence-for.md) (default)
+- `B7` to [DOC-SUPPORT-007](doctrines/DOC-SUPPORT-007-a-loyalty-or-satisfaction-score-is-a-trend-about-one.md) (default)
+- source `defaults:006` to [DOC-SUPPORT-008](doctrines/DOC-SUPPORT-008-two-queues-incident-and-request-with-separate-targets.md) (default)
+- source `defaults:007` to [DOC-SUPPORT-009](doctrines/DOC-SUPPORT-009-three-severity-bands-while-one-person-responds-five-once.md) (default)
+- source `defaults:008` to [DOC-SUPPORT-010](doctrines/DOC-SUPPORT-010-acknowledge-on-receipt-close-on-answer-and-never-on.md) (default)
 - source `defaults:009` to [DOC-SUPPORT-011](doctrines/DOC-SUPPORT-011-auto-close-and-stale-timers-on-public-trackers-only.md) (default)
 - source `defaults:010` to [DOC-SUPPORT-012](doctrines/DOC-SUPPORT-012-one-priority-band-reserved-for-plausible-but-unevidenced.md) (default)
 - source `defaults:011` to [DOC-SUPPORT-013](doctrines/DOC-SUPPORT-013-declaration-runs-on-written-objective-triggers.md) (default)
-- source `defaults:012` to [DOC-SUPPORT-014](doctrines/DOC-SUPPORT-014-a-weekly-synthesis-pass-with-the-coding-stance-declared-before-c.md) (default)
+- source `defaults:012` to [DOC-SUPPORT-014](doctrines/DOC-SUPPORT-014-a-weekly-synthesis-pass-with-the-coding-stance-declared.md) (default)
 - source `defaults:013` to [DOC-SUPPORT-015](doctrines/DOC-SUPPORT-015-single-responder-utilisation-held-below-seventy-per-cent.md) (default)
-- source `defaults:014` to [DOC-SUPPORT-016](doctrines/DOC-SUPPORT-016-a-postmortem-due-date-is-recorded-at-the-moment-of-resolution.md) (default)
+- source `defaults:014` to [DOC-SUPPORT-016](doctrines/DOC-SUPPORT-016-a-postmortem-due-date-is-recorded-at-the-moment-of.md) (default)
 - source `defaults:015` to [DOC-SUPPORT-017](doctrines/DOC-SUPPORT-017-self-service-counts-as-deflection-only-when-it-resolves.md) (default)
-- source `defaults:016` to [DOC-SUPPORT-018](doctrines/DOC-SUPPORT-018-founder-delivered-support-is-the-opening-posture-and-carries-a-w.md) (default)
-- source `preferences:001` to [DOC-SUPPORT-019](doctrines/DOC-SUPPORT-019-the-helpdesk-the-status-page-tool-and-the-survey-instrument.md) (preference)
-- source `preferences:002` to [DOC-SUPPORT-020](doctrines/DOC-SUPPORT-020-the-label-vocabulary-so-long-as-the-four-axes-in-b1-stay-separab.md) (preference)
-- source `preferences:003` to [DOC-SUPPORT-021](doctrines/DOC-SUPPORT-021-one-inbox-rather-than-one-per-channel-while-volume-is-low.md) (preference)
-- source `preferences:004` to [DOC-SUPPORT-022](doctrines/DOC-SUPPORT-022-a-public-changelog-as-the-standing-answer-to-did-you-ever-fix-it.md) (preference)
-- source `preferences:005` to [DOC-SUPPORT-023](doctrines/DOC-SUPPORT-023-writing-the-customer-facing-message-inside-the-incident-record-r.md) (preference)
-- source `preferences:006` to [DOC-SUPPORT-024](doctrines/DOC-SUPPORT-024-machine-readable-error-identifiers-in-product-errors-so-a-ticket.md) (preference)
-- source `preferences:007` to [DOC-SUPPORT-025](doctrines/DOC-SUPPORT-025-templates-for-the-three-commonest-replies-rewritten-by-hand-when.md) (preference)
+- source `defaults:016` to [DOC-SUPPORT-018](doctrines/DOC-SUPPORT-018-founder-delivered-support-is-the-opening-posture-and.md) (default)
+- source `preferences:001` to [DOC-SUPPORT-019](doctrines/DOC-SUPPORT-019-the-helpdesk-the-status-page-tool-and-the-survey.md) (preference)
+- source `preferences:002` to [DOC-SUPPORT-020](doctrines/DOC-SUPPORT-020-the-label-vocabulary-so-long-as-the-four-axes-in-b1-stay.md) (preference)
+- source `preferences:003` to [DOC-SUPPORT-021](doctrines/DOC-SUPPORT-021-one-inbox-rather-than-one-per-channel-while-volume-is.md) (preference)
+- source `preferences:004` to [DOC-SUPPORT-022](doctrines/DOC-SUPPORT-022-a-public-changelog-as-the-standing-answer-to-did-you.md) (preference)
+- source `preferences:005` to [DOC-SUPPORT-023](doctrines/DOC-SUPPORT-023-writing-the-customer-facing-message-inside-the-incident.md) (preference)
+- source `preferences:006` to [DOC-SUPPORT-024](doctrines/DOC-SUPPORT-024-machine-readable-error-identifiers-in-product-errors-so.md) (preference)
+- source `preferences:007` to [DOC-SUPPORT-025](doctrines/DOC-SUPPORT-025-templates-for-the-three-commonest-replies-rewritten-by.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| How does inbound get classified, and what keeps the queue finite | Triage pattern, cost per item, what the queue teaches | `packs/support-operations/guides/GD-SUPPORT-001-triage-pattern.md` |
-| May an item close without an answer | Auto-close policy per channel, contractual exposure | `packs/support-operations/guides/GD-SUPPORT-002-close-policy.md` |
-| Who declares a customer-visible incident, on what signal | False-alarm cost against late-notice cost | `packs/support-operations/guides/GD-SUPPORT-003-declaration-route.md` |
-| What do we measure, and what may the number be used for | Which metric, which population, which decision | `packs/support-operations/guides/GD-SUPPORT-004-support-measurement.md` |
+| How does inbound get classified, and what keeps the queue finite | Triage pattern, cost per item, what the queue teaches | `packs/support-operations/wargames/WG-SUPPORT-001-triage-pattern.md` |
+| May an item close without an answer | Auto-close policy per channel, contractual exposure | `packs/support-operations/wargames/WG-SUPPORT-002-close-policy.md` |
+| Who declares a customer-visible incident, on what signal | False-alarm cost against late-notice cost | `packs/support-operations/wargames/WG-SUPPORT-003-declaration-route.md` |
+| What do we measure, and what may the number be used for | Which metric, which population, which decision | `packs/support-operations/wargames/WG-SUPPORT-004-support-measurement.md` |
 
-Level-three detail sits in `packs/support-operations/refs/`: the triage
+Level-three detail sits in `packs/support-operations/references/`: the triage
 record shape, the severity ladder and declaration form, the incident
 communication contract, and the synthesis pass. A full worked week is
 in
-`packs/support-operations/exemplars/EX-SUPPORT-001-one-inbox-week.md`.
+`packs/support-operations/examples/EX-SUPPORT-001-one-inbox-week.md`.
 
 ## Failure modes and anti-patterns
 
@@ -211,12 +214,12 @@ in
 - **Manual against automatic declaration has no outcome data on either
   side.** One exemplar wants a human page to a named person
   (EV-0422); common practice auto-declares on a burn
-  alert (EV-0020, EV-0096). GD-SUPPORT-003 forces the choice and
+  alert (EV-0020, EV-0096). WG-SUPPORT-003 forces the choice and
   records it rather than pretending the evidence settles it.
 - **The two standards conflict on closing.** Timed closure of
   unreproducible reports (EV-0424) against a loop
   that closes only on answer (EV-0425). Both are
-  defensible for different relationships, so GD-SUPPORT-002 forces the
+  defensible for different relationships, so WG-SUPPORT-002 forces the
   choice per channel instead of letting a tool default decide.
 - **B2 and B3 used to bind above their evidence grade.** Both come from
   exemplar practice with no comparative measurement, and the 2026-08

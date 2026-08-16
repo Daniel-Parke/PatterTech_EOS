@@ -49,44 +49,44 @@ def test_minirepo_is_semantically_green(tmp_path):
 # --- S001 ---------------------------------------------------------------
 
 
-def test_s001_invalid_v1_status(tmp_path):
+def test_s001_invalid_current_lifecycle(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
-         "status: active", "status: bogus")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md",
+         "lifecycle: active", "kind: wargame\nlifecycle: bogus")
     fs = run_s(root)
-    assert only(fs, "S001") == [("error", "packs/testmod/guides/WG-TST-001-sample.md",
-                                 "invalid status: bogus")]
+    assert only(fs, "S001") == [("error", "packs/testmod/wargames/WG-TST-001-sample.md",
+                                 "invalid lifecycle: bogus")]
 
 
 def test_s001_strict_flag_keeps_error_severity(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
-         "status: active", "status: bogus")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md",
+         "lifecycle: active", "kind: wargame\nlifecycle: bogus")
     fs = run_s(root, strict=True)
-    assert only(fs, "S001") == [("error", "packs/testmod/guides/WG-TST-001-sample.md",
-                                 "invalid status: bogus")]
+    assert only(fs, "S001") == [("error", "packs/testmod/wargames/WG-TST-001-sample.md",
+                                 "invalid lifecycle: bogus")]
 
 
 def test_s001_relax_flag_drops_to_warning(tmp_path):
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
-         "status: active", "status: bogus")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md",
+         "lifecycle: active", "kind: wargame\nlifecycle: bogus")
     fs = run_s(root, relax=True)
-    assert only(fs, "S001") == [("warn", "packs/testmod/guides/WG-TST-001-sample.md",
-                                 "invalid status: bogus")]
+    assert only(fs, "S001") == [("warn", "packs/testmod/wargames/WG-TST-001-sample.md",
+                                 "invalid lifecycle: bogus")]
 
 
 def test_s_series_defaults_to_error_with_no_flag_at_all(tmp_path):
     """No key in the context means the gate. A caller who says nothing
     gets the strict reading, not the soft one."""
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
-         "status: active", "status: bogus")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md",
+         "lifecycle: active", "kind: wargame\nlifecycle: bogus")
     model = RepoModel.load(root, today=TODAY)
     ctx = {"model": model, "root": model.root, "today": TODAY, "offline": True}
     assert only(run_all(ctx, series="S"), "S001") == [
-        ("error", "packs/testmod/guides/WG-TST-001-sample.md",
-         "invalid status: bogus")]
+        ("error", "packs/testmod/wargames/WG-TST-001-sample.md",
+         "invalid lifecycle: bogus")]
 
 
 def test_strict_wins_over_relax_where_a_caller_passes_both(tmp_path):
@@ -94,8 +94,8 @@ def test_strict_wins_over_relax_where_a_caller_passes_both(tmp_path):
     default. A command line assembled from parts can carry both, and it
     has to resolve to the gate rather than to the softer of the two."""
     root = make_repo(tmp_path)
-    edit(root, "packs/testmod/guides/WG-TST-001-sample.md",
-         "status: active", "status: bogus")
+    edit(root, "packs/testmod/wargames/WG-TST-001-sample.md",
+         "lifecycle: active", "kind: wargame\nlifecycle: bogus")
     fs = run_s(root, strict=True, relax=True)
     assert [sev for sev, _p, _m in only(fs, "S001")] == ["error"]
 
@@ -195,6 +195,39 @@ def test_s003_resolvable_reference_clean(tmp_path):
     assert only(run_s(root), "S003") == []
 
 
+def test_s003_allows_declared_pre_naming_path_only_in_historical_record(tmp_path):
+    root = make_repo(tmp_path)
+    write(root, "packs/PACK_CONTRACT.md", "Current contract.\n")
+    write(
+        root,
+        "org/migration/NAMING_BASELINE.json",
+        json.dumps({
+            "pre_t0028_snapshot_surfaces": ["org/decisions/**"],
+            "public_file_migration": {
+                "packs/PACK_SHAPE.md": "packs/PACK_CONTRACT.md",
+            },
+        }),
+    )
+    write(
+        root,
+        "org/decisions/ADR-0999-history.md",
+        "---\nsummary: History\ntype: decision\ntags: [eos]\n---\n"
+        "The decision used `packs/PACK_SHAPE.md`.\n",
+    )
+    assert only(run_s(root), "S003") == []
+
+    write(
+        root,
+        "org/CURRENT.md",
+        "---\nsummary: Current work\ntype: org\ntags: [eos]\n---\n"
+        "Current work uses `packs/PACK_SHAPE.md`.\n",
+    )
+    assert only(run_s(root), "S003") == [(
+        "error", "org/CURRENT.md",
+        "path reference does not resolve: packs/PACK_SHAPE.md",
+    )]
+
+
 # --- S004 ---------------------------------------------------------------
 
 
@@ -285,15 +318,40 @@ def test_s006_missing_doctrine_organ(tmp_path):
     assert only(fs, "S006") == [("error", "packs/testmod", "pack missing CHECKS.md")]
 
 
-def test_s006_missing_guides_dir(tmp_path):
+def test_s006_missing_wargames_dir(tmp_path):
     root = make_repo(tmp_path)
-    shutil.rmtree(root / "packs" / "testmod" / "guides")
+    shutil.rmtree(root / "packs" / "testmod" / "wargames")
     fs = run_s(root)
-    assert only(fs, "S006") == [("error", "packs/testmod", "pack missing guides/")]
+    assert only(fs, "S006") == [("error", "packs/testmod", "pack missing wargames/")]
+
+
+def test_s006_requires_every_canonical_collection(tmp_path):
+    for collection in ("doctrines", "wargames", "examples", "references", "research"):
+        root = make_repo(tmp_path / collection)
+        shutil.rmtree(root / "packs" / "testmod" / collection)
+        assert only(run_s(root), "S006") == [
+            ("error", "packs/testmod", f"pack missing {collection}/")
+        ]
+
+
+def test_s006_requires_current_pack_and_checks_metadata(tmp_path):
+    root = make_repo(tmp_path)
+    edit(root, "packs/testmod/PACK.md", "kind: record", "kind: rule")
+    assert only(run_s(root), "S006") == [(
+        "error", "packs/testmod/PACK.md",
+        "PACK.md must be kind: record and type: pack",
+    )]
+
+    root = make_repo(tmp_path / "checks")
+    edit(root, "packs/testmod/CHECKS.md", "kind: record", "kind: rule")
+    assert only(run_s(root), "S006") == [(
+        "error", "packs/testmod/CHECKS.md",
+        "CHECKS.md must be kind: record and type: checks",
+    )]
 
 
 def test_s006_a_complete_pack_is_silent(tmp_path):
-    """The fixture pack has all three organs, so nothing is reported.
+    """The fixture pack has both records and all five collections.
     Named here so the silence is attributable to S006 rather than to
     the whole-series green."""
     assert only(run_s(make_repo(tmp_path)), "S006") == []
@@ -758,7 +816,7 @@ def test_s013_prose_where_evidence_ids_belong(tmp_path):
 def test_s013_worked_example_must_resolve(tmp_path):
     root = make_repo(tmp_path)
     _prepare(root)
-    _matrix(root, [_built_row(worked_example=["packs/testmod/exemplars/GONE.md"])])
+    _matrix(root, [_built_row(worked_example=["packs/testmod/examples/GONE.md"])])
     assert any("does not resolve" in m for _, _, m in only(run_s(root), "S013"))
 
 
@@ -860,16 +918,16 @@ def test_s015_a_pack_without_predicates_has_no_real_gate(tmp_path):
           "# Testmod\n\nBody.\n")
     msgs = [m for _, _, m in only(run_s(root), "S015")]
     assert msgs == ["no applies_when: predicates are the real gate "
-                    "under packs/PACK_SHAPE.md"]
+                    "under packs/PACK_CONTRACT.md"]
 
 
 def test_s015_judges_pack_md_and_nothing_else_under_a_pack(tmp_path):
-    """A guide or a checks file is not an activation surface, so it is
+    """A Wargame or checks record is not an activation surface, so it is
     never asked for triggers it has no business carrying."""
     root = make_repo(tmp_path)
     write(root, "packs/testmod/CHECKS.md",
-          "---\nsummary: Testmod acceptance checks\ntype: doctrine\n"
-          "tags: [eos]\nreview: 2030-01\n---\n\n# Checks\n\nBody.\n")
+          "---\nsummary: Testmod acceptance checks\nkind: record\n"
+          "type: checks\ntags: [eos]\n---\n\n# Checks\n\nBody.\n")
     assert only(run_s(root), "S015") == []
 
 
@@ -970,7 +1028,7 @@ def test_s017_reports_a_value_outside_the_schema_enum(tmp_path):
 
 
 def test_s017_holds_the_licence_floor(tmp_path):
-    """PACK_SHAPE item 11 wants a fact. A record may say the source
+    """PACK_CONTRACT item 11 wants a fact. A record may say the source
     states no licence; 'unknown' means nobody looked."""
     root = make_repo(tmp_path)
     _evidence_schema(root)
@@ -1443,7 +1501,7 @@ def _valid_wargame():
     ]
     body = "\n\n".join("## %s\n\n%s" % row for row in sections)
     return """---
-id: GD-TST-002
+id: WG-TST-002
 summary: Choose how much fixture is enough
 kind: wargame
 type: wargame
@@ -1466,9 +1524,9 @@ lifecycle: active
 
 def _write_valid_knowledge_pair(root):
     _install_knowledge_schemas(root)
-    write(root, "packs/testmod/doctrines/DOC-TST-001-fixture-size.md",
+    write(root, "packs/testmod/doctrines/DOC-TST-001-fixture-changes-stay-small.md",
           _valid_doctrine())
-    write(root, "packs/testmod/guides/GD-TST-002-fixture-size.md",
+    write(root, "packs/testmod/wargames/WG-TST-002-fixture-size.md",
           _valid_wargame())
 
 
@@ -1481,10 +1539,10 @@ def test_s022_accepts_one_atomic_doctrine_and_complete_wargame(tmp_path):
 def test_s022_decision_only_binding_needs_accepted_adr(tmp_path):
     root = make_repo(tmp_path)
     _write_valid_knowledge_pair(root)
-    edit(root, "packs/testmod/doctrines/DOC-TST-001-fixture-size.md",
+    edit(root, "packs/testmod/doctrines/DOC-TST-001-fixture-changes-stay-small.md",
          "authority: default", "authority: binding")
     assert only(run_s(root), "S022") == [
-        ("error", "packs/testmod/doctrines/DOC-TST-001-fixture-size.md",
+        ("error", "packs/testmod/doctrines/DOC-TST-001-fixture-changes-stay-small.md",
          "decision-only binding Doctrine needs an accepted_adr or must be "
          "authority: default")]
 
@@ -1492,20 +1550,20 @@ def test_s022_decision_only_binding_needs_accepted_adr(tmp_path):
 def test_s022_wargame_body_contract_is_enforced(tmp_path):
     root = make_repo(tmp_path)
     _write_valid_knowledge_pair(root)
-    edit(root, "packs/testmod/guides/GD-TST-002-fixture-size.md",
+    edit(root, "packs/testmod/wargames/WG-TST-002-fixture-size.md",
          "## Cheapest discriminating test", "## Expensive test")
     assert only(run_s(root), "S022") == [
-        ("error", "packs/testmod/guides/GD-TST-002-fixture-size.md",
+        ("error", "packs/testmod/wargames/WG-TST-002-fixture-size.md",
          "Wargame is missing section: Cheapest discriminating test")]
 
 
 def test_s022_pressure_predicates_use_the_controlled_vocabulary(tmp_path):
     root = make_repo(tmp_path)
     _write_valid_knowledge_pair(root)
-    edit(root, "packs/testmod/guides/GD-TST-002-fixture-size.md",
+    edit(root, "packs/testmod/wargames/WG-TST-002-fixture-size.md",
          "engages_when: [does_a_fixture_thing]", "engages_when: [unknown_pressure]")
     assert only(run_s(root), "S022") == [
-        ("error", "packs/testmod/guides/GD-TST-002-fixture-size.md",
+        ("error", "packs/testmod/wargames/WG-TST-002-fixture-size.md",
          "knowledge metadata carries unknown_pressure, which is not in "
          "kernel/PREDICATES.md")]
 

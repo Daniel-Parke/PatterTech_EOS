@@ -104,7 +104,7 @@ def activated_packs(root, changed, *, declared_predicates=None) -> list:
     """Which packs a change activates, and what fired.
 
     Path triggers are deterministic and evaluated here. Predicates are
-    the real gate under packs/PACK_SHAPE.md, but most of them are facts
+    the real gate under packs/PACK_CONTRACT.md, but most of them are facts
     about the task rather than about the diff, so where the task record
     does not declare one it is returned unresolved for the agent to
     confirm. Narrowing twenty packs to a handful is the win; pretending

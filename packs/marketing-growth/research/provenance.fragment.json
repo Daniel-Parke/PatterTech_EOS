@@ -126,7 +126,7 @@
    "resolution": "Not a concern. A ratio is a fact rather than expression, and the pack states it only in order to refuse to adopt it. It should never be restated as this pack's own figure."
   },
   {
-   "file": "packs/marketing-growth/refs/SEND_PREFLIGHT.md",
+   "file": "packs/marketing-growth/references/SEND_PREFLIGHT.md",
    "line": 33,
    "concern": "The numeric deliverability thresholds come from EV-0360, whose licence is not-stated.",
    "resolution": "Not a concern. Published requirement figures are facts, and the reference already carries the scope note that they are one mailbox provider's rules for its own inboxes."

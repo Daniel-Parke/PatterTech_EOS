@@ -33,7 +33,7 @@ the EOS pin and adopted packs, so it is not expanded into empty rows.
 - One-word feel: {{FEEL}}
 - Signature motif (promoted everywhere): {{MOTIF}}
 - Signature animated pieces (the sanctioned exceptions, by name): {{SIGNATURE_PIECES}}
-- Voice register: rule through `GD-WRIT-003` when its pressure engages;
+- Voice register: rule through `WG-WRIT-003` when its pressure engages;
   the result belongs in `docs/RULINGS.json`.
 
 ## Narrative brief
@@ -42,7 +42,7 @@ The one-paragraph story the design must tell without saying it: what
 the visitor should feel, what stays concealed, what escapes anyway.
 Name the physics or motifs the brand draws from and how each becomes a
 mechanism, not a mood board. This paragraph informs the live house-style
-Wargames `GD-HOUSE-001`, `GD-HOUSE-003` and `GD-HOUSE-004` when that pack
+Wargames `WG-HOUSE-001`, `WG-HOUSE-003` and `WG-HOUSE-004` when that pack
 has been adopted.
 
 {{NARRATIVE}}

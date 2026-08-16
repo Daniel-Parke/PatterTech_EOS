@@ -10,14 +10,17 @@ applies_when: [fans_work_across_lanes, cuts_a_build_partition, integrates_parall
 activation_paths: [org/claims.json, org/GRAPH_BUILD.md, **/PARTITION.md, **/partition*.json, **/lanes/**, **/packets/**, **/worktrees/**, .claude/workflows/**, **/*swarm*.md, kernel/templates/org/GRAPH_BUILD.tpl.md]
 volatility: fast
 review: none
-type: guide
+type: pack
 tags: [eos, arch, delivery, tooling]
 sources: [EV-0010, EV-0053, EV-0107, EV-0108, EV-0109, EV-0111, EV-0112, EV-0244, EV-0450, EV-0451, EV-0452, EV-0453, EV-0454, EV-0455, EV-0456, EV-0457, EV-0458, EV-0459, EV-0460, EV-0461, EV-0463, EV-0464, EV-0466, EV-0467, EV-0468, EV-0469, EV-0470, EV-0472, EV-0475, EV-0476, EV-0477, EV-0478, EV-0480, EV-0481, EV-0482, EV-0483, EV-0484, EV-0485, EV-0486, EV-0487, EV-0488, EV-0489, EV-0491, EV-0493, EV-0494, EV-0495]
+display_name: Agent Build Orchestration
+category: practice-governance
+id_namespace: SWARM
 depends_on: [agentic-development, delivery-testing]
 ---
 
 
-# Agentic swarm and graph engineering
+# Agent Build Orchestration
 
 This pack covers how we build software with agent graphs: cutting the
 partition, writing the lane packet, bounding the run, verifying a lane
@@ -87,7 +90,7 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-SWARM-001](doctrines/DOC-SWARM-001-the-partition-is-written-before-any-lane-starts-and-it-is-cut-on.md) (binding)
+- `B1` to [DOC-SWARM-001](doctrines/DOC-SWARM-001-the-partition-is-written-before-any-lane-starts-and-it-is.md) (binding)
 <a id="B2"></a>
 - `B2` to [DOC-SWARM-002](doctrines/DOC-SWARM-002-the-packet-is-closed-and-literal.md) (binding)
 <a id="B3"></a>
@@ -97,15 +100,15 @@ compatibility anchors; they do not encode authority.
 <a id="B5"></a>
 - `B5` to [DOC-SWARM-005](doctrines/DOC-SWARM-005-constraints-are-pinned-and-never-compactable.md) (binding)
 <a id="B6"></a>
-- `B6` to [DOC-SWARM-006](doctrines/DOC-SWARM-006-every-run-declares-a-global-budget-and-every-node-a-cap-both-enf.md) (binding)
+- `B6` to [DOC-SWARM-006](doctrines/DOC-SWARM-006-every-run-declares-a-global-budget-and-every-node-a-cap.md) (binding)
 <a id="B7"></a>
-- `B7` to [DOC-SWARM-007](doctrines/DOC-SWARM-007-the-artefact-that-decides-a-lanes-success-is-authored-outside-th.md) (binding)
+- `B7` to [DOC-SWARM-007](doctrines/DOC-SWARM-007-the-artefact-that-decides-a-lanes-success-is-authored.md) (binding)
 <a id="B8"></a>
 - `B8` to [DOC-SWARM-008](doctrines/DOC-SWARM-008-agreement-between-lanes-is-not-evidence-of-correctness.md) (binding)
 <a id="B9"></a>
-- `B9` to [DOC-SWARM-009](doctrines/DOC-SWARM-009-one-lane-one-worktree-one-branch-one-owned-file-set-and-the-inte.md) (binding)
+- `B9` to [DOC-SWARM-009](doctrines/DOC-SWARM-009-one-lane-one-worktree-one-branch-one-owned-file-set-and.md) (binding)
 <a id="B10"></a>
-- `B10` to [DOC-SWARM-010](doctrines/DOC-SWARM-010-every-dependency-any-lane-introduces-is-resolved-against-the-rea.md) (binding)
+- `B10` to [DOC-SWARM-010](doctrines/DOC-SWARM-010-every-dependency-any-lane-introduces-is-resolved-against.md) (binding)
 <a id="D1"></a>
 - `D1` to [DOC-SWARM-011](doctrines/DOC-SWARM-011-three-to-five-lanes.md) (default)
 <a id="D2"></a>
@@ -121,40 +124,40 @@ compatibility anchors; they do not encode authority.
 <a id="D7"></a>
 - `D7` to [DOC-SWARM-017](doctrines/DOC-SWARM-017-cap-diff-width-per-package-and-land-in-dependency-order.md) (default)
 <a id="D8"></a>
-- `D8` to [DOC-SWARM-018](doctrines/DOC-SWARM-018-one-strong-clean-context-reviewer-per-concern-and-reviewers-repo.md) (default)
+- `D8` to [DOC-SWARM-018](doctrines/DOC-SWARM-018-one-strong-clean-context-reviewer-per-concern-and.md) (default)
 <a id="D9"></a>
-- `D9` to [DOC-SWARM-019](doctrines/DOC-SWARM-019-machine-detectable-defect-classes-go-to-scanners-not-to-reviewer.md) (default)
+- `D9` to [DOC-SWARM-019](doctrines/DOC-SWARM-019-machine-detectable-defect-classes-go-to-scanners-not-to.md) (default)
 <a id="D10"></a>
 - `D10` to [DOC-SWARM-020](doctrines/DOC-SWARM-020-route-by-role.md) (default)
 <a id="D11"></a>
-- `D11` to [DOC-SWARM-021](doctrines/DOC-SWARM-021-irreversible-external-effects-are-staged-and-executed-once-by-th.md) (default)
+- `D11` to [DOC-SWARM-021](doctrines/DOC-SWARM-021-irreversible-external-effects-are-staged-and-executed-once.md) (default)
 <a id="D12"></a>
 - `D12` to [DOC-SWARM-022](doctrines/DOC-SWARM-022-pilot-one-slice-then-journal-the-whole-run.md) (default)
 <a id="D13"></a>
 - `D13` to [DOC-SWARM-023](doctrines/DOC-SWARM-023-continuity-is-by-artefact-not-by-summary.md) (default)
 <a id="D14"></a>
-- `D14` to [DOC-SWARM-024](doctrines/DOC-SWARM-024-run-a-single-agent-control-on-a-sample-and-instrument-the-landin.md) (default)
+- `D14` to [DOC-SWARM-024](doctrines/DOC-SWARM-024-run-a-single-agent-control-on-a-sample-and-instrument-the.md) (default)
 - source `preferences:001` to [DOC-SWARM-025](doctrines/DOC-SWARM-025-if-a-step-can-be-code-make-it-code.md) (preference)
-- source `preferences:002` to [DOC-SWARM-026](doctrines/DOC-SWARM-026-spend-the-budget-on-the-specification-before-spending-it-on-revi.md) (preference)
-- source `preferences:003` to [DOC-SWARM-027](doctrines/DOC-SWARM-027-prefer-breadth-of-independent-attempts-to-rounds-of-cross-talk.md) (preference)
-- source `preferences:004` to [DOC-SWARM-028](doctrines/DOC-SWARM-028-one-worked-example-of-a-correct-return-beats-five-rules-about-ed.md) (preference)
-- source `preferences:005` to [DOC-SWARM-029](doctrines/DOC-SWARM-029-name-nodes-by-their-artefact-so-a-trace-reads-as-a-work-breakdow.md) (preference)
+- source `preferences:002` to [DOC-SWARM-026](doctrines/DOC-SWARM-026-spend-the-budget-on-the-specification-before-spending-it.md) (preference)
+- source `preferences:003` to [DOC-SWARM-027](doctrines/DOC-SWARM-027-prefer-breadth-of-independent-attempts-to-rounds-of-cross.md) (preference)
+- source `preferences:004` to [DOC-SWARM-028](doctrines/DOC-SWARM-028-one-worked-example-of-a-correct-return-beats-five-rules.md) (preference)
+- source `preferences:005` to [DOC-SWARM-029](doctrines/DOC-SWARM-029-name-nodes-by-their-artefact-so-a-trace-reads-as-a-work.md) (preference)
 
 ## Decision map
 
-| Fork | Guide |
+| Fork | Wargame |
 | --- | --- |
-| Should this be a swarm at all, or one agent? | `packs/agentic-swarm/guides/GD-SWARM-001-swarm-or-single-agent.md` |
-| Where do the cuts go? | `packs/agentic-swarm/guides/GD-SWARM-002-cut-the-partition.md` |
-| Who holds the plan, a script or a model? | `packs/agentic-swarm/guides/GD-SWARM-003-who-holds-the-plan.md` |
-| What decides that a lane's work is good? | `packs/agentic-swarm/guides/GD-SWARM-004-verifying-a-lane.md` |
+| Should this be a swarm at all, or one agent? | `packs/agentic-swarm/wargames/WG-SWARM-001-swarm-or-single-agent.md` |
+| Where do the cuts go? | `packs/agentic-swarm/wargames/WG-SWARM-002-cut-the-partition.md` |
+| Who holds the plan, a script or a model? | `packs/agentic-swarm/wargames/WG-SWARM-003-who-holds-the-plan.md` |
+| What decides that a lane's work is good? | `packs/agentic-swarm/wargames/WG-SWARM-004-verifying-a-lane.md` |
 
 Packet and return mechanics are in
-`packs/agentic-swarm/refs/PACKET_AND_RETURN.md`, merge gate and review
-topology in `packs/agentic-swarm/refs/MERGE_AND_REVIEW.md`, the full
-risk table in `packs/agentic-swarm/refs/RISK_REGISTER.md`, a worked
+`packs/agentic-swarm/references/PACKET_AND_RETURN.md`, merge gate and review
+topology in `packs/agentic-swarm/references/MERGE_AND_REVIEW.md`, the full
+risk table in `packs/agentic-swarm/references/RISK_REGISTER.md`, a worked
 partition and its one recorded departure from B7 in
-`packs/agentic-swarm/exemplars/EX-SWARM-001-eos-v2-1-partition.md`, and
+`packs/agentic-swarm/examples/EX-SWARM-001-eos-v2-1-partition.md`, and
 what a reviewer or script can verify in `packs/agentic-swarm/CHECKS.md`.
 
 ## The risk that governs the rest

@@ -333,7 +333,7 @@ any more.
 
 The tail of it was not a provenance question, and it is closed. Three
 passages carrying the figures, in `packs/coding/PACK.md`, in
-`packs/coding/guides/GD-COD-001-oracle-strategy.md` and in
+`packs/coding/wargames/WG-COD-001-oracle-strategy.md` and in
 `packs/delivery-testing/PACK.md`, went on describing the row as
 awaiting import after EV-0480 had landed. That understated what the
 ledger held rather than overstating it, which is the harmless

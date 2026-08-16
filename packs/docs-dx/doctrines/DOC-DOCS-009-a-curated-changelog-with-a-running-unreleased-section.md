@@ -35,7 +35,7 @@ consumer needs the consequence of upgrading, and a raw log is full of
 merges and internal churn nobody can act on. Override for an internal
 service whose only consumers are two other services of the same estate,
 where a machine-readable compatibility diff (EV-0136) carries more than
-prose. See `packs/docs-dx/guides/GD-DOCS-003-changelog-ownership.md`.
+prose. See `packs/docs-dx/wargames/WG-DOCS-003-changelog-ownership.md`.
 
 ## Migration provenance
 

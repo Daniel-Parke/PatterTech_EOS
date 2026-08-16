@@ -42,7 +42,7 @@
       "url": "https://www.bmj.com/content/384/bmj-2023-076335",
       "wanted_for": "the 2024 Cochrane rapid review methods recommendations",
       "refusal": "HTTP 403",
-      "resolution": "not worked around and no substitute found; no record exists, and packs/research-knowledge/PACK.md and GD-RESEARCH-001 both state which conclusion is weaker because of it"
+      "resolution": "not worked around and no substitute found; no record exists, and packs/research-knowledge/PACK.md and WG-RESEARCH-001 both state which conclusion is weaker because of it"
     }
   ],
   "reader_addressed_by_source": [
@@ -50,7 +50,7 @@
       "url": "https://llmstxt.org/",
       "what": "the page tells whoever reads it that a machine reader should take the file first and then go to whichever of its links suit the question",
       "acted_on": false,
-      "recorded_as": "FRAG-RESEARCH-KNOWLEDGE-16, and the worked example at packs/research-knowledge/exemplars/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md"
+      "recorded_as": "FRAG-RESEARCH-KNOWLEDGE-16, and the worked example at packs/research-knowledge/examples/EX-RESEARCH-001-a-source-that-spoke-to-the-reader.md"
     },
     {
       "url": "https://llmstxt.org/llms.txt",

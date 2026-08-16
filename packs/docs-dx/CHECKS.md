@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a checker can verify about documentation work, split into executable today and judgement
-type: guide
+type: checks
 tags: [content, delivery, ci, tooling]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision
@@ -41,7 +41,7 @@ human input, unless a row says otherwise.
 | C-15 | External link checking does not block | Injecting a link to an unreachable host fails no step | D5 |
 | C-16 | The blocking steps run offline | The blocking documentation job runs with network access disabled and still passes | D5 |
 | C-17 | A running Unreleased section exists | Heading present in `CHANGELOG.md`, with at least one entry when the diff changes a user-visible surface | D3 |
-| C-18 | README question set present | Headings or content covering all five questions in `packs/docs-dx/refs/DOC_FORMS.md`: what, why, how, state and next | D2 |
+| C-18 | README question set present | Headings or content covering all five questions in `packs/docs-dx/references/DOC_FORMS.md`: what, why, how, state and next | D2 |
 | C-19 | Prose rules are advisory | The prose linter's step reports without failing the build unless the rule is on the promoted list | D7 |
 
 C-01 through C-10 are the gate. C-11 and C-12 need a venture-specific
@@ -58,7 +58,7 @@ later; none is executable now.
 | --- | --- | --- | --- |
 | J-01 | The corrected instructions are the sequence a reader actually needs | Reviewer, because execution proves a block runs and never that it is the right block to show | B3 |
 | J-02 | The prose around a working example is still true | Reviewer, because nothing verifies prose (EV-0330) | B3 |
-| J-03 | The document's truth is in the right place | Reviewer, against `GD-DOCS-001` | D1 |
+| J-03 | The document's truth is in the right place | Reviewer, against `WG-DOCS-001` | D1 |
 | J-04 | A confusing page is confusing because it mixes forms | Reviewer, using the four forms as a diagnostic rather than a layout | D1 |
 | J-05 | A changelog entry states a consequence rather than restating the diff | Reviewer (EV-0333) | D3 |
 | J-06 | A failure message would let a reader recover unaided | Reviewer, reading it cold | B5 |

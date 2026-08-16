@@ -146,6 +146,7 @@ def _fixture_repo(tmp_path: Path) -> tuple[Path, dict, bytes]:
         f"Use {first_old} and "
         "[the procedure](packs/agentic-development/guides/"
         f"{first_old}-topology-selection.md), plus `refs/source.md`.\n"
+        f"A compound path also names archive/example/{first_old}-historical.md.\n"
     )
     _write(root, "docs/current.md", current)
 
@@ -189,6 +190,7 @@ def test_plan_apply_and_check_are_safe_exact_and_idempotent(tmp_path: Path) -> N
 
     # A target collision is rejected while the tree remains byte-identical.
     first_source, first_target = next(iter(_source_wargames(baseline).items()))
+    first_old = "-".join(PurePosixPath(first_source).name.split("-", 3)[:3])
     collision_path = root.joinpath(*PurePosixPath(first_target).parts)
     collision_path.parent.mkdir(parents=True, exist_ok=True)
     collision_path.write_bytes(b"collision\n")
@@ -214,18 +216,15 @@ def test_plan_apply_and_check_are_safe_exact_and_idempotent(tmp_path: Path) -> N
 
     assert result["state"] == "applied"
     assert not root.joinpath(*PurePosixPath(first_source).parts).exists()
-    first_new = baseline["identifier_migration"][
-        PurePosixPath(first_source).name.split("-", 3)[0]
-        + "-"
-        + PurePosixPath(first_source).name.split("-", 3)[1]
-        + "-"
-        + PurePosixPath(first_source).name.split("-", 3)[2]
-    ]
+    first_new = baseline["identifier_migration"][first_old]
     migrated = root.joinpath(*PurePosixPath(first_target).parts).read_text(
         encoding="utf-8"
     )
     assert f"id: {first_new}" in migrated
     assert first_source not in migrated
+    assert f"{first_old}-historical.md" not in (
+        root / "docs" / "current.md"
+    ).read_text(encoding="utf-8")
 
     assert not (root / "packs" / "GUIDE_INDEX.md").exists()
     assert (root / "packs" / "PACK_CONTRACT.md").is_file()

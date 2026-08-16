@@ -88,10 +88,10 @@ def test_current_head_seed_exercises_structured_pressure_ruling():
     selected = {row["wargame"]: row for row in rulings["selection_log"]}
     argued = {row["wargame"]: row for row in rulings["rulings"]}
     assert set(selected) >= {
-        "WG-EOS-001", "WG-EOS-002", "GD-SEC-001", "GD-SEC-002",
-        "GD-SEC-003", "GD-SEC-004", "GD-ARCH-001",
+        "WG-EOS-001", "WG-EOS-002", "WG-SEC-001", "WG-SEC-002",
+        "WG-SEC-003", "WG-SEC-004", "WG-ARCH-013",
     }
-    assert argued["GD-ARCH-001"]["doctrines"] == ["DOC-ARCH-004"]
+    assert argued["WG-ARCH-013"]["doctrines"] == ["DOC-ARCH-004"]
 
 
 def test_matrix_parses():
@@ -598,10 +598,10 @@ def _structured_rulings_case(tmp_path):
     eos = _v2_eos(tmp_path, matrix=STRUCTURED_RULINGS_MATRIX)
     shutil.copy(REPO_ROOT / "kernel" / "schemas" / "rulings.schema.json",
                 eos / "kernel" / "schemas" / "rulings.schema.json")
-    wargame = eos / "packs" / "testmod" / "guides" / "GD-TST-001-case.md"
+    wargame = eos / "packs" / "testmod" / "wargames" / "WG-TST-001-case.md"
     wargame.parent.mkdir(parents=True)
     wargame.write_text(
-        "---\nid: GD-TST-001\nsummary: Fixture decision\nkind: wargame\n"
+        "---\nid: WG-TST-001\nsummary: Fixture decision\nkind: wargame\n"
         "type: wargame\ntags: [eos, wargame]\n---\n\n# Fixture\n",
         encoding="utf-8")
     seed = _v2_seed(tmp_path, policy=_valid_policy())
@@ -612,7 +612,7 @@ def _structured_rulings_case(tmp_path):
         "venture": "Testfield",
         "eos_commit": "0000000",
         "selection_log": [{
-            "wargame": "GD-TST-001",
+            "wargame": "WG-TST-001",
             "disposition": "selected",
             "reason": "The fixture pressure is true.",
             "ruling": "RUL-TST-001",
@@ -620,7 +620,7 @@ def _structured_rulings_case(tmp_path):
         }],
         "rulings": [{
             "id": "RUL-TST-001",
-            "wargame": "GD-TST-001",
+            "wargame": "WG-TST-001",
             "doctrines": [],
             "decision": "Use the small fixture.",
             "execution": "argued",
@@ -636,7 +636,7 @@ def _structured_rulings_case(tmp_path):
     return eos, seed, document
 
 
-def test_d006_and_d012_validate_structured_gd_ruling(tmp_path):
+def test_d006_and_d012_validate_structured_wg_ruling(tmp_path):
     eos, seed, _document = _structured_rulings_case(tmp_path)
     findings = run_seed(seed, _v2_ctx(eos))
     assert only(findings, "D006") == []
@@ -667,8 +667,8 @@ def test_d012_rejects_selected_wargame_without_ruling_link(tmp_path):
 
 def test_d006_rejects_unresolved_structured_wargame(tmp_path):
     eos, seed, document = _structured_rulings_case(tmp_path)
-    document["selection_log"][0]["wargame"] = "GD-TST-999"
-    document["rulings"][0]["wargame"] = "GD-TST-999"
+    document["selection_log"][0]["wargame"] = "WG-TST-999"
+    document["rulings"][0]["wargame"] = "WG-TST-999"
     (seed / "docs" / "RULINGS.json").write_text(
         json.dumps(document) + "\n", encoding="utf-8")
     got = only(run_seed(seed, _v2_ctx(eos)), "D006")

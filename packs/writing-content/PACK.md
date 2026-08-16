@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the writing-content Doctrine and Wargames
-type: playbook
+type: pack
 tags: [voice, content, a11y, forms]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/*.md, **/locales/**, **/i18n/**, **/*.po, **/messages/**, 
 volatility: slow
 review: none
 sources: [EV-0027, EV-0062, EV-0063, EV-0122, EV-0233, EV-0433, EV-0434, EV-0435, EV-0436, EV-0437, EV-0438, EV-0439, EV-0440, EV-0441, EV-0442, EV-0443, EV-0444, EV-0445, EV-0446, EV-0447, EV-0448, EV-0335]
+display_name: Content Design and Writing
+category: experience-content
+id_namespace: WRIT
 depends_on: [product-discovery]
 ---
 
 
-# writing-content
+# Content Design and Writing
 
 This pack covers text people read: interface strings, error messages,
 product documentation and the prose in this repository. It activates on
@@ -86,7 +89,7 @@ generated reference, which sit in the docs-dx pack. It does not own
 form layout, focus behaviour or component structure, which sit in
 ui-ux. It does not own API error contracts, which sit in
 api-integration. It sets no reading-age target, ships no word list, and
-ranks none of the four philosophies in GD-WRIT-001.
+ranks none of the four philosophies in WG-WRIT-001.
 
 The seam with docs-dx on errors: docs-dx binds what a failure message
 says. This pack binds where it renders, when it fires, and what happens
@@ -97,7 +100,7 @@ to the input that caused it.
 Voice is deliberately scoped rather than inherited as one universal law.
 
 - EOS-internal prose resolves through [DOC-WRIT-009](doctrines/DOC-WRIT-009-prose-in-this-repository-follows-the-voice-law.md).
-- Venture documentation resolves through [DOC-WRIT-017](doctrines/DOC-WRIT-017-venture-documentation-follows-the-plain-language-defaults-above.md).
+- Venture documentation resolves through [DOC-WRIT-017](doctrines/DOC-WRIT-017-venture-documentation-follows-the-plain-language-defaults.md).
 - Brand voice remains explanatory and empty until a venture adopts a
   named brand voice. Adoption creates a brand-scoped preference; absence
   is not a breach.
@@ -108,53 +111,53 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 - source `voice-scope:001` to [DOC-WRIT-009](doctrines/DOC-WRIT-009-prose-in-this-repository-follows-the-voice-law.md) (default)
-- source `voice-scope:002` to [DOC-WRIT-017](doctrines/DOC-WRIT-017-venture-documentation-follows-the-plain-language-defaults-above.md) (default)
+- source `voice-scope:002` to [DOC-WRIT-017](doctrines/DOC-WRIT-017-venture-documentation-follows-the-plain-language-defaults.md) (default)
 - source `voice-scope:003` remains explanatory at [voice scopes](#voice-scopes) until a named brand voice is adopted.
 <a id="B1"></a>
-- `B1` to [DOC-WRIT-001](doctrines/DOC-WRIT-001-no-user-facing-sentence-is-assembled-by-string-concatenation.md) (binding)
+- `B1` to [DOC-WRIT-001](doctrines/DOC-WRIT-001-no-user-facing-sentence-is-assembled-by-string.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-WRIT-002](doctrines/DOC-WRIT-002-plural-and-gender-selection-resolves-per-locale-through-cldr-cat.md) (binding)
+- `B2` to [DOC-WRIT-002](doctrines/DOC-WRIT-002-plural-and-gender-selection-resolves-per-locale-through.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-WRIT-003](doctrines/DOC-WRIT-003-every-blocking-error-identifies-what-failed-and-states-the-requi.md) (binding)
+- `B4` to [DOC-WRIT-003](doctrines/DOC-WRIT-003-every-blocking-error-identifies-what-failed-and-states-the.md) (binding)
 <a id="B9"></a>
-- `B9` to [DOC-WRIT-004](doctrines/DOC-WRIT-004-licence-obligations-on-external-style-guidance-are-recorded-befo.md) (binding)
+- `B9` to [DOC-WRIT-004](doctrines/DOC-WRIT-004-licence-obligations-on-external-style-guidance-are-recorded.md) (binding)
 <a id="B3"></a>
-- `B3` to [DOC-WRIT-005](doctrines/DOC-WRIT-005-a-pseudo-locale-build-passes-before-any-string-reaches-a-transla.md) (default)
+- `B3` to [DOC-WRIT-005](doctrines/DOC-WRIT-005-a-pseudo-locale-build-passes-before-any-string-reaches-a.md) (default)
 <a id="B5"></a>
-- `B5` to [DOC-WRIT-006](doctrines/DOC-WRIT-006-an-error-renders-adjacent-to-its-cause-does-not-fire-before-the.md) (default)
+- `B5` to [DOC-WRIT-006](doctrines/DOC-WRIT-006-an-error-renders-adjacent-to-its-cause-does-not-fire-before.md) (default)
 <a id="B6"></a>
-- `B6` to [DOC-WRIT-007](doctrines/DOC-WRIT-007-human-error-text-and-machine-error-bodies-are-separate-artefacts.md) (default)
+- `B6` to [DOC-WRIT-007](doctrines/DOC-WRIT-007-human-error-text-and-machine-error-bodies-are-separate.md) (default)
 <a id="B7"></a>
-- `B7` to [DOC-WRIT-008](doctrines/DOC-WRIT-008-one-banned-and-preferred-term-list-runs-in-ci-over-user-facing-s.md) (default)
+- `B7` to [DOC-WRIT-008](doctrines/DOC-WRIT-008-one-banned-and-preferred-term-list-runs-in-ci-over-user.md) (default)
 <a id="B8"></a>
 - `B8` to [DOC-WRIT-009](doctrines/DOC-WRIT-009-prose-in-this-repository-follows-the-voice-law.md) (default)
 <a id="B10"></a>
 - `B10` to [DOC-WRIT-010](doctrines/DOC-WRIT-010-no-readability-formula-gates-a-merge-a-release-or-a-review.md) (default)
-- source `defaults:007` to [DOC-WRIT-011](doctrines/DOC-WRIT-011-front-load-the-answer-lead-with-the-verb-one-instruction-per-ste.md) (default)
+- source `defaults:007` to [DOC-WRIT-011](doctrines/DOC-WRIT-011-front-load-the-answer-lead-with-the-verb-one-instruction.md) (default)
 - source `defaults:008` to [DOC-WRIT-012](doctrines/DOC-WRIT-012-literal-language-in-anything-the-reader-must-act-on.md) (default)
-- source `defaults:009` to [DOC-WRIT-013](doctrines/DOC-WRIT-013-write-for-the-lowest-literacy-in-the-audience-not-the-median.md) (default)
-- source `defaults:010` to [DOC-WRIT-014](doctrines/DOC-WRIT-014-layout-slack-sized-for-two-to-three-times-expansion-on-strings-u.md) (default)
+- source `defaults:009` to [DOC-WRIT-013](doctrines/DOC-WRIT-013-write-for-the-lowest-literacy-in-the-audience-not-the.md) (default)
+- source `defaults:010` to [DOC-WRIT-014](doctrines/DOC-WRIT-014-layout-slack-sized-for-two-to-three-times-expansion-on.md) (default)
 - source `defaults:011` to [DOC-WRIT-015](doctrines/DOC-WRIT-015-sentence-case-for-headings-and-interface-labels.md) (default)
-- source `defaults:012` to [DOC-WRIT-016](doctrines/DOC-WRIT-016-a-comprehension-claim-is-tested-with-real-readers-before-it-is-m.md) (default)
-- source `defaults:013` to [DOC-WRIT-017](doctrines/DOC-WRIT-017-venture-documentation-follows-the-plain-language-defaults-above.md) (default)
+- source `defaults:012` to [DOC-WRIT-016](doctrines/DOC-WRIT-016-a-comprehension-claim-is-tested-with-real-readers-before-it.md) (default)
+- source `defaults:013` to [DOC-WRIT-017](doctrines/DOC-WRIT-017-venture-documentation-follows-the-plain-language-defaults.md) (default)
 - source `preferences:001` to [DOC-WRIT-018](doctrines/DOC-WRIT-018-report-a-readability-score-at-all.md) (preference)
-- source `preferences:002` to [DOC-WRIT-019](doctrines/DOC-WRIT-019-tone-varying-with-the-readers-emotional-state-celebration-copy-r.md) (preference)
+- source `preferences:002` to [DOC-WRIT-019](doctrines/DOC-WRIT-019-tone-varying-with-the-readers-emotional-state-celebration.md) (preference)
 - source `preferences:003` to [DOC-WRIT-020](doctrines/DOC-WRIT-020-serial-comma-spacing-after-a-full-stop-contraction-density.md) (preference)
-- source `preferences:004` to [DOC-WRIT-021](doctrines/DOC-WRIT-021-writing-about-people-treated-as-a-first-class-section-of-a-style.md) (preference)
-- source `preferences:005` to [DOC-WRIT-022](doctrines/DOC-WRIT-022-a-short-house-term-list-over-a-full-termbase-until-the-term-list.md) (preference)
+- source `preferences:004` to [DOC-WRIT-021](doctrines/DOC-WRIT-021-writing-about-people-treated-as-a-first-class-section-of-a.md) (preference)
+- source `preferences:005` to [DOC-WRIT-022](doctrines/DOC-WRIT-022-a-short-house-term-list-over-a-full-termbase-until-the-term.md) (preference)
 
 ## Decision map
 
-| Fork | What it decides | Guide |
+| Fork | What it decides | Wargame |
 | --- | --- | --- |
-| Which clarity philosophy governs this text | Who holds the control point, and what the acceptance test is | `packs/writing-content/guides/GD-WRIT-001-clarity-philosophy.md` |
-| How a sentence is built for a second locale | Message format, migration cost, what a translator may express | `packs/writing-content/guides/GD-WRIT-002-message-structure.md` |
-| Which voice applies to this text | Register, style rules, who may overrule | `packs/writing-content/guides/GD-WRIT-003-voice-scope.md` |
-| How prose is checked in CI | What blocks a merge and what only reports | `packs/writing-content/guides/GD-WRIT-004-prose-gate.md` |
+| Which clarity philosophy governs this text | Who holds the control point, and what the acceptance test is | `packs/writing-content/wargames/WG-WRIT-001-clarity-philosophy.md` |
+| How a sentence is built for a second locale | Message format, migration cost, what a translator may express | `packs/writing-content/wargames/WG-WRIT-002-message-structure.md` |
+| Which voice applies to this text | Register, style rules, who may overrule | `packs/writing-content/wargames/WG-WRIT-003-voice-scope.md` |
+| How prose is checked in CI | What blocks a merge and what only reports | `packs/writing-content/wargames/WG-WRIT-004-prose-gate.md` |
 
-Detail the body defers to sits in `packs/writing-content/refs/`: the
+Detail the body defers to sits in `packs/writing-content/references/`: the
 error contract and the i18n mechanics. A worked example is in
-`packs/writing-content/exemplars/EX-WRIT-001-order-panel-second-locale.md`.
+`packs/writing-content/examples/EX-WRIT-001-order-panel-second-locale.md`.
 
 ## Failure modes and anti-patterns
 
@@ -233,7 +236,7 @@ error contract and the i18n mechanics. A worked example is in
   and Fluent reached the same conclusion by different routes, parts of
   the MessageFormat default function set were still Draft at the
   cutoff, and Fluent has not moved since 2019
-  (EV-0442, EV-0444). GD-WRIT-002
+  (EV-0442, EV-0444). WG-WRIT-002
   carries the bet.
 - **Two flagship sources moved host in the last eighteen months**
   (EV-0434, EV-0435). Cite the section,

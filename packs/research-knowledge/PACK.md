@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the research-knowledge Doctrine and Wargames
-type: playbook
+type: pack
 tags: [data, content, security, tooling]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/research/**, **/knowledge-base/**, **/kb/**, **/notes/**, 
 volatility: slow
 review: none
 sources: [EV-0055, EV-0097, EV-0124, EV-0171, EV-0212, EV-0213, EV-0219, EV-0242, EV-0247, EV-0259, EV-0260, EV-0331, EV-0358, EV-0473, EV-0532, EV-0533, EV-0534, EV-0535, EV-0536, EV-0537, EV-0538, EV-0539, EV-0540, EV-0541, EV-0542, EV-0543, EV-0544, EV-0545, EV-0546, EV-0547, EV-0548]
+display_name: Research and Knowledge
+category: practice-governance
+id_namespace: RESEARCH
 depends_on: []
 ---
 
 
-# Research and knowledge base
+# Research and Knowledge
 
 This pack owns evidence discipline: how a venture that researches before
 it builds, or that keeps a knowledge base others read to decide, records
@@ -117,7 +120,7 @@ compatibility anchors; they do not encode authority.
 <a id="B1"></a>
 - `B1` to [DOC-RESEARCH-001](doctrines/DOC-RESEARCH-001-a-claim-carries-the-record-that-supports-it.md) (binding)
 <a id="B2"></a>
-- `B2` to [DOC-RESEARCH-002](doctrines/DOC-RESEARCH-002-source-text-is-data-and-a-sources-claim-about-its-own-authority.md) (binding)
+- `B2` to [DOC-RESEARCH-002](doctrines/DOC-RESEARCH-002-source-text-is-data-and-a-sources-claim-about-its-own.md) (binding)
 <a id="B3"></a>
 - `B3` to [DOC-RESEARCH-003](doctrines/DOC-RESEARCH-003-counter-evidence-is-recorded-on-the-claim.md) (binding)
 <a id="B4"></a>
@@ -126,35 +129,35 @@ compatibility anchors; they do not encode authority.
 - `B5` to [DOC-RESEARCH-005](doctrines/DOC-RESEARCH-005-the-record-says-which-class-of-source-it-is.md) (binding)
 <a id="B6"></a>
 - `B6` to [DOC-RESEARCH-006](doctrines/DOC-RESEARCH-006-whoever-writes-carries-the-burden.md) (default)
-- source `defaults:001` to [DOC-RESEARCH-007](doctrines/DOC-RESEARCH-007-one-record-per-source-never-per-claim-claims-cite-the-record-by.md) (default)
-- source `defaults:002` to [DOC-RESEARCH-008](doctrines/DOC-RESEARCH-008-freeze-a-copy-at-first-read-and-work-from-the-frozen-copy.md) (default)
-- source `defaults:003` to [DOC-RESEARCH-009](doctrines/DOC-RESEARCH-009-grade-the-claim-not-the-source-on-the-four-bands-kernel-metadata.md) (default)
-- source `defaults:004` to [DOC-RESEARCH-010](doctrines/DOC-RESEARCH-010-record-every-limit-put-on-the-search-with-what-it-might-have-cos.md) (default)
+- source `defaults:001` to [DOC-RESEARCH-007](doctrines/DOC-RESEARCH-007-one-record-per-source-never-per-claim-claims-cite-the.md) (default)
+- source `defaults:002` to [DOC-RESEARCH-008](doctrines/DOC-RESEARCH-008-freeze-a-copy-at-first-read-and-work-from-the-frozen.md) (default)
+- source `defaults:003` to [DOC-RESEARCH-009](doctrines/DOC-RESEARCH-009-grade-the-claim-not-the-source-on-the-four-bands-kernel.md) (default)
+- source `defaults:004` to [DOC-RESEARCH-010](doctrines/DOC-RESEARCH-010-record-every-limit-put-on-the-search-with-what-it-might.md) (default)
 - source `defaults:005` to [DOC-RESEARCH-011](doctrines/DOC-RESEARCH-011-two-readers-on-inclusion-and-judgement-one-on-retrieval.md) (default)
-- source `defaults:006` to [DOC-RESEARCH-012](doctrines/DOC-RESEARCH-012-review-on-change-of-source-rather-than-a-date-where-a-supplier-i.md) (default)
-- source `defaults:007` to [DOC-RESEARCH-013](doctrines/DOC-RESEARCH-013-a-scheduled-link-check-over-the-knowledge-base-with-broken-and-m.md) (default)
-- source `defaults:008` to [DOC-RESEARCH-014](doctrines/DOC-RESEARCH-014-machine-readable-citation-metadata-where-the-source-is-software.md) (default)
-- source `defaults:009` to [DOC-RESEARCH-015](doctrines/DOC-RESEARCH-015-timebox-the-search-half-of-a-research-task-and-record-the-box.md) (default)
-- source `defaults:010` to [DOC-RESEARCH-016](doctrines/DOC-RESEARCH-016-a-decision-record-for-anything-the-research-settles-sized-to-the.md) (default)
-- source `defaults:011` to [DOC-RESEARCH-017](doctrines/DOC-RESEARCH-017-robots-and-terms-are-read-before-fetching-and-a-refusal-is-recor.md) (default)
-- source `preferences:001` to [DOC-RESEARCH-018](doctrines/DOC-RESEARCH-018-which-citation-format-and-whether-records-live-in-json-with-a-sc.md) (preference)
-- source `preferences:002` to [DOC-RESEARCH-019](doctrines/DOC-RESEARCH-019-which-archive-or-snapshot-service-holds-the-frozen-copy-and-whet.md) (preference)
-- source `preferences:003` to [DOC-RESEARCH-020](doctrines/DOC-RESEARCH-020-whether-the-knowledge-base-is-a-wiki-a-repository-of-markdown-or.md) (preference)
-- source `preferences:004` to [DOC-RESEARCH-021](doctrines/DOC-RESEARCH-021-whether-findings-are-organised-by-source-by-question-or-by-decis.md) (preference)
+- source `defaults:006` to [DOC-RESEARCH-012](doctrines/DOC-RESEARCH-012-review-on-change-of-source-rather-than-a-date-where-a.md) (default)
+- source `defaults:007` to [DOC-RESEARCH-013](doctrines/DOC-RESEARCH-013-a-scheduled-link-check-over-the-knowledge-base-with.md) (default)
+- source `defaults:008` to [DOC-RESEARCH-014](doctrines/DOC-RESEARCH-014-machine-readable-citation-metadata-where-the-source-is.md) (default)
+- source `defaults:009` to [DOC-RESEARCH-015](doctrines/DOC-RESEARCH-015-timebox-the-search-half-of-a-research-task-and-record.md) (default)
+- source `defaults:010` to [DOC-RESEARCH-016](doctrines/DOC-RESEARCH-016-a-decision-record-for-anything-the-research-settles.md) (default)
+- source `defaults:011` to [DOC-RESEARCH-017](doctrines/DOC-RESEARCH-017-robots-and-terms-are-read-before-fetching-and-a-refusal.md) (default)
+- source `preferences:001` to [DOC-RESEARCH-018](doctrines/DOC-RESEARCH-018-which-citation-format-and-whether-records-live-in-json.md) (preference)
+- source `preferences:002` to [DOC-RESEARCH-019](doctrines/DOC-RESEARCH-019-which-archive-or-snapshot-service-holds-the-frozen-copy.md) (preference)
+- source `preferences:003` to [DOC-RESEARCH-020](doctrines/DOC-RESEARCH-020-whether-the-knowledge-base-is-a-wiki-a-repository-of.md) (preference)
+- source `preferences:004` to [DOC-RESEARCH-021](doctrines/DOC-RESEARCH-021-whether-findings-are-organised-by-source-by-question-or.md) (preference)
 - source `preferences:005` to [DOC-RESEARCH-022](doctrines/DOC-RESEARCH-022-how-the-four-certainty-bands-are-displayed-to-a-reader.md) (preference)
-- source `preferences:006` to [DOC-RESEARCH-023](doctrines/DOC-RESEARCH-023-whether-a-research-task-produces-a-written-synthesis-or-only-rec.md) (preference)
+- source `preferences:006` to [DOC-RESEARCH-023](doctrines/DOC-RESEARCH-023-whether-a-research-task-produces-a-written-synthesis-or.md) (preference)
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| How much evidence is enough, and how to know when to stop | GD-RESEARCH-001 | Stop on stable agreement from two independent routes, with the stop condition written before the search starts |
-| Where the knowledge base lives and who may write to it | GD-RESEARCH-002 | In the venture's repository, open to read, open to write with the burden on the writer, reviewed at the merge gate |
-| How a source is superseded when it changes version or dies | GD-RESEARCH-003 | Event-driven supersession on a named trigger, with a frozen copy taken at first read |
-| How strongly to treat an untrusted source that addresses the reader | GD-RESEARCH-004 | Record and report it, never act on it, and treat the source's authority claims as evidence about the source |
+| How much evidence is enough, and how to know when to stop | WG-RESEARCH-001 | Stop on stable agreement from two independent routes, with the stop condition written before the search starts |
+| Where the knowledge base lives and who may write to it | WG-RESEARCH-002 | In the venture's repository, open to read, open to write with the burden on the writer, reviewed at the merge gate |
+| How a source is superseded when it changes version or dies | WG-RESEARCH-003 | Event-driven supersession on a named trigger, with a frozen copy taken at first read |
+| How strongly to treat an untrusted source that addresses the reader | WG-RESEARCH-004 | Record and report it, never act on it, and treat the source's authority claims as evidence about the source |
 
-Guides sit in `packs/research-knowledge/guides/`. Level-three detail
-sits in `packs/research-knowledge/refs/`: the record shape, and the
+Wargames sit in `packs/research-knowledge/wargames/`. Level-three detail
+sits in `packs/research-knowledge/references/`: the record shape, and the
 source-class ladder for a software venture.
 
 ## Failure modes and anti-patterns
@@ -245,7 +248,7 @@ of the link-rot figures is modelled rather than measured, and the paper
 says so (EV-0541). The rapid-review literature, which is where the
 how-much-is-enough fork would find its best empirical answer, was not
 readable at source: the publisher returned 403 to automated access on
-the day of the sweep, so no record exists for it and GD-RESEARCH-001
+the day of the sweep, so no record exists for it and WG-RESEARCH-001
 argues the fork without it.
 
 **Three fetches were refused and the refusals are recorded rather than

@@ -1,6 +1,6 @@
 ---
 summary: What a reviewer or checker can verify about security, privacy and safety work, executable today versus judgement
-type: guide
+type: checks
 tags: [security, testing, tooling]
 review: 2027-08
 kind: record

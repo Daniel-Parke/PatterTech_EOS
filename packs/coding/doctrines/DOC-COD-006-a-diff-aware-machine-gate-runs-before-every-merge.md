@@ -37,7 +37,7 @@ author cannot see (EV-0181). Scope note: that was a 2021 model on
 deliberately security-loaded prompts. The finding that survives is the
 necessity of a gate, not the size of the number. Whole-repo-only gates
 are themselves an anti-pattern: they produce alert fatigue and then get
-turned off. See `packs/coding/refs/REVIEW_GATE.md`.
+turned off. See `packs/coding/references/REVIEW_GATE.md`.
 
 Guarded actions are outside review entirely. Deployment, deletion,
 force-push, secret access, money movement and the rest are ruled by

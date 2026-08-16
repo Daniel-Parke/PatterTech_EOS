@@ -1,0 +1,13 @@
+{
+  "id": "DREL-OPS-003",
+  "owner_doctrine": "DOC-DEVOPS-004",
+  "relation": "tensions_with",
+  "target": "DOC-SEC-005",
+  "conditions": ["observability_collects_sensitive_data"],
+  "status": "covered",
+  "evidence": ["EV-0020", "EV-0041", "EV-0225", "EV-0578"],
+  "fallback": "Minimise and bound telemetry before collection; do not treat later redaction as the primary privacy control.",
+  "wargame": "WG-DEVOPS-007",
+  "owner": "devops-reliability",
+  "review": "2027-02"
+}

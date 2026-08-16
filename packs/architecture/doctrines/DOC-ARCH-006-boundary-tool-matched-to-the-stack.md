@@ -29,7 +29,7 @@ The `statement` field is the canonical standing proposition.
 import-linter for Python,
 dependency-cruiser for TypeScript, ArchUnit for the JVM. Reason: each
 runs in the build the venture already has. See
-`packs/architecture/refs/boundary-tooling.md` for what each one cannot
+`packs/architecture/references/boundary-tooling.md` for what each one cannot
 see.
 
 ## Migration provenance

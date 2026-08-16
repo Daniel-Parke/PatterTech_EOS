@@ -43,7 +43,7 @@ under injected ambiguity (EV-0467). The escape is not a courtesy.
 Whether an agent asks is a property of the harness rather than the
 model, so the orchestrator treats "the packet does not determine X" as a
 first-class outcome with no penalty attached. Field by field in
-`packs/agentic-swarm/refs/PACKET_AND_RETURN.md`.
+`packs/agentic-swarm/references/PACKET_AND_RETURN.md`.
 
 ## Migration provenance
 

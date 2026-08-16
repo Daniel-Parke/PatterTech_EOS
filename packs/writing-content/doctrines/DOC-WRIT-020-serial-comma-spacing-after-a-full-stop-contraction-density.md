@@ -25,7 +25,7 @@ The `statement` field is the canonical standing proposition.
 
 ## Reasoning and limits
 
-Settled per scope by GD-WRIT-003 and not debated per pull request.
+Settled per scope by WG-WRIT-003 and not debated per pull request.
 
 ## Migration provenance
 

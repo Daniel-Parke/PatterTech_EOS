@@ -1,6 +1,6 @@
 ---
 summary: What a reviewer or a checker can verify about delivery and testing work, and which checks run today
-kind: guide
+kind: record
 scope: estate
 authority: default
 lifecycle: active
@@ -8,7 +8,7 @@ basis: decision
 evidence_grade: not-applicable
 sources: [EV-0007, EV-0015, EV-0016, EV-0186, EV-0187, EV-0190, EV-0195]
 review: 2027-08
-type: guide
+type: checks
 tags: [delivery, testing, ci]
 ---
 

@@ -1,8 +1,8 @@
 ---
 summary: What a reviewer or a checker can verify about devops and reliability work, split into executable today and judgement
-type: guide
+type: checks
 tags: [ops, delivery, ci]
-kind: guide
+kind: record
 scope: estate
 authority: default
 basis: decision

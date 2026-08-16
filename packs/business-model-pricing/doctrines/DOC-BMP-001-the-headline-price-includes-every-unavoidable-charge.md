@@ -33,7 +33,7 @@ directly under the commenced consumer provisions of the DMCC Act, with
 penalties reported up to ten per cent of global turnover (EV-0299). The
 contested boundary is between unavoidable and genuinely optional; record
 which side each charge sits and why. See
-`packs/business-model-pricing/refs/UK_OBLIGATIONS.md`.
+`packs/business-model-pricing/references/UK_OBLIGATIONS.md`.
 
 ## Migration provenance
 

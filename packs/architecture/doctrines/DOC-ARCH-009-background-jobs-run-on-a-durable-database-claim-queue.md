@@ -28,7 +28,7 @@ The `statement` field is the canonical standing proposition.
 
 Reason:
 one store, exactly the database's guarantees, and jobs survive a deploy.
-Argued at `packs/architecture/guides/WG-ARCH-004-job-execution.md`.
+Argued at `packs/architecture/wargames/WG-ARCH-004-job-execution.md`.
 Where a state change must also produce a message, use an outbox in the
 same transaction and make every consumer idempotent (EV-0157).
 

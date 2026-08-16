@@ -77,13 +77,13 @@
  ],
  "quotation_concerns": [
   {
-   "file": "packs/native-client/refs/A11Y_NON_WEB.md",
+   "file": "packs/native-client/references/A11Y_NON_WEB.md",
    "line": 25,
    "concern": "This file is the pack's longest treatment of EV-0370, which is under the W3C Document Licence and recorded paraphrase-only with no verbatim reuse, and of EV-0371, which is ETSI copyright with redistribution restricted and no open reuse licence.",
    "resolution": "Not a concern. Clause numbers, the unit of conformance and the requirement identities are facts a reader has to be able to look up. No sentence of either document appears. If any file in this pack needs a second read, it is this one."
   },
   {
-   "file": "packs/native-client/refs/RELEASE_MECHANICS.md",
+   "file": "packs/native-client/references/RELEASE_MECHANICS.md",
    "line": 94,
    "concern": "The rejection statistic comes from EV-0373, which is Apple copyright with no reuse licence stated.",
    "resolution": "Not a concern. A published figure from a vendor census is a fact, and the reference already carries the scope note that it is self-reported."

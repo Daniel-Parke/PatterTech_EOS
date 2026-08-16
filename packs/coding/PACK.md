@@ -1,6 +1,6 @@
 ---
 summary: Activation, outcomes and decision map for the coding Doctrine and Wargames
-type: playbook
+type: pack
 tags: [eos, delivery, testing]
 kind: record
 authority: none
@@ -13,11 +13,14 @@ activation_paths: [**/*.py, **/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.go, **/*.
 volatility: slow
 review: none
 sources: [EV-0003, EV-0004, EV-0006, EV-0007, EV-0008, EV-0010, EV-0069, EV-0070, EV-0089, EV-0094, EV-0105, EV-0164, EV-0165, EV-0166, EV-0167, EV-0168, EV-0169, EV-0170, EV-0171, EV-0172, EV-0173, EV-0174, EV-0175, EV-0176, EV-0177, EV-0178, EV-0179, EV-0180, EV-0181, EV-0182, EV-0183, EV-0191, EV-0192, EV-0480]
+display_name: Software Construction
+category: engineering
+id_namespace: COD
 depends_on: [architecture]
 ---
 
 
-# Coding pack
+# Software Construction
 
 This pack governs how code is written and accepted inside a venture
 repository: where the oracle for a change comes from, how behaviour is
@@ -81,13 +84,13 @@ Standing rules are atomic Doctrine files. The labels below are stable
 compatibility anchors; they do not encode authority.
 
 <a id="B1"></a>
-- `B1` to [DOC-COD-001](doctrines/DOC-COD-001-the-oracle-that-judges-a-change-is-authored-independently-of-the.md) (binding), [DOC-COD-002](doctrines/DOC-COD-002-a-gate-oracle-is-observed-failing-before-its-green-result-counts.md) (binding)
+- `B1` to [DOC-COD-001](doctrines/DOC-COD-001-the-oracle-that-judges-a-change-is-authored-independently-of.md) (binding), [DOC-COD-002](doctrines/DOC-COD-002-a-gate-oracle-is-observed-failing-before-its-green-result.md) (binding)
 <a id="B2"></a>
 - `B2` to [DOC-COD-003](doctrines/DOC-COD-003-behaviour-is-pinned-before-structure-moves.md) (binding)
 <a id="B3"></a>
 - `B3` to [DOC-COD-004](doctrines/DOC-COD-004-the-error-path-is-handled-never-discarded.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-COD-005](doctrines/DOC-COD-005-on-a-published-interface-distinguishable-failures-are-declared-a.md) (binding)
+- `B4` to [DOC-COD-005](doctrines/DOC-COD-005-on-a-published-interface-distinguishable-failures-are.md) (binding)
 <a id="B5"></a>
 - `B5` to [DOC-COD-006](doctrines/DOC-COD-006-a-diff-aware-machine-gate-runs-before-every-merge.md) (binding)
 <a id="D1"></a>
@@ -103,11 +106,11 @@ compatibility anchors; they do not encode authority.
 <a id="D6"></a>
 - `D6` to [DOC-COD-012](doctrines/DOC-COD-012-a-dumb-pipeline-before-a-clever-one.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-COD-013](doctrines/DOC-COD-013-write-the-oracle-before-the-implementation-wherever-the-conditio.md) (default)
+- `D7` to [DOC-COD-013](doctrines/DOC-COD-013-write-the-oracle-before-the-implementation-wherever-the.md) (default)
 <a id="D8"></a>
-- `D8` to [DOC-COD-014](doctrines/DOC-COD-014-cap-the-size-of-a-work-package-and-keep-packages-of-a-similar-si.md) (default)
+- `D8` to [DOC-COD-014](doctrines/DOC-COD-014-cap-the-size-of-a-work-package-and-keep-packages-of-a.md) (default)
 <a id="D9"></a>
-- `D9` to [DOC-COD-015](doctrines/DOC-COD-015-declare-distinguishable-failures-on-internal-interfaces-too-wher.md) (default)
+- `D9` to [DOC-COD-015](doctrines/DOC-COD-015-declare-distinguishable-failures-on-internal-interfaces-too.md) (default)
 - source `preferences:001` to [DOC-COD-016](doctrines/DOC-COD-016-conventional-commits.md) (preference)
 - source `preferences:002` to [DOC-COD-017](doctrines/DOC-COD-017-naming-beyond-concept-selection.md) (preference)
 - source `preferences:003` to [DOC-COD-018](doctrines/DOC-COD-018-duplication-thresholds.md) (preference)
@@ -135,20 +138,20 @@ to police.
 
 ## Decision map
 
-| Fork | Guide | Default |
+| Fork | Wargame | Default |
 | --- | --- | --- |
-| Where does the oracle for this change come from? | `packs/coding/guides/GD-COD-001-oracle-strategy.md` | From the specification, in a context that never held the implementation |
-| Who reviews this change, and how hard? | `packs/coding/guides/GD-COD-002-review-gate.md` | Machine gate always, human scoped by risk tier |
-| How do callers learn that a call failed? | `packs/coding/guides/GD-COD-003-failure-mode-contract.md` | Declared, versioned failure modes with the cause preserved |
-| How do you change code nobody can specify? | `packs/coding/guides/GD-COD-004-pin-then-change.md` | Pin with a characterisation test, then change |
-| One repository or several? | `packs/coding/guides/GD-COD-005-repo-shape.md` | Monorepo per venture |
+| Where does the oracle for this change come from? | `packs/coding/wargames/WG-COD-001-oracle-strategy.md` | From the specification, in a context that never held the implementation |
+| Who reviews this change, and how hard? | `packs/coding/wargames/WG-COD-002-review-gate.md` | Machine gate always, human scoped by risk tier |
+| How do callers learn that a call failed? | `packs/coding/wargames/WG-COD-003-failure-mode-contract.md` | Declared, versioned failure modes with the cause preserved |
+| How do you change code nobody can specify? | `packs/coding/wargames/WG-COD-004-pin-then-change.md` | Pin with a characterisation test, then change |
+| One repository or several? | `packs/coding/wargames/WG-COD-005-repo-shape.md` | Monorepo per venture |
 
 Level-three detail: which oracle each change type needs and how
-independence is proved, `packs/coding/refs/ORACLES.md`; what counts as a
-handled error, `packs/coding/refs/ERROR_PATH.md`; what the machine gate
-contains, `packs/coding/refs/REVIEW_GATE.md`. A worked run of the pack
+independence is proved, `packs/coding/references/ORACLES.md`; what counts as a
+handled error, `packs/coding/references/ERROR_PATH.md`; what the machine gate
+contains, `packs/coding/references/REVIEW_GATE.md`. A worked run of the pack
 on one defect is
-`packs/coding/exemplars/EX-COD-001-webhook-silent-failure.md`, and what
+`packs/coding/examples/EX-COD-001-webhook-silent-failure.md`, and what
 a reviewer or a script can verify is `packs/coding/CHECKS.md`.
 
 ## Failure modes and anti-patterns

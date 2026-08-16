@@ -10,14 +10,17 @@ applies_when: [builds_agent_workflow, orchestrates_multiple_agents, designs_agen
 activation_paths: [**/agents/**, **/subagents/**, **/.claude/**, **/prompts/**, **/*prompt*.md, **/*agent*.py, **/*agent*.ts, **/mcp*.json, **/tools/**/*tool*.py, **/workflows/**, AGENTS.md, CLAUDE.md]
 volatility: fast
 review: none
-type: guide
+type: pack
 tags: [eos, arch, tooling]
 sources: [EV-0001, EV-0007, EV-0021, EV-0046, EV-0050, EV-0051, EV-0052, EV-0076, EV-0078, EV-0079, EV-0080, EV-0082, EV-0083, EV-0085, EV-0086, EV-0087, EV-0088, EV-0089, EV-0106, EV-0107, EV-0108, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121, EV-0449]
+display_name: Agent Systems
+category: data-ai
+id_namespace: AGENT
 depends_on: [ai-ml-llm, security-privacy]
 ---
 
 
-# Agentic development
+# Agent Systems
 
 This pack covers how to shape agent work: which of ten topologies to
 run, and how to bound, verify and feed it. It activates on any task that
@@ -88,9 +91,9 @@ compatibility anchors; they do not encode authority.
 <a id="B1"></a>
 - `B1` to [DOC-AGENT-001](doctrines/DOC-AGENT-001-one-writer.md) (binding)
 <a id="B3"></a>
-- `B3` to [DOC-AGENT-002](doctrines/DOC-AGENT-002-irreversible-or-externally-visible-acts-pass-a-human-checkpoint.md) (binding)
+- `B3` to [DOC-AGENT-002](doctrines/DOC-AGENT-002-irreversible-or-externally-visible-acts-pass-a-human.md) (binding)
 <a id="B4"></a>
-- `B4` to [DOC-AGENT-003](doctrines/DOC-AGENT-003-evaluation-is-separate-from-generation-and-the-evaluator-holds-e.md) (binding)
+- `B4` to [DOC-AGENT-003](doctrines/DOC-AGENT-003-evaluation-is-separate-from-generation-and-the-evaluator.md) (binding)
 <a id="B7"></a>
 - `B7` to [DOC-AGENT-004](doctrines/DOC-AGENT-004-checkpoint-state-is-a-trust-boundary.md) (binding)
 <a id="B2"></a>
@@ -106,33 +109,33 @@ compatibility anchors; they do not encode authority.
 <a id="D3"></a>
 - `D3` to [DOC-AGENT-010](doctrines/DOC-AGENT-010-context-arrives-just-in-time-by-progressive-disclosure.md) (default)
 <a id="D4"></a>
-- `D4` to [DOC-AGENT-011](doctrines/DOC-AGENT-011-tool-capability-order-explicit-tools-then-bash-then-generated-co.md) (default)
+- `D4` to [DOC-AGENT-011](doctrines/DOC-AGENT-011-tool-capability-order-explicit-tools-then-bash-then.md) (default)
 <a id="D5"></a>
-- `D5` to [DOC-AGENT-012](doctrines/DOC-AGENT-012-continuity-across-context-windows-rides-on-artifacts-and-git-his.md) (default)
+- `D5` to [DOC-AGENT-012](doctrines/DOC-AGENT-012-continuity-across-context-windows-rides-on-artifacts-and.md) (default)
 <a id="D6"></a>
-- `D6` to [DOC-AGENT-013](doctrines/DOC-AGENT-013-cheap-guardrails-run-beside-the-work-and-trip-a-wire-and-cross-c.md) (default)
+- `D6` to [DOC-AGENT-013](doctrines/DOC-AGENT-013-cheap-guardrails-run-beside-the-work-and-trip-a-wire-and.md) (default)
 <a id="D7"></a>
-- `D7` to [DOC-AGENT-014](doctrines/DOC-AGENT-014-memory-is-a-swappable-store-behind-one-interface-with-an-explici.md) (default)
+- `D7` to [DOC-AGENT-014](doctrines/DOC-AGENT-014-memory-is-a-swappable-store-behind-one-interface-with-an.md) (default)
 <a id="D8"></a>
-- `D8` to [DOC-AGENT-015](doctrines/DOC-AGENT-015-evaluation-suites-start-at-twenty-to-fifty-tasks-harvested-from.md) (default)
-- source `preferences:001` to [DOC-AGENT-016](doctrines/DOC-AGENT-016-event-sourced-conversation-state-over-ad-hoc-message-history-ev.md) (preference)
-- source `preferences:002` to [DOC-AGENT-017](doctrines/DOC-AGENT-017-functional-composition-before-graph-builders-reaching-for-a-grap.md) (preference)
+- `D8` to [DOC-AGENT-015](doctrines/DOC-AGENT-015-evaluation-suites-start-at-twenty-to-fifty-tasks-harvested.md) (default)
+- source `preferences:001` to [DOC-AGENT-016](doctrines/DOC-AGENT-016-event-sourced-conversation-state-over-ad-hoc-message.md) (preference)
+- source `preferences:002` to [DOC-AGENT-017](doctrines/DOC-AGENT-017-functional-composition-before-graph-builders-reaching-for.md) (preference)
 - source `preferences:003` to [DOC-AGENT-018](doctrines/DOC-AGENT-018-condensers-that-always-preserve-the-opening-events-ev-0080.md) (preference)
-- source `preferences:004` to [DOC-AGENT-019](doctrines/DOC-AGENT-019-mechanical-stuck-detection-with-thresholds-tuned-per-model-ev-00.md) (preference)
+- source `preferences:004` to [DOC-AGENT-019](doctrines/DOC-AGENT-019-mechanical-stuck-detection-with-thresholds-tuned-per-model.md) (preference)
 
 ## Decision map
 
-| Fork | Guide |
+| Fork | Wargame |
 | --- | --- |
-| Which of the ten topologies does this work need? | `packs/agentic-development/guides/GD-AGENT-001-topology-selection.md` |
-| How does context reach the agent, and what gets dropped? | `packs/agentic-development/guides/GD-AGENT-002-context-engineering.md` |
-| Should this be a subagent at all, and of what sort? | `packs/agentic-development/guides/GD-AGENT-003-spawn-a-subagent.md` |
-| What holds the truth that checks the work? | `packs/agentic-development/guides/GD-AGENT-004-verification-oracle.md` |
+| Which of the ten topologies does this work need? | `packs/agentic-development/wargames/WG-AGENT-001-topology-selection.md` |
+| How does context reach the agent, and what gets dropped? | `packs/agentic-development/wargames/WG-AGENT-002-context-engineering.md` |
+| Should this be a subagent at all, and of what sort? | `packs/agentic-development/wargames/WG-AGENT-003-spawn-a-subagent.md` |
+| What holds the truth that checks the work? | `packs/agentic-development/wargames/WG-AGENT-004-verification-oracle.md` |
 
 The ten topologies, their pressures and their evidence are carded in
-`packs/agentic-development/refs/TOPOLOGY_CARD.md`. Bounding, tracing
+`packs/agentic-development/references/TOPOLOGY_CARD.md`. Bounding, tracing
 and checkpoint mechanics are in
-`packs/agentic-development/refs/INVARIANTS_AND_BOUNDS.md`. What a
+`packs/agentic-development/references/INVARIANTS_AND_BOUNDS.md`. What a
 reviewer or a script can verify about work in this domain is in
 `packs/agentic-development/CHECKS.md`.
 
@@ -200,7 +203,7 @@ but the size of the effect in coding is unmeasured.
 **Where the evidence is thin.** Nothing measured tells us how many
 parallel workers is too many, what condensers really cost against
 artifact-based continuity, or when an event log pays for itself. Those
-are judgement calls today and the guides say so.
+are judgement calls today and the Wargames say so.
 
 ## Evidence
 
