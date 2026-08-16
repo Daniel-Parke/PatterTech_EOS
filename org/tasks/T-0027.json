@@ -1,6 +1,6 @@
 {
   "id": "T-0027",
-  "intent": "Repair the generated tooling dependency lock after CI proved that Python 3.11 requires typing-extensions through referencing. Resolve transitive environment markers against each declared target, regenerate both hash locks, add regression guards and verify the supported Python matrix. Rollback: revert the target-marker resolver, regression tests and both generated locks together.",
+  "intent": "Repair the generated tooling dependency lock after CI proved that Python 3.11 requires typing-extensions through referencing. Resolve transitive environment markers against each declared target, regenerate both hash locks, add regression guards and verify the supported Python matrix. Rollback: revert the target-marker resolver, regression tests and both generated locks together. Closed: target-owned marker environments and a no-deps fixed-point closure now produce the same dependency result from Python 3.11 and 3.14; both locks include the required typing-extensions hash.",
   "declared": {
     "capabilities": [
       "network"
@@ -20,7 +20,7 @@
       "evidence": "declared side effect: sends-external"
     }
   ],
-  "status": "active",
+  "status": "done",
   "owner_session": "doctrine-wargame-integrator",
   "claims": [
     "tools/gen_lock.py",
@@ -31,7 +31,8 @@
   ],
   "timestamps": {
     "opened": "2026-08-15T23:53:11Z",
-    "updated": "2026-08-16T00:02:00Z"
+    "updated": "2026-08-16T00:11:15Z",
+    "closed": "2026-08-16T00:11:15Z"
   },
   "hypothesis_ledger": [
     {
@@ -39,6 +40,15 @@
       "test": "Compare the Python 3.11 and 3.14 install logs, reproduce the 3.11 require-hashes failure locally, and regenerate from wheel metadata evaluated against each target environment.",
       "result": "Confirmed. The regenerated target closure adds the pinned typing-extensions wheel only because it is active for the Python 3.11 targets.",
       "learning": "Cross-target wheel selection does not by itself produce a target-correct marker closure. The generator must evaluate Requires-Dist markers for the target and resolve to a fixed point."
+    }
+  ],
+  "verdicts": [
+    {
+      "role": "REVIEWER",
+      "session": "ci-lock-debug",
+      "verdict": "pass",
+      "notes": "The focused suite passed 24 tests and the cross-host constraint probe resolved referencing 0.37.0 from both Python 3.11 and 3.14 after the no-deps repair.",
+      "date": "2026-08-16T00:11:15Z"
     }
   ]
 }
