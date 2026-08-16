@@ -5,14 +5,14 @@
  "task": "T-0018",
  "swept_on": "2026-08-10",
  "swept_by": "eos-v21-L5",
- "scope": "packs/coding read surface: PACK.md, CHECKS.md, guides/, refs/, exemplars/. research/ excluded, because it is the pre-import record and not a read surface.",
+ "scope": "packs/coding read surface: PACK.md, CHECKS.md, wargames/, references/, examples/. research/ excluded, because it is the pre-import record and not a read surface.",
  "method": {
   "expression": "Mechanical scan of the read surface for quoted spans of twelve characters or more, then a read of every passage that restates a source under a no-derivatives or all-rights-reserved licence. No source was re-fetched, so no passage was diffed against its original. This finds carried quotation and close restatement of the passages we already knew were at risk. It cannot find carried expression from a source nobody flagged.",
   "licences": "Every EV id cited in the read surface was read out of registry/evidence.json and sorted by whether its licence line carries a licence_evidence field. A licence_evidence line is a recorded fact: somebody looked at the page and wrote down what it said. A licence value with no evidence line is an assertion, whatever it says."
  },
  "expression_findings": [
   {
-   "finding": "No quoted material carried into the read surface. The quoted-span scan returned zero hits across PACK.md, CHECKS.md, the five guides, the three refs and the exemplar.",
+   "finding": "No quoted material carried into the read surface. The quoted-span scan returned zero hits across PACK.md, CHECKS.md, the five Wargames, the three references and the example.",
    "status": "clear"
   },
   {

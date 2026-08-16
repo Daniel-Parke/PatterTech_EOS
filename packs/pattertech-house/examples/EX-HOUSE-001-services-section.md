@@ -107,7 +107,7 @@ The percentages in `charge` are the duty cycle, and they are the point
 of the block. `packs/pattertech-house/references/LIGHT_MECHANICS.md` builds a
 conduit to move during the first tenth and hold offscreen for the rest,
 so the bright core is a passing event on a mostly still rule. This
-exemplar used to run a plain `from`/`to` translate, which travels for
+example used to run a plain `from`/`to` translate, which travels for
 the whole period: same token, same duration, same property, and a light
 that is never off screen. That is a persistent slow traveller, which
 `BUDGETS.md` allows on monuments only, and criterion 8 below says this
@@ -134,7 +134,7 @@ extend.
 
 ## What a cold agent gets wrong here
 
-The failure this exemplar exists to prevent is criterion 5. A surface
+The failure this example exists to prevent is criterion 5. A surface
 can satisfy every visible rule, look calm in a screenshot, and repaint
 on every frame because somebody animated a gradient position to make the
 rule travel. That is the one check a reviewer cannot make by eye, and it

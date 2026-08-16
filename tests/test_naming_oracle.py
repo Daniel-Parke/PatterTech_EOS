@@ -448,6 +448,11 @@ def test_target_has_no_unapproved_legacy_surface() -> None:
     legacy_patterns = [
         re.compile(r"packs/[a-z0-9-]+/(?:guides|exemplars|refs)/"),
         re.compile(r"(?:\(|`)(?:guides|exemplars|refs)/"),
+        re.compile(
+            r"(?<![/A-Za-z0-9_.-])"
+            r"(?:guides/|exemplars/|refs/"
+            r"(?!(?:heads|tags|remotes|notes|replace|bisect|stash)\b))"
+        ),
         re.compile(r"packs/[a-z0-9-]+/doctrines/relations/"),
         re.compile(r"(?:PACK_SHAPE|ID_ALIASES|GUIDE_INDEX)\.md"),
         re.compile(r"\bdecision-guide\b"),

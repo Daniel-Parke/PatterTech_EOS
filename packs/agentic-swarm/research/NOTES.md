@@ -20,7 +20,7 @@ candidate rules already graded binding, default or preference.
 
 `packs/agentic-swarm/research/sources.fragment.json` carries 52 of
 those 232, chosen on one rule: a source is in the fragment file if the
-pack, its guides, its references or its checks make a claim that rests
+pack, its Wargames, its references or its checks make a claim that rests
 on it. The other 180 are context, corroboration or leads the reports
 themselves marked unverified, and they stay in the reports. That
 matches house practice, where existing packs carry twelve to
@@ -131,7 +131,7 @@ fragment file. That import has since run, the body now cites the
 assigned `EV-` ids, and the only FRAG ids left in the pack are in this
 directory, which check S014 exempts as the pre-import record. On the
 committed partition the ledger and the import belonged to the registry
-lane, T-0025, rather than to the integrator; the exemplar records that
+lane, T-0025, rather than to the integrator; the example records that
 and what it cost.
 
 Six of the 52 records matched a URL already in `registry/evidence.json`,

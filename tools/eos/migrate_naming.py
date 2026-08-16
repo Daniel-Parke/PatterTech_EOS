@@ -31,6 +31,99 @@ _SKIP_DIRS = {".git", ".mypy_cache", ".pytest_cache", "__pycache__"}
 _SELF_PATH = "tools/eos/migrate_naming.py"
 _IDENTIFIER_BOUNDARY = r"[A-Z0-9]"
 
+_LIVE_PROSE_REPLACEMENTS = {
+    "packs/agentic-development/research/NOTES.md": (
+        ("the guide's topology forks", "the Wargame's topology forks"),
+    ),
+    "packs/agentic-development/research/provenance.fragment.json": (
+        (
+            "(PACK.md, CHECKS.md, guides, refs, exemplars)",
+            "(PACK.md, CHECKS.md, Wargames, references, examples)",
+        ),
+    ),
+    "packs/agentic-swarm/research/NOTES.md": (
+        ("pack, its guides, its references", "pack, its Wargames, its references"),
+        ("the exemplar records", "the example records"),
+    ),
+    "packs/agentic-swarm/research/provenance.fragment.json": (
+        (
+            "the four guides, the three refs and the exemplar",
+            "the four Wargames, the three references and the example",
+        ),
+        ("run this exemplar records", "run this example records"),
+    ),
+    "packs/coding/research/provenance.fragment.json": (
+        (
+            "the five guides, the three refs and the exemplar",
+            "the five Wargames, the three references and the example",
+        ),
+    ),
+    "packs/data-engineering/research/provenance.fragment.json": (
+        ("the guides and the exemplar", "the Wargames and the example"),
+        ("the pack body and guides", "the pack body and Wargames"),
+    ),
+    "packs/delivery-testing/research/provenance.fragment.json": (
+        ("the guide argues", "the Wargame argues"),
+    ),
+    "packs/identity-access/research/provenance.fragment.json": (
+        (
+            "four guides, three refs, one exemplar",
+            "four Wargames, three references, one example",
+        ),
+    ),
+    "packs/legal-licensing/research/provenance.fragment.json": (
+        ("The guide states", "The Wargame states"),
+        ("new extraction guide", "new extraction Wargame"),
+        ("The guide's own", "The Wargame's own"),
+    ),
+    "packs/pattertech-house/research/provenance.fragment.json": (
+        ("The exemplar carries", "The example carries"),
+    ),
+    "packs/product-discovery/research/provenance.fragment.json": (
+        (
+            "(PACK.md, CHECKS.md, guides, refs, exemplars)",
+            "(PACK.md, CHECKS.md, Wargames, references, examples)",
+        ),
+    ),
+    "packs/research-knowledge/research/NOTES.md": (
+        (
+            "the pack body, its guides, its references, its checks\nand its exemplar",
+            "the pack body, its Wargames, its references, its checks\nand its example",
+        ),
+    ),
+    "packs/research-knowledge/research/provenance.fragment.json": (
+        (
+            "four guides, two references, one exemplar",
+            "four Wargames, two references, one example",
+        ),
+    ),
+    "packs/security-privacy/research/provenance.fragment.json": (
+        (
+            "(PACK.md, CHECKS.md, guides, refs, exemplars)",
+            "(PACK.md, CHECKS.md, Wargames, references, examples)",
+        ),
+        ("The threat catalogue and the guides", "The threat catalogue and the Wargames"),
+    ),
+    "packs/support-operations/research/provenance.fragment.json": (
+        (
+            "(PACK.md, CHECKS.md, guides, refs, exemplars)",
+            "(PACK.md, CHECKS.md, Wargames, references, examples)",
+        ),
+    ),
+    "packs/ui-ux/research/provenance.fragment.json": (
+        (
+            "(PACK.md, CHECKS.md, guides, refs, exemplars)",
+            "(PACK.md, CHECKS.md, Wargames, references, examples)",
+        ),
+    ),
+    "packs/writing-content/research/provenance.fragment.json": (
+        (
+            "(PACK.md, CHECKS.md, guides, refs, exemplars)",
+            "(PACK.md, CHECKS.md, Wargames, references, examples)",
+        ),
+    ),
+}
+
 
 class NamingMigrationError(RuntimeError):
     """The reviewed naming migration cannot proceed safely."""
@@ -449,6 +542,17 @@ def _replace_text(
                 f"packs/{pack}/{new}/",
                 "pack collection path",
             )
+        suffix_guard = (
+            r"(?!(?:heads|tags|remotes|notes|replace|bisect|stash)\b)"
+            if old == "refs"
+            else ""
+        )
+        raw_path = re.compile(
+            rf"(?<![A-Za-z0-9_./:=?&#-]){re.escape(old)}/{suffix_guard}"
+        )
+        text, count = raw_path.subn(new + "/", text)
+        if count:
+            labels.append("bare collection path")
 
     for old, new in _mapping(
         baseline["public_file_migration"], "public_file_migration"
@@ -463,6 +567,8 @@ def _replace_text(
         text, count = pattern.subn(new, text)
         if count:
             labels.append("lesson disposition")
+    for old, new in _LIVE_PROSE_REPLACEMENTS.get(relative, ()):
+        literal(old, new, "reviewed live prose")
     result = text.encode("utf-8")
     return result, sorted(set(labels))
 

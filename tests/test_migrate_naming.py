@@ -10,6 +10,7 @@ from tools.eos.migrate_naming import (
     BASELINE_PATH,
     LEDGER_PATH,
     NamingMigrationError,
+    _replace_text,
     _source_wargames,
     apply,
     check,
@@ -108,6 +109,13 @@ def _fixture_repo(tmp_path: Path) -> tuple[Path, dict, bytes]:
             f"packs/agentic-development/research/RES-{number:03d}.md",
             f"research {number}\n",
         )
+    _write(
+        root,
+        "packs/agentic-development/research/RES-001.md",
+        "Read PACK.md, guides/, refs/, exemplars/. "
+        "Keep https://example.test/guides/topic, refs/heads/main and "
+        "refs/notes/review unchanged.\n",
+    )
 
     for slug in baseline["packs"]:
         _write(
@@ -246,6 +254,13 @@ def test_plan_apply_and_check_are_safe_exact_and_idempotent(tmp_path: Path) -> N
     ).read_text(encoding="utf-8")
     assert "kind: example" in example_text
     assert "type: example" in example_text
+    research_text = (
+        root / "packs" / "agentic-development" / "research" / "RES-001.md"
+    ).read_text(encoding="utf-8")
+    assert "wargames/, references/, examples/" in research_text
+    assert "https://example.test/guides/topic" in research_text
+    assert "refs/heads/main" in research_text
+    assert "refs/notes/review" in research_text
 
     aliases = json.loads(
         (root / "registry" / "identifier-aliases.json").read_text(encoding="utf-8")
@@ -320,3 +335,22 @@ def test_current_repository_contract_can_be_planned_without_writing() -> None:
     assert current["contract"]["identity_mappings"] == 103
     assert current["state"] in {"pending", "fixpoint"}
     assert {path: (REPO_ROOT / path).read_bytes() for path in before} == before
+
+
+def test_reviewed_live_prose_uses_entity_names_without_touching_source_titles() -> None:
+    baseline = json.loads((REPO_ROOT / BASELINE_PATH).read_text(encoding="utf-8"))
+    source = (
+        b'"method": "(PACK.md, CHECKS.md, guides, refs, exemplars)", '
+        b'"source": "An external style guide"\n'
+    )
+
+    rendered, labels = _replace_text(
+        source,
+        "packs/agentic-development/research/provenance.fragment.json",
+        baseline,
+        {},
+    )
+
+    assert b"PACK.md, CHECKS.md, Wargames, references, examples" in rendered
+    assert b"An external style guide" in rendered
+    assert "reviewed live prose" in labels

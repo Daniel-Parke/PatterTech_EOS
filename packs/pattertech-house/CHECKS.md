@@ -14,7 +14,7 @@ tags: [web, testing, tooling, a11y]
 # House checks
 
 Evaluation criteria for work in an adopting venture. Each row says what
-is verified, which house requirement or guide it answers to, and whether
+is verified, which house Doctrine or Wargame it answers to, and whether
 a machine can settle it today. "Executable" means a script decides it
 without a person reading the output. "Judgement" means a person rules
 and the record is the evidence.

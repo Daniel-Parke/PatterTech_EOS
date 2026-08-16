@@ -130,6 +130,12 @@ POST_MIGRATION_ADMISSIONS = {
 
 
 PACK_PROSE_REPLACEMENTS = {
+    "delivery-testing": (
+        (
+            "the refs carry the mechanics",
+            "the references carry the mechanics",
+        ),
+    ),
     "identity-access": (
         (
             "Fifteen sources, all fetched on 2026-08-15. This pack was written before\n"
@@ -141,6 +147,12 @@ PACK_PROSE_REPLACEMENTS = {
             "assigned `EV-0517` through `EV-0531`, and front matter cites those\n"
             "canonical rows. Citations in the body retain readable source names\n"
             "beside the stable evidence identities.",
+        ),
+    ),
+    "supply-chain-integrity": (
+        (
+            "detail sits in two refs",
+            "detail sits in two references",
         ),
     ),
 }

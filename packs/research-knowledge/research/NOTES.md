@@ -240,8 +240,8 @@ up at
 
 ## Citation state, and what the import did
 
-At authoring time the pack body, its guides, its references, its checks
-and its exemplar cited `FRAG-RESEARCH-KNOWLEDGE-NN` ids, because
+At authoring time the pack body, its Wargames, its references, its checks
+and its example cited `FRAG-RESEARCH-KNOWLEDGE-NN` ids, because
 assigning EV ids is the integrator's step under ADR-0002 decision 3 and
 this lane must not write to `registry/`. That import has since run. The
 read surface now cites the assigned `EV-` ids, and the only FRAG ids

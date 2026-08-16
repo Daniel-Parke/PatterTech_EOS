@@ -97,6 +97,6 @@ verify the data-dependent class, because that verdict depends on
 production data distribution (EV-0202). C13 verifies the abort path for
 the serving tier only; nothing here checks that data written under a
 canary is compatible with the old reader (EV-0204), which is the hole
-the exemplar walks through by hand. C9 and C10 prove a restore worked
+the example walks through by hand. C9 and C10 prove a restore worked
 under drill conditions and say nothing about restore under adversarial
 conditions (EV-0201).

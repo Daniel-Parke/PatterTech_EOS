@@ -2,7 +2,7 @@
  "pack": "pattertech-house",
  "checked": "2026-08-10",
  "checked_by": "T-0023, the provenance sweep under ADR-0006 decision 7",
- "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, guides/, refs/, exemplars/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
+ "method": "Read the pack's whole read surface (PACK.md, CHECKS.md, wargames/, references/, examples/; research/ excluded as working notes) and resolved every cited EV id against its row in registry/evidence.json. No source was re-fetched, so nothing here is a fresh licence check: every licence value below is the ledger's own recorded string, read back. Quotation was checked two ways: every quotation-marked span and block quotation in the read surface was listed and read, and every row whose ledger licence restricts reuse of wording was read against the prose that cites it. What this method cannot do is detect an unmarked sentence copied from a source nobody holds the text of, and no claim of completeness is made on that.",
  "ev_ids_checked": [
   "EV-0027",
   "EV-0030",
@@ -100,7 +100,7 @@
   {
    "file": "packs/pattertech-house/examples/EX-HOUSE-001-services-section.md",
    "line": 49,
-   "concern": "The exemplar carries a block of HTML and CSS, which is where carried expression would most easily hide.",
+   "concern": "The example carries a block of HTML and CSS, which is where carried expression would most easily hide.",
    "resolution": "Not a concern. The markup and styles are ours, written for this pack against its own budgets, and no fragment was taken from a studied source."
   }
  ],

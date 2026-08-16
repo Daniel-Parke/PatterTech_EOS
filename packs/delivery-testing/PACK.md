@@ -27,7 +27,7 @@ stands in for a dependency, where the oracle comes from, when tests get
 written, and how flakes and quality numbers are handled. It activates
 on any change touching tests, doubles, gates or CI configuration, and
 on any FIX, FEAT or REFACTOR in a repo that has a suite. The Wargames
-carry the arguments, the refs carry the mechanics.
+carry the arguments, the references carry the mechanics.
 
 ## Activation
 

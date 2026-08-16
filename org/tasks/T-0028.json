@@ -76,6 +76,15 @@
         "author_session": "final-semantic-review",
         "authorised_by": "Daniel Parke",
         "date": "2026-08-16T02:22:50Z"
+      },
+      {
+        "reason": "Live research provenance used bare retired collection paths that the original delimiter-bound oracle did not detect.",
+        "change": "Detect bare retired collection paths across live text while excluding URL segments, recognised Git ref namespaces and the exact ADR-0015 migration decision.",
+        "old_hash": "39f4948260fecc202597d176e04cdc25dcfb3718b9bf30114bfd2803d424f538",
+        "new_hash": "77dff63db838b887b7f5cb4cbe289291ff80ba88ffadd65b08dee72b3077894a",
+        "author_session": "final-semantic-review",
+        "authorised_by": "Daniel Parke",
+        "date": "2026-08-16T02:34:14Z"
       }
     ]
   }

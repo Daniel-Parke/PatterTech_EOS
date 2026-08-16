@@ -142,7 +142,7 @@ compatibility anchors; they do not encode authority.
 | Vendor it or depend on it | WG-SUPPLY-004 | Depend with a pin; vendor only for a named reason with a named person reading the diff |
 
 Wargames sit in `packs/supply-chain-integrity/wargames/`. Level-three
-detail sits in two refs: what a check at admission consists of, in
+detail sits in two references: what a check at admission consists of, in
 `packs/supply-chain-integrity/references/admission-checklist.md`, and what a
 compromised build can reach, in
 `packs/supply-chain-integrity/references/build-system-reach.md`. The worked
