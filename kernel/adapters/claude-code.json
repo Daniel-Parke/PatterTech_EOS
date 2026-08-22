@@ -4,7 +4,8 @@
   "host": "Claude Code",
   "spec_ref": "kernel/GUARD_SPEC.md",
   "summary": "Maps the ten guarded classes onto Claude Code permission rules and PreToolUse hooks. Three classes are demonstrated as enforced by the bypass suite and rule require-approval; the other seven stay manual-only. No class rules allow: nothing here grants autonomous execution of a guarded action.",
-  "hook_entry": "python -m tools.eos guard eval --tool $TOOL --input $INPUT --adapter-validated",
+  "hook_entry": "python -m tools.eos guard hook --adapter-validated",
+  "hook_entry_note": "The event arrives as JSON on stdin, which is how Claude Code delivers a PreToolUse payload. The entry read `guard eval --tool $TOOL --input $INPUT` until 2026-08-22, and neither variable exists in a hook environment while --input expects a file path, so the wiring could not have run. `guard hook` also speaks the host's exit codes: 2 blocks, and every other non-zero exit is a non-blocking error the host shows nobody, so eval's exit 1 for a blocking verdict would have failed open on every manual-only and deny ruling.",
   "hook_matchers": [
     "Bash",
     "Write",

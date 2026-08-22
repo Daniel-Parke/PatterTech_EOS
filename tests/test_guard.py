@@ -381,3 +381,92 @@ def test_bypass_case_blocks_without_adapter(action, expected_class):
     doc = guard.evaluate(action, POLICY, False)
     assert doc["verdict"] in ("manual-only", "deny")
     _validate_schema(doc)
+
+
+# --- the PreToolUse hook speaks the host's exit codes --------------------
+#
+# The adapter's hook_entry read `guard eval --tool $TOOL --input $INPUT`
+# until 2026-08-22. Neither variable exists in a hook environment and
+# --input wants a file path, so the wiring could not run at all; and had
+# it run, eval's exit 1 for a blocking verdict is a code Claude Code
+# treats as a non-blocking error, so every manual-only and deny ruling
+# would have been let through. A guard that fails open is not a guard.
+
+import io
+import json as _json
+import sys as _sys
+from pathlib import Path as _Path
+
+from tools.eos import cli as _cli
+
+
+def _hook(monkeypatch, event, argv=("--adapter-validated",)):
+    monkeypatch.setattr(_sys, "stdin", io.StringIO(_json.dumps(event)))
+    return _cli.main(["guard", "hook", *argv])
+
+
+def test_hook_blocks_a_manual_only_action_with_exit_two(monkeypatch, capsys):
+    code = _hook(monkeypatch, {
+        "hook_event_name": "PreToolUse",
+        "tool_name": "Bash",
+        "tool_input": {"command": "aws s3 rb s3://prod-bucket --force"},
+    })
+    assert code == 2, "a blocking verdict must use the host's blocking code"
+    assert "eos guard" in capsys.readouterr().err
+
+
+def test_hook_blocks_when_it_cannot_judge(monkeypatch, capsys):
+    """Fail closed: an unreadable event is not a licence to proceed."""
+    monkeypatch.setattr(_sys, "stdin", io.StringIO("{not json"))
+    assert _cli.main(["guard", "hook"]) == 2
+    assert "blocking" in capsys.readouterr().err
+
+
+def test_hook_lets_an_unguarded_read_through(monkeypatch):
+    code = _hook(monkeypatch, {
+        "hook_event_name": "PreToolUse",
+        "tool_name": "Read",
+        "tool_input": {"file_path": "README.md"},
+    })
+    assert code == 0
+
+
+def test_hook_sees_the_target_path_of_a_write(monkeypatch, capsys):
+    """The hook classifies from the tool surface, and for Write that
+    surface is the path. Settings files are a guarded surface precisely
+    so a session cannot disable its own hook."""
+    code = _hook(monkeypatch, {
+        "hook_event_name": "PreToolUse",
+        "tool_name": "Write",
+        "tool_input": {"file_path": ".claude/settings.json",
+                       "content": "irrelevant, and never read"},
+    })
+    err = capsys.readouterr().err
+    assert code in (0, 2)
+    if code == 2:
+        assert "destructive-git" in err
+
+
+def test_hook_prefers_the_ventures_own_policy(monkeypatch, tmp_path):
+    """A venture's policy governs its sessions. The guard used to read
+    the EOS's policy whatever repository it fired in."""
+    venture = tmp_path / "venture"
+    (venture / "org").mkdir(parents=True)
+    (venture / "org" / "policy.json").write_text(
+        _json.dumps({"marker": "venture"}), encoding="utf-8")
+    found = _cli._hook_policy(None, str(venture))
+    assert found is not None and found.get("marker") == "venture"
+
+    outside = tmp_path / "elsewhere"
+    outside.mkdir()
+    fallback = _cli._hook_policy(None, str(outside))
+    assert fallback is None or fallback.get("marker") != "venture"
+
+
+def test_the_shipped_adapter_entry_is_the_hook_command():
+    mapping = _json.loads((_Path(__file__).resolve().parents[1]
+                           / "kernel" / "adapters" / "claude-code.json")
+                          .read_text(encoding="utf-8"))
+    entry = mapping["hook_entry"]
+    assert "guard hook" in entry
+    assert "$TOOL" not in entry and "$INPUT" not in entry

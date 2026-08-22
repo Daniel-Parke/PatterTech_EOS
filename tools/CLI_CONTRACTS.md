@@ -101,6 +101,26 @@ Output: one document per
 class rules manual-only (fail closed). Exit 0 for allow, 1 for any
 blocking verdict, 2 when evaluation itself cannot run.
 
+## guard hook
+
+Inputs: the host's PreToolUse event as JSON on stdin, plus optional
+`--policy PATH` and `--adapter-validated`. Without `--policy` the
+governing policy is the nearest `org/policy.json` or `docs/policy.json`
+at or above the event's `cwd`, so a venture's own policy governs its
+sessions, falling back to the EOS's. Only the tool name and the tool
+input are read, never file contents: the same reduced surface the bypass
+suite is validated against. Output: a one-line reason on stderr when the
+action is blocked, nothing on stdout.
+
+Exit codes follow **the host's** contract rather than this CLI's, which
+is the whole reason the subcommand exists. Claude Code blocks on 2 and
+treats every other non-zero exit as a non-blocking error, so `guard
+eval`'s exit 1 for a blocking verdict would let every manual-only and
+deny ruling through. Here: 0 for allow and for require-approval, which
+is the host's own ask rules to prompt for; **2 for manual-only, for deny,
+and for any action the guard cannot judge**, because a guard that fails
+open is not a guard.
+
 ## context
 
 Inputs: `--diff RANGE`, and optionally `--task T-####`, whose record

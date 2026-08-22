@@ -27,6 +27,36 @@ belongs to the architecture this line replaced, archived at
 `archive/v1-final`. 1.0 is reserved for the eight-item gate in ADR-0009.
 No tag is cut here, so this section keeps no version heading.
 
+### The seed gate meets a repository that already exists
+
+- **tools**: the reseed ancestry kinds documented in
+  `COMPILE_REPORT.tpl.md` now work. The compile report is read before the
+  per-file checks so its row kinds can govern them: `preserved` is exempt
+  from the front-matter rules, `normalised` and `authored` owe the three
+  keys but not a `compiled_from`. They had been implemented for D003
+  alone, so a preserved file failed E002 for having no front-matter,
+  which is what preserved means, and a normalised one failed D001 for
+  having no template to name. Neither kind had a test. ADR-0016.
+- **tools**: the seed walk judges the repository rather than the disk.
+  Where the seed is a git work tree it walks tracked files plus untracked
+  ones that are not ignored. A venture with a virtualenv in its tree had
+  its dependencies' READMEs scored as unaccounted seed files, so a
+  dependency install could change a governance verdict.
+- **tools**: a missing `docs/LOCKBOOK.md` reports and exits 2. It carries
+  the scale, the scale gates twelve of the twenty checks, and the check
+  that would have reported it is itself gated on the scale it supplies,
+  so a run without one presented a partial run as a rubric failure.
+- **tools**: a blank source cell in an ancestry table is a row without a
+  kind rather than an uncaught `IndexError` out of `run_seed`.
+- **kernel**: the Claude Code adapter can be wired. `hook_entry` was
+  `guard eval --tool $TOOL --input $INPUT`, where neither variable exists
+  in a hook environment and `--input` wants a file path. A new `guard
+  hook` reads the event as JSON on stdin, resolves the nearest venture
+  policy rather than always the EOS's, and exits 2 for manual-only, deny
+  and cannot-judge. The old entry would have failed open on every
+  blocking ruling, because Claude Code blocks on 2 and `guard eval`
+  returns 1. `guard eval` keeps its own contract.
+
 ### Registry admissions
 
 - **registry**: two ventures were admitted on 2026-08-22 and neither had
