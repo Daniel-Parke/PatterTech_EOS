@@ -41,7 +41,7 @@
     "packs/ai-ml-llm/examples/EX-AIML-001-classifier-prompt-swap.md"
    ],
    "evaluation_method": "packs/ai-ml-llm/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/ai-ml-llm.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.",
-   "estate_relevance": "Venture D runs a LangGraph orchestrator and Venture E dispatches agent runs. Neither has EOS coverage, and both are live.",
+   "estate_relevance": "Venture D runs a LangGraph orchestrator and PatterStage dispatches agent runs. Neither has EOS coverage, and both are live.",
    "owner": "EOS integrator",
    "review_trigger": "2027-02"
   },
@@ -140,7 +140,7 @@
     "packs/ui-ux/examples/EX-UIUX-001-two-surfaces-one-spine.md"
    ],
    "evaluation_method": "packs/ui-ux/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/ui-ux.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.",
-   "estate_relevance": "PatterTech_Website, Venture A's three surfaces, Venture B's dashboards and Venture E's control plane are four different design philosophies in one estate, which is why the pack compares rather than prescribes.",
+   "estate_relevance": "PatterTech_Website, Venture A's three surfaces, Venture B's dashboards and PatterStage's control plane are four different design philosophies in one estate, which is why the pack compares rather than prescribes.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:WCAG-2.2"
   },
@@ -168,7 +168,7 @@
     "packs/agentic-development/examples/EX-AGENT-001-logging-migration.md"
    ],
    "evaluation_method": "packs/agentic-development/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/agentic-development.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.",
-   "estate_relevance": "Every EOS session runs under this pack, and Venture E dispatches agent runs while Venture D runs a LangGraph orchestrator. The most load-bearing pack in the estate.",
+   "estate_relevance": "Every EOS session runs under this pack, and PatterStage dispatches agent runs while Venture D runs a LangGraph orchestrator. The most load-bearing pack in the estate.",
    "owner": "EOS integrator",
    "review_trigger": "on-change-of:agent-sdk-major-release"
   },

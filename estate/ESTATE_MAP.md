@@ -69,9 +69,11 @@ scope and carry no row.
   Venture K, which has not started.
 - **Visual media**, the branded recordings and the embed routes, is
   rendered by the Website and referenced by Venture D's content bank.
-- **The agent control plane** in Venture E intends to consume the run
-  engine in Venture D's service fabric rather than keep its own. Today
-  it keeps its own.
+- **The agent control plane** in PatterStage keeps its own run engine.
+  It once intended to consume the one in Venture D's service fabric;
+  PatterStage's accepted ADR-0002 rules otherwise, and the estate's
+  shared asset is the contract rather than the implementation. Corrected
+  here on 2026-08-22, at the venture's registration.
 - **State the static site cannot hold** goes to Venture J. The Website
   stays a pure static client on purpose, so anything that must remember
   a person or prove a consent belongs there. Venture J is dormant, so

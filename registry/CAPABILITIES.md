@@ -61,7 +61,7 @@ row is not coverage, and this view says so first.
 - **Activation**: Shipping a product feature built on a model: prompts inside product code, retrieval, evaluation harnesses, inference cost and model choice. Predicates: calls_a_model, changes_prompt_or_model, builds_retrieval, evaluates_model_output, ships_model_output.
 - **Worked example**: `packs/ai-ml-llm/examples/EX-AIML-001-classifier-prompt-swap.md`
 - **Evaluation**: packs/ai-ml-llm/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/ai-ml-llm.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.
-- **Estate relevance**: Venture D runs a LangGraph orchestrator and Venture E dispatches agent runs. Neither has EOS coverage, and both are live.
+- **Estate relevance**: Venture D runs a LangGraph orchestrator and PatterStage dispatches agent runs. Neither has EOS coverage, and both are live.
 - **Owner**: EOS integrator
 - **Review trigger**: 2027-02
 - **Evidence**: 27 rows, EV-0242, EV-0243, EV-0244, EV-0245, EV-0246, EV-0247, EV-0248, EV-0249, EV-0250, EV-0251, EV-0252, EV-0253, EV-0254, EV-0255, EV-0256, EV-0257, EV-0258, EV-0259, EV-0260, EV-0261, EV-0262, EV-0263, EV-0264, EV-0265, EV-0266, EV-0267, EV-0268
@@ -94,7 +94,7 @@ row is not coverage, and this view says so first.
 - **Activation**: Paths: surface, app, ui, component, page, route, style, design-system, token and story files, token sources and generated outputs. Task types: designing a surface or flow, building a component, restyling, accessibility work, interface review, design-system adoption, dashboard layout, front-end performance. Predicates: has_user_interface.
 - **Worked example**: `packs/ui-ux/examples/EX-UIUX-001-two-surfaces-one-spine.md`
 - **Evaluation**: packs/ui-ux/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/ui-ux.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.
-- **Estate relevance**: PatterTech_Website, Venture A's three surfaces, Venture B's dashboards and Venture E's control plane are four different design philosophies in one estate, which is why the pack compares rather than prescribes.
+- **Estate relevance**: PatterTech_Website, Venture A's three surfaces, Venture B's dashboards and PatterStage's control plane are four different design philosophies in one estate, which is why the pack compares rather than prescribes.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:WCAG-2.2
 - **Evidence**: 15 rows, EV-0227, EV-0228, EV-0229, EV-0230, EV-0231, EV-0232, EV-0233, EV-0234, EV-0235, EV-0236, EV-0237, EV-0238, EV-0239, EV-0240, EV-0241
@@ -105,7 +105,7 @@ row is not coverage, and this view says so first.
 - **Activation**: Paths: agent and subagent definitions, instruction and prompt files, tool and MCP definitions, harness runners, workflow graphs, guardrail registration, checkpoint stores, trace configuration. Task types: designing an agent workflow, adding or removing a subagent, changing a tool surface, setting run budgets, adding a checkpoint or approval, diagnosing a looping or stalling agent. Predicates: builds_agent_workflow, orchestrates_multiple_agents, designs_agent_harness, defines_agent_tools.
 - **Worked example**: `packs/agentic-development/examples/EX-AGENT-001-logging-migration.md`
 - **Evaluation**: packs/agentic-development/CHECKS.md, the reviewable criteria for this domain. The acceptance drill is frozen at benchmark/drills/agentic-development.md and has never been run: benchmark/drills/RESULTS.json holds no verdict for it, and ADR-0007 defers running the drills rather than treating them as a release gate.
-- **Estate relevance**: Every EOS session runs under this pack, and Venture E dispatches agent runs while Venture D runs a LangGraph orchestrator. The most load-bearing pack in the estate.
+- **Estate relevance**: Every EOS session runs under this pack, and PatterStage dispatches agent runs while Venture D runs a LangGraph orchestrator. The most load-bearing pack in the estate.
 - **Owner**: EOS integrator
 - **Review trigger**: on-change-of:agent-sdk-major-release
 - **Evidence**: 13 rows, EV-0109, EV-0110, EV-0111, EV-0112, EV-0113, EV-0114, EV-0115, EV-0116, EV-0117, EV-0118, EV-0119, EV-0120, EV-0121

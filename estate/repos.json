@@ -122,21 +122,21 @@
       ],
       "notes": "The directory name on disk and the remote name differ. Branch content/philosophy-02-era-fix, last commit 2026-07-25."
     },
-    "Venture E": {
-      "path": "Venture E",
+    "PatterStage": {
+      "path": "PatterStage",
       "role": "An open-source web control plane and orchestrator for agent runs: dispatch missions, schedule recurring work, browse sessions and memory, manage models and profiles.",
-      "status": "candidate",
-      "governed": false,
-      "stack": "Web application over SQLite, talking to the agent runtime through one HTTP adapter",
+      "status": "governed",
+      "governed": true,
+      "stack": "Next.js server application over an embedded SQLite database, talking to the agent runtime through one HTTP adapter. No registry stack profile fits; the venture pins local-app and the gap is filed as EOS feedback",
       "owns": [
-        "The agent control plane, its exactly-once scheduler and its graph semantics"
+        "The agent control plane, its exactly-once scheduler and its graph semantics",
+        "Its own run engine, per its accepted ADR-0002"
       ],
       "does_not_own": [
-        "The agent runtime it drives, which is a third-party dependency",
-        "The shared run engine it intends to consume from Venture D's service fabric"
+        "The agent runtime it drives, which is a third-party dependency"
       ],
       "agent_files": "AGENTS.md plus a byte-identical CLAUDE.md",
-      "notes": "Public and open source with a few users. It has been renamed once. Branch dev, last commit 2026-07-27."
+      "notes": "Public and open source under Apache-2.0, with outside users. Renamed once, from hermes-control-hub. Seeded 2026-07-25 at M against v1.0, recompiled to the v2 kernel at ORG on 2026-08-22 under its own ADR-0008. Branch dev is its integration trunk per its ADR-0006. Named rather than lettered because it is already public, on the same footing as PatterTech_Website. Its ADR-0002 supersedes the run-engine line this entry carried until 2026-08-22, which read that it intended to consume the shared run engine from Venture D's service fabric: it keeps its own, and the estate's shared asset is the contract rather than the implementation."
     },
     "Venture F": {
       "path": "Venture F",
