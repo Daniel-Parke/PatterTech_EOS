@@ -129,6 +129,7 @@ file. Frozen trees are not indexed.
 | org/decisions/ADR-0013-knowledge-compatibility-and-venture-rulings.md | decision | eos wargame | One commit-aware resolver, pressure-selected Wargaming and structured venture-owned Rulings |  |
 | org/decisions/ADR-0014-pressure-led-content-admission.md | decision | eos wargame | Evidence-led admission for new Doctrine, Wargames, relations and candidate packs |  |
 | org/decisions/ADR-0015-one-language-for-doctrine-wargames-and-packs.md | decision | eos wargame | One current vocabulary for Doctrine, Wargames, relations, Rulings and packs, with explicit historical compatibility |  |
+| org/decisions/ADR-0016-the-seed-gate-can-govern-a-repository-that-already-exists.md | decision | eos delivery security | The seed gate judges what is in the repository, honours the reseed ancestry kinds it already documents, and stops failing open at the host hook |  |
 | org/deviations.md | org | eos | The closed departure log for the EOS v2 build, kept as the audit trail behind the benchmark figures |  |
 | org/logs/2026-07/S-0001.md | org | eos | Session S-0001, Phase A, the v0.1 to EOS migration and foundations |  |
 | org/logs/2026-07/S-0002.md | org | eos | Session S-0002, Phase B item B1, the kernel org templates extracted |  |

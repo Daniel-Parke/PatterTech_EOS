@@ -94,11 +94,11 @@ def cmd_check(args):
     if args.seed:
         findings = seed_checks.run_seed(Path(args.seed), ctx)
         found = list(findings)
-        # A seed path that does not exist, or a missing scale matrix, is
-        # a run that could not happen rather than a seed that failed.
-        # seed.cannot_run names those two findings beside the code that
-        # emits them, so the exit code follows the finding rather than a
-        # phrase in its message.
+        # A seed path that does not exist, a missing scale matrix, or a
+        # missing lock-book is a run that could not happen rather than a
+        # seed that failed. seed.cannot_run names those findings beside
+        # the code that emits them, so the exit code follows the finding
+        # rather than a phrase in its message.
         if seed_checks.cannot_run(found):
             _emit(found, args.json)
             return 2
@@ -180,6 +180,87 @@ def cmd_guard(args):
         return 2
     print(json.dumps(verdict, indent=1))
     return 0 if verdict.get("verdict") == "allow" else 1
+
+
+def _hook_action(event: dict) -> dict:
+    """The classifiable surface of a PreToolUse event.
+
+    A hook sees the tool name and the tool input, never file contents,
+    which is the same reduced surface the bypass suite is validated
+    against. The target path and any URL go into payload_summary so the
+    text rules can see them; nothing else is read.
+    """
+    tool_input = event.get("tool_input") or {}
+    action = {"tool": event.get("tool_name") or ""}
+    command = tool_input.get("command")
+    if isinstance(command, str) and command:
+        action["command"] = command
+    seen = [str(tool_input[k]) for k in
+            ("file_path", "notebook_path", "path", "url", "query")
+            if isinstance(tool_input.get(k), str) and tool_input[k]]
+    if seen:
+        action["payload_summary"] = " ".join(seen)
+    return action
+
+
+def _hook_policy(explicit, cwd):
+    """The policy governing the repository the hook fired in.
+
+    A venture's own policy is the one that governs its sessions. The
+    guard used to read the EOS's policy whatever repository it was
+    invoked from, which meant a venture could ship a policy file that
+    nothing ever consulted.
+    """
+    if explicit:
+        path = Path(explicit)
+        return _read_json(path, "the policy") if path.is_file() else None
+    start = Path(cwd) if cwd else Path.cwd()
+    for parent in [start, *start.parents]:
+        for rel in ("org/policy.json", "docs/policy.json"):
+            candidate = parent / rel
+            if candidate.is_file():
+                return _read_json(candidate, "the policy")
+    fallback = REPO / "org" / "policy.json"
+    return _read_json(fallback, "the policy") if fallback.is_file() else None
+
+
+def cmd_guard_hook(args):
+    """PreToolUse hook: speaks the host's exit codes, not the EOS's.
+
+    `guard eval` returns 1 for a blocking verdict and 2 when it cannot
+    judge, which is the right shape for a caller that reads both. A
+    Claude Code PreToolUse hook has one blocking code, 2, and treats
+    every other non-zero exit as a non-blocking error it shows nobody. A
+    hook wired to `eval` therefore let every manual-only and deny verdict
+    through: it failed open, which is the one thing a fail-closed guard
+    must never do. Here both "blocked" and "cannot judge" exit 2.
+    """
+    from .guard import evaluate
+
+    raw = sys.stdin.read()
+    try:
+        event = json.loads(raw) if raw.strip() else {}
+    except json.JSONDecodeError as exc:
+        print(f"eos guard: unreadable hook event ({exc}); blocking.", file=sys.stderr)
+        return 2
+    action = _hook_action(event)
+    policy = _hook_policy(args.policy, event.get("cwd"))
+    try:
+        verdict = evaluate(action, policy,
+                           adapter_validated=args.adapter_validated)
+    except ValueError as exc:
+        print(f"eos guard: cannot judge this action ({exc}); blocking.",
+              file=sys.stderr)
+        return 2
+    ruling = verdict.get("verdict")
+    if ruling in ("allow", "require-approval"):
+        # require-approval is the host's own ask rules to prompt for. The
+        # hook does not double-prompt, and it does not decide for them.
+        return 0
+    reasons = "; ".join(verdict.get("reasons") or []) or "no reason recorded"
+    print(f"eos guard: {ruling} for {verdict.get('action_class')}. {reasons}",
+          file=sys.stderr)
+    return 2
 
 
 def cmd_activate(args):
@@ -715,6 +796,10 @@ def build_parser():
     ge.add_argument("--input")
     ge.add_argument("--adapter-validated", action="store_true")
     ge.set_defaults(fn=cmd_guard)
+    gh = gsub.add_parser("hook")
+    gh.add_argument("--policy")
+    gh.add_argument("--adapter-validated", action="store_true")
+    gh.set_defaults(fn=cmd_guard_hook)
 
     x = sub.add_parser("context")
     x.add_argument("--task")

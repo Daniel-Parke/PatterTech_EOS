@@ -179,8 +179,26 @@ def _show_at_commit(root, commit: str, path: str):
 # emits them, so the CLI does not have to recognise them by prose.
 SEED_PATH_MISSING = "seed path not found"
 MATRIX_MISSING = "missing; cannot check a seed"
+# The lock-book carries the scale, and the scale gates twelve of the
+# twenty checks. Without it the run is not a seed that failed its rubric,
+# it is a run that mostly did not happen, so it joins the pairs below
+# rather than being reported as an ordinary missing required file. The
+# check that would otherwise report it, E008 required-files, is itself
+# gated on the scale only this file supplies.
+LOCKBOOK_MISSING = "missing; cannot check a seed"
 CANNOT_RUN_PAIRS = frozenset({("D001", SEED_PATH_MISSING),
-                              ("D003", MATRIX_MISSING)})
+                              ("D003", MATRIX_MISSING),
+                              ("E002", LOCKBOOK_MISSING)})
+
+# Compile-report ancestry row kinds that mean "the compiler did not write
+# this file from a kernel template", and so cannot carry a compiled_from
+# that names one. `authored` is a trigger add-on written at Session 0 from
+# doctrine; `normalised` is a pre-EOS venture file that gained front-matter
+# only; `preserved` is venture content the compile did not touch. All three
+# are defined in kernel/templates/COMPILE_REPORT.tpl.md.
+NO_TEMPLATE_KINDS = frozenset({"authored", "normalised", "preserved"})
+# Of those, only `preserved` has no front-matter at all, by definition.
+UNTOUCHED_KIND = "preserved"
 
 
 def cannot_run(findings) -> list:
@@ -344,7 +362,37 @@ def _schema_validate_document(schema, doc) -> tuple:
     return messages, None
 
 
+def _git_md_files(seed: Path) -> list | None:
+    """The seed's markdown as git sees it, or None if git cannot say.
+
+    `ls-files -co --exclude-standard` is tracked files plus untracked ones
+    that are not ignored, which is exactly "in the repository, or a
+    candidate to be". It is scoped to the seed directory because git
+    lists the current subtree by default.
+
+    Without this the walk judges whatever happens to sit on disk. A
+    venture with a virtualenv in the tree gets its dependencies' READMEs
+    scored as unaccounted seed files, and a `uv sync` that pulls a package
+    with a README changes the venture's governance verdict. A gate whose
+    result depends on a dependency tree is not measuring the venture.
+    """
+    try:
+        proc = subprocess.run(["git", "-C", str(seed), "ls-files", "-co",
+                               "--exclude-standard", "-z", "--", "*.md"],
+                              capture_output=True, timeout=_GIT_TIMEOUT)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if proc.returncode != 0:
+        return None
+    names = [n for n in proc.stdout.decode("utf-8", "replace").split("\0") if n]
+    return sorted({seed / n for n in names})
+
+
 def _md_files(seed: Path) -> list:
+    listed = _git_md_files(seed)
+    if listed is not None:
+        return [p for p in listed
+                if p.is_file() and not SKIP_DIRS.intersection(p.parts)]
     out = []
     for p in sorted(seed.rglob("*.md")):
         if SKIP_DIRS.intersection(p.parts):
@@ -361,6 +409,18 @@ def _ancestry(report_text: str) -> dict:
         if cell not in ("file", "---") and not cell.startswith("-"):
             rows[cell] = m.group(2).strip()
     return rows
+
+
+def _row_kind(source: str) -> str:
+    """The first word of an ancestry source cell, lowercased.
+
+    An empty cell reads as no kind rather than raising: a hand-maintained
+    ancestry table with a blank source used to take the whole run down
+    with an IndexError, which is the one failure shape the CLI's error
+    handling exists to prevent.
+    """
+    parts = str(source or "").split()
+    return parts[0].lower() if parts else ""
 
 
 def run_seed(seed_root, ctx: dict) -> Findings:
@@ -387,6 +447,8 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         lb_fm = parse(lockbook_text)
         if lb_fm.present:
             eos_commit = lb_fm.data.get("eos_commit") or None
+    else:
+        err("E002", "docs/LOCKBOOK.md", LOCKBOOK_MISSING)
 
     pin_available = bool(eos_commit) and gitfacts.rev_parse(eos_root, eos_commit) is not None
 
@@ -454,8 +516,28 @@ def run_seed(seed_root, ctx: dict) -> Findings:
         warn("D002", "docs/LOCKBOOK.md",
              f"eos_commit {eos_commit} not in the EOS history, degrading to worktree checks")
 
+    # --- compile-report ancestry, read before the per-file checks ------
+    # It has to come first. The row kinds below decide which per-file
+    # rules apply, and reading the report after the loop is what made the
+    # documented reseed escape hatch unusable: `preserved` and
+    # `normalised` exempted a file from D003 alone, while E002 and D001
+    # had already failed it for the very properties those kinds describe.
+    ancestry: dict = {}
+    cr = seed / "docs" / "COMPILE_REPORT.md"
+    report_text = None
+    if cr.exists():
+        report_text = cr.read_text(encoding="utf-8", errors="replace")
+        ancestry = _ancestry(report_text)
+    kinds = {f: _row_kind(source) for f, source in ancestry.items()}
+
     # --- per-file checks (rubric A1, A4, A7, A8) -----------------------
     for r, text, fm in parsed:
+        kind = kinds.get(r, "")
+        # Venture content the compile did not touch has no front-matter by
+        # definition, so every front-matter rule below would fail it for
+        # being what the compile report already says it is.
+        if kind == UNTOUCHED_KIND:
+            continue
         if not fm.present:
             err("E002", r, "no front-matter block")
         if SLOT_RE.search(text):
@@ -467,7 +549,8 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             for key in ("summary", "type", "tags"):
                 if key not in fm.data or not fm.data[key]:
                     err("D001", r, f"missing front-matter key: {key}")
-            if not fm.data.get("compiled_from"):
+            # A file with no kernel template behind it cannot name one.
+            if not fm.data.get("compiled_from") and kind not in NO_TEMPLATE_KINDS:
                 err("D001", r, "missing compiled_from")
             for forbidden in ("template", "extracted_from"):
                 if forbidden in fm.data:
@@ -515,11 +598,9 @@ def run_seed(seed_root, ctx: dict) -> Findings:
                 addon_allowed.add(fpath)
 
     # --- compile-report ancestry (rubric A19) --------------------------
-    ancestry: dict = {}
-    cr = seed / "docs" / "COMPILE_REPORT.md"
-    if cr.exists():
-        report_text = cr.read_text(encoding="utf-8", errors="replace")
-        ancestry = _ancestry(report_text)
+    # The report itself was read before the per-file checks; what remains
+    # here are the checks that need the scale, which is settled later.
+    if report_text is not None:
         if scale:
             for fpath in required[scale]:
                 if fpath == "docs/COMPILE_REPORT.md":
@@ -533,8 +614,7 @@ def run_seed(seed_root, ctx: dict) -> Findings:
 
     # --- D003 negative matrix (rubric A9) ------------------------------
     if scale:
-        authored = {f for f, source in ancestry.items()
-                    if source.split()[0].lower() in ("authored", "normalised", "preserved")}
+        authored = {f for f, kind in kinds.items() if kind in NO_TEMPLATE_KINDS}
         # Directories a v1 matrix declares empty at compile: their
         # contents arrive later, so a file inside one is expected
         # rather than unaccounted for. v1 called those contents

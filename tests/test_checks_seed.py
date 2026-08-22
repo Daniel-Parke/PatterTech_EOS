@@ -1113,3 +1113,133 @@ def test_cannot_run_names_the_two_findings_the_cli_maps_to_exit_two(tmp_path):
     # A seed that merely fails its rubric is not a run that could not
     # happen, and must not be reported as one.
     assert cannot_run(run_seed(make_seed(tmp_path, "M"), ctx())) == []
+
+
+# --- reseed ancestry kinds: the brownfield escape hatch ------------------
+#
+# `preserved` and `normalised` are defined in COMPILE_REPORT.tpl.md for
+# repositories that existed before the EOS. Until the fix these tests
+# cover, they exempted a file from D003 alone, while E002 and D001 had
+# already failed it for exactly the properties those kinds describe: a
+# preserved file has no front-matter, and neither kind has a kernel
+# template to name. No test covered either kind.
+
+
+def add_ancestry(seed, row: str):
+    """Append one row to the compile report's ancestry table."""
+    p = seed / "docs" / "COMPILE_REPORT.md"
+    text = p.read_text(encoding="utf-8")
+    marker = "| CLAUDE.md | byte copy of AGENTS.md | 0 | 0 |"
+    assert marker in text
+    p.write_text(text.replace(marker, marker + "\n" + row), encoding="utf-8")
+
+
+def test_preserved_row_exempts_untouched_venture_content(tmp_path):
+    seed = make_seed(tmp_path, "S")
+    (seed / "HISTORY.md").write_text(
+        "# History\n\nWritten years before the EOS existed.\n", encoding="utf-8")
+    add_ancestry(seed, "| HISTORY.md | preserved | 0 | 0 |")
+    fs = run_seed(seed, ctx())
+    for check in ("E002", "D001", "D002", "D003"):
+        assert [f for f in only(fs, check) if f[1] == "HISTORY.md"] == [], \
+            f"{check} fired on a preserved file"
+
+
+def test_normalised_row_keeps_the_key_rules_but_drops_compiled_from(tmp_path):
+    """Front-matter only was added, so the keys are owed and a template
+    path is not: there is no template behind the file to name."""
+    seed = make_seed(tmp_path, "S")
+    (seed / "GUIDE.md").write_text(
+        "---\nsummary: A pre-EOS guide\ntype: reference\ntags: [venture]\n---\n\nBody.\n",
+        encoding="utf-8")
+    add_ancestry(seed, "| GUIDE.md | normalised | 0 | 0 |")
+    fs = run_seed(seed, ctx())
+    assert [f for f in only(fs, "D001") if f[1] == "GUIDE.md"] == []
+    assert [f for f in only(fs, "D003") if f[1] == "GUIDE.md"] == []
+
+    # The key rules still bite: normalised is not a blanket exemption.
+    edit(seed, "GUIDE.md", "summary: A pre-EOS guide\n", "")
+    fs = run_seed(seed, ctx())
+    assert ("error", "GUIDE.md", "missing front-matter key: summary") in only(fs, "D001")
+
+
+def test_authored_row_needs_no_compiled_from(tmp_path):
+    """Trigger add-ons are written at Session 0 from doctrine, so the
+    template the compiled_from rule wants does not exist for them."""
+    seed = make_seed(tmp_path, "S")
+    (seed / "EXTRA.md").write_text(
+        "---\nsummary: An add-on\ntype: governance\ntags: [venture]\n---\n\nBody.\n",
+        encoding="utf-8")
+    add_ancestry(seed, "| EXTRA.md | authored from DOC-SEC-001 | 0 | 0 |")
+    fs = run_seed(seed, ctx())
+    assert [f for f in only(fs, "D001") if f[1] == "EXTRA.md"] == []
+
+
+def test_a_file_with_no_ancestry_row_is_still_unaccounted_for(tmp_path):
+    """The exemption is scoped to what the compile report declares. A
+    file nobody wrote a row for is exactly what D003 exists to catch."""
+    seed = make_seed(tmp_path, "S")
+    (seed / "STRAY.md").write_text("# Stray\n", encoding="utf-8")
+    fs = run_seed(seed, ctx())
+    assert [f[1] for f in only(fs, "E002") if f[1] == "STRAY.md"] == ["STRAY.md"]
+    assert [f[1] for f in only(fs, "D003") if f[1] == "STRAY.md"] == ["STRAY.md"]
+
+
+def test_a_blank_ancestry_source_does_not_take_the_run_down(tmp_path):
+    """A hand-maintained table with an empty source cell used to raise
+    IndexError out of run_seed, which is the one failure shape the CLI's
+    error handling exists to prevent."""
+    seed = make_seed(tmp_path, "S")
+    (seed / "BLANK.md").write_text("# Blank\n", encoding="utf-8")
+    add_ancestry(seed, "| BLANK.md |  | 0 | 0 |")
+    fs = run_seed(seed, ctx())          # must not raise
+    assert [f[1] for f in only(fs, "D003") if f[1] == "BLANK.md"] == ["BLANK.md"]
+
+
+# --- a missing lock-book is a run that did not happen --------------------
+
+
+def test_missing_lockbook_is_reported_and_is_a_cannot_run(tmp_path):
+    """The lock-book carries the scale, and the scale gates twelve of the
+    twenty checks. Without it the run reported a pile of errors while
+    those twelve never executed, and said nothing about why."""
+    from tools.eos.checks.seed import cannot_run
+
+    seed = make_seed(tmp_path, "S")
+    (seed / "docs" / "LOCKBOOK.md").unlink()
+    fs = run_seed(seed, ctx())
+    assert ("error", "docs/LOCKBOOK.md", "missing; cannot check a seed") in only(fs, "E002")
+    assert [f.check_id for f in cannot_run(fs)] == ["E002"]
+
+
+# --- the walk judges the repository, not the disk ------------------------
+
+
+def test_the_walk_skips_ignored_trees(tmp_path):
+    """A venture with a virtualenv or a scratch directory in its tree had
+    those files scored as unaccounted seed files, so a dependency install
+    could change a governance verdict."""
+    seed = make_seed(tmp_path, "S")
+    git(seed, "init", "-q")
+    (seed / ".gitignore").write_text(".venv/\nscratch/\n", encoding="utf-8")
+    for d in (".venv", "scratch"):
+        (seed / d).mkdir()
+        (seed / d / "README.md").write_text("# vendored\n", encoding="utf-8")
+    git(seed, "add", "-A")
+
+    fs = run_seed(seed, ctx())
+    judged = {f[1] for f in only(fs, "D003")} | {f[1] for f in only(fs, "E002")}
+    assert not any(p.startswith((".venv/", "scratch/")) for p in judged), \
+        f"ignored trees were judged: {sorted(judged)}"
+
+
+def test_the_walk_still_sees_untracked_files_that_are_not_ignored(tmp_path):
+    """Not-yet-committed seed files are part of the seed. Only ignored
+    ones are out of scope."""
+    seed = make_seed(tmp_path, "S")
+    git(seed, "init", "-q")
+    (seed / ".gitignore").write_text(".venv/\n", encoding="utf-8")
+    (seed / "NEW.md").write_text("# New\n", encoding="utf-8")
+
+    fs = run_seed(seed, ctx())
+    assert [f[1] for f in only(fs, "D003") if f[1] == "NEW.md"] == ["NEW.md"]
