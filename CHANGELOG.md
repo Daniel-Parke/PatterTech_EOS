@@ -27,6 +27,33 @@ belongs to the architecture this line replaced, archived at
 `archive/v1-final`. 1.0 is reserved for the eight-item gate in ADR-0009.
 No tag is cut here, so this section keeps no version heading.
 
+### Registry admissions
+
+- **registry**: two ventures were admitted on 2026-08-22 and neither had
+  a changelog entry until this one. PatterStage becomes a named row and
+  `governed: true`, pinned `0.4.0 @ 727bee4`, and the superseded line
+  saying it intends to consume Venture D's shared run engine is corrected
+  in the manifest and the map. Venture D is admitted at **registration
+  level**, pinned `0.4.0 @ 02bd328`: the row and the pin exist, the seed
+  does not.
+- **registry**: three statements that the estate carries exactly three
+  governed ventures are corrected in `estate/repos.json`,
+  `estate/ESTATE_MAP.md` and `registry/PROJECTS.md`. All three had been
+  wrong since PatterTech_Website was adopted, and the admissions above
+  made them wrong by two. Each now states a count on a date rather than a
+  rule, because a count written as a rule is a statement that goes stale
+  without anyone editing it. PB-E05's gate item 4 is that no false
+  statement about the tree survives the final review, and these three
+  would have failed it.
+- **registry**: Venture D's admission is the first time the EOS has been
+  asked to govern a repository that predates it, and the seed gate could
+  not do it. `check --seed` reports roughly 660 errors on that tree, and
+  the `preserved` and `normalised` ancestry rows written for exactly this
+  case do not clear them, because they exempt a file from D003 only while
+  E002 and D001 run first and read nothing but the file's own
+  front-matter. The venture is registered without a seed, and the checker
+  defects are recorded as the work that has to come first.
+
 ### Doctrine, Wargaming and naming rebuild
 
 - **Knowledge model**: standing propositions are now atomic Doctrine with

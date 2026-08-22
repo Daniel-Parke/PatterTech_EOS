@@ -33,9 +33,13 @@ The domain model everywhere is organisation, then venture, then project.
 
 ## Governed and not
 
-Three repos carry `governed: true` in the manifest: Venture A, Venture C
-and PatterTech_Website. Governed means the EOS seeded or adopted the repo
-and holds its pin. It does not mean the EOS rules it. Under ADR-0006 the
+Five repos carry `governed: true` in the manifest as of 2026-08-22:
+Venture A, Venture C, PatterTech_Website, PatterStage and Venture D. This
+sentence read "three" until that date, and it had been wrong since
+PatterTech_Website was adopted; the two admissions of 2026-08-22 made it
+wrong by two. It is a count on a date, not a rule, and the manifest is
+the authority. Governed means the EOS seeded or adopted the repo and
+holds its pin. It does not mean the EOS rules it. Under ADR-0006 the
 EOS hands off at venture birth, so rulings come back when a venture
 chooses to send them and not because the EOS asked.
 
