@@ -80,6 +80,7 @@ from .. import gitfacts
 from ..findings import Finding, Findings
 from ..frontmatter import parse
 from ..repo import SKIP_DIRS
+from .structural import strip_code
 
 LOCKBOOK_KEYS = ("eos_version", "eos_commit", "scale", "stack")
 ROUTER_CAP = 40
@@ -540,9 +541,16 @@ def run_seed(seed_root, ctx: dict) -> Findings:
             continue
         if not fm.present:
             err("E002", r, "no front-matter block")
-        if SLOT_RE.search(text):
+        # Prose only, through the structural check's own `strip_code`. A slot or
+        # a scale marker inside a code span or a fenced block is being QUOTED,
+        # and quoting one is how a document explains what it is. The structural
+        # check has stripped code before this same SLOT_RE since it was written;
+        # the seed check did not, so a venture's own adoption notes failed
+        # rubric item A4 for describing the slot the compiler fills.
+        prose = strip_code(text)
+        if SLOT_RE.search(prose):
             err("E008", r, "unfilled {{SLOT}} in compiled seed")
-        if SCALE_FENCE_RE.search(text):
+        if SCALE_FENCE_RE.search(prose):
             err("E008", r, "leftover scale marker in compiled seed")
 
         if fm.present:

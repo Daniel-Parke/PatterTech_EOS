@@ -197,6 +197,45 @@ def test_a4_unfilled_slot_carrying_a_digit(tmp_path):
             "unfilled {{SLOT}} in compiled seed") in only(fs, "E008")
 
 
+def test_a4_a_quoted_slot_is_prose_not_an_unfilled_one(tmp_path):
+    """A document that WRITES ABOUT a slot is not a document with an unfilled
+    one, and the difference is the backticks around it.
+
+    Found adopting PatterStudio: its own adoption notes explain that the
+    compiled router carries one slot, name it in inline code, and were failed
+    by rubric item A4 for saying so. The structural check has stripped code
+    before this same SLOT_RE since it was written; this one had not, so the two
+    checks disagreed about the same pattern in the same repository.
+    """
+    seed = make_seed(tmp_path, "S")
+    _append(seed, "docs/VENTURE_BRIEF.md",
+            "\nThe router carries one slot, `{{VENTURE_NAME}}`, filled at compile time.\n")
+    _append(seed, "docs/EOS_FEEDBACK.md",
+            "\nA scale marker looks like `<!-- scale: M -->` and must not survive.\n")
+    fs = run_seed(seed, ctx())
+    assert only(fs, "E008") == []
+
+
+def test_a4_a_fenced_slot_is_prose_too(tmp_path):
+    """The usual way a document shows a template is a fenced block."""
+    seed = make_seed(tmp_path, "S")
+    _append(seed, "docs/VENTURE_BRIEF.md",
+            "\nThe template reads:\n\n```markdown\n# {{VENTURE_NAME}}\n<!-- scale: M -->\n```\n")
+    fs = run_seed(seed, ctx())
+    assert only(fs, "E008") == []
+
+
+def test_a4_still_catches_a_slot_that_is_actually_unfilled(tmp_path):
+    """The point of the check survives: an unquoted slot is still an error,
+    including one sitting beside a quoted one in the same file."""
+    seed = make_seed(tmp_path, "S")
+    _append(seed, "docs/VENTURE_BRIEF.md",
+            "\nThe slot is called `{{VENTURE_NAME}}`.\n\n# {{VENTURE_NAME}}\n")
+    fs = run_seed(seed, ctx())
+    assert ("error", "docs/VENTURE_BRIEF.md",
+            "unfilled {{SLOT}} in compiled seed") in only(fs, "E008")
+
+
 def test_a5_leftover_scale_fence(tmp_path):
     seed = make_seed(tmp_path, "S")
     _append(seed, "docs/EOS_FEEDBACK.md", "\n<!-- scale: M -->\n")
